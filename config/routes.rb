@@ -35,9 +35,35 @@ ActionController::Routing::Routes.draw do |map|
 
 	# See how all your routes lay out with "rake routes"
 
+
+
+
+
+	map.root :controller => "pages"
+
+	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
+
+	map.resources :deputies,  :only => [ :index, :create, :destroy ]
+
+#	map.resource :private, :only => [ :show ]
+#	map.resource :ldap,    :only => [ :show ]
+	map.resource :session, :only => [ :destroy ]
+	map.resources :users,  :only => [ :index, :show ]
+#		:member => {
+#			:deputize => :post,
+#			:undeputize => :post,
+#		}
+	map.resources :pages
+
+
+
+
+
+
+
 	# Install the default routes as the lowest priority.
 	# Note: These default routes make all actions in every controller accessible via GET requests. You should
 	# consider removing or commenting them out if you're using named routes and resources.
-	map.connect ':controller/:action/:id'
-	map.connect ':controller/:action/:id.:format'
+#	map.connect ':controller/:action/:id'
+#	map.connect ':controller/:action/:id.:format'
 end

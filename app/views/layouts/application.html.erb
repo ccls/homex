@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<title><%= @page_title || "UCB CCLS" -%></title>
+<%= stylesheet_link_tag 'application' %>
+<%#= stylesheet_link_tag controller.controller_name %>
+</head>
+
+<div id='container'>
+<center><p>
+<% if logged_in? -%>
+Welcome back, <%= current_user.displayname -%>
+ [ <%= link_to "Logout", logout_path %> ] 
+<% else %>
+You have not yet been authenticated.
+ [ <%= link_to "Login", @login_url %> ] 
+<% end -%>
+</p></center>
+
+<% flash.each do |key, msg| %>
+ <%= content_tag :p, msg, :id => key, :class => 'flash' %>
+<% end %>
+<noscript>
+<p id='noscript' class='flash'>Dude, seriously?  Javascript is required for this site to be fully functional.</p>
+</noscript>
+
+<div id='menu'>
+	<%= link_to "Home",  root_path %>
+	<%= link_to "Users", users_path %>
+	<%#= link_to "My LDAP*", ldap_path %>
+	<%= link_to "Deputies**", deputies_path %>
+	<%#= link_to "Private**", private_path %>
+	<p><small>* - login required</small></p>
+	<p><small>** - admin required</small></p>
+</div><!-- menu -->
+<div id='content'>
+<%= yield %>
+</div><!-- content -->
+
+</div><!-- container -->
+</html>

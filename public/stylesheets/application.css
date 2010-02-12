@@ -1,0 +1,62 @@
+body {
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+}
+
+.flash {
+  padding: 0.7em;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12pt;
+}
+.flash#error {
+  border: 2px solid #F44;
+  background-color: #FCC;
+}
+.flash#notice {
+  border: 2px solid #4F4;
+  background-color: #CFC;
+}
+.flash#noscript {
+  border: 2px solid #FF8C00;
+  background-color: #FFC5AF;
+}
+
+
+
+div#container {
+	width: 800px;
+	margin: 0 auto;
+}
+div#menu {
+	float:left;
+}
+div#menu a {
+	display:block;
+}
+div#content {
+	margin-left:150px;	
+}
+#main {
+	margin: 20px auto 0px;
+	border: 2px solid #8DA2B9;
+	padding: 1.2em;
+}
+fieldset legend {
+	font-size: 1.2em;
+	color: #61769E;
+	font-weight: bold;
+}
+
+p > small {
+	color: gray;
+	font-size: 6pt;
+}
+
+
+
+div#users table td {
+	padding-right: 1em;
+}
+div#users table td.is_admin {
+	text-align: center;
+}

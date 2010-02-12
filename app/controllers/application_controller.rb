@@ -1,10 +1,17 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
+#	requiring it here rather than in config/environment.rb allows for UCB::CAS.
+#	I think that this is a violation of rails naming conventions.
+require 'ucb_cas'	
 
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
+	helper :all # include all helpers, all the time
+	include Authentication
+	include UCB::CAS
 
-  # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+	protect_from_forgery # See ActionController::RequestForgeryProtection for details
+
+	# Scrub sensitive parameters from your log
+	# filter_parameter_logging :password
+
+protected
+
 end
