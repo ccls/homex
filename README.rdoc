@@ -2,10 +2,12 @@
 
 
 
-== Requires
+== Required Gems
 
 	rubycas-client
 	ucb_ldap
+	RedCloth (pending)
+	chronic (pending)
 
 == Installation
 
@@ -48,4 +50,9 @@
 {UCB LDAP Gem on GemCutter}[http://gemcutter.org/gems/ucb_ldap]
 
 {UCB LDAP Documentation}[http://ucbrb.rubyforge.org/ucb_ldap/]
+
+
+{Chronic Documentation}[http://chronic.rubyforge.org/]
+
+{RedCloth Textile Documentation}[http://redcloth.org/]
 

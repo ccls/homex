@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
 
 	config.gem "RedCloth"
-	config.gem "chronic"
+	config.gem "chronic"			#		http://chronic.rubyforge.org/
 
 
 	#	For CAS / CalNet Authentication
