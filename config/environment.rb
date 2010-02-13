@@ -21,6 +21,10 @@ Rails::Initializer.run do |config|
 	# config.gem "aws-s3", :lib => "aws/s3"
 
 
+	config.gem "RedCloth"
+	config.gem "chronic"
+
+
 	#	For CAS / CalNet Authentication
 	config.gem "rubycas-client"
 
