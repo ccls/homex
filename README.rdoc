@@ -11,9 +11,12 @@
 
 == Installation
 
-	# Add your session key and secret to
+	# Add your own session secret to
 	#	config/initializers/session_store.rb
 	cp config/initializers/session_store.rb.example config/initializers/session_store.rb
+
+	#	generate a 128 character hex string perfect for using as your secret.
+	rake secret
 
 	#	No changes needed as of yet for the database file.
 	cp config/database.yml.example config/database.yml
