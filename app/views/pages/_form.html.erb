@@ -1,0 +1,13 @@
+<fieldset id='main'>
+<legend>Page</legend>
+
+<p><b>Title</b> (this is the text on the top of the browser)</p>
+<%= f.text_field :title %>
+
+<p><b>Path:</b> (this is the path in the url. ie. /help/login )</p>
+<%= f.text_field :path %>
+
+<p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org' %>)</p>
+<%= f.text_area :body %>
+
+</fieldset>
