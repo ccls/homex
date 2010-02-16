@@ -39,21 +39,19 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-	map.root :controller => "pages"
+	map.root :controller => "pages", :action => "show", :path => ["home"]
 
 	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
 
 	map.resources :deputies,  :only => [ :index, :create, :destroy ]
 
-#	map.resource :private, :only => [ :show ]
-#	map.resource :ldap,    :only => [ :show ]
-	map.resource :session, :only => [ :destroy ]
+	map.resource  :session, :only => [ :destroy ]
 	map.resources :users,  :only => [ :index, :show ]
-#		:member => {
-#			:deputize => :post,
-#			:undeputize => :post,
-#		}
 	map.resources :pages
+
+	#	catch all route to manage admin created pages.
+	map.connect   '*path', :controller => 'pages', :action => 'show'
+
 
 
 

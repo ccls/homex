@@ -2,6 +2,21 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
+#       html_test plugin
+ApplicationController.validate_all = true
+#       default is :tidy, but it doesn't really validate.       
+#       I've purposely not closed tags and it doesn't complain.
+#       :w3c is ridiculously slow! even when used locally
+ApplicationController.validators = [:w3c]
+#ApplicationController.validators = [:tidy, :w3c]
+
+Html::Test::Validator.verbose = false
+#       http://habilis.net/validator-sac/
+#       http://habilis.net/validator-sac/#advancedtopics
+#Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
+Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+
+
 class ActiveSupport::TestCase
 	# Transactional fixtures accelerate your tests by wrapping each test method
 	# in a transaction that's rolled back on completion.  This ensures that the
@@ -45,10 +60,45 @@ class ActiveSupport::TestCase
 
 
 
+#	def admin_role
+#		Role.find_or_create_by_name('administrator')
+#	end
 
-	def login_as( uid='1' )
+	def active_user(options={})
+		u = Factory(:user, options)
+#		u.send(:activate!)
+		u
+	end
+
+	def admin_user(options={})
+		u = active_user(options.merge(:administrator => true))
+#		u.roles << admin_role
+		u
+	end
+
+
+
+
+
+
+
+	def login_as( user=nil )
+#	def login_as( user='1' )
+#	def login_as( user=1 )
 #		User.find_or_create_by_uid(uid)
-		@request.session[:calnetuid] = uid
+
+		@request.session[:calnetuid] = case 
+			when user.is_a?(Integer) then user
+			when user.is_a?(String)  then user	#	User.find_by_uid(user).uid
+#				if user.to_i.to_s == user
+#					User.find(user).uid
+#				else
+#					User.find_by_login(user).id
+#				end
+			when user.is_a?(User)    then user.uid
+			else 1
+		end
+
 		#	only one of these is necessary, but do both so works regardless
 		CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(true)
 		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(true)
@@ -59,6 +109,24 @@ class ActiveSupport::TestCase
 	#	by default, the user is NOT authenticated so make it so
 	#	yeah, don't do this
 #	CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
+#	might work if made more complex
+#	causes failures like 
+#		<"/"> expected to be =~
+#		</https:\/\/auth\-test\.berkeley\.edu\/cas\/login/>.
+	#	but this is OK (no its not)
 #	CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
+
+
+	def assert_redirected_to_cas_login
+		assert_response :redirect
+		assert_match "https://auth-test.berkeley.edu/cas/login", @response.redirected_to
+	end
+	alias :assert_redirected_to_login :assert_redirected_to_cas_login
+
+	def assert_redirected_to_cas_logout
+		assert_response :redirect
+		assert_match "https://auth-test.berkeley.edu/cas/logout", @response.redirected_to
+	end
+	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
 end
