@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
 	config.gem "RedCloth"
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
 
+	#	    config.gem 'aegis', :source => 'http://gemcutter.org'
 
 	#	For CAS / CalNet Authentication
 	config.gem "rubycas-client"

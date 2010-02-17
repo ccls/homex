@@ -9,6 +9,8 @@
 	RedCloth (pending)
 	chronic (pending)
 
+	http://github.com/makandra/aegis (pending)
+
 == Installation
 
 	# Add your own session secret to
