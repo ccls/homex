@@ -6,25 +6,29 @@ class UserTest < ActiveSupport::TestCase
 		assert_difference 'User.count' do
 			user = create_user
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+			assert !user.may_moderate?      #	aegis check
+			assert !user.may_administrate?  #	aegis check
 		end
 	end
 
-#	test "should ignore administrator attribute" do
-#		assert_difference 'User.count' do
-#			user = create_user	#	setting the attribute in a factory actually works so ...
-#			user.update_attributes(:administrator => true)
-#			assert !user.is_admin?
-#			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-#		end
-#	end
+	test "should create moderator" do
+		assert_difference 'User.count' do
+			user = create_user
+			user.update_attribute(:role_name, 'moderator')
+			assert !user.is_admin?
+			assert user.may_moderate?     #	aegis check
+			assert !user.may_administrate? #	aegis check
+			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+		end
+	end
 
 	test "should create administrator" do
 		assert_difference 'User.count' do
 			user = create_user
-#			user.administrator = true
-#			user.save
 			user.deputize
 			assert user.is_admin?
+			assert user.may_moderate?     #	aegis check
+			assert user.may_administrate? #	aegis check
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
 		end
 	end

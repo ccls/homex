@@ -24,6 +24,7 @@ class Permissions < Aegis::Permissions
 
 	role :user	#	default value for User.new
 
+	#	This role serves no purpose as of yet
 	role :moderator
 
 	#	Always allow the administrators so don't have to include it
@@ -40,6 +41,15 @@ class Permissions < Aegis::Permissions
 	#	methods that return true or false if the user
 	#	is an administrator.  Seems like overkill for now.
 
+
+	#	This is really a catch all is-user-an-administrator permission.
+	permission :administrate do
+	end
+
+	#	This is really a catch all is-user-an-administrator-or-moderator permission.
+	permission :moderate do
+		allow :moderator
+	end
 
 	permission :deputize do
 	end
