@@ -1,9 +1,27 @@
 namespace :app do
 
-	task :args_as_array do
-		args = $*.dup.slice(1..-1)
-		puts args.collect {|arg| "X:" << arg }.join("\n")
-		exit
+#	task :args_as_array do
+#		args = $*.dup.slice(1..-1)
+#		puts args.collect {|arg| "X:" << arg }.join("\n")
+#		exit
+#	end
+
+	desc "Add initial pages."
+	task :add_pages => :environment do
+		unless p = Page.find_by_path("/home")
+			Page.create({
+				:title => "Home Page Title",
+				:path  => "/home",
+				:body  => "Home Page Body"
+			})
+		end
+		unless p = Page.find_by_path("/about")
+			Page.create({
+				:title => "About Page Title",
+				:path  => "/about",
+				:body  => "About Page Body"
+			})
+		end
 	end
 
 	desc "Deputize user by UID"
