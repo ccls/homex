@@ -6,9 +6,6 @@ class Page < ActiveRecord::Base
 	
 	attr_accessible :path, :title, :body
 
-#	named_scope :by_path,  lambda { |*args| { :limit => 1, :conditions => { :path  => args.first } } }
-#	returns Array
-#	returns Page
 	def self.by_path(path)
 		find(:first,
 			:conditions => {
