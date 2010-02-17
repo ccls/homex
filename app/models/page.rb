@@ -6,10 +6,15 @@ class Page < ActiveRecord::Base
 	
 	attr_accessible :path, :title, :body
 
+	after_validation :downcase_path
+	def downcase_path
+		self.path = path.try(:downcase)
+	end
+
 	def self.by_path(path)
 		find(:first,
 			:conditions => {
-				:path => path 
+				:path => path.downcase
 			}
 		)
 	end
