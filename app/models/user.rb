@@ -1,4 +1,14 @@
 class User < ActiveRecord::Base
+
+	#	The value of the role_name column MUST ALWAYS
+	#	be one of the roles defined in permission.rb
+	#	which I think is kinda stupid.  Mispellings, 
+	#	nil, blank all cause 
+	#	"RuntimeError: Undefined role: whatever-your-bad-role-was"
+	#	and there is no default so must add one.
+	#	This is what a new user would be.
+	has_role :default => :user	
+
 	validates_presence_of   :uid
 	validates_uniqueness_of :uid
 	attr_accessible :sn, :displayname, :mail, :telephonenumber

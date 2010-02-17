@@ -4,12 +4,11 @@
 
 == Required Gems
 
-	rubycas-client
-	ucb_ldap
-	RedCloth (pending)
-	chronic (pending)
-
-	http://github.com/makandra/aegis (pending)
+	rubycas-client - 
+	ucb_ldap - 
+	RedCloth (pending) - textile parser.
+	chronic (pending) - natural language Date/Time parser.
+	aegis (pending) - manage permissions for user accounts in a central place. 
 
 == Installation
 
