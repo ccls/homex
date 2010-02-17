@@ -1,13 +1,26 @@
+require 'aegis/has_role_hack'
 class User < ActiveRecord::Base
-
-	#	The value of the role_name column MUST ALWAYS
-	#	be one of the roles defined in permission.rb
-	#	which I think is kinda stupid.  Mispellings, 
-	#	nil, blank all cause 
-	#	"RuntimeError: Undefined role: whatever-your-bad-role-was"
-	#	and there is no default so must add one.
-	#	This is what a new user would be.
-	has_role :default => :user	
+	####	begin aegis permissions code
+	#
+	# The value of the role_name column MUST ALWAYS
+	# be one of the roles defined in permission.rb
+	# which I think is kinda stupid.  Mispellings, 
+	# nil, blank all cause 
+	# "RuntimeError: Undefined role: whatever-your-bad-role-was"
+	# and there is no default so must add one.
+	# This is what a new user would be.
+	has_role :default => :user    #   , :name_accessor => :role_name
+	# We cannot do both attr_protected and attr_accessible
+	# but we MUSTN'T allow the mass assignment of :role_name
+	# attr_protected :role_name
+	#
+	validates_role_name
+	# Inspires the following warning 
+	# DEPRECATION WARNING: ActiveRecord::Errors.default_error_messages has been deprecated
+	# but I've hacked a fix in lib/aegis/has_roles_hack.rb
+	#	add reported issue on github.
+	#
+	####	end aegis permissions code
 
 	validates_presence_of   :uid
 	validates_uniqueness_of :uid
@@ -29,17 +42,22 @@ class User < ActiveRecord::Base
 		user
 	end
 
+	named_scope :deputies, :conditions => { :role_name => "administrator" }, :order => :sn
+
 	def is_admin?
 		#	using something so simple as an attribute to control such power is ill advised!
-		return self.administrator
+#		return self.administrator
+		self.role_name == "administrator"
 	end
 
 	def deputize
-		self.update_attribute( :administrator, true )
+#		self.update_attribute( :administrator, true )
+		self.update_attribute( :role_name, 'administrator' )
 	end
 
 	def undeputize
-		self.update_attribute( :administrator, false )
+#		self.update_attribute( :administrator, false )
+		self.update_attribute( :role_name, 'user' )
 	end
 
 end

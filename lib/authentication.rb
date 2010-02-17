@@ -70,10 +70,13 @@ protected
 		redirect_to_referer_or_default( default )
 	end
 
-	def admin_required
-#	test
-#		false or access_denied("Admin privileges required to access that page!")
-		(logged_in? and current_user.is_admin?) or access_denied("Admin privileges required to access that page!")
-	end
+#
+#	using more explicit permisions with Aegis::Permissions
+#
+#	def admin_required
+##	test
+##		false or access_denied("Admin privileges required to access that page!")
+#		(logged_in? and current_user.is_admin?) or access_denied("Admin privileges required to access that page!")
+#	end
 
 end

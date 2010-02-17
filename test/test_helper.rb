@@ -71,7 +71,8 @@ class ActiveSupport::TestCase
 	end
 
 	def admin_user(options={})
-		u = active_user(options.merge(:administrator => true))
+#		u = active_user(options.merge(:administrator => true))
+		u = active_user(options.merge(:role_name => "administrator"))
 #		u.roles << admin_role
 		u
 	end

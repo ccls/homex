@@ -2,8 +2,8 @@ class PagesController < ApplicationController
 
 	skip_before_filter :cas_filter, :only => :show
 	before_filter :cas_gateway_filter, :only => :show
-	before_filter :admin_required, :except => :show
-
+#	before_filter :admin_required, :except => :show
+	before_filter :may_maintain_pages_required, :except => :show
 
 	def show
 		if params[:path]
@@ -59,4 +59,14 @@ class PagesController < ApplicationController
 		redirect_to(pages_path)
 	end
  
+protected
+
+	def may_maintain_pages_required
+		#	current_user may not be set
+		#(logged_in? and current_user.is_admin?) or 
+		unless current_user.try(:may_maintain_pages?)
+			access_denied("You are not allowed to maintain the pages!")
+		end
+	end
+
 end

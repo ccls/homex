@@ -9,20 +9,21 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should ignore administrator attribute" do
-		assert_difference 'User.count' do
-			user = create_user	#	setting the attribute in a factory actually works so ...
-			user.update_attributes(:administrator => true)
-			assert !user.is_admin?
-			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should ignore administrator attribute" do
+#		assert_difference 'User.count' do
+#			user = create_user	#	setting the attribute in a factory actually works so ...
+#			user.update_attributes(:administrator => true)
+#			assert !user.is_admin?
+#			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should create administrator" do
 		assert_difference 'User.count' do
 			user = create_user
-			user.administrator = true
-			user.save
+#			user.administrator = true
+#			user.save
+			user.deputize
 			assert user.is_admin?
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
 		end
@@ -44,6 +45,38 @@ class UserTest < ActiveSupport::TestCase
 			assert u.errors.on(:uid)
 		end
 	end
+
+	test "should require that role_name NOT be mass assignable" do
+		assert_difference 'User.count' do
+			u = create_user
+			u.update_attributes({:role_name => 'administrator'})
+			#	the default role is NOT administrator so this should be true
+			assert_not_equal u.role_name, 'administrator'
+		end
+	end
+
+	test "should require role_name be a defined role in permissions" do
+		assert_no_difference 'User.count' do
+			#	role_name is mass assignable in the Factory context (which seems wrong)
+			u = create_user(:role_name => 'my_fake_role_name')
+			assert_match "is not included in the list", u.errors.on(:role_name)
+			assert u.errors.on(:role_name)
+		end
+	end
+
+	test "should get deputies in alphabetic order by sn" do
+		new_users = [
+			create_user(:sn => "baseball", :role_name => "administrator"),
+			create_user(:sn => "apple", :role_name => "administrator"),
+			create_user(:sn => "pie", :role_name => "administrator")
+		]
+		deputies = User.deputies
+		assert_equal deputies[0], new_users[1]
+		assert_equal deputies[1], new_users[0]
+		assert_equal deputies[2], new_users[2]
+	end
+
+
 
 	test "should create and update user by uid" do
 		assert_difference 'User.count' do
