@@ -2,19 +2,19 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
-#       html_test plugin
+#	begin html_test plugin settings
 ApplicationController.validate_all = true
 #       default is :tidy, but it doesn't really validate.       
 #       I've purposely not closed tags and it doesn't complain.
 #       :w3c is ridiculously slow! even when used locally
 ApplicationController.validators = [:w3c]
 #ApplicationController.validators = [:tidy, :w3c]
-
 Html::Test::Validator.verbose = false
 #       http://habilis.net/validator-sac/
 #       http://habilis.net/validator-sac/#advancedtopics
 #Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
 Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+#	end html_test plugin settings
 
 
 class ActiveSupport::TestCase
