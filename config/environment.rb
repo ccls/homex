@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
 	config.gem "RedCloth"
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
 
+	#	For user model permissions
 	config.gem 'aegis', :source => 'http://gemcutter.org'
 
 	#	For CAS / CalNet Authentication
@@ -32,6 +33,8 @@ Rails::Initializer.run do |config|
 	#	probably will come from http://gemcutter.org/gems/ucb_ldap
 	#	version 1.3.2 as of Jan 25, 2010
 	config.gem "ucb_ldap", :source => "http://gemcutter.org"
+
+	config.gem 'active_shipping'
 
 
 	# Only load the plugins named here, in the order given (default is alphabetical).
