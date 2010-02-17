@@ -26,6 +26,9 @@
 	rake gems:install
 	rake db:migrate
 
+	#	add some expected pages (/home, /about)
+	rake app:add_pages
+
 	script/server
 
 	#	login to your app
