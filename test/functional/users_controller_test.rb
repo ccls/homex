@@ -38,6 +38,13 @@ class UsersControllerTest < ActionController::TestCase
 #		assert_nil assigns(:user)
 	end
 
+	test "should NOT get user info with invalid id" do
+		login_as admin_user
+		get :show, :id => 0
+		assert_not_nil flash[:error]
+		assert_redirected_to users_path
+	end
+
 	test "should get user info with admin login" do
 		login_as admin_user
 		get :show, :id => active_user.id
