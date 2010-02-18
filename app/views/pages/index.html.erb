@@ -5,13 +5,13 @@
 <tr><th>Path</th><th>Title</th><th>&nbsp;</th></tr>
 <% @pages.each do |page| %>
   <tr>
-    <td><%= page.path -%></td>
+    <td><%= link_to page.path, page.path -%></td>
     <td><%= link_to page.title, page -%></td>
     <td><%= link_to "Edit", edit_page_path(page) -%></td>
     <td><%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title}'?\nAre you sure?", :method => :delete -%></td>
 	</tr>
 <% end %>
 </tbody></table>
-<%= link_to "Create new page", new_page_path -%>
 
 </fieldset>
+<p><%= button_link_to "Create new page", new_page_path -%></p>
