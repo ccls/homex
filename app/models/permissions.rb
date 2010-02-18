@@ -81,6 +81,7 @@ class Permissions < Aegis::Permissions
 	#			that may modify the created names based on 
 	#			singularity and plurality and word length which
 	#			is understandable, but potentially incorrect.
+	#			( /^([^_]+?)_(.+?)$/ ... (verb, target) )
 	#			( see lib/aegis/permissions.rb : add_singularized_permission )
 	#		*	Creating a plural permission will also create
 	#			a singular one.
@@ -122,11 +123,11 @@ class Permissions < Aegis::Permissions
 	#		read_user permission will also be created.
 	permission :view_users do #	|current_user|
 	end
-#	permission :view_user do |current_user,user|
-#		allow :user do
-#			current_user == user
-#		end
-#	end
+	permission :view_user do |current_user,user|
+		allow :user do
+			current_user == user
+		end
+	end
 
 	#	this will be normalized to "read_user" and override above
 #	permission :view_user do |calling_user,target_user|

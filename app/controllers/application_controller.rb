@@ -23,9 +23,21 @@ protected
 		method_name = symb.to_s
 		if method_name =~ /^may_(.+)_required$/ && Permissions.exists?($1)
 			permission = $1
-			#	current_user may be nil so use try
-			unless current_user.try("may_#{permission}?")
-				access_denied( "You don't have permission to #{permission.gsub(/_/,' ')}." )
+#			(verb, target) /^([^_]+?)_(.+?)$/
+#	seems simpler to do this
+			verb,target = permission.split(/_/,2)
+
+			#	using target words where singular == plural won't work here
+			#	use try because it is possible that target will be nil
+			if target == target.try(:singularize)
+				unless current_user.try("may_#{permission}?", instance_variable_get("@#{target}") )
+					access_denied( "You don't have permission to #{verb} this #{target}." )
+				end
+			else
+				#	current_user may be nil so must use try and NOT send
+				unless current_user.try("may_#{permission}?")
+					access_denied( "You don't have permission to #{permission.gsub(/_/,' ')}." )
+				end
 			end
 		else
 			super
