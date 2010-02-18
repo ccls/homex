@@ -12,3 +12,23 @@ Factory.define :page do |f|
 	f.body  "Page Body"
 end
 
+Factory.define :organization do |f|
+	f.sequence(:name) { |n| "My Org Name #{n}" }
+end
+
+Factory.define :context do |f|
+	f.description "My Description"
+end
+
+Factory.define :sample_type do |f|
+	f.description "My Description"
+end
+
+Factory.define :sample_subtype do |f|
+	f.description "My Description"
+end
+
+Factory.define :unit do |f|
+	f.description "My Description"
+end
+
