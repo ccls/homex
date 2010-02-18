@@ -54,34 +54,15 @@ class ActiveSupport::TestCase
 
 	# Add more helper methods to be used by all tests here...
 
-
-
-
-
-
-
-#	def admin_role
-#		Role.find_or_create_by_name('administrator')
-#	end
-
 	def active_user(options={})
 		u = Factory(:user, options)
-#		u.send(:activate!)
 		u
 	end
 
 	def admin_user(options={})
-#		u = active_user(options.merge(:administrator => true))
 		u = active_user(options.merge(:role_name => "administrator"))
-#		u.roles << admin_role
 		u
 	end
-
-
-
-
-
-
 
 	def login_as( user=nil )
 #	def login_as( user='1' )
@@ -116,7 +97,6 @@ class ActiveSupport::TestCase
 #		</https:\/\/auth\-test\.berkeley\.edu\/cas\/login/>.
 	#	but this is OK (no its not)
 #	CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-
 
 	def assert_redirected_to_cas_login
 		assert_response :redirect
