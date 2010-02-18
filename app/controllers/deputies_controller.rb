@@ -1,6 +1,5 @@
 class DeputiesController < ApplicationController
 
-#	before_filter :admin_required	#	this isn't aegis permissions
 	before_filter :may_deputize_required
 	before_filter :id_required, :except => :index
 	before_filter :not_self_required, :except => :index
@@ -22,11 +21,11 @@ class DeputiesController < ApplicationController
 
 protected
 
-	def may_deputize_required
-		unless current_user.may_deputize?
-			access_denied( "You don't have permission to deputize anyone." )
-		end
-	end
+#	def may_deputize_required
+#		unless current_user.may_deputize?
+#			access_denied( "You don't have permission to deputize anyone." )
+#		end
+#	end
 
 	def id_required
 		if !params[:id].blank? and User.exists?(params[:id])
