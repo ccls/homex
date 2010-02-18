@@ -9,6 +9,9 @@ Factory.define :organization do |f|
 	f.sequence(:name) { |n| "My Org Name #{n}" }
 end
 
+Factory.define :operational_event do |f|
+end
+
 Factory.define :page do |f|
 	f.sequence(:path) { |n| "/path#{n}" }
 	f.sequence(:title) { |n| "My Page Title #{n}" }
