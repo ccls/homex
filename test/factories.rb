@@ -1,9 +1,12 @@
-Factory.define :user do |f|
-	f.sequence(:uid) { |n| "foo#{n}" }
+Factory.define :address do |f|
 end
 
-Factory.define :admin_user, :parent => :user do |f|
-	f.administrator true
+Factory.define :context do |f|
+	f.description "My Description"
+end
+
+Factory.define :organization do |f|
+	f.sequence(:name) { |n| "My Org Name #{n}" }
 end
 
 Factory.define :page do |f|
@@ -12,11 +15,7 @@ Factory.define :page do |f|
 	f.body  "Page Body"
 end
 
-Factory.define :organization do |f|
-	f.sequence(:name) { |n| "My Org Name #{n}" }
-end
-
-Factory.define :context do |f|
+Factory.define :sample_subtype do |f|
 	f.description "My Description"
 end
 
@@ -24,11 +23,14 @@ Factory.define :sample_type do |f|
 	f.description "My Description"
 end
 
-Factory.define :sample_subtype do |f|
+Factory.define :unit do |f|
 	f.description "My Description"
 end
 
-Factory.define :unit do |f|
-	f.description "My Description"
+Factory.define :user do |f|
+	f.sequence(:uid) { |n| "foo#{n}" }
+end
+Factory.define :admin_user, :parent => :user do |f|
+	f.administrator true
 end
 
