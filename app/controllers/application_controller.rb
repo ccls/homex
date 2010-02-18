@@ -19,17 +19,18 @@ protected
 	#		may_maintain_pages_required
 	#		may_view_users_required
 	#	And as long as naming conventions are followed.
+	#	Also works for those that follow conventions
+	#		may_view_user_required
+	#	In the above case, @user must be defined first.
+	#	Also, targets must be distinctly singular. (or NOT plural)
 	def method_missing(symb)
 		method_name = symb.to_s
 		if method_name =~ /^may_(.+)_required$/ && Permissions.exists?($1)
 			permission = $1
-#			(verb, target) /^([^_]+?)_(.+?)$/
-#	seems simpler to do this
 			verb,target = permission.split(/_/,2)
 
 			#	using target words where singular == plural won't work here
-			#	use try because it is possible that target will be nil
-			if target == target.try(:singularize)
+			if !target.blank? && target == target.singularize
 				unless current_user.try("may_#{permission}?", instance_variable_get("@#{target}") )
 					access_denied( "You don't have permission to #{verb} this #{target}." )
 				end
@@ -43,8 +44,5 @@ protected
 			super
 		end
 	end
-	#	Would it be worth my time to make this work for things like ...
-	#		may_view_user_ID_required
-	#	and other permissions that take arguments that'll need parsed?
 
 end

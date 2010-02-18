@@ -21,12 +21,6 @@ class DeputiesController < ApplicationController
 
 protected
 
-#	def may_deputize_required
-#		unless current_user.may_deputize?
-#			access_denied( "You don't have permission to deputize anyone." )
-#		end
-#	end
-
 	def id_required
 		if !params[:id].blank? and User.exists?(params[:id])
 			@user = User.find(params[:id])
@@ -37,9 +31,6 @@ protected
 
 	def not_self_required
 		( @user == current_user ) and access_denied( "Cannot undeputize self!", users_path )
-#		unless current_user.may_deputize_user?(@user)
-#			access_denied( "Cannot (un)deputize self!", users_path )
-#		end
 	end
 	
 end
