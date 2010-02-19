@@ -23,6 +23,13 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should belong to sample_type" do
+		sample_subtype = create_sample_subtype
+		assert_nil sample_subtype.sample_type
+		sample_subtype.sample_type = Factory(:sample_type)
+		assert_not_nil sample_subtype.sample_type
+	end
+
 protected
 
 	def create_sample_subtype(options = {})

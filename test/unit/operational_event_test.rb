@@ -9,6 +9,20 @@ class OperationalEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should belong to an operational_event_type" do
+		operational_event = create_operational_event
+		assert_nil operational_event.operational_event_type
+		operational_event.operational_event_type = Factory(:operational_event_type)
+		assert_not_nil operational_event.operational_event_type
+	end
+
+	test "should belong to a subject" do
+		operational_event = create_operational_event
+#		assert_nil operational_event.subject
+#		operational_event.subject = Factory(:subject)
+#		assert_not_nil operational_event.subject
+	end
+
 protected
 
 	def create_operational_event(options = {})

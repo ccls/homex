@@ -23,6 +23,13 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should belong to a study event" do
+		interview_type = create_interview_type
+		assert_nil interview_type.study_event
+		interview_type.study_event = Factory(:study_event)
+		assert_not_nil interview_type.study_event
+	end
+
 protected
 
 	def create_interview_type(options = {})

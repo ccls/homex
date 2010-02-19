@@ -23,6 +23,15 @@ class SampleTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have many sample_subtypes" do
+		sample_type = create_sample_type
+		assert_equal 0, sample_type.sample_subtypes.length
+		sample_type.sample_subtypes << Factory(:sample_subtype)
+		assert_equal 1, sample_type.sample_subtypes.length
+		sample_type.sample_subtypes << Factory(:sample_subtype)
+		assert_equal 2, sample_type.sample_subtypes.length
+	end
+
 protected
 
 	def create_sample_type(options = {})

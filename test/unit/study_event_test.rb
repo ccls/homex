@@ -23,6 +23,15 @@ class StudyEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have many operational_event_types" do
+		study_event = create_study_event
+		assert_equal 0, study_event.operational_event_types.length
+		study_event.operational_event_types << Factory(:operational_event_type)
+		assert_equal 1, study_event.operational_event_types.length
+		study_event.operational_event_types << Factory(:operational_event_type)
+		assert_equal 2, study_event.operational_event_types.length
+	end
+
 protected
 
 	def create_study_event(options = {})

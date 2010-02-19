@@ -23,6 +23,15 @@ class ContextTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have many units" do
+		context = create_context
+		assert_equal 0, context.units.length
+		context.units << Factory(:unit)
+		assert_equal 1, context.units.length
+		context.units << Factory(:unit)
+		assert_equal 2, context.units.length
+	end
+
 protected
 
 	def create_context(options = {})

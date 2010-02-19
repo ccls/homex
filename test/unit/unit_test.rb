@@ -23,6 +23,13 @@ class UnitTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should belong to a context" do
+		unit = create_unit
+		assert_nil unit.context
+		unit.context = Factory(:context)
+		assert_not_nil unit.context
+	end
+
 protected
 
 	def create_unit(options = {})
