@@ -55,6 +55,10 @@ Factory.define :study_event do |f|
 	f.description "My Description"
 end
 
+Factory.define :subject_type do |f|
+	f.description "My Description"
+end
+
 Factory.define :unit do |f|
 	f.description "My Description"
 end

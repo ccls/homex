@@ -1,0 +1,43 @@
+require File.dirname(__FILE__) + '/../test_helper'
+
+class SubjectTypeTest < ActiveSupport::TestCase
+
+	test "should create subject_type" do
+		assert_difference 'SubjectType.count' do
+			subject_type = create_subject_type
+			assert !subject_type.new_record?, "#{subject_type.errors.full_messages.to_sentence}"
+		end
+	end
+
+	test "should require description" do
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(:description => nil)
+			assert subject_type.errors.on(:description)
+		end
+	end
+
+	test "should require 4 char description" do
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(:description => 'Hey')
+			assert subject_type.errors.on(:description)
+		end
+	end
+
+#	test "should have many subjects" do
+#		subject_type = create_subject_type
+#		assert_equal 0, subject_type.subjects.length
+#		subject_type.subjects << Factory(:subject)
+#		assert_equal 1, subject_type.subjects.length
+#		subject_type.subjects << Factory(:subject)
+#		assert_equal 2, subject_type.subjects.length
+#	end
+
+protected
+
+	def create_subject_type(options = {})
+		record = Factory.build(:subject_type,options)
+		record.save
+		record
+	end
+
+end
