@@ -33,9 +33,12 @@ class ContextTest < ActiveSupport::TestCase
 	end
 
 	test "should have many people" do
-
-#		flunk
-
+		context = create_context
+		assert_equal 0, context.interviewers.length
+		context.interviewers << Factory(:interviewer)
+		assert_equal 1, context.interviewers.length
+		context.interviewers << Factory(:interviewer)
+		assert_equal 2, context.interviewers.length
 	end
 
 protected

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewVersionTest < ActiveSupport::TestCase
 
-	test "should create interview_type" do
+	test "should create interview_version" do
 		assert_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version
 			assert !interview_version.new_record?, "#{interview_version.errors.full_messages.to_sentence}"
@@ -30,12 +30,12 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_not_nil interview_version.interview_type
 	end
 
-#	test "should belong to a interview_event" do
-#		interview_version = create_interview_version
-#		assert_nil interview_version.study_event
-#		interview_version.study_event = Factory(:study_event)
-#		assert_not_nil interview_version.study_event
-#	end
+	test "should belong to a interview_event" do
+		interview_version = create_interview_version
+		assert_nil interview_version.interview_event
+		interview_version.interview_event = Factory(:interview_event)
+		assert_not_nil interview_version.interview_event
+	end
 
 
 

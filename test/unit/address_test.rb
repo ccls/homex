@@ -9,17 +9,22 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many addresses_subjects" do
-
-#	change the name!
-#		flunk
-
+	test "should have many residences" do
+		address = create_address
+		assert_equal 0, address.residences.length
+		address.residences << Factory(:residence)
+		assert_equal 1, address.residences.length
+		address.residences << Factory(:residence)
+		assert_equal 2, address.residences.length
 	end
 
 	test "should have many interview_events" do
-
-#		flunk
-
+		address = create_address
+		assert_equal 0, address.interview_events.length
+		address.interview_events << Factory(:interview_event)
+		assert_equal 1, address.interview_events.length
+		address.interview_events << Factory(:interview_event)
+		assert_equal 2, address.interview_events.length
 	end
 
 protected

@@ -40,9 +40,10 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	end
 
 	test "should belong to an interview_event" do
-
-#		flunk
-
+		operational_event_type = create_operational_event_type
+		assert_nil operational_event_type.interview_event
+		operational_event_type.interview_event = Factory(:interview_event)
+		assert_not_nil operational_event_type.interview_event
 	end
 
 protected
