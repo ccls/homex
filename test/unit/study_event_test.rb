@@ -32,6 +32,24 @@ class StudyEventTest < ActiveSupport::TestCase
 		assert_equal 2, study_event.operational_event_types.length
 	end
 
+	test "should have many interview_types" do
+
+#		flunk
+
+	end
+
+	test "should have many study_event_elligibilities" do
+
+#		flunk
+
+	end
+
+	test "should have many study_events_subjects" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_study_event(options = {})

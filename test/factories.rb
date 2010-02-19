@@ -13,6 +13,10 @@ Factory.define :interview_type do |f|
 	f.description "My Description"
 end
 
+Factory.define :interview_version do |f|
+	f.description "My Description"
+end
+
 Factory.define :organization do |f|
 	f.sequence(:name) { |n| "My Org Name #{n}" }
 end

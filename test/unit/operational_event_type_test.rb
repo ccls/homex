@@ -39,6 +39,12 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_not_nil operational_event_type.study_event
 	end
 
+	test "should belong to an interview_event" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_operational_event_type(options = {})

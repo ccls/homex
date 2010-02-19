@@ -32,6 +32,12 @@ class ContextTest < ActiveSupport::TestCase
 		assert_equal 2, context.units.length
 	end
 
+	test "should have many people" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_context(options = {})

@@ -30,6 +30,16 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		assert_not_nil interview_type.study_event
 	end
 
+	test "should have many interview_versions" do
+		interview_type = create_interview_type
+		assert_equal 0, interview_type.interview_versions.length
+		interview_type.interview_versions << Factory(:interview_version)
+		assert_equal 1, interview_type.interview_versions.length
+		interview_type.interview_versions << Factory(:interview_version)
+		assert_equal 2, interview_type.interview_versions.length
+	end
+
+
 protected
 
 	def create_interview_type(options = {})

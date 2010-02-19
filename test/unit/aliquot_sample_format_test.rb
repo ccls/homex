@@ -23,6 +23,19 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 		end
 	end
 
+
+	test "should have many aliquots" do
+
+#		flunk
+
+	end
+
+	test "should have many samples" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_aliquot_sample_format(options = {})

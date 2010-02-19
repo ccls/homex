@@ -9,6 +9,19 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have many addresses_subjects" do
+
+#	change the name!
+#		flunk
+
+	end
+
+	test "should have many interview_events" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_address(options = {})

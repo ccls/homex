@@ -23,6 +23,32 @@ class OrganizationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have many transfers to" do
+
+#		flunk
+
+	end
+
+	test "should have many transfers from" do
+
+#		flunk
+
+	end
+
+	test "should have many aliquots" do
+#		somehow
+
+#		flunk
+
+	end
+
+	test "should have many samples" do
+#		somehow
+
+#		flunk
+
+	end
+
 protected
 
 	def create_organization(options = {})

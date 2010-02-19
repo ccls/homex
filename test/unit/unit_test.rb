@@ -30,6 +30,18 @@ class UnitTest < ActiveSupport::TestCase
 		assert_not_nil unit.context
 	end
 
+	test "should have many aliquots" do
+
+#		flunk
+
+	end
+
+	test "should have many subjects" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_unit(options = {})

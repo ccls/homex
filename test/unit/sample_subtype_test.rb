@@ -30,6 +30,12 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 		assert_not_nil sample_subtype.sample_type
 	end
 
+	test "should have many samples" do
+
+#		flunk
+
+	end
+
 protected
 
 	def create_sample_subtype(options = {})
