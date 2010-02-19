@@ -38,7 +38,7 @@ class StudyEventTest < ActiveSupport::TestCase
 
 	end
 
-	test "should have many study_event_elligibilities" do
+	test "should have many study_event_eligibilities" do
 
 #		flunk
 
