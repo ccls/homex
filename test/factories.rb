@@ -1,7 +1,15 @@
 Factory.define :address do |f|
 end
 
+Factory.define :aliquot_sample_format do |f|
+	f.description "My Description"
+end
+
 Factory.define :context do |f|
+	f.description "My Description"
+end
+
+Factory.define :interview_type do |f|
 	f.description "My Description"
 end
 
@@ -10,6 +18,10 @@ Factory.define :organization do |f|
 end
 
 Factory.define :operational_event do |f|
+end
+
+Factory.define :operational_event_type do |f|
+	f.description "My Description"
 end
 
 Factory.define :page do |f|
@@ -23,6 +35,10 @@ Factory.define :sample_subtype do |f|
 end
 
 Factory.define :sample_type do |f|
+	f.description "My Description"
+end
+
+Factory.define :study_event do |f|
 	f.description "My Description"
 end
 
