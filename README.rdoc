@@ -64,7 +64,7 @@
 
 {RedCloth Textile Documentation}[http://redcloth.org/]
 
-{Aegis Permissions repo}[http://github.com/makandra/aegis]
+{Aegis Permissions on GitHub}[http://github.com/makandra/aegis]
 
-{Active Shipping repo}[http://github.com/Shopify/active_shipping]
+{Active Shipping on GitHub}[http://github.com/Shopify/active_shipping]
 
