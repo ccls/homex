@@ -6,7 +6,7 @@
 
 	rubycas-client - 
 	ucb_ldap - 
-	RedCloth (pending) - textile parser.
+	RedCloth - textile parser.
 	chronic (pending) - natural language Date/Time parser.
 	aegis - manage permissions for user accounts in a central place. 
 	active_shipping (pending) - package tracking
