@@ -34,11 +34,11 @@ class ContextTest < ActiveSupport::TestCase
 
 	test "should have many people" do
 		context = create_context
-		assert_equal 0, context.interviewers.length
-		context.interviewers << Factory(:interviewer)
-		assert_equal 1, context.interviewers.length
-		context.interviewers << Factory(:interviewer)
-		assert_equal 2, context.interviewers.length
+		assert_equal 0, context.people.length
+		context.people << Factory(:person)
+		assert_equal 1, context.people.length
+		context.people << Factory(:person)
+		assert_equal 2, context.people.length
 	end
 
 protected

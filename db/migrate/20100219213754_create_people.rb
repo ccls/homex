@@ -1,6 +1,6 @@
-class CreateInterviewers < ActiveRecord::Migration
+class CreatePeople < ActiveRecord::Migration
 	def self.up
-		create_table :interviewers do |t|
+		create_table :people do |t|
 			t.references :context
 			t.string :first_name
 			t.string :last_name
@@ -9,6 +9,6 @@ class CreateInterviewers < ActiveRecord::Migration
 	end
 
 	def self.down
-		drop_table :interviewers
+		drop_table :people
 	end
 end

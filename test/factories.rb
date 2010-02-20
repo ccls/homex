@@ -9,8 +9,6 @@ Factory.define :context do |f|
 	f.description "My Description"
 end
 
-Factory.define :interviewer do |f|
-end
 
 Factory.define :interview_event do |f|
 end
@@ -40,6 +38,11 @@ Factory.define :page do |f|
 	f.body  "Page Body"
 end
 
+Factory.define :person do |f|
+end
+Factory.define :interviewer, :parent => :person do |f|
+end	#	parent must be defined first
+
 Factory.define :residence do |f|
 end
 
@@ -68,5 +71,4 @@ Factory.define :user do |f|
 end
 Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true
-end
-
+end	#	parent must be defined first
