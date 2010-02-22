@@ -3,16 +3,16 @@
 #	User.validates_role_name
 class Permissions < Aegis::Permissions
 
-	#	See the 'normalized' permissions created
-	def self.permission_names
-		@permission_blocks.keys
-	end
-
-	def self.exists?(permission)
-		Permissions.permission_names.include?(
-			Aegis::Normalization.normalize_permission(permission).to_sym
-		)
-	end
+#	#	See the 'normalized' permissions created
+#	def self.permission_names
+#		@permission_blocks.keys
+#	end
+#
+#	def self.exists?(permission)
+#		Permissions.permission_names.include?(
+#			Aegis::Normalization.normalize_permission(permission).to_sym
+#		)
+#	end
 
 	#	I proposed that the above two methods be added to the gem
 	#	as well as some checks...
@@ -75,7 +75,8 @@ class Permissions < Aegis::Permissions
 	#			the first MUST be for the calling user.
 	#		*	permissions beginning with "crud_" are special
 	#			and other may_* methods are created and 
-	#			NOT may_crud_*
+	#			NOT may_crud_* 
+	#			(create, read, update and destroy both singular and plural)
 	#			( see lib/aegis/permissions.rb : add_split_crud_permission )
 	#		* There is also some permission name parsing done
 	#			that may modify the created names based on 
@@ -108,15 +109,18 @@ class Permissions < Aegis::Permissions
 #		end
 #	end
 
-#	permission :create_page do |user,page|
-#	end
-#	permission :edit_page do |user,page|
-#	end
-#	permission :destroy_page do |user,page|
-#	end
 
 	#	this will also create singular maintain_page permission (no arguments)
 	permission :maintain_pages do #	|current_user|
+	end
+
+#	:crud_addresses creates the following ...
+#	:create_address, :create_addresses, :destroy_address, :destroy_addresses, 
+#	:read_address, :read_addresses, :update_address, :update_addresses
+#	I don't know exactly how it handles arguments though?
+#	Arguments are optional.  Nil if not passed so use that in logic.
+	permission :crud_addresses do |current_user,address|
+#puts address.inspect
 	end
 
 	#	this will be normalized to "read_users" and a singular

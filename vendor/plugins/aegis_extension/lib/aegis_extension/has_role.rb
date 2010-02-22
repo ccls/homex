@@ -1,9 +1,5 @@
-require 'aegis/has_role'
-
-#	until I take the time to fork and modify the github version ...
-
-module Aegis
-  module HasRole
+module AegisExtension
+	module HasRole
 		def validates_role_name(options = {})
 			validates_each :role_name do |record, attr, value|
 #				options[:message] ||= ActiveRecord::Errors.default_error_messages[:inclusion]

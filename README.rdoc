@@ -11,6 +11,13 @@
 	aegis - manage permissions for user accounts in a central place. 
 	active_shipping (pending) - package tracking
 
+== Required and included plugins
+
+	jrails (pending) - jquery helper methods
+	html_test - html testing and validation
+	aegis_extension  - modifications, updates and patches for aegis gem.
+
+
 == Installation
 
 	# Add your own session secret to
@@ -65,6 +72,8 @@
 {RedCloth Textile Documentation}[http://redcloth.org/]
 
 {Aegis Permissions on GitHub}[http://github.com/makandra/aegis]
+
+{Aegis Extension Plugin on GitHub}[http://github.com/jakewendt/aegis_extension]
 
 {Active Shipping on GitHub}[http://github.com/Shopify/active_shipping]
 

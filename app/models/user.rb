@@ -1,4 +1,4 @@
-require 'aegis/has_role_hack'
+#require 'aegis/has_role_hack'
 class User < ActiveRecord::Base
 	####	begin aegis permissions code
 	#
