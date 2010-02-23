@@ -117,10 +117,10 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get edit with invalid id" do
-
-
-
-
+		login_as admin_user
+		get :edit, :id => 0
+		assert_not_nil flash[:error]
+		assert_redirected_to pages_path
 	end
 
 	test "should NOT get edit without admin login" do
@@ -158,6 +158,13 @@ class PagesControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_template 'edit'
 		assert_response :success
+	end
+
+	test "should NOT update page with invalid id" do
+		login_as admin_user
+		put :update, :id => 0, :page => { :title => "a" }
+		assert_not_nil flash[:error]
+		assert_redirected_to pages_path
 	end
 
 	test "should NOT update page without admin login" do
@@ -207,6 +214,16 @@ class PagesControllerTest < ActionController::TestCase
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
+	end
+
+	test "should NOT destroy page with invalid id" do
+		login_as admin_user
+		page = Factory(:page)
+		assert_no_difference('Page.count') do
+			delete :destroy, :id => 0
+		end
+		assert_not_nil flash[:error]
+		assert_redirected_to pages_path
 	end
 
 

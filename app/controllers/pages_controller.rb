@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 	skip_before_filter :cas_filter, :only => :show
 	before_filter :cas_gateway_filter, :only => :show
 	before_filter :may_maintain_pages_required, :except => :show
+	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 
 	def show
 		if params[:path]
@@ -19,17 +20,18 @@ class PagesController < ApplicationController
 	end
 
 	def index
+		@page_title = "CCLS Pages"
 		@pages = Page.all
 	end
 
 	def new
-		@page_title = "Create New Page"
+		@page_title = "Create New CCLS Page"
 		@page = Page.new
 	end
 
 	def edit
-		@page_title = "Edit Page"
-		@page = Page.find(params[:id])
+#		@page = Page.find(params[:id])
+		@page_title = "Edit CCLS Page #{@page.title}"
 	end
 
 	def create
@@ -43,7 +45,7 @@ class PagesController < ApplicationController
 	end
 
 	def update
-		@page = Page.find(params[:id])
+#		@page = Page.find(params[:id])
 		@page.update_attributes!(params[:page])
 		flash[:notice] = 'Page was successfully updated.'
 		redirect_to(@page)
@@ -53,9 +55,22 @@ class PagesController < ApplicationController
 	end
 
 	def destroy
-		@page = Page.find(params[:id])
+#		@page = Page.find(params[:id])
 		@page.destroy
 		redirect_to(pages_path)
+#	rescue ActiveRecord::RecordInvalid
+#		flash[:error] = "There was a problem destroying the page."
+#		redirect_to(pages_path)
 	end
- 
+
+protected
+
+	def id_required
+		if !params[:id].blank? and Page.exists?(params[:id])
+			@page = Page.find(params[:id])
+		else
+			access_denied("Valid page id required!", pages_path)
+		end
+	end
+
 end
