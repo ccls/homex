@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<link rel="shortcut icon" href="/images/cal.ico" />
 <title><%= @page_title || "UCB SPH CCLS" -%></title>
 <%= stylesheet_link_tag 'application' %>
 <%#= stylesheet_link_tag controller.controller_name %>
@@ -11,7 +12,8 @@
 <body>
 
 <div id='container'>
-<center><p>
+<div id='head'>
+<span id='whoami'>
 <% if logged_in? -%>
 Welcome back, <%= current_user.displayname -%>
  [ <%= link_to "Logout", logout_path %> ] 
@@ -19,7 +21,8 @@ Welcome back, <%= current_user.displayname -%>
 You have not yet been authenticated.
  [ <%= link_to "Login", @login_url %> ] 
 <% end -%>
-</p></center>
+</span>
+</div><!-- id='head' -->
 
 <% flash.each do |key, msg| %>
  <%= content_tag :p, msg, :id => key, :class => 'flash' %>
@@ -42,5 +45,8 @@ You have not yet been authenticated.
 </div><!-- content -->
 
 </div><!-- container -->
+<div id='footer'>
+<span>Copyright &copy; UC Regents; all rights reserved.</span>
+</div><!-- id='footer' -->
 </body>
 </html>

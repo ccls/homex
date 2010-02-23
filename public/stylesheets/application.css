@@ -1,5 +1,9 @@
+/*
+	Much of this style was chosen to mimic berkeley.edu
+*/
 body {
 	font-family:Verdana,Arial,Helvetica,sans-serif;
+	margin: 0px;
 }
 
 .flash {
@@ -24,23 +28,52 @@ body {
 
 
 div#container {
-	width: 800px;
+	width: 770px;
 	margin: 0 auto;
+	background-color:#252C58;
 }
+div#head {
+	background-color: #1D1F45;
+	background-image: url('/images/berkeley-text.gif');
+	background-repeat: no-repeat;
+	height: 100px;
+	width: 100%;
+}
+span#whoami {
+	color:white;
+	float:right;
+}
+
+
 div#menu {
 	float:left;
 }
 div#menu a {
 	display:block;
+	color: #E7C254;
+	padding: 6px 7px 6px 20px;
+	border-right: 1px dotted #616688;
+	border-bottom: 1px dotted #616688;
+	width: 120px;
+	text-decoration:none;
+	font-size: 85%;
 }
 div#content {
 	margin-left:150px;	
+	background-color: white;
 }
 #main {
 	margin: 20px auto 0px;
 	border: 2px solid #8DA2B9;
 	padding: 1.2em;
 }
+#footer {
+	padding-top: 1ex;
+	text-align:center;
+	font-size:8pt;
+	color: gray;
+}
+
 fieldset legend {
 	font-size: 1.2em;
 	color: #61769E;
