@@ -7,6 +7,12 @@ module AegisExtension
 
 		module InstanceMethods
 
+			def aegis_current_user
+				current_user
+			end
+
+
+
 			#	This works when the permission does not take an argument.
 			#		may_deputize_required
 			#		may_maintain_pages_required
@@ -28,14 +34,14 @@ module AegisExtension
 		
 					#	using target words where singular == plural won't work here
 					if !target.blank? && target == target.singularize
-						unless current_user.try("may_#{permission}?", instance_variable_get("@#{target}") )
+						unless aegis_current_user.try("may_#{permission}?", instance_variable_get("@#{target}") )
 							flash[:error] = "You don't have permission to #{verb} this #{target}."
 							redirect_to( session[:refer_to] || request.env["HTTP_REFERER"] || "/" )
 							session[:refer_to] = nil
 						end
 					else
 						#	current_user may be nil so must use try and NOT send
-						unless current_user.try("may_#{permission}?")
+						unless aegis_current_user.try("may_#{permission}?")
 							flash[:error] = "You don't have permission to #{permission.gsub(/_/,' ')}."
 							redirect_to( session[:refer_to] || request.env["HTTP_REFERER"] || "/" )
 							session[:refer_to] = nil
