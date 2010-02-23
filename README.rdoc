@@ -4,51 +4,55 @@
 
 == Required Gems
 
-	rubycas-client - 
-	ucb_ldap - 
-	RedCloth - textile parser.
-	chronic (pending) - natural language Date/Time parser.
-	aegis - manage permissions for user accounts in a central place. 
-	active_shipping (pending) - package tracking
+ rubycas-client - 
+ ucb_ldap - 
+ RedCloth - textile parser.
+ chronic (pending) - natural language Date/Time parser.
+ aegis - manage permissions for user accounts in a central place. 
+ active_shipping (pending) - package tracking
+
 
 == Required and included plugins
 
-	jrails (pending) - jquery helper methods
-	html_test - html testing and validation
-	aegis_extension  - modifications, updates and patches for aegis gem.
+ jrails (pending) - jquery helper methods 
+	(trying to not have any inline javascript so may never really use jrails' methods.)
+ html_test - html testing and validation
+ aegis_extension  - modifications, updates and patches for aegis gem.
 
 
 == Installation
 
-	# Add your own session secret to
-	#	config/initializers/session_store.rb
-	cp config/initializers/session_store.rb.example config/initializers/session_store.rb
+ # Add your own session secret to
+ #	config/initializers/session_store.rb
+ cp config/initializers/session_store.rb.example config/initializers/session_store.rb
 
-	#	generate a 128 character hex string perfect for using as your secret.
-	rake secret
+ #	generate a 128 character hex string perfect for using as your secret.
+ rake secret
 
-	#	No changes needed as of yet for the database file.
-	cp config/database.yml.example config/database.yml
+ #	No changes needed as of yet for the database file.
+ cp config/database.yml.example config/database.yml
 
-	rake gems:install
-	rake db:migrate
+ rake gems:install
+ rake db:migrate
 
-	#	add some expected pages (/home, /about)
-	rake app:add_pages
+ #	add some expected pages (/home, /about)
+ rake app:add_pages
 
-	script/server
+ script/server
 
-	#	login to your app
-	#	The first administrator/deputy must be created via the command line.
-	#	Others can be created via the command line or web app.
-	rake app:deputize uid=<Your CalNet UID>
+ #	login to your app
+ #	The first administrator/deputy must be created via the command line.
+ #	Others can be created via the command line or web app.
+ rake app:deputize uid=<Your CalNet UID>
+
 
 == Testing
 
-	rake RAILS_ENV=test gems:install
-	rake test
-		and/or
-	autotest
+ rake RAILS_ENV=test gems:install
+ rake test
+	and/or
+ autotest
+
 
 == Further Info
 
