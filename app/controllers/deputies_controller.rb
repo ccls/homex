@@ -30,8 +30,8 @@ protected
 		end
 	end
 
-	def not_self_required
-		( @user == current_user ) and access_denied( "Cannot undeputize self!", users_path )
-	end
+#	def not_self_required
+#		( @user == current_user ) and access_denied( "Cannot undeputize self!", users_path )
+#	end
 	
 end
