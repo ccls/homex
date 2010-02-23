@@ -53,7 +53,8 @@ module AegisExtension
 
 					#	exclusive or
 					unless negate ^ permission
-						aegis_access_denied message||"Access denied."
+						message ||= "Access denied.  May #{(negate)?'not ':''}#{permission_name.gsub(/_/,' ')}."
+						aegis_access_denied message
 					end
 
 				else
