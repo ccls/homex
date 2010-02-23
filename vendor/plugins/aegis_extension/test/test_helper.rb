@@ -58,6 +58,18 @@ class Permissions < Aegis::Permissions
 			current_user == post.user
 		end
 	end
+
+	permission :destroy_user do
+	end
+	permission :be_user do |current_user,target_user|
+		#	MUST deny everyone first (includes admin)
+		#	so that negative works.  "be user" is more of
+		#	an absolute so an admin isn't someone else.
+		deny :everyone
+		allow :user do 
+			current_user == target_user
+		end
+	end
 end
 
 class ActiveSupport::TestCase

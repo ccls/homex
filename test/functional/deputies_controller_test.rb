@@ -52,7 +52,8 @@ class DeputiesControllerTest < ActionController::TestCase
 		delete :destroy, :id => user.id
 		assert user.reload.is_admin?
 		assert_not_nil flash[:error]
-		assert_redirected_to users_path
+#		assert_redirected_to users_path
+		assert_redirected_to root_path
 	end
 
 

@@ -44,6 +44,20 @@ Added dynamically 'created' before_filters based on naming conventions by adding
 
 ... either passes or redirects, currently just to the root_path, based on the permission.  Those items that contain a singular target, like 'post' or 'user' expect that @post and @user be defined before this before_filter is executed if it affects the permission.  Those targets whose singular and plural forms are the same may not work yet.
 
+Also just added negated before filters.  Not real sure how well this'll work, but for now it does.  A permission like ...
+
+ permission :be_user do |current_user, target_user|
+   deny :everyone
+   allow :everyone do
+     current_user == target_user
+   end
+ end
+
+... will enable the functioning of the before_filter ...
+
+ before_filter :may_not_be_user_required
+
+I don't see a lot of demand for this so it may have been simply a programming exercise.  Linguistically, "must_not_be_user_required" sounds better as does "must_be_user_required."  "May" sounds too passive.  "Must" sounds more demanding.  Of course, the trailing "required" is then redundant.
 
 == ToDo
 

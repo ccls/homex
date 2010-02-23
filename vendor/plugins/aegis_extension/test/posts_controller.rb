@@ -6,10 +6,12 @@ class PostsController < ApplicationController
 	before_filter :may_destroy_post_required, :only => [ :destroy ]
 
 	def new
+		@post = current_user.posts.new
 		render :text => ''
 	end
 
 	def create
+		@post = current_user.posts.create
 		render :text => ''
 	end
 
@@ -22,6 +24,7 @@ class PostsController < ApplicationController
 	end
 
 	def destroy
+		@post.destroy
 		render :text => ''
 	end
 
@@ -30,6 +33,7 @@ class PostsController < ApplicationController
 	end
 
 	def index
+		@posts = Post.all
 		render :text => ''
 	end
 

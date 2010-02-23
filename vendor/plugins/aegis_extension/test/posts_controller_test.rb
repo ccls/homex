@@ -35,7 +35,9 @@ class PostsControllerTest < ActionController::TestCase
 
 	test "guest can NOT create new post" do
 		get :new
+		assert_not_nil flash[:error]
 		assert_response :redirect
+		assert_redirected_to "/"
 	end
 
 	test "owner can edit" do
@@ -50,7 +52,9 @@ class PostsControllerTest < ActionController::TestCase
 		login_as User.create
 		p = Post.create(:user_id => User.create.id)
 		get :edit, :id => p.id
+		assert_not_nil flash[:error]
 		assert_response :redirect
+		assert_redirected_to "/"
 	end
 
 	test "owner can destroy" do
@@ -65,7 +69,9 @@ class PostsControllerTest < ActionController::TestCase
 		login_as User.create
 		p = Post.create(:user_id => User.create.id)
 		delete :destroy, :id => p.id
+		assert_not_nil flash[:error]
 		assert_response :redirect
+		assert_redirected_to "/"
 	end
 
 end

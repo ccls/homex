@@ -132,9 +132,20 @@ class Permissions < Aegis::Permissions
 	#	Really should be MUST_NOT_be_self
 	#		current_user.may_not_be_self?(target_user)
 	#	surprised that the negatives aren't created.
-	permission :not_be_self do |current_user, target_user|
+#	permission :not_be_self do |current_user, target_user|
+#		allow :everyone do
+#			!target_user.blank? && current_user != target_user
+#		end
+#	end
+
+	permission :be_user do |current_user,target_user|
+		#	MUST deny everyone first (includes admin)
+		#	so that negative works.  "be user" is more of
+		#	an absolute so an admin isn't someone else.
+		deny :everyone
+#		allow :user, :moderator, :administrator do 
 		allow :everyone do
-			!target_user.blank? && current_user != target_user
+			current_user == target_user
 		end
 	end
 
