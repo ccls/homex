@@ -3,21 +3,6 @@
 #	User.validates_role_name
 class Permissions < Aegis::Permissions
 
-#	#	See the 'normalized' permissions created
-#	def self.permission_names
-#		@permission_blocks.keys
-#	end
-#
-#	def self.exists?(permission)
-#		Permissions.permission_names.include?(
-#			Aegis::Normalization.normalize_permission(permission).to_sym
-#		)
-#	end
-
-	#	I proposed that the above two methods be added to the gem
-	#	as well as some checks...
-	#		http://github.com/makandra/aegis/issues/#issue/3
-
 	#
 	#	This role seems useless as if the user is just a guest and not 
 	#	a registered user, then there is no column to assign this value?
