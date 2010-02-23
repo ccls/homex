@@ -2,12 +2,8 @@ module AegisExtension
 	module ActionController
 
 		def self.included(base)
-#			base.extend  ClassMethods  
 			base.send(:include, InstanceMethods)
 		end
-
-#		module ClassMethods
-#		end
 
 		module InstanceMethods
 
@@ -23,11 +19,8 @@ module AegisExtension
 			def method_missing_with_aegis_permissions(symb,*args)
 				method_name = symb.to_s
 		
-		
-		#		using ::Permissions is app specific
-		
-		#puts Aegis::Permissions.subclasses
-		
+#		using ::Permissions is app specific
+#	Aegis::Permissions.subclasses.collect{|p| "::#{p}".constantize.exists?($1)}.any?
 		
 				if method_name =~ /^may_(.+)_required$/ && ::Permissions.exists?($1)
 					permission = $1
