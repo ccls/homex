@@ -3,6 +3,7 @@ class DeputiesController < ApplicationController
 	before_filter :may_deputize_required
 	before_filter :id_required, :except => :index
 	before_filter :not_self_required, :except => :index
+#	before_filter :may_not_be_self_required, :except => :index
 
 	def index
 		@users = User.deputies

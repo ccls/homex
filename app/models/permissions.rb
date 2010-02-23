@@ -128,4 +128,14 @@ class Permissions < Aegis::Permissions
 #		end
 #	end
 
+	#	This one is awkward and the natural english is wrong.
+	#	Really should be MUST_NOT_be_self
+	#		current_user.may_not_be_self?(target_user)
+	#	surprised that the negatives aren't created.
+	permission :not_be_self do |current_user, target_user|
+		allow :everyone do
+			!target_user.blank? && current_user != target_user
+		end
+	end
+
 end
