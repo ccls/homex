@@ -24,13 +24,6 @@ You have not yet been authenticated.
 </span>
 </div><!-- id='head' -->
 
-<% flash.each do |key, msg| %>
- <%= content_tag :p, msg, :id => key, :class => 'flash' %>
-<% end %>
-<noscript>
-<p id='noscript' class='flash'>Dude, seriously?  Javascript is required for this site to be fully functional.</p>
-</noscript>
-
 <div id='menu'>
   <%= link_to "Home",  root_path %>
   <%= link_to "About", "/about" %>
@@ -41,6 +34,13 @@ You have not yet been authenticated.
 	<% end %>
 </div><!-- menu -->
 <div id='content'>
+<% flash.each do |key, msg| %>
+ <%= content_tag :p, msg, :id => key, :class => 'flash' %>
+<% end %>
+<noscript>
+<p id='noscript' class='flash'>Dude, seriously?  Javascript is required for this site to be fully functional.</p>
+</noscript>
+
 <%= yield %>
 </div><!-- content -->
 
