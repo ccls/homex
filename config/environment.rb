@@ -21,6 +21,11 @@ Rails::Initializer.run do |config|
 	# config.gem "aws-s3", :lib => "aws/s3"
 
 
+	config.gem 'mysql'
+#	I had to install this like so on my Mac Pro 
+#		sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+
 	config.gem "RedCloth"
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
 
