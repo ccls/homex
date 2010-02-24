@@ -46,8 +46,14 @@ span#whoami {
 
 
 div#menu {
+/*
+	The background-color is needed here too for
+	when the menu is taller than the content.
+*/
 	background-color:#252C58;
 	float:left;
+	padding-right:2px;
+	padding-bottom:10px;
 }
 div#menu a {
 	display:block;
@@ -60,7 +66,15 @@ div#menu a {
 	font-size: 85%;
 }
 div#content {
-	margin-left:150px;	
+/*
+	margin-left:160px;	
+	Using a border seems to work just like a margin,
+	except you can specify a color which I am using 
+	for the background of the menu to ensure that the
+	menu and content are the same height.
+*/
+	border-left:150px solid #252C58;	
+	padding-left: 20px;
 	background-color: white;
 }
 #main {
