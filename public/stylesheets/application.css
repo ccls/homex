@@ -30,7 +30,6 @@ body {
 div#container {
 	width: 770px;
 	margin: 0 auto;
-	background-color:#252C58;
 }
 div#head {
 	background-color: #1D1F45;
@@ -42,10 +41,12 @@ div#head {
 span#whoami {
 	color:white;
 	float:right;
+	padding: 1ex;
 }
 
 
 div#menu {
+	background-color:#252C58;
 	float:left;
 }
 div#menu a {
@@ -63,11 +64,14 @@ div#content {
 	background-color: white;
 }
 #main {
+/*
 	margin: 20px auto 0px;
 	border: 2px solid #8DA2B9;
-	padding: 1.2em;
+*/
+	padding: 1em;
 }
 #footer {
+	clear:both;
 	padding-top: 1ex;
 	text-align:center;
 	font-size:8pt;
