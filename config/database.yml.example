@@ -20,3 +20,12 @@ production:
   database: db/production.sqlite3
   pool: 5
   timeout: 5000
+
+
+# If using mysql ...
+# On Mac OS X:
+#   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
+# On Mac OS X Leopard:
+#   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+# ... however, I had to install the mysql gem like so ...
+#   sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config

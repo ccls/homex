@@ -32,8 +32,14 @@
  #	No changes needed as of yet for the database file.
  cp config/database.yml.example config/database.yml
 
- #	If using mysql, I had to manually install the mysql gem like so ...
- # sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+ #	If using mysql ...
+ # On Mac OS X:
+ #   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
+ # On Mac OS X Leopard:
+ #   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+ # ... I had to install the mysql gem like so ...
+ #   sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
  rake gems:install
  rake db:migrate
 
