@@ -32,6 +32,11 @@ Factory.define :operational_event_type do |f|
 	f.description "My Description"
 end
 
+Factory.define :package do |f|
+#	f.carrier "FedEx"
+	f.sequence(:tracking_number) { |n| "ABC123#{n}" }
+end
+
 Factory.define :page do |f|
 	f.sequence(:path) { |n| "/path#{n}" }
 	f.sequence(:title) { |n| "My Page Title #{n}" }
