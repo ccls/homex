@@ -1,12 +1,12 @@
 Packages:
 <table><tbody><tr>
-<th>Number</th>
+<th>Tracking Number</th>
 <th>Status</th>
 <th>Last Update</th>
 </tr>
 <% @packages.each do |package| %>
 <tr>
-	<td><%= package.tracking_number -%></td>
+	<td><%= link_to package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}" -%></td>
 	<td><%= package.status -%></td>
 <%#
 	It is assumed that updated_at will always be in the past.
