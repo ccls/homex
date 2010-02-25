@@ -7,9 +7,10 @@
  rubycas-client - 
  ucb_ldap - 
  RedCloth - textile parser.
- chronic (pending) - natural language Date/Time parser.
  aegis - manage permissions for user accounts in a central place. 
  active_shipping - package tracking
+ chronic (pending) - natural language Date/Time parser. (also required for BackgrounDRb)
+ packet (pending) - requirement for BackgrounDRb
 
 
 == Required and included plugins
@@ -18,6 +19,7 @@
 	(trying to not have any inline javascript so may never really use jrails' methods.)
  html_test - html testing and validation
  aegis_extension  - modifications, updates and patches for aegis gem.
+ backgroundrb (pending) - background job server and scheduler
 
 
 == Installation
@@ -29,8 +31,11 @@
  #	generate a 128 character hex string perfect for using as your secret.
  rake secret
 
- #	No changes needed as of yet for the database file.
+ #	Setup database file.
  cp config/database.yml.example config/database.yml
+
+ #	Add your own FedEx credentials
+ cp config/fed_ex.yml.example config/fed_ex.yml
 
  #	If using mysql ...
  # On Mac OS X:
