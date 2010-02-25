@@ -43,16 +43,22 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should have failure status for bogus tracking_number" do
-		package = create_package(:tracking_number => 'obviouslybogus')
-		package.update_status
-		assert_match "failed", package.status
+		assert_difference( 'Package.delivered.count', 0 ) {
+		assert_difference( 'Package.undelivered.count', 1 ) {
+			package = create_package(:tracking_number => 'obviouslybogus')
+			package.update_status
+			assert_match "failed", package.status
+		} }
 	end
 
 	test "should have delivered status for delivered tracking_number" do
-		#	this number was taken from the active_shipping tests
-		package = create_package(:tracking_number => '077973360403984')
-		package.update_status
-		assert_match "Delivered", package.status
+		assert_difference( 'Package.delivered.count', 1 ) {
+		assert_difference( 'Package.undelivered.count', 0 ) {
+			#	this number was taken from the active_shipping tests
+			package = create_package(:tracking_number => '077973360403984')
+			package.update_status
+			assert_match "Delivered", package.status
+		} }
 	end
 
 protected

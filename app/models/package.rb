@@ -8,6 +8,14 @@ class Package < ActiveRecord::Base
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 
+	named_scope :delivered, :conditions => [
+		'status LIKE ?', '%Delivered%'
+	]
+
+	named_scope :undelivered, :conditions => [
+		'status NOT LIKE ?', '%Delivered%'
+	]
+
 	def update_status
 		begin
 #	:test => true is needed in test and development
