@@ -8,6 +8,14 @@ Packages:
 <tr>
 	<td><%= package.tracking_number -%></td>
 	<td><%= package.status -%></td>
+<%#
+	It is assumed that updated_at will always be in the past.
+	ActionView::Base.new.time_ago_in_words(Chronic.parse('tomorrow'))
+	will return "about 22 hours" which is is obviously NOT
+	Chronic.parse('tomorrow') returns that next day at noon.
+	The method should be "time_difference_in_words" as it simply
+	compares the first argument and the current time.
+-%>
 	<td><%= "#{time_ago_in_words(package.updated_at)} ago" -%></td>
 </tr>
 <% end %>
