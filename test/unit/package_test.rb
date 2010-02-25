@@ -43,7 +43,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should have failure status for bogus tracking_number" do
-		package = create_package
+		package = create_package(:tracking_number => 'obviouslybogus')
 		package.update_status
 		assert_match "failed", package.status
 	end
