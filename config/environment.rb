@@ -33,6 +33,7 @@ Rails::Initializer.run do |config|
 
 	config.gem "RedCloth"
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
+	config.gem "packet"			#		http://chronic.rubyforge.org/
 
 	#	For user model permissions
 	config.gem 'aegis', :source => 'http://gemcutter.org'
