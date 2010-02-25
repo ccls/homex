@@ -8,7 +8,7 @@ Packages:
 <tr>
 	<td><%= package.tracking_number -%></td>
 	<td><%= package.status -%></td>
-	<td><%= package.updated_at.to_s(:mdy) -%></td>
+	<td><%= "#{time_ago_in_words(package.updated_at)} ago" -%></td>
 </tr>
 <% end %>
 </tbody></table>
