@@ -9,6 +9,8 @@ class Package < ActiveRecord::Base
 #	make fdx a class variable?
 		fdx = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 		begin
+#	:test => true is needed in test and development
+#	don't know what happens in production
 			tracking_info = fdx.find_tracking_info(tracking_number, :test => true)
 			self.update_attribute(:status, tracking_info.latest_event.name)
 		rescue

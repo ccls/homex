@@ -1,0 +1,14 @@
+Packages:
+<table><tbody><tr>
+<th>Number</th>
+<th>Status</th>
+<th>Last Update</th>
+</tr>
+<% @packages.each do |package| %>
+<tr>
+	<td><%= package.tracking_number -%></td>
+	<td><%= package.status -%></td>
+	<td><%= package.updated_at.to_s(:mdy) -%></td>
+</tr>
+<% end %>
+</tbody></table>

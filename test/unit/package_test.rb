@@ -37,6 +37,24 @@ class PackageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should have no status when created" do
+		package = create_package
+		assert_nil package.status
+	end
+
+	test "should have failure status for bogus tracking_number" do
+		package = create_package
+		package.update_status
+		assert_match "failed", package.status
+	end
+
+	test "should have delivered status for delivered tracking_number" do
+		#	this number was taken from the active_shipping tests
+		package = create_package(:tracking_number => '077973360403984')
+		package.update_status
+		assert_match "Delivered", package.status
+	end
+
 protected
 
 	def create_package(options = {})
