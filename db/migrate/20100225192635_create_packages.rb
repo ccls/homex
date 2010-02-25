@@ -6,6 +6,7 @@ class CreatePackages < ActiveRecord::Migration
 			t.string :status
 			t.timestamps
 		end
+		add_index :packages, :tracking_number, :unique => true
 	end
 
 	def self.down

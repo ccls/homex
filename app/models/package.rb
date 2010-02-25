@@ -4,6 +4,7 @@ class Package < ActiveRecord::Base
 	#	arbitrary restrictions
 #	validates_length_of :carrier, :minimum => 3
 	validates_length_of :tracking_number, :minimum => 3
+	validates_uniqueness_of :tracking_number
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 
