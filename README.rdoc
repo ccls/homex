@@ -18,7 +18,7 @@
  jrails (pending) - jquery helper methods 
 	(trying to not have any inline javascript so may never really use jrails' methods.)
  html_test - html testing and validation
- aegis_extension  - modifications, updates and patches for aegis gem.
+ aegis_extension - modifications, updates and patches for aegis gem.
  backgroundrb (not yet / pending) - background job server and scheduler
 
 
