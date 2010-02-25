@@ -94,3 +94,7 @@
 
 {Active Shipping on GitHub}[http://github.com/Shopify/active_shipping]
 
+{BackgrounDRb Home on RubyForge}[http://backgroundrb.rubyforge.org]
+
+{BackgrounDRb Home on GitHub}[http://github.com/gnufied/backgroundrb]
+
