@@ -4,22 +4,21 @@
 
 == Required Gems
 
- rubycas-client - 
- ucb_ldap - 
- RedCloth - textile parser.
- aegis - manage permissions for user accounts in a central place. 
- active_shipping - package tracking
- chronic - natural language Date/Time parser. (also required for BackgrounDRb)
- packet - requirement for BackgrounDRb
+* {rubycas-client}[http://github.com/gunark/rubycas-client] - 
+* {ucb_ldap}[http://gemcutter.org/gems/ucb_ldap] -
+* {RedCloth}[http://redcloth.org] - textile parser.
+* {aegis}[http://github.com/makandra/aegis] - manage permissions for user accounts in a central place. 
+* {active_shipping}[http://github.com/Shopify/active_shipping] - package tracking
+* {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
+* {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
 
 
 == Required and included plugins
 
-* jrails (pending) - jquery helper methods 
-	(trying to not have any inline javascript so may never really use jrails' methods.)
-* html_test - html testing and validation
+* {jrails}[http://github.com/jakewendt/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
+* {html_test}[http://github.com/peter/html_test] - html testing and validation
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
-* backgroundrb - background job server and scheduler
+* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
 
 
 == Installation
@@ -34,7 +33,7 @@
  #	Setup database file.
  cp config/database.yml.example config/database.yml
 
- #	Add your own FedEx credentials
+ #	Add your own {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
  cp config/fed_ex.yml.example config/fed_ex.yml
 
  #	If using mysql ...
@@ -83,7 +82,6 @@
 {UCB LDAP Gem on GemCutter}[http://gemcutter.org/gems/ucb_ldap]
 
 {UCB LDAP Documentation}[http://ucbrb.rubyforge.org/ucb_ldap/]
-
 
 {Chronic Documentation}[http://chronic.rubyforge.org/]
 
