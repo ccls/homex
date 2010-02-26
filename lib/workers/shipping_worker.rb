@@ -9,8 +9,10 @@ class ShippingWorker < BackgrounDRb::MetaWorker
 	
 	def update_shipping_statuses
 		puts "Updating Shipping Statuses"
-		Package.all.each do |package|
-			puts "Package ##{package.tracking_number} status #{package.status}"
+		Package.undelivered.each do |package|
+			puts "BEFORE: Package ##{package.tracking_number} status #{package.status}"
+			package.update_status
+			puts "-AFTER: Package ##{package.tracking_number} status #{package.status}"
 		end
 	end
 
