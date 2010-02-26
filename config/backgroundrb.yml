@@ -2,3 +2,6 @@
 :backgroundrb: 
   :port: 11006
   :ip: 0.0.0.0
+  # turn this off if your application doesn't use backgroundrb's persistent/enqueued tasks system
+  # currently only using the periodic timer
+  :persistent_disabled: true
