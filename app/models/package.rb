@@ -21,6 +21,16 @@ class Package < ActiveRecord::Base
 #	:test => true is needed in test and development
 #	don't know what happens in production
 			tracking_info = @@fedex.find_tracking_info(tracking_number, :test => true)
+
+			#	All the statuses that I've found (but may be others) ...
+			#	Shipment information sent to FedEx
+			#	Picked up
+			#	Arrived at FedEx location
+			#	Departed FedEx location
+			#	At local FedEx facility
+			#	On FedEx vehicle for delivery
+			#	Delivered
+
 			self.update_attribute(:status, tracking_info.latest_event.name)
 		rescue
 			self.update_attribute(:status, "Update failed")
