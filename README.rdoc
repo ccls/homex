@@ -33,7 +33,7 @@
  #	Setup database file.
  cp config/database.yml.example config/database.yml
 
- #	Add your own {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
+ #	Add your own FedEx credentials
  cp config/fed_ex.yml.example config/fed_ex.yml
 
  #	If using mysql ...
@@ -97,3 +97,4 @@
 
 {BackgrounDRb Home on GitHub}[http://github.com/gnufied/backgroundrb]
 
+{FedEx credentials}[http://www.fedex.com/us/developer/index.html]
