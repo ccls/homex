@@ -29,7 +29,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		operational_event_type.operational_events << Factory(:operational_event)
 		assert_equal 1, operational_event_type.operational_events.length
 		operational_event_type.operational_events << Factory(:operational_event)
-		assert_equal 2, operational_event_type.operational_events.length
+		assert_equal 2, operational_event_type.reload.operational_events.length
 	end
 
 	test "should belong to a study_event" do

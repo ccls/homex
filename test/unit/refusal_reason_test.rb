@@ -23,11 +23,13 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		end
 	end
 
-
-	test "should have many study_events_subjects" do
-
-#		flunk
-
+	test "should have many project_subjects" do
+		refusal_reason = create_refusal_reason
+		assert_equal 0, refusal_reason.project_subjects.length
+		refusal_reason.project_subjects << Factory(:project_subject)
+		assert_equal 1, refusal_reason.project_subjects.length
+		refusal_reason.project_subjects << Factory(:project_subject)
+		assert_equal 2, refusal_reason.reload.project_subjects.length
 	end
 
 

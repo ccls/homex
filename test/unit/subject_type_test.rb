@@ -29,7 +29,7 @@ class SubjectTypeTest < ActiveSupport::TestCase
 #		subject_type.subjects << Factory(:subject)
 #		assert_equal 1, subject_type.subjects.length
 #		subject_type.subjects << Factory(:subject)
-#		assert_equal 2, subject_type.subjects.length
+#		assert_equal 2, subject_type.reload.subjects.length
 #	end
 
 protected

@@ -51,6 +51,9 @@ end
 Factory.define :interviewer, :parent => :person do |f|
 end	#	parent must be defined first
 
+Factory.define :project_subject do |f|
+end
+
 Factory.define :residence do |f|
 end
 

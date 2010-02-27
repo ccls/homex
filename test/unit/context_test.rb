@@ -29,7 +29,7 @@ class ContextTest < ActiveSupport::TestCase
 		context.units << Factory(:unit)
 		assert_equal 1, context.units.length
 		context.units << Factory(:unit)
-		assert_equal 2, context.units.length
+		assert_equal 2, context.reload.units.length
 	end
 
 	test "should have many people" do
@@ -38,7 +38,7 @@ class ContextTest < ActiveSupport::TestCase
 		context.people << Factory(:person)
 		assert_equal 1, context.people.length
 		context.people << Factory(:person)
-		assert_equal 2, context.people.length
+		assert_equal 2, context.reload.people.length
 	end
 
 protected

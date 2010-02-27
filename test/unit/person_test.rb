@@ -30,7 +30,7 @@ class PersonTest < ActiveSupport::TestCase
 		person.interview_events << Factory(:interview_event)
 		assert_equal 1, person.interview_events.length
 		person.interview_events << Factory(:interview_event)
-		assert_equal 2, person.interview_events.length
+		assert_equal 2, person.reload.interview_events.length
 	end
 
 protected

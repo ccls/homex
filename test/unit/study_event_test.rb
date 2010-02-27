@@ -29,7 +29,7 @@ class StudyEventTest < ActiveSupport::TestCase
 		study_event.operational_event_types << Factory(:operational_event_type)
 		assert_equal 1, study_event.operational_event_types.length
 		study_event.operational_event_types << Factory(:operational_event_type)
-		assert_equal 2, study_event.operational_event_types.length
+		assert_equal 2, study_event.reload.operational_event_types.length
 	end
 
 	test "should have many interview_types" do
@@ -44,11 +44,15 @@ class StudyEventTest < ActiveSupport::TestCase
 
 	end
 
-	test "should have many study_events_subjects" do
-
-#		flunk
-
+	test "should have many project_subjects" do
+		study_event = create_study_event
+		assert_equal 0, study_event.project_subjects.length
+		study_event.project_subjects << Factory(:project_subject)
+		assert_equal 1, study_event.project_subjects.length
+		study_event.project_subjects << Factory(:project_subject)
+		assert_equal 2, study_event.reload.project_subjects.length
 	end
+
 
 protected
 

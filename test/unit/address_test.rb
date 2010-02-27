@@ -15,7 +15,7 @@ class AddressTest < ActiveSupport::TestCase
 		address.residences << Factory(:residence)
 		assert_equal 1, address.residences.length
 		address.residences << Factory(:residence)
-		assert_equal 2, address.residences.length
+		assert_equal 2, address.reload.residences.length
 	end
 
 	test "should have many interview_events" do
@@ -24,7 +24,7 @@ class AddressTest < ActiveSupport::TestCase
 		address.interview_events << Factory(:interview_event)
 		assert_equal 1, address.interview_events.length
 		address.interview_events << Factory(:interview_event)
-		assert_equal 2, address.interview_events.length
+		assert_equal 2, address.reload.interview_events.length
 	end
 
 protected

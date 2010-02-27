@@ -24,10 +24,13 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 	end
 
 
-	test "should have many study_events_subjects" do
-
-#		flunk
-
+	test "should have many project_subjects" do
+		ineligible_reason = create_ineligible_reason
+		assert_equal 0, ineligible_reason.project_subjects.length
+		ineligible_reason.project_subjects << Factory(:project_subject)
+		assert_equal 1, ineligible_reason.project_subjects.length
+		ineligible_reason.project_subjects << Factory(:project_subject)
+		assert_equal 2, ineligible_reason.reload.project_subjects.length
 	end
 
 

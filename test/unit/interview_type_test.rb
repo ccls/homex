@@ -36,7 +36,7 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		interview_type.interview_versions << Factory(:interview_version)
 		assert_equal 1, interview_type.interview_versions.length
 		interview_type.interview_versions << Factory(:interview_version)
-		assert_equal 2, interview_type.interview_versions.length
+		assert_equal 2, interview_type.reload.interview_versions.length
 	end
 
 

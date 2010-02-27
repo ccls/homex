@@ -29,7 +29,7 @@ class SampleTypeTest < ActiveSupport::TestCase
 		sample_type.sample_subtypes << Factory(:sample_subtype)
 		assert_equal 1, sample_type.sample_subtypes.length
 		sample_type.sample_subtypes << Factory(:sample_subtype)
-		assert_equal 2, sample_type.sample_subtypes.length
+		assert_equal 2, sample_type.reload.sample_subtypes.length
 	end
 
 protected
