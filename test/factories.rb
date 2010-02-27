@@ -9,6 +9,9 @@ Factory.define :context do |f|
 	f.description "My Description"
 end
 
+Factory.define :ineligible_reason do |f|
+	f.description "My Description"
+end
 
 Factory.define :interview_event do |f|
 end
@@ -49,6 +52,10 @@ Factory.define :interviewer, :parent => :person do |f|
 end	#	parent must be defined first
 
 Factory.define :residence do |f|
+end
+
+Factory.define :refusal_reason do |f|
+	f.description "My Description"
 end
 
 Factory.define :sample_subtype do |f|
