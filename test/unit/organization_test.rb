@@ -23,17 +23,40 @@ class OrganizationTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many transfers to" do
-
-#		flunk
-
+	test "new incoming_transfer should have matching organization id" do
+		organization = create_organization
+		transfer = organization.incoming_transfers.build
+		assert_equal organization.id, transfer.to_organization_id
 	end
 
-	test "should have many transfers from" do
-
-#		flunk
-
+	test "new outgoing_transfer should have matching organization id" do
+		organization = create_organization
+		transfer = organization.outgoing_transfers.build
+		assert_equal organization.id, transfer.from_organization_id
 	end
+
+	test "should have many incoming_transfers" do
+		organization = create_organization
+		assert_equal 0, organization.reload.incoming_transfers.length
+		organization.incoming_transfers << Factory(:transfer, 
+			:to_organization_id => organization.id )
+		assert_equal 1, organization.reload.incoming_transfers.length
+		organization.incoming_transfers << Factory(:transfer, 
+			:to_organization_id => organization.id )
+		assert_equal 2, organization.reload.incoming_transfers.length
+	end
+
+	test "should have many outgoing_transfers" do
+		organization = create_organization
+		assert_equal 0, organization.reload.outgoing_transfers.length
+		organization.outgoing_transfers << Factory(:transfer, 
+			:from_organization_id => organization.id )
+		assert_equal 1, organization.reload.outgoing_transfers.length
+		organization.outgoing_transfers << Factory(:transfer, 
+			:from_organization_id => organization.id )
+		assert_equal 2, organization.reload.outgoing_transfers.length
+	end
+
 
 	test "should have many aliquots" do
 #		somehow

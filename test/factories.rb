@@ -67,6 +67,12 @@ Factory.define :subject_type do |f|
 	f.description "My Description"
 end
 
+Factory.define :transfer do |f|
+	f.association :from_organization, :factory => :organization
+	f.association :to_organization,   :factory => :organization
+#	f.association :aliquot
+end
+
 Factory.define :unit do |f|
 	f.description "My Description"
 end
