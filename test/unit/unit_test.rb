@@ -32,13 +32,13 @@ class UnitTest < ActiveSupport::TestCase
 
 	test "should have many aliquots" do
 
-#		flunk
+#		flunk aliquots
 
 	end
 
 	test "should have many subjects" do
 
-#		flunk
+#		flunk subjects
 
 	end
 

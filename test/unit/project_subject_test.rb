@@ -12,7 +12,7 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 	test "should belong_to subject" do
 		project_subject = create_project_subject
 
-#		flunk
+#		flunk subject
 
 	end
 

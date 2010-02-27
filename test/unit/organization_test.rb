@@ -61,14 +61,14 @@ class OrganizationTest < ActiveSupport::TestCase
 	test "should have many aliquots" do
 #		somehow
 
-#		flunk
+#		flunk aliquots
 
 	end
 
 	test "should have many samples" do
 #		somehow
 
-#		flunk
+#		flunk samples
 
 	end
 

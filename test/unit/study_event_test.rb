@@ -33,14 +33,17 @@ class StudyEventTest < ActiveSupport::TestCase
 	end
 
 	test "should have many interview_types" do
-
-#		flunk
-
+		study_event = create_study_event
+		assert_equal 0, study_event.interview_types.length
+		study_event.interview_types << Factory(:interview_type)
+		assert_equal 1, study_event.interview_types.length
+		study_event.interview_types << Factory(:interview_type)
+		assert_equal 2, study_event.reload.interview_types.length
 	end
 
 	test "should have many study_event_eligibilities" do
 
-#		flunk
+#		flunk study_event_eligibilities
 
 	end
 

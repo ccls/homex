@@ -26,13 +26,13 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 
 	test "should have many aliquots" do
 
-#		flunk
+#		flunk aliquots
 
 	end
 
 	test "should have many samples" do
 
-#		flunk
+#		flunk samples
 
 	end
 

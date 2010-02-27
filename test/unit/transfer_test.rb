@@ -35,7 +35,7 @@ class TransferTest < ActiveSupport::TestCase
 
 	test "should belong to aliquot" do
 
-#		flunk
+#		flunk aliquot
 
 	end
 

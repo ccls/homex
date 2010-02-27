@@ -18,7 +18,7 @@ class ResidenceTest < ActiveSupport::TestCase
 
 	test "should belong to an subject" do
 
-#		flunk
+#		flunk subject
 
 	end
 

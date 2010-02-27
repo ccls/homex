@@ -32,7 +32,7 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 
 	test "should have many samples" do
 
-#		flunk
+#		flunk samples
 
 	end
 
