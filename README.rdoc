@@ -61,7 +61,9 @@
 
 == Testing
 
-These tests access the outside world via the html_test plugin validations and FedEx API and therefore require an live internet connection for complete success.  An HTML validator can be installed locally and <tt>test/test_helper.rb</tt> modified to accomodate this.  See the {html_test documentation}[http://github.com/peter/html_test] for guidance on this.  The Package tests would need removed to test offline.
+An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout.  The <tt>test/test_helper.rb</tt> file can be modified to accomodate this simpley by commenting out the <tt>Html::Test::Validator.w3c_url</tt> line.  See the {html_test documentation}[http://github.com/peter/html_test] for further guidance on this.  
+
+Currently, the Package tests would need removed to test offline as they access the FedEx API.
 
  rake RAILS_ENV=test gems:install
  rake test
