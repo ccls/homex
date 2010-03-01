@@ -65,6 +65,9 @@ Factory.define :refusal_reason do |f|
 	f.description "My Description"
 end
 
+Factory.define :sample do |f|
+end
+
 Factory.define :sample_subtype do |f|
 	f.description "My Description"
 end

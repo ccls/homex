@@ -23,17 +23,22 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 		end
 	end
 
-
 	test "should have many aliquots" do
-
-#		flunk aliquots
-
+		aliquot_sample_format = create_aliquot_sample_format
+#		assert_equal 0, aliquot_sample_format.aliquots.length
+#		aliquot_sample_format.aliquots << Factory(:aliquots)
+#		assert_equal 1, aliquot_sample_format.aliquots.length
+#		aliquot_sample_format.aliquots << Factory(:aliquots)
+#		assert_equal 2, aliquot_sample_format.reload.aliquots.length
 	end
 
 	test "should have many samples" do
-
-#		flunk samples
-
+		aliquot_sample_format = create_aliquot_sample_format
+		assert_equal 0, aliquot_sample_format.samples.length
+		aliquot_sample_format.samples << Factory(:sample)
+		assert_equal 1, aliquot_sample_format.samples.length
+		aliquot_sample_format.samples << Factory(:sample)
+		assert_equal 2, aliquot_sample_format.reload.samples.length
 	end
 
 protected

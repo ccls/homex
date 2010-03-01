@@ -1,7 +1,7 @@
 class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :race
-#	has_many :samples
+	has_many :samples
 	has_many :project_subjects
 	has_many :operational_events
 	has_many :residences

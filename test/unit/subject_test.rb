@@ -50,11 +50,11 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should have many samples" do
 		subject = create_subject
-#		assert_equal 0, subject.samples.length
-#		subject.samples << Factory(:sample)
-#		assert_equal 1, subject.samples.length
-#		subject.samples << Factory(:sample)
-#		assert_equal 2, subject.reload.samples.length
+		assert_equal 0, subject.samples.length
+		subject.samples << Factory(:sample)
+		assert_equal 1, subject.samples.length
+		subject.samples << Factory(:sample)
+		assert_equal 2, subject.reload.samples.length
 	end
 
 	test "should have many residences" do

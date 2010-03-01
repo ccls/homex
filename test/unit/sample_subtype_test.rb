@@ -31,9 +31,12 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 	end
 
 	test "should have many samples" do
-
-#		flunk samples
-
+		sample_subtype = create_sample_subtype
+		assert_equal 0, sample_subtype.samples.length
+		sample_subtype.samples << Factory(:sample)
+		assert_equal 1, sample_subtype.samples.length
+		sample_subtype.samples << Factory(:sample)
+		assert_equal 2, sample_subtype.reload.samples.length
 	end
 
 protected

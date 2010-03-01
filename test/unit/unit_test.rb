@@ -31,15 +31,21 @@ class UnitTest < ActiveSupport::TestCase
 	end
 
 	test "should have many aliquots" do
-
-#		flunk aliquots
-
+		unit = create_unit
+#		assert_equal 0, unit.aliquots.length
+#		unit.aliquots << Factory(:aliquots)
+#		assert_equal 1, unit.aliquots.length
+#		unit.aliquots << Factory(:aliquots)
+#		assert_equal 2, unit.reload.aliquots.length
 	end
 
-	test "should have many subjects" do
-
-#		flunk subjects
-
+	test "should have many samples" do
+		unit = create_unit
+		assert_equal 0, unit.samples.length
+		unit.samples << Factory(:sample)
+		assert_equal 1, unit.samples.length
+		unit.samples << Factory(:sample)
+		assert_equal 2, unit.reload.samples.length
 	end
 
 protected
