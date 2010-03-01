@@ -12,7 +12,7 @@ ApplicationController.validators = [:w3c]
 Html::Test::Validator.verbose = false
 #       http://habilis.net/validator-sac/
 #       http://habilis.net/validator-sac/#advancedtopics
-#Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
+Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
 Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
 #	end html_test plugin settings
 
