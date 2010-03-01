@@ -5,7 +5,8 @@ class InterviewVersionTest < ActiveSupport::TestCase
 	test "should create interview_version" do
 		assert_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version
-			assert !interview_version.new_record?, "#{interview_version.errors.full_messages.to_sentence}"
+			assert !interview_version.new_record?, 
+				"#{interview_version.errors.full_messages.to_sentence}"
 		end
 	end
 
@@ -25,14 +26,16 @@ class InterviewVersionTest < ActiveSupport::TestCase
 
 	test "should require interview_type_id" do
 		assert_no_difference 'InterviewVersion.count' do
-			interview_version = create_interview_version(:interview_type_id => nil)
+			interview_version = create_interview_version(
+				:interview_type_id => nil)
 			assert interview_version.errors.on(:interview_type_id)
 		end
 	end
 
 	test "should require interview_event_id" do
 		assert_no_difference 'InterviewVersion.count' do
-			interview_version = create_interview_version(:interview_event_id => nil)
+			interview_version = create_interview_version(
+				:interview_event_id => nil)
 			assert interview_version.errors.on(:interview_event_id)
 		end
 	end

@@ -5,7 +5,8 @@ class SampleTest < ActiveSupport::TestCase
 	test "should create sample" do
 		assert_difference 'Sample.count' do
 			sample = create_sample
-			assert !sample.new_record?, "#{sample.errors.full_messages.to_sentence}"
+			assert !sample.new_record?, 
+				"#{sample.errors.full_messages.to_sentence}"
 		end
 	end
 

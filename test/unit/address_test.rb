@@ -5,7 +5,8 @@ class AddressTest < ActiveSupport::TestCase
 	test "should create address" do
 		assert_difference 'Address.count' do
 			address = create_address
-			assert !address.new_record?, "#{address.errors.full_messages.to_sentence}"
+			assert !address.new_record?, 
+				"#{address.errors.full_messages.to_sentence}"
 		end
 	end
 

@@ -5,7 +5,8 @@ class SubjectTypeTest < ActiveSupport::TestCase
 	test "should create subject_type" do
 		assert_difference 'SubjectType.count' do
 			subject_type = create_subject_type
-			assert !subject_type.new_record?, "#{subject_type.errors.full_messages.to_sentence}"
+			assert !subject_type.new_record?, 
+				"#{subject_type.errors.full_messages.to_sentence}"
 		end
 	end
 
@@ -23,14 +24,14 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should have many subjects" do
-#		subject_type = create_subject_type
-#		assert_equal 0, subject_type.subjects.length
-#		subject_type.subjects << Factory(:subject)
-#		assert_equal 1, subject_type.subjects.length
-#		subject_type.subjects << Factory(:subject)
-#		assert_equal 2, subject_type.reload.subjects.length
-#	end
+	test "should have many subjects" do
+		subject_type = create_subject_type
+		assert_equal 0, subject_type.subjects.length
+		Factory(:subject, :subject_type_id => subject_type.id)
+		assert_equal 1, subject_type.reload.subjects.length
+		Factory(:subject, :subject_type_id => subject_type.id)
+		assert_equal 2, subject_type.reload.subjects.length
+	end
 
 protected
 

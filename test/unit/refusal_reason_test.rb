@@ -5,7 +5,8 @@ class RefusalReasonTest < ActiveSupport::TestCase
 	test "should create refusal_reason" do
 		assert_difference 'RefusalReason.count' do
 			refusal_reason = create_refusal_reason
-			assert !refusal_reason.new_record?, "#{refusal_reason.errors.full_messages.to_sentence}"
+			assert !refusal_reason.new_record?, 
+				"#{refusal_reason.errors.full_messages.to_sentence}"
 		end
 	end
 

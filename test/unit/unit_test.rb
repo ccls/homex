@@ -5,7 +5,8 @@ class UnitTest < ActiveSupport::TestCase
 	test "should create unit" do
 		assert_difference 'Unit.count' do
 			unit = create_unit
-			assert !unit.new_record?, "#{unit.errors.full_messages.to_sentence}"
+			assert !unit.new_record?, 
+				"#{unit.errors.full_messages.to_sentence}"
 		end
 	end
 

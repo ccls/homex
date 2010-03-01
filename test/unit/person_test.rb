@@ -2,11 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
 
-
 	test "should create person" do
 		assert_difference 'Person.count' do
 			person = create_person
-			assert !person.new_record?, "#{person.errors.full_messages.to_sentence}"
+			assert !person.new_record?, 
+				"#{person.errors.full_messages.to_sentence}"
 		end
 	end
 

@@ -5,13 +5,15 @@ class OperationalEventTest < ActiveSupport::TestCase
 	test "should create operational_event" do
 		assert_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event
-			assert !operational_event.new_record?, "#{operational_event.errors.full_messages.to_sentence}"
+			assert !operational_event.new_record?, 
+				"#{operational_event.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should require operational_event_type_id" do
 		assert_no_difference 'OperationalEvent.count' do
-			operational_event = create_operational_event(:operational_event_type_id => nil)
+			operational_event = create_operational_event(
+				:operational_event_type_id => nil)
 			assert operational_event.errors.on(:operational_event_type_id)
 		end
 	end
@@ -26,7 +28,8 @@ class OperationalEventTest < ActiveSupport::TestCase
 	test "should belong to an operational_event_type" do
 		operational_event = create_operational_event
 #		assert_nil operational_event.operational_event_type
-#		operational_event.operational_event_type = Factory(:operational_event_type)
+#		operational_event.operational_event_type = Factory(
+#				:operational_event_type)
 		assert_not_nil operational_event.operational_event_type
 	end
 

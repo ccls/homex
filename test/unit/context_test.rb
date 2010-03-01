@@ -5,7 +5,8 @@ class ContextTest < ActiveSupport::TestCase
 	test "should create context" do
 		assert_difference 'Context.count' do
 			context = create_context
-			assert !context.new_record?, "#{context.errors.full_messages.to_sentence}"
+			assert !context.new_record?, 
+				"#{context.errors.full_messages.to_sentence}"
 		end
 	end
 

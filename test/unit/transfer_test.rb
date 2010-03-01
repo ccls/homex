@@ -5,7 +5,8 @@ class TransferTest < ActiveSupport::TestCase
 	test "should create transfer" do
 		assert_difference 'Transfer.count' do
 			transfer = create_transfer
-			assert !transfer.new_record?, "#{transfer.errors.full_messages.to_sentence}"
+			assert !transfer.new_record?, 
+				"#{transfer.errors.full_messages.to_sentence}"
 		end
 	end
 

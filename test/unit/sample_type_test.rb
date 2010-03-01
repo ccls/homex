@@ -5,7 +5,8 @@ class SampleTypeTest < ActiveSupport::TestCase
 	test "should create sample_type" do
 		assert_difference 'SampleType.count' do
 			sample_type = create_sample_type
-			assert !sample_type.new_record?, "#{sample_type.errors.full_messages.to_sentence}"
+			assert !sample_type.new_record?, 
+				"#{sample_type.errors.full_messages.to_sentence}"
 		end
 	end
 

@@ -5,7 +5,8 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 	test "should create ineligible_reason" do
 		assert_difference 'IneligibleReason.count' do
 			ineligible_reason = create_ineligible_reason
-			assert !ineligible_reason.new_record?, "#{ineligible_reason.errors.full_messages.to_sentence}"
+			assert !ineligible_reason.new_record?, 
+				"#{ineligible_reason.errors.full_messages.to_sentence}"
 		end
 	end
 

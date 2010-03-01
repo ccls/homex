@@ -5,7 +5,8 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 	test "should create project_subject" do
 		assert_difference 'ProjectSubject.count' do
 			project_subject = create_project_subject
-			assert !project_subject.new_record?, "#{project_subject.errors.full_messages.to_sentence}"
+			assert !project_subject.new_record?, 
+				"#{project_subject.errors.full_messages.to_sentence}"
 		end
 	end
 

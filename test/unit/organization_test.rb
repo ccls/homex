@@ -5,7 +5,8 @@ class OrganizationTest < ActiveSupport::TestCase
 	test "should create organization" do
 		assert_difference 'Organization.count' do
 			organization = create_organization
-			assert !organization.new_record?, "#{organization.errors.full_messages.to_sentence}"
+			assert !organization.new_record?, 
+				"#{organization.errors.full_messages.to_sentence}"
 		end
 	end
 

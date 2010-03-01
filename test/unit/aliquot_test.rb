@@ -5,7 +5,8 @@ class AliquotTest < ActiveSupport::TestCase
 	test "should create aliquot" do
 		assert_difference 'Aliquot.count' do
 			aliquot = create_aliquot
-			assert !aliquot.new_record?, "#{aliquot.errors.full_messages.to_sentence}"
+			assert !aliquot.new_record?, 
+				"#{aliquot.errors.full_messages.to_sentence}"
 		end
 	end
 

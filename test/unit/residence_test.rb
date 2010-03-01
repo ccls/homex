@@ -5,7 +5,8 @@ class ResidenceTest < ActiveSupport::TestCase
 	test "should create residence" do
 		assert_difference 'Residence.count' do
 			residence = create_residence
-			assert !residence.new_record?, "#{residence.errors.full_messages.to_sentence}"
+			assert !residence.new_record?, 
+				"#{residence.errors.full_messages.to_sentence}"
 		end
 	end
 

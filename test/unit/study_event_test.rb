@@ -5,7 +5,8 @@ class StudyEventTest < ActiveSupport::TestCase
 	test "should create study_event" do
 		assert_difference 'StudyEvent.count' do
 			study_event = create_study_event
-			assert !study_event.new_record?, "#{study_event.errors.full_messages.to_sentence}"
+			assert !study_event.new_record?, 
+				"#{study_event.errors.full_messages.to_sentence}"
 		end
 	end
 

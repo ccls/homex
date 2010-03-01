@@ -5,7 +5,8 @@ class InterviewTypeTest < ActiveSupport::TestCase
 	test "should create interview_type" do
 		assert_difference 'InterviewType.count' do
 			interview_type = create_interview_type
-			assert !interview_type.new_record?, "#{interview_type.errors.full_messages.to_sentence}"
+			assert !interview_type.new_record?, 
+				"#{interview_type.errors.full_messages.to_sentence}"
 		end
 	end
 

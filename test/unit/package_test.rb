@@ -5,7 +5,8 @@ class PackageTest < ActiveSupport::TestCase
 	test "should create package" do
 		assert_difference 'Package.count' do
 			package = create_package
-			assert !package.new_record?, "#{package.errors.full_messages.to_sentence}"
+			assert !package.new_record?, 
+				"#{package.errors.full_messages.to_sentence}"
 		end
 	end
 

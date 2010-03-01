@@ -5,34 +5,39 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	test "should create operational_event_type" do
 		assert_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type
-			assert !operational_event_type.new_record?, "#{operational_event_type.errors.full_messages.to_sentence}"
+			assert !operational_event_type.new_record?, 
+				"#{operational_event_type.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should require description" do
 		assert_no_difference 'OperationalEventType.count' do
-			operational_event_type = create_operational_event_type(:description => nil)
+			operational_event_type = create_operational_event_type(
+				:description => nil)
 			assert operational_event_type.errors.on(:description)
 		end
 	end
 
 	test "should require 4 char description" do
 		assert_no_difference 'OperationalEventType.count' do
-			operational_event_type = create_operational_event_type(:description => 'Hey')
+			operational_event_type = create_operational_event_type(
+				:description => 'Hey')
 			assert operational_event_type.errors.on(:description)
 		end
 	end
 
 	test "should require study_event_id" do
 		assert_no_difference 'OperationalEventType.count' do
-			operational_event_type = create_operational_event_type(:study_event_id => nil)
+			operational_event_type = create_operational_event_type(
+				:study_event_id => nil)
 			assert operational_event_type.errors.on(:study_event_id)
 		end
 	end
 
 	test "should require interview_event_id" do
 		assert_no_difference 'OperationalEventType.count' do
-			operational_event_type = create_operational_event_type(:interview_event_id => nil)
+			operational_event_type = create_operational_event_type(
+				:interview_event_id => nil)
 			assert operational_event_type.errors.on(:interview_event_id)
 		end
 	end
@@ -40,9 +45,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	test "should have many operational_events" do
 		operational_event_type = create_operational_event_type
 		assert_equal 0, operational_event_type.operational_events.length
-		Factory(:operational_event, :operational_event_type_id => operational_event_type.id)
+		Factory(:operational_event, 
+				:operational_event_type_id => operational_event_type.id)
 		assert_equal 1, operational_event_type.reload.operational_events.length
-		Factory(:operational_event, :operational_event_type_id => operational_event_type.id)
+		Factory(:operational_event, 
+				:operational_event_type_id => operational_event_type.id)
 		assert_equal 2, operational_event_type.reload.operational_events.length
 	end
 

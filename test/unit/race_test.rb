@@ -5,7 +5,8 @@ class RaceTest < ActiveSupport::TestCase
 	test "should create race" do
 		assert_difference 'Race.count' do
 			race = create_race
-			assert !race.new_record?, "#{race.errors.full_messages.to_sentence}"
+			assert !race.new_record?, 
+				"#{race.errors.full_messages.to_sentence}"
 		end
 	end
 

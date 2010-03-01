@@ -5,7 +5,8 @@ class InterviewEventTest < ActiveSupport::TestCase
 	test "should create interview_event" do
 		assert_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event
-			assert !interview_event.new_record?, "#{interview_event.errors.full_messages.to_sentence}"
+			assert !interview_event.new_record?, 
+				"#{interview_event.errors.full_messages.to_sentence}"
 		end
 	end
 
@@ -61,9 +62,11 @@ class InterviewEventTest < ActiveSupport::TestCase
 	test "should have many operational_event_types" do
 		interview_event = create_interview_event
 		assert_equal 0, interview_event.operational_event_types.length
-		Factory(:operational_event_type, :interview_event_id => interview_event.id)
+		Factory(:operational_event_type, 
+				:interview_event_id => interview_event.id)
 		assert_equal 1, interview_event.reload.operational_event_types.length
-		Factory(:operational_event_type, :interview_event_id => interview_event.id)
+		Factory(:operational_event_type, 
+				:interview_event_id => interview_event.id)
 		assert_equal 2, interview_event.reload.operational_event_types.length
 	end
 

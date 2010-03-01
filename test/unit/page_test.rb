@@ -5,7 +5,8 @@ class PageTest < ActiveSupport::TestCase
 	test "should create page" do
 		assert_difference 'Page.count' do
 			page = create_page
-			assert !page.new_record?, "#{page.errors.full_messages.to_sentence}"
+			assert !page.new_record?, 
+				"#{page.errors.full_messages.to_sentence}"
 		end
 	end
 

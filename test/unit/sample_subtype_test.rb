@@ -5,7 +5,8 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 	test "should create sample_subtype" do
 		assert_difference 'SampleSubtype.count' do
 			sample_subtype = create_sample_subtype
-			assert !sample_subtype.new_record?, "#{sample_subtype.errors.full_messages.to_sentence}"
+			assert !sample_subtype.new_record?, 
+				"#{sample_subtype.errors.full_messages.to_sentence}"
 		end
 	end
 
