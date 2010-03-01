@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-<link rel="shortcut icon" href="/images/cal.ico" />
+<link rel="shortcut icon" href="<%=image_path('cal.ico')%>" />
 <title><%= @page_title || "UCB SPH CCLS" -%></title>
 <%= stylesheet_link_tag 'application' %>
 <%#= stylesheet_link_tag controller.controller_name %>
@@ -38,7 +38,7 @@ You have not yet been authenticated.
  <%= content_tag :p, msg, :id => key, :class => 'flash' %>
 <% end %>
 <noscript>
-<p id='noscript' class='flash'>Dude, seriously?  Javascript is required for this site to be fully functional.</p>
+<p id='noscript' class='flash'>Javascript is required for this site to be fully functional.</p>
 </noscript>
 
 <%= yield %>
