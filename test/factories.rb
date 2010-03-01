@@ -78,8 +78,11 @@ Factory.define :study_event do |f|
 end
 
 Factory.define :study_event_eligibility do |f|
-#	f.association :subject
+	f.association :subject
 	f.association :study_event
+end
+
+Factory.define :subject do |f|
 end
 
 Factory.define :subject_type do |f|

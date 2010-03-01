@@ -9,11 +9,11 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong_to subject" do
+	test "should belong to a subject" do
 		project_subject = create_project_subject
-
-#		flunk subject
-
+		assert_nil project_subject.subject
+		project_subject.subject = Factory(:subject)
+		assert_not_nil project_subject.subject
 	end
 
 	test "should belong_to ineligible_reason" do

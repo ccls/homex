@@ -18,9 +18,9 @@ class OperationalEventTest < ActiveSupport::TestCase
 
 	test "should belong to a subject" do
 		operational_event = create_operational_event
-#		assert_nil operational_event.subject
-#		operational_event.subject = Factory(:subject)
-#		assert_not_nil operational_event.subject
+		assert_nil operational_event.subject
+		operational_event.subject = Factory(:subject)
+		assert_not_nil operational_event.subject
 	end
 
 protected

@@ -16,12 +16,12 @@ class ResidenceTest < ActiveSupport::TestCase
 		assert_not_nil residence.address
 	end
 
-	test "should belong to an subject" do
-
-#		flunk subject
-
+	test "should belong to a subject" do
+		residence = create_residence
+		assert_nil residence.subject
+		residence.subject = Factory(:subject)
+		assert_not_nil residence.subject
 	end
-
 
 protected
 

@@ -105,13 +105,13 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT get edit without login" do
 #		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-		get :edit, :id => Factory(:page)
+		get :edit, :id => Factory(:page).id
 		assert_redirected_to_cas_login
 	end
 
 	test "should get edit with admin login" do
 		login_as admin_user
-		get :edit, :id => Factory(:page)
+		get :edit, :id => Factory(:page).id
 		assert_template 'edit'
 		assert_response :success
 	end
@@ -125,7 +125,7 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT get edit without admin login" do
 		login_as active_user
-		get :edit, :id => Factory(:page)
+		get :edit, :id => Factory(:page).id
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -142,19 +142,19 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT update without login" do
 #		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-		put :update, :id => Factory(:page), :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
 		assert_redirected_to_cas_login
 	end
 
 	test "should update page with admin login" do
 		login_as admin_user
-		put :update, :id => Factory(:page), :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
 		assert_redirected_to page_path(assigns(:page))
 	end
 
 	test "should NOT update page with invalid page" do
 		login_as admin_user
-		put :update, :id => Factory(:page), :page => { :title => "a" }
+		put :update, :id => Factory(:page).id, :page => { :title => "a" }
 		assert_not_nil flash[:error]
 		assert_template 'edit'
 		assert_response :success
@@ -169,7 +169,7 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT update page without admin login" do
 		login_as active_user
-		put :update, :id => Factory(:page), :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -201,7 +201,7 @@ class PagesControllerTest < ActionController::TestCase
 		login_as admin_user
 		page = Factory(:page)
 		assert_difference('Page.count', -1) do
-			delete :destroy, :id => page
+			delete :destroy, :id => page.id
 		end
 		assert_redirected_to pages_path
 	end
@@ -210,7 +210,7 @@ class PagesControllerTest < ActionController::TestCase
 		login_as active_user
 		page = Factory(:page)
 		assert_no_difference('Page.count') do
-			delete :destroy, :id => page
+			delete :destroy, :id => page.id
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path

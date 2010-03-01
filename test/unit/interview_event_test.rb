@@ -23,12 +23,12 @@ class InterviewEventTest < ActiveSupport::TestCase
 		assert_not_nil interview_event.address
 	end
 
-#	test "should belong to a subject" do
-#		interview_event = create_interview_event
-#		assert_nil interview_event.subject
-#		interview_event.subject = Factory(:subject)
-#		assert_not_nil interview_event.subject
-#	end
+	test "should belong to a subject" do
+		interview_event = create_interview_event
+		assert_nil interview_event.subject
+		interview_event.subject = Factory(:subject)
+		assert_not_nil interview_event.subject
+	end
 
 	test "should belong to an interviewer" do
 		interview_event = create_interview_event
