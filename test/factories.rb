@@ -77,6 +77,11 @@ Factory.define :study_event do |f|
 	f.description "My Description"
 end
 
+Factory.define :study_event_eligibility do |f|
+#	f.association :subject
+	f.association :study_event
+end
+
 Factory.define :subject_type do |f|
 	f.description "My Description"
 end
