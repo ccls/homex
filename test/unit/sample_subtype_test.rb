@@ -23,10 +23,17 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require sample_type_id" do
+		assert_no_difference 'SampleSubtype.count' do
+			sample_subtype = create_sample_subtype(:sample_type_id => nil)
+			assert sample_subtype.errors.on(:sample_type_id)
+		end
+	end
+
 	test "should belong to sample_type" do
 		sample_subtype = create_sample_subtype
-		assert_nil sample_subtype.sample_type
-		sample_subtype.sample_type = Factory(:sample_type)
+#		assert_nil sample_subtype.sample_type
+#		sample_subtype.sample_type = Factory(:sample_type)
 		assert_not_nil sample_subtype.sample_type
 	end
 

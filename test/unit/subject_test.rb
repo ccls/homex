@@ -18,15 +18,15 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should belong to race" do
 		subject = create_subject
-		assert_nil subject.race
-		subject.race = Factory(:race)
+#		assert_nil subject.race
+#		subject.race = Factory(:race)
 		assert_not_nil subject.race
 	end
 
 	test "should belong to subject_type" do
 		subject = create_subject
-		assert_nil subject.subject_type
-		subject.subject_type = Factory(:subject_type)
+#		assert_nil subject.subject_type
+#		subject.subject_type = Factory(:subject_type)
 		assert_not_nil subject.subject_type
 	end
 
@@ -42,27 +42,27 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should have many project_subjects" do
 		subject = create_subject
 		assert_equal 0, subject.project_subjects.length
-		subject.project_subjects << Factory(:project_subject)
-		assert_equal 1, subject.project_subjects.length
-		subject.project_subjects << Factory(:project_subject)
+		Factory(:project_subject, :subject_id => subject.id)
+		assert_equal 1, subject.reload.project_subjects.length
+		Factory(:project_subject, :subject_id => subject.id)
 		assert_equal 2, subject.reload.project_subjects.length
 	end
 
 	test "should have many samples" do
 		subject = create_subject
 		assert_equal 0, subject.samples.length
-		subject.samples << Factory(:sample)
-		assert_equal 1, subject.samples.length
-		subject.samples << Factory(:sample)
+		Factory(:sample, :subject_id => subject.id)
+		assert_equal 1, subject.reload.samples.length
+		Factory(:sample, :subject_id => subject.id)
 		assert_equal 2, subject.reload.samples.length
 	end
 
 	test "should have many residences" do
 		subject = create_subject
 		assert_equal 0, subject.residences.length
-		subject.residences << Factory(:residence)
-		assert_equal 1, subject.residences.length
-		subject.residences << Factory(:residence)
+		Factory(:residence, :subject_id => subject.id)
+		assert_equal 1, subject.reload.residences.length
+		Factory(:residence, :subject_id => subject.id)
 		assert_equal 2, subject.reload.residences.length
 	end
 

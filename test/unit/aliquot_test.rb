@@ -9,12 +9,19 @@ class AliquotTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require description" do
-#		assert_no_difference 'Aliquot.count' do
-#			aliquot = create_aliquot(:description => nil)
-#			assert aliquot.errors.on(:description)
-#		end
-#	end
+	test "should require sample_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:sample_id => nil)
+			assert aliquot.errors.on(:sample_id)
+		end
+	end
+
+	test "should require unit_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:unit_id => nil)
+			assert aliquot.errors.on(:unit_id)
+		end
+	end
 
 	test "should belong to aliquot_sample_format" do
 		aliquot = create_aliquot
@@ -25,15 +32,15 @@ class AliquotTest < ActiveSupport::TestCase
 
 	test "should belong to sample" do
 		aliquot = create_aliquot
-		assert_nil aliquot.sample
-		aliquot.sample = Factory(:sample)
+#		assert_nil aliquot.sample
+#		aliquot.sample = Factory(:sample)
 		assert_not_nil aliquot.sample
 	end
 
 	test "should belong to unit" do
 		aliquot = create_aliquot
-		assert_nil aliquot.unit
-		aliquot.unit = Factory(:unit)
+#		assert_nil aliquot.unit
+#		aliquot.unit = Factory(:unit)
 		assert_not_nil aliquot.unit
 	end
 

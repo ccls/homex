@@ -5,4 +5,7 @@ class Sample < ActiveRecord::Base
 	belongs_to :unit
 #	belongs_to :organization
 	has_many :aliquots
+
+	validates_presence_of :subject_id
+	validates_presence_of :unit_id
 end

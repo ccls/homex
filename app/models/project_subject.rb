@@ -3,4 +3,7 @@ class ProjectSubject < ActiveRecord::Base
 	belongs_to :ineligible_reason
 	belongs_to :refusal_reason
 	belongs_to :study_event
+
+	validates_presence_of :subject_id
+	validates_presence_of :study_event_id
 end

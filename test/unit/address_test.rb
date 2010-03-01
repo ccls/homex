@@ -12,9 +12,9 @@ class AddressTest < ActiveSupport::TestCase
 	test "should have many residences" do
 		address = create_address
 		assert_equal 0, address.residences.length
-		address.residences << Factory(:residence)
-		assert_equal 1, address.residences.length
-		address.residences << Factory(:residence)
+		Factory(:residence, :address_id => address.id)
+		assert_equal 1, address.reload.residences.length
+		Factory(:residence, :address_id => address.id)
 		assert_equal 2, address.reload.residences.length
 	end
 

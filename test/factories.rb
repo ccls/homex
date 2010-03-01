@@ -2,6 +2,8 @@ Factory.define :address do |f|
 end
 
 Factory.define :aliquot do |f|
+	f.association :sample
+	f.association :unit
 end
 
 Factory.define :aliquot_sample_format do |f|
@@ -55,13 +57,17 @@ Factory.define :interviewer, :parent => :person do |f|
 end	#	parent must be defined first
 
 Factory.define :project_subject do |f|
+	f.association :subject
+	f.association :study_event
 end
 
 Factory.define :race do |f|
-	f.name "MyName"
+	f.sequence(:name){|n| "Race#{n}"}
 end
 
 Factory.define :residence do |f|
+	f.association :address
+	f.association :subject
 end
 
 Factory.define :refusal_reason do |f|
@@ -69,9 +75,12 @@ Factory.define :refusal_reason do |f|
 end
 
 Factory.define :sample do |f|
+	f.association :subject
+	f.association :unit
 end
 
 Factory.define :sample_subtype do |f|
+	f.association :sample_type
 	f.description "My Description"
 end
 
@@ -89,6 +98,8 @@ Factory.define :study_event_eligibility do |f|
 end
 
 Factory.define :subject do |f|
+	f.association :subject_type
+	f.association :race
 end
 
 Factory.define :subject_type do |f|

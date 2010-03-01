@@ -42,17 +42,20 @@ class StudyEventTest < ActiveSupport::TestCase
 	end
 
 	test "should have many study_event_eligibilities" do
-
-#		flunk study_event_eligibilities
-
+		study_event = create_study_event
+		assert_equal 0, study_event.study_event_eligibilities.length
+		Factory(:study_event_eligibility, :study_event_id => study_event.id)
+		assert_equal 1, study_event.reload.study_event_eligibilities.length
+		Factory(:study_event_eligibility, :study_event_id => study_event.id)
+		assert_equal 2, study_event.reload.study_event_eligibilities.length
 	end
 
 	test "should have many project_subjects" do
 		study_event = create_study_event
 		assert_equal 0, study_event.project_subjects.length
-		study_event.project_subjects << Factory(:project_subject)
-		assert_equal 1, study_event.project_subjects.length
-		study_event.project_subjects << Factory(:project_subject)
+		Factory(:project_subject, :study_event_id => study_event.id)
+		assert_equal 1, study_event.reload.project_subjects.length
+		Factory(:project_subject, :study_event_id => study_event.id)
 		assert_equal 2, study_event.reload.project_subjects.length
 	end
 

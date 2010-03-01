@@ -9,6 +9,20 @@ class SampleTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require subject_id" do
+		assert_no_difference 'Sample.count' do
+			sample = create_sample(:subject_id => nil)
+			assert sample.errors.on(:subject_id)
+		end
+	end
+
+	test "should require unit_id" do
+		assert_no_difference 'Sample.count' do
+			sample = create_sample(:unit_id => nil)
+			assert sample.errors.on(:unit_id)
+		end
+	end
+
 	test "should belong to aliquot_sample_format" do
 		sample = create_sample
 		assert_nil sample.aliquot_sample_format
@@ -25,15 +39,15 @@ class SampleTest < ActiveSupport::TestCase
 
 	test "should belong to subject" do
 		sample = create_sample
-		assert_nil sample.subject
-		sample.subject = Factory(:subject)
+#		assert_nil sample.subject
+#		sample.subject = Factory(:subject)
 		assert_not_nil sample.subject
 	end
 
 	test "should belong to unit" do
 		sample = create_sample
-		assert_nil sample.unit
-		sample.unit = Factory(:unit)
+#		assert_nil sample.unit
+#		sample.unit = Factory(:unit)
 		assert_not_nil sample.unit
 	end
 
@@ -49,9 +63,9 @@ class SampleTest < ActiveSupport::TestCase
 	test "should have many aliquots" do
 		sample = create_sample
 		assert_equal 0, sample.aliquots.length
-		sample.aliquots << Factory(:aliquot)
-		assert_equal 1, sample.aliquots.length
-		sample.aliquots << Factory(:aliquot)
+		Factory(:aliquot, :sample_id => sample.id)
+		assert_equal 1, sample.reload.aliquots.length
+		Factory(:aliquot, :sample_id => sample.id)
 		assert_equal 2, sample.reload.aliquots.length
 	end
 
