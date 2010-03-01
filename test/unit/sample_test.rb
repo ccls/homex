@@ -48,11 +48,11 @@ class SampleTest < ActiveSupport::TestCase
 
 	test "should have many aliquots" do
 		sample = create_sample
-#		assert_equal 0, sample.aliquots.length
-#		sample.aliquots << Factory(:aliquot)
-#		assert_equal 1, sample.aliquots.length
-#		sample.aliquots << Factory(:aliquot)
-#		assert_equal 2, sample.reload.aliquots.length
+		assert_equal 0, sample.aliquots.length
+		sample.aliquots << Factory(:aliquot)
+		assert_equal 1, sample.aliquots.length
+		sample.aliquots << Factory(:aliquot)
+		assert_equal 2, sample.reload.aliquots.length
 	end
 
 

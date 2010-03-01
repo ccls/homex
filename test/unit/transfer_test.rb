@@ -23,6 +23,13 @@ class TransferTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require aliquot" do
+		assert_no_difference 'Transfer.count' do
+			transfer = create_transfer(:aliquot_id => nil)
+			assert transfer.errors.on(:aliquot_id)
+		end
+	end
+
 	test "should belong to from_organization" do
 		transfer = create_transfer
 		assert_not_nil transfer.from_organization
@@ -34,9 +41,8 @@ class TransferTest < ActiveSupport::TestCase
 	end
 
 	test "should belong to aliquot" do
-
-#		flunk aliquot
-
+		transfer = create_transfer
+		assert_not_nil transfer.aliquot
 	end
 
 protected

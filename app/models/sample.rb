@@ -4,5 +4,5 @@ class Sample < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :unit
 #	belongs_to :organization
-#	has_many :aliquots
+	has_many :aliquots
 end

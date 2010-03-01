@@ -32,11 +32,11 @@ class UnitTest < ActiveSupport::TestCase
 
 	test "should have many aliquots" do
 		unit = create_unit
-#		assert_equal 0, unit.aliquots.length
-#		unit.aliquots << Factory(:aliquots)
-#		assert_equal 1, unit.aliquots.length
-#		unit.aliquots << Factory(:aliquots)
-#		assert_equal 2, unit.reload.aliquots.length
+		assert_equal 0, unit.aliquots.length
+		unit.aliquots << Factory(:aliquot)
+		assert_equal 1, unit.aliquots.length
+		unit.aliquots << Factory(:aliquot)
+		assert_equal 2, unit.reload.aliquots.length
 	end
 
 	test "should have many samples" do

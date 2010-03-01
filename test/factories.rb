@@ -1,6 +1,9 @@
 Factory.define :address do |f|
 end
 
+Factory.define :aliquot do |f|
+end
+
 Factory.define :aliquot_sample_format do |f|
 	f.description "My Description"
 end
@@ -95,7 +98,7 @@ end
 Factory.define :transfer do |f|
 	f.association :from_organization, :factory => :organization
 	f.association :to_organization,   :factory => :organization
-#	f.association :aliquot
+	f.association :aliquot
 end
 
 Factory.define :unit do |f|
