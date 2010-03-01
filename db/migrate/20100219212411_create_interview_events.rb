@@ -4,7 +4,7 @@ class CreateInterviewEvents < ActiveRecord::Migration
 			t.references :subject
 			t.references :address
 			t.references :interviewer
-			t.references :interview_version
+#			t.references :interview_version
 			t.date :began_on
 			t.date :ended_on
 			t.string :language

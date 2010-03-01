@@ -37,11 +37,13 @@ class InterviewEventTest < ActiveSupport::TestCase
 		assert_not_nil interview_event.interviewer
 	end
 
-	test "should belong to an interview_version" do
+	test "should have many interview_versions" do
 		interview_event = create_interview_event
-		assert_nil interview_event.interview_version
-		interview_event.interview_version = Factory(:interview_version)
-		assert_not_nil interview_event.interview_version
+		assert_equal 0, interview_event.interview_versions.length
+		interview_event.interview_versions << Factory(:interview_version)
+		assert_equal 1, interview_event.interview_versions.length
+		interview_event.interview_versions << Factory(:interview_version)
+		assert_equal 2, interview_event.reload.interview_versions.length
 	end
 
 protected
