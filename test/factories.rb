@@ -54,6 +54,10 @@ end	#	parent must be defined first
 Factory.define :project_subject do |f|
 end
 
+Factory.define :race do |f|
+	f.name "MyName"
+end
+
 Factory.define :residence do |f|
 end
 
