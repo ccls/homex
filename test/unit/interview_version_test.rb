@@ -23,17 +23,31 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require interview_type_id" do
+		assert_no_difference 'InterviewVersion.count' do
+			interview_version = create_interview_version(:interview_type_id => nil)
+			assert interview_version.errors.on(:interview_type_id)
+		end
+	end
+
+	test "should require interview_event_id" do
+		assert_no_difference 'InterviewVersion.count' do
+			interview_version = create_interview_version(:interview_event_id => nil)
+			assert interview_version.errors.on(:interview_event_id)
+		end
+	end
+
 	test "should belong to a interview_type" do
 		interview_version = create_interview_version
-		assert_nil interview_version.interview_type
-		interview_version.interview_type = Factory(:interview_type)
+#		assert_nil interview_version.interview_type
+#		interview_version.interview_type = Factory(:interview_type)
 		assert_not_nil interview_version.interview_type
 	end
 
 	test "should belong to a interview_event" do
 		interview_version = create_interview_version
-		assert_nil interview_version.interview_event
-		interview_version.interview_event = Factory(:interview_event)
+#		assert_nil interview_version.interview_event
+#		interview_version.interview_event = Factory(:interview_event)
 		assert_not_nil interview_version.interview_event
 	end
 

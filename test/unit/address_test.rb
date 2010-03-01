@@ -21,9 +21,9 @@ class AddressTest < ActiveSupport::TestCase
 	test "should have many interview_events" do
 		address = create_address
 		assert_equal 0, address.interview_events.length
-		address.interview_events << Factory(:interview_event)
-		assert_equal 1, address.interview_events.length
-		address.interview_events << Factory(:interview_event)
+		Factory(:interview_event, :address_id => address.id)
+		assert_equal 1, address.reload.interview_events.length
+		Factory(:interview_event, :address_id => address.id)
 		assert_equal 2, address.reload.interview_events.length
 	end
 

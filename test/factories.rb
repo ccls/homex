@@ -19,14 +19,20 @@ Factory.define :ineligible_reason do |f|
 end
 
 Factory.define :interview_event do |f|
+	f.association :address
+	f.association :subject
+	f.association :interviewer, :factory => :person
 end
 
 Factory.define :interview_type do |f|
 	f.description "My Description"
+	f.association :study_event
 end
 
 Factory.define :interview_version do |f|
 	f.description "My Description"
+	f.association :interview_event
+	f.association :interview_type
 end
 
 Factory.define :organization do |f|
@@ -34,10 +40,14 @@ Factory.define :organization do |f|
 end
 
 Factory.define :operational_event do |f|
+	f.association :subject
+	f.association :operational_event_type
 end
 
 Factory.define :operational_event_type do |f|
 	f.description "My Description"
+	f.association :study_event
+	f.association :interview_event
 end
 
 Factory.define :package do |f|

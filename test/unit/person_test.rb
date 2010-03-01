@@ -27,9 +27,9 @@ class PersonTest < ActiveSupport::TestCase
 	test "should have many interview_events" do
 		person = create_person
 		assert_equal 0, person.interview_events.length
-		person.interview_events << Factory(:interview_event)
-		assert_equal 1, person.interview_events.length
-		person.interview_events << Factory(:interview_event)
+		Factory(:interview_event, :interviewer_id => person.id)
+		assert_equal 1, person.reload.interview_events.length
+		Factory(:interview_event, :interviewer_id => person.id)
 		assert_equal 2, person.reload.interview_events.length
 	end
 

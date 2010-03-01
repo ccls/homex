@@ -26,18 +26,18 @@ class StudyEventTest < ActiveSupport::TestCase
 	test "should have many operational_event_types" do
 		study_event = create_study_event
 		assert_equal 0, study_event.operational_event_types.length
-		study_event.operational_event_types << Factory(:operational_event_type)
-		assert_equal 1, study_event.operational_event_types.length
-		study_event.operational_event_types << Factory(:operational_event_type)
+		Factory(:operational_event_type, :study_event_id => study_event.id)
+		assert_equal 1, study_event.reload.operational_event_types.length
+		Factory(:operational_event_type, :study_event_id => study_event.id)
 		assert_equal 2, study_event.reload.operational_event_types.length
 	end
 
 	test "should have many interview_types" do
 		study_event = create_study_event
 		assert_equal 0, study_event.interview_types.length
-		study_event.interview_types << Factory(:interview_type)
-		assert_equal 1, study_event.interview_types.length
-		study_event.interview_types << Factory(:interview_type)
+		Factory(:interview_type, :study_event_id => study_event.id)
+		assert_equal 1, study_event.reload.interview_types.length
+		Factory(:interview_type, :study_event_id => study_event.id)
 		assert_equal 2, study_event.reload.interview_types.length
 	end
 

@@ -23,26 +23,40 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require study_event_id" do
+		assert_no_difference 'OperationalEventType.count' do
+			operational_event_type = create_operational_event_type(:study_event_id => nil)
+			assert operational_event_type.errors.on(:study_event_id)
+		end
+	end
+
+	test "should require interview_event_id" do
+		assert_no_difference 'OperationalEventType.count' do
+			operational_event_type = create_operational_event_type(:interview_event_id => nil)
+			assert operational_event_type.errors.on(:interview_event_id)
+		end
+	end
+
 	test "should have many operational_events" do
 		operational_event_type = create_operational_event_type
 		assert_equal 0, operational_event_type.operational_events.length
-		operational_event_type.operational_events << Factory(:operational_event)
-		assert_equal 1, operational_event_type.operational_events.length
-		operational_event_type.operational_events << Factory(:operational_event)
+		Factory(:operational_event, :operational_event_type_id => operational_event_type.id)
+		assert_equal 1, operational_event_type.reload.operational_events.length
+		Factory(:operational_event, :operational_event_type_id => operational_event_type.id)
 		assert_equal 2, operational_event_type.reload.operational_events.length
 	end
 
 	test "should belong to a study_event" do
 		operational_event_type = create_operational_event_type
-		assert_nil operational_event_type.study_event
-		operational_event_type.study_event = Factory(:study_event)
+#		assert_nil operational_event_type.study_event
+#		operational_event_type.study_event = Factory(:study_event)
 		assert_not_nil operational_event_type.study_event
 	end
 
 	test "should belong to an interview_event" do
 		operational_event_type = create_operational_event_type
-		assert_nil operational_event_type.interview_event
-		operational_event_type.interview_event = Factory(:interview_event)
+#		assert_nil operational_event_type.interview_event
+#		operational_event_type.interview_event = Factory(:interview_event)
 		assert_not_nil operational_event_type.interview_event
 	end
 

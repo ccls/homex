@@ -23,19 +23,26 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require study_event_id" do
+		assert_no_difference 'InterviewType.count' do
+			interview_type = create_interview_type(:study_event_id => nil)
+			assert interview_type.errors.on(:study_event_id)
+		end
+	end
+
 	test "should belong to a study event" do
 		interview_type = create_interview_type
-		assert_nil interview_type.study_event
-		interview_type.study_event = Factory(:study_event)
+#		assert_nil interview_type.study_event
+#		interview_type.study_event = Factory(:study_event)
 		assert_not_nil interview_type.study_event
 	end
 
 	test "should have many interview_versions" do
 		interview_type = create_interview_type
 		assert_equal 0, interview_type.interview_versions.length
-		interview_type.interview_versions << Factory(:interview_version)
-		assert_equal 1, interview_type.interview_versions.length
-		interview_type.interview_versions << Factory(:interview_version)
+		Factory(:interview_version, :interview_type_id => interview_type.id)
+		assert_equal 1, interview_type.reload.interview_versions.length
+		Factory(:interview_version, :interview_type_id => interview_type.id)
 		assert_equal 2, interview_type.reload.interview_versions.length
 	end
 

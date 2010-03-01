@@ -33,9 +33,9 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should have many operational_events" do
 		subject = create_subject
 		assert_equal 0, subject.operational_events.length
-		subject.operational_events << Factory(:operational_event)
-		assert_equal 1, subject.operational_events.length
-		subject.operational_events << Factory(:operational_event)
+		Factory(:operational_event, :subject_id => subject.id)
+		assert_equal 1, subject.reload.operational_events.length
+		Factory(:operational_event, :subject_id => subject.id)
 		assert_equal 2, subject.reload.operational_events.length
 	end
 
@@ -69,9 +69,9 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should have many interview_events" do
 		subject = create_subject
 		assert_equal 0, subject.interview_events.length
-		subject.interview_events << Factory(:interview_event)
-		assert_equal 1, subject.interview_events.length
-		subject.interview_events << Factory(:interview_event)
+		Factory(:interview_event, :subject_id => subject.id)
+		assert_equal 1, subject.reload.interview_events.length
+		Factory(:interview_event, :subject_id => subject.id)
 		assert_equal 2, subject.reload.interview_events.length
 	end
 
