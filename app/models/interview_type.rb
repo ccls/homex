@@ -5,4 +5,5 @@ class InterviewType < ActiveRecord::Base
 	validates_length_of :description, :minimum => 4
 	validates_presence_of :study_event_id
 	validates_uniqueness_of :description
+	named_scope :list, :order => :position
 end

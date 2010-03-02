@@ -6,4 +6,5 @@ class StudyEvent < ActiveRecord::Base
 	has_many :study_event_eligibilities
 	validates_length_of :description, :minimum => 4
 	validates_uniqueness_of :description
+	named_scope :list, :order => :position
 end

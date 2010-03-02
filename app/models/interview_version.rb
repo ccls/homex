@@ -6,4 +6,5 @@ class InterviewVersion < ActiveRecord::Base
 	validates_presence_of :interview_type_id
 	validates_presence_of :interview_event_id
 	validates_uniqueness_of :description
+	named_scope :list, :order => :position
 end

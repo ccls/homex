@@ -5,6 +5,8 @@ class Page < ActiveRecord::Base
 	validates_length_of :body,  :minimum => 4
 	validates_uniqueness_of :path
 	
+	named_scope :list, :order => :position
+
 	attr_accessible :path, :title, :body
 
 	after_validation :downcase_path

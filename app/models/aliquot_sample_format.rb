@@ -4,4 +4,5 @@ class AliquotSampleFormat < ActiveRecord::Base
 	has_many :samples
 	validates_length_of :description, :minimum => 4
 	validates_uniqueness_of :description
+	named_scope :list, :order => :position
 end
