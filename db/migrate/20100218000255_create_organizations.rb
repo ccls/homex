@@ -1,6 +1,7 @@
 class CreateOrganizations < ActiveRecord::Migration
 	def self.up
 		create_table :organizations do |t|
+			t.integer :position
 			t.string :name
 			t.timestamps
 		end

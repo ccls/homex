@@ -1,6 +1,7 @@
 class CreateSamples < ActiveRecord::Migration
 	def self.up
 		create_table :samples do |t|
+			t.integer :position
 			t.references :aliquot_sample_format
 			t.references :sample_subtype
 			t.references :subject

@@ -24,6 +24,15 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		iv = create_interview_version
+		assert_no_difference 'InterviewVersion.count' do
+			interview_version = create_interview_version(
+				:description => iv.description)
+			assert interview_version.errors.on(:description)
+		end
+	end
+
 	test "should require interview_type_id" do
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(

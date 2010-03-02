@@ -1,6 +1,7 @@
 class CreateResidences < ActiveRecord::Migration
 	def self.up
 		create_table :residences do |t|
+			t.integer :position
 			t.references :address
 			t.references :subject
 			t.date :moved_in_on

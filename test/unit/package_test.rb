@@ -38,6 +38,14 @@ class PackageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique tracking_number" do
+		p = create_package
+		assert_no_difference 'Package.count' do
+			package = create_package(:tracking_number => p.tracking_number)
+			assert package.errors.on(:tracking_number)
+		end
+	end
+
 	test "should have no status when created" do
 		package = create_package
 		assert_nil package.status

@@ -26,6 +26,15 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		asf = create_aliquot_sample_format
+		assert_no_difference 'AliquotSampleFormat.count' do
+			aliquot_sample_format = create_aliquot_sample_format(
+				:description => asf.description)
+			assert aliquot_sample_format.errors.on(:description)
+		end
+	end
+
 	test "should have many aliquots" do
 		aliquot_sample_format = create_aliquot_sample_format
 		assert_equal 0, aliquot_sample_format.aliquots.length

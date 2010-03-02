@@ -24,6 +24,15 @@ class SampleTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		st = create_sample_type
+		assert_no_difference 'SampleType.count' do
+			sample_type = create_sample_type(
+				:description => st.description)
+			assert sample_type.errors.on(:description)
+		end
+	end
+
 	test "should have many sample_subtypes" do
 		sample_type = create_sample_type
 		assert_equal 0, sample_type.sample_subtypes.length

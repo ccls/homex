@@ -24,6 +24,15 @@ class ContextTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		context = create_context
+		assert_no_difference 'Context.count' do
+			context = create_context(
+				:description => context.description)
+			assert context.errors.on(:description)
+		end
+	end
+
 	test "should have many units" do
 		context = create_context
 		assert_equal 0, context.units.length

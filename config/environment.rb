@@ -35,6 +35,10 @@ Rails::Initializer.run do |config|
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
 	config.gem "packet"			#		http://chronic.rubyforge.org/
 
+	config.gem 'ryanb-acts-as-list', 
+		:lib => 'acts_as_list', 
+		:source => 'http://gems.github.com'
+
 	#	For user model permissions
 	config.gem 'aegis', :source => 'http://gemcutter.org'
 

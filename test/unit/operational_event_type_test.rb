@@ -26,6 +26,15 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		oet = create_operational_event_type
+		assert_no_difference 'OperationalEventType.count' do
+			operational_event_type = create_operational_event_type(
+				:description => oet.description)
+			assert operational_event_type.errors.on(:description)
+		end
+	end
+
 	test "should require study_event_id" do
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(

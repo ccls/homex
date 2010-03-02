@@ -24,6 +24,14 @@ class OrganizationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique name" do
+		org = create_organization
+		assert_no_difference 'Organization.count' do
+			organization = create_organization(:name => org.name)
+			assert organization.errors.on(:name)
+		end
+	end
+
 	test "new incoming_transfer should have matching organization id" do
 		organization = create_organization
 		transfer = organization.incoming_transfers.build

@@ -1,6 +1,7 @@
 class CreateOperationalEvents < ActiveRecord::Migration
 	def self.up
 		create_table :operational_events do |t|
+			t.integer :position
 			t.references :subject
 			t.references :operational_event_type
 			t.date :began_on

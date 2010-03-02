@@ -24,6 +24,14 @@ class UnitTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		u = create_unit
+		assert_no_difference 'Unit.count' do
+			unit = create_unit(:description => u.description)
+			assert unit.errors.on(:description)
+		end
+	end
+
 	test "should belong to a context" do
 		unit = create_unit
 		assert_nil unit.context

@@ -24,6 +24,14 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique path" do
+		p = create_page
+		assert_no_difference 'Page.count' do
+			page = create_page(:path => p.path)
+			assert page.errors.on(:path)
+		end
+	end
+
 	test "should require title" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:title => nil)

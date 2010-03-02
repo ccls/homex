@@ -24,6 +24,15 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		rr = create_refusal_reason
+		assert_no_difference 'RefusalReason.count' do
+			refusal_reason = create_refusal_reason(
+				:description => rr.description )
+			assert refusal_reason.errors.on(:description)
+		end
+	end
+
 	test "should have many project_subjects" do
 		refusal_reason = create_refusal_reason
 		assert_equal 0, refusal_reason.project_subjects.length

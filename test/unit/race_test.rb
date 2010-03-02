@@ -24,13 +24,21 @@ class RaceTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique name" do
+		race1 = create_race
+		assert_no_difference 'Race.count' do
+			race = create_race(:name => race1.name)
+			assert race.errors.on(:name)
+		end
+	end
+
 	test "should have many subjects" do
 		race = create_race
-#		assert_equal 0, race.subjects.length
-#		race.subjects << Factory(:subject)
-#		assert_equal 1, race.subjects.length
-#		race.subjects << Factory(:subject)
-#		assert_equal 2, race.reload.subjects.length
+		assert_equal 0, race.subjects.length
+		Factory(:subject, :race_id => race.id)
+		assert_equal 1, race.reload.subjects.length
+		Factory(:subject, :race_id => race.id)
+		assert_equal 2, race.reload.subjects.length
 	end
 
 protected

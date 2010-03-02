@@ -24,6 +24,15 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		ir = create_ineligible_reason
+		assert_no_difference 'IneligibleReason.count' do
+			ineligible_reason = create_ineligible_reason(
+				:description => ir.description)
+			assert ineligible_reason.errors.on(:description)
+		end
+	end
+
 
 	test "should have many project_subjects" do
 		ineligible_reason = create_ineligible_reason

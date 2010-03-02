@@ -7,15 +7,15 @@ Factory.define :aliquot do |f|
 end
 
 Factory.define :aliquot_sample_format do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :context do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :ineligible_reason do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :interview_event do |f|
@@ -25,12 +25,12 @@ Factory.define :interview_event do |f|
 end
 
 Factory.define :interview_type do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 	f.association :study_event
 end
 
 Factory.define :interview_version do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 	f.association :interview_event
 	f.association :interview_type
 end
@@ -45,7 +45,7 @@ Factory.define :operational_event do |f|
 end
 
 Factory.define :operational_event_type do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 	f.association :study_event
 	f.association :interview_event
 end
@@ -81,7 +81,7 @@ Factory.define :residence do |f|
 end
 
 Factory.define :refusal_reason do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :sample do |f|
@@ -91,15 +91,15 @@ end
 
 Factory.define :sample_subtype do |f|
 	f.association :sample_type
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :sample_type do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :study_event do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :study_event_eligibility do |f|
@@ -113,7 +113,7 @@ Factory.define :subject do |f|
 end
 
 Factory.define :subject_type do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :transfer do |f|
@@ -123,7 +123,7 @@ Factory.define :transfer do |f|
 end
 
 Factory.define :unit do |f|
-	f.description "My Description"
+	f.sequence(:description) { |n| "My Description #{n}" }
 end
 
 Factory.define :user do |f|

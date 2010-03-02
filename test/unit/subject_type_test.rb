@@ -24,6 +24,15 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		st = create_subject_type
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(
+				:description => st.description)
+			assert subject_type.errors.on(:description)
+		end
+	end
+
 	test "should have many subjects" do
 		subject_type = create_subject_type
 		assert_equal 0, subject_type.subjects.length

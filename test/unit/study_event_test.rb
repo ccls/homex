@@ -24,6 +24,15 @@ class StudyEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		se = create_study_event
+		assert_no_difference 'StudyEvent.count' do
+			study_event = create_study_event(
+				:description => se.description)
+			assert study_event.errors.on(:description)
+		end
+	end
+
 	test "should have many operational_event_types" do
 		study_event = create_study_event
 		assert_equal 0, study_event.operational_event_types.length

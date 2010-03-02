@@ -1,6 +1,7 @@
 class CreateProjectSubjects < ActiveRecord::Migration
 	def self.up
 		create_table :project_subjects do |t|
+			t.integer :position
 			t.references :subject
 			t.references :study_event
 			t.references :ineligible_reason

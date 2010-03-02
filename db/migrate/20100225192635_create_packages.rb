@@ -1,6 +1,7 @@
 class CreatePackages < ActiveRecord::Migration
 	def self.up
 		create_table :packages do |t|
+			t.integer :position
 #			t.string :carrier, :null => false
 			t.string :tracking_number, :null => false
 			t.string :status

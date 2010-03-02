@@ -24,6 +24,15 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique description" do
+		it = create_interview_type
+		assert_no_difference 'InterviewType.count' do
+			interview_type = create_interview_type(
+				:description => it.description)
+			assert interview_type.errors.on(:description)
+		end
+	end
+
 	test "should require study_event_id" do
 		assert_no_difference 'InterviewType.count' do
 			interview_type = create_interview_type(:study_event_id => nil)

@@ -1,4 +1,5 @@
 class Page < ActiveRecord::Base
+	acts_as_list
 	validates_length_of :path,  :minimum => 4
 	validates_length_of :title, :minimum => 4
 	validates_length_of :body,  :minimum => 4
