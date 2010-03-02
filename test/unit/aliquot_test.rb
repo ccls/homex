@@ -87,11 +87,13 @@ class AliquotTest < ActiveSupport::TestCase
 		new_owner = Factory(:organization)
 		assert_difference('aliquot.reload.owner_id') {
 		assert_difference('aliquot.transfers.count', 1) {
+		assert_difference('initial_owner.reload.aliquots_count', -1) {
 		assert_difference('initial_owner.aliquots.count', -1) {
+		assert_difference('new_owner.reload.aliquots_count', 1) {
 		assert_difference('new_owner.aliquots.count', 1) {
 		assert_difference('Transfer.count',1) {
 			aliquot.transfer_to(new_owner)
-		} } } } }
+		} } } } } } }
 		assert_not_nil aliquot.reload.owner
 	end
 
@@ -104,11 +106,13 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_no_difference('aliquot.reload.owner_id') {
 		assert_no_difference('aliquot.transfers.count') {
 		assert_no_difference('initial_owner.aliquots.count') {
+		assert_no_difference('initial_owner.aliquots_count') {
 		assert_no_difference('new_owner.aliquots.count') {
+		assert_no_difference('new_owner.aliquots_count') {
 		assert_no_difference('Transfer.count') {
 		assert_raise(ActiveRecord::RecordNotSaved){
 			aliquot.transfer_to(new_owner)
-		} } } } } }
+		} } } } } } } }
 		assert_not_nil aliquot.reload.owner
 	end
 
@@ -121,11 +125,13 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_no_difference('aliquot.reload.owner_id') {
 		assert_no_difference('aliquot.transfers.count') {
 		assert_no_difference('initial_owner.aliquots.count') {
+		assert_no_difference('initial_owner.aliquots_count') {
 		assert_no_difference('new_owner.aliquots.count') {
+		assert_no_difference('new_owner.aliquots_count') {
 		assert_no_difference('Transfer.count') {
 		assert_raise(ActiveRecord::RecordInvalid){
 			aliquot.transfer_to(new_owner)
-		} } } } } }
+		} } } } } } } }
 		assert_not_nil aliquot.reload.owner
 	end
 
@@ -135,11 +141,12 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_not_nil initial_owner
 		assert_no_difference('aliquot.reload.owner_id') {
 		assert_no_difference('aliquot.transfers.count') {
+		assert_no_difference('initial_owner.aliquots_count') {
 		assert_no_difference('initial_owner.aliquots.count') {
 		assert_no_difference('Transfer.count') {
 		assert_raise(ActiveRecord::RecordNotFound){
 			aliquot.transfer_to(0)
-		} } } } }
+		} } } } } }
 		assert_not_nil aliquot.reload.owner
 	end
 

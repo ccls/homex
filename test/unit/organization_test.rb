@@ -69,12 +69,15 @@ class OrganizationTest < ActiveSupport::TestCase
 	test "should have many aliquots" do
 		organization = create_organization
 		assert_equal 0, organization.reload.aliquots.length
+		assert_equal 0, organization.reload.aliquots_count
 		organization.aliquots << Factory(:aliquot, 
 			:owner_id => organization.id )
 		assert_equal 1, organization.reload.aliquots.length
+		assert_equal 1, organization.reload.aliquots_count
 		organization.aliquots << Factory(:aliquot, 
 			:owner_id => organization.id )
 		assert_equal 2, organization.reload.aliquots.length
+		assert_equal 2, organization.reload.aliquots_count
 	end
 
 	test "should have many samples" do

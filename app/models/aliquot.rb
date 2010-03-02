@@ -3,7 +3,7 @@ class Aliquot < ActiveRecord::Base
 	belongs_to :unit
 	belongs_to :aliquot_sample_format
 #	belongs_to :aliquoter, :class_name => "Organization"
-	belongs_to :owner, :class_name => "Organization"
+	belongs_to :owner, :class_name => "Organization", :counter_cache => true
 	has_many :transfers
 #	has_one :last_transfer, :class_name => 'Transfer', 
 #		:order => 'created_at'
