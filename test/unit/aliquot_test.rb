@@ -24,6 +24,13 @@ class AliquotTest < ActiveSupport::TestCase
 		end
 	end
 
+#	test "should require aliquoter_id" do
+#		assert_no_difference 'Aliquot.count' do
+#			aliquot = create_aliquot(:aliquoter_id => nil)
+#			assert aliquot.errors.on(:aliquoter_id)
+#		end
+#	end
+
 	test "should require owner_id" do
 		assert_no_difference 'Aliquot.count' do
 			aliquot = create_aliquot(:owner_id => nil)
@@ -52,10 +59,14 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_not_nil aliquot.unit
 	end
 
+#	test "should belong to aliquoter" do
+#		aliquot = create_aliquot
+#		assert_not_nil aliquot.aliquoter
+#		assert aliquot.aliquoter.is_a?(Organization)
+#	end
+
 	test "should belong to owner" do
 		aliquot = create_aliquot
-#		assert_nil aliquot.owner
-#		aliquot.unit = Factory(:owner
 		assert_not_nil aliquot.owner
 		assert aliquot.owner.is_a?(Organization)
 	end
@@ -80,6 +91,54 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_difference('new_owner.aliquots.count', 1) {
 		assert_difference('Transfer.count',1) {
 			aliquot.transfer_to(new_owner)
+		} } } } }
+		assert_not_nil aliquot.reload.owner
+	end
+
+	test "should NOT transfer if aliquot owner update fails" do
+		aliquot = create_aliquot
+		initial_owner = aliquot.owner
+		assert_not_nil initial_owner
+		new_owner = Factory(:organization)
+		Aliquot.any_instance.stubs(:update_attribute).returns(false)
+		assert_no_difference('aliquot.reload.owner_id') {
+		assert_no_difference('aliquot.transfers.count') {
+		assert_no_difference('initial_owner.aliquots.count') {
+		assert_no_difference('new_owner.aliquots.count') {
+		assert_no_difference('Transfer.count') {
+		assert_raise(ActiveRecord::RecordNotSaved){
+			aliquot.transfer_to(new_owner)
+		} } } } } }
+		assert_not_nil aliquot.reload.owner
+	end
+
+	test "should NOT transfer if transfer creation fails" do
+		aliquot = create_aliquot
+		initial_owner = aliquot.owner
+		assert_not_nil initial_owner
+		new_owner = Factory(:organization)
+		Transfer.any_instance.stubs(:save!).raises(ActiveRecord::RecordInvalid.new(Transfer.new))
+		assert_no_difference('aliquot.reload.owner_id') {
+		assert_no_difference('aliquot.transfers.count') {
+		assert_no_difference('initial_owner.aliquots.count') {
+		assert_no_difference('new_owner.aliquots.count') {
+		assert_no_difference('Transfer.count') {
+		assert_raise(ActiveRecord::RecordInvalid){
+			aliquot.transfer_to(new_owner)
+		} } } } } }
+		assert_not_nil aliquot.reload.owner
+	end
+
+	test "should NOT transfer to invalid organization" do
+		aliquot = create_aliquot
+		initial_owner = aliquot.owner
+		assert_not_nil initial_owner
+		assert_no_difference('aliquot.reload.owner_id') {
+		assert_no_difference('aliquot.transfers.count') {
+		assert_no_difference('initial_owner.aliquots.count') {
+		assert_no_difference('Transfer.count') {
+		assert_raise(ActiveRecord::RecordNotFound){
+			aliquot.transfer_to(0)
 		} } } } }
 		assert_not_nil aliquot.reload.owner
 	end

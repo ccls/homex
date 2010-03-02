@@ -4,6 +4,7 @@ end
 Factory.define :aliquot do |f|
 	f.association :sample
 	f.association :unit
+#	f.association :aliquoter, :factory => :organization
 	f.association :owner, :factory => :organization
 end
 

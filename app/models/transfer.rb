@@ -9,10 +9,20 @@ class Transfer < ActiveRecord::Base
 	validates_presence_of :from_organization_id
 	validates_presence_of :to_organization_id
 
+	before_save :update_aliquot_owner
 
 	def to(organization)
 		self.to_organization = organization
 		self
 	end
 
+protected
+
+	def update_aliquot_owner
+		self.aliquot.update_attribute(:owner, self.to_organization)
+	end
+
 end
+
+
+#	It would not surprise me if sent_on and received_on are added
