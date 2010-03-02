@@ -134,3 +134,8 @@ end
 Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true
 end	#	parent must be defined first
+
+Factory.define :import do |f|
+end
+Factory.define :export do |f|
+end
