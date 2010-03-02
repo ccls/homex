@@ -24,6 +24,8 @@ class Permissions < Aegis::Permissions
 
 	role :user	#	default value for User.new
 
+	role :employee
+
 	#	This role serves no purpose as of yet
 	role :moderator
 
@@ -97,6 +99,10 @@ class Permissions < Aegis::Permissions
 
 	#	this will also create singular maintain_page permission (no arguments)
 	permission :maintain_pages do #	|current_user|
+	end
+
+	permission :view_calendar do
+		allow :employee
 	end
 
 	permission :view_packages do

@@ -45,6 +45,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :deputies,  :only => [ :index, :create, :destroy ]
 
+	map.resource  :calendar, :only => [ :show ]
 	map.resource  :session, :only => [ :destroy ]
 	map.resources :users,  :only => [ :index, :show ]
 	map.resources :pages
