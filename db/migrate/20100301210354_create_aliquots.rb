@@ -2,6 +2,7 @@ class CreateAliquots < ActiveRecord::Migration
 	def self.up
 		create_table :aliquots do |t|
 			t.integer :position
+			t.references :owner
 			t.references :sample
 			t.references :unit
 			t.references :aliquot_sample_format

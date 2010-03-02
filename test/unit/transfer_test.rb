@@ -34,11 +34,13 @@ class TransferTest < ActiveSupport::TestCase
 	test "should belong to from_organization" do
 		transfer = create_transfer
 		assert_not_nil transfer.from_organization
+		assert transfer.from_organization.is_a?(Organization)
 	end
 
 	test "should belong to to_organization" do
 		transfer = create_transfer
 		assert_not_nil transfer.to_organization
+		assert transfer.to_organization.is_a?(Organization)
 	end
 
 	test "should belong to aliquot" do

@@ -66,12 +66,15 @@ class OrganizationTest < ActiveSupport::TestCase
 		assert_equal 2, organization.reload.outgoing_transfers.length
 	end
 
-
 	test "should have many aliquots" do
-#		somehow
-
-#		flunk aliquots
-
+		organization = create_organization
+		assert_equal 0, organization.reload.aliquots.length
+		organization.aliquots << Factory(:aliquot, 
+			:owner_id => organization.id )
+		assert_equal 1, organization.reload.aliquots.length
+		organization.aliquots << Factory(:aliquot, 
+			:owner_id => organization.id )
+		assert_equal 2, organization.reload.aliquots.length
 	end
 
 	test "should have many samples" do

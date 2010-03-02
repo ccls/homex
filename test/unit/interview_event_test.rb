@@ -57,6 +57,7 @@ class InterviewEventTest < ActiveSupport::TestCase
 #		assert_nil interview_event.interviewer
 #		interview_event.interviewer = Factory(:interviewer)
 		assert_not_nil interview_event.interviewer
+		assert interview_event.interviewer.is_a?(Person)
 	end
 
 	test "should have many operational_event_types" do

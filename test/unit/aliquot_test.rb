@@ -24,6 +24,13 @@ class AliquotTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require owner_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:owner_id => nil)
+			assert aliquot.errors.on(:owner_id)
+		end
+	end
+
 	test "should belong to aliquot_sample_format" do
 		aliquot = create_aliquot
 		assert_nil aliquot.aliquot_sample_format
@@ -45,6 +52,14 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_not_nil aliquot.unit
 	end
 
+	test "should belong to owner" do
+		aliquot = create_aliquot
+#		assert_nil aliquot.owner
+#		aliquot.unit = Factory(:owner
+		assert_not_nil aliquot.owner
+		assert aliquot.owner.is_a?(Organization)
+	end
+
 	test "should have many transfers" do
 		aliquot = create_aliquot
 		assert_equal 0, aliquot.transfers.length
@@ -54,6 +69,20 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_equal 2, aliquot.reload.transfers.length
 	end
 
+	test "should transfer to another organization" do
+		aliquot = create_aliquot
+		initial_owner = aliquot.owner
+		assert_not_nil initial_owner
+		new_owner = Factory(:organization)
+		assert_difference('aliquot.reload.owner_id') {
+		assert_difference('aliquot.transfers.count', 1) {
+		assert_difference('initial_owner.aliquots.count', -1) {
+		assert_difference('new_owner.aliquots.count', 1) {
+		assert_difference('Transfer.count',1) {
+			aliquot.transfer_to(new_owner)
+		} } } } }
+		assert_not_nil aliquot.reload.owner
+	end
 
 protected
 

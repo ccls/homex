@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-#	has_many :aliquots
+	has_many :aliquots, :foreign_key => 'owner_id'
 #	has_many :samples
 
 	has_many :incoming_transfers, 

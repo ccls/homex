@@ -8,4 +8,11 @@ class Transfer < ActiveRecord::Base
 	validates_presence_of :aliquot_id
 	validates_presence_of :from_organization_id
 	validates_presence_of :to_organization_id
+
+
+	def to(organization)
+		self.to_organization = organization
+		self
+	end
+
 end
