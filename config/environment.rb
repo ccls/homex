@@ -21,15 +21,27 @@ Rails::Initializer.run do |config|
 	# config.gem "aws-s3", :lib => "aws/s3"
 
 
-# If using mysql ...
-# On Mac OS X:
-#   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
-# On Mac OS X Leopard:
-#   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-# ... however, I had to install the mysql gem like so ...
-#   sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-	config.gem 'mysql'
 
+	
+	if RUBY_PLATFORM =~ /java/
+		#	For functionality with rvm/jruby
+		#	I expected to have to change database.yml for this but didn't
+		config.gem 'activerecord-jdbcmysql-adapter',
+			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+	else
+
+		# If using mysql ...
+		# On Mac OS X:
+		#   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
+		# On Mac OS X Leopard:
+		#   sudo env ARCHFLAGS="-arch i386" gem install mysql 
+		#			-- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+		# ... however, I had to install the mysql gem like so ...
+		#   sudo env ARCHFLAGS="-arch x86_64" gem install mysql 
+		#			-- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+		config.gem 'mysql'
+	end
 
 	config.gem "RedCloth"
 	config.gem "chronic"			#		http://chronic.rubyforge.org/
