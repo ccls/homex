@@ -68,6 +68,15 @@ end
 Factory.define :interviewer, :parent => :person do |f|
 end	#	parent must be defined first
 
+Factory.define :pii do |f|
+	f.association :subject
+	f.first_name "First"
+	f.middle_name "Middle"
+	f.last_name "Last"
+	f.sequence(:ssn){|n| sprintf("%09d",n) }
+	f.sequence(:state_id_no){|n| "#{n}"}
+end
+
 Factory.define :project_subject do |f|
 	f.association :subject
 	f.association :study_event
