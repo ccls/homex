@@ -56,6 +56,12 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should belong to subject" do
+		pii = create_pii
+		assert_not_nil pii.subject
+	end
+
+
 protected
 
 	def create_pii(options = {})

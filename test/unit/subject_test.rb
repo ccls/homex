@@ -31,6 +31,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_not_nil subject.subject_type
 	end
 
+	test "should have one pii" do
+		subject = create_subject
+		assert_nil subject.pii
+		Factory(:pii, :subject_id => subject.id)
+		assert_not_nil subject.reload.pii
+		subject.pii.destroy
+		assert_nil subject.reload.pii
+	end
+
 	test "should have many operational_events" do
 		subject = create_subject
 		assert_equal 0, subject.operational_events.length
