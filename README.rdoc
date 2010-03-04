@@ -4,8 +4,8 @@
 
 == Required Gems
 
-* {rubycas-client}[http://github.com/gunark/rubycas-client] - 
-* {ucb_ldap}[http://gemcutter.org/gems/ucb_ldap] -
+* {rubycas-client}[http://github.com/gunark/rubycas-client] - CalNet CAS (user authentication)
+* {ucb_ldap}[http://gemcutter.org/gems/ucb_ldap] - CalNet LDAP (user information)
 * {RedCloth}[http://redcloth.org] - textile parser.
 * {aegis}[http://github.com/makandra/aegis] - manage permissions for user accounts in a central place. 
 * {active_shipping}[http://github.com/Shopify/active_shipping] - package tracking
