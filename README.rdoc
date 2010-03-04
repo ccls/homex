@@ -25,18 +25,16 @@
 
 == Installation
 
- # Add your own session secret to
- #	config/initializers/session_store.rb
+ #	Copy session file.
  cp config/initializers/session_store.rb.example config/initializers/session_store.rb
 
- #	generate a 128 character hex string perfect for using as your secret.
- rake secret
-
- #	Setup database file.
+ #	Copy and setup database file.
  cp config/database.yml.example config/database.yml
 
- #	Add your own FedEx credentials
+ #	Copy and add your own FedEx credentials.
  cp config/fed_ex.yml.example config/fed_ex.yml
+
+For standard ruby users ...
 
  #	If using mysql ...
  # On Mac OS X:
@@ -44,9 +42,31 @@
  # On Mac OS X Leopard:
  #   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
  # ... I had to install the mysql gem like so ...
- #   sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+ sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
 
  rake gems:install
+
+For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.
+
+ sudo gem install rvm
+ /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.22/bin/rvm-install
+ vi .bashrc
+ vi .bash_profile
+ bash
+ rvm install jruby
+ rvm use jruby
+ gem source -a http://gemcutter.org
+ gem source -a http://gems.github.com
+ gem install rails -v 2.3.4
+ gem install aegis RedCloth chronic packet rubycas-client ucb_ldap active_shipping ryanb-acts-as-list rcov mocha autotest-rails ZenTest thoughtbot-factory_girl activerecord-jdbcmysql-adapter jdbc-sqlite3
+ 
+then continue ...
+
+ # Add your own session secret to config/initializers/session_store.rb
+ #	generate a 128 character hex string perfect for using as your secret.
+ rake secret
+
  rake db:migrate
 
  #	add some expected pages (/home, /about)
