@@ -49,7 +49,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource  :session, :only => [ :destroy ]
 	map.resources :users,  :only => [ :index, :show ]
 	map.resources :pages
-	map.resources :packages, :only => :index
+	# new and create for packages are just for demo development
+	map.resources :packages, :only => [ :index, :new, :create ]
 
 	#	catch all route to manage admin created pages.
 	map.connect   '*path', :controller => 'pages', :action => 'show'

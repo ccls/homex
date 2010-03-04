@@ -7,6 +7,7 @@ class Package < ActiveRecord::Base
 	validates_uniqueness_of :tracking_number
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
+	@@packages_updated = "#{RAILS_ROOT}/packages_updated"
 
 	named_scope :delivered, :conditions => [
 		'status LIKE ?', '%Delivered%'
@@ -15,6 +16,8 @@ class Package < ActiveRecord::Base
 	named_scope :undelivered, :conditions => [
 		'status NOT LIKE ?', '%Delivered%'
 	]
+
+#	before_create :update_status
 
 	def update_status
 		begin
@@ -35,6 +38,26 @@ class Package < ActiveRecord::Base
 		rescue
 			self.update_attribute(:status, "Update failed")
 		end
+	end
+
+
+
+#
+#	I don't really like this, but I needed a way for the background job 
+#	to record when it last updated packages statuses so that the views
+#	would be able to tell the user.  Creating a database table seemed
+#	a bit extreme so I decided to just write it to a file.
+#
+	def self.last_updated
+		if File.exists?(@@packages_updated)
+			Time.parse(File.open(@@packages_updated,'r'){|f| f.read })
+		else
+			nil
+		end
+	end
+
+	def self.just_updated
+		File.open(@@packages_updated,'w'){|f| f.printf Time.now.to_s }
 	end
 
 end

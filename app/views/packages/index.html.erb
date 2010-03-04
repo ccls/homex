@@ -1,4 +1,3 @@
-Packages:
 <table><tbody><tr>
 <th>Tracking Number</th>
 <th>Status</th>
@@ -20,3 +19,7 @@ Packages:
 </tr>
 <% end %>
 </tbody></table>
+
+<p><%= button_link_to "Create new package", new_package_path -%></p>
+
+<%= "<p>Last shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>
