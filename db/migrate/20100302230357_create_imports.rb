@@ -13,8 +13,10 @@ class CreateImports < ActiveRecord::Migration
 			t.string :language_code
 			t.boolean :is_hispanic
 			t.string :race
-			t.string :phone_primary
-			t.string :phone_alternate
+#			t.string :phone_primary
+			t.string :primary_phone_number
+#			t.string :phone_alternate
+			t.string :alternate_phone_number
 #			t.date :date_dust_kit_sent
 			t.date :dust_kit_sent_on
 #			t.date :interview_complete_date

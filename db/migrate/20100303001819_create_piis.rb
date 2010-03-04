@@ -8,6 +8,8 @@ class CreatePiis < ActiveRecord::Migration
 			t.date :dob
 			t.string :ssn
 			t.string :state_id_no
+#			t.string :primary_phone_number
+#			t.string :alternate_phone_number
 			t.string :phone_primary
 			t.string :phone_alternate
 			t.string :mother_first_name
