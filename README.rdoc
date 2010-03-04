@@ -51,6 +51,7 @@ For rvm / jruby users, things get a bit more complicated, at least until I figur
 
  sudo gem install rvm
  /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.22/bin/rvm-install
+ # add ... if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
  vi .bashrc
  vi .bash_profile
  bash
