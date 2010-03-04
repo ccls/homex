@@ -7,7 +7,10 @@ class CreateImports < ActiveRecord::Migration
 			t.string :middle_name
 			t.string :last_name
 			t.string :sex
-			t.integer :language_id
+#			t.integer :language_id
+#	2 character codes like 'en', 'sp', 'fr'
+#	could create a 2 char column rather than a string?
+			t.string :language_code
 			t.boolean :is_hispanic
 			t.string :race
 			t.string :phone_primary

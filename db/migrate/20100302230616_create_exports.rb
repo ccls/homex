@@ -18,7 +18,8 @@ class CreateExports < ActiveRecord::Migration
 			t.string :father_first_name
 			t.string :father_middle_name
 			t.string :father_last_name
-			t.string :hospital_id
+#			t.string :hospital_id
+			t.string :hospital_code
 			t.text :comments
 			t.boolean :is_eligible
 			t.boolean :is_chosen
