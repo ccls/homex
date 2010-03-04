@@ -147,4 +147,6 @@ end	#	parent must be defined first
 Factory.define :import do |f|
 end
 Factory.define :export do |f|
+	f.sequence(:childid) { |n| "childid#{n}" }
+	f.sequence(:patid) { |n| "patid#{n}" }
 end

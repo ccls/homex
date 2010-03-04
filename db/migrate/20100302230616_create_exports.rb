@@ -24,9 +24,10 @@ class CreateExports < ActiveRecord::Migration
 			t.boolean :is_eligible
 			t.boolean :is_chosen
 			t.date :reference_date
-
 			t.timestamps
 		end
+		add_index :exports, :childid, :unique => true
+		add_index :exports, :patid,   :unique => true
 	end
 
 	def self.down

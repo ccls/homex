@@ -1,6 +1,9 @@
 class CreateImports < ActiveRecord::Migration
 	def self.up
 		create_table :imports do |t|
+
+#	NEED some uniq identifier
+
 			t.date :dob
 			t.date :diagnosis_date
 			t.string :first_name
