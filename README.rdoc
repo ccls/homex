@@ -47,7 +47,7 @@ For standard ruby users ...
 
  rake gems:install
 
-For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.
+For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.  `rake gems:install` does not seem to work in jruby.
 
  sudo gem install rvm
  /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.22/bin/rvm-install
@@ -90,7 +90,7 @@ Currently, the Package tests would need removed to test offline as they access t
  rake RAILS_ENV=test gems:install
  rake test
 	and/or
- autotest
+ autotest		#	does not work in jruby
 
 
 == Further Info
