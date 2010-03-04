@@ -45,7 +45,7 @@ For standard ruby users ...
 
  sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
 
- rake gems:install
+ sudo rake gems:install
 
 For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.  `rake gems:install` does not seem to work in jruby.
 
