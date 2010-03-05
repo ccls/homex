@@ -18,7 +18,6 @@ module AegisExtension
 			end
 
 
-
 			#	This works when the permission does not take an argument.
 			#		may_deputize_required
 			#		may_maintain_pages_required
@@ -41,7 +40,10 @@ module AegisExtension
 		
 					#	using target words where singular == plural won't work here
 					if !target.blank? && target == target.singularize
-						unless permission = aegis_current_user.try("may_#{permission_name}?", instance_variable_get("@#{target}") )
+						unless permission = aegis_current_user.try(
+								"may_#{permission_name}?", 
+								instance_variable_get("@#{target}") 
+							)
 							message = "You don't have permission to #{verb} this #{target}."
 						end
 					else
@@ -53,8 +55,9 @@ module AegisExtension
 
 					#	exclusive or
 					unless negate ^ permission
+						#	if message is nil, negate will be true
 						message ||= "Access denied.  May #{(negate)?'not ':''}#{permission_name.gsub(/_/,' ')}."
-						aegis_access_denied message
+						aegis_access_denied message||"Access denied."
 					end
 
 				else

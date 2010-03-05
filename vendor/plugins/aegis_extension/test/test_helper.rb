@@ -38,9 +38,9 @@ class Post < ActiveRecord::Base
 end
 
 class Permissions < Aegis::Permissions
-	role :user
-	role :moderator
-	role :administrator, :default_permission => :allow
+	role :user, :position => 1
+	role :moderator, :position => 2
+	role :administrator, :default_permission => :allow, :position => 3
 	permission :administrate do
 	end
 	permission :moderate do

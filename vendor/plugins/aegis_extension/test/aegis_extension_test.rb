@@ -71,4 +71,13 @@ class AegisExtensionTest < ActiveSupport::TestCase
 		assert ::Permissions.permission_names.include?(:destroy_post)
 	end
 
+	test "roles respond to options" do
+		::Permissions.find_all_roles.each do |role|
+			assert role.respond_to?(:name)
+			assert role.respond_to?(:options)
+			assert role.options.keys.include?(:position)
+			assert role.options[:position] > 0
+		end
+	end
+
 end
