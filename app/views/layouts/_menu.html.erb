@@ -1,11 +1,13 @@
 <div id='menu'>
   <%= link_to "Home",  root_path %>
   <%= link_to "About", "/about" %>
-	<% if logged_in? and current_user.is_admin? %>
-  <%= link_to "Calendar**", calendar_path %>
-  <%= link_to "Packages**", packages_path %>
-  <%= link_to "Pages**", pages_path %>
-  <%= link_to "Users**", users_path %>
-  <%= link_to "Deputies**", deputies_path %>
+<% if logged_in? %>
+  <%= link_to("Calendar",calendar_path) if current_user.may_view_calendar? %>
+	<% if current_user.is_admin? %>
+  <%= link_to "Packages", packages_path %>
+  <%= link_to "Pages", pages_path %>
+  <%= link_to "Users", users_path %>
+  <%= link_to "Deputies", deputies_path %>
 	<% end %>
+<% end %>
 </div><!-- menu -->
