@@ -70,6 +70,18 @@ class PackageTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should set and get packages updated time" do
+		if File.exists?(Package.packages_updated)
+			File.delete(Package.packages_updated)
+		end
+		assert !File.exists?(Package.packages_updated)
+		assert_nil Package.last_updated
+		Package.just_updated
+		assert File.exists?(Package.packages_updated)
+		assert_in_delta Package.last_updated,
+			Time.now.to_f, 2
+	end
+
 protected
 
 	def create_package(options = {})

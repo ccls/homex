@@ -7,14 +7,14 @@ class Package < ActiveRecord::Base
 	validates_uniqueness_of :tracking_number
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
-	@@packages_updated = "#{RAILS_ROOT}/packages_updated"
+	@@packages_updated = "#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
 
 	named_scope :delivered, :conditions => [
 		'status LIKE ?', '%Delivered%'
 	]
 
 	named_scope :undelivered, :conditions => [
-		'status NOT LIKE ?', '%Delivered%'
+		'status IS NULL OR status NOT LIKE ?', 'Delivered%'
 	]
 
 #	before_create :update_status
@@ -33,8 +33,11 @@ class Package < ActiveRecord::Base
 			#	At local FedEx facility
 			#	On FedEx vehicle for delivery
 			#	Delivered
-
-			self.update_attribute(:status, tracking_info.latest_event.name)
+			event = tracking_info.latest_event
+			self.update_attribute(:status, 
+				"#{event.name} at #{event.location.city}, " <<
+					"#{event.location.state} on #{event.time}."
+			)
 		rescue
 			self.update_attribute(:status, "Update failed")
 		end
@@ -58,6 +61,10 @@ class Package < ActiveRecord::Base
 
 	def self.just_updated
 		File.open(@@packages_updated,'w'){|f| f.printf Time.now.to_s }
+	end
+
+	def self.packages_updated
+		@@packages_updated
 	end
 
 end

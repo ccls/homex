@@ -111,3 +111,9 @@ div#users table td {
 div#users table td.is_admin {
 	text-align: center;
 }
+
+
+table#packages,
+p#status_updated {
+	font-size: 9pt;
+}
