@@ -109,6 +109,9 @@ class Permissions < Aegis::Permissions
 	permission :view_packages do
 	end
 
+	permission :view_permissions do
+	end
+
 #	:crud_addresses creates the following ...
 #	:create_address, :create_addresses, :destroy_address, :destroy_addresses, 
 #	:read_address, :read_addresses, :update_address, :update_addresses

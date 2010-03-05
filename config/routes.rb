@@ -51,6 +51,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :pages
 	# new and create for packages are just for demo development
 	map.resources :packages, :only => [ :index, :new, :create ]
+	map.resources :permissions, :only => :index
 
 	#	catch all route to manage admin created pages.
 	map.connect   '*path', :controller => 'pages', :action => 'show'
