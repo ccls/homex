@@ -1,0 +1,13 @@
+div#pages {
+	padding-top:20px;
+}
+div.path {
+	float:left;
+	width: 100px;
+}
+div.title {
+	float:left;
+	width: 200px;
+}
+div.manage {
+}

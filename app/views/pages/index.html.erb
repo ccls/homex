@@ -1,17 +1,21 @@
-<fieldset id='main'>
-<legend><%= controller_name.capitalize %></legend>
+<%= content_for :head, stylesheet_link_tag('pages') %>
 
-<table><tbody>
-<tr><th>Path</th><th>Title</th><th>&nbsp;</th></tr>
+<div id='pages'>
 <% @pages.each do |page| %>
-  <tr>
-    <td><%= link_to page.path, page.path -%></td>
-    <td><%= link_to page.title, page -%></td>
-    <td><%= link_to "Edit", edit_page_path(page) -%></td>
-    <td><%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title}'?\nAre you sure?", :method => :delete -%></td>
-	</tr>
+<div class='page row'>
+<div class='path'>
+<%= link_to page.path, page.path -%>
+</div>
+<div class='title'>
+<%= link_to page.title, page -%>
+</div>
+<div class='manage'>
+<%= link_to "Edit", edit_page_path(page) -%>
+&nbsp;
+<%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title}'?\nAre you sure?", :method => :delete -%>
+</div>
+</div><!-- class='page' -->
 <% end %>
-</tbody></table>
+</div><!-- id='pages' -->
 
-</fieldset>
 <p><%= button_link_to "Create new page", new_page_path -%></p>
