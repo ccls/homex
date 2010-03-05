@@ -113,7 +113,18 @@ div#users table td.is_admin {
 }
 
 
-table#packages,
-p#status_updated {
-	font-size: 9pt;
+
+div.row {
+	border: 1px solid silver;
+	border-top: 0;
+	padding: 6px;
+	overflow: auto;
 }
+div.row:nth-child(1) {
+	border-top: 1px solid silver;
+}
+div.row:nth-child(2n)   { background-color: #EEE; }
+div.row:nth-child(2n+1) { background-color: #DDD; }
+
+
+

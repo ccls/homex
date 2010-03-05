@@ -1,12 +1,5 @@
-<table id='packages'><tbody><tr>
-<th>Tracking Number</th>
-<th>Status</th>
-<th>Last Update</th>
-</tr>
-<% @packages.each do |package| %>
-<tr>
-	<td><%= link_to package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}" -%></td>
-	<td><%= package.status -%></td>
+<%= content_for :head, stylesheet_link_tag('packages') %>
+
 <%#
 	It is assumed that updated_at will always be in the past.
 	ActionView::Base.new.time_ago_in_words(Chronic.parse('tomorrow'))
@@ -15,10 +8,22 @@
 	The method should be "time_difference_in_words" as it simply
 	compares the first argument and the current time.
 -%>
-	<td><%= "#{time_ago_in_words(package.updated_at)} ago" -%></td>
-</tr>
+
+<div id='packages'>
+<% @packages.each do |package| %>
+<div class='package row'>
+<div class='tracking_number'>
+<%= link_to package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}" -%>
+</div>
+<div class='updated_at'>
+<%= "#{time_ago_in_words(package.updated_at)} ago" -%>
+</div>
+<div class='status'>
+<%= package.status -%>
+</div>
+</div>
 <% end %>
-</tbody></table>
+</div>
 
 <p><%= button_link_to "Create new package", new_package_path -%></p>
 

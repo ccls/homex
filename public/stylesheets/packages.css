@@ -1,0 +1,18 @@
+#packages,
+p#status_updated {
+	font-size: 9pt;
+}
+
+div#packages {
+	padding-top:20px;
+}
+div.tracking_number {
+	float:left;
+	width: 200px;
+}
+div.updated_at {
+
+}
+div.status {
+
+}
