@@ -6,6 +6,13 @@ namespace :app do
 #		exit
 #	end
 
+	desc "Add some expected users."
+	task :add_users => :environment do
+		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 10883 ).each do |uid|
+			User.find_create_and_update_by_uid(uid)
+		end
+	end
+
 	desc "Add initial pages."
 	task :add_pages => :environment do
 		unless p = Page.find_by_path("/home")

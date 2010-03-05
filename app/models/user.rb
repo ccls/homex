@@ -1,5 +1,6 @@
 #require 'aegis/has_role_hack'
 class User < ActiveRecord::Base
+	default_scope :order => :sn
 	####	begin aegis permissions code
 	#
 	# The value of the role_name column MUST ALWAYS
@@ -42,7 +43,13 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	named_scope :deputies, :conditions => { :role_name => "administrator" }, :order => :sn
+	Permissions.find_all_role_names.each do |role_name|
+		named_scope role_name.to_s.pluralize, :conditions => { 
+			:role_name => role_name.to_s 
+		}
+	end
+
+	named_scope :deputies, :conditions => { :role_name => "administrator" }
 
 	def is_admin?
 		#	using something so simple as an attribute to control such power is ill advised!

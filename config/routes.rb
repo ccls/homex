@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resource  :calendar, :only => [ :show ]
 	map.resource  :session, :only => [ :destroy ]
-	map.resources :users,  :only => [ :index, :show ]
+	map.resources :users,  :only => [ :index, :show, :update ]
 	map.resources :pages
 	# new and create for packages are just for demo development
 	map.resources :packages, :only => [ :index, :new, :create ]

@@ -1,14 +1,30 @@
 class UsersController < ApplicationController
 
-	before_filter :id_required, :only => :show
+	before_filter :id_required, :only => [ :show, :update ]
 	before_filter :may_view_user_required, :only => :show
 	before_filter :may_view_users_required, :only => :index
+	before_filter :may_not_be_user_required, :only => :update
 
 	def show
+		@roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.reverse
 	end
 
 	def index
 		@users = User.all(:order => :sn)
+	end
+
+	def update
+		@user.role_name = params[:role_name]
+		@user.save!
+		flash[:notice] = 'User was successfully updated.'
+		redirect_to @user
+	rescue ActiveRecord::RecordInvalid
+
+#	I don't like that I do this
+
+		@roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.reverse
+		flash.now[:error] = 'User update failed.'
+		render :show
 	end
 
 protected

@@ -7,5 +7,20 @@
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>
 </dl></div>
+
+
+<div id='roles'>
+<ul>
+<% @roles.each do |role| %>
+<li>
+<% if @user.role_name == role.name.to_s %>
+User is a(n) '<%= role.name -%>'
+<% else %>
+<%= link_to "Assign user role of '#{role.name}'", user_path(@user.id, :role_name => role.name ), :method => :put %>
+<% end %>
+</li>
+<% end %>
+</ul>
+</div>
  
 </fieldset> 

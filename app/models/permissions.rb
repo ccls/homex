@@ -21,17 +21,18 @@ class Permissions < Aegis::Permissions
 	#	IMO, it should default to false or something.
 	#	There is a validation for this
 
+	#	:position serves only to sort for viewing!
 
-	role :user	#	default value for User.new
+	role :user, :position => 1	#	default value for User.new
 
-	role :employee
+	role :employee, :position => 2
 
 	#	This role serves no purpose as of yet
-	role :moderator
+	role :moderator, :position => 3
 
 	#	Always allow the administrators so don't have to include it
 	#	in every permission block.
-	role :administrator, :default_permission => :allow
+	role :administrator, :default_permission => :allow, :position => 4
 
 
 	#	all of the following blocks create User methods
