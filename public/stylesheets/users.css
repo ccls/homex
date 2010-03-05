@@ -1,0 +1,23 @@
+div#users {
+	padding-top:20px;
+}
+div.sn {
+	float:left;
+	width: 100px;
+}
+div.displayname {
+	float:left;
+	width: 300px;
+}
+div.role_name {
+	text-align:right;
+}
+
+div.row:nth-child(2n).administrator   { background-color: #EE8; }
+div.row:nth-child(2n+1).administrator { background-color: #DD8; }
+/*
+div.row:nth-child(2n).administrator   { background-color: #EEE; }
+div.row:nth-child(2n+1).administrator { background-color: #DDD; }
+div.row:nth-child(2n).administrator   { background-color: #EEE; }
+div.row:nth-child(2n+1).administrator { background-color: #DDD; }
+*/

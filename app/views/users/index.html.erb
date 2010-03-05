@@ -1,31 +1,17 @@
-<fieldset id='main'>
-<legend><%= controller_name.capitalize %></legend>
+<%= content_for :head, stylesheet_link_tag('users') %>
 
-<div id='users'><table><tbody>
-<tr>
-<th>SN</th>
-<th>Display Name</th>
-<th>Admin?</th>
-</tr>
-<% @users.each do |user| -%>
-<tr>
-<td class='sn'><%= link_to user.sn, user -%></td>
-<td class='displayname'><%= link_to user.displayname, user -%></td>
-<td class='is_admin'><%= user.is_admin? -%></td>
-
-<% if logged_in? and current_user.is_admin? %>
-<td>
-<%# note that this is a bit unconventional (the sending an id into a create part) %>
-<% if user.is_admin? %>
-	<%= link_to "Undeputize&nbsp;**", deputy_path(:id => user.id), :method => :delete %>
-<% else %>
-	<%= link_to "Deputize&nbsp;**", deputies_path(:id => user.id), :method => :create %>
+<div id='users'>
+<% @users.each do |user| %>
+<div class='<%=user.role_name-%> user row'>
+<div class='sn'>
+<%= link_to user.sn, user -%>
+</div>
+<div class='displayname'>
+<%= user.displayname -%>
+</div>
+<div class='role_name'>
+<%= user.role_name -%>
+</div>
+</div>
 <% end %>
-</td>
-<% end %>
-
-</tr>
-<% end -%>
-</tbody></table></div>
-
-</fieldset> 
+</div><!-- id='users' -->
