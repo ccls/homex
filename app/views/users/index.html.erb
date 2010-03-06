@@ -10,7 +10,7 @@
 <%= user.displayname -%>
 </div>
 <div class='role_name'>
-<%= user.role_name -%>
+<%= link_to user.role_name, users_path( :role_name => user.role_name ) -%>
 </div>
 </div>
 <% end %>

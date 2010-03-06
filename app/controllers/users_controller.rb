@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@users = User.all(:order => :sn)
+		conditions = {}
+		conditions[:role_name] = params[:role_name] unless params[:role_name].blank?
+		@users = User.all( :conditions => conditions )
 	end
 
 	def update
@@ -19,10 +21,7 @@ class UsersController < ApplicationController
 		flash[:notice] = 'User was successfully updated.'
 		redirect_to @user
 	rescue ActiveRecord::RecordInvalid
-
-#	I don't like that I do this
-
-		@roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.reverse
+		show
 		flash.now[:error] = 'User update failed.'
 		render :show
 	end

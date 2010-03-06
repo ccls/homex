@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
 
-	map.resources :deputies,  :only => [ :index, :create, :destroy ]
+#	map.resources :deputies,  :only => [ :index, :create, :destroy ]
 
 	map.resource  :calendar, :only => [ :show ]
 	map.resource  :session, :only => [ :destroy ]
