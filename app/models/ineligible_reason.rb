@@ -3,6 +3,7 @@ class IneligibleReason < ActiveRecord::Base
 	default_scope :order => :position
 
 	has_many :project_subjects
+
 	validates_length_of :description, :minimum => 4
 	validates_uniqueness_of :description
 end
