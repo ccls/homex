@@ -89,6 +89,13 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create and update user by a valid uid" do
+		assert_difference 'User.count' do
+			user = User.find_create_and_update_by_uid('859908')
+			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+		end
+	end
+
 	test "should find and update user by uid" do
 		create_user(:uid => '012345')
 		assert_no_difference 'User.count' do
@@ -96,6 +103,8 @@ class UserTest < ActiveSupport::TestCase
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
 		end
 	end
+
+
 
 protected
 

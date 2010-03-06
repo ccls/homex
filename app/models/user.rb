@@ -36,8 +36,8 @@ class User < ActiveRecord::Base
 		self.update_attribute( :role_name, 'administrator' )
 	end
 
-	def undeputize
-		self.update_attribute( :role_name, 'user' )
-	end
+#	def undeputize
+#		self.update_attribute( :role_name, 'user' )
+#	end
 
 end
