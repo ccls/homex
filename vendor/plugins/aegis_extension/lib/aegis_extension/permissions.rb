@@ -12,7 +12,7 @@ module AegisExtension
 
 			def exists?(permission)
 				self.permission_names.include?(
-					Aegis::Normalization.normalize_permission(permission).to_sym
+					Aegis::Normalization.normalize_permission(permission.to_s).to_sym
 				)
 			end
 		end

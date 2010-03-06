@@ -11,7 +11,23 @@ current_user method is also assumed to exist and is used in the action_controlle
 
 == What modifications?
 
-Added options reader to Aegis::Role.  initialize accepts it, but the developer never has access to it.  I'd like to pass :position so that I can sort my roles based on something other than randomness.
+Added attr_reader for the options passed to new Aegis::Roles.  The initialize method accepts it, but the developer never has access to it.  I'd like to pass :position so that I can sort my roles based on something other than randomness.  I found this useful for viewing user profiles and assigning the user's role.  I had considered assigning a value based on the order which the roles were called, but opted against it.
+
+ class Permissions < Aegis::Permissions
+  role :user, :position => 1	#	default value for User.new
+  role :employee, :position => 2
+  role :moderator, :position => 3
+  role :administrator, :default_permission => :allow, :position => 4
+ end
+
+ >> Permissions.find_all_roles.collect(&:options)
+ => [{:default_permission=>:allow, :position=>4}, {:position=>2}, {:position=>3}, {:position=>1}]
+
+ >> @roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.collect(&:options)
+ => [{:position=>1}, {:position=>2}, {:position=>3}, {:default_permission=>:allow, :position=>4}]
+
+ >> @roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.collect(&:name)
+ => [:user, :employee, :moderator, :administrator]
 
 ---
 
@@ -28,19 +44,22 @@ UPDATE: This patch is included in the latest gem but I haven't removed it.
 
 ---
 
-Added ...
+Added Permissions.permission_names which returns @permission_blocks.keys
 
- Permissions.permission_names
+ >> Permissions.permission_names.collect(&:to_s).sort
+ => ["create_address", "create_addresses", "destroy_address", "destroy_addresses", "maintain_page", "maintain_pages", "read_address", "read_addresses", "read_calendar", "read_package", "read_packages", "read_user", "read_users", "update_address", "update_addresses"]
 
-which returns @permission_blocks.keys
 
 ---
 
-Added ...
+Added Permissions.exists?(permission) which returns the obvious boolean as to whether or not the permission has actually been defined and exists in the Permissions.permission_name array.  "permission" will be "normalized" before being tested.
 
- Permissions.exists?(permission)
-
-which returns the obvious boolean as to whether or not the permission has actually been defined and exists in the Permissions.permission_name array.
+ >> Permissions.permission_names.collect(&:to_s).sort
+ => ["create_address", "create_addresses", "destroy_address", "destroy_addresses", "maintain_page", "maintain_pages", "read_address", "read_addresses", "read_calendar", "read_package", "read_packages", "read_user", "read_users", "update_address", "update_addresses"]
+ >> Permissions.exists?(:view_users)
+ => true
+ >> Permissions.exists?(:read_users)
+ => true
 
 ---
 
