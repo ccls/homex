@@ -17,6 +17,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should get users index with admin login" do
 		login_as admin_user
 		get :index
+		assert_nil flash[:error]
 		assert_response :success
 	end
 

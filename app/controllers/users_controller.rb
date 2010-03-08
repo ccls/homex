@@ -11,7 +11,11 @@ class UsersController < ApplicationController
 
 	def index
 		conditions = {}
-		conditions[:role_name] = params[:role_name] unless params[:role_name].blank?
+		if Permissions.find_role_by_name(params[:role_name])
+			conditions[:role_name] = params[:role_name]
+		elsif !params[:role_name].blank?
+			flash[:error] = "No such role #{params[:role_name]}"
+		end
 		@users = User.all( :conditions => conditions )
 	end
 
