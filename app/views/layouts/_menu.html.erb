@@ -1,6 +1,10 @@
 <div id='menu'>
-  <%= link_to "Home",  root_path %>
-  <%= link_to "About", "/about" %>
+  <%#= link_to "Home",  root_path %>
+  <%#= link_to "About", "/about" %>
+<% Page.all.each do |page| %>
+	<%= link_to page.menu, page.path %>
+<% end %>
+
 <% if logged_in? %>
   <%= link_to("Calendar",calendar_path) if current_user.may_view_calendar? %>
 	<% if current_user.is_admin? %>

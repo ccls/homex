@@ -3,6 +3,7 @@ class CreatePages < ActiveRecord::Migration
 		create_table :pages do |t|
 			t.integer :position
 			t.string :title
+			t.string :menu
 			t.string :path
 			t.text :body
 			t.timestamps

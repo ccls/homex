@@ -5,6 +5,12 @@ class PagesController < ApplicationController
 	before_filter :may_maintain_pages_required, :except => :show
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 
+
+	def order
+		params[:pages].each_with_index { |id,i| Page.find(id).update_attribute(:position,i+1) }
+		redirect_to pages_path
+	end
+
 	def show
 		if params[:path]
  			@page = Page.by_path("/#{params[:path].join('/')}")
@@ -30,7 +36,6 @@ class PagesController < ApplicationController
 	end
 
 	def edit
-#		@page = Page.find(params[:id])
 		@page_title = "Edit CCLS Page #{@page.title}"
 	end
 
@@ -45,7 +50,6 @@ class PagesController < ApplicationController
 	end
 
 	def update
-#		@page = Page.find(params[:id])
 		@page.update_attributes!(params[:page])
 		flash[:notice] = 'Page was successfully updated.'
 		redirect_to(@page)
@@ -55,12 +59,8 @@ class PagesController < ApplicationController
 	end
 
 	def destroy
-#		@page = Page.find(params[:id])
 		@page.destroy
 		redirect_to(pages_path)
-#	rescue ActiveRecord::RecordInvalid
-#		flash[:error] = "There was a problem destroying the page."
-#		redirect_to(pages_path)
 	end
 
 protected

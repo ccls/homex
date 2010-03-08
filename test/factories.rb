@@ -59,7 +59,8 @@ end
 
 Factory.define :page do |f|
 	f.sequence(:path) { |n| "/path#{n}" }
-	f.sequence(:title) { |n| "My Page Title #{n}" }
+	f.sequence(:menu) { |n| "Menu #{n}" }
+	f.sequence(:title){ |n| "Title #{n}" }
 	f.body  "Page Body"
 end
 

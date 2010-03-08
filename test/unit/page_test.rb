@@ -17,12 +17,19 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require 4 char path" do
+	test "should require path begin with slash" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:path => 'Hey')
 			assert page.errors.on(:path)
 		end
 	end
+
+#	test "should require 4 char path" do
+#		assert_no_difference 'Page.count' do
+#			page = create_page(:path => 'Hey')
+#			assert page.errors.on(:path)
+#		end
+#	end
 
 	test "should require unique path" do
 		p = create_page

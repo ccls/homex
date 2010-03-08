@@ -321,4 +321,35 @@ class PagesControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
+#	action: order
+
+	test "should order pages with admin login" do
+		login_as admin_user
+		pages = 3.times.collect{|i| Factory(:page) }
+		assert_equal [1,2,3], pages.collect(&:position)
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		after_page_ids = Page.all.collect(&:id)
+		assert_equal after_page_ids, before_page_ids.reverse
+		assert_redirected_to pages_path
+	end
+
+	test "should NOT order pages without admin login" do
+		login_as active_user
+		pages = 3.times.collect{|i| Factory(:page) }
+		assert_equal [1,2,3], pages.collect(&:position)
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT order pages without login" do
+		pages = 3.times.collect{|i| Factory(:page) }
+		assert_equal [1,2,3], pages.collect(&:position)
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		assert_redirected_to_cas_login
+	end
+
 end

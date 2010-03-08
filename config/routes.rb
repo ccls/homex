@@ -39,7 +39,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-	map.root :controller => "pages", :action => "show", :path => ["home"]
+	map.root :controller => "pages", :action => "show", :path => [""]
 
 	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
 
@@ -48,20 +48,20 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource  :calendar, :only => [ :show ]
 	map.resource  :session, :only => [ :destroy ]
 	map.resources :users,  :only => [ :index, :show, :update ]
-	map.resources :pages
+	map.resources :pages, :collection => { :order => :post }
 	# new and create for packages are just for demo development
 	map.resources :packages, :only => [ :index, :new, :create ]
 	map.resources :permissions, :only => :index
 
+
+
+
+	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
+
+
+	#	MUST BE LAST
 	#	catch all route to manage admin created pages.
 	map.connect   '*path', :controller => 'pages', :action => 'show'
-
-
-
-
-
-
-
 
 	# Install the default routes as the lowest priority.
 	# Note: These default routes make all actions in every controller accessible via GET requests. You should

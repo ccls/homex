@@ -18,13 +18,15 @@ namespace :app do
 		unless p = Page.find_by_path("/home")
 			Page.create({
 				:title => "Home Page Title",
-				:path  => "/home",
+				:menu  => "Home",
+				:path  => "/",
 				:body  => "Home Page Body"
 			})
 		end
 		unless p = Page.find_by_path("/about")
 			Page.create({
 				:title => "About Page Title",
+				:menu  => "About",
 				:path  => "/about",
 				:body  => "About Page Body"
 			})
