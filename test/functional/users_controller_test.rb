@@ -21,6 +21,20 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
+	test "should filter users index by role" do
+		login_as admin_user
+		get :index, :role_name => 'administrator'
+		assert_nil flash[:error]
+		assert_response :success
+	end
+
+	test "should NOT filter users index by invalid role" do
+		login_as admin_user
+		get :index, :role_name => 'suffocator'
+		assert_not_nil flash[:error]
+		assert_response :success
+	end
+
 
 
 
