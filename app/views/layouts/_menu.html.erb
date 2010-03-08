@@ -1,8 +1,12 @@
 <div id='menu'>
   <%#= link_to "Home",  root_path %>
   <%#= link_to "About", "/about" %>
+
+<%# Page changes outside of ActionController go unnoticed %>
+<% cache 'page_menu' do %>
 <% Page.all.each do |page| %>
 	<%= link_to page.menu, page.path %>
+<% end %>
 <% end %>
 
 <% if logged_in? %>
