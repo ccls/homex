@@ -13,6 +13,7 @@
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
+* {validatious-on-rails}[http://github.com/grimen/validatious-on-rails] - CONSIDERING the use of this javascript form validator
 
 
 == Required and included plugins
