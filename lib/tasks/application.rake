@@ -15,12 +15,36 @@ namespace :app do
 
 	desc "Add initial pages."
 	task :add_pages => :environment do
-		unless p = Page.find_by_path("/home")
+		unless p = Page.find_by_path("/")
 			Page.create({
 				:title => "Home Page Title",
 				:menu  => "Home",
 				:path  => "/",
 				:body  => "Home Page Body"
+			})
+		end
+		unless p = Page.find_by_path("/alpha")
+			Page.create({
+				:title => "Alpha Page Title",
+				:menu  => "Alpha",
+				:path  => "/alpha",
+				:body  => "Alpha Page Body"
+			})
+		end
+		unless p = Page.find_by_path("/beta")
+			Page.create({
+				:title => "Beta Page Title",
+				:menu  => "Beta",
+				:path  => "/beta",
+				:body  => "Beta Page Body"
+			})
+		end
+		unless p = Page.find_by_path("/gamma")
+			Page.create({
+				:title => "Gamma Page Title",
+				:menu  => "Gamma",
+				:path  => "/gamma",
+				:body  => "Gamma Page Body"
 			})
 		end
 		unless p = Page.find_by_path("/about")

@@ -5,7 +5,7 @@ class PagesController < ApplicationController
 	before_filter :may_maintain_pages_required, :except => :show
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 
-	cache_sweeper :page_sweeper, :only => [:create, :update, :destroy]
+	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
 	def order
 #		params[:pages].each_with_index { |id,i| Page.find(id).update_attribute(:position,i+1) }
