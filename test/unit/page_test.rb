@@ -24,18 +24,40 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require 4 char path" do
-#		assert_no_difference 'Page.count' do
-#			page = create_page(:path => 'Hey')
-#			assert page.errors.on(:path)
-#		end
-#	end
+	test "should require 1 char path" do
+		assert_no_difference 'Page.count' do
+			page = create_page(:path => '')
+			assert page.errors.on(:path)
+		end
+	end
 
 	test "should require unique path" do
 		p = create_page
 		assert_no_difference 'Page.count' do
 			page = create_page(:path => p.path)
 			assert page.errors.on(:path)
+		end
+	end
+
+	test "should require menu" do
+		assert_no_difference 'Page.count' do
+			page = create_page(:menu => nil)
+			assert page.errors.on(:menu)
+		end
+	end
+
+	test "should require unique menu" do
+		p = create_page
+		assert_no_difference 'Page.count' do
+			page = create_page(:menu => p.menu)
+			assert page.errors.on(:menu)
+		end
+	end
+
+	test "should require 4 char menu" do
+		assert_no_difference 'Page.count' do
+			page = create_page(:menu => 'Hey')
+			assert page.errors.on(:menu)
 		end
 	end
 

@@ -7,7 +7,8 @@ class PagesController < ApplicationController
 
 
 	def order
-		params[:pages].each_with_index { |id,i| Page.find(id).update_attribute(:position,i+1) }
+#		params[:pages].each_with_index { |id,i| Page.find(id).update_attribute(:position,i+1) }
+		params[:pages].each { |id| Page.find(id).move_to_bottom }
 		redirect_to pages_path
 	end
 

@@ -7,11 +7,10 @@ class Page < ActiveRecord::Base
 	validates_length_of :menu,  :minimum => 4
 	validates_length_of :title, :minimum => 4
 	validates_length_of :body,  :minimum => 4
+	validates_uniqueness_of :menu
 	validates_uniqueness_of :path
 	
-	named_scope :not_home, :conditions => [
-		"path != '/'"
-	]
+	named_scope :not_home, :conditions => [ "path != '/'" ]
 
 	attr_accessible :path, :menu, :title, :body
 
