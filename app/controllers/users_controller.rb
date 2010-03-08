@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 		if Permissions.find_role_by_name(params[:role_name])
 			conditions[:role_name] = params[:role_name]
 		elsif !params[:role_name].blank?
-			flash[:error] = "No such role #{params[:role_name]}"
+			flash[:error] = "No such role '#{params[:role_name]}'"
 		end
 		@users = User.all( :conditions => conditions )
 	end
