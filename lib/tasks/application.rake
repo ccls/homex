@@ -6,6 +6,14 @@ namespace :app do
 #		exit
 #	end
 
+
+	desc "Add some package tracking numbers"
+	task :add_packages => :environment do
+		%w( 077973360403984 134619889171013 134619889171020 ).each do |tn|
+			Package.find_or_create_by_tracking_number(tn)
+		end
+	end
+
 	desc "Add some expected users."
 	task :add_users => :environment do
 		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 10883 ).each do |uid|

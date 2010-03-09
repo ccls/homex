@@ -22,4 +22,10 @@ class PackagesController < ApplicationController
 		render :action => "new"
 	end
 
+	def update
+		package = Package.find(params[:id])
+		package.update_status
+		redirect_to packages_path
+	end
+
 end

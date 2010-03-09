@@ -43,6 +43,11 @@ class Package < ActiveRecord::Base
 		end
 	end
 
+	def self.update_undelivered
+		Package.undelivered.each do |package|
+			package.update_status
+		end
+	end
 
 
 #

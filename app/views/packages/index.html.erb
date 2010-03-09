@@ -18,6 +18,9 @@
 <div class='updated_at'>
 <%= "#{time_ago_in_words(package.updated_at)} ago" -%>
 </div>
+<div class='update'>
+<%= link_to 'Update status', package, :method => :put %>
+</div>
 <div class='status'>
 <%= package.status -%>
 </div>
@@ -27,4 +30,4 @@
 
 <p><%= button_link_to "Create new package", new_package_path -%></p>
 
-<%= "<p id='status_updated'>Last shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>
+<%= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>

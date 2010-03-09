@@ -11,8 +11,10 @@ div.tracking_number {
 	width: 200px;
 }
 div.updated_at {
-
+	float:left;
+}
+div.update {
+	text-align:right;
 }
 div.status {
-
 }

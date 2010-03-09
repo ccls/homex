@@ -50,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :users,  :only => [ :index, :show, :update ]
 	map.resources :pages, :collection => { :order => :post }
 	# new and create for packages are just for demo development
-	map.resources :packages, :only => [ :index, :new, :create ]
+	map.resources :packages, :only => [ :index, :new, :create, :update ]
 	map.resources :permissions, :only => :index
 
 
