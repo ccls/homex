@@ -103,21 +103,6 @@ class ActiveSupport::TestCase
 		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).raises(ActiveMerchant::Shipping::ResponseError)
 	end
 
-#	I need to define a initialize or setup to add these stubs
-#	def setup
-#		CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-#		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns("https://auth-test.berkeley.edu/cas/login")
-##		super
-#	end
-	
-
-	#	by default, the user is NOT authenticated so make it so
-#	These are ignored too
-#	CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-#	CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-#	CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns("https://auth-test.berkeley.edu/cas/login")
-
 	def assert_redirected_to_cas_login
 		assert_response :redirect
 		assert_match "https://auth-test.berkeley.edu/cas/login", @response.redirected_to
@@ -129,5 +114,20 @@ class ActiveSupport::TestCase
 		assert_match "https://auth-test.berkeley.edu/cas/logout", @response.redirected_to
 	end
 	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
+
+	#	by default, the user is NOT authenticated so make it so
+	#	They actually need to be in setup
+	def setup
+		#	Filter redirects on failure, doesn't just return false
+		#	Doing this stub will make the app think that the user
+		#	is logged in but there won't actually be a user
+		#	making all of the may_*_required filters fail
+		#	with ...
+		#	NoMethodError: undefined method `may_*?' for :false:Symbol
+		#CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
+		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
+		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
+			"https://auth-test.berkeley.edu/cas/login")
+	end
 
 end
