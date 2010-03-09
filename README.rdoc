@@ -14,11 +14,11 @@
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {validatious-on-rails}[http://github.com/grimen/validatious-on-rails] - CONSIDERING the use of this javascript form validator
-* rcov - testing
-* mocha - testing
-* autotest-rails - testing
-* ZenTest - testing
-* thoughtbot-factory_girl - testing
+* {rcov}[http://github.com/relevance/rcov] - testing
+* {mocha}[://github.com/floehopper/mocha] - testing
+* {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
+* {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
+* {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
 
 
 == Required and included plugins
