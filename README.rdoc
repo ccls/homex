@@ -88,6 +88,10 @@ then continue ...
 
 An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout.  The <tt>test/test_helper.rb</tt> file can be modified to accomodate this simpley by commenting out the <tt>Html::Test::Validator.w3c_url</tt> line.  See the {html_test documentation}[http://github.com/peter/html_test] for further guidance on this.  
 
+If Validator is not installed or Web Sharing is not enabled, testing will produce many ...
+
+ Errno::ECONNREFUSED: Connection refused - connect(2)
+
 Currently, the Package tests would need removed to test offline as they access the FedEx API.
 
  rake RAILS_ENV=test gems:install
