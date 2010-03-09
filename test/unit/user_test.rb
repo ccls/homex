@@ -80,9 +80,8 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal deputies[2], new_users[2]
 	end
 
-
-
 	test "should create and update user by uid" do
+		stub_ucb_ldap_person()
 		assert_difference 'User.count' do
 			user = User.find_create_and_update_by_uid('012345')
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
@@ -90,6 +89,7 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "should create and update user by a valid uid" do
+		stub_ucb_ldap_person()
 		assert_difference 'User.count' do
 			user = User.find_create_and_update_by_uid('859908')
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
@@ -97,14 +97,13 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "should find and update user by uid" do
+		stub_ucb_ldap_person()
 		create_user(:uid => '012345')
 		assert_no_difference 'User.count' do
 			user = User.find_create_and_update_by_uid('012345')
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
 		end
 	end
-
-
 
 protected
 
