@@ -92,6 +92,8 @@ If Validator is not installed or Web Sharing is not enabled, testing will produc
 
  Errno::ECONNREFUSED: Connection refused - connect(2)
 
+I've made some mods to check if a local version is running so this should never happen.
+
 Currently, the Package tests would need removed to test offline as they access the FedEx API.
 
  rake RAILS_ENV=test gems:install
