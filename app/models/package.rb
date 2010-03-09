@@ -10,7 +10,7 @@ class Package < ActiveRecord::Base
 	@@packages_updated = "#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
 
 	named_scope :delivered, :conditions => [
-		'status LIKE ?', '%Delivered%'
+		'status LIKE ?', 'Delivered%'
 	]
 
 	named_scope :undelivered, :conditions => [
@@ -49,6 +49,9 @@ class Package < ActiveRecord::Base
 		end
 	end
 
+	def delivered?
+		status =~  /^Delivered/
+	end
 
 #
 #	I don't really like this, but I needed a way for the background job 
