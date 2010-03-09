@@ -325,7 +325,12 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should order pages with admin login" do
 		login_as admin_user
-		pages = 3.times.collect{|i| Factory(:page) }
+#		pages = 3.times.collect{|i| Factory(:page) }
+#	3.times.collect doesn't work on 
+#> ruby --version
+#ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
 		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
@@ -336,7 +341,9 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT order pages without admin login" do
 		login_as active_user
-		pages = 3.times.collect{|i| Factory(:page) }
+#		pages = 3.times.collect{|i| Factory(:page) }
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
 		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
@@ -345,7 +352,9 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT order pages without login" do
-		pages = 3.times.collect{|i| Factory(:page) }
+#		pages = 3.times.collect{|i| Factory(:page) }
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
 		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
