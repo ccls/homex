@@ -62,47 +62,34 @@ class ActiveSupport::TestCase
 
 	def active_user(options={})
 		u = Factory(:user, options)
-		u
 	end
 
 	def admin_user(options={})
 		u = active_user(options.merge(:role_name => "administrator"))
-		u
 	end
 
 	def login_as( user=nil )
-#	def login_as( user='1' )
-#	def login_as( user=1 )
-#		User.find_or_create_by_uid(uid)
+		uid = ( user.is_a?(User) ) ? user.uid : user
+		@request.session[:calnetuid] = uid
+		User.find_create_and_update_by_uid(uid)
 
-		@request.session[:calnetuid] = case 
-			when user.is_a?(Integer) then user
-			when user.is_a?(String)  then user	#	User.find_by_uid(user).uid
-#				if user.to_i.to_s == user
-#					User.find(user).uid
-#				else
-#					User.find_by_login(user).id
-#				end
-			when user.is_a?(User)    then user.uid
-			else 1
-		end
-
-		#	only one of these is necessary, but do both so works regardless
 		CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(true)
 		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(true)
 	end
 	alias :login  :login_as
 	alias :log_in :login_as
 
+
+	UCB::LDAP::Person.stubs(:find_by_uid).returns(UCB::LDAP::Person.new({
+#		:sn => ["Wendt"],
+#		:displayname => ["Mr. Jake Wendt, BA"],
+#		:telephonenumber => ["+1 510 642-9749"],
+#		:mail => []
+	}))
 	#	by default, the user is NOT authenticated so make it so
-	#	yeah, don't do this
-#	CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-#	might work if made more complex
-#	causes failures like 
-#		<"/"> expected to be =~
-#		</https:\/\/auth\-test\.berkeley\.edu\/cas\/login/>.
-	#	but this is OK (no its not)
-#	CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
+	CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
+	CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
+	CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns("https://auth-test.berkeley.edu/cas/login")
 
 	def assert_redirected_to_cas_login
 		assert_response :redirect
@@ -115,5 +102,7 @@ class ActiveSupport::TestCase
 		assert_match "https://auth-test.berkeley.edu/cas/logout", @response.redirected_to
 	end
 	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
+
+#UCB::LDAP::Person.new({{:berkeleyeduunitcalnetdeptname=>["Pub Hlth-Buffler Group"], :postaladdress=>["1995 University Ave$Berkeley, CA 94704-7392"], :berkeleyeduprimarydeptunithierarchystring=>["UCBKL-EVCP2-SC1PH-CPSPH"], :objectclass=>["top", "person", "organizationalperson", "inetorgperson", "berkeleyEduPerson", "eduPerson", "ucEduPerson"], :dn=>["uid=859908,ou=people,dc=berkeley,dc=edu"], :berkeleyedumoddate=>["20100303182542Z"], :berkeleyedunamesalutation=>["Mr."], :st=>["CA"], :berkeleyeduprimarydeptunit=>["CPSPH"], :sn=>["Wendt"], :street=>["1995 University Ave"], :berkeleyedunamehonorifics=>["BA"], :o=>["University of California, Berkeley"], :facsimiletelephonenumber=>["+1 510 643-1735"], :ou=>["people"], :berkeleyedudeptunithierarchystring=>["UCBKL-EVCP2-SC1PH-CPSPH"], :givenname=>["Jake", "George"], :l=>["Berkeley"], :telephonenumber=>["+1 510 642-9749"], :departmentnumber=>["CPSPH"], :roomnumber=>["460"], :title=>["Applications Programmer 3"], :uid=>["859908"], :berkeleyeduaffiliations=>["EMPLOYEE-TYPE-STAFF"], :cn=>["Wendt, Jake", "Wendt, George A"], :displayname=>["Mr. Jake Wendt, BA"], :postalcode=>["94704"], :berkeleyeduunithrdeptname=>["School of Public Health"]})
 
 end
