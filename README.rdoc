@@ -149,8 +149,5 @@ Currently, the Package tests would need removed to test offline as they access t
 
 == To Do
 
-* stub out UCB::LDAP::Person.find_by_uid(uid) for testing
-* first UCB::LDAP::Person call always warns "warning: peer certificate won't be verified in this SSL session"
-* just not working
-* stub out FedEx#find_tracking_info(tracking_number, :test => true) for testing
+* Nothing specific for now
 
