@@ -82,7 +82,7 @@ class ActiveSupport::TestCase
 		UCB::LDAP::Schema.stubs(:load_attributes_from_url).raises(StandardError)
 	end
 
-	def stub_fedex_find_tracking_info(options={})
+	def stub_package_for_successful_delivery(options={})
 		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(:latest_event).returns(
 			ActiveMerchant::Shipping::ShipmentEvent.new(
 				'Delivered',
@@ -97,6 +97,10 @@ class ActiveSupport::TestCase
 		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).returns(
 			ActiveMerchant::Shipping::TrackingResponse.new(true ,'hello')
 		)
+	end
+
+	def stub_package_for_failure(options={})
+		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).raises(ActiveMerchant::Shipping::ResponseError)
 	end
 
 #	I need to define a initialize or setup to add these stubs

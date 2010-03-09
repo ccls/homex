@@ -52,7 +52,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should have failure status for bogus tracking_number" do
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).raises(ActiveMerchant::Shipping::ResponseError)
+		stub_package_for_failure()
 		assert_difference( 'Package.delivered.count', 0 ) {
 		assert_difference( 'Package.undelivered.count', 1 ) {
 			package = create_package(:tracking_number => 'obviouslybogus')
@@ -62,7 +62,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should have delivered status for delivered tracking_number" do
-		stub_fedex_find_tracking_info()
+		stub_package_for_successful_delivery()
 		assert_difference( 'Package.delivered.count', 1 ) {
 		assert_difference( 'Package.undelivered.count', 0 ) {
 			#	this number was taken from the active_shipping tests
@@ -73,7 +73,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should update status for undelivered" do
-		stub_fedex_find_tracking_info()
+		stub_package_for_successful_delivery()
 		package = create_package(:tracking_number => '077973360403984')
 		assert_difference( 'Package.delivered.count', 1 ) {
 		assert_difference( 'Package.undelivered.count', -1 ) {
