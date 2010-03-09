@@ -14,6 +14,11 @@
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {validatious-on-rails}[http://github.com/grimen/validatious-on-rails] - CONSIDERING the use of this javascript form validator
+* rcov - testing
+* mocha - testing
+* autotest-rails - testing
+* ZenTest - testing
+* thoughtbot-factory_girl - testing
 
 
 == Required and included plugins
@@ -22,6 +27,7 @@
 * {html_test}[http://github.com/peter/html_test] - html testing and validation
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
+* {html_test}[http://github.com/peter/html_test] - testing
 
 
 == Installation
