@@ -93,6 +93,19 @@ class PackageTest < ActiveSupport::TestCase
 			Time.now.to_f, 2
 	end
 
+	test "should not be delivered? when new" do
+		package = create_package
+		assert !package.delivered?
+	end
+
+	test "should be delivered? when delivered" do
+		stub_package_for_successful_delivery()
+		package = create_package
+		assert !package.delivered?
+		package.update_status
+		assert package.delivered?
+	end
+
 protected
 
 	def create_package(options = {})

@@ -2,12 +2,39 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PackagesControllerTest < ActionController::TestCase
 
+	test "delivered packages should NOT have update status link" do
+		Factory(:package, :status => "Delivered")
+		login_as admin_user
+		get :index
+		assert_select "div.update" do
+			assert_select "a", :count => 0
+		end
+	end
+
+	test "undelivered packages should have update status link" do
+		Factory(:package)
+		login_as admin_user
+		get :index
+		assert_select "div.update" do
+			assert_select "a", :count => 1
+		end
+	end
+
+	test "should get index with admin login with packages" do
+		Factory(:package)
+		login_as admin_user
+		get :index
+		assert_template 'index'
+		assert_response :success
+		assert_equal 1, assigns(:packages).length
+	end
+
 	test "should get index with admin login" do
 		login_as admin_user
 		get :index
 		assert_template 'index'
 		assert_response :success
-		assert_not_nil assigns(:packages)
+		assert_equal 0, assigns(:packages).length
 	end
 
 	test "should NOT get index without admin login" do
