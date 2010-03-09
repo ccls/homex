@@ -21,15 +21,12 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get index without login" do
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		get :index
 		assert_redirected_to_cas_login
 	end
 
 
-
 	test "should NOT get new without login" do
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		get :new
 		assert_redirected_to_cas_login
 	end
@@ -49,14 +46,7 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-
-
-
-
-
-
 	test "should NOT create without login" do
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		assert_no_difference( 'Page.count' ) do
 			post :create, :page => Factory.attributes_for(:page)
 		end
@@ -90,21 +80,7 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	test "should NOT get edit without login" do
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		get :edit, :id => Factory(:page).id
 		assert_redirected_to_cas_login
 	end
@@ -131,30 +107,23 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-
-
-
-
-
-
-
-
-
 	test "should NOT update without login" do
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, 
+			:page => Factory.attributes_for(:page)
 		assert_redirected_to_cas_login
 	end
 
 	test "should update page with admin login" do
 		login_as admin_user
-		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, 
+			:page => Factory.attributes_for(:page)
 		assert_redirected_to page_path(assigns(:page))
 	end
 
 	test "should NOT update page with invalid page" do
 		login_as admin_user
-		put :update, :id => Factory(:page).id, :page => { :title => "a" }
+		put :update, :id => Factory(:page).id, 
+			:page => { :title => "a" }
 		assert_not_nil flash[:error]
 		assert_template 'edit'
 		assert_response :success
@@ -169,28 +138,15 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT update page without admin login" do
 		login_as active_user
-		put :update, :id => Factory(:page).id, :page => Factory.attributes_for(:page)
+		put :update, :id => Factory(:page).id, 
+			:page => Factory.attributes_for(:page)
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 	test "should NOT destroy without login" do
 		page = Factory(:page)
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		assert_no_difference( 'Page.count' ) do
 			delete :destroy, :id => page.id
 		end
@@ -229,10 +185,6 @@ class PagesControllerTest < ActionController::TestCase
 
 
 
-
-
-
-
 #
 #	/pages/:id should be visible to anyone ?
 #
@@ -241,9 +193,7 @@ class PagesControllerTest < ActionController::TestCase
 #		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 #
 
-
 	test "should NOT show page with invalid id" do
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		get :show, :id => 0
 		assert_not_nil flash[:error]
 		assert_template 'show'
@@ -251,7 +201,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should show page without login" do
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		page = Factory(:page)
 		get :show, :id => page.id
 		assert_template 'show'
@@ -279,7 +228,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT show page without matching path" do
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		get :show, :path => "/i/do/not/exist".split('/').delete_if{|x|x.blank?}
 		assert_not_nil flash[:error]
 		assert_template 'show'
@@ -287,7 +235,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should show page by path" do
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		page = Factory(:page)
 		get :show, :path => page.path.split('/').delete_if{|x|x.blank?}
 		assert_equal assigns(:page), page
@@ -297,7 +244,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should show page by path with slashes" do
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
 		page = Factory(:page, :path => "/help/blogs")
 		get :show, :path => page.path.split('/').delete_if{|x|x.blank?}
 		assert_equal assigns(:page), page
@@ -305,10 +251,6 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_select 'title', page.title
 	end
-
-
-
-
 
 
 	test "should get index with both help and non-help pages" do
@@ -341,7 +283,6 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT order pages without admin login" do
 		login_as active_user
-#		pages = 3.times.collect{|i| Factory(:page) }
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
 		assert_equal [1,2,3], pages.collect(&:position)
@@ -352,7 +293,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT order pages without login" do
-#		pages = 3.times.collect{|i| Factory(:page) }
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
 		assert_equal [1,2,3], pages.collect(&:position)
