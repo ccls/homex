@@ -126,8 +126,8 @@ class ActiveSupport::TestCase
 		#	NoMethodError: undefined method `may_*?' for :false:Symbol
 		#CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
 		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
-		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
-			"https://auth-test.berkeley.edu/cas/login")
+#		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
+#			"https://auth-test.berkeley.edu/cas/login")
 	end
 
 end
