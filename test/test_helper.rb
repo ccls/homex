@@ -2,26 +2,23 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
-
+##################################################
 #	begin html_test plugin settings
 validate = false
-begin
-	#	This will raise an error if Web Sharing is on
-	#	AND if validator is installed
-	response = Net::HTTP.get_response('localhost','/w3c-validator/check')
-	Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
-	validate = true
-	puts "Validating locally"
-rescue
+validators = ["http://localhost/w3c-validator/check", 
+							Html::Test::Validator.w3c_url]
+
+validators.each do |validator|
+	vhost = validator.split('/')[2]
+	vpath = "/"<< validator.split('/')[3..-1].join('/')
 	begin
-		#	This will check if online
-		s = TCPSocket.new('berkeley.edu',80)
-		s.close
-		validate = true
-		puts "Validating online"
+		response = Net::HTTP.get_response(vhost, vpath)
+		if response.code == '200'
+			Html::Test::Validator.w3c_url = validator
+			validate = true
+			break
+		end
 	rescue
-		#	And this means that I'm not validating
-		puts "NOT validating at all"
 	end
 end
 
@@ -33,18 +30,14 @@ if validate
 	ApplicationController.validators = [:w3c]
 	#ApplicationController.validators = [:tidy, :w3c]
 	Html::Test::Validator.verbose = false
-	#       http://habilis.net/validator-sac/
-	#       http://habilis.net/validator-sac/#advancedtopics
-	#begin
-	#	#	This will raise an error if Web Sharing is not on
-	#	response = Net::HTTP.get_response('localhost','/w3c-validator/check')
-	#	Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
-	#rescue
-	#	#	Do validation online
-	#end
 	Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+	puts "Validating all html with " <<
+		Html::Test::Validator.w3c_url
+else
+	puts "NOT validating html at all"
 end
 #	end html_test plugin settings
+##################################################
 
 class ActiveSupport::TestCase
 
