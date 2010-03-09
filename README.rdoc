@@ -149,5 +149,5 @@ Currently, the Package tests would need removed to test offline as they access t
 
 == To Do
 
-* Nothing specific for now
+* Nothing in particular
 

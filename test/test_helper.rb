@@ -2,33 +2,49 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
+
 #	begin html_test plugin settings
-ApplicationController.validate_all = true
-#       default is :tidy, but it doesn't really validate.       
-#       I've purposely not closed tags and it doesn't complain.
-#       :w3c is ridiculously slow! even when used locally
-ApplicationController.validators = [:w3c]
-#ApplicationController.validators = [:tidy, :w3c]
-Html::Test::Validator.verbose = false
-#       http://habilis.net/validator-sac/
-#       http://habilis.net/validator-sac/#advancedtopics
+validate = false
 begin
-	#	This will raise an error if Web Sharing is not on
+	#	This will raise an error if Web Sharing is on
+	#	AND if validator is installed
 	response = Net::HTTP.get_response('localhost','/w3c-validator/check')
 	Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
+	validate = true
+	puts "Validating locally"
 rescue
-	#	Do validation online
+	begin
+		#	This will check if online
+		s = TCPSocket.new('berkeley.edu',80)
+		s.close
+		validate = true
+		puts "Validating online"
+	rescue
+		#	And this means that I'm not validating
+		puts "NOT validating at all"
+	end
 end
-Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+
+if validate
+	ApplicationController.validate_all = true
+	#       default is :tidy, but it doesn't really validate.       
+	#       I've purposely not closed tags and it doesn't complain.
+	#       :w3c is ridiculously slow! even when used locally
+	ApplicationController.validators = [:w3c]
+	#ApplicationController.validators = [:tidy, :w3c]
+	Html::Test::Validator.verbose = false
+	#       http://habilis.net/validator-sac/
+	#       http://habilis.net/validator-sac/#advancedtopics
+	#begin
+	#	#	This will raise an error if Web Sharing is not on
+	#	response = Net::HTTP.get_response('localhost','/w3c-validator/check')
+	#	Html::Test::Validator.w3c_url = "http://localhost/w3c-validator/check"
+	#rescue
+	#	#	Do validation online
+	#end
+	Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+end
 #	end html_test plugin settings
-
-
-
-
-#	What if offline and Web Sharing disabled???
-
-
-
 
 class ActiveSupport::TestCase
 
@@ -67,7 +83,7 @@ class ActiveSupport::TestCase
 		#	This will generate this warning...
 		#		Warning: schema loading from file
 		#	from ucb_ldap-1.3.2/lib/ucb_ldap_schema.rb
-		#	Comment this out to get the schema from cal.
+		#	Comment this out to get the schema from Cal.
 		#	This will generate this warning...
 		#		warning: peer certificate won't be verified in this SSL session
 		UCB::LDAP::Schema.stubs(:load_attributes_from_url).raises(StandardError)
@@ -79,9 +95,9 @@ class ActiveSupport::TestCase
 				'Delivered',
 				Time.now,
 				ActiveMerchant::Shipping::Location.new({
-					:city => 'SACRAMENTO',
+					:city => 'BERKELEY',
 					:state => 'CA',
-					:zip => '95824'
+					:zip => '94703'
 				})
 			)
 		)
