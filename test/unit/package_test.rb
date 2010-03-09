@@ -70,6 +70,14 @@ class PackageTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should update status for undelivered" do
+		package = create_package(:tracking_number => '077973360403984')
+		assert_difference( 'Package.delivered.count', 1 ) {
+		assert_difference( 'Package.undelivered.count', -1 ) {
+			Package.update_undelivered
+		} }
+	end
+
 	test "should set and get packages updated time" do
 		if File.exists?(Package.packages_updated)
 			File.delete(Package.packages_updated)

@@ -44,7 +44,7 @@ class Package < ActiveRecord::Base
 	end
 
 	def self.update_undelivered
-		Package.undelivered.each do |package|
+		self.undelivered.each do |package|
 			package.update_status
 		end
 	end

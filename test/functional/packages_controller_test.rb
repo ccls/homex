@@ -74,4 +74,30 @@ class PackagesControllerTest < ActionController::TestCase
 
 
 
+	test "should update with admin login" do
+		login_as admin_user
+		package = Factory(:package, :tracking_number => '077973360403984')
+		assert_nil package.status
+		put :update, :id => package.id
+		assert_not_nil package.reload.status
+		assert_redirected_to packages_path
+	end
+
+	test "should NOT update without admin login" do
+		login_as active_user
+		package = Factory(:package, :tracking_number => '077973360403984')
+		assert_nil package.status
+		put :update, :id => package.id
+		assert_nil package.reload.status
+		assert_redirected_to root_path
+	end
+
+	test "should NOT update without login" do
+		package = Factory(:package, :tracking_number => '077973360403984')
+		assert_nil package.status
+		put :update, :id => package.id
+		assert_nil package.reload.status
+		assert_redirected_to_cas_login
+	end
+
 end
