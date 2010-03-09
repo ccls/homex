@@ -78,8 +78,10 @@ then continue ...
 
  rake db:migrate
 
- #	add some expected pages (/home, /about)
+ #	add some expected items
  rake app:add_pages
+ rake app:add_packages
+ rake app:add_users
 
  script/server
  script/backgroundrb start
