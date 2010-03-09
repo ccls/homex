@@ -137,3 +137,10 @@ Currently, the Package tests would need removed to test offline as they access t
 {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
 
 {ActsAsList on GitHub (Ryan Bates' version)}[http://github.com/ryanb/acts-as-list]
+
+
+== To Do
+
+* stub out UCB::LDAP::Person.find_by_uid(uid) for testing
+* stub out FedEx#find_tracking_info(tracking_number, :test => true)
+
