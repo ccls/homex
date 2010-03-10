@@ -95,7 +95,6 @@ class Permissions < Aegis::Permissions
 	end
 
 	permission :view_permissions do
-deny :everyone
 	end
 
 #	:crud_addresses creates the following ...
