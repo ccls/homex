@@ -26,7 +26,10 @@ class PageSweeper < ActionController::Caching::Sweeper
 #	alpha will expire, but not index
 #		expire_action( :action => [:show, :index] )
 #	actually neither do.
-		expire_action page
+#	maybe 
+#		expire_action page.path
+#	or something (in addition to ...)
+		expire_action
 	end
 
 end
