@@ -30,7 +30,8 @@ if validate
 	ApplicationController.validators = [:w3c]
 	#ApplicationController.validators = [:tidy, :w3c]
 	Html::Test::Validator.verbose = false
-	Html::Test::Validator.tidy_ignore_list = [/<table> lacks "summary" attribute/]
+	Html::Test::Validator.tidy_ignore_list = 
+		[/<table> lacks "summary" attribute/]
 	puts "Validating all html with " <<
 		Html::Test::Validator.w3c_url
 else
@@ -56,8 +57,10 @@ class ActiveSupport::TestCase
 			stub_ucb_ldap_person()
 			User.find_create_and_update_by_uid(uid)
 	
-			CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(true)
-			CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(true)
+			CASClient::Frameworks::Rails::Filter.stubs(
+				:filter).returns(true)
+			CASClient::Frameworks::Rails::GatewayFilter.stubs(
+				:filter).returns(true)
 		end
 	end
 	alias :login  :login_as
@@ -79,11 +82,13 @@ class ActiveSupport::TestCase
 		#	Comment this out to get the schema from Cal.
 		#	This will generate this warning...
 		#		warning: peer certificate won't be verified in this SSL session
-		UCB::LDAP::Schema.stubs(:load_attributes_from_url).raises(StandardError)
+		UCB::LDAP::Schema.stubs(
+			:load_attributes_from_url).raises(StandardError)
 	end
 
 	def stub_package_for_successful_delivery(options={})
-		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(:latest_event).returns(
+		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(
+			:latest_event).returns(
 			ActiveMerchant::Shipping::ShipmentEvent.new(
 				'Delivered',
 				Time.now,
@@ -94,24 +99,29 @@ class ActiveSupport::TestCase
 				})
 			)
 		)
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).returns(
-			ActiveMerchant::Shipping::TrackingResponse.new(true ,'hello')
+		ActiveMerchant::Shipping::FedEx.any_instance.stubs(
+			:find_tracking_info).returns(
+				ActiveMerchant::Shipping::TrackingResponse.new(true ,'hello')
 		)
 	end
 
 	def stub_package_for_failure(options={})
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(:find_tracking_info).raises(ActiveMerchant::Shipping::ResponseError)
+		ActiveMerchant::Shipping::FedEx.any_instance.stubs(
+			:find_tracking_info).raises(
+				ActiveMerchant::Shipping::ResponseError)
 	end
 
 	def assert_redirected_to_cas_login
 		assert_response :redirect
-		assert_match "https://auth-test.berkeley.edu/cas/login", @response.redirected_to
+		assert_match "https://auth-test.berkeley.edu/cas/login",
+			@response.redirected_to
 	end
 	alias :assert_redirected_to_login :assert_redirected_to_cas_login
 
 	def assert_redirected_to_cas_logout
 		assert_response :redirect
-		assert_match "https://auth-test.berkeley.edu/cas/logout", @response.redirected_to
+		assert_match "https://auth-test.berkeley.edu/cas/logout", 
+			@response.redirected_to
 	end
 	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
@@ -125,7 +135,8 @@ class ActiveSupport::TestCase
 		#	with ...
 		#	NoMethodError: undefined method `may_*?' for :false:Symbol
 		#CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(:filter).returns(false)
+		CASClient::Frameworks::Rails::GatewayFilter.stubs(
+			:filter).returns(false)
 #		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
 #			"https://auth-test.berkeley.edu/cas/login")
 	end
