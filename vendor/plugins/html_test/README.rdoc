@@ -1,12 +1,15 @@
 = Html Test
+
 A plugin for HTML validation and link checking in Rails
 functional and integration tests. In addition you can run
 the HTML and link tests against a production or staging server over HTTP.
 
 == Installation
+
   ruby script/plugin install git://github.com/peter/html_test.git
 
 == Usage
+
 - Add validation to your controller or integration tests:
 
   get :some_action
@@ -64,6 +67,7 @@ Here is a list of configuration options to use in test/test_helper.rb:
   # ApplicationController.check_redirects = true # Default: false. Whether to check URLs in all redirects
 
 == Validators and Dependencies
+
 To use Tidy for HTML validation you need the rails_tidy plugin.
 The xmllint validation option requires xmllint to
 be available on the command line. The xmllint validator is part of
@@ -95,13 +99,16 @@ There are methods such as skip_url?(url) and should_validate? that you can overr
 which pages get validated and which URLs get checked.
 
 == Tests
+
 If you make changes to this plugin, remember to run the tests with rake. The tests
 require the rails_tidy and mocha plugins as well as xmllint.
 
 == Author
+
 Peter Marklund (http://marklunds.com)
 
 == License
+
 Licensed under the same terms as Ruby on Rails.
 
 
@@ -109,10 +116,15 @@ Licensed under the same terms as Ruby on Rails.
 
 * renamed README -> README.rdoc cause its pertier
 * Added verbosity control from <tt>test/test_helper.rb</tt>
-* Html::Test::Validator.verbose = false
+	Html::Test::Validator.verbose = false
+* ApplicationController.validate_all = true is NOT really true.  It only validates a url ONCE.  Further calls to this url go unvalidated.
+* Added revalidation control from <tt>test/test_helper.rb</tt>
+	Html::Test::Validator.revalidate_all = true
+	
 
 == Jake's ToDos
 
-* Make tests self contained.  They fail when I run <tt>rake</tt>.
+* Make tests self contained.  They fail when I run <tt>rake</tt> due to some dependencies.
 * URLs get flagged as already_validated which should be overridable.  I test the same urls under different conditions.  With and without login.  With and without items. Etc.  Only the first get validated unless I manually add <tt>assert_w3c</tt> to the test.  I should be able to add <tt>Html::Test::Validator.revalidate = true</tt> or something to force this.  <tt>validate_all</tt> suggests to me that it is going to validate every call, but it does not.
+
 
