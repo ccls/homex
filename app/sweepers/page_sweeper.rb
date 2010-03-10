@@ -9,6 +9,15 @@ class PageSweeper < ActionController::Caching::Sweeper
 #	of the scope of the controller (ie. from console)
 #	will also go unnoticed.
 
+#	Interestingly, in unit/model testing, this fails
+#	as request is nil.  This means that I don't quite
+#	understand how this works.  Perhaps because the cache
+#	is in memory and not a file, the server and console
+#	are completely separate.  Destroying in the console
+#	doesn't effect the server's cache.  That makes sense.
+#	So then.  How to get the host_with_port without a 
+#	request then?
+
 	def after_save(page)
 		expire_cache(page)
 	end
@@ -37,7 +46,8 @@ class PageSweeper < ActionController::Caching::Sweeper
 		#	NEEDS to change page.path to /index for home page
 		#		be views/dev.sph.berkeley.edu:3000/index !
 		page_path = ( page.path == "/" ) ? "/index" : page.path
-		expire_fragment "#{request.host_with_port}#{page_path}"
+#		expire_fragment "#{request.host_with_port}#{page_path}"
+		expire_fragment "#{request.try(:host_with_port)}#{page_path}"
 
 	end
 
