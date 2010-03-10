@@ -19,7 +19,14 @@ class PageSweeper < ActionController::Caching::Sweeper
 
 	def expire_cache(page)
 		expire_fragment 'page_menu'
-		expire_action
+#	this won't expire the home page, because it is confused
+#	as to whether it is a show or index
+#	views/dev.sph.berkeley.edu:3000/alpha
+#	views/dev.sph.berkeley.edu:3000/index  <--- ???
+#	alpha will expire, but not index
+#		expire_action( :action => [:show, :index] )
+#	actually neither do.
+		expire_action page
 	end
 
 end
