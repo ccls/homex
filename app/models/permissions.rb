@@ -1,19 +1,4 @@
-#	require 'aegis/has_role_hack'
-#	User.has_role :default => :user
-#	User.validates_role_name
 class Permissions < Aegis::Permissions
-
-	#
-	#	This role seems useless as if the user is just a guest and not 
-	#	a registered user, then there is no column to assign this value?
-	#	role :guest
-	#
-	#	This role also seems useless as it is basically just saying
-	#	that there is a user model and the value of role_name column
-	#	is irrelevant?
-	#	role :registered_user
-	#
-
 
 	#	The value of user.role_name MUST be one of these roles.
 	#	This seems a bit restrictive.  If it is not and the user
@@ -36,8 +21,8 @@ class Permissions < Aegis::Permissions
 
 
 	#	all of the following blocks create User methods
-	#		#User.may_*? that return true or false period.
-	#		#User.may_*! that return true or false and possible raise an error.
+	#		User#may_*? that return true or false period.
+	#		User#may_*! that return true or false and possibly raise an error.
 	#	Actually, they are handled in method_missing
 	#		so the methods never really exist.
 
@@ -55,7 +40,7 @@ class Permissions < Aegis::Permissions
 	#	Possible for those may_*? without arguments,
 	#	but those that take arguments will be a challenge.
 
-	#
+
 	#	FYI Tips:
 	#		* method_missing also catches role_names
 	#			ie. User.first.administrator?
@@ -110,6 +95,7 @@ class Permissions < Aegis::Permissions
 	end
 
 	permission :view_permissions do
+deny :everyone
 	end
 
 #	:crud_addresses creates the following ...
