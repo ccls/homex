@@ -14,5 +14,14 @@ class ApplicationController < ActionController::Base
 
 protected
 
+	def redirections
+		@redirections ||= HashWithIndifferentAccess.new({
+			:view_permissions => {
+				:message => "Go away",
+				:redirect_to => "http://cnn.com"
+			}
+		})
+	end
+
 
 end
