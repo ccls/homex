@@ -24,7 +24,7 @@
 == Required and included plugins
 
 * {jrails}[http://github.com/jakewendt/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
-* {html_test}[http://github.com/peter/html_test] - html testing and validation
+* {html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
 * {html_test}[http://github.com/peter/html_test] - testing
@@ -150,4 +150,7 @@ Currently, the Package tests would need removed to test offline as they access t
 == To Do
 
 * Nothing in particular
+* Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt>
+  * Nested list test
+    * again
 
