@@ -18,18 +18,27 @@ class PageSweeper < ActionController::Caching::Sweeper
 	end
 
 	def expire_cache(page)
+		#	Please note that the "views/" prefix is
+		#	internal to rails.  Don't meddle with it.
+
+		#	Expired fragment: views/page_menu (0.0ms)
 		expire_fragment 'page_menu'
-#	this won't expire the home page, because it is confused
-#	as to whether it is a show or index
-#	views/dev.sph.berkeley.edu:3000/alpha
-#	views/dev.sph.berkeley.edu:3000/index  <--- ???
-#	alpha will expire, but not index
-#		expire_action( :action => [:show, :index] )
-#	actually neither do.
-#	maybe 
-#		expire_action page.path
-#	or something (in addition to ...)
+
+		#	We don't really access the pages via :id
+		#		but they can be so we need to deal with the cache.
+		#	Expired fragment: views/dev.sph.berkeley.edu:3000/pages/1 (0.0ms)
+		#	Expired fragment: views/dev.sph.berkeley.edu:3000/pages/5 (0.0ms)
 		expire_action
+
+		#	Expired fragment: views/dev.sph.berkeley.edu:3000/alpha (0.0ms)
+		#	Expired fragment: views/dev.sph.berkeley.edu:3000/ (0.0ms)
+		#	This fails for the home page as "/" is 
+		#		called "index" by the server
+		#	NEEDS to change page.path to /index for home page
+		#		be views/dev.sph.berkeley.edu:3000/index !
+		page_path = ( page.path == "/" ) ? "/index" : page.path
+		expire_fragment "#{request.host_with_port}#{page_path}"
+
 	end
 
 end

@@ -150,5 +150,4 @@ Currently, the Package tests would need removed to test offline as they access t
 == To Do
 
 * Nothing in particular
-* Cached custom routes do not seem to expire (/pages/2 will expire, but /about will not)
 
