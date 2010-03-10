@@ -103,3 +103,16 @@ Peter Marklund (http://marklunds.com)
 
 == License
 Licensed under the same terms as Ruby on Rails.
+
+
+== Jake's Mods
+
+* renamed README -> README.rdoc cause its pertier
+* Added verbosity control from <tt>test/test_helper.rb</tt>
+* Html::Test::Validator.verbose = false
+
+== Jake's ToDos
+
+* Make tests self contained.  They fail when I run <tt>rake</tt>.
+* URLs get flagged as already_validated which should be overridable.  I test the same urls under different conditions.  With and without login.  With and without items. Etc.  Only the first get validated unless I manually add <tt>assert_w3c</tt> to the test.  I should be able to add <tt>Html::Test::Validator.revalidate = true</tt> or something to force this.  <tt>validate_all</tt> suggests to me that it is going to validate every call, but it does not.
+

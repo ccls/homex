@@ -30,6 +30,7 @@ if validate
 	ApplicationController.validators = [:w3c]
 	#ApplicationController.validators = [:tidy, :w3c]
 	Html::Test::Validator.verbose = false
+	Html::Test::Validator.revalidate_all = true
 	Html::Test::Validator.tidy_ignore_list = 
 		[/<table> lacks "summary" attribute/]
 	puts "Validating all html with " <<

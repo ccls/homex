@@ -15,9 +15,15 @@ module Html
 
       def validate_page
         url = request.request_uri
-        return if (!should_validate? || ValidateFilter.already_validated?(url))
-        assert_validates(validators, response.body.strip, url, :verbose => true)
-        ValidateFilter.mark_url_validated(url)
+#       return if (!should_validate? || ValidateFilter.already_validated?(url))
+				#	modified by Jake
+        if ( should_validate? && 
+          ( !ValidateFilter.already_validated?(url) || 
+            Html::Test::Validator.revalidate_all ) )
+          assert_validates(validators, response.body.strip, url, 
+            :verbose => true)
+          ValidateFilter.mark_url_validated(url)
+        end
       end
 
       def self.already_validated?(url)
