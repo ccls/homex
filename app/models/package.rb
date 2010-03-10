@@ -76,3 +76,19 @@ class Package < ActiveRecord::Base
 	end
 
 end
+
+
+#
+#	It might be kinda helpful to record all of the shipment events.
+#		ShipmentEvent.belongs_to :package
+#		Package.has_many :shipment_events
+#	Have to uniquify the time and package_id as the event
+#		doesn't have an id.  We don't want to create all new events
+#		everytime that we check the status.
+#
+#	#<ActiveMerchant::Shipping::ShipmentEvent:0x103eaab10 @location=NASHVILLE, TN, 37207 United States, @name="Picked up", @message=nil, @time=Mon Feb 22 17:43:00 UTC 2010>
+#
+#	Add Package#show
+#		list all events sorted by @time
+#
+
