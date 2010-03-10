@@ -27,7 +27,6 @@
 * {html_test}[http://github.com/jakewendt/html_test] - html testing and validation
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
-* {html_test}[http://github.com/peter/html_test] - testing
 
 
 == Installation
