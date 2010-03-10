@@ -8,7 +8,7 @@
 <div id='pages'>
 <% @pages.each do |page| %>
 <% content_tag_for( :div, page, :class => 'row' ) do %>
-<%= hidden_field_tag( 'pages[]', page.id ) %>
+<%= hidden_field_tag( 'pages[]', page.id, :id => nil ) %>
 <%= image_tag 'drag.gif', :class => 'handle' %>
 <div class='position'><%= page.position -%></div>
 <div class='path'>

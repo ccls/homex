@@ -7,6 +7,15 @@ class PagesControllerTest < ActionController::TestCase
 #			should only be visible to admins for editing
 #	
 
+	test "should get index with admin login with pages" do
+		3.times{ Factory(:page) }
+		login_as admin_user
+		get :index		
+		assert_template 'index'
+		assert_response :success
+		assert_not_nil assigns(:pages)
+	end
+
 	test "should get index with admin login" do
 		login_as admin_user
 		get :index
