@@ -16,9 +16,7 @@
 </div>
 
 <div class='info'>
-<div class='tracking_number'>
-<%= link_to @package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{@package.tracking_number}" -%>
-</div>
+<div class='tracking_number'><%= @package.tracking_number -%></div>
 <div class='updated_at'>
 <%= "#{time_ago_in_words(@package.updated_at)} ago" -%>
 </div>
@@ -32,7 +30,6 @@
 </div><!-- class='info' -->
 </div><!-- id='package' -->
 
-
 <div id='shipment_events'>&nbsp;
 <% @package.shipment_events.each do |event| %>
 <div class='shipment_event row'>
@@ -42,6 +39,5 @@
 </div><!-- class='shipment_event' -->
 <% end %>
 </div><!-- id='shipment_events' -->
-
 
 <%= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>

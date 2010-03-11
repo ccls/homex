@@ -7,6 +7,7 @@ class CreateShipmentEvents < ActiveRecord::Migration
 			t.datetime :time
 			t.timestamps
 		end
+		add_index :shipment_events, [:package_id, :time], :unique => true
 	end
 
 	def self.down

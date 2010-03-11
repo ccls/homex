@@ -29,16 +29,22 @@ class Package < ActiveRecord::Base
 
 	def update_status
 		begin
-#	:test => true is needed in test and development
-#	don't know what happens in production
-			tracking_info = @@fedex.find_tracking_info(tracking_number, :test => true)
+			#	:test => true is NEEDED in test and development
+			#	don't know what happens in production
+			#	I'm pretty sure that I'll need a "production" key
+			#	to remove the :test => true.  I don't know if
+			#	the results will be any different.  I doubt it.
+			tracking_info = @@fedex.find_tracking_info(tracking_number, 
+				:test => true)
 
 			tracking_info.shipment_events.each do |event|
-				shipment_event = self.shipment_events.find_or_create_by_time( event.time )
-				shipment_event.update_attributes({
-					:name     => event.name,
-					:location => "#{event.location.city}, #{event.location.state}"
-				})
+				unless self.shipment_events.exists?( :time => event.time )
+					self.shipment_events.create!({
+						:time     => event.time,
+						:name     => event.name,
+						:location => "#{event.location.city}, #{event.location.state}"
+					})
+				end
 			end
 
 			#	All the statuses that I've found (but may be others) ...
@@ -92,19 +98,3 @@ class Package < ActiveRecord::Base
 	end
 
 end
-
-
-#
-#	It might be kinda helpful to record all of the shipment events.
-#		ShipmentEvent.belongs_to :package
-#		Package.has_many :shipment_events
-#	Have to uniquify the time and package_id as the event
-#		doesn't have an id.  We don't want to create all new events
-#		everytime that we check the status.
-#
-#	#<ActiveMerchant::Shipping::ShipmentEvent:0x103eaab10 @location=NASHVILLE, TN, 37207 United States, @name="Picked up", @message=nil, @time=Mon Feb 22 17:43:00 UTC 2010>
-#
-#	Add Package#show
-#		list all events sorted by @time
-#
-

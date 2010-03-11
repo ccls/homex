@@ -46,3 +46,6 @@ div.shipment_event div.location {
 	float:left;
 	width: 150px;
 }
+div.shipment_event div.time {
+	text-align:right;
+}

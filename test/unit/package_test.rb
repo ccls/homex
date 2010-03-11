@@ -109,7 +109,8 @@ class PackageTest < ActiveSupport::TestCase
 	test "should have many shipment_events" do
 		package = create_package
 		assert_equal 0, package.shipment_events.length
-		Factory(:shipment_event, :package_id => package.id)
+		Factory(:shipment_event, :package_id => package.id, 
+			:time => Chronic.parse('yesterday') )
 		assert_equal 1, package.reload.shipment_events.length
 		Factory(:shipment_event, :package_id => package.id)
 		assert_equal 2, package.reload.shipment_events.length

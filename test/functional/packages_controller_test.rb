@@ -109,6 +109,17 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
+	test "should update and redirect to referer if set" do
+		login_as admin_user
+		package = Factory(:package)
+		@request.env["HTTP_REFERER"] = package_path(package)
+#	all currently result in the same redirect
+#		@request.session[:refer_to] = package_path(package)
+#		session[:refer_to] = package_path(package)
+		put :update, :id => package.id
+		assert_redirected_to package_path(package)
+	end
+
 	test "should NOT update without admin login" do
 		login_as active_user
 		package = Factory(:package, :tracking_number => '077973360403984')

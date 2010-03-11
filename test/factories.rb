@@ -112,6 +112,8 @@ end
 
 Factory.define :shipment_event do |f|
 	f.association :package
+	f.name "Name"
+	f.time Time.now
 end
 
 Factory.define :study_event do |f|
