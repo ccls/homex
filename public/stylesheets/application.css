@@ -65,6 +65,12 @@ div#menu a {
 	text-decoration:none;
 	font-size: 85%;
 }
+div#menu a:hover {
+	background-color: #E7C254;
+	color:#252C58;
+}
+
+
 div#content {
 /*
 	margin-left:160px;	

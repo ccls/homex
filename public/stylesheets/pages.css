@@ -29,3 +29,7 @@ div.title {
 }
 div.manage {
 }
+
+div.page.row.ui-sortable-helper {
+	border: 1px dashed #E7C254;
+}
