@@ -6,4 +6,7 @@ class ShipmentEvent < ActiveRecord::Base
 	validates_presence_of :name
 	validates_presence_of :time
 	validates_uniqueness_of :time, :scope => :package_id
+
+	attr_accessible :name, :time, :location
+
 end
