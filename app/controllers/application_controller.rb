@@ -14,14 +14,21 @@ class ApplicationController < ActionController::Base
 
 protected
 
-	def redirections
-		@@redirections ||= HashWithIndifferentAccess.new({
-			:view_permissions => {
-				:message => "Go away",
-				:redirect_to => "http://cnn.com"
-			}
-		})
-	end
-
+#		def redirections
+#			@@redirections ||= HashWithIndifferentAccess.new({
+#	#			:view_calendar => {},
+#	#			:deputize => {},
+#	#			:not_be_user => {},
+#	#			:view_packages => {},
+#	#			:maintain_pages => {},
+#	#			:view_user => {},
+#	#			:view_users => {},
+#	#			:not_be_user => {},
+#				:view_permissions => {
+#					:message => "Go away",
+#					:redirect_to => "http://cnn.com"
+#				}
+#			})
+#		end
 
 end
