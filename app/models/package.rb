@@ -1,6 +1,14 @@
 require 'active_shipping'
 class Package < ActiveRecord::Base
 	include ActiveMerchant::Shipping
+
+	#	Without defining the class_name, rails tries to use ...
+	#		ActiveMerchant::Shipping::ShipmentEvent
+	#	which seems really stupid.  Of course, I did just
+	#	include ActiveMerchant::Shipping so, perhaps I brought
+	#	it on myself by using this name.
+	has_many :shipment_events, :class_name => "::ShipmentEvent"
+
 	#	arbitrary restrictions
 #	validates_length_of :carrier, :minimum => 3
 	validates_length_of :tracking_number, :minimum => 3
@@ -24,6 +32,14 @@ class Package < ActiveRecord::Base
 #	:test => true is needed in test and development
 #	don't know what happens in production
 			tracking_info = @@fedex.find_tracking_info(tracking_number, :test => true)
+
+			tracking_info.shipment_events.each do |event|
+				shipment_event = self.shipment_events.find_or_create_by_time( event.time )
+				shipment_event.update_attributes({
+					:name     => event.name,
+					:location => "#{event.location.city}, #{event.location.state}"
+				})
+			end
 
 			#	All the statuses that I've found (but may be others) ...
 			#	Shipment information sent to FedEx

@@ -19,7 +19,7 @@
 
 <div class='info'>
 <div class='tracking_number'>
-<%= link_to package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}" -%>
+<%= link_to package.tracking_number, package -%>
 </div>
 <div class='updated_at'>
 <%= "#{time_ago_in_words(package.updated_at)} ago" -%>

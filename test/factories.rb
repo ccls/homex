@@ -110,6 +110,10 @@ Factory.define :sample_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :shipment_event do |f|
+	f.association :package
+end
+
 Factory.define :study_event do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end

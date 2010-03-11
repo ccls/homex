@@ -1,0 +1,48 @@
+#package,
+#shipment_events,
+p#status_updated {
+	font-size: 9pt;
+}
+
+div#package {
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+
+div.carrier {
+	float:left;
+}
+div.carrier img {
+}
+div.info {
+	padding-left: 100px;
+}
+
+div.tracking_number {
+	float:left;
+	width: 200px;
+}
+div.updated_at {
+	float:left;
+}
+div.update {
+	text-align:right;
+}
+div.status {
+}
+
+
+div#shipment_events {
+}
+
+div.shipment_event {
+}
+div.shipment_event div.name {
+	float:left;
+	width: 200px;
+}
+div.shipment_event div.location {
+	float:left;
+	width: 150px;
+}

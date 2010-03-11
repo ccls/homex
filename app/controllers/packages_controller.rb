@@ -25,7 +25,12 @@ class PackagesController < ApplicationController
 	def update
 		package = Package.find(params[:id])
 		package.update_status
-		redirect_to packages_path
+		redirect_to_referer_or_default packages_path
+	end
+
+	def show
+		@last_shipping_update = Package.last_updated
+		@package = Package.find(params[:id])
 	end
 
 end
