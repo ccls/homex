@@ -1,1 +1,1 @@
-require 'rails/init' if RAILS_ENV == 'test'
+require 'rails/init' if Rails.env == 'test'
