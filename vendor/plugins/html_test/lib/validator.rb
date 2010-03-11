@@ -5,20 +5,6 @@ require 'fileutils'
 module Html
   module Test
     class Validator
-
-			# Begin added by Jake
-			# verbose = true shows "validating ..."
-			# verbose = false shows NOTHING
-			@@verbose = true
-			cattr_accessor :verbose
-			#
-			#	revalidate_all = true will validate every call to a url
-			#	revalidate_all = false will only validate the first call to a url
-			@@revalidate_all = true
-			cattr_accessor :revalidate_all
-			# End added by Jake
-
-
       @@tidy_ignore_list = []
       cattr_accessor :tidy_ignore_list
 
