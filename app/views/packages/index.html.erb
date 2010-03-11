@@ -13,6 +13,11 @@
 <div id='packages'>
 <% @packages.each do |package| %>
 <div class='package row'>
+<div class='carrier'>
+<%= link_to image_tag('carriers/fedex.jpg'), "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}", :target => 'new' -%>
+</div>
+
+<div class='info'>
 <div class='tracking_number'>
 <%= link_to package.tracking_number, "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}" -%>
 </div>
@@ -25,6 +30,7 @@
 <div class='status'>
 <%= package.status -%>
 </div>
+</div><!-- class='info' -->
 </div><!-- class='package' -->
 <% end %>
 </div><!-- id='packages' -->

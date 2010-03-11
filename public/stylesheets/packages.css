@@ -6,6 +6,17 @@ p#status_updated {
 div#packages {
 	padding-top:20px;
 }
+
+
+div.carrier {
+	float:left;
+}
+div.carrier img {
+}
+div.info {
+	padding-left: 100px;
+}
+
 div.tracking_number {
 	float:left;
 	width: 200px;
