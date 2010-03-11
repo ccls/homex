@@ -1,0 +1,19 @@
+= Html Test Extension
+
+This plugin adds a bit of functionality and control to the {html_test plugin}[http://github.com/peter/html_test], which must also be installed.
+
+== Mods
+
+* renamed README -> README.rdoc cause its pertier
+* Added verbosity control from <tt>test/test_helper.rb</tt>
+	Html::Test::Validator.verbose = false
+* ApplicationController.validate_all = true is NOT really true.  It only validates a url ONCE.  Further calls to this url go unvalidated.
+* Added revalidation control from <tt>test/test_helper.rb</tt>
+	Html::Test::Validator.revalidate_all = true
+	
+
+== ToDos
+
+* Make tests self contained.  They fail when I run <tt>rake</tt> due to some dependencies.
+* URLs get flagged as already_validated which should be overridable.  I test the same urls under different conditions.  With and without login.  With and without items. Etc.  Only the first get validated unless I manually add <tt>assert_w3c</tt> to the test.  I should be able to add <tt>Html::Test::Validator.revalidate = true</tt> or something to force this.  <tt>validate_all</tt> suggests to me that it is going to validate every call, but it does not.
+
