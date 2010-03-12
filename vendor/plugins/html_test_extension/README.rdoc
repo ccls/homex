@@ -11,5 +11,5 @@ This plugin adds a bit of functionality and control to the {html_test plugin}[ht
 	
 == ToDos
 
-* Make tests self contained.  They fail when I run <tt>rake</tt> due to some dependencies.
+* I would like to create tests, but the idea of having a plugin dependent on another plugin bugs me a bit.  I don't want to be a hippocrit.  Outside of a rails app, how do you really make testing work?
 
