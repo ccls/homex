@@ -29,6 +29,27 @@ class ShipmentEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should combine city and state into location" do
+		shipment_event = create_shipment_event(
+			:city => "Berkeley", :state => "CA")
+		assert_equal shipment_event.location, "Berkeley, CA"
+	end
+
+	test "should use just city in location if that's all that's given" do
+		shipment_event = create_shipment_event(:city => "Berkeley")
+		assert_equal shipment_event.location, "Berkeley"
+	end
+
+	test "should use just state in location if that's all that's given" do
+		shipment_event = create_shipment_event(:state => "CA")
+		assert_equal shipment_event.location, "CA"
+	end
+
+	test "should use None as location when no location, city or state given" do
+		shipment_event = create_shipment_event
+		assert_equal shipment_event.location, "None"
+	end
+
 	test "should belong to package" do
 		shipment_event = create_shipment_event
 		assert_not_nil shipment_event.package

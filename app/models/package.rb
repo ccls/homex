@@ -41,18 +41,11 @@ class Package < ActiveRecord::Base
 
 			tracking_info.shipment_events.each do |event|
 				unless self.shipment_events.exists?( :time => event.time )
-					location = if event.location.city.blank? &&
-						event.location.state.blank?
-						#	city and state can be blank for events like
-						#		'Shipment information sent to FedEx'
-						"None"
-					else
-						[event.location.city,event.location.state].join(', ')
-					end
 					self.shipment_events.create!({
 						:time     => event.time,
 						:name     => event.name,
-						:location => location
+						:city     => event.location.city,
+						:state    => event.location.state
 					})
 				end
 			end
