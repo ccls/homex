@@ -1,0 +1,8 @@
+Description:
+    Explain the generator
+
+Example:
+    ./script/generate trackable_migration Transfer
+
+    This will create:
+        a migration file for something trackable
