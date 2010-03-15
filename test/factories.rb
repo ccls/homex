@@ -110,12 +110,6 @@ Factory.define :sample_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
-Factory.define :track do |f|
-	f.association :trackable, :factory => :package
-	f.name "Name"
-	f.time Time.now
-end
-
 Factory.define :study_event do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
@@ -132,6 +126,12 @@ end
 
 Factory.define :subject_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
+Factory.define :track do |f|
+	f.association :trackable, :factory => :package
+	f.name "Name"
+	f.time Time.now
 end
 
 Factory.define :transfer do |f|
