@@ -1,20 +1,21 @@
 require 'active_shipping'
 class Package < ActiveRecord::Base
 	include ActiveMerchant::Shipping
+	acts_as_trackable
 
 	#	Without defining the class_name, rails tries to use ...
 	#		ActiveMerchant::Shipping::ShipmentEvent
 	#	which seems really stupid.  Of course, I did just
 	#	include ActiveMerchant::Shipping so, perhaps I brought
 	#	it on myself by using this name.
-	has_many :shipment_events, :class_name => "::ShipmentEvent"
+#	has_many :shipment_events, :class_name => "::ShipmentEvent"
 
 	#	arbitrary restrictions
 #	validates_length_of :carrier, :minimum => 3
-	validates_length_of :tracking_number, :minimum => 3
-	validates_uniqueness_of :tracking_number
+#	validates_length_of :tracking_number, :minimum => 3
+#	validates_uniqueness_of :tracking_number
 
-	attr_accessible :tracking_number
+#	attr_accessible :tracking_number
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 	@@packages_updated = "#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
@@ -40,12 +41,13 @@ class Package < ActiveRecord::Base
 				:test => true)
 
 			tracking_info.shipment_events.each do |event|
-				unless self.shipment_events.exists?( :time => event.time )
-					self.shipment_events.create!({
-						:time     => event.time,
-						:name     => event.name,
-						:city     => event.location.city,
-						:state    => event.location.state
+				unless self.tracks.exists?( :time => event.time )
+					self.tracks.create!({
+						:time  => event.time,
+						:name  => event.name,
+						:city  => event.location.city,
+						:state => event.location.state,
+						:zip   => event.location.zip
 					})
 				end
 			end

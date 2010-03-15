@@ -30,14 +30,14 @@
 </div><!-- class='info' -->
 </div><!-- id='package' -->
 
-<div id='shipment_events'>&nbsp;
-<% @package.shipment_events.each do |event| %>
-<div class='shipment_event row'>
+<div id='tracks'>&nbsp;
+<% @package.tracks.each do |event| %>
+<div class='track row'>
 <div class='name'><%= event.name %></div>
 <div class='location'><%= event.location %></div>
 <div class='time'><%= event.time %></div>
-</div><!-- class='shipment_event' -->
+</div><!-- class='track' -->
 <% end %>
-</div><!-- id='shipment_events' -->
+</div><!-- id='tracks' -->
 
 <%= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>

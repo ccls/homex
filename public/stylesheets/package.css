@@ -1,5 +1,5 @@
 #package,
-#shipment_events,
+#tracks,
 p#status_updated {
 	font-size: 9pt;
 }
@@ -33,19 +33,19 @@ div.status {
 }
 
 
-div#shipment_events {
+div#tracks {
 }
 
-div.shipment_event {
+div.track {
 }
-div.shipment_event div.name {
+div.track div.name {
 	float:left;
 	width: 230px;
 }
-div.shipment_event div.location {
+div.track div.location {
 	float:left;
 	width: 150px;
 }
-div.shipment_event div.time {
+div.track div.time {
 	text-align:right;
 }

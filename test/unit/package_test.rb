@@ -106,14 +106,24 @@ class PackageTest < ActiveSupport::TestCase
 		assert package.delivered?
 	end
 
-	test "should have many shipment_events" do
+#	test "should have many shipment_events" do
+#		package = create_package
+#		assert_equal 0, package.shipment_events.length
+#		Factory(:shipment_event, :package_id => package.id, 
+#			:time => Chronic.parse('yesterday') )
+#		assert_equal 1, package.reload.shipment_events.length
+#		Factory(:shipment_event, :package_id => package.id)
+#		assert_equal 2, package.reload.shipment_events.length
+#	end
+
+	test "should have many tracks" do
 		package = create_package
-		assert_equal 0, package.shipment_events.length
-		Factory(:shipment_event, :package_id => package.id, 
+		assert_equal 0, package.tracks.length
+		Factory(:track, :trackable => package, 
 			:time => Chronic.parse('yesterday') )
-		assert_equal 1, package.reload.shipment_events.length
-		Factory(:shipment_event, :package_id => package.id)
-		assert_equal 2, package.reload.shipment_events.length
+		assert_equal 1, package.reload.tracks.length
+		Factory(:track, :trackable => package)
+		assert_equal 2, package.reload.tracks.length
 	end
 
 protected

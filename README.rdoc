@@ -28,6 +28,7 @@
 * {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
+* {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 
 
 == Installation
