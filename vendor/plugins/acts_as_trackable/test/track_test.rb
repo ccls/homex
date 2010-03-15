@@ -39,6 +39,20 @@ class TrackTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require trackable_id" do
+		assert_no_difference 'Track.count' do
+			track = create_track(:trackable_type => 'Book')
+			assert track.errors.on(:trackable_id)
+		end
+	end
+
+	test "should require trackable_type" do
+		assert_no_difference 'Track.count' do
+			track = create_track(:trackable_id => 1)
+			assert track.errors.on(:trackable_type)
+		end
+	end
+
 	test "should copy city and state to location if no location" do
 		book = create_book
 		book.tracks << create_track({
