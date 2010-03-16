@@ -8,3 +8,7 @@ Run "rake doc:app" to generate API documentation for your models, controllers, h
 {HtmlTestExtension}[link:../plugins/html_test_extension/index.html]
 {jRails}[link:../plugins/jrails/index.html]
 
+
+{RDoc Example on SourceForge}[http://rdoc.sourceforge.net/doc/index.html]
+
+{RDoc on RubyForge}[http://rdoc.rubyforge.org/]
