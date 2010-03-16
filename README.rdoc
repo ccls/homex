@@ -161,3 +161,21 @@ Currently, the Package tests would need removed to test offline as they access t
 * Nothing in particular
 * Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt>
 * Learn rdoc formatting
+* doc/README_FOR_APP
+* Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
+  * has_many
+  * has_one
+  * belongs_to
+  * has_and_belongs_to_many
+  * named_scope
+  * validate_*
+  * before_*
+  * after_*
+* Make RDoc auto recognize these specific commands and group them together under user definable separate headings (like Public Instance Methods, Private Instance Methods, etc.)
+  * Permissions.role
+  * Permissions.permission
+  * User.has_role
+* The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
+* Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
+
+
