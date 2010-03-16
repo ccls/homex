@@ -13,3 +13,6 @@ config/database.yml
 config/initializers/session_store.rb
 public/javascripts-prototype/
 packages_updated.*
+doc/app/
+doc/guides/
+doc/plugins/
