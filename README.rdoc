@@ -171,6 +171,8 @@ Currently, the Package tests would need removed to test offline as they access t
   * validate_*
   * before_*
   * after_*
+  * attr_protected
+  * attr_accessible
 * Make RDoc auto recognize these specific commands and group them together under user definable separate headings (like Public Instance Methods, Private Instance Methods, etc.)
   * Permissions.role
   * Permissions.permission
@@ -179,4 +181,4 @@ Currently, the Package tests would need removed to test offline as they access t
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
 *	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
 * the plugin rdoc_rails on github doesn't work, but would be nice in theory
-
+* rdoc the rake tasks??

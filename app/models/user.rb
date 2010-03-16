@@ -1,17 +1,18 @@
-#	Requires:
-#	* valid role_name
-#	* uid
+#	== requires
+#	*	valid role_name
+#	*	uid
 #
-#	Accessible attributes:
-#	* sn
-#	* displayname
-#	* mail
-#	* telephonenumber
+#	== accessible attributes
+#	*	sn
+#	*	displayname
+#	*	mail
+#	*	telephonenumber
 class User < ActiveRecord::Base
 	default_scope :order => :sn
 
 	##
-	#	Associate #User with #Permission and set the default 
+	#	:singleton-method: has_role
+	#	Associate #User with #Permissions and set the default 
 	#	role of a user to :user
 
 	has_role :default => :user  #, :name_accessor => :role_name
