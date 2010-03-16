@@ -1,24 +1,25 @@
+#	Much of the authentication code is from the restful_authentication 
+#	plugin but has been modified by myself and several others before
+#	being modified to more appropriately fit this situation.
 module Authentication
-
-	#	Much of the following code is from the restful_authentication plugin
-	#	but has been modified by Jake and several others before
-	#	being modified to more appropriately fit this situation.
 
 protected
 
-	# Inclusion hook to make #current_user and #logged_in?
-	# available as ActionView helper methods.
+	#	Inclusion hook to make current_user and logged_in?
+	#	available as ActionView helper methods.
 	#	All other methods are only available in controller code.
 	def self.included(base)
 		base.send :helper_method, :current_user, :logged_in?
 	end
 
+	#	Returns boolean
 	def logged_in?
 		current_user != :false
 	end
 
-	# Accesses the current user from the session.  Set it to :false if login fails
-	# so that future calls do not hit the database.
+	#	Accesses the current user from the session.  
+	#	Set it to :false if login fails
+	#	so that future calls do not hit the database.
 	def current_user
 #	Authentication will always be from CalNet and hence from session so basic_auth and cookie are unneeded
 #		@current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
@@ -57,6 +58,7 @@ protected
 #		session[:return_to] = nil
 #	end
 
+	#	Check for referers then redirect
 	def redirect_to_referer_or_default(default)
 #		redirect_to(session[:refer_to] || default)
 #	I don't quite know why the writer required that the developer set the :refer_to.
@@ -64,6 +66,7 @@ protected
 		session[:refer_to] = nil
 	end
 
+	#	Flash error message and redirect
 	def access_denied( message="You don't have permission to complete that action.", default=root_path )
 #		store_referer
 		flash[:error] = message

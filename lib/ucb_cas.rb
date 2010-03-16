@@ -1,10 +1,10 @@
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 
-#	https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html#firstLevelServers
-
 #	I know.  Naming isn't conventional.  Sue me.
 #	UCB::CAS looks more appropriate, since they are acronyms, than Ucbcas
+#	Further info regarding UCB's CAS setup can be found at 
+#	https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html#firstLevelServers
 module UCB::CAS
 
 	def self.included(base)
@@ -20,6 +20,7 @@ module UCB::CAS
 
 protected
 
+	#	Force the user to be have an SSO session open.
 	def cas_filter
 		# Have to add ".filter(self)" when not in before_filter line.
 		CASClient::Frameworks::Rails::Filter.filter(self)
