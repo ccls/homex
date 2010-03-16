@@ -6,6 +6,7 @@
 
 Inline documentation is sparse and incomplete.
 
+ sudo gem install rdoc
  rake doc:app
  open doc/app/index.html
 
