@@ -1,14 +1,15 @@
 Use this README file to introduce your application and point to useful places in the API for learning more.
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
 
-{ActsAsTrackable}[link:../plugins/acts_as_trackable/index.html]
-{AegisExtension}[link:../plugins/aegis_extension/index.html]
-{BackgrounDRb}[link:../plugins/backgroundrb/index.html]
-{HtmlTest}[link:../plugins/html_test/index.html]
-{HtmlTestExtension}[link:../plugins/html_test_extension/index.html]
-{jRails}[link:../plugins/jrails/index.html]
+Plugins
+* {ActsAsTrackable}[link:../plugins/acts_as_trackable/index.html]
+* {AegisExtension}[link:../plugins/aegis_extension/index.html]
+* {BackgrounDRb}[link:../plugins/backgroundrb/index.html]
+* {HtmlTest}[link:../plugins/html_test/index.html]
+* {HtmlTestExtension}[link:../plugins/html_test_extension/index.html]
+* {jRails}[link:../plugins/jrails/index.html]
 
 
-{RDoc Example on SourceForge}[http://rdoc.sourceforge.net/doc/index.html]
-
-{RDoc on RubyForge}[http://rdoc.rubyforge.org/]
+Other RDoc info
+* {RDoc Example on SourceForge}[http://rdoc.sourceforge.net/doc/index.html]
+* {RDoc on RubyForge}[http://rdoc.rubyforge.org/]
