@@ -178,5 +178,5 @@ Currently, the Package tests would need removed to test offline as they access t
   * User.has_role
 * The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
-* how to include this file (README.rdoc) into the output of +rake doc:app+
+* how to include this file <tt>README.rdoc</tt> into the output of <tt>rake doc:app</tt>
 
