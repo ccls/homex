@@ -4,7 +4,7 @@
 
 == Documentation
 
-Inline documentation is sparse and incomplete.
+Inline documentation is sparse and incomplete, but I'm working on it.
 
  sudo gem install rdoc
  rake doc:plugins
@@ -162,11 +162,12 @@ Currently, the Package tests would need removed to test offline as they access t
 * Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt>
 * Learn rdoc formatting
 * doc/README_FOR_APP
-* Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
+* Make RDoc auto recognize associations and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)  These associations should auto link and would be a nice start to creating UML diagrams from the source code. (I know, UML is supposed to come first.)
   * has_many
   * has_one
   * belongs_to
   * has_and_belongs_to_many
+* Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
   * named_scope
   * validate_*
   * before_*
