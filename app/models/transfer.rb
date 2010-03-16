@@ -1,3 +1,7 @@
+#	==	belongs_to
+#	*	#Aliquot
+#	*	#FromOrganization(#Organization)
+#	*	#ToOrganization(#Organization)
 class Transfer < ActiveRecord::Base
 	belongs_to :aliquot
 	belongs_to :from_organization,

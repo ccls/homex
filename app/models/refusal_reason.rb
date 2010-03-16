@@ -1,3 +1,5 @@
+#	==	has_many
+#	*	#ProjectSubject
 class RefusalReason < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

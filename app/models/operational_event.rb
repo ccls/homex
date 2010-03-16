@@ -1,3 +1,6 @@
+# == belongs_to
+# * #Subject
+# * #OperationalEventType
 class OperationalEvent < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :operational_event_type

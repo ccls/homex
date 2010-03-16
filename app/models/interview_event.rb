@@ -1,3 +1,10 @@
+# == belongs_to
+# * #Address
+# * Interviewer(#Person)
+# * #Subject
+# == has_many
+# * #InterviewVersion
+# * #OperationalEventType
 class InterviewEvent < ActiveRecord::Base
 	belongs_to :address
 	belongs_to :interviewer, :class_name => 'Person'

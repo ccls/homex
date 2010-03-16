@@ -2,6 +2,12 @@
 
 
 
+== Documentation
+
+Inline documentation is sparse and incomplete.
+
+ rake doc:app
+ open doc/app/index.html
 
 == Required Gems
 
@@ -152,4 +158,4 @@ Currently, the Package tests would need removed to test offline as they access t
 
 * Nothing in particular
 * Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt>
-
+* Learn rdoc formatting

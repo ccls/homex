@@ -1,3 +1,5 @@
+#	==	has_many
+#	*	#Subject
 class SubjectType < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

@@ -1,4 +1,5 @@
 require 'active_shipping'
+#	acts_as_trackable
 class Package < ActiveRecord::Base
 	include ActiveMerchant::Shipping
 	acts_as_trackable

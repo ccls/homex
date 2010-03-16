@@ -1,3 +1,10 @@
+#	==	belongs_to
+#	*	#AliquotSampleFormat
+#	*	#SampleSubtype
+#	*	#Subject
+#	*	#Unit
+#	==	has_many
+#	*	#Aliquot
 class Sample < ActiveRecord::Base
 	belongs_to :aliquot_sample_format
 	belongs_to :sample_subtype

@@ -1,3 +1,12 @@
+#	Requires:
+#	* valid role_name
+#	* uid
+#
+#	Accessible attributes:
+#	* sn
+#	* displayname
+#	* mail
+#	* telephonenumber
 class User < ActiveRecord::Base
 	default_scope :order => :sn
 
@@ -8,6 +17,11 @@ class User < ActiveRecord::Base
 	validates_uniqueness_of :uid
 	attr_accessible :sn, :displayname, :mail, :telephonenumber
 
+	#	Find or Create a user from a given uid, and then 
+	#	proceed to update the user's information from the 
+	#	UCB::LDAP::Person.find_by_uid(uid) response.
+	#	
+	#	Returns: user
 	def self.find_create_and_update_by_uid(uid)
 		user = User.find_or_create_by_uid(uid)
 		person = UCB::LDAP::Person.find_by_uid(uid) 
@@ -28,10 +42,14 @@ class User < ActiveRecord::Base
 
 	named_scope :deputies, :conditions => { :role_name => "administrator" }
 
+	#	Checks if role_name is 'administrator'
+	#	Returns: boolean
 	def is_admin?
 		self.role_name == "administrator"
 	end
 
+	#	Assigns role_name to 'administrator'
+	#	Returns: boolean
 	def deputize
 		self.update_attribute( :role_name, 'administrator' )
 	end

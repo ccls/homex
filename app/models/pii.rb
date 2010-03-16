@@ -1,3 +1,5 @@
+#	== belongs_to
+#	*	#Subject
 class Pii < ActiveRecord::Base
 	belongs_to :subject
 

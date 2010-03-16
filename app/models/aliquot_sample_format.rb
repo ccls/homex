@@ -1,3 +1,6 @@
+# == has_many
+# * #Aliquot
+# * #Sample
 class AliquotSampleFormat < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

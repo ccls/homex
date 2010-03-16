@@ -6,6 +6,13 @@ module Authentication
 
 protected
 
+	# Inclusion hook to make #current_user and #logged_in?
+	# available as ActionView helper methods.
+	#	All other methods are only available in controller code.
+	def self.included(base)
+		base.send :helper_method, :current_user, :logged_in?
+	end
+
 	def logged_in?
 		current_user != :false
 	end
@@ -16,13 +23,6 @@ protected
 #	Authentication will always be from CalNet and hence from session so basic_auth and cookie are unneeded
 #		@current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
 		@current_user ||= (login_from_session || :false)
-	end
-
-	# Inclusion hook to make #current_user and #logged_in?
-	# available as ActionView helper methods.
-	#	All other methods are only available in controller code.
-	def self.included(base)
-		base.send :helper_method, :current_user, :logged_in?
 	end
 
 ######################################################################

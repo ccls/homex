@@ -1,3 +1,7 @@
+#	==	belongs_to
+#	*	#SampleType
+#	==	has_many
+#	*	#Sample
 class SampleSubtype < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

@@ -1,3 +1,7 @@
+# == belongs_to
+# * #StudyEvent
+# == has_many
+# * #InterviewVersion
 class InterviewType < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

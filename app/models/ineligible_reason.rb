@@ -1,3 +1,5 @@
+# == has_many
+# * #ProjectSubject
 class IneligibleReason < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

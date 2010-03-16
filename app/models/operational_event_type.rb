@@ -1,3 +1,8 @@
+# == has_many
+# * #OperationalEvent
+# == belongs_to
+# * #StudyEvent
+# * #InterviewEvent
 class OperationalEventType < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

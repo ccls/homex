@@ -1,3 +1,11 @@
+# == belongs_to
+# * #Sample
+# * #Unit
+# * #AliquotSampleFormat
+# * Owner(#Organization)
+#
+# == has_many
+# #Transfer
 class Aliquot < ActiveRecord::Base
 	belongs_to :sample
 	belongs_to :unit

@@ -1,3 +1,8 @@
+#	== belongs_to 
+#	* #Subject
+#	* #IneligibleReason
+#	* #RefusalReason
+#	* #StudyEvent
 class ProjectSubject < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :ineligible_reason
