@@ -1,5 +1,11 @@
+#	Background worker to check the delivery status
+#	of undelivered packages.
 class ShippingWorker < BackgrounDRb::MetaWorker
 	set_worker_name :shipping_worker
+
+	#	Called when backgroundrd is started.  Makes an
+	#	immediate check and then adds a timer to check
+	#	every 1800 seconds (30 minutes)
 	def create(args = nil)
 		# this method is called, when worker is loaded for the first time
 
@@ -8,6 +14,7 @@ class ShippingWorker < BackgrounDRb::MetaWorker
 		add_periodic_timer(1800) { update_shipping_statuses }
 	end
 	
+	#	Loop over each undelivered package and update the status.
 	def update_shipping_statuses
 		puts "Updating Shipping Statuses:" << Time.now.to_s
 		Package.undelivered.each do |package|

@@ -2,3 +2,9 @@ Use this README file to introduce your application and point to useful places in
 Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
 
 {ActsAsTrackable}[link:../plugins/acts_as_trackable/index.html]
+{AegisExtension}[link:../plugins/aegis_extension/index.html]
+{BackgrounDRb}[link:../plugins/backgroundrb/index.html]
+{HtmlTest}[link:../plugins/html_test/index.html]
+{HtmlTestExtension}[link:../plugins/html_test_extension/index.html]
+{jRails}[link:../plugins/jrails/index.html]
+
