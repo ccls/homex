@@ -158,10 +158,9 @@ Currently, the Package tests would need removed to test offline as they access t
 
 == To Do
 
-* Nothing in particular
-* Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt>
-* Learn rdoc formatting
-* doc/README_FOR_APP
+* Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt> (not necessary)
+* Add to <tt>doc/README_FOR_APP</tt>
+* how to include this file <tt>README.rdoc</tt> into the output of <tt>rake doc:app</tt>
 * Make RDoc auto recognize associations and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)  These associations should auto link and would be a nice start to creating UML diagrams from the source code. (I know, UML is supposed to come first.)
   * has_many
   * has_one
@@ -178,5 +177,5 @@ Currently, the Package tests would need removed to test offline as they access t
   * User.has_role
 * The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
-* how to include this file <tt>README.rdoc</tt> into the output of <tt>rake doc:app</tt>
+*	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
 
