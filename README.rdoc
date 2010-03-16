@@ -9,7 +9,7 @@ Inline documentation is sparse and incomplete, but I'm working on it.
  sudo gem install rdoc
  rake doc:plugins
  rake doc:app
- open doc/app/index.html
+ open doc/app/doc/README_FOR_APP.html
 
 == Required Gems
 
