@@ -97,7 +97,7 @@ class Permissions < Aegis::Permissions
 	#			but still work as if they weren't.
 	#
 
-	##
+	#
 	#	Permission:  This is really a catch all is-user-an-administrator permission.
 
 	permission :administrate do
@@ -105,14 +105,14 @@ class Permissions < Aegis::Permissions
 
 	#	For some reason RDoc will NOT document more than one Permission???
 
-	##
+	#
 	#	Permission:  This is really a catch all is-user-an-administrator-or-moderator permission.
 
 	permission :moderate do
 		allow :moderator
 	end
 
-	##
+	#
 	#	Permission:
 	permission :deputize do
 	end
@@ -126,23 +126,23 @@ class Permissions < Aegis::Permissions
 
 	#	this will also create singular maintain_page permission (no arguments)
 
-	##
+	#
 	#	Permission:
 	permission :maintain_pages do #	|current_user|
 	end
 
-	##
+	#
 	#	Permission:
 	permission :view_calendar do
 		allow :employee
 	end
 
-	##
+	#
 	#	Permission:
 	permission :view_packages do
 	end
 
-	##
+	#
 	#	Permission:
 	permission :view_permissions do
 	end
@@ -153,7 +153,7 @@ class Permissions < Aegis::Permissions
 #	I don't know exactly how it handles arguments though?
 #	Arguments are optional.  Nil if not passed so use that in logic.
 
-	##
+	#
 	#	Permission:
 	permission :crud_addresses do |current_user,address|
 #puts address.inspect
@@ -162,12 +162,12 @@ class Permissions < Aegis::Permissions
 	#	this will be normalized to "read_users" and a singular
 	#		read_user permission will also be created.
 
-	##
+	#
 	#	Permission:
 	permission :view_users do #	|current_user|
 	end
 
-	##
+	#
 	#	Permission:
 	permission :view_user do |current_user,user|
 		allow :user do
@@ -195,7 +195,7 @@ class Permissions < Aegis::Permissions
 #		end
 #	end
 
-	##
+	#
 	#	Permission:
 	permission :be_user do |current_user,target_user|
 		#	MUST deny everyone first (includes admin)
