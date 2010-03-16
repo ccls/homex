@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < ApplicationController	#:nodoc:
 
 	skip_before_filter :cas_filter, :only => :show
 	before_filter :cas_gateway_filter, :only => :show

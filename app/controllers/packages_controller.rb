@@ -1,4 +1,4 @@
-class PackagesController < ApplicationController
+class PackagesController < ApplicationController	#:nodoc:
 
 	before_filter :may_view_packages_required
 

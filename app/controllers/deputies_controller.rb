@@ -1,4 +1,4 @@
-class DeputiesController < ApplicationController
+class DeputiesController < ApplicationController	#:nodoc:
 
 #	before_filter :may_deputize_required
 #	before_filter :id_required, :except => :index

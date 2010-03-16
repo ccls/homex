@@ -1,4 +1,4 @@
-class PermissionsController < ApplicationController
+class PermissionsController < ApplicationController	#:nodoc:
 
 	before_filter :may_view_permissions_required
 

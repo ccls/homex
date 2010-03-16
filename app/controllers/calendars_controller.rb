@@ -1,4 +1,4 @@
-class CalendarsController < ApplicationController
+class CalendarsController < ApplicationController	#:nodoc:
 
 	before_filter :may_view_calendar_required
 

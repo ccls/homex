@@ -2,7 +2,7 @@
 #	I think that this is a violation of rails naming conventions.
 require 'ucb_cas'	
 
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base	#:nodoc:
 	helper :all # include all helpers, all the time
 	include Authentication
 	include UCB::CAS

@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationController	#:nodoc:
 
 	before_filter :id_required, :only => [ :show, :update ]
 	before_filter :may_view_user_required, :only => :show

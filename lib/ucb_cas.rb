@@ -5,7 +5,8 @@ require 'casclient/frameworks/rails/filter'
 #	UCB::CAS looks more appropriate, since they are acronyms, than Ucbcas
 #	Further info regarding UCB's CAS setup can be found at 
 #	https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html#firstLevelServers
-module UCB::CAS
+module UCB	#:nodoc:
+module CAS
 
 	def self.included(base)
 		base_server_url = ( RAILS_ENV == "production" ) ?  "https://auth.berkeley.edu" : "https://auth-test.berkeley.edu"
@@ -35,4 +36,5 @@ protected
 		@login_url = CASClient::Frameworks::Rails::Filter.login_url(self)
 	end
 
+end
 end
