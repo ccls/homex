@@ -1,5 +1,8 @@
-# == has_many
-# * #ProjectSubject
+#	==	has_many
+#	*	#ProjectSubject
+#
+#	==	requires
+#	*	description (unique and > 3 chars)
 class IneligibleReason < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

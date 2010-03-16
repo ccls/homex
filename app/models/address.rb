@@ -1,6 +1,7 @@
-# == has_many:
-# * #InterviewEvent
-# * #Residence
+#	==	has_many
+#	*	#InterviewEvent
+#	*	#Residence
+#	*	#Subject
 class Address < ActiveRecord::Base
 	has_many :interview_events
 	has_many :residences	#	was addresses_subjects

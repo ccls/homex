@@ -10,6 +10,10 @@
 class User < ActiveRecord::Base
 	default_scope :order => :sn
 
+	##
+	#	Associate #User with #Permission and set the default 
+	#	role of a user to :user
+
 	has_role :default => :user  #, :name_accessor => :role_name
 	validates_role_name
 

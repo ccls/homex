@@ -1,7 +1,12 @@
 #	==	belongs_to
 #	*	#SampleType
+#
 #	==	has_many
 #	*	#Sample
+#
+#	==	requires
+#	*	description ( unique and > 3 chars )
+#	*	sample_type_id
 class SampleSubtype < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

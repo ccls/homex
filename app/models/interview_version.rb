@@ -1,6 +1,11 @@
-# == belongs_to
-# * #InterviewType
-# * #InterviewEvent
+#	==	belongs_to
+#	*	#InterviewType
+#	*	#InterviewEvent
+#
+#	==	requires
+#	*	description ( unique and > 3 chars )
+#	*	interview_type_id
+#	*	interview_event_id
 class InterviewVersion < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

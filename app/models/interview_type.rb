@@ -1,7 +1,12 @@
-# == belongs_to
-# * #StudyEvent
-# == has_many
-# * #InterviewVersion
+#	==	belongs_to
+#	*	#StudyEvent
+#
+#	==	has_many
+#	*	#InterviewVersion
+#
+#	==	requires
+#	*	description ( unique and > 3 chars )
+#	*	study_event_id
 class InterviewType < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

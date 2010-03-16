@@ -1,11 +1,14 @@
+#	This file is included in the #ApplicationController
+#	and is currently only used for the creation of the two(2)
+#	before_filters to handle login by the University.
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 
+module UCB	#:nodoc:
 #	I know.  Naming isn't conventional.  Sue me.
 #	UCB::CAS looks more appropriate, since they are acronyms, than Ucbcas
 #	Further info regarding UCB's CAS setup can be found at 
 #	https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html#firstLevelServers
-module UCB	#:nodoc:
 module CAS
 
 	def self.included(base)

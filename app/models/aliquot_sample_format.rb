@@ -1,6 +1,9 @@
-# == has_many
-# * #Aliquot
-# * #Sample
+#	==	has_many
+#	*	#Aliquot
+#	*	#Sample
+#
+#	==	requires
+#	*	description (unique and >3 chars)
 class AliquotSampleFormat < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

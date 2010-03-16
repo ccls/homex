@@ -1,3 +1,26 @@
+#	==	roles
+#	*	user ( default setting in #User model )
+#	*	employee
+#	*	moderator
+#	*	administrator
+#
+#	The aegis_extension plugin adds accessibility to the 
+#	hash passed to roles.  The :position key is used for 
+#	ordering in the view.
+#
+#	==	permissions
+#	*	:administrate
+#	*	:moderate
+#	*	:deputize
+#	*	:maintain_pages
+#	*	:view_calendar
+#	*	:view_packages
+#	*	:view_permissions
+#	*	:crud_addresses do |current_user,address|
+#	*	:view_users
+#	*	:view_user do |current_user,user|
+#	*	:be_user do |current_user,target_user|
+#
 class Permissions < Aegis::Permissions
 
 	#	The value of user.role_name MUST be one of these roles.
@@ -8,13 +31,23 @@ class Permissions < Aegis::Permissions
 
 	#	:position serves only to sort for viewing!
 
+	##
+	#	Role: Default user role.
 	role :user, :position => 1	#	default value for User.new
 
+	##
+	#	Role: Possible user role.
 	role :employee, :position => 2
 
 	#	This role serves no purpose as of yet
+
+	##
+	#	Role: Possible user role.
 	role :moderator, :position => 3
 
+
+	##
+	#	Role: Possible user role.
 	#	Always allow the administrators so don't have to include it
 	#	in every permission block.
 	role :administrator, :default_permission => :allow, :position => 4
@@ -64,15 +97,23 @@ class Permissions < Aegis::Permissions
 	#			but still work as if they weren't.
 	#
 
-	#	This is really a catch all is-user-an-administrator permission.
+	##
+	#	Permission:  This is really a catch all is-user-an-administrator permission.
+
 	permission :administrate do
 	end
 
-	#	This is really a catch all is-user-an-administrator-or-moderator permission.
+	#	For some reason RDoc will NOT document more than one Permission???
+
+	##
+	#	Permission:  This is really a catch all is-user-an-administrator-or-moderator permission.
+
 	permission :moderate do
 		allow :moderator
 	end
 
+	##
+	#	Permission:
 	permission :deputize do
 	end
 
@@ -84,16 +125,25 @@ class Permissions < Aegis::Permissions
 
 
 	#	this will also create singular maintain_page permission (no arguments)
+
+	##
+	#	Permission:
 	permission :maintain_pages do #	|current_user|
 	end
 
+	##
+	#	Permission:
 	permission :view_calendar do
 		allow :employee
 	end
 
+	##
+	#	Permission:
 	permission :view_packages do
 	end
 
+	##
+	#	Permission:
 	permission :view_permissions do
 	end
 
@@ -102,14 +152,23 @@ class Permissions < Aegis::Permissions
 #	:read_address, :read_addresses, :update_address, :update_addresses
 #	I don't know exactly how it handles arguments though?
 #	Arguments are optional.  Nil if not passed so use that in logic.
+
+	##
+	#	Permission:
 	permission :crud_addresses do |current_user,address|
 #puts address.inspect
 	end
 
 	#	this will be normalized to "read_users" and a singular
 	#		read_user permission will also be created.
+
+	##
+	#	Permission:
 	permission :view_users do #	|current_user|
 	end
+
+	##
+	#	Permission:
 	permission :view_user do |current_user,user|
 		allow :user do
 			current_user == user
@@ -136,6 +195,8 @@ class Permissions < Aegis::Permissions
 #		end
 #	end
 
+	##
+	#	Permission:
 	permission :be_user do |current_user,target_user|
 		#	MUST deny everyone first (includes admin)
 		#	so that negative works.  "be user" is more of

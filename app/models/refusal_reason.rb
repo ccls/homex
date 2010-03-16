@@ -1,5 +1,8 @@
 #	==	has_many
 #	*	#ProjectSubject
+#
+#	==	requires
+#	*	description ( unique and > 3 chars )
 class RefusalReason < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

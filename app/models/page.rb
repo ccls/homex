@@ -1,3 +1,11 @@
+#	==	requires
+#	*	path ( unique, > 1 char and starts with a / )
+#	*	menu ( unique and > 3 chars )
+#	*	title ( > 3 chars )
+#	*	body ( > 3 chars )
+#
+#	==	named_scope(s)
+#	*	not_home (returns those pages where path is not just '/')
 class Page < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
@@ -15,12 +23,15 @@ class Page < ActiveRecord::Base
 	attr_accessible :path, :menu, :title, :body
 
 	after_validation :downcase_path
+	#	downcase the path attribute
 	def downcase_path
 		self.path = path.try(:downcase)
 	end
 
 	#	named_scopes ALWAYS return an "Array"
 	#	so if ONLY want one, MUST use a method.
+	#	by_path returns the one(max) page that
+	#	matches the given path.
 	def self.by_path(path)
 		find(:first,
 			:conditions => {

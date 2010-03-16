@@ -1,6 +1,10 @@
 #	==	belongs_to
 #	*	#Address
 #	*	#Subject
+#
+#	==	requires
+#	*	address_id
+#	*	subject_id
 class Residence < ActiveRecord::Base
 	belongs_to :address
 	belongs_to :subject

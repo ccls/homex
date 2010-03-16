@@ -1,6 +1,7 @@
 #	==	belongs_to
 #	*	#SubjectType
 #	*	#Race
+#
 #	==	has_many
 #	*	#Sample
 #	*	#ProjectSubject
@@ -8,8 +9,13 @@
 #	*	#Residence
 #	*	#InterviewEvent
 #	*	#StudyEventEligibility
+#
 #	==	has_one
 #	*	#Pii
+#
+#	==	requires
+#	*	subject_type_id
+#	*	race_id
 class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :race

@@ -1,7 +1,8 @@
-#	== belongs_to
-#	* #Context
-#	== has_many
-#	* #InterviewEvent( as Interviewer )
+#	==	belongs_to
+#	*	#Context
+#
+#	==	has_many
+#	*	#InterviewEvent( as Interviewer )
 class Person < ActiveRecord::Base
 	belongs_to :context
 	has_many :interview_events, :foreign_key => 'interviewer_id'

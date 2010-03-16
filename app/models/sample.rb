@@ -3,8 +3,14 @@
 #	*	#SampleSubtype
 #	*	#Subject
 #	*	#Unit
+#	*	#Organization	(soon)
+#
 #	==	has_many
 #	*	#Aliquot
+#
+#	==	requires
+#	*	subject_id
+#	*	unit_id
 class Sample < ActiveRecord::Base
 	belongs_to :aliquot_sample_format
 	belongs_to :sample_subtype

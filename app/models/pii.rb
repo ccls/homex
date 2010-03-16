@@ -1,5 +1,10 @@
-#	== belongs_to
+#	==	belongs_to
 #	*	#Subject
+#
+#	==	requires
+#	*	subject_id
+#	*	ssn ( unique and in standard format or all numbers )
+#	*	state_id_no ( unique )
 class Pii < ActiveRecord::Base
 	belongs_to :subject
 

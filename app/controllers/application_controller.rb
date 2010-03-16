@@ -1,8 +1,9 @@
-#	requiring it here rather than in config/environment.rb allows for UCB::CAS.
-#	I think that this is a violation of rails naming conventions.
+#	Require 'ucb_cas' here rather than in config/environment.rb 
+#	allows for UCB::CAS in all caps.  I think that this is a 
+#	violation of rails conventions.
 require 'ucb_cas'	
 
-class ApplicationController < ActionController::Base	#:nodoc:
+class ApplicationController < ActionController::Base
 	helper :all # include all helpers, all the time
 	include Authentication
 	include UCB::CAS
@@ -14,6 +15,14 @@ class ApplicationController < ActionController::Base	#:nodoc:
 
 protected
 
+	#	redirections is called from the Aegis plugin.
+	#	Actually from my extension of the Aegis plugin.
+	#	This is a method that returns a hash containing
+	#	permissions used in the before_filters as keys
+	#	containing another hash with redirect_to and 
+	#	message keys for special redirection.  By default,
+	#	my plugin will redirect to root_path on failure
+	#	and the flash error will be the before_filter.
 #		def redirections
 #			@@redirections ||= HashWithIndifferentAccess.new({
 #	#			:view_calendar => {},

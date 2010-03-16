@@ -1,6 +1,10 @@
 #	==	belongs_to
 #	*	#StudyEvent
 #	*	#Subject
+#
+#	==	requires
+#	*	study_event_id
+#	*	subject_id
 class StudyEventEligibility < ActiveRecord::Base
 	belongs_to :study_event
 	belongs_to :subject

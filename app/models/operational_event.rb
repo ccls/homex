@@ -1,6 +1,10 @@
-# == belongs_to
-# * #Subject
-# * #OperationalEventType
+#	==	belongs_to
+#	*	#Subject
+#	*	#OperationalEventType
+#
+#	==	requires
+#	*	subject_id
+#	*	operational_event_type_id
 class OperationalEvent < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :operational_event_type

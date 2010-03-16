@@ -1,6 +1,9 @@
-# == has_many
-# * #Unit
-# * #Person
+#	==	has_many
+#	*	#Unit
+#	*	#Person
+#
+#	==	requires
+#	*	description (unique and >3 chars)
 class Context < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

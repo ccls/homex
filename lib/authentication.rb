@@ -1,6 +1,16 @@
 #	Much of the authentication code is from the restful_authentication 
 #	plugin but has been modified by myself and several others before
-#	being modified to more appropriately fit this situation.
+#	being modified again to more appropriately fit this situation.
+
+#	By being first, the above comments goes to the file rdoc.
+#	By being last, the next comments go to the module.
+#	These comments will not show up in the rdoc files.
+#	so I can say whatever I want!
+
+#	The authentication module is a little bit more than that.
+#	In addition to the current user management, there are a 
+#	few methods regarding redirection.  Not all are used in 
+#	this application anymore.
 module Authentication
 
 protected
@@ -12,7 +22,7 @@ protected
 		base.send :helper_method, :current_user, :logged_in?
 	end
 
-	#	Returns boolean
+	#	Returns user (true) or :false (false)
 	def logged_in?
 		current_user != :false
 	end
@@ -20,6 +30,7 @@ protected
 	#	Accesses the current user from the session.  
 	#	Set it to :false if login fails
 	#	so that future calls do not hit the database.
+	#	(Why :false and not false?)
 	def current_user
 #	Authentication will always be from CalNet and hence from session so basic_auth and cookie are unneeded
 #		@current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
@@ -28,13 +39,16 @@ protected
 
 ######################################################################
 
+	#	Set the current user called from #current_user.  
+	#	(Again, why :false and not false?)
 	def current_user=(new_user)
 #	May use this in the future, but doubt it
 #		session[:user_id] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
 		@current_user = new_user || :false
 	end
 
-	# Called from #current_user.
+	#	Get the current user based on the session[:calnetuid].
+	#	Called from #current_user.
 	def login_from_session
 		self.current_user = User.find_create_and_update_by_uid(session[:calnetuid]) if session[:calnetuid]
 	end

@@ -1,3 +1,6 @@
+#	==	requires
+#	*	childid (unique)
+#	*	patid (unique)
 class Export < ActiveRecord::Base
 	validates_presence_of   :childid
 	validates_uniqueness_of :childid

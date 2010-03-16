@@ -3,6 +3,9 @@
 #	*	#InterviewType
 #	*	#ProjectSubject
 #	*	#StudyEventEligibility
+#
+#	==	requires
+#	*	description ( unique and > 3 chars )
 class StudyEvent < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
