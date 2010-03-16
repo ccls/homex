@@ -3,11 +3,11 @@ class CreatePackages < ActiveRecord::Migration
 		create_table :packages do |t|
 			t.integer :position
 #			t.string :carrier, :null => false
-			t.string :tracking_number, :null => false
+#			t.string :tracking_number, :null => false
 			t.string :status
 			t.timestamps
 		end
-		add_index :packages, :tracking_number, :unique => true
+#		add_index :packages, :tracking_number, :unique => true
 	end
 
 	def self.down
