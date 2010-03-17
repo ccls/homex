@@ -6,10 +6,10 @@
 
 Inline documentation is sparse and incomplete, but I'm working on it.
 
- sudo gem install rdoc
+ sudo gem install rdoc --source http://gemcutter.org
  rake doc:plugins
  rake doc:app
- open doc/app/doc/README_FOR_APP.html
+ open doc/app/README_rdoc.html
 
 == Required Gems
 
