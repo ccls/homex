@@ -15,7 +15,13 @@ class Aliquot < ActiveRecord::Base
 	belongs_to :sample
 	belongs_to :unit
 	belongs_to :aliquot_sample_format
-	belongs_to :owner, :class_name => "Organization", :counter_cache => true
+
+	#	rdoc_rails docs this incorrectly.  The :counter_cache 
+	#	is causing the class_name to be ignored.  Using the
+	#	column name rather than true seems to fix.
+	belongs_to :owner, 
+		:class_name => "Organization",
+		:counter_cache => :aliquots_count
 	has_many :transfers
 
 	validates_presence_of :sample_id
