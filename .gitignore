@@ -16,3 +16,4 @@ packages_updated.*
 doc/app/
 doc/guides/
 doc/plugins/
+vendor/plugins/**/rdoc/
