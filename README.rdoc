@@ -183,5 +183,7 @@ Currently, the Package tests would need removed to test offline as they access t
 * The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
 *	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
-* the plugin rdoc_rails on github doesn't work, but would be nice in theory
+* the plugin rdoc_rails on github doesn't work completely, but would be nice in theory
+*	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
 * rdoc the rake tasks??
+
