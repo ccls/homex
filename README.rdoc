@@ -162,7 +162,7 @@ Currently, the Package tests would need removed to test offline as they access t
 * Add to <tt>doc/README_FOR_APP</tt>
 * how to include this file <tt>README.rdoc</tt> into the output of <tt>rake doc:app</tt>
 
-=== Vaguely related fixes
+=== Vaguely related to dos
 
 * Make RDoc auto recognize associations and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)  These associations should auto link and would be a nice start to creating UML diagrams from the source code. (I know, UML is supposed to come first.)
   * has_many
