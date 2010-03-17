@@ -23,7 +23,7 @@ protected
 	#	message keys for special redirection.  By default,
 	#	my plugin will redirect to root_path on failure
 	#	and the flash error will be the before_filter.
-#		def redirections
+	def redirections
 #			@@redirections ||= HashWithIndifferentAccess.new({
 #	#			:view_calendar => {},
 #	#			:deputize => {},
@@ -38,6 +38,6 @@ protected
 #					:redirect_to => "http://cnn.com"
 #				}
 #			})
-#		end
+	end
 
 end

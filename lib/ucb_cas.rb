@@ -11,6 +11,11 @@ module UCB	#:nodoc:
 #	https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html#firstLevelServers
 module CAS
 
+	#	Setup the CASClient and add the cas_filter before_filter
+	#	to all application_controller requests.  This can be
+	#	overridden or "skipped" in any controller, particularly
+	#	those that are passive and will use the cas_gateway_filter
+	#	instead.
 	def self.included(base)
 		base_server_url = ( RAILS_ENV == "production" ) ?  "https://auth.berkeley.edu" : "https://auth-test.berkeley.edu"
 

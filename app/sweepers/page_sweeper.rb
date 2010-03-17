@@ -1,6 +1,3 @@
-class PageSweeper < ActionController::Caching::Sweeper
-	observe Page
-
 #	While sweepers are model observers, they only seem
 #	to be so within the scope of a given controller.
 #	If the 'cache_sweeper' line is not given in the 
@@ -8,7 +5,7 @@ class PageSweeper < ActionController::Caching::Sweeper
 #	In addition, saving or destroying a page outside
 #	of the scope of the controller (ie. from console)
 #	will also go unnoticed.
-
+#
 #	Interestingly, in unit/model testing, this fails
 #	as request is nil.  This means that I don't quite
 #	understand how this works.  Perhaps because the cache
@@ -17,15 +14,33 @@ class PageSweeper < ActionController::Caching::Sweeper
 #	doesn't effect the server's cache.  That makes sense.
 #	So then.  How to get the host_with_port without a 
 #	request then?
+class PageSweeper < ActionController::Caching::Sweeper
+	observe Page
 
+	#	After saving (creating or updating) a page,
+	#	expire any associated caches.
 	def after_save(page)
 		expire_cache(page)
 	end
 
+	#	After destroying a page, expire any associated
+	#	caches.
 	def after_destroy(page)
 		expire_cache(page)
 	end
 
+	#	Always expire the menu cache.  This may not
+	#	be necessary as it only relies on the menu,
+	#	path and position attributes which may have
+	#	remained unchanged.  Also expire the "show"
+	#	action cache.  As the pages are rarely accessed
+	#	via /pages/:id, we need to expire the special
+	#	routes used by the catch-all route.  In the 
+	#	real world, this works just fine, but in testing
+	#	the app tries to expire cache when in unit tests
+	#	as well as functional tests.  There is no 
+	#	"request" in a unit test causing failure and
+	#	my usage of ".try"
 	def expire_cache(page)
 		#	Please note that the "views/" prefix is
 		#	internal to rails.  Don't meddle with it.
