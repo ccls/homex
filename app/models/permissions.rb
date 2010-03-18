@@ -208,4 +208,7 @@ class Permissions < Aegis::Permissions
 		end
 	end
 
+	permission :view_questionnaires do
+	end
+
 end
