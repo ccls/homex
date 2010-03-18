@@ -8,6 +8,7 @@ Plugins
 * {HtmlTest}[link:../plugins/html_test/index.html]
 * {HtmlTestExtension}[link:../plugins/html_test_extension/index.html]
 * {jRails}[link:../plugins/jrails/index.html]
+* {RDocRails}[link:../plugins/rdoc_rails/index.html]
 
 
 Other RDoc info
