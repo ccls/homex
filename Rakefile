@@ -28,22 +28,19 @@ require 'rake/rdoctask'
 #	it, it just seems like you can't!!!!!!!
 #
 
+#	The rdoc_rails plugin removes the original doc:app task
+#	and replaces it with its own.
+
 class Rake::RDocTask
 	alias :orig_initialize :initialize
 	def initialize(name)
-#puts "initializing '#{name}'"
-#puts "current_scope '#{Rake.application.current_scope}'"
-#puts "current_scope class '#{Rake.application.current_scope.class.name}'"
-#puts "current_scope first '#{Rake.application.current_scope.first.class.name}'"
 		if Rake.application.current_scope == [:doc] and name == "app"
-#puts self.methods.sort
-#puts self.instance_variables.sort
-#puts Rake.application.inspect
-#puts Rake.application.current_scope
 			orig_initialize(name) { |rdoc|
 				yield rdoc # Init the way Rails expects
+				rdoc.main = 'README.rdoc'
 				rdoc.rdoc_files.include('README.rdoc')
-				rdoc.rdoc_files.include('vendor/plugins/acts_as_trackable/lib/track.rb')
+				rdoc.rdoc_files.include(
+					'vendor/plugins/acts_as_trackable/lib/track.rb')
 			}
 		else
 			orig_initialize(name) { |rdoc| yield rdoc }
