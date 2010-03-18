@@ -181,4 +181,5 @@ Currently, the Package tests would need removed to test offline as they access t
 *	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
 *	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
 * rdoc the rake tasks??
+* thickbox-compressed.js has relative location for image which isn't always correct.
 
