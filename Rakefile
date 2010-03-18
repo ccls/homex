@@ -12,25 +12,18 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 #
-#	So this sucks a bit.  Apparently, the developer cannot
-#	override an RDoc rake task.  Basically, we are modifying
-#	the doc:app as Rails creates it in "require 'tasks/rails'".
-#	The name of the task is a String and the current_scope
-#	is an Array of Symbols. (don't know what order)  The 
-#	current_scope is an Array of nested namespaces.
+#	Basically, we are modifying the doc:app as Rails creates 
+#	it in "require 'tasks/rails'".  The name of the task is 
+#	a String and the current_scope is an Array of nested 
+#	namespaces as Symbols. (don't know what order)
 #
 #	http://lists.netisland.net/archives/phillyonrails/phillyonrails-2006/msg00167.html
 #
-#
-#
-#	Actually, you can remove an RDocTask, but when you
-#	have a plugin that comes in behind you and redefines
-#	it, it just seems like you can't!!!!!!!
-#
-
 #	The rdoc_rails plugin removes the original doc:app task
-#	and replaces it with its own.
-
+#	and replaces it with its own.  Rather that meddle
+#	with removing that one and creating my own, I'll just
+#	make the mods that I need. 
+#	(This isn't very conventional)
 class Rake::RDocTask
 	alias :orig_initialize :initialize
 	def initialize(name)
