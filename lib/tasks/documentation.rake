@@ -26,37 +26,30 @@ namespace :doc do	|doc|
 			Rake::Task[plugin].clear_actions
 			Rake::Task[plugin].clear_prerequisites
 
-			desc "Generate documentation for the #{plugin} plugin"
-			task(plugin => :environment) do
-				plugin_base	 = "vendor/plugins/#{plugin}"
-				options			 = []
-				files				 = Rake::FileList.new
-				options << "-o doc/plugins/#{plugin}"
-				options << "--title '#{plugin.titlecase} Plugin Documentation'"
-				options << '--line-numbers' << '--inline-source'
-				options << '--charset' << 'utf-8'
+			Rake::RDocTask.new(plugin) { |rdoc|
+				plugin_base  = "vendor/plugins/#{plugin}"
+				ENV['format'] ||= 'railsfish'
+				rdoc.rdoc_dir = "doc/plugins/#{plugin}"
+				rdoc.template = ENV['template'] if ENV['template']
+				rdoc.title    = "#{plugin.titlecase} Plugin Documentation"
+				rdoc.options << '--line-numbers' << '--inline-source'
+				rdoc.options << '--charset' << 'utf-8'
+				rdoc.options << '--format'  << ENV['format']
+				rdoc.rdoc_files.include("#{plugin_base}/lib/**/*.rb")
 
-#	uh-oh! RDoc had a problem:
-#	could not find template "html"
-#				options << '-T html'
-
-				files.include("#{plugin_base}/lib/**/*.rb")
 				%w( README README.rdoc ).each do |readme|
 					if File.exist?("#{plugin_base}/#{readme}")
-						options << "--main '#{plugin_base}/#{readme}'"
+						rdoc.main = "#{plugin_base}/#{readme}"
 						break
 					end
 				end
 				%w( TODO.org MIT-LICENSE LICENSE CHANGELOG README README.rdoc ).each do |possible_file|
 					if File.exist?("#{plugin_base}/#{possible_file}")
-						files.include("#{plugin_base}/#{possible_file}") 
+						rdoc.rdoc_files.include("#{plugin_base}/#{possible_file}") 
 					end
 				end
+			}
 
-				options << files.to_s
-
-				sh %(rdoc #{options * ' '})
-			end
 		end
 	end
 end
