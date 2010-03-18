@@ -37,6 +37,7 @@ Inline documentation is sparse and incomplete, but I'm working on it.
 * {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
 * {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
+* {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 
 
 == Installation
@@ -164,11 +165,6 @@ Currently, the Package tests would need removed to test offline as they access t
 
 === Vaguely related to dos
 
-* Make RDoc auto recognize associations and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)  These associations should auto link and would be a nice start to creating UML diagrams from the source code. (I know, UML is supposed to come first.)
-  * has_many
-  * has_one
-  * belongs_to
-  * has_and_belongs_to_many
 * Make RDoc auto recognize the following rails commands and group them together under separate headings (like Public Instance Methods, Private Instance Methods, etc.)
   * named_scope
   * validate_*
@@ -183,7 +179,6 @@ Currently, the Package tests would need removed to test offline as they access t
 * The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
 *	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
-* the plugin rdoc_rails on github doesn't work completely, but would be nice in theory
 *	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
 * rdoc the rake tasks??
 
