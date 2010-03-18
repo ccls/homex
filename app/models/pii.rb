@@ -1,6 +1,3 @@
-#	==	belongs_to
-#	*	#Subject
-#
 #	==	requires
 #	*	subject_id
 #	*	ssn ( unique and in standard format or all numbers )

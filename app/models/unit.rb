@@ -1,10 +1,3 @@
-#	==	belongs_to
-#	*	#Context
-#
-#	==	has_many
-#	*	#Aliquot
-#	*	#Sample
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class Unit < ActiveRecord::Base

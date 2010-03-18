@@ -1,6 +1,3 @@
-#	==	has_many
-#	*	#SampleSubtype
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class SampleType < ActiveRecord::Base

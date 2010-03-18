@@ -1,6 +1,3 @@
-#	==	has_many
-#	*	#Subject
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class SubjectType < ActiveRecord::Base

@@ -1,9 +1,3 @@
-#	==	belongs_to
-#	*	#StudyEvent
-#
-#	==	has_many
-#	*	#InterviewVersion
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 #	*	study_event_id

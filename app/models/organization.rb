@@ -1,9 +1,3 @@
-#	==	has_many
-#	*	#Aliquot
-#	*	IncomingTransfer(#Transfer)
-#	*	OutgoingTransfer(#Transfer)
-#	*	#Samples (soon)
-#
 #	==	requires
 #	*	name ( unique and > 3 chars )
 class Organization < ActiveRecord::Base

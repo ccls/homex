@@ -1,9 +1,3 @@
-#	==	belongs_to 
-#	*	#Subject
-#	*	#IneligibleReason
-#	*	#RefusalReason
-#	*	#StudyEvent
-#
 #	==	requires
 #	*	subject_id
 #	*	study_event_id

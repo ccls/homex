@@ -1,12 +1,3 @@
-#	==	belongs_to
-#	*	#Address
-#	*	Interviewer(#Person)
-#	*	#Subject
-#
-#	==	has_many
-#	*	#InterviewVersion
-#	*	#OperationalEventType
-#
 #	==	requires
 #	*	address_id
 #	*	interviewer_id

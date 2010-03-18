@@ -1,10 +1,3 @@
-#	==	has_many
-#	*	#OperationalEvent
-#
-#	==	belongs_to
-#	*	#StudyEvent
-#	*	#InterviewEvent
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 #	*	study_event_id

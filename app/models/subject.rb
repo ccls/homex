@@ -1,18 +1,3 @@
-#	==	belongs_to
-#	*	#SubjectType
-#	*	#Race
-#
-#	==	has_many
-#	*	#Sample
-#	*	#ProjectSubject
-#	*	#OperationalEvent
-#	*	#Residence
-#	*	#InterviewEvent
-#	*	#StudyEventEligibility
-#
-#	==	has_one
-#	*	#Pii
-#
 #	==	requires
 #	*	subject_type_id
 #	*	race_id

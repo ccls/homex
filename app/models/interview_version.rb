@@ -1,7 +1,3 @@
-#	==	belongs_to
-#	*	#InterviewType
-#	*	#InterviewEvent
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 #	*	interview_type_id

@@ -1,9 +1,3 @@
-#	==	has_many
-#	*	#OperationalEventType
-#	*	#InterviewType
-#	*	#ProjectSubject
-#	*	#StudyEventEligibility
-#
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class StudyEvent < ActiveRecord::Base

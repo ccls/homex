@@ -1,13 +1,3 @@
-#	==	belongs_to
-#	*	#AliquotSampleFormat
-#	*	#SampleSubtype
-#	*	#Subject
-#	*	#Unit
-#	*	#Organization	(soon)
-#
-#	==	has_many
-#	*	#Aliquot
-#
 #	==	requires
 #	*	subject_id
 #	*	unit_id

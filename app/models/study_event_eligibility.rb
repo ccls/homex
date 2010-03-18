@@ -1,7 +1,3 @@
-#	==	belongs_to
-#	*	#StudyEvent
-#	*	#Subject
-#
 #	==	requires
 #	*	study_event_id
 #	*	subject_id

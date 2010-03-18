@@ -1,7 +1,3 @@
-#	==	has_many
-#	*	#Unit
-#	*	#Person
-#
 #	==	requires
 #	*	description (unique and >3 chars)
 class Context < ActiveRecord::Base

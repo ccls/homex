@@ -1,7 +1,3 @@
-#	==	belongs_to
-#	*	#Subject
-#	*	#OperationalEventType
-#
 #	==	requires
 #	*	subject_id
 #	*	operational_event_type_id

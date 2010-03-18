@@ -1,7 +1,3 @@
-#	==	belongs_to
-#	*	#Address
-#	*	#Subject
-#
 #	==	requires
 #	*	address_id
 #	*	subject_id

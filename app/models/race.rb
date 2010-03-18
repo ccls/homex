@@ -1,6 +1,3 @@
-#	==	has_many
-#	*	#Subject
-#
 #	==	requires
 #	*	name ( unique and > 3 chars )
 class Race < ActiveRecord::Base

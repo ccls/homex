@@ -1,8 +1,3 @@
-#	==	belongs_to
-#	*	#Aliquot
-#	*	#FromOrganization(#Organization)
-#	*	#ToOrganization(#Organization)
-#
 #	==	requires
 #	*	aliquot_id
 #	*	from_organization_id

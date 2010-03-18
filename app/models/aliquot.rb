@@ -1,12 +1,3 @@
-#	==	belongs_to
-#	*	#Sample
-#	*	#Unit
-#	*	#AliquotSampleFormat
-#	*	Owner(#Organization)
-#
-#	==	has_many
-#	*	#Transfer
-#
 #	==	requires
 #	*	sample_id
 #	*	unit_id
@@ -19,6 +10,7 @@ class Aliquot < ActiveRecord::Base
 	#	rdoc_rails docs this incorrectly.  The :counter_cache 
 	#	is causing the class_name to be ignored.  Using the
 	#	column name rather than true seems to fix.
+	#	( I am working on the plugin to fix this. )
 	belongs_to :owner, 
 		:class_name => "Organization",
 		:counter_cache => :aliquots_count
