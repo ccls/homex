@@ -43,6 +43,7 @@ class Rake::RDocTask
 			orig_initialize(name) { |rdoc|
 				yield rdoc # Init the way Rails expects
 				rdoc.rdoc_files.include('README.rdoc')
+				rdoc.rdoc_files.include('vendor/plugins/acts_as_trackable/lib/track.rb')
 			}
 		else
 			orig_initialize(name) { |rdoc| yield rdoc }
