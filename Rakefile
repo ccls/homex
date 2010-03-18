@@ -21,6 +21,13 @@ require 'rake/rdoctask'
 #
 #	http://lists.netisland.net/archives/phillyonrails/phillyonrails-2006/msg00167.html
 #
+#
+#
+#	Actually, you can remove an RDocTask, but when you
+#	have a plugin that comes in behind you and redefines
+#	it, it just seems like you can't!!!!!!!
+#
+
 class Rake::RDocTask
 	alias :orig_initialize :initialize
 	def initialize(name)
