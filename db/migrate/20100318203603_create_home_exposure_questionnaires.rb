@@ -1,6 +1,8 @@
 class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 	def self.up
 		create_table :home_exposure_questionnaires do |t|
+			t.integer :childid
+			t.boolean :is_complete
 			t.integer :vacuum_has_disposable_bag
 			t.integer :how_often_vacuumed_12mos
 			t.integer :shoes_usually_off_inside_12mos
@@ -65,11 +67,11 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.string :other_pest_community_sprayed
 			t.integer :type_of_residence
 			t.string :other_type_of_residence
-			t.integer :number_of_floors_in_residence
-			t.integer :number_of_stories_in_building
-			t.date :year_home_built
+			t.integer :number_of_floors_in_home
+			t.integer :number_of_stories_in_home
+			t.integer :year_home_built
 			t.integer :home_square_footage
-			t.integer :number_of_rooms_in_residence
+			t.integer :number_of_rooms_in_home
 			t.integer :home_constructed_of
 			t.string :other_home_material
 			t.integer :home_has_attached_garage
