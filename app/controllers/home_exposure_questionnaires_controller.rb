@@ -1,4 +1,4 @@
-class HomeExposureQuestionnairesController < ApplicationController
+class HomeExposureQuestionnairesController < ApplicationController #:nodoc:
 
 	before_filter :may_view_questionnaires_required
 
