@@ -22,6 +22,7 @@ survey "Home Exposure survey" do
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
+
 		
 		q "In the last 12 months, on average, how often were the rugs and floors in this home usually vacuumed?  Would you say...", 
 			:pick => :one, 
@@ -129,7 +130,7 @@ survey "Home Exposure survey" do
 	
 	end
 
-	section "Jobs in the past 12 months" do
+	section "Jobs" do
 
 		label "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ..."
 
@@ -560,12 +561,12 @@ survey "Home Exposure survey" do
 
 		q_22 "22. Which of the following best describes this residence? ",
 			:pick => :one, :data_export_identifier => :type_of_residence
-		a "Single family residence", :data_export_identifier => 1
-		a "Duplex / Townhouse",      :data_export_identifier => 2 
-		a "Apartment / Condominium", :data_export_identifier => 3
-		a "Mobile Home",             :data_export_identifier => 4
-		a_5 "Other (specify)",       :data_export_identifier => 8
-		a "Don't Know",              :data_export_identifier => 9
+		a_1 "Single family residence", :data_export_identifier => 1
+		a_2 "Duplex / Townhouse",      :data_export_identifier => 2 
+		a_3 "Apartment / Condominium", :data_export_identifier => 3
+		a_4 "Mobile Home",             :data_export_identifier => 4
+		a_5 "Other (specify)",         :data_export_identifier => 8
+		a "Don't Know",                :data_export_identifier => 9
 
 		q_22other "Other", 
 			:data_export_identifier => :other_type_of_residence
@@ -577,11 +578,16 @@ survey "Home Exposure survey" do
 		q_22a "22a. How many floors are there in your residence?",
 			:data_export_identifier => :number_of_floors_in_residence
 		a :integer
+		dependency :rule => "A or B"
+		condition_A :q_22, "==", :a_1
+		condition_B :q_22, "==", :a_2
 
 
 		q_22b "22b. How many stories are there in your building?",
 			:data_export_identifier => :number_of_stories_in_building
 		a :integer
+		dependency :rule => "A"
+		condition_A :q_22, "==", :a_3
 
 
 		q_23 "23. In what year was your home built? ",
@@ -745,6 +751,12 @@ survey "Home Exposure survey" do
 		condition_B :q_31b, "==", :a_2
 		condition_C :q_31b, "==", :a_3
 
+	
+	end
+
+	section "Gas" do
+
+		label "32. In the last 12 months, were any of the following gas appliances used in your home? How about...."
 
 		q "1 = A gas stove/oven",
 			:pick => :one, :data_export_identifier => :used_gas_stove_12mos
@@ -775,6 +787,14 @@ survey "Home Exposure survey" do
 		a :string
 		dependency :rule => "A"
 		condition_A :q_gas_other, "==", :a_1
+
+	
+	end
+
+	section "Remodelling" do
+
+		label "33. Please tell me if any of the following activities were done during the time you have lived in this home. How about....."
+
 
 		q "1 = Painting done indoors",
 			:pick => :one, :data_export_identifier => :painted_inside_home
@@ -830,6 +850,10 @@ survey "Home Exposure survey" do
 		dependency :rule => "A"
 		condition_A :q_remodel_other, "==", :a_1
 
+	
+	end
+
+	section "Tobacco" do
 
 		q_34 "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?",
 			:pick => :one, 
@@ -871,6 +895,9 @@ survey "Home Exposure survey" do
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
 
+	end
+
+	section "Furnishings" do
 
 		q_37 "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?",
 			:pick => :one, 
@@ -925,6 +952,11 @@ survey "Home Exposure survey" do
 		dependency :rule => "A"
 		condition_A :q_38, "==", :a_1
 
+
+
+	end
+
+	section "Electronics" do
 
 
 		q_39 "39. Do you have any televisions in your home?",

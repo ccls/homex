@@ -140,8 +140,9 @@ div.row:nth-child(2n+1) { background-color: #DDD; }
 
 
 
-
-
+#surveyor {
+	background-color:transparent;
+}
 #surveyor .question_group ul li .question ol.answers li {
 	/* 
 		if a group is used, the contained question's answers
@@ -160,4 +161,7 @@ div.row:nth-child(2n+1) { background-color: #DDD; }
 div#content div#surveyor,
 #surveyor .question fieldset legend {
 	width:auto;
+}
+#surveyor .questions .question .text {
+	font-size: 12pt;
 }

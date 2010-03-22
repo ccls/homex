@@ -8,7 +8,6 @@
 <%= stylesheet_link_tag 'application' %>
 <%#= stylesheet_link_tag controller.controller_name %>
 <%= javascript_include_tag :defaults %>
-<%= surveyor_includes if( controller.controller_name == 'surveyor') %>
 <%# 
 	this adds a lot of stuff that we may not need or want 
 
@@ -16,7 +15,9 @@
 
 	surveyor_javascripts -> javascript_include_tag 'surveyor/jquery-1.2.6.js', 'surveyor/jquery-ui-personalized-1.5.3.js', 'surveyor/accessibleUISlider.jQuery.js','surveyor/jquery.form.js', 'surveyor/surveyor.js'
 
+	if its first, it doesn't work.  Probably gets overwritten by something
 %>
+<%= surveyor_includes if( controller.controller_name == 'surveyor') %>
 <%= yield :head %>
 </head>
 <body>

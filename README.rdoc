@@ -203,7 +203,6 @@ Currently, the Package tests would need removed to test offline as they access t
 * I'll need to figure out how to extend the surveyor contoller to control access to survey.
 * I'll need to attach the survey to a subject.
 * I'll need to restrict the survey to 2 per subject.
-* The way that surveyor uses fixtures will make it challenging for adding new surveys as adding them destroys and you can't replace or remove an individual survey.
 * Despite saying "Surveyor will support 4 export formats out of the box", I have seen no mention as to how or where.
 * As there isn't a lot of documentation, it raises questions about how I implemented it.  I used "data_export_identifier" to store internal codes for answers and column names for the questions.  I just hope the that field isn't used for something else.
 * Response has a "response_other:string" which may be useful, but won't adhere to the number coding presented to me.
