@@ -31,9 +31,14 @@ class Rake::RDocTask
 			orig_initialize(name) { |rdoc|
 				yield rdoc # Init the way Rails expects
 				rdoc.main = 'README.rdoc'
-				rdoc.rdoc_files.include('README.rdoc')
-				rdoc.rdoc_files.include(
-					'vendor/plugins/acts_as_trackable/lib/track.rb')
+				%w(	
+					README.rdoc
+					/usr/lib/ruby/user-gems/1.8/gems/surveyor-0.9.10/app/models/**
+					vendor/plugins/acts_as_trackable/lib/track.rb
+				).each{|f| rdoc.rdoc_files.include( f ) }
+#				rdoc.rdoc_files.include('README.rdoc')
+#				rdoc.rdoc_files.include(
+#					'vendor/plugins/acts_as_trackable/lib/track.rb')
 			}
 		else
 			orig_initialize(name) { |rdoc| yield rdoc }
@@ -43,4 +48,5 @@ end
 
 require 'tasks/rails'
 
-require 'tasks/surveyor'
+#	why?  Included by default
+#require 'tasks/surveyor'

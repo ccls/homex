@@ -30,6 +30,15 @@ namespace :survey do
 			puts "Answer: " << r.answer.data_export_identifier << " - " <<
 				r.answer.text
 			puts "Answer response class: " << r.answer.response_class
+			puts "Response.to_s :" << r.to_s
+
+			response_code = if r.answer.response_class == "answer" 
+				r.answer.data_export_identifier
+			else
+				r.send("#{r.answer.response_class}_value")
+			end
+			puts "#{r.question.data_export_identifier}:" <<
+				"#{response_code}"
 #			puts "\tdatetime_value:" << r.datetime_value.to_s
 #			puts "\tinteger_value:" << r.integer_value.to_s
 #			puts "\tfloat_value:" << r.float_value.to_s

@@ -131,7 +131,7 @@ survey "Home Exposure survey" do
 
 	section "Jobs in the past 12 months" do
 
-		label "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?" 
+		label "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ..."
 
 		q_7a "1 = Airplane Mechanic", 
 			:pick => :one, 
@@ -273,14 +273,14 @@ survey "Home Exposure survey" do
 
 		q_8 "8. During the last 12 months, did you have a pet that was treated for fleas or ticks using shampoos, soaps, collars, sprays, dusts, powders, or skin applications?", 
 			:pick => :one, 
-			:data_export_identifier => :pet_treated_for_fleas_12mos
+			:data_export_identifier => :used_flea_control_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
 
 		q_8a "8a. How often during the past 12 months? Would you say...", 
 			:pick => :one, 
-			:data_export_identifier => :freq_pet_treated_for_fleas_12mos
+			:data_export_identifier => :freq_used_flea_control_12mos
 		a "5 or more time",     :data_export_identifier => 1
 		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
@@ -346,16 +346,15 @@ survey "Home Exposure survey" do
 
 		q_12 "12. During the last 12 months, did you or anyone in your home treat any other indoor insects or other types of pests?  Do not include products applied outside on your lawn, garden, or trees.", 
 			:pick => :one, 
-			:data_export_identifier => :treated_other_indoor_pest_12mos
+			:data_export_identifier => :used_other_indoor_product_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
 
 
-
 		q_12a "12a. How often during the past 12 months?  Would you say...", 
 			:pick => :one, 
-			:data_export_identifier  => :freq_other_indoor_pest_12mos
+			:data_export_identifier  => :freq_other_indoor_product_12mos
 		a "5 or more time",     :data_export_identifier => 1
 		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
@@ -503,7 +502,7 @@ survey "Home Exposure survey" do
 
 		q_21a "1 = Gypsy moths ", 
 			:pick => :one, 
-			:data_export_identifier => :cmty_sprayed_moths_12mos
+			:data_export_identifier => :cmty_sprayed_gypsy_moths_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
@@ -527,7 +526,7 @@ survey "Home Exposure survey" do
 
 		q_21d "4 = Glassy Winged Sharpshooter  ", 
 			:pick => :one, 
-			:data_export_identifier => :cmty_sprayed_sharpshooter_12mos
+			:data_export_identifier => :cmty_sprayed_sharpshooters_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
@@ -535,7 +534,7 @@ survey "Home Exposure survey" do
 
 		q_21e "5 = Light Brown Apple Moth", 
 			:pick => :one, 
-			:data_export_identifier => :cmty_sprayed_moth_12mos
+			:data_export_identifier => :cmty_sprayed_apple_moths_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
@@ -576,12 +575,12 @@ survey "Home Exposure survey" do
 	
 
 		q_22a "22a. How many floors are there in your residence?",
-			:data_export_identifier => :number_of_floors_in_home
+			:data_export_identifier => :number_of_floors_in_residence
 		a :integer
 
 
 		q_22b "22b. How many stories are there in your building?",
-			:data_export_identifier => :number_of_stories_in_home
+			:data_export_identifier => :number_of_stories_in_building
 		a :integer
 
 
@@ -711,17 +710,13 @@ survey "Home Exposure survey" do
 
 		q_31a "31a. How often did you use during the past 12 months?",
 			:pick => :one, 
-			:data_export_identifier => :freq_used_heat_12mos
+			:data_export_identifier => :freq_used_wood_stove_12mos
 		a "Often",     :data_export_identifier => 1
 		a "Sometimes", :data_export_identifier => 2
 		a "Rarely",    :data_export_identifier => 3
 		a "Never",     :data_export_identifier => 4
-		dependency :rule => "A or B or C or D or E"
-		condition_A :q_31_heat_a, "==", :a_1
-		condition_B :q_31_heat_b, "==", :a_1
-		condition_C :q_31_heat_c, "==", :a_1
-		condition_D :q_31_heat_d, "==", :a_1
-		condition_E :q_31_heat_e, "==", :a_1
+		dependency :rule => "A"
+		condition_A :q_31_heat_e, "==", :a_1
 
 
 		q_31_wood_burning "Wood-burning Fireplace?",
@@ -732,21 +727,23 @@ survey "Home Exposure survey" do
 
 		q_31b "31b. How often did you use during the past 12 months?",
 			:pick => :one, 
-			:data_export_identifier => :freq_burned_wood_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
+			:data_export_identifier => :freq_used_wood_fireplace_12mos
+		a_1 "Often",     :data_export_identifier => 1
+		a_2 "Sometimes", :data_export_identifier => 2
+		a_3 "Rarely",    :data_export_identifier => 3
+		a "Never",       :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_31_wood_burning, "==", :a_1
 
-		q_31c "31c. Was an insert used in the fireplace? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
+		q_31c "31c. Was an insert used in the fireplace in the last 12 months? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
 			:pick => :one, :data_export_identifier => :used_fireplace_insert_12mos
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
-		dependency :rule => "A"
-		condition_A :q_31_wood_burning, "==", :a_1
+		dependency :rule => "A or B or C"
+		condition_A :q_31b, "==", :a_1
+		condition_B :q_31b, "==", :a_2
+		condition_C :q_31b, "==", :a_3
 
 
 		q "1 = A gas stove/oven",
@@ -877,7 +874,7 @@ survey "Home Exposure survey" do
 
 		q_37 "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?",
 			:pick => :one, 
-			:data_export_identifier => :qty_of_stuffed_furniture
+			:data_export_identifier => :qty_of_upholstered_furniture
 		a_1 "0",           :data_export_identifier => 1
 		a_2 "1-2",         :data_export_identifier => 2
 		a_3 "3-5",         :data_export_identifier => 3
@@ -983,6 +980,10 @@ survey "Home Exposure survey" do
 		q_41 "41. Do you have any comments or additional information you would like to tell me?",
 			:data_export_identifier => :additional_comments
 		a :text
+
+		label "We will be mailing you a collection kit with all the materials you will need to collect a dust sample from your vacuum cleaner and ship it to the study office. If possible, please do not change or empty your vacuum bag prior to the collection."
+
+		label "Once we receive your dust sample, we will mail you a $25.00 gift card."
 
 	end
 end

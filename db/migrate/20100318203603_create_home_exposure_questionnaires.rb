@@ -33,16 +33,16 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.integer :job_is_photographer_12mos
 			t.integer :job_is_teacher_12mos
 			t.integer :job_is_welder_12mos
-			t.integer :pet_treated_for_fleas_12mos
-			t.integer :freq_pet_treated_for_fleas_12mos
+			t.integer :used_flea_control_12mos
+			t.integer :freq_used_flea_control_12mos
 			t.integer :used_ant_control_12mos
 			t.integer :freq_ant_control_12mos
 			t.integer :used_bee_control_12mos
 			t.integer :freq_bee_control_12mos
 			t.integer :used_indoor_plant_prod_12mos
 			t.integer :freq_indoor_plant_product_12mos
-			t.integer :treated_other_indoor_pest_12mos
-			t.integer :freq_other_indoor_pest_12mos
+			t.integer :used_other_indoor_product_12mos
+			t.integer :freq_other_indoor_product_12mos
 			t.integer :used_indoor_foggers
 			t.integer :freq_indoor_foggers_12mos
 			t.integer :used_pro_pest_inside_12mos
@@ -58,17 +58,17 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.integer :used_rat_control_12mos
 			t.integer :freq_rat_control_12mos
 			t.integer :used_mothballs_12mos
-			t.integer :cmty_sprayed_moths_12mos
+			t.integer :cmty_sprayed_gypsy_moths_12mos
 			t.integer :cmty_sprayed_medflies_12mos
 			t.integer :cmty_sprayed_mosquitoes_12mos
-			t.integer :cmty_sprayed_sharpshooter_12mos
-			t.integer :cmty_sprayed_moth_12mos
+			t.integer :cmty_sprayed_sharpshooters_12mos
+			t.integer :cmty_sprayed_apple_moths_12mos
 			t.integer :cmty_sprayed_other_pest_12mos
 			t.string :other_pest_community_sprayed
 			t.integer :type_of_residence
 			t.string :other_type_of_residence
-			t.integer :number_of_floors_in_home
-			t.integer :number_of_stories_in_home
+			t.integer :number_of_floors_in_residence
+			t.integer :number_of_stories_in_building
 			t.integer :year_home_built
 			t.integer :home_square_footage
 			t.integer :number_of_rooms_in_home
@@ -85,9 +85,9 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.integer :used_radiator_12mos
 			t.integer :used_gas_heat_12mos
 			t.integer :used_wood_burning_stove_12mos
-			t.integer :freq_used_heat_12mos
+			t.integer :freq_used_wood_stove_12mos
 			t.integer :used_wood_fireplace_12mos
-			t.integer :freq_burned_wood_12mos
+			t.integer :freq_used_wood_fireplace_12mos
 			t.integer :used_fireplace_insert_12mos
 			t.integer :used_gas_stove_12mos
 			t.integer :used_gas_dryer_12mos
@@ -108,7 +108,7 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.integer :regularly_smoked_outdoors
 			t.integer :regularly_smoked_outdoors_12mos
 			t.integer :used_smokeless_tobacco_12mos
-			t.integer :qty_of_stuffed_furniture
+			t.integer :qty_of_upholstered_furniture
 			t.integer :qty_bought_after_2006
 			t.integer :furniture_has_exposed_foam
 			t.integer :home_has_carpets

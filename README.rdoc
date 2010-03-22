@@ -193,3 +193,18 @@ Currently, the Package tests would need removed to test offline as they access t
 * rdoc the rake tasks??
 * thickbox-compressed.js has relative location for image which isn't always correct.
 
+
+
+== Surveyor Notes / To Do's
+
+* There is no functioning "show" action for surveyor.  There is a route.  There is an action.  There is a view.  It just isn't setup.  Some vars aren't set.  I don't think that they use it.
+* There is no "#response.value".  It can be obtained, it just isn't straight forward as there are 8 possible places for it. (answer,string,integer,float,text,datetime,time,date) {They discus this.}[http://wiki.github.com/breakpointer/surveyor/survey-theory] .  There is a #response.to_s which may actually be what I want. Not quite.  Returns the strings and not my codes as is implied by to_s.
+* What is a "#response.unit" ?
+* I'll need to figure out how to extend the surveyor contoller to control access to survey.
+* I'll need to attach the survey to a subject.
+* I'll need to restrict the survey to 2 per subject.
+* The way that surveyor uses fixtures will make it challenging for adding new surveys as adding them destroys and you can't replace or remove an individual survey.
+* Despite saying "Surveyor will support 4 export formats out of the box", I have seen no mention as to how or where.
+* As there isn't a lot of documentation, it raises questions about how I implemented it.  I used "data_export_identifier" to store internal codes for answers and column names for the questions.  I just hope the that field isn't used for something else.
+* Response has a "response_other:string" which may be useful, but won't adhere to the number coding presented to me.
+
