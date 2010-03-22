@@ -42,3 +42,5 @@ class Rake::RDocTask
 end
 
 require 'tasks/rails'
+
+require 'tasks/surveyor'

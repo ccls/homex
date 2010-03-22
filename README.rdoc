@@ -27,6 +27,7 @@ Inline documentation is sparse and incomplete, but I'm working on it.
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
+* {Surveyor}[http://github.com/breakpointer/surveyor] - for the taking of surveys
 
 
 == Required and included plugins
@@ -100,6 +101,15 @@ then continue ...
  #	The first administrator/deputy must be created via the command line.
  #	Others can be created via the command line or web app.
  rake app:deputize uid=<Your CalNet UID>
+
+
+
+
+
+ #	Install your survey(s)
+ rake .......
+
+
 
 
 == Testing
