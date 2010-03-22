@@ -548,376 +548,441 @@ survey "Home Exposure survey" do
 		a "No",         :data_export_identifier => 2
 		a "Don’t know", :data_export_identifier => 9
 
-
 		q_21g  "Other pest", 
 			:data_export_identifier => :other_pest_community_sprayed
 		a :string
+		dependency :rule => "A"
+		condition_A :q_21f, "==", :a_1
+
+	end
+
+	section "Home" do
+		label "Now I have a few questions about your home."
+
+		q_22 "22. Which of the following best describes this residence? ",
+			:pick => :one, :data_export_identifier => :type_of_residence
+		a "Single family residence", :data_export_identifier => 1
+		a "Duplex / Townhouse",      :data_export_identifier => 2 
+		a "Apartment / Condominium", :data_export_identifier => 3
+		a "Mobile Home",             :data_export_identifier => 4
+		a_5 "Other (specify)",       :data_export_identifier => 8
+		a "Don't Know",              :data_export_identifier => 9
+
+		q_22other "Other", 
+			:data_export_identifier => :other_type_of_residence
+		a :string
+		dependency :rule => "A"
+		condition_A :q_22, "==", :a_5
+	
+
+		q_22a "22a. How many floors are there in your residence?",
+			:data_export_identifier => :number_of_floors_in_home
+		a :integer
+
+
+		q_22b "22b. How many stories are there in your building?",
+			:data_export_identifier => :number_of_stories_in_home
+		a :integer
+
+
+		q_23 "23. In what year was your home built? ",
+			:data_export_identifier => :year_home_built
+		a :integer
+
+		q_24 "24. We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?",
+			:data_export_identifier => :home_square_footage
+		a :integer
+
+		q_25 "25. How many rooms are there in your residence, excluding closets, crawl spaces, attics and basements?",
+			:data_export_identifier => :number_of_rooms_in_home
+		a :integer
+
+		q_26 "26. Is your residence mostly constructed of?  ",
+			:pick => :one, 
+			:data_export_identifier => :home_constructed_of
+		a "Wood",                       :data_export_identifier => 1
+		a "Mason / Brick / Cement",     :data_export_identifier => 2
+		a "Pre-fabricated panels",      :data_export_identifier => 3
+		a_3 "Something Else (specify)", :data_export_identifier => 8
+		a "Don't Know",                 :data_export_identifier => 9
+
+		q_26other "Other",
+			:data_export_identifier => :other_home_material
+		a :string
+		dependency :rule => "A"
+		condition_A :q_26, "==", :a_3
+	
+
+		q_27 "27. Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)",
+			:pick => :one, 
+			:data_export_identifier => :home_has_attached_garage
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_27a "27a. Has there been a car or motorcycle parked in the attached garage during the past month?",
+			:pick => :one, 
+			:data_export_identifier => :vehicle_in_garage_1mo
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_27, "==", :a_1
+
+		q_27b "27b. How often was the car or motorcycle moved in and out of garage during the past month?  Would you say...",
+			:pick => :one, 
+			:data_export_identifier => :freq_in_out_garage_1mo
+		a "Every day (or almost every day)", :data_export_identifier => 1
+		a "1-2 times per week",              :data_export_identifier => 2
+		a "1-2 times per month",             :data_export_identifier => 3
+		a "less than one time per month",    :data_export_identifier => 4
+		a "Never?",                          :data_export_identifier => 5
+		a "Don't Know",                      :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_27a, "==", :a_1
+
+
+		q_28 "28. Does this residence have any type of electric cooling system such as air conditioning? ",
+			:pick => :one, 
+			:data_export_identifier => :home_has_electric_cooling
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+
+		q_29 "29. During the last 12 months, how often was at least one window open on a regular basis during the colder months?  Would you say...",
+			:pick => :one, 
+			:data_export_identifier => :freq_windows_open_cold_mos_12mos
+		a "Every day or almost everyday", :data_export_identifier => 1
+		a "About once a week",            :data_export_identifier => 2
+		a "A few times a month",          :data_export_identifier => 3
+		a "A few times a year?",          :data_export_identifier => 4
+		a "Never",                        :data_export_identifier => 8
+		a "Don't Know",                   :data_export_identifier => 9
+
+		q_30 "30. During the last 12 months, how often was at least one window open on a regular basis during the warmer months?  Would you say...",
+			:pick => :one, 
+			:data_export_identifier => :freq_windows_open_warm_mos_12mos
+		a "Every day or almost everyday", :data_export_identifier => 1
+		a "About once a week",            :data_export_identifier => 2
+		a "A few times a month",          :data_export_identifier => 3
+		a "A few times a year?",          :data_export_identifier => 4
+		a "Never",                        :data_export_identifier => 8
+		a "Don't Know",                   :data_export_identifier => 9
+
+	end
+
+	section "Heat" do
+		label "31. Now I am going to ask you about different kinds of heat you may have used to heat your home in  the last 12 months. CHECK ALL THAT APPLY."
+
+		label "In the last 12 months, did you use..."
+
+		q_31_heat_a "Electric heat",
+			:pick => :one, 
+			:data_export_identifier => :used_electric_heat_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31_heat_b "Kerosene heat",
+			:pick => :one, 
+			:data_export_identifier => :used_kerosene_heat_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31_heat_c "Radiator or steam heat",
+			:pick => :one, :data_export_identifier => :used_radiator_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31_heat_d "Gas heat (including gas fireplace)",
+			:pick => :one, :data_export_identifier => :used_gas_heat_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31_heat_e "Wood-burning Stove",
+			:pick => :one, :data_export_identifier => :used_wood_burning_stove_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31a "31a. How often did you use during the past 12 months?",
+			:pick => :one, 
+			:data_export_identifier => :freq_used_heat_12mos
+		a "Often",     :data_export_identifier => 1
+		a "Sometimes", :data_export_identifier => 2
+		a "Rarely",    :data_export_identifier => 3
+		a "Never",     :data_export_identifier => 4
+		dependency :rule => "A or B or C or D or E"
+		condition_A :q_31_heat_a, "==", :a_1
+		condition_B :q_31_heat_b, "==", :a_1
+		condition_C :q_31_heat_c, "==", :a_1
+		condition_D :q_31_heat_d, "==", :a_1
+		condition_E :q_31_heat_e, "==", :a_1
+
+
+		q_31_wood_burning "Wood-burning Fireplace?",
+			:pick => :one, :data_export_identifier => :used_wood_fireplace_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_31b "31b. How often did you use during the past 12 months?",
+			:pick => :one, 
+			:data_export_identifier => :freq_burned_wood_12mos
+		a "Often",     :data_export_identifier => 1
+		a "Sometimes", :data_export_identifier => 2
+		a "Rarely",    :data_export_identifier => 3
+		a "Never",     :data_export_identifier => 4
+		dependency :rule => "A"
+		condition_A :q_31_wood_burning, "==", :a_1
+
+		q_31c "31c. Was an insert used in the fireplace? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
+			:pick => :one, :data_export_identifier => :used_fireplace_insert_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_31_wood_burning, "==", :a_1
+
+
+		q "1 = A gas stove/oven",
+			:pick => :one, :data_export_identifier => :used_gas_stove_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "2 = A gas clothes dryer",
+			:pick => :one, :data_export_identifier => :used_gas_dryer_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "3 = A gas water heater",
+			:pick => :one, :data_export_identifier => :used_gas_water_heater_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_gas_other "8 = How about some other gas appliance",
+			:pick => :one, :data_export_identifier => :used_other_gas_appliance_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "Other (DO NOT INCLUDE GAS HEAT)",
+			:data_export_identifier => :type_of_other_gas_appliance
+		a :string
+		dependency :rule => "A"
+		condition_A :q_gas_other, "==", :a_1
+
+		q "1 = Painting done indoors",
+			:pick => :one, :data_export_identifier => :painted_inside_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "2 = Carpeting",
+			:pick => :one, :data_export_identifier => :carpeted_in_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "3 = Reflooring",
+			:pick => :one, :data_export_identifier => :refloored_in_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "4 = Weather Proofing",
+			:pick => :one, :data_export_identifier => :weather_proofed_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "5 = Window Replacement",
+			:pick => :one, :data_export_identifier => :replaced_home_windows
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "6 = Roofing",
+			:pick => :one, :data_export_identifier => :roof_work_on_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "7 = Construction",
+			:pick => :one, :data_export_identifier => :construction_in_home
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_remodel_other "8 = Other: SPECIFY",
+			:pick => :one, :data_export_identifier => :other_home_remodelling
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q "Other",
+			:data_export_identifier => :type_other_home_remodelling
+		a :string
+		dependency :rule => "A"
+		condition_A :q_remodel_other, "==", :a_1
+
+
+		q_34 "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?",
+			:pick => :one, 
+			:data_export_identifier => :regularly_smoked_indoors
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_34a "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?",
+			:pick => :one, 
+			:data_export_identifier => :regularly_smoked_indoors_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_34, "==", :a_1
+
+
+		q_35 "35. During the time you have lived in this home, have you or anyone who lives in this home  regularly smoked cigarettes, pipes or cigars outside this home (in the car, at work, yard, deck, etc.)?",
+			:pick => :one, 
+			:data_export_identifier => :regularly_smoked_outdoors
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_35a "35a. During the last 12 months, have you or anyone else who lives in this home  regularly smoked  cigarettes, pipes or cigars outside this home?",
+			:pick => :one, 
+			:data_export_identifier => :regularly_smoked_outdoors_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_35, "==", :a_1
+
+		q_36 "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?",
+			:pick => :one, 
+			:data_export_identifier => :used_smokeless_tobacco_12mos
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+
+		q_37 "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?",
+			:pick => :one, 
+			:data_export_identifier => :qty_of_stuffed_furniture
+		a_1 "0",           :data_export_identifier => 1
+		a_2 "1-2",         :data_export_identifier => 2
+		a_3 "3-5",         :data_export_identifier => 3
+		a_4 "More than 5", :data_export_identifier => 4
+		a_5 "Don't Know",  :data_export_identifier => 9
+
+		q_37a "37a. How many of the items were purchased after 2006?",
+			:pick => :one, 
+			:data_export_identifier => :qty_bought_after_2006
+		a "0",           :data_export_identifier => 1
+		a "1-2",         :data_export_identifier => 2
+		a "3-5",         :data_export_identifier => 3
+		a "More than 5", :data_export_identifier => 4
+		a "Don't Know",  :data_export_identifier => 9
+		dependency :rule => "A or B or C"
+		condition_A :q_37, "==", :a_2
+		condition_B :q_37, "==", :a_3
+		condition_C :q_37, "==", :a_4
+
+		q_37b "37b. Does any of the upholstered furniture have exposed or crumbling foam?",
+			:pick => :one, 
+			:data_export_identifier => :furniture_has_exposed_foam
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+		dependency :rule => "A or B or C"
+		condition_A :q_37, "==", :a_2
+		condition_B :q_37, "==", :a_3
+		condition_C :q_37, "==", :a_4
+
+#	defining a dependency without a matching condition ends badly
+
+		q_38 "38. Not including area rugs, are there any carpets in your home?",
+			:pick => :one, 
+			:data_export_identifier => :home_has_carpets
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_38a "38a. Approximately what percentage of your home has carpet?",
+			:pick => :one, 
+			:data_export_identifier => :percent_home_with_carpet
+		a "Less than 25%", :data_export_identifier => 1
+		a "25% - 49%",     :data_export_identifier => 2
+		a "50% - 74%",     :data_export_identifier => 3
+		a "75% - 100%",    :data_export_identifier => 4
+		a "Don’t know",    :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_38, "==", :a_1
+
+
+
+		q_39 "39. Do you have any televisions in your home?",
+			:pick => :one, 
+			:data_export_identifier => :home_has_televisions
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_39a "39a. How many televisions are in your home?",
+			:data_export_identifier => :number_of_televisions_in_home
+		a :integer
+		dependency :rule => "A"
+		condition_A :q_39, "==", :a_1
+
+		q_39b "39b. On average, how many hours per day is the television/are the televisions on in your home?",
+			:pick => :one, 
+			:data_export_identifier => :avg_number_hours_tvs_used
+		a "less than one hour per day", :data_export_identifier => 1
+		a "1-2 hours per day",          :data_export_identifier => 2
+		a "3-6 hours per day",          :data_export_identifier => 3
+		a "More than 6 hours per day",  :data_export_identifier => 4
+		a "Don't Know",                 :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_39, "==", :a_1
+
+
+		q_40 "40. Do you have any computers in your home?",
+			:pick => :one, 
+			:data_export_identifier => :home_has_computers
+		a_1 "Yes",      :data_export_identifier => 1
+		a "No",         :data_export_identifier => 2
+		a "Don’t know", :data_export_identifier => 9
+
+		q_40a "40a. How many computers are in your home?",
+			:data_export_identifier => :number_of_computers_in_home
+		a :integer
+		dependency :rule => "A"
+		condition_A :q_40, "==", :a_1
+
+
+		q_40b "40b. On average, how many hours per day is the computer/are the computers in use in your home?",
+			:pick => :one, 
+			:data_export_identifier => :avg_number_hours_computers_used
+		a "less than one hour per day", :data_export_identifier => 1
+		a "1-2 hours per day",          :data_export_identifier => 2
+		a "3-6 hours per day",          :data_export_identifier => 3
+		a "More than 6 hours per day",  :data_export_identifier => 4
+		a "Don't Know",                 :data_export_identifier => 9
+		dependency :rule => "A"
+		condition_A :q_40, "==", :a_1
+
+		q_41 "41. Do you have any comments or additional information you would like to tell me?",
+			:data_export_identifier => :additional_comments
+		a :text
 
 	end
 end
-
-
-
-
-
-#
-#
-#		{
-#			:question => "Now I have a few questions about your home."
-#		},
-#
-#
-#
-#
-#		{
-#			:question => "22. Which of the following best describes this residence? ",
-#			:answers  => RESIDENCE,
-#			:variable => :type_of_residence
-#		},
-#		{
-#			:question => "Other",
-#			:variable => :other_type_of_residence
-#		},
-#		{
-#			:question => "22a. How many floors are there in your residence?",
-#			:variable => :number_of_floors_in_home
-#		},
-#		{
-#			:question => "22b. How many stories are there in your building?",
-#			:variable => :number_of_stories_in_home
-#		},
-#		{
-#			:question => "23. In what year was your home built? ",
-#			:variable => :year_home_built
-#		},
-#		{
-#			:question => "24. We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?",
-#			:variable => :home_square_footage
-#		},
-#		{
-#			:question => "25. How many rooms are there in your residence, excluding closets, crawl spaces, attics and basements?",
-#			:variable => :number_of_rooms_in_home
-#		},
-#		{
-#			:question => "26. Is your residence mostly constructed of?  ",
-#			:answers  => MATERIAL,
-#			:variable => :home_constructed_of
-#		},
-#		{
-#			:question => "Other",
-#			:variable => :other_home_material
-#		},
-#		{
-#			:question => "27. Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)",
-#			:answers  => YN,
-#			:variable => :home_has_attached_garage
-#		},
-#		{
-#			:question => "27a. Has there been a car or motorcycle parked in the attached garage during the past month?",
-#			:answers  => YN,
-#			:variable => :vehicle_in_garage_1mo
-#		},
-#		{
-#			:question => "27b. How often was the car or motorcycle moved in and out of garage during the past month?  Would you say...",
-#			:answers => FREQ2,
-#			:variable => :freq_in_out_garage_1mo
-#		},
-#		{
-#			:question => "28. Does this residence have any type of electric cooling system such as air conditioning? ",
-#			:answers  => YN,
-#			:variable => :home_has_electric_cooling
-#		},
-#		{
-#			:question => "29. During the last 12 months, how often was at least one window open on a regular basis during the colder months?  Would you say...",
-#			:answers => FREQ3,
-#			:variable => :freq_windows_open_cold_mos_12mos
-#		},
-#		{
-#			:question => "30. During the last 12 months, how often was at least one window open on a regular basis during the warmer months?  Would you say….",
-#			:answers => FREQ3,
-#			:variable => :freq_windows_open_warm_mos_12mos
-#		},
-#
-#
-#
-#		{
-#			:question => "31. Now I am going to ask you about different kinds of heat you may have used to heat your home in  the last 12 months. CHECK ALL THAT APPLY."
-#		},
-#		{
-#			:question => "In the last 12 months, did you use..."
-#		},
-#
-#		{
-#			:question => "Electric heat",
-#			:answers  => YNDK,
-#			:variable => :used_electric_heat_12mos
-#		},
-#		{
-#			:question => "Kerosene heat",
-#			:answers  => YNDK,
-#			:variable => :used_kerosene_heat_12mos
-#		},
-#		{
-#			:question => "Radiator or steam heat",
-#			:answers  => YNDK,
-#			:variable => :used_radiator_12mos
-#		},
-#		{
-#			:question => "Gas heat (including gas fireplace)",
-#			:answers  => YNDK,
-#			:variable => :used_gas_heat_12mos
-#		},
-#		{
-#			:question => "Wood-burning Stove",
-#			:answers  => YNDK,
-#			:variable => :used_wood_burning_stove_12mos
-#		},
-#		{
-#			:question => "31a. How often did you use during the past 12 months?",
-#			:answers => OSRN,
-#			:variable => :freq_used_heat_12mos
-#		},
-#		{
-#			:question => "Wood-burning Fireplace?",
-#			:answers  => YNDK,
-#			:variable => :used_wood_fireplace_12mos
-#		},
-#		{
-#			:question => "31b. How often did you use during the past 12 months?",
-#			:answers => OSRN,
-#			:variable => :freq_burned_wood_12mos
-#		},
-#		{
-#			:question => "31c. Was an insert used in the fireplace? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
-#			:answers  => YNDK,
-#			:variable => :used_fireplace_insert_12mos
-#		},
-#		{
-#			:question => "1 = A gas stove/oven",
-#			:answers  => YNDK,
-#			:variable => :used_gas_stove_12mos
-#		},
-#		{
-#			:question => "2 = A gas clothes dryer",
-#			:answers  => YNDK,
-#			:variable => :used_gas_dryer_12mos
-#		},
-#		{
-#			:question => "3 = A gas water heater",
-#			:answers  => YNDK,
-#			:variable => :used_gas_water_heater_12mos
-#		},
-#		{
-#			:question => "8 = How about some other gas appliance",
-#			:answers  => YNDK,
-#			:variable => :used_other_gas_appliance_12mos
-#		},
-#		{
-#			:question => "Other (DO NOT INCLUDE GAS HEAT)",
-#			:variable => :type_of_other_gas_appliance
-#		},
-#		{
-#			:question => "1 = Painting done indoors",
-#			:answers  => YNDK,
-#			:variable => :painted_inside_home
-#		},
-#		{
-#			:question => "2 = Carpeting",
-#			:answers  => YNDK,
-#			:variable => :carpeted_in_home
-#		},
-#		{
-#			:question => "3 = Reflooring",
-#			:answers  => YNDK,
-#			:variable => :refloored_in_home
-#		},
-#		{
-#			:question => "4 = Weather Proofing",
-#			:answers  => YNDK,
-#			:variable => :weather_proofed_home
-#		},
-#		{
-#			:question => "5 = Window Replacement",
-#			:answers  => YNDK,
-#			:variable => :replaced_home_windows
-#		},
-#		{
-#			:question => "6 = Roofing",
-#			:answers  => YNDK,
-#			:variable => :roof_work_on_home
-#		},
-#		{
-#			:question => "7 = Construction",
-#			:answers  => YNDK,
-#			:variable => :construction_in_home
-#		},
-#		{
-#			:question => "8 = Other: SPECIFY",
-#			:answers  => YNDK,
-#			:variable => :other_home_remodelling
-#		},
-#		{
-#			:question => "Other",
-#			:variable => :type_other_home_remodelling
-#		},
-#		{
-#			:question => "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?",
-#			:answers  => YNDK,
-#			:variable => :regularly_smoked_indoors
-#		},
-#		{
-#			:question => "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?",
-#			:answers  => YNDK,
-#			:variable => :regularly_smoked_indoors_12mos
-#		},
-#		{
-#			:question => "35. During the time you have lived in this home, have you or anyone who lives in this home  regularly smoked cigarettes, pipes or cigars outside this home (in the car, at work, yard, deck, etc.)?",
-#			:answers  => YNDK,
-#			:variable => :regularly_smoked_outdoors
-#		},
-#		{
-#			:question => "35a. During the last 12 months, have you or anyone else who lives in this home  regularly smoked  cigarettes, pipes or cigars outside this home?",
-#			:answers  => YNDK,
-#			:variable => :regularly_smoked_outdoors_12mos
-#		},
-#		{
-#			:question => "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?",
-#			:answers  => YNDK,
-#			:variable => :used_smokeless_tobacco_12mos
-#		},
-#		{
-#			:question => "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?",
-#			:answers  => QTY,
-#			:variable => :qty_of_stuffed_furniture
-#		},
-#		{
-#			:question => "37a. How many of the items were purchased after 2006?",
-#			:answers  => QTY,
-#			:variable => :qty_bought_after_2006
-#		},
-#		{
-#			:question => "37b. Does any of the upholstered furniture have exposed or crumbling foam?",
-#			:answers  => YNDK,
-#			:variable => :furniture_has_exposed_foam
-#		},
-#		{
-#			:question => "38. Not including area rugs, are there any carpets in your home?",
-#			:answers  => YNDK,
-#			:variable => :home_has_carpets
-#		},
-#		{
-#			:question => "38a. Approximately what percentage of your home has carpet?",
-#			:answers  => PERCENTAGES,
-#			:variable => :percent_home_with_carpet
-#		},
-#		{
-#			:question => "39. Do you have any televisions in your home?",
-#			:answers  => YNDK,
-#			:variable => :home_has_televisions
-#		},
-#		{
-#			:question => "39a. How many televisions are in your home?",
-#			:variable => :number_of_televisions_in_home
-#		},
-#		{
-#			:question => "39b. On average, how many hours per day is the television/are the televisions on in your home?",
-#			:answers  => HOURS,
-#			:variable => :avg_number_hours_tvs_used
-#		},
-#		{
-#			:question => "40. Do you have any computers in your home?",
-#			:answers  => YNDK,
-#			:variable => :home_has_computers
-#		},
-#		{
-#			:question => "40a. How many computers are in your home?",
-#			:variable => :number_of_computers_in_home
-#		},
-#		{
-#			:question => "40b. On average, how many hours per day is the computer/are the computers in use in your home?",
-#			:answers  => HOURS,
-#			:variable => :avg_number_hours_computers_used
-#		},
-#		{
-#			:question => "41. Do you have any comments or additional information you would like to tell me?",
-#			:variable => :additional_comments
-#		}
-#	]
-#end
-
-
-
-#	YNDK = [
-#		[ "Yes", 1 ],
-#		[ "No", 2 ],
-#		[ "Don't Know", 9 ]
-#	]
-#	OSRN = [
-#		[ "Often", 1 ],
-#		[ "Sometimes", 2 ],
-#		[ "Rarely", 3 ],
-#		[ "Never", 4 ]
-#	]
-#	FREQ2 = [
-#		[ "Every day (or almost every day)", 1 ],
-#		[ "1-2 times per week", 2 ],
-#		[ "1-2 times per month", 3 ],
-#		[ "less than one time per month", 4 ],
-#		[ "Never?", 5 ],
-#		[ "Don't Know", 9 ]
-#	]
-#	FREQ3 = [
-#		[ "Every day or almost everyday", 1 ],
-#		[ "About once a week", 2 ],
-#		[ "A few times a month", 3 ],
-#		[ "A few times a year?", 4 ],
-#		[ "Never", 8 ],
-#		[ "Don't Know", 9 ],
-#	]
-#	QTY = [
-#		[ "0", 1 ],
-#		[ "1-2", 2 ],
-#		[ "3-5", 3 ],
-#		[ "More than 5", 4 ],
-#		[ "Don't Know", 9 ]
-#	]
-#	HOURS = [
-#		[ "less than one hour per day", 1 ],
-#		[ "1-2 hours per day", 2 ],
-#		[ "3-6 hours per day", 3 ],
-#		[ "More than 6 hours per day", 4 ],
-#		[ "Don't Know", 9 ],
-#	]
-#	FREQ4 = [
-#		[ "Less than once a month", 1 ],
-#		[ "1-3 times a month", 2 ],
-#		[ "Once a week", 3 ],
-#		[ "More than once a week?", 4 ],
-#		[ "Don't Know", 9 ]
-#	] 
-#	YN = [
-#		[ "Yes", 1 ],
-#		[ "No", 2 ]
-#	]
-#	RESIDENCE = [
-#		[ "Single family residence", 1 ],
-#		[ "Duplex / Townhouse", 2 ],
-#		[ "Apartment / Condominium", 3 ],
-#		[ "Mobile Home", 4 ],
-#		[ "Other (specify)", 8 ],
-#		[ "Don't Know", 9 ]
-#	]
-#	MATERIAL = [
-#		[ "Wood", 1 ],
-#		[ "Mason / Brick / Cement", 2 ],
-#		[ "Pre-fabricated panels", 3 ],
-#		[ "Something Else (specify)", 8 ],
-#		[ "Don't Know", 9 ]
-#	]
-#	PERCENTAGES = [
-#		[ "Less than 25%", 1 ],
-#		[ "25% - 49%", 2 ],
-#		[ "50% - 74%", 3 ],
-#		[ "75% - 100%", 4 ],
-#		[ "Don’t know", 9 ]
-#	]
