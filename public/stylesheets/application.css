@@ -135,3 +135,29 @@ div.row:nth-child(1) {
 div.row:nth-child(2n)   { background-color: #EEE; }
 div.row:nth-child(2n+1) { background-color: #DDD; }
 
+
+
+
+
+
+
+
+#surveyor .question_group ul li .question ol.answers li {
+	/* 
+		if a group is used, the contained question's answers
+		are inadvertentally? displayed inline rather than
+		in a list block
+	*/
+	display:block;
+}
+
+/* 
+	Gotta be more specific than surveyor's stylesheet 
+	as #surveyor's width is given for #surveyor
+	960px is too wide
+	It's also set for legend.
+*/
+div#content div#surveyor,
+#surveyor .question fieldset legend {
+	width:auto;
+}
