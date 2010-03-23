@@ -107,10 +107,19 @@ then continue ...
 
 
  #	Install your survey(s)
- rake .......
-
-
-
+ rake surveyor FILE=surveys/he_survey.rb APPEND=true
+ #	Running 'rake surveyor ...' will parse your survey file
+ #	and generate several yml files in the fixtures dir.
+ #	Without the APPEND=true, it will DESTROY the contents
+ #	of the survey related tables (surveys, questions, answers,
+ #	and a couple others.)  It will not touch responses and 
+ #	response_sets.  However, without the questions and 
+ #	answers, the responses are pretty useless.  By using
+ #	APPEND=true, new surveys, questions, answers, etc.
+ #	are APPENDED to the database.  Always APPEND=true.
+ #	Unfortunately, the contents of the DB are in the DB.
+ #	Duh.  So when we move from dev to prod, we will need
+ #	to ensure that we do it correctly!
 
 == Testing
 
