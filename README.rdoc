@@ -132,7 +132,7 @@ Currently, the Package tests would need removed to test offline as they access t
 
 == Further Info
 
-{Ruby Best Practices (Ch 1-6)}[http://github.com/sandal/rbp-book/tree/gh-pages/pdfs/]
+{Ruby Best Practices}[http://github.com/sandal/rbp-book/tree/gh-pages/pdfs/]
 
 {Adapting a Web Application to Interoperate with CAS}[https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html]
 
