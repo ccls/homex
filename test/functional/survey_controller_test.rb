@@ -53,12 +53,14 @@ class SurveyControllerTest < ActionController::TestCase
 		assert assigns(:current_user)
 	end
 
-	test "should show surveys with login" do
+	test "should show NOT surveys with login" do
 		login_as active_user
 		get :new
-		assert_response :success
-		assert assigns(:surveys)
-		assert assigns(:current_user)
+#		assert_response :success
+#		assert assigns(:surveys)
+#		assert assigns(:current_user)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT show surveys without login" do

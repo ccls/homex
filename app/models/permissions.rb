@@ -211,4 +211,8 @@ class Permissions < Aegis::Permissions
 	permission :view_questionnaires do
 	end
 
+	permission :take_surveys do
+		allow :employee
+	end
+
 end
