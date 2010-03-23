@@ -129,13 +129,6 @@ Factory.define :subject_type do |f|
 end
 
 
-
-Factory.define :survey do |f|
-	f.sequence(:title){|n| "My Survey #{n}" }
-end
-
-
-
 Factory.define :track do |f|
 	f.association :trackable, :factory => :package
 	f.name "Name"
@@ -159,9 +152,54 @@ Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true
 end	#	parent must be defined first
 
+
+
+#
+#		Intended for communication with SRC,
+#		but that doesn't look like it'll be happening now.
+#
 Factory.define :import do |f|
 end
 Factory.define :export do |f|
 	f.sequence(:childid) { |n| "childid#{n}" }
 	f.sequence(:patid) { |n| "patid#{n}" }
 end
+
+
+
+
+
+#
+#		Survey related factories
+#
+Factory.define :survey do |f|
+	f.sequence(:title){|n| "My Survey #{n}" }
+end
+Factory.define :survey_section do |f|
+	f.association :survey
+	f.sequence(:title) { |n| "Title #{n}" }
+	f.sequence(:display_order){ |n| n }
+end
+Factory.define :response_set do |f|
+	f.association :survey
+end
+Factory.define :response do |f|
+	f.association :response_set
+	f.association :question
+	f.association :answer
+end
+Factory.define :question do |f|
+	f.association :survey_section
+	f.sequence(:display_order){ |n| n }
+	f.text "My Question Text"
+	f.is_mandatory false
+#	f.sequence(:data_export_identifier){|n| "qdei_#{n}" }
+end
+Factory.define :answer do |f|
+	f.association :question
+	f.text "My Answer Text"
+#	f.sequence(:data_export_identifier){|n| "adei_#{n}" }
+#	f.response_class "answer"
+end
+
+

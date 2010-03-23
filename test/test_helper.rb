@@ -142,4 +142,21 @@ class ActiveSupport::TestCase
 #			"https://auth-test.berkeley.edu/cas/login")
 	end
 
+
+	def full_response(options={})
+		survey = Factory(:survey)
+		survey_section = Factory(:survey_section, :survey => survey)
+		question = Factory(:question, { 
+			:survey_section => survey_section }.merge(options[:question]||{}))
+		answer = Factory(:answer, { :question => question,
+			:response_class => "answer" }.merge(options[:answer]||{}))
+		response_set = Factory(:response_set, {
+			:survey => survey}.merge(options[:response_set]||{}))
+		response = Factory(:response, {
+			:response_set => response_set,
+			:question => question, 
+			:answer => answer}.merge(options[:response]||{})
+		)
+	end
+
 end

@@ -6,7 +6,9 @@ class SurveyControllerTest < ActionController::TestCase
 		#	for whatever brilliant reason they had,
 		#	surveys/ goes to the Surveyor controller's
 		#	"new" action!!!
-		Factory(:survey)
+		Factory(:survey_section)	#	creates a survey too
+		#	a survey section is needed in the edit action
+#		Factory(:survey)
 		@controller = SurveyorController.new
 	end
 
@@ -71,11 +73,13 @@ class SurveyControllerTest < ActionController::TestCase
 	end
 
 
-	test "should take survey with admin login" do
+#	create
+
+	test "should begin survey with admin login" do
 		survey = Survey.first
 		login_as admin_user
 		assert_difference( 'ResponseSet.count', 1 ) {
-			post :create, :survey_code => survey.access_code
+			post :create, :subject_id => 123, :survey_code => survey.access_code
 		}
 		assert assigns(:survey)
 		assert assigns(:response_set)
@@ -90,10 +94,69 @@ class SurveyControllerTest < ActionController::TestCase
 		)
 	end
 
-	test "should NOT take survey with invalid access code" do
+	test "should begin survey with employee login" do
+		survey = Survey.first
+		login_as active_user(:role_name => 'employee')
+		assert_difference( 'ResponseSet.count', 1 ) {
+			post :create, :subject_id => 123, :survey_code => survey.access_code
+		}
+		assert assigns(:survey)
+		assert assigns(:response_set)
+		assert assigns(:current_user)
+		assert_not_nil flash[:notice]
+		assert_response :redirect
+		assert_redirected_to(
+			edit_my_survey_path(
+				:survey_code => assigns(:survey).access_code, 
+				:response_set_code  => assigns(:response_set).access_code	
+			)
+		)
+	end
+
+	test "should NOT begin survey with just login" do
+		survey = Survey.first
+		login_as active_user
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => 123, :survey_code => survey.access_code
+		}
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert assigns(:current_user)
+		assert_not_nil flash[:error]
+		assert_response :redirect
+		assert_redirected_to root_path
+	end
+
+	test "should NOT begin survey without login" do
+		survey = Survey.first
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => 123, :survey_code => survey.access_code
+		}
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert !assigns(:current_user)
+		assert_response :redirect
+		assert_redirected_to_cas_login
+	end
+
+#	test "should NOT begin survey with invalid subject_id" do
+#		survey = Survey.first
+#		login_as admin_user
+#		assert_difference( 'ResponseSet.count', 0 ) {
+#			post :create, :subject_id => 'bogus', 
+#				:survey_code => survey.access_code
+#		}
+#		assert !assigns(:survey)
+#		assert !assigns(:response_set)
+#		assert assigns(:current_user)
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
+
+	test "should NOT begin survey with invalid survey access code" do
 		login_as admin_user
 		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :survey_code => "bogus code"
+			post :create, :subject_id => 123, :survey_code => "bogus code"
 		}
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
@@ -105,6 +168,68 @@ class SurveyControllerTest < ActionController::TestCase
 
 
 #	edit
+
+	test "should continue incomplete survey with admin login" do
+		rs = Factory(:response_set, :survey => Survey.first)
+		login_as admin_user
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => rs.access_code
+		assert assigns(:survey)
+		assert assigns(:response_set)
+		assert assigns(:current_user)
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should continue incomplete survey with employee login" do
+		rs = Factory(:response_set, :survey => Survey.first)
+		login_as active_user(:role_name => 'employee')
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => rs.access_code
+		assert assigns(:survey)
+		assert assigns(:response_set)
+		assert assigns(:current_user)
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT continue incomplete survey with just login" do
+		rs = Factory(:response_set, :survey => Survey.first)
+		login_as active_user
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => rs.access_code
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert assigns(:current_user)
+		assert_response :redirect
+		assert_redirected_to root_path
+	end
+
+	test "should NOT continue incomplete survey without login" do
+		rs = Factory(:response_set, :survey => Survey.first)
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => rs.access_code
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert !assigns(:current_user)
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT continue complete survey" do
+		rs = Factory(:response_set, :survey => Survey.first)
+		rs.complete!
+		rs.save
+		login_as active_user(:role_name => 'employee')
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => rs.access_code
+		assert !assigns(:survey)
+		assert assigns(:response_set)
+		assert assigns(:current_user)
+		assert_not_nil flash[:error]
+		assert_response :redirect
+		assert_redirected_to root_path
+	end
+
 #	update
 #	show
 
