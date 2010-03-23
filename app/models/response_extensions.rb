@@ -1,16 +1,16 @@
 module ResponseExtensions
-  def self.included(base)
-    base.extend(ClassMethods)
-    base.send(:include, InstanceMethods)
-    base.class_eval do
-      # Same as typing in the class
-    end
-  end
-  
-  module ClassMethods
-  end
-  
-  module InstanceMethods
+	def self.included(base)
+		base.extend(ClassMethods)
+		base.send(:include, InstanceMethods)
+		base.class_eval do
+			# Same as typing in the class
+		end
+	end
+	
+	module ClassMethods
+	end
+	
+	module InstanceMethods
 		#	Return an individual response's question and
 		#	answer coded for Home Exposure questionnaire.
 		def q_and_a_codes
@@ -22,7 +22,7 @@ module ResponseExtensions
 			end
 			[ q_code, a_code ]
 		end
-  end
+	end
 end
 
 Response.send(:include, ResponseExtensions)
