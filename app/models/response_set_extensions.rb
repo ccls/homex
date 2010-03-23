@@ -29,6 +29,12 @@ module ResponseSetExtensions
 		def q_and_a_codes_as_attributes
 			Hash[*self.responses.collect(&:q_and_a_codes).flatten]
 		end
+
+		def is_complete?
+			#	eventually return the is_complete column value
+#			false
+			!self.completed_at.nil?
+		end
 		
 	end
 end
