@@ -10,3 +10,7 @@ end
 
 # require 'models/survey_extensions' # Extended the survey model
 # require 'helpers/surveyor_helper_extensions' # Extend the surveyor helper
+
+require 'models/survey_extensions'
+require 'models/response_set_extensions'
+require 'models/response_extensions'

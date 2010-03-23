@@ -128,6 +128,14 @@ Factory.define :subject_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+
+
+Factory.define :survey do |f|
+	f.sequence(:title){|n| "My Survey #{n}" }
+end
+
+
+
 Factory.define :track do |f|
 	f.association :trackable, :factory => :package
 	f.name "Name"

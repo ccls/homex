@@ -1,0 +1,8 @@
+Override the survey views here... app/views/surveyor/
+
+It isn't a restful resource, so not app/views/surveyors/
+
+And "surveys/" is a named route so not app/views/surveys/
+
+app/views/surveyor/new.html.erb
+app/views/surveyor/show.html.erb
