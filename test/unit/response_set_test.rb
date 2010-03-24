@@ -17,6 +17,31 @@ class ResponseSetTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique access_code" do
+		ResponseSet.stubs(:find_by_access_code).returns(nil)
+		rs = create_response_set
+		assert_no_difference 'ResponseSet.count' do
+			response_set = Factory.build(:response_set)
+			assert_not_nil response_set.access_code
+			response_set.access_code = rs.access_code
+			response_set.save
+			assert response_set.errors.on(:access_code)
+		end
+	end
+
+	test "should replace non unique access_code" do
+		rs = create_response_set
+		assert_difference 'ResponseSet.count', 1 do
+			response_set = Factory.build(:response_set)
+			assert_not_nil response_set.access_code
+			ac1 = response_set.access_code
+			response_set.access_code = rs.access_code
+			response_set.save
+			ac2 = response_set.access_code
+			assert_not_equal ac1, ac2
+		end
+	end
+
 	test "should belong to a survey" do
 		response_set = create_response_set
 		assert_not_nil response_set.survey

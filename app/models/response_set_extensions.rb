@@ -4,6 +4,23 @@ module ResponseSetExtensions
 		base.send(:include, InstanceMethods)
 		base.class_eval do
 			# Same as typing in the class
+
+			#	I still don't like this tactic. The access_code
+			#	NEEDs to be unique, but is just a collection of 10
+			#	purely random characters as can be seen in ...
+			#	lib/surveyor.rb's make_tiny_code()
+			#	It is certainly unlikely, but not impossible, that
+			#	2 access_code's could end up being the same.
+			#	This common idea that using cryptic text strings
+			#	as opposed to a guaranteed unique integer is
+			#	bothersome, but for the moment I'm not doing anything
+			#	to remedy it.  I've added this validation, as well as
+			#	a unique index in the db to prevent the creation.
+			#	I suspect that the collision will occur
+			#	and ResponseSet.create will return false which will
+			#	generate the misleading flash[:notice] ...
+			#	"Unable to find that survey".
+			validates_uniqueness_of :access_code
 		end
 	end
 	
@@ -34,6 +51,15 @@ module ResponseSetExtensions
 			#	eventually return the is_complete column value
 #			false
 			!self.completed_at.nil?
+		end
+
+		#	Override the setting of the access_code to ensure
+		#	its uniqueness
+		def access_code=(value)
+			while ResponseSet.find_by_access_code(value)
+				value = Surveyor.make_tiny_code
+			end
+			super		#(value)
 		end
 		
 	end
