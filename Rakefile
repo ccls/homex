@@ -50,3 +50,5 @@ require 'tasks/rails'
 
 #	why?  Included by default
 #require 'tasks/surveyor'
+
+require 'lib/surveyor/survey_extensions'
