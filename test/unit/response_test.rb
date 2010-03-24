@@ -36,6 +36,17 @@ class ResponseTest < ActiveSupport::TestCase
 		assert_not_nil response.response_set
 	end
 
+	test "should raise error and not return q_and_a_codes for invalid response_class" do
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { :response_class => '' },
+			:response => { :string_value => "xyz" }
+		)
+		assert_raise(Response::InvalidResponseClass){
+			response.q_and_a_codes
+		}
+	end
+
 	test "should return q_and_a_codes for response_class string" do
 		response = full_response(
 			:question => { :data_export_identifier => "abc" },
@@ -48,7 +59,10 @@ class ResponseTest < ActiveSupport::TestCase
 	test "should return q_and_a_codes for response_class answer" do
 		response = full_response(
 			:question => { :data_export_identifier => "abc" },
-			:answer   => { :data_export_identifier => "xyz" }
+			:answer   => { 
+				:data_export_identifier => "xyz",
+				:response_class => 'answer' 
+			}
 		)
 		assert_equal ["abc","xyz"], response.q_and_a_codes
 	end
