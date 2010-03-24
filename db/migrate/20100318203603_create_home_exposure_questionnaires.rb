@@ -123,6 +123,7 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 
 			t.timestamps
 		end
+		add_index :home_exposure_questionnaires, :childid, :unique => true
 	end
 
 	def self.down
