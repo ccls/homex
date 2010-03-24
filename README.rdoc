@@ -216,6 +216,6 @@ Currently, the Package tests would need removed to test offline as they access t
 * Despite saying "Surveyor will support 4 export formats out of the box", I have seen no mention as to how or where.
 * As there isn't a lot of documentation, it raises questions about how I implemented it.  I used "data_export_identifier" to store internal codes for answers and column names for the questions.  I just hope the that field isn't used for something else.
 * Response has a "response_other:string" which may be useful, but won't adhere to the number coding presented to me.
-* [Issue 45]{http://github.com/breakpointer/surveyor/issues/issue/45}
-* [Issue 46]{http://github.com/breakpointer/surveyor/issues/issue/46}
-* [Issue 47]{http://github.com/breakpointer/surveyor/issues/issue/47}
+* {Issue 45}[http://github.com/breakpointer/surveyor/issues/issue/45]
+* {Issue 46}[http://github.com/breakpointer/surveyor/issues/issue/46]
+* {Issue 47}[http://github.com/breakpointer/surveyor/issues/issue/47]
