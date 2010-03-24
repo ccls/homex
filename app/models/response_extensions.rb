@@ -13,6 +13,7 @@ module ResponseExtensions
 	module InstanceMethods
 		#	Error for when answer's response_class is not in
 		#	( answer string integer float text date time datetime )
+		#	Actually, date and time aren't available anymore.
 		class InvalidResponseClass < StandardError; end
 
 		#	Return an individual response's question and
@@ -21,7 +22,7 @@ module ResponseExtensions
 			q_code = self.question.data_export_identifier
 
 			unless %w( answer string integer float
-					text date time datetime
+					text datetime
 				).include?(self.answer.response_class)
 				raise InvalidResponseClass
 			end
