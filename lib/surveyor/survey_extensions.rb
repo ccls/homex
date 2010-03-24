@@ -7,8 +7,8 @@ module SurveyParser
 module SurveyExtensions
 	def self.included(base)
 		base.class_eval do
-			def initialize_with_title(obj, args, opts)
-				initialize_without_title(obj, args, opts)
+			def initialize_with_unique_access_code(obj, args, opts)
+				initialize_without_unique_access_code(obj, args, opts)
 				counter = 2
 				ac = self.access_code
 				original_ac = self.access_code
@@ -18,7 +18,7 @@ module SurveyExtensions
 				end
 				self.access_code = ac
 			end
-			alias_method_chain :initialize, :title
+			alias_method_chain :initialize, :unique_access_code
 		end
 	end
 end
