@@ -52,9 +52,39 @@ module ResponseSetExtensions
 #			false
 			!self.completed_at.nil?
 		end
-
-		#	Override the setting of the access_code to ensure
-		#	its uniqueness
+		#	ResponseSet access_code not guaranteed to be unique
+		#
+		#As there is no model validation or unique index in the database, 
+		#	there is no guarantee that your response_set access_code will be 
+		#	unique. It is just the output from Surveyor.make_tiny_code which 
+		#	is just 10 randomly selected characters.  The character set is 
+		#	upper and lower case letters plus digits, giving a set size of 62.  
+		#	I concede that 62 ^ 10 is a HUGE number, but each time a survey 
+		#	is taken, the possibility of those 10 randomly selected characters 
+		#	already existing goes up. 
+		#
+		#In the ridiculously unlikely chance that a duplicate access_code 
+		#	is created, when the create action redirects to the edit action, 
+		#	the response set will be the first one and not the one just created.
+		#
+		#<pre>
+		#@response_set = ResponseSet.find_by_access_code(params[:response_set_code])
+		#</pre>
+		#
+		#Update....
+		#
+		#Adding ...
+		#<pre>
+		#def access_code=(value)
+		#  while ResponseSet.find_by_access_code(value)
+		#    value = Surveyor.make_tiny_code
+		#  end
+		#  super
+		#end
+		#</pre>
+		#... to ResponseSet seems to "fix" this "problem", although I don't 
+		#	know how kosher it is.
+		#	Override the setting of the access_code to ensure its uniqueness
 		def access_code=(value)
 			while ResponseSet.find_by_access_code(value)
 				value = Surveyor.make_tiny_code
