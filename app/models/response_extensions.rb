@@ -14,7 +14,8 @@ module ResponseExtensions
 		#	Error for when answer's response_class is not in
 		#	( answer string integer float text date time datetime )
 		#	Actually, date and time aren't available anymore.
-		class InvalidResponseClass < StandardError; end
+		class InvalidResponseClass < StandardError	#:nodoc:
+		end
 
 		#	Return an individual response's question and
 		#	answer coded for Home Exposure questionnaire.
