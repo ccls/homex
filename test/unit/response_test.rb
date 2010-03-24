@@ -36,7 +36,9 @@ class ResponseTest < ActiveSupport::TestCase
 		assert_not_nil response.response_set
 	end
 
-	test "should raise error and not return q_and_a_codes for invalid response_class" do
+	test "should raise error on q_and_a_codes with invalid response_class" do
+		#	This is unlikely to happen in reality
+		#	as all of this is part of the gem.
 		response = full_response(
 			:question => { :data_export_identifier => "abc" },
 			:answer   => { :response_class => '' },
@@ -45,6 +47,15 @@ class ResponseTest < ActiveSupport::TestCase
 		assert_raise(Response::InvalidResponseClass){
 			response.q_and_a_codes
 		}
+	end
+
+	test "should return q_and_a_codes for response_class integer" do
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { :response_class => 'integer' },
+			:response => { :integer_value => 1942 }
+		)
+		assert_equal ["abc",1942], response.q_and_a_codes
 	end
 
 	test "should return q_and_a_codes for response_class string" do
