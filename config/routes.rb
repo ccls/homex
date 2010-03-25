@@ -54,6 +54,7 @@ ActionController::Routing::Routes.draw do |map|
 	# new and create for packages are just for demo development
 	map.resources :packages, :only => [ :index, :show, :new, :create, :update ]
 	map.resources :permissions, :only => :index
+	map.resources :response_sets
 
 
 

@@ -86,7 +86,6 @@ class SurveyControllerTest < ActionController::TestCase
 		assert assigns(:survey)
 		assert assigns(:response_set)
 		assert assigns(:current_user)
-		assert_not_nil flash[:notice]
 		assert_response :redirect
 		assert_redirected_to(
 			edit_my_survey_path(
@@ -105,7 +104,6 @@ class SurveyControllerTest < ActionController::TestCase
 		assert assigns(:survey)
 		assert assigns(:response_set)
 		assert assigns(:current_user)
-		assert_not_nil flash[:notice]
 		assert_response :redirect
 		assert_redirected_to(
 			edit_my_survey_path(

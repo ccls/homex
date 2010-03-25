@@ -40,4 +40,8 @@ protected
 #			})
 	end
 
+	def block_all_access
+		access_denied("That route is no longer available")
+	end
+
 end

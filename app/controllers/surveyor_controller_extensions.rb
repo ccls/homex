@@ -3,13 +3,16 @@ module SurveyorControllerExtensions
 		base.extend(ClassMethods)
 		base.send(:include, InstanceMethods)
 		base.class_eval do
-			# Same as typing in the class
+
+#	new and create will be done differently.  block access
+#	here for security reasons.  The contents of "new" will be done 
+#	within another page.  Probably subject#show or #index.
+#	From there, they will use response_set#create which makes
+#	much more sense.  The editing and updating will still all
+#	be done via the surveyor controller.
+#			before_filter :block_all_access, :only => [ :new, :create ]
 
 			before_filter :may_take_surveys_required
-
-			before_filter :valid_subject_id_required, :only => :create
-			before_filter :limit_response_set_count,  :only => :create
-
 			before_filter :response_set_must_not_be_complete, :only => :edit
 		end
 	end
@@ -25,24 +28,6 @@ module SurveyorControllerExtensions
 			end
 		end
 
-		#	A subject_id must be present and the associated
-		#	Subject must exist.
-		def valid_subject_id_required
-#			if params[:subject_id].nil? 
-#				access_denied("Subject ID Required to take survey")
-#			else
-#
-#			end
-		end
-
-		#	Limit the number of response sets to 2 per subject.
-		def limit_response_set_count
-#			if ResponseSet.count(:conditions => { 
-#				:subject_id => params[:subject_id]
-#				}) >= 2
-#				access_denied("Subject has already completed the survey twice.")
-#			end
-		end
 	end
 	
 	module Actions
@@ -50,13 +35,6 @@ module SurveyorControllerExtensions
 		# def new
 		#	 render :text =>"surveys are down"
 		# end
-
-#		def new
-#			@surveys = Survey.find(:all)
-#			unless available_surveys_path == surveyor_default(:index)
-#				redirect_to surveyor_default(:index)
-#			end
-#		end
 
 		def create
 
@@ -69,7 +47,6 @@ module SurveyorControllerExtensions
 						@current_user.nil? ? @current_user : @current_user.id
 					))
 				)
-				flash[:notice] = "Survey was successfully started."
 				redirect_to(
 					edit_my_survey_path(
 						:survey_code => @survey.access_code, 
@@ -84,5 +61,4 @@ module SurveyorControllerExtensions
 
 	end
 end
-
 # Set config['extend_controller'] = true in config/initializers/surveyor.rb to activate these extensions
