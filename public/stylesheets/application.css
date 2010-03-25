@@ -65,7 +65,11 @@ div#appmenu a {
 	border-bottom: 1px dotted #616688;
 	width: 120px;
 	text-decoration:none;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	line-height: 1.1;
+/*
 	font-size: 85%;
+*/
 }
 div#appmenu a:hover {
 	background-color: #E7C254;
@@ -114,14 +118,12 @@ p > small {
 }
 
 
-
 div#users table td {
 	padding-right: 1em;
 }
 div#users table td.is_admin {
 	text-align: center;
 }
-
 
 
 div.row {
