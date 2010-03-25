@@ -85,6 +85,27 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 
+	test "should merge matching surveys into single HEQ" do
+		assert_difference( 'Survey.count', 1 ) {
+		assert_difference( 'SurveySection.count', 1 ) {
+		assert_difference( 'Question.count', 4 ) {
+		assert_difference( 'Answer.count', 4 ) {
+		assert_difference( 'ResponseSet.count', 2 ) {
+		assert_difference( 'Response.count', 8 ) {
+			@rs1 = full_response_set
+			@rs2 = full_response_set(:survey => @rs1.survey)
+		} } } } } }
+
+puts qa1 = @rs1.reload.q_and_a_codes_as_attributes.inspect
+puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
+
+		assert_equal qa1, qa2
+		assert_difference( 'HomeExposureQuestionnaire.count') {
+		heq = HomeExposureQuestionnaire.create(@rs1.q_and_a_codes_as_attributes)
+		}
+	end
+
+
 
 protected
 

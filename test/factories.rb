@@ -193,12 +193,12 @@ Factory.define :question do |f|
 	f.sequence(:display_order){ |n| n }
 	f.text "My Question Text"
 	f.is_mandatory false
-#	f.sequence(:data_export_identifier){|n| "qdei_#{n}" }
+	f.sequence(:data_export_identifier){|n| "qdei_#{n}" }
 end
 Factory.define :answer do |f|
 	f.association :question
 	f.text "My Answer Text"
-#	f.sequence(:data_export_identifier){|n| "adei_#{n}" }
+	f.sequence(:data_export_identifier){|n| "adei_#{n}" }
 #	f.response_class "answer"
 end
 
