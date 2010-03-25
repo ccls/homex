@@ -92,8 +92,10 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_difference( 'Answer.count', 4 ) {
 		assert_difference( 'ResponseSet.count', 2 ) {
 		assert_difference( 'Response.count', 8 ) {
-			@rs1 = full_response_set
-			@rs2 = full_response_set(:survey => @rs1.survey)
+			@rs1 = full_response_set(
+				:response_set => { :childid => 42 })
+			@rs2 = full_response_set(:survey => @rs1.survey,
+				:response_set => { :childid => 42 })
 		} } } } } }
 
 puts qa1 = @rs1.reload.q_and_a_codes_as_attributes.inspect
@@ -104,6 +106,7 @@ puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
 		assert_equal qa1, qa2
 		assert_difference( 'HomeExposureQuestionnaire.count') {
 			heq = @rs1.to_heq
+			assert_equal 42, heq.childid
 		}
 	end
 
