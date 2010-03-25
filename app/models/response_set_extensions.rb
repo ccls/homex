@@ -20,7 +20,12 @@ module ResponseSetExtensions
 			#	and ResponseSet.create will return false which will
 			#	generate the misleading flash[:notice] ...
 			#	"Unable to find that survey".
+			#	I've added the code below that ensures when the
+			#	access_code is set that it is indeed unique.
 			validates_uniqueness_of :access_code
+
+			#	Require childid ... coming soon
+#			validates_presence_of   :childid
 		end
 	end
 	
@@ -54,7 +59,12 @@ module ResponseSetExtensions
 		#	and return boolean.
 		def is_the_same_as?(another_response_set)
 			ars = ResponseSet.find(another_response_set)
-			(self.q_and_a_codes - ars.q_and_a_codes).empty?
+#	NO!!!
+#			(self.q_and_a_codes - ars.q_and_a_codes).empty?
+#	This only ensures that all of ars is in self,
+#	but not vice versa.  ars could have extra stuff.
+			(self.q_and_a_codes_as_attributes.diff(
+				ars.q_and_a_codes_as_attributes)).blank?
 		end
 
 		#	Compare the Q and A codes of 2 response sets
