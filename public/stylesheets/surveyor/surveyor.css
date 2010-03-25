@@ -1,3 +1,4 @@
+/*
 body {
   background-color: #dcdcdc;
   font-family: Helvetica;
@@ -6,6 +7,7 @@ body {
   letter-spacing: 0;
   line-height: 1.1em;
   font-size: 1em; }
+*/
 
 #flash {
   background-color: transparent;
@@ -18,11 +20,13 @@ body {
   text-align: center; }
 
 #surveyor {
-  width: 960px;
   padding: 1em;
   margin: 0 auto;
+/*
+  width: 960px;
   background-color: #fffff4;
-  color: #213e00; }
+  color: #213e00; 
+*/ }
   #surveyor #survey_list ul {
     padding-left: 2em;
     margin-top: -2em; }
@@ -109,7 +113,9 @@ body {
     margin: 0 0 0.6em 0;
     padding: 0.2em; }
     #surveyor .question legend {
+/*
       width: 940px;
+*/
       white-space: normal; }
       #surveyor .question legend span {
         display: block; }
@@ -121,7 +127,10 @@ body {
       float: left; }
     #surveyor .question .text {
       padding-top: 0.2em;
+/*
       font-size: 1.1em;
+*/
+      font-size: 1em;
       line-height: 1.2em; }
     #surveyor .question .help {
       font-size: 0.8em;
@@ -197,6 +206,10 @@ body {
           #surveyor .question_group ul li .question ol.answers {
             display: inline;
             margin: 0.2em; }
+/* Jake added */
+            #surveyor .question_group ul li .question ol.answers {
+                display: block; }
+
     #surveyor .question_group ul.repeater {
       list-style-type: none; }
     #surveyor .question_group li.repeater {

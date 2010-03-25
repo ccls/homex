@@ -44,8 +44,10 @@ span#whoami {
 	padding: 1ex;
 }
 
-
-div#menu {
+/*
+	surveyor uses #menu, so we can't
+*/
+div#appmenu {
 /*
 	The background-color is needed here too for
 	when the menu is taller than the content.
@@ -55,7 +57,7 @@ div#menu {
 	padding-right:2px;
 	padding-bottom:10px;
 }
-div#menu a {
+div#appmenu a {
 	display:block;
 	color: #E7C254;
 	padding: 6px 7px 6px 20px;
@@ -65,7 +67,7 @@ div#menu a {
 	text-decoration:none;
 	font-size: 85%;
 }
-div#menu a:hover {
+div#appmenu a:hover {
 	background-color: #E7C254;
 	color:#252C58;
 }
@@ -98,11 +100,13 @@ div#content {
 	color: gray;
 }
 
+/*
 fieldset legend {
 	font-size: 1.2em;
 	color: #61769E;
 	font-weight: bold;
 }
+*/
 
 p > small {
 	color: gray;
@@ -135,33 +139,3 @@ div.row:nth-child(1) {
 div.row:nth-child(2n)   { background-color: #EEE; }
 div.row:nth-child(2n+1) { background-color: #DDD; }
 
-
-
-
-
-
-#surveyor {
-	background-color:transparent;
-}
-#surveyor .question_group ul li .question ol.answers li {
-	/* 
-		if a group is used, the contained question's answers
-		are inadvertentally? displayed inline rather than
-		in a list block
-	*/
-	display:block;
-}
-
-/* 
-	Gotta be more specific than surveyor's stylesheet 
-	as #surveyor's width is given for #surveyor
-	960px is too wide
-	It's also set for legend.
-*/
-div#content div#surveyor,
-#surveyor .question fieldset legend {
-	width:auto;
-}
-#surveyor .questions .question .text {
-	font-size: 12pt;
-}
