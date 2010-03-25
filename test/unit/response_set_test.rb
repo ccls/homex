@@ -99,9 +99,11 @@ class ResponseSetTest < ActiveSupport::TestCase
 puts qa1 = @rs1.reload.q_and_a_codes_as_attributes.inspect
 puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
 
+		assert (@rs1.diff(@rs2)).blank?
+		assert @rs1.is_the_same_as?(@rs2)
 		assert_equal qa1, qa2
 		assert_difference( 'HomeExposureQuestionnaire.count') {
-		heq = HomeExposureQuestionnaire.create(@rs1.q_and_a_codes_as_attributes)
+			heq = @rs1.to_heq
 		}
 	end
 

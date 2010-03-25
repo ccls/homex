@@ -47,6 +47,30 @@ module ResponseSetExtensions
 			Hash[*self.responses.collect(&:q_and_a_codes).flatten]
 		end
 
+#	gotta be careful overriding operators as they may be used elsewhere
+#		def ==(another_response_set)
+
+		#	Compare the Q and A codes of 2 response sets
+		#	and return boolean.
+		def is_the_same_as?(another_response_set)
+			ars = ResponseSet.find(another_response_set)
+			(self.q_and_a_codes - ars.q_and_a_codes).empty?
+		end
+
+		#	Compare the Q and A codes of 2 response sets
+		#	and return hash of differences.
+		def diff(another_response_set)
+			ars = ResponseSet.find(another_response_set)
+			self.q_and_a_codes_as_attributes.diff(ars.q_and_a_codes_as_attributes)
+		end
+
+		#	Convert response set to a home exposure questionnaire.
+		def to_heq
+			HomeExposureQuestionnaire.create({
+				:childid => self.childid
+			}.merge(self.q_and_a_codes_as_attributes))
+		end
+
 		def is_complete?
 			#	eventually return the is_complete column value
 #			false
