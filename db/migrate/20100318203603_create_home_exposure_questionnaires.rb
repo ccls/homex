@@ -121,6 +121,9 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 			t.integer :avg_number_hours_computers_used
 			t.text :additional_comments
 
+			t.integer :vacuum_bag_last_changed
+			t.integer :vacuum_used_outside_home
+
 			t.timestamps
 		end
 		add_index :home_exposure_questionnaires, :childid, :unique => true
