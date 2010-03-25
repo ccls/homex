@@ -6,6 +6,8 @@ class SurveyControllerTest < ActionController::TestCase
 		#	for whatever brilliant reason they had,
 		#	surveys/ goes to the Surveyor controller's
 		#	"new" action!!!
+		#	Make 2 so that the index tests duplication.
+		Factory(:survey_section)	#	creates a survey too
 		Factory(:survey_section)	#	creates a survey too
 		#	a survey section is needed in the edit action
 #		Factory(:survey)
@@ -43,7 +45,7 @@ class SurveyControllerTest < ActionController::TestCase
 		get :new
 		assert_response :success
 		assert assigns(:surveys)
-		assert_equal 1, assigns(:surveys).length
+		assert_equal 2, assigns(:surveys).length
 		assert assigns(:current_user)
 	end
 
