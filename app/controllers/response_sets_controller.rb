@@ -11,12 +11,14 @@ class ResponseSetsController < ApplicationController
 
 #	include subject_id or child_id or whatever in ResponseSet
 
-		if (@response_set = ResponseSet.create(
-				:survey => @survey, 
-				:user_id => (
-					@current_user.nil? ? @current_user : @current_user.id
-				))
-			)
+		@response_set = ResponseSet.create( :survey => @survey,
+			:subject_id => params[:subject_id] )
+		if !@response_set.new_record?
+#				:survey => @survey, 
+#				:user_id => (
+#					@current_user.nil? ? @current_user : @current_user.id
+#				))
+#			)
 			redirect_to(
 				edit_my_survey_path(
 					:survey_code => @survey.access_code, 
@@ -25,7 +27,7 @@ class ResponseSetsController < ApplicationController
 			)
 		else
 			flash[:error] = "Unable to create a new response set"
-			redirect_to( available_surveys_path )
+			redirect_to( subjects_path )
 		end
 	end
 
@@ -34,7 +36,7 @@ protected
 
 	#	A valid survey code must be passed to begin.
 	def valid_survey_required
-		if (@survey = Survey.find_by_access_code(params[:survey_code]))
+		unless (@survey = Survey.find_by_access_code(params[:survey_code]))
 #			flash[:error] = "Unable to find that survey"
 #			redirect_to( available_surveys_path )
 			access_denied("Unable to find that survey")
@@ -44,11 +46,9 @@ protected
 	#	A subject_id must be present and the associated
 	#	Subject must exist.
 	def valid_subject_id_required
-#		if params[:subject_id].nil? 
-#			access_denied("Subject ID Required to take survey")
-#		else
-#
-#		end
+		unless( Subject.find( params[:subject_id] ) )
+			access_denied("Subject ID Required to take survey")
+		end
 	end
 
 	#	Limit the number of response sets to 2 per subject.

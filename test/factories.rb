@@ -181,6 +181,7 @@ Factory.define :survey_section do |f|
 	f.sequence(:display_order){ |n| n }
 end
 Factory.define :response_set do |f|
+	f.association :subject
 	f.association :survey
 end
 Factory.define :response do |f|

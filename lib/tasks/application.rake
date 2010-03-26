@@ -7,6 +7,18 @@ namespace :app do
 #	end
 
 
+	desc "Add some subjects"
+	task :add_subjects => :environment do
+		race = Race.find_or_create_by_name("TEST RACE")
+		subject_type = SubjectType.find_or_create_by_description("TEST TYPE")
+		10.times do |i|
+			Subject.create({
+				:race_id => race.id,
+				:subject_type_id => subject_type.id
+			})
+		end
+	end
+
 	desc "Add some package tracking numbers"
 	task :add_packages => :environment do
 		%w( 077973360403984 134619889171013 134619889171020 ).each do |tn|

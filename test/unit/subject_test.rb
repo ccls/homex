@@ -94,6 +94,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.study_event_eligibilities.length
 	end
 
+	test "should have many response_sets" do
+		subject = create_subject
+		assert_equal 0, subject.response_sets.length
+		Factory(:response_set, :subject_id => subject.id)
+		assert_equal 1, subject.reload.response_sets.length
+		Factory(:response_set, :subject_id => subject.id)
+		assert_equal 2, subject.reload.response_sets.length
+	end
+
 
 protected
 

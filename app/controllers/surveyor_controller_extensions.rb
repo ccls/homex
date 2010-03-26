@@ -10,7 +10,7 @@ module SurveyorControllerExtensions
 #	From there, they will use response_set#create which makes
 #	much more sense.  The editing and updating will still all
 #	be done via the surveyor controller.
-#			before_filter :block_all_access, :only => [ :new, :create ]
+			before_filter :block_all_access, :only => [ :new, :create ]
 
 			before_filter :may_take_surveys_required
 			before_filter :response_set_must_not_be_complete, :only => :edit
@@ -36,28 +36,28 @@ module SurveyorControllerExtensions
 		#	 render :text =>"surveys are down"
 		# end
 
-		def create
-
-#	include subject_id or child_id or whatever in ResponseSet
-
-			if (@survey = Survey.find_by_access_code(params[:survey_code])) && 
-				(@response_set = ResponseSet.create(
-					:survey => @survey, 
-					:user_id => (
-						@current_user.nil? ? @current_user : @current_user.id
-					))
-				)
-				redirect_to(
-					edit_my_survey_path(
-						:survey_code => @survey.access_code, 
-						:response_set_code	=> @response_set.access_code
-					)
-				)
-			else
-				flash[:notice] = "Unable to find that survey"
-				redirect_to( available_surveys_path )
-			end
-		end
+#		def create
+#
+##	include subject_id or child_id or whatever in ResponseSet
+#
+#			if (@survey = Survey.find_by_access_code(params[:survey_code])) && 
+#				(@response_set = ResponseSet.create(
+#					:survey => @survey, 
+#					:user_id => (
+#						@current_user.nil? ? @current_user : @current_user.id
+#					))
+#				)
+#				redirect_to(
+#					edit_my_survey_path(
+#						:survey_code => @survey.access_code, 
+#						:response_set_code	=> @response_set.access_code
+#					)
+#				)
+#			else
+#				flash[:notice] = "Unable to find that survey"
+#				redirect_to( available_surveys_path )
+#			end
+#		end
 
 	end
 end

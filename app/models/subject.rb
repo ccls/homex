@@ -10,6 +10,7 @@ class Subject < ActiveRecord::Base
 	has_many :residences
 	has_many :interview_events
 	has_many :study_event_eligibilities
+	has_many :response_sets
 	has_one :pii
 
 	validates_presence_of :subject_type_id

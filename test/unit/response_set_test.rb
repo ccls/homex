@@ -54,6 +54,13 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_not_nil response_set.user
 	end
 
+	test "should belong to a subject" do
+		response_set = create_response_set
+#		assert_nil response_set.subject
+#		response_set.subject = Factory(:subject)
+		assert_not_nil response_set.subject
+	end
+
 	#	This works, but the responses' questions and answers
 	#	are all pointing in different directions.
 	test "should have many responses" do
@@ -93,9 +100,9 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_difference( 'ResponseSet.count', 2 ) {
 		assert_difference( 'Response.count', 8 ) {
 			@rs1 = full_response_set(
-				:response_set => { :childid => 42 })
+				:response_set => { :subject_id => 42 })
 			@rs2 = full_response_set(:survey => @rs1.survey,
-				:response_set => { :childid => 42 })
+				:response_set => { :subject_id => 42 })
 		} } } } } }
 
 puts qa1 = @rs1.reload.q_and_a_codes_as_attributes.inspect

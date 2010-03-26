@@ -24,8 +24,14 @@ module ResponseSetExtensions
 			#	access_code is set that it is indeed unique.
 			validates_uniqueness_of :access_code
 
+
+			belongs_to :subject, :counter_cache => true
 			#	Require childid ... coming soon
 #			validates_presence_of   :childid
+
+
+			validates_presence_of   :subject_id
+			
 		end
 	end
 	
@@ -77,7 +83,7 @@ module ResponseSetExtensions
 		#	Convert response set to a home exposure questionnaire.
 		def to_heq
 			HomeExposureQuestionnaire.create({
-				:childid => self.childid
+				:childid => self.subject_id
 			}.merge(self.q_and_a_codes_as_attributes))
 		end
 
