@@ -1,6 +1,8 @@
 class Track < ActiveRecord::Base
 	default_scope :order => :time
-	belongs_to :trackable, :polymorphic => true
+	belongs_to :trackable, 
+		:polymorphic => true, 
+		:counter_cache => true
 
 	validates_presence_of :trackable_id
 	validates_presence_of :trackable_type

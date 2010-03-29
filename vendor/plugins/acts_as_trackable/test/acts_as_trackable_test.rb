@@ -45,8 +45,10 @@ class ActsAsTrackableTest < ActiveSupport::TestCase
 		assert_equal 0, book.tracks.length
 		book.tracks.create!( :name => 'name', :time => Time.now - 10000 )
 		assert_equal 1, book.reload.tracks.length
+		assert_equal 1, book.reload.tracks_count
 		book.tracks.create!( :name => 'name', :time => Time.now )
 		assert_equal 2, book.reload.tracks.length
+		assert_equal 2, book.reload.tracks_count
 	end
 
 	test "should mass assign tracking number when attr_accessible not used" do

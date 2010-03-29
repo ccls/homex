@@ -12,7 +12,7 @@ class TrackableMigrationGenerator < Rails::Generator::NamedBase
 	def manifest
 		record do |m|
 			m.migration_template 'migration.rb', 'db/migrate', 
-				:migration_file_name => "add_tracking_number_to_#{file_path.gsub(/\//, '_').pluralize}"
+				:migration_file_name => "add_tracking_info_to_#{file_path.gsub(/\//, '_').pluralize}"
 		end
 	end
 
