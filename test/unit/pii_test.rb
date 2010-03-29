@@ -10,6 +10,33 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create pii with all numeric ssn" do
+		assert_difference 'Pii.count' do
+			pii = create_pii(:ssn => 987654321)
+			assert !pii.new_record?, 
+				"#{pii.errors.full_messages.to_sentence}"
+			assert_equal '987654321', pii.reload.ssn
+		end
+	end
+
+	test "should create pii with string all numeric ssn" do
+		assert_difference 'Pii.count' do
+			pii = create_pii(:ssn => '987654321')
+			assert !pii.new_record?, 
+				"#{pii.errors.full_messages.to_sentence}"
+			assert_equal '987654321', pii.reload.ssn
+		end
+	end
+
+	test "should create pii with string standard format ssn" do
+		assert_difference 'Pii.count' do
+			pii = create_pii(:ssn => '987-65-4321')
+			assert !pii.new_record?, 
+				"#{pii.errors.full_messages.to_sentence}"
+			assert_equal '987654321', pii.reload.ssn
+		end
+	end
+
 	test "should require subject_id" do
 		assert_no_difference 'Pii.count' do
 			pii = create_pii(:subject_id => nil)
