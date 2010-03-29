@@ -25,7 +25,7 @@ class CreateResponses < ActiveRecord::Migration
 			
 			t.timestamps
 		end
-		add_index :response, :response_set_id
+		add_index :responses, :response_set_id
 	end
 
 	def self.down
