@@ -216,6 +216,7 @@ class Permissions < Aegis::Permissions
 	end
 
 	permission :view_subjects do
+		allow :employee
 	end
 
 end
