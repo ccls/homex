@@ -106,6 +106,16 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		)
 	end
 
+	test "should NOT begin survey when create fails" do
+		login_as admin_user
+		ResponseSet.any_instance.stubs(:save!).raises(
+			ActiveRecord::RecordInvalid.new(ResponseSet.new))
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => Subject.first.id, 
+				:survey_code => Survey.first.access_code
+		}
+	end
+
 	test "should NOT begin survey with just login" do
 		survey = Survey.first
 		login_as active_user
@@ -167,7 +177,6 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
-
 
 #	edit
 

@@ -10,19 +10,17 @@ class ResponseSetsController < ApplicationController
 
 #	include subject_id or child_id or whatever in ResponseSet
 
-		@response_set = ResponseSet.create( :survey => @survey,
+		@response_set = ResponseSet.create!( :survey => @survey,
 			:subject_id => params[:subject_id] )
-		if !@response_set.new_record?
-			redirect_to(
-				edit_my_survey_path(
-					:survey_code => @survey.access_code, 
+		redirect_to(
+			edit_my_survey_path(
+				:survey_code => @survey.access_code, 
 					:response_set_code	=> @response_set.access_code
-				)
 			)
-		else
-			flash[:error] = "Unable to create a new response set"
-			redirect_to( subjects_path )
-		end
+		)
+	rescue ActiveRecord::RecordInvalid
+		flash[:error] = "Unable to create a new response set"
+		redirect_to( subjects_path )
 	end
 
 
