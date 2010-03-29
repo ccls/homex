@@ -220,3 +220,4 @@ Currently, the Package tests would need removed to test offline as they access t
 * {Surveyor Issue 46}[http://github.com/breakpointer/surveyor/issues/issue/46]
 * {Surveyor Issue 47}[http://github.com/breakpointer/surveyor/issues/issue/47]
 * {Surveyor Issue 48}[http://github.com/breakpointer/surveyor/issues/issue/48]
+* {Surveyor Issue 49}[http://github.com/breakpointer/surveyor/issues/issue/49]
