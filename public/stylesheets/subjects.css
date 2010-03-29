@@ -1,0 +1,16 @@
+div#subjects {
+	padding-top:20px;
+}
+
+div.id {
+	width: 50px;
+	float:left;
+}
+div.count {
+	width: 100px;
+	float:left;
+}
+div.response_set {
+	width: 100px;
+	float:left;
+}

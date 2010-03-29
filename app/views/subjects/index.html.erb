@@ -1,0 +1,32 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag('subjects') %>
+<% end %>
+
+<div id='subjects'>
+<% @subjects.each do |subject| %>
+<% content_tag_for( :div, subject, :class => 'row' ) do %>
+<div class='id'><%= subject.id -%></div>
+<div class='count'>Taken: <%= subject.response_sets_count -%></div>
+<div class='edit_surveys'>
+	<% subject.response_sets.each do |rs| %>
+		<% content_tag_for( :div, rs ) do %>
+			<% if rs.is_complete? %>
+				<span>Complete</span>
+			<% else %>
+				<%= link_to "Edit", edit_my_survey_path(
+						:survey_code => rs.survey.access_code, 
+						:response_set_code	=> rs.access_code
+					) %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+<% form_tag(response_sets_path, :class => 'take_survey') do %>
+	<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
+	<%= hidden_field_tag :subject_id, subject.id, :id => nil %>
+	<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
+<% end if ( subject.response_sets_count < 2 ) %>
+
+<% end %>
+<% end %>
+</div>
