@@ -119,6 +119,28 @@ puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
 	end
 
 
+	test "should destroy responses on set destroy" do
+		assert_difference( 'Survey.count', 1 ) {
+		assert_difference( 'SurveySection.count', 1 ) {
+		assert_difference( 'Question.count', 4 ) {
+		assert_difference( 'Answer.count', 4 ) {
+		assert_difference( 'ResponseSet.count', 2 ) {
+		assert_difference( 'Response.count', 8 ) {
+			@rs1 = full_response_set(
+				:response_set => { :subject_id => 42 })
+			@rs2 = full_response_set(:survey => @rs1.survey,
+				:response_set => { :subject_id => 42 })
+		} } } } } }
+
+		assert_difference( 'Survey.count', 0 ) {
+		assert_difference( 'SurveySection.count', 0 ) {
+		assert_difference( 'Question.count', 0 ) {
+		assert_difference( 'Answer.count', 0 ) {
+		assert_difference( 'ResponseSet.count', -1 ) {
+		assert_difference( 'Response.count', -4 ) {
+			@rs1.reload.destroy
+		} } } } } }
+	end
 
 protected
 

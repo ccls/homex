@@ -1,3 +1,18 @@
-<h1>New home_exposure_questionnaire</h1>
+<h1>Merge Survey Data</h1>
 
-<%= render 'form' %>
+<p>Subject id: <%=@subject.id%></p>
+
+<table><tbody>
+<tr>
+	<th>Questionnaire 1</th>
+	<th>column</th>
+	<th>Questionnaire 2</th>
+</tr>
+<% HomeExposureQuestionnaire.q_column_names.each do |column| %>
+	<tr>
+		<td><%= @subject.response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
+		<td><%=column-%></td>
+		<td><%= @subject.response_sets[1].q_and_a_codes_as_attributes[column]-%></td>
+	</tr>
+<% end %>
+</tbody></table>

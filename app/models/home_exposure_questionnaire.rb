@@ -1,5 +1,9 @@
 class HomeExposureQuestionnaire < ActiveRecord::Base
 
+	def self.q_column_names
+		column_names - ['id','childid','created_at','updated_at']
+	end
+
 #	validates_numericality_of :number_of_floors_in_home,
 #			:number_of_stories_in_home,
 #			:home_square_footage,

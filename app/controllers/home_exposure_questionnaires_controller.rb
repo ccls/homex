@@ -1,4 +1,25 @@
 class HomeExposureQuestionnairesController < ApplicationController #:nodoc:
+
+	before_filter :may_view_questionnaires_required
+	before_filter :valid_subject_id_required
+
+	def new
+#	works but not what I want
+#		@keys = @subject.response_sets.collect(&:q_and_a_codes_as_attributes).collect(&:keys).inject(:|)
+	end
+
+protected
+
+	def valid_subject_id_required
+		if( Subject.exists?( params[:subject_id] ) )
+			@subject = Subject.find( params[:subject_id] )
+		else
+			access_denied("Subject ID Required to take survey")
+		end
+	end
+
+
+
 #
 #	before_filter :may_view_questionnaires_required
 #
