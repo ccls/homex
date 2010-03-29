@@ -6,7 +6,6 @@ class ResponseSetsController < ApplicationController
 	before_filter :valid_subject_id_required, :only => :create
 	before_filter :limit_response_set_count,  :only => :create
 
-
 	def create
 
 #	include subject_id or child_id or whatever in ResponseSet
@@ -14,11 +13,6 @@ class ResponseSetsController < ApplicationController
 		@response_set = ResponseSet.create( :survey => @survey,
 			:subject_id => params[:subject_id] )
 		if !@response_set.new_record?
-#				:survey => @survey, 
-#				:user_id => (
-#					@current_user.nil? ? @current_user : @current_user.id
-#				))
-#			)
 			redirect_to(
 				edit_my_survey_path(
 					:survey_code => @survey.access_code, 
@@ -46,18 +40,19 @@ protected
 	#	A subject_id must be present and the associated
 	#	Subject must exist.
 	def valid_subject_id_required
-		unless( Subject.find( params[:subject_id] ) )
+		unless( Subject.exists?( params[:subject_id] ) )
 			access_denied("Subject ID Required to take survey")
 		end
 	end
 
 	#	Limit the number of response sets to 2 per subject.
 	def limit_response_set_count
-#		if ResponseSet.count(:conditions => { 
-#			:subject_id => params[:subject_id]
-#			}) >= 2
-#			access_denied("Subject has already completed the survey twice.")
-#		end
+		if ResponseSet.count(:conditions => { 
+				:survey_id => @survey,
+				:subject_id => params[:subject_id]
+			}) >= 2
+			access_denied("Subject has already completed the survey twice.")
+		end
 	end
 
 end
