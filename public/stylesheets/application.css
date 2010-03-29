@@ -141,3 +141,7 @@ div.row:nth-child(1) {
 div.row:nth-child(2n)   { background-color: #EEE; }
 div.row:nth-child(2n+1) { background-color: #DDD; }
 
+form.link_to {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}

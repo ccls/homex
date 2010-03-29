@@ -3,6 +3,7 @@ module ApplicationHelper	#:nodoc:
 
 	#	This creates a button that looks like a submit button
 	#	but is just a javascript controlled link.
+	#	I don't like it.
 	def button_link_to( title, url, options={} )
 #		id = "id='#{options[:id]}'" unless options[:id].blank?
 #		klass = if options[:class].blank?
@@ -18,6 +19,16 @@ module ApplicationHelper	#:nodoc:
 		s << title
 		s << "</button>"
 		s
+	end
+
+	#	Created this to create form styled buttons to use
+	#	for the common 'cancel' feature. Unfortunately, it is
+	#	invalid HTML to have a form inside of a form.  So
+	#	this isn't as useful as initially hoped.
+	def form_link_to( title, url, options={} )
+		s =  "<form class='link_to' action='#{url}' method='get'>"
+		s << submit_tag(title, :name => nil )
+		s << "</form>"
 	end
 
 end
