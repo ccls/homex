@@ -75,6 +75,19 @@ class SurveyControllerTest < ActionController::TestCase
 #	end
 
 
+	test "should NOT show surveys with admin login" do
+		login_as admin_user
+		get :new
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT show surveys without login" do
+		get :new
+		assert_redirected_to_cas_login
+	end
+
+
 #	create
 
 #	test "should begin survey with admin login" do
@@ -128,19 +141,25 @@ class SurveyControllerTest < ActionController::TestCase
 #		assert_response :redirect
 #		assert_redirected_to root_path
 #	end
-#
-#	test "should NOT begin survey without login" do
-#		survey = Survey.first
-#		assert_difference( 'ResponseSet.count', 0 ) {
-#			post :create, :subject_id => 123, :survey_code => survey.access_code
-#		}
-#		assert !assigns(:survey)
-#		assert !assigns(:response_set)
-#		assert !assigns(:current_user)
-#		assert_response :redirect
-#		assert_redirected_to_cas_login
-#	end
-#
+
+	test "should NOT begin survey with admin login" do
+		login_as admin_user
+		survey = Survey.first
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => 123, :survey_code => survey.access_code
+		}
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT begin survey without login" do
+		survey = Survey.first
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => 123, :survey_code => survey.access_code
+		}
+		assert_redirected_to_cas_login
+	end
+
 ##	test "should NOT begin survey with invalid subject_id" do
 ##		survey = Survey.first
 ##		login_as admin_user
