@@ -58,7 +58,8 @@ class ResponseSetTest < ActiveSupport::TestCase
 		response_set = create_response_set
 #		assert_nil response_set.subject
 #		response_set.subject = Factory(:subject)
-		assert_not_nil response_set.subject
+		assert_not_nil response_set.reload.subject
+		assert_equal 1, response_set.subject.response_sets_count
 	end
 
 	#	This works, but the responses' questions and answers

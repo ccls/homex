@@ -25,7 +25,24 @@ module ResponseSetExtensions
 			validates_uniqueness_of :access_code
 
 
-			belongs_to :subject, :counter_cache => true
+			#	putting counter_cache here, causes double counting ??
+			#	I've never had this problem before, but adding
+			#	this association here with the counter_cache
+			#	causes duplicate incrementation
+			#	Subject Update (11.1ms)
+			#		UPDATE `subjects` SET `response_sets_count` =
+			#		COALESCE(`response_sets_count`, 0) + 1 WHERE (`id` = 4) 
+			#	Subject Update (5.9ms)
+			#		UPDATE `subjects` SET `response_sets_count` =
+			#		COALESCE(`response_sets_count`, 0) + 1 WHERE (`id` = 4) 
+			#	I'm assuming that this extension is called
+			#	multiple times causing this???  Wrapping it in this
+			#	condition seems to stop it.
+			unless base.instance_methods.include?('subject')
+				belongs_to :subject, :counter_cache => true
+			end
+
+
 			#	Require childid ... coming soon
 #			validates_presence_of   :childid
 
