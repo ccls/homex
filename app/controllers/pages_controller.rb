@@ -9,7 +9,6 @@ class PagesController < ApplicationController	#:nodoc:
 	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
 	def order
-#		params[:pages].each_with_index { |id,i| Page.find(id).update_attribute(:position,i+1) }
 		params[:pages].each { |id| Page.find(id).move_to_bottom }
 		redirect_to pages_path
 	end
@@ -43,18 +42,29 @@ class PagesController < ApplicationController	#:nodoc:
 	end
 
 	def create
-		@page = Page.new(params[:page])
-		@page.save!
-		flash[:notice] = 'Page was successfully created.'
-		redirect_to(@page)
+#		# match the value of the submit button clicked
+#		if params[:commit] !~ /cancel/i
+			@page = Page.new(params[:page])
+			@page.save!
+			flash[:notice] = 'Page was successfully created.'
+			redirect_to(@page)
+#		else
+#			flash[:notice] = 'Page creation canceled.'
+#			redirect_to pages_path
+#		end
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the page"
 		render :action => "new"
 	end
 
 	def update
-		@page.update_attributes!(params[:page])
-		flash[:notice] = 'Page was successfully updated.'
+#		# match the value of the submit button clicked
+#		if params[:commit] !~ /cancel/i
+			@page.update_attributes!(params[:page])
+			flash[:notice] = 'Page was successfully updated.'
+#		else
+#			flash[:notice] = 'Page update canceled.'
+#		end
 		redirect_to(@page)
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the page."

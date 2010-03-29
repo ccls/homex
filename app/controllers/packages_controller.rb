@@ -12,10 +12,15 @@ class PackagesController < ApplicationController	#:nodoc:
 	end
 
 	def create
-		@package = Package.new(params[:package])
-		@package.save!
-		@package.update_status
-		flash[:notice] = 'Package was successfully created.'
+#		#	match the value of the submit button clicked
+#		if params[:commit] !~ /cancel/i
+			@package = Package.new(params[:package])
+			@package.save!
+			@package.update_status
+			flash[:notice] = 'Package was successfully created.'
+#		else
+#			flash[:notice] = 'Package creation canceled.'
+#		end
 		redirect_to(packages_path)
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the package"
