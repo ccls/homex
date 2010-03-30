@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
 		self.role_name == "administrator"
 	end
 
+	def is_employee?
+		%w( administrator employee ).include?( self.role_name )
+	end
+
 	#	Assigns role_name to 'administrator'
 	#	Returns: boolean
 	def deputize

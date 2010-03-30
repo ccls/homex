@@ -11,6 +11,7 @@
 
 <% if logged_in? %>
   <%= link_to("Calendar",calendar_path) if current_user.may_view_calendar? %>
+  <%= link_to "Subjects", subjects_path if current_user.may_view_subjects? %>
 	<% if current_user.is_admin? %>
   <%= link_to "Packages", packages_path %>
   <%= link_to "Pages", pages_path %>
@@ -18,7 +19,6 @@
   <%#= link_to "Deputies", deputies_path %>
   <%= link_to "Permissions", permissions_path %>
   <%= link_to "Documentation", '/doc/app/index.html' %>
-  <%= link_to "Subjects", subjects_path %>
 	<% end %>
 <% end %>
 </div><!-- menu -->
