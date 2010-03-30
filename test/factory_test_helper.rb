@@ -86,4 +86,28 @@ module FactoryTestHelper
 		response_set
 	end
 
+	def fill_out_survey(options={})
+		response_set = Factory(:response_set,{
+			:completed_at => Time.now
+		}.merge(options))
+		response_set.survey.sections.each do |section|
+			section.questions.each do |question|
+				next if question.answers.length <= 0
+				response = Factory.build(:response, {
+					:response_set => response_set,
+					:question     => question,
+					:answer => question.answers.first
+				})
+				case response.answer.response_class
+					when 'string'||'text'
+						response.string_value = "some text"
+					when 'integer'
+						response.integer_value = 1942
+				end
+				response.save
+			end
+		end
+		response_set
+	end
+
 end
