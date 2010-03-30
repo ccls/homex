@@ -86,15 +86,22 @@ div#content {
 	menu and content are the same height.
 */
 	border-left:150px solid #252C58;	
+	padding-top: 20px;
 	padding-left: 20px;
 	background-color: white;
+}
+div#content div#main h1:nth-child(1),
+div#content p:nth-child(2),
+div#content h1:nth-child(2),
+div#content h2:nth-child(2) {
+	margin-top: 0;
 }
 #main {
 /*
 	margin: 20px auto 0px;
 	border: 2px solid #8DA2B9;
+	padding-top: 0;
 */
-	padding: 1em;
 }
 #footer {
 	clear:both;
