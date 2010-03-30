@@ -10,9 +10,11 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 		end
 	end
 
-
 	test "should belong to subject" do
-
+		home_exposure_response = create_home_exposure_response
+		assert_nil home_exposure_response.subject
+		home_exposure_response.subject = Factory(:subject)
+		assert_not_nil home_exposure_response.subject
 	end
 
 #	test "should require description" do
