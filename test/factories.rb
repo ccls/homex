@@ -16,7 +16,7 @@ Factory.define :context do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
-Factory.define :home_exposure_questionnaire do |f|
+Factory.define :home_exposure_response do |f|
 end
 
 Factory.define :ineligible_reason do |f|

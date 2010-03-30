@@ -1,6 +1,6 @@
 require 'action_view/helpers/form_options_helper'
 
-module HomeExposureQuestionnaireHelper
+module HomeExposureResponseHelper
 
 #	ActionView::Helpers::FormBuilder.class_eval do
 ##		@@he_question_counter = 1
@@ -8,9 +8,9 @@ module HomeExposureQuestionnaireHelper
 ##			return "abcdefghijklmnopqrstuvwxyz".split('')
 ##		end
 #
-##		def heq_select(method, choices=[], options = {}, html_options = {})
+##		def her_select(method, choices=[], options = {}, html_options = {})
 ##			if choices.empty?
-##				class_options = HomeExposureQuestionnaire.send("#{method}_options")
+##				class_options = HomeExposureResponse.send("#{method}_options")
 ##				if class_options.is_a?(Array)
 ##					choices = class_options 
 ##					label = nil

@@ -4,11 +4,11 @@
 
 <table><tbody>
 <tr>
-	<th>Questionnaire 1</th>
+	<th>Responses 1</th>
 	<th>column</th>
-	<th>Questionnaire 2</th>
+	<th>Responses 2</th>
 </tr>
-<% HomeExposureQuestionnaire.q_column_names.each do |column| %>
+<% HomeExposureResponse.q_column_names.each do |column| %>
 	<tr>
 		<td><%= @subject.response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
 		<td><%=column-%></td>

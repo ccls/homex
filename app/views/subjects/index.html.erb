@@ -31,8 +31,7 @@
 
 <% if subject.response_sets_count >= 2 && 
 	subject.response_sets.collect(&:is_complete?).all? %>
-	<%= link_to "Merge", 
-		new_subject_home_exposure_questionnaire_path(subject) -%>
+	<%= link_to "Merge", new_subject_home_exposure_response_path(subject) -%>
 	<% if subject.response_sets[0].is_the_same_as?(subject.response_sets[1]) %>
 		<span>Same</span>
 	<% else %>

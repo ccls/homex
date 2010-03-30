@@ -69,7 +69,7 @@ module ResponseSetExtensions
 		#	>> ResponseSet.last.q_and_a_codes_as_attributes
 		#	=> {"doneness_of_meat_exterior_12mos"=>"3", "vacuum_has_disposable_bag"=>"1", "freq_grilled_meat_outside_12mos"=>"2", "someone_ate_meat_12mos"=>"1", "number_of_rooms_in_home"=>5, "how_often_vacuumed_12mos"=>"1", "year_home_built"=>1900, "shoes_usually_off_inside_12mos"=>"1", "home_square_footage"=>100, "cmty_sprayed_other_pest_12mos"=>"1", "other_pest_community_sprayed"=>"dogs"}
 		#
-		#	>> HomeExposureQuestionnaire.create(
+		#	>> HomeExposureResponse.create(
 		#		ResponseSet.find(7).q_and_a_codes_as_attributes)
 		def q_and_a_codes_as_attributes
 			Hash[*self.responses.collect(&:q_and_a_codes).flatten]
@@ -98,9 +98,9 @@ module ResponseSetExtensions
 		end
 
 		#	Convert response set to a home exposure questionnaire.
-		def to_heq
-			HomeExposureQuestionnaire.create({
-				:childid => self.subject_id
+		def to_her
+			HomeExposureResponse.create({
+				:subject_id => self.subject_id
 			}.merge(self.q_and_a_codes_as_attributes))
 		end
 

@@ -93,7 +93,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 
-	test "should merge matching surveys into single HEQ" do
+	test "should merge matching surveys into single HER" do
 		assert_difference( 'Survey.count', 1 ) {
 		assert_difference( 'SurveySection.count', 1 ) {
 		assert_difference( 'Question.count', 4 ) {
@@ -112,9 +112,9 @@ puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
 		assert (@rs1.diff(@rs2)).blank?
 		assert @rs1.is_the_same_as?(@rs2)
 		assert_equal qa1, qa2
-		assert_difference( 'HomeExposureQuestionnaire.count') {
-			heq = @rs1.to_heq
-			assert_equal 42, heq.childid
+		assert_difference( 'HomeExposureResponse.count') {
+			her = @rs1.to_her
+			assert_equal 42, her.subject_id
 		}
 	end
 

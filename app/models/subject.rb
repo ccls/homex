@@ -12,7 +12,7 @@ class Subject < ActiveRecord::Base
 	has_many :study_event_eligibilities
 	has_many :response_sets
 	has_one :pii
-#	has_one :home_exposure_questionnaire
+	has_one :home_exposure_response
 
 	validates_presence_of :subject_type_id
 	validates_presence_of :race_id

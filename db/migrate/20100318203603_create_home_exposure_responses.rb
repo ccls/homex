@@ -1,8 +1,9 @@
-class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
+class CreateHomeExposureResponses < ActiveRecord::Migration
 	def self.up
-		create_table :home_exposure_questionnaires do |t|
-			t.integer :childid
-#	If it is an HEQ, then it is complete
+		create_table :home_exposure_responses do |t|
+#			t.integer :childid
+			t.integer :subject_id
+#	If it is an HER, then it is complete
 #	Only the response sets may be incomplete.
 #			t.boolean :is_complete
 			t.integer :vacuum_has_disposable_bag
@@ -128,10 +129,10 @@ class CreateHomeExposureQuestionnaires < ActiveRecord::Migration
 
 			t.timestamps
 		end
-		add_index :home_exposure_questionnaires, :childid, :unique => true
+		add_index :home_exposure_responses, :subject_id, :unique => true
 	end
 
 	def self.down
-		drop_table :home_exposure_questionnaires
+		drop_table :home_exposure_responses
 	end
 end

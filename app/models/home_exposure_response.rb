@@ -1,8 +1,8 @@
-class HomeExposureQuestionnaire < ActiveRecord::Base
-#	belongs_to :subject
+class HomeExposureResponse < ActiveRecord::Base
+	belongs_to :subject
 
 	def self.q_column_names
-		column_names - ['id','childid','created_at','updated_at']
+		column_names - ['id','subject_id','childid','created_at','updated_at']
 	end
 
 #	validates_numericality_of :number_of_floors_in_home,

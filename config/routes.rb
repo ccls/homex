@@ -55,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
 	map.resources :subjects, :only => [ :index, :show ] do |subject|
-		subject.resource :home_exposure_questionnaire, :only => [ :new, :create, :show ]
+		subject.resource :home_exposure_response, :only => [ :new, :create, :show ]
 	end
 
 
