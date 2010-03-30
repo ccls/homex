@@ -2,21 +2,52 @@ class HomeExposureQuestionnairesController < ApplicationController #:nodoc:
 
 	before_filter :may_view_questionnaires_required
 	before_filter :valid_subject_id_required
-	before_filter :two_response_sets_required
-	before_filter :all_response_sets_completed_required
+	before_filter :heq_must_not_exist, :only => [:new,:create]
+	before_filter :heq_must_exist, :only => [:show]
+	before_filter :two_response_sets_required, :only => [:new,:create]
+	before_filter :all_response_sets_completed_required, :only => [:new,:create]
+	before_filter :valid_response_set_id_required, :only => :create
 
 	def new
 #	works but not what I want
 #		@keys = @subject.response_sets.collect(&:q_and_a_codes_as_attributes).collect(&:keys).inject(:|)
 	end
 
+	def create
+		@heq = @response_set.to_heq
+		if @heq.new_record?
+			flash.now[:error] = "There was a problem creating HEQ"
+			render :action => 'new'
+		else
+			redirect_to subjects_path
+		end
+	end
+
+	def show
+		@home_exposure_questionnaire = HomeExposureQuestionnaire.find(:first,
+			:conditions => { :childid => @subject.id }
+		)
+	end
+
 protected
+
+	def heq_must_exist
+		unless HomeExposureQuestionnaire.exists?(:childid => params[:subject_id] )
+			access_denied("HEQ does not exist for this subject")
+		end
+	end
+
+	def heq_must_not_exist
+		if HomeExposureQuestionnaire.exists?(:childid => params[:subject_id] )
+			access_denied("HEQ already exists for this subject")
+		end
+	end
 
 	def valid_subject_id_required
 		if( Subject.exists?( params[:subject_id] ) )
 			@subject = Subject.find( params[:subject_id] )
 		else
-			access_denied("Subject ID Required to take survey")
+			access_denied("Valid Subject ID required")
 		end
 	end
 
@@ -34,6 +65,13 @@ protected
 		end
 	end
 
+	def valid_response_set_id_required
+		if( @subject.response_sets.exists?( params[:response_set_id] ) )
+			@response_set = ResponseSet.find( params[:response_set_id] )
+		else
+			access_denied("Valid ResponseSet ID required")
+		end
+	end
 
 
 #

@@ -1,4 +1,5 @@
 class HomeExposureQuestionnaire < ActiveRecord::Base
+#	belongs_to :subject
 
 	def self.q_column_names
 		column_names - ['id','childid','created_at','updated_at']
