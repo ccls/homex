@@ -2,6 +2,8 @@ class HomeExposureQuestionnairesController < ApplicationController #:nodoc:
 
 	before_filter :may_view_questionnaires_required
 	before_filter :valid_subject_id_required
+	before_filter :two_response_sets_required
+	before_filter :all_response_sets_completed_required
 
 	def new
 #	works but not what I want
@@ -15,6 +17,20 @@ protected
 			@subject = Subject.find( params[:subject_id] )
 		else
 			access_denied("Subject ID Required to take survey")
+		end
+	end
+
+	def two_response_sets_required
+		if @subject.response_sets.count > 2 ||
+			@subject.response_sets.count < 2
+			access_denied("Must complete 2 response sets before merging. " <<
+				":#{@subject.response_sets.count}:" )
+		end
+	end
+
+	def all_response_sets_completed_required
+		unless @subject.response_sets.collect(&:is_complete?).all?
+			access_denied("All response sets need to be completed")
 		end
 	end
 
