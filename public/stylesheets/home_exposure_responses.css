@@ -1,0 +1,13 @@
+table {
+	border-collapse:collapse;
+}
+td {
+	padding: 5px;
+}
+td:nth-child(3n+1),
+td:nth-child(3n+2) {
+	border-right:1px solid silver;
+}
+
+table tbody tr:nth-child(2n)   { background-color: #EEE; }
+table tbody tr:nth-child(2n+1) { background-color: #DDD; }

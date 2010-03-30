@@ -1,18 +1,24 @@
+<%= content_for :head, stylesheet_link_tag('home_exposure_responses') %>
 <h1>Merge Survey Data</h1>
 
 <p>Subject id: <%=@subject.id%></p>
 
-<table><tbody>
+<table><thead>
 <tr>
-	<th>Responses 1</th>
-	<th>column</th>
-	<th>Responses 2</th>
+	<th colspan='2'>Responses</th>
+	<th>&nbsp;</th>
 </tr>
+<tr>
+	<th>1</th>
+	<th>2</th>
+	<th>column</th>
+</tr>
+</thead><tbody>
 <% HomeExposureResponse.q_column_names.each do |column| %>
 	<tr>
 		<td><%= @subject.response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
-		<td><%=column-%></td>
 		<td><%= @subject.response_sets[1].q_and_a_codes_as_attributes[column]-%></td>
+		<td><%=column-%></td>
 	</tr>
 <% end %>
 </tbody></table>
