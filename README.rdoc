@@ -133,7 +133,7 @@ I've made some mods to check if a local version is running so this should never 
 
 Currently, the Package tests would need removed to test offline as they access the FedEx API.
 
- rake RAILS_ENV=test gems:install
+ sudo rake RAILS_ENV=test gems:install
  rake test
 	and/or
  autotest		#	does not work in jruby
