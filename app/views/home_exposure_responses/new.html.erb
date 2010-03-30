@@ -21,4 +21,17 @@
 		<td><%=column-%></td>
 	</tr>
 <% end %>
+<tfoot>
+<tr>
+<td><% form_tag subject_home_exposure_response_path(@subject) do %>
+<%= hidden_field_tag :response_set_id, @subject.response_sets[0].id %>
+<%= submit_tag "HER from Survey 1", :id => nil, :name => nil %>
+<% end %></td>
+<td><% form_tag subject_home_exposure_response_path(@subject) do %>
+<%= hidden_field_tag :response_set_id, @subject.response_sets[1].id %>
+<%= submit_tag "HER from Survey 2", :id => nil, :name => nil %>
+<% end %></td>
+<td></td>
+</tr>
+</tfoot>
 </tbody></table>
