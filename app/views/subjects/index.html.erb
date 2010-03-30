@@ -23,22 +23,29 @@
 		<% end %>
 	<% end %>
 </div>
-<% form_tag(response_sets_path, :class => 'take_survey') do %>
-	<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
-	<%= hidden_field_tag :subject_id, subject.id, :id => nil %>
-	<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
-<% end if ( subject.response_sets_count < 2 ) %>
-
-<% if subject.response_sets_count >= 2 && 
-	subject.response_sets.collect(&:is_complete?).all? %>
-	<%= link_to "Merge", new_subject_home_exposure_response_path(subject) -%>
-	<% if subject.response_sets[0].is_the_same_as?(subject.response_sets[1]) %>
-		<span>Same</span>
-	<% else %>
-		<span>Differ</span>
+<% if ( subject.response_sets_count < 2 ) %>
+	<% form_tag(response_sets_path, :class => 'take_survey') do %>
+		<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
+		<%= hidden_field_tag :subject_id, subject.id, :id => nil %>
+		<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
 	<% end %>
+<% else %>
+<% if subject.home_exposure_response.nil? %>
+	<% if subject.response_sets.collect(&:is_complete?).all? %>
+		<%= link_to "Merge", 
+			new_subject_home_exposure_response_path(subject) -%>
+		<% if subject.response_sets[0].is_the_same_as?(subject.response_sets[1]) %>
+			<span>Same</span>
+		<% else %>
+			<span>Differ</span>
+		<% end %>
+	<% end %>
+<% else %>
+	<%= link_to "View Merged HER", 
+		subject_home_exposure_response_path(subject) %>
+<% end %>
 <% end %>
 
-<% end %>
-<% end %>
+<% end %><%# content_tag_for %>
+<% end %><%# @subjects.each %>
 </div>
