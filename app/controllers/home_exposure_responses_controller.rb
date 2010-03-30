@@ -74,62 +74,9 @@ protected
 	end
 
 
-#
-#	before_filter :may_view_responses_required
-#
-#  # GET /home_exposure_responses
-#  # GET /home_exposure_responses.xml
-#  def index
-#    @home_exposure_responses = HomeExposureResponse.all
-#
-#    respond_to do |format|
-#      format.html # index.html.erb
-#      format.xml  { render :xml => @home_exposure_responses }
-#    end
-#  end
-#
-#  # GET /home_exposure_responses/1
-#  # GET /home_exposure_responses/1.xml
-#  def show
-#    @home_exposure_response = HomeExposureResponse.find(params[:id])
-#
-#    respond_to do |format|
-#      format.html # show.html.erb
-#      format.xml  { render :xml => @home_exposure_response }
-#    end
-#  end
-#
-#  # GET /home_exposure_responses/new
-#  # GET /home_exposure_responses/new.xml
-#  def new
-#    @home_exposure_response = HomeExposureResponse.new
-#
-#    respond_to do |format|
-#      format.html # new.html.erb
-#      format.xml  { render :xml => @home_exposure_response }
-#    end
-#  end
-#
 #  # GET /home_exposure_responses/1/edit
 #  def edit
 #    @home_exposure_response = HomeExposureResponse.find(params[:id])
-#  end
-#
-#  # POST /home_exposure_responses
-#  # POST /home_exposure_responses.xml
-#  def create
-#    @home_exposure_response = HomeExposureResponse.new(params[:home_exposure_response])
-#
-#    respond_to do |format|
-#      if @home_exposure_response.save
-#        flash[:notice] = 'HomeExposureResponse was successfully created.'
-#        format.html { redirect_to(@home_exposure_response) }
-#        format.xml  { render :xml => @home_exposure_response, :status => :created, :location => @home_exposure_response }
-#      else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @home_exposure_response.errors, :status => :unprocessable_entity }
-#      end
-#    end
 #  end
 #
 #  # PUT /home_exposure_responses/1
