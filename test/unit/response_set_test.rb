@@ -56,8 +56,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 
 	test "should belong to a subject" do
 		response_set = create_response_set
-#		assert_nil response_set.subject
-#		response_set.subject = Factory(:subject)
 		assert_not_nil response_set.reload.subject
 		assert_equal 1, response_set.subject.response_sets_count
 	end
@@ -106,10 +104,10 @@ class ResponseSetTest < ActiveSupport::TestCase
 				:response_set => { :subject_id => 42 })
 		} } } } } }
 
-puts qa1 = @rs1.reload.q_and_a_codes_as_attributes.inspect
-puts qa2 = @rs2.reload.q_and_a_codes_as_attributes.inspect
+		qa1 = @rs1.reload.q_and_a_codes_as_attributes
+		qa2 = @rs2.reload.q_and_a_codes_as_attributes
 
-		assert (@rs1.diff(@rs2)).blank?
+		assert (@rs1.reload.diff(@rs2.reload)).blank?
 		assert @rs1.is_the_same_as?(@rs2)
 		assert_equal qa1, qa2
 		assert_difference( 'HomeExposureResponse.count') {
