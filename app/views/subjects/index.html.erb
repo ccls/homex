@@ -30,21 +30,20 @@
 		<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
 	<% end %>
 <% else %>
-<% if subject.home_exposure_response.nil? %>
-	<% if subject.response_sets.collect(&:is_complete?).all? %>
-		<%= link_to "Merge", 
-			new_subject_home_exposure_response_path(subject) -%>
-		<%# if subject.response_sets[0].is_the_same_as?(subject.response_sets[1]) %>
-		<% if subject.response_sets.inject(:is_the_same_as?) %>
-			<span> (Same) </span>
-		<% else %>
-			<span> (Differ) </span>
+	<% if subject.home_exposure_response.nil? %>
+		<% if subject.response_sets.collect(&:is_complete?).all? %>
+			<%= link_to "Merge", 
+				new_subject_home_exposure_response_path(subject) -%>
+			<% if subject.response_sets.inject(:is_the_same_as?) %>
+				<span> (Same) </span>
+			<% else %>
+				<span> (Differ) </span>
+			<% end %>
 		<% end %>
+	<% else %>
+		<%= link_to "View Merged HER", 
+			subject_home_exposure_response_path(subject) %>
 	<% end %>
-<% else %>
-	<%= link_to "View Merged HER", 
-		subject_home_exposure_response_path(subject) %>
-<% end %>
 <% end %>
 
 <% end %><%# content_tag_for %>
