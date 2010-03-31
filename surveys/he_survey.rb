@@ -578,44 +578,39 @@ survey "Home Exposure survey" do
 		q_22a "22a. How many floors are there in your residence?",
 			:pick => :one,
 			:data_export_identifier => :number_of_floors_in_residence
-		a "Floors:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A or B"
 		condition_A :q_22, "==", :a_1
 		condition_B :q_22, "==", :a_2
-#		a :integer
 
 
 		q_22b "22b. How many stories are there in your building?",
 			:pick => :one,
 			:data_export_identifier => :number_of_stories_in_building
-		a "Stories:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A"
 		condition_A :q_22, "==", :a_3
-#		a :integer
 
 
 		q_23 "23. In what year was your home built? ",
 			:pick => :one,
 			:data_export_identifier => :year_home_built
-		a "Year:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
-#		a :integer
 
 		q_24 "24. We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?",
 			:pick => :one,
 			:data_export_identifier => :home_square_footage
-		a "Square Footage:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
-#		a :integer
 
 		q_25 "25. How many rooms are there in your residence, excluding closets, crawl spaces, attics and basements?",
 			:pick => :one,
 			:data_export_identifier => :number_of_rooms_in_home
-		a "Rooms:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
-#		a :integer
 
 		q_26 "26. Is your residence mostly constructed of?  ",
 			:pick => :one, 
@@ -984,9 +979,8 @@ survey "Home Exposure survey" do
 		q_39a "39a. How many televisions are in your home?",
 			:pick => :one,
 			:data_export_identifier => :number_of_televisions_in_home
-		a "Televisions:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
-#		a :integer
 		dependency :rule => "A"
 		condition_A :q_39, "==", :a_1
 
@@ -1012,9 +1006,8 @@ survey "Home Exposure survey" do
 		q_40a "40a. How many computers are in your home?",
 			:pick => :one,
 			:data_export_identifier => :number_of_computers_in_home
-		a "Computers:", :string
+		a :integer, :custom_renderer => :ccls_answers
 		a "Don't know", :data_export_identifier => 999
-#		a :integer
 		dependency :rule => "A"
 		condition_A :q_40, "==", :a_1
 

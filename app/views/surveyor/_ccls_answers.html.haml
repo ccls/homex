@@ -1,0 +1,23 @@
+-# surveyor-0.9.10/app/views/partials/_answer.html.haml
+-# did not include the ability to have an integer textbox
+-# next to a radio button like we desired, so I copied much
+-# of the code and added this custom renderer.
+-# Now, if an answer is grouped with others in a radio button
+-# group and it is an integer ...
+-#   a_1 :integer, :custom_renderer => :ccls_answers
+-#   a_2 "Testing"
+-# it will require this custom renderer to work as desired.
+-# The gem works right for a string, just not an integer.
+-#
+- renderer = answer.renderer(question)
+- response_group ||= nil
+- hide_label ||= false
+- disabled ||= false
+- fields_for_response(response_obj, response_group) do |response_form|
+  - case renderer
+  - when :one_integer
+    - fields_for_radio(response_obj) do |radio_form|
+      = radio_form.radio_button(:answer_id, answer.id, :checked => response_obj.selected?, :title => answer.text)
+      = radio_form.label("answer_id_#{answer.id}", answer.text, :class => (hide_label ? "hidden" : ""))
+    - if renderer == :one_integer
+      = response_form.text_field(:integer_value, :size => 5, :maxlength => 10, :autocomplete => "off", :disabled => disabled)
