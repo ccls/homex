@@ -1,4 +1,4 @@
-20100329145115_question_1:
+20100330171258_question_1:
   data_export_identifier: "stop_interview_at_any_time"
   display_order: 1
   display_type: "label"
@@ -7,9 +7,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Before we start I would like to remind you that everything you tell us is confidential.  You can refuse to answer any questions and you may stop the interview at any time."
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Before we start I would like to remind you that everything you tell us is confidential.  You can refuse to answer any questions and you may stop the interview at any time."
-20100329145115_question_2:
+20100330171258_question_2:
   data_export_identifier: vacuum_has_disposable_bag
   display_order: 2
   display_type: default
@@ -18,9 +18,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Does your vacuum cleaner have a disposable bag?"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Does your vacuum cleaner have a disposable bag?"
-20100329145115_question_3:
+20100330171258_question_3:
   data_export_identifier: how_often_vacuumed_12mos
   display_order: 3
   display_type: default
@@ -29,9 +29,9 @@
   question_group: 
   reference_identifier: 
   short_text: "In the last 12 months, on average, how often were the rugs and floors in this home usually vacuumed?  Would you say..."
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "In the last 12 months, on average, how often were the rugs and floors in this home usually vacuumed?  Would you say..."
-20100329145115_question_4:
+20100330171258_question_4:
   data_export_identifier: shoes_usually_off_inside_12mos
   display_order: 4
   display_type: default
@@ -40,9 +40,9 @@
   question_group: 
   reference_identifier: 
   short_text: "In the last 12 months, did all of the people who lived in this home usually take off their shoes when entering the home?"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "In the last 12 months, did all of the people who lived in this home usually take off their shoes when entering the home?"
-20100329145115_question_5:
+20100330171258_question_5:
   data_export_identifier: someone_ate_meat_12mos
   display_order: 5
   display_type: default
@@ -51,9 +51,9 @@
   question_group: 
   reference_identifier: "4"
   short_text: "During the last 12 months, did you or anyone else in your home eat hamburger, steak, pork, chicken or other meat products?"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "During the last 12 months, did you or anyone else in your home eat hamburger, steak, pork, chicken or other meat products?"
-20100329145115_question_6:
+20100330171258_question_6:
   data_export_identifier: "ate_meat_products_did_you"
   display_order: 6
   display_type: "label"
@@ -62,9 +62,9 @@
   question_group: 
   reference_identifier: 
   short_text: "I am now going to ask you about different high temperature cooking methods you or other household members may have used to cook meat.  During the last 12 months, when you ate meat products, did you ..."
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "I am now going to ask you about different high temperature cooking methods you or other household members may have used to cook meat.  During the last 12 months, when you ate meat products, did you ..."
-20100329145115_question_7:
+20100330171258_question_7:
   data_export_identifier: freq_pan_fried_meat_12mos
   display_order: 7
   display_type: default
@@ -73,9 +73,9 @@
   question_group: 
   reference_identifier: "5a"
   short_text: "Pan fry (very hot)"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Pan fry (very hot)"
-20100329145115_question_8:
+20100330171258_question_8:
   data_export_identifier: freq_deep_fried_meat_12mos
   display_order: 8
   display_type: default
@@ -84,9 +84,9 @@
   question_group: 
   reference_identifier: "5b"
   short_text: "Deep fry"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Deep fry"
-20100329145115_question_9:
+20100330171258_question_9:
   data_export_identifier: freq_oven_fried_meat_12mos
   display_order: 9
   display_type: default
@@ -95,9 +95,9 @@
   question_group: 
   reference_identifier: "5c"
   short_text: "Oven broil"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Oven broil"
-20100329145115_question_10:
+20100330171258_question_10:
   data_export_identifier: freq_grilled_meat_outside_12mos
   display_order: 10
   display_type: default
@@ -106,9 +106,9 @@
   question_group: 
   reference_identifier: "5d"
   short_text: "Grill or barbeque (outside)"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Grill or barbeque (outside)"
-20100329145115_question_11:
+20100330171258_question_11:
   data_export_identifier: freq_other_high_temp_cooking_12mos
   display_order: 11
   display_type: default
@@ -117,9 +117,9 @@
   question_group: 
   reference_identifier: "5e"
   short_text: "Other"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Other"
-20100329145115_question_12:
+20100330171258_question_12:
   data_export_identifier: other_type_high_temp_cooking
   display_order: 12
   display_type: default
@@ -128,9 +128,9 @@
   question_group: 
   reference_identifier: "5f"
   short_text: "Specify"
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "Specify"
-20100329145115_question_13:
+20100330171258_question_13:
   data_export_identifier: doneness_of_meat_exterior_12mos
   display_order: 13
   display_type: default
@@ -139,9 +139,9 @@
   question_group: 
   reference_identifier: "6"
   short_text: "During the last 12 months, when you or other household members ate meat products, how well were they usually cooked on the outside? Would you say..."
-  survey_section: 20100329145115_survey_section_1
+  survey_section: 20100330171258_survey_section_1
   text: "During the last 12 months, when you or other household members ate meat products, how well were they usually cooked on the outside? Would you say..."
-20100329145115_question_14:
+20100330171258_question_14:
   data_export_identifier: "one_following_jobs_how_about"
   display_order: 14
   display_type: "label"
@@ -150,9 +150,9 @@
   question_group: 
   reference_identifier: 
   short_text: "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ..."
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ..."
-20100329145115_question_15:
+20100330171258_question_15:
   data_export_identifier: job_is_plane_mechanic_12mos
   display_order: 15
   display_type: default
@@ -161,9 +161,9 @@
   question_group: 
   reference_identifier: "7a"
   short_text: "1 = Airplane Mechanic"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "1 = Airplane Mechanic"
-20100329145115_question_16:
+20100330171258_question_16:
   data_export_identifier: job_is_artist_12mos
   display_order: 16
   display_type: default
@@ -172,9 +172,9 @@
   question_group: 
   reference_identifier: 
   short_text: "2 = Artist / Art Teacher"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "2 = Artist / Art Teacher"
-20100329145115_question_17:
+20100330171258_question_17:
   data_export_identifier: job_is_janitor_12mos
   display_order: 17
   display_type: default
@@ -183,9 +183,9 @@
   question_group: 
   reference_identifier: 
   short_text: "3 = Cleaner / Janitor"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "3 = Cleaner / Janitor"
-20100329145115_question_18:
+20100330171258_question_18:
   data_export_identifier: job_is_construction_12mos
   display_order: 18
   display_type: default
@@ -194,9 +194,9 @@
   question_group: 
   reference_identifier: 
   short_text: "4 = Construction Worker / Carpenter"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "4 = Construction Worker / Carpenter"
-20100329145115_question_19:
+20100330171258_question_19:
   data_export_identifier: job_is_dentist_12mos
   display_order: 19
   display_type: default
@@ -205,9 +205,9 @@
   question_group: 
   reference_identifier: 
   short_text: "5 = Dentist / Dental Worker"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "5 = Dentist / Dental Worker"
-20100329145115_question_20:
+20100330171258_question_20:
   data_export_identifier: job_is_electrician_12mos
   display_order: 20
   display_type: default
@@ -216,9 +216,9 @@
   question_group: 
   reference_identifier: 
   short_text: "6 = Electrician / Lineman / Cable puller"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "6 = Electrician / Lineman / Cable puller"
-20100329145115_question_21:
+20100330171258_question_21:
   data_export_identifier: job_is_engineer_12mos
   display_order: 21
   display_type: default
@@ -227,9 +227,9 @@
   question_group: 
   reference_identifier: 
   short_text: "7 = Engineer/ Environmental Scientist"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "7 = Engineer/ Environmental Scientist"
-20100329145115_question_22:
+20100330171258_question_22:
   data_export_identifier: job_is_farmer_12mos
   display_order: 22
   display_type: default
@@ -238,9 +238,9 @@
   question_group: 
   reference_identifier: 
   short_text: "8 = Farmer / Farm or Ranch Worker"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "8 = Farmer / Farm or Ranch Worker"
-20100329145115_question_23:
+20100330171258_question_23:
   data_export_identifier: job_is_gardener_12mos
   display_order: 23
   display_type: default
@@ -249,9 +249,9 @@
   question_group: 
   reference_identifier: 
   short_text: "9 = Gardner / Groundskeeper / Landscaper / Nursery worker"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "9 = Gardner / Groundskeeper / Landscaper / Nursery worker"
-20100329145115_question_24:
+20100330171258_question_24:
   data_export_identifier: job_is_lab_worker_12mos
   display_order: 24
   display_type: default
@@ -260,9 +260,9 @@
   question_group: 
   reference_identifier: 
   short_text: "10 = Laboratory worker / Lab ScienceTeacher"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "10 = Laboratory worker / Lab ScienceTeacher"
-20100329145115_question_25:
+20100330171258_question_25:
   data_export_identifier: job_is_manufacturer_12mos
   display_order: 25
   display_type: default
@@ -271,9 +271,9 @@
   question_group: 
   reference_identifier: 
   short_text: "11 = Manufacturing / Assembly / Industrial operations/ Product repair"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "11 = Manufacturing / Assembly / Industrial operations/ Product repair"
-20100329145115_question_26:
+20100330171258_question_26:
   data_export_identifier: job_auto_mechanic_12mos
   display_order: 26
   display_type: default
@@ -282,9 +282,9 @@
   question_group: 
   reference_identifier: 
   short_text: "12 = Mechanic-auto / truck / bus"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "12 = Mechanic-auto / truck / bus"
-20100329145115_question_27:
+20100330171258_question_27:
   data_export_identifier: job_is_patient_care_12mos
   display_order: 27
   display_type: default
@@ -293,9 +293,9 @@
   question_group: 
   reference_identifier: 
   short_text: "13 = Medical Patient Care Worker"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "13 = Medical Patient Care Worker"
-20100329145115_question_28:
+20100330171258_question_28:
   data_export_identifier: job_is_agr_packer_12mos
   display_order: 28
   display_type: default
@@ -304,9 +304,9 @@
   question_group: 
   reference_identifier: 
   short_text: "14 = Packer – Agricultural"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "14 = Packer – Agricultural"
-20100329145115_question_29:
+20100330171258_question_29:
   data_export_identifier: job_is_painter_12mos
   display_order: 29
   display_type: default
@@ -315,9 +315,9 @@
   question_group: 
   reference_identifier: 
   short_text: "15 = Painter / Wallpaperer"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "15 = Painter / Wallpaperer"
-20100329145115_question_30:
+20100330171258_question_30:
   data_export_identifier: job_is_pesticides_12mos
   display_order: 30
   display_type: default
@@ -326,9 +326,9 @@
   question_group: 
   reference_identifier: 
   short_text: "16 = Pesticiding Handling / Production / Formulation or Mixing"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "16 = Pesticiding Handling / Production / Formulation or Mixing"
-20100329145115_question_31:
+20100330171258_question_31:
   data_export_identifier: job_is_photographer_12mos
   display_order: 31
   display_type: default
@@ -337,9 +337,9 @@
   question_group: 
   reference_identifier: 
   short_text: "17 = Photographer / Framer / Photography Teacher"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "17 = Photographer / Framer / Photography Teacher"
-20100329145115_question_32:
+20100330171258_question_32:
   data_export_identifier: job_is_teacher_12mos
   display_order: 32
   display_type: default
@@ -348,9 +348,9 @@
   question_group: 
   reference_identifier: 
   short_text: "18 = Teacher-- Preschool to 5th Grade"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "18 = Teacher-- Preschool to 5th Grade"
-20100329145115_question_33:
+20100330171258_question_33:
   data_export_identifier: job_is_welder_12mos
   display_order: 33
   display_type: default
@@ -359,9 +359,9 @@
   question_group: 
   reference_identifier: 
   short_text: "19 = Welder / Joiner"
-  survey_section: 20100329145115_survey_section_2
+  survey_section: 20100330171258_survey_section_2
   text: "19 = Welder / Joiner"
-20100329145115_question_34:
+20100330171258_question_34:
   data_export_identifier: "home_during_last_12_months"
   display_order: 34
   display_type: "label"
@@ -370,9 +370,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Now I have some questions about products that you may have used in or around the home during the last 12 months."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "Now I have some questions about products that you may have used in or around the home during the last 12 months."
-20100329145115_question_35:
+20100330171258_question_35:
   data_export_identifier: used_flea_control_12mos
   display_order: 35
   display_type: default
@@ -381,9 +381,9 @@
   question_group: 
   reference_identifier: "8"
   short_text: "8. During the last 12 months, did you have a pet that was treated for fleas or ticks using shampoos, soaps, collars, sprays, dusts, powders, or skin applications?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "8. During the last 12 months, did you have a pet that was treated for fleas or ticks using shampoos, soaps, collars, sprays, dusts, powders, or skin applications?"
-20100329145115_question_36:
+20100330171258_question_36:
   data_export_identifier: freq_used_flea_control_12mos
   display_order: 36
   display_type: default
@@ -392,9 +392,9 @@
   question_group: 
   reference_identifier: "8a"
   short_text: "8a. How often during the past 12 months? Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "8a. How often during the past 12 months? Would you say..."
-20100329145115_question_37:
+20100330171258_question_37:
   data_export_identifier: used_ant_control_12mos
   display_order: 37
   display_type: default
@@ -403,9 +403,9 @@
   question_group: 
   reference_identifier: "9"
   short_text: "9. During the last 12 months, have you or anyone else in your home used ant, fly, or cockroach control products in or around the house?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "9. During the last 12 months, have you or anyone else in your home used ant, fly, or cockroach control products in or around the house?"
-20100329145115_question_38:
+20100330171258_question_38:
   data_export_identifier: freq_ant_control_12mos
   display_order: 38
   display_type: default
@@ -414,9 +414,9 @@
   question_group: 
   reference_identifier: "9a"
   short_text: "9a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "9a. How often during the past 12 months?  Would you say..."
-20100329145115_question_39:
+20100330171258_question_39:
   data_export_identifier: used_bee_control_12mos
   display_order: 39
   display_type: default
@@ -425,9 +425,9 @@
   question_group: 
   reference_identifier: "10"
   short_text: "10. During the last 12 months, have you or anyone else in your home used bee, wasp, or hornet control products in or around the house?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "10. During the last 12 months, have you or anyone else in your home used bee, wasp, or hornet control products in or around the house?"
-20100329145115_question_40:
+20100330171258_question_40:
   data_export_identifier: freq_bee_control_12mos
   display_order: 40
   display_type: default
@@ -436,9 +436,9 @@
   question_group: 
   reference_identifier: "10a"
   short_text: "10a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "10a. How often during the past 12 months?  Would you say..."
-20100329145115_question_41:
+20100330171258_question_41:
   data_export_identifier: used_indoor_plant_prod_12mos
   display_order: 41
   display_type: default
@@ -447,9 +447,9 @@
   question_group: 
   reference_identifier: "11"
   short_text: "11. During the last 12 months, did you or anyone in your home use any products to control indoor plant insects or diseases?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "11. During the last 12 months, did you or anyone in your home use any products to control indoor plant insects or diseases?"
-20100329145115_question_42:
+20100330171258_question_42:
   data_export_identifier: freq_indoor_plant_product_12mos
   display_order: 42
   display_type: default
@@ -458,9 +458,9 @@
   question_group: 
   reference_identifier: "11a"
   short_text: "11a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "11a. How often during the past 12 months?  Would you say..."
-20100329145115_question_43:
+20100330171258_question_43:
   data_export_identifier: used_other_indoor_product_12mos
   display_order: 43
   display_type: default
@@ -469,9 +469,9 @@
   question_group: 
   reference_identifier: "12"
   short_text: "12. During the last 12 months, did you or anyone in your home treat any other indoor insects or other types of pests?  Do not include products applied outside on your lawn, garden, or trees."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "12. During the last 12 months, did you or anyone in your home treat any other indoor insects or other types of pests?  Do not include products applied outside on your lawn, garden, or trees."
-20100329145115_question_44:
+20100330171258_question_44:
   data_export_identifier: freq_other_indoor_product_12mos
   display_order: 44
   display_type: default
@@ -480,9 +480,9 @@
   question_group: 
   reference_identifier: "12a"
   short_text: "12a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "12a. How often during the past 12 months?  Would you say..."
-20100329145115_question_45:
+20100330171258_question_45:
   data_export_identifier: used_indoor_foggers
   display_order: 45
   display_type: default
@@ -491,9 +491,9 @@
   question_group: 
   reference_identifier: "13"
   short_text: "13. During the last 12 months, have you or anyone else in your home used indoor foggers or bombs?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "13. During the last 12 months, have you or anyone else in your home used indoor foggers or bombs?"
-20100329145115_question_46:
+20100330171258_question_46:
   data_export_identifier: freq_indoor_foggers_12mos
   display_order: 46
   display_type: default
@@ -502,9 +502,9 @@
   question_group: 
   reference_identifier: "13a"
   short_text: "13a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "13a. How often during the past 12 months?  Would you say..."
-20100329145115_question_47:
+20100330171258_question_47:
   data_export_identifier: used_pro_pest_inside_12mos
   display_order: 47
   display_type: default
@@ -513,9 +513,9 @@
   question_group: 
   reference_identifier: "14"
   short_text: "14. During the last 12 months has a professional pest control person or exterminator applied products inside this dwelling?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "14. During the last 12 months has a professional pest control person or exterminator applied products inside this dwelling?"
-20100329145115_question_48:
+20100330171258_question_48:
   data_export_identifier: freq_pro_pest_inside_12mos
   display_order: 48
   display_type: default
@@ -524,9 +524,9 @@
   question_group: 
   reference_identifier: "14a"
   short_text: "14a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "14a. How often during the past 12 months?  Would you say..."
-20100329145115_question_49:
+20100330171258_question_49:
   data_export_identifier: used_pro_pest_outside_12mos
   display_order: 49
   display_type: default
@@ -535,9 +535,9 @@
   question_group: 
   reference_identifier: "15"
   short_text: "15. During the last 12 months, has a professional pest control person or exterminator applied products on the exterior or foundation of this dwelling?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "15. During the last 12 months, has a professional pest control person or exterminator applied products on the exterior or foundation of this dwelling?"
-20100329145115_question_50:
+20100330171258_question_50:
   data_export_identifier: freq_used_pro_pest_outside_12mos
   display_order: 50
   display_type: default
@@ -546,9 +546,9 @@
   question_group: 
   reference_identifier: "15a"
   short_text: "15a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "15a. How often during the past 12 months?  Would you say..."
-20100329145115_question_51:
+20100330171258_question_51:
   data_export_identifier: used_pro_lawn_service_12mos
   display_order: 51
   display_type: default
@@ -557,9 +557,9 @@
   question_group: 
   reference_identifier: "16"
   short_text: "16. During the last 12 months, has a professional lawn or landscape service treated the lawn, garden, trees or other outdoor plants with products to control weeds, insects, or plant diseases?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "16. During the last 12 months, has a professional lawn or landscape service treated the lawn, garden, trees or other outdoor plants with products to control weeds, insects, or plant diseases?"
-20100329145115_question_52:
+20100330171258_question_52:
   data_export_identifier: freq_pro_lawn_service_12mos
   display_order: 52
   display_type: default
@@ -568,9 +568,9 @@
   question_group: 
   reference_identifier: "16a"
   short_text: "16a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "16a. How often during the past 12 months?  Would you say..."
-20100329145115_question_53:
+20100330171258_question_53:
   data_export_identifier: used_lawn_products_12mos
   display_order: 53
   display_type: default
@@ -579,9 +579,9 @@
   question_group: 
   reference_identifier: "17"
   short_text: "17. In the last 12 months, did you or anyone in your home treat the lawn, garden, trees, or other outdoor plants with products to control weeds, insects, or plant diseases?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "17. In the last 12 months, did you or anyone in your home treat the lawn, garden, trees, or other outdoor plants with products to control weeds, insects, or plant diseases?"
-20100329145115_question_54:
+20100330171258_question_54:
   data_export_identifier: freq_lawn_products_12mos
   display_order: 54
   display_type: default
@@ -590,9 +590,9 @@
   question_group: 
   reference_identifier: "17a"
   short_text: "17a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "17a. How often during the past 12 months?  Would you say..."
-20100329145115_question_55:
+20100330171258_question_55:
   data_export_identifier: used_slug_control_12mos
   display_order: 55
   display_type: default
@@ -601,9 +601,9 @@
   question_group: 
   reference_identifier: "18"
   short_text: "18. In the last 12 months, did you or anyone in your home use products to control slugs or snails?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "18. In the last 12 months, did you or anyone in your home use products to control slugs or snails?"
-20100329145115_question_56:
+20100330171258_question_56:
   data_export_identifier: freq_slug_control_12mos
   display_order: 56
   display_type: default
@@ -612,9 +612,9 @@
   question_group: 
   reference_identifier: "18"
   short_text: "18a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "18a. How often during the past 12 months?  Would you say..."
-20100329145115_question_57:
+20100330171258_question_57:
   data_export_identifier: used_rat_control_12mos
   display_order: 57
   display_type: default
@@ -623,9 +623,9 @@
   question_group: 
   reference_identifier: "19"
   short_text: "19. Not including traps, in the last 12 months, did you or anyone in your home use products to control rats, mice, gophers or moles?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "19. Not including traps, in the last 12 months, did you or anyone in your home use products to control rats, mice, gophers or moles?"
-20100329145115_question_58:
+20100330171258_question_58:
   data_export_identifier: freq_rat_control_12mos
   display_order: 58
   display_type: default
@@ -634,9 +634,9 @@
   question_group: 
   reference_identifier: "19a"
   short_text: "19a. How often during the past 12 months?  Would you say..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "19a. How often during the past 12 months?  Would you say..."
-20100329145115_question_59:
+20100330171258_question_59:
   data_export_identifier: used_mothballs_12mos
   display_order: 59
   display_type: default
@@ -645,9 +645,9 @@
   question_group: 
   reference_identifier: "20"
   short_text: "20. In the last 12 months, have mothballs been used in your home?"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "20. In the last 12 months, have mothballs been used in your home?"
-20100329145115_question_60:
+20100330171258_question_60:
   data_export_identifier: "near_your_home_how_about"
   display_order: 60
   display_type: "label"
@@ -656,9 +656,9 @@
   question_group: 
   reference_identifier: 
   short_text: "21. During the last 12 months, did the community spray for any of the following insects near your home?  How about..."
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "21. During the last 12 months, did the community spray for any of the following insects near your home?  How about..."
-20100329145115_question_61:
+20100330171258_question_61:
   data_export_identifier: cmty_sprayed_gypsy_moths_12mos
   display_order: 61
   display_type: default
@@ -667,9 +667,9 @@
   question_group: 
   reference_identifier: "21a"
   short_text: "1 = Gypsy moths "
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "1 = Gypsy moths "
-20100329145115_question_62:
+20100330171258_question_62:
   data_export_identifier: cmty_sprayed_medflies_12mos
   display_order: 62
   display_type: default
@@ -678,9 +678,9 @@
   question_group: 
   reference_identifier: "21b"
   short_text: "2 = Mediterranean fruit flies"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "2 = Mediterranean fruit flies"
-20100329145115_question_63:
+20100330171258_question_63:
   data_export_identifier: cmty_sprayed_mosquitoes_12mos
   display_order: 63
   display_type: default
@@ -689,9 +689,9 @@
   question_group: 
   reference_identifier: "21c"
   short_text: "3 = Mosquitoes  "
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "3 = Mosquitoes  "
-20100329145115_question_64:
+20100330171258_question_64:
   data_export_identifier: cmty_sprayed_sharpshooters_12mos
   display_order: 64
   display_type: default
@@ -700,9 +700,9 @@
   question_group: 
   reference_identifier: "21d"
   short_text: "4 = Glassy Winged Sharpshooter  "
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "4 = Glassy Winged Sharpshooter  "
-20100329145115_question_65:
+20100330171258_question_65:
   data_export_identifier: cmty_sprayed_apple_moths_12mos
   display_order: 65
   display_type: default
@@ -711,9 +711,9 @@
   question_group: 
   reference_identifier: "21e"
   short_text: "5 = Light Brown Apple Moth"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "5 = Light Brown Apple Moth"
-20100329145115_question_66:
+20100330171258_question_66:
   data_export_identifier: cmty_sprayed_other_pest_12mos
   display_order: 66
   display_type: default
@@ -722,9 +722,9 @@
   question_group: 
   reference_identifier: "21f"
   short_text: "8 = Some Other insect   (specify)"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "8 = Some Other insect   (specify)"
-20100329145115_question_67:
+20100330171258_question_67:
   data_export_identifier: other_pest_community_sprayed
   display_order: 67
   display_type: default
@@ -733,9 +733,9 @@
   question_group: 
   reference_identifier: "21g"
   short_text: "Other pest"
-  survey_section: 20100329145115_survey_section_3
+  survey_section: 20100330171258_survey_section_3
   text: "Other pest"
-20100329145115_question_68:
+20100330171258_question_68:
   data_export_identifier: "few_questions_about_your_home"
   display_order: 68
   display_type: "label"
@@ -744,9 +744,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Now I have a few questions about your home."
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "Now I have a few questions about your home."
-20100329145115_question_69:
+20100330171258_question_69:
   data_export_identifier: type_of_residence
   display_order: 69
   display_type: default
@@ -755,9 +755,9 @@
   question_group: 
   reference_identifier: "22"
   short_text: "22. Which of the following best describes this residence? "
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "22. Which of the following best describes this residence? "
-20100329145115_question_70:
+20100330171258_question_70:
   data_export_identifier: other_type_of_residence
   display_order: 70
   display_type: default
@@ -766,64 +766,64 @@
   question_group: 
   reference_identifier: "22other"
   short_text: "Other"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "Other"
-20100329145115_question_71:
+20100330171258_question_71:
   data_export_identifier: number_of_floors_in_residence
   display_order: 71
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "22a"
   short_text: "22a. How many floors are there in your residence?"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "22a. How many floors are there in your residence?"
-20100329145115_question_72:
+20100330171258_question_72:
   data_export_identifier: number_of_stories_in_building
   display_order: 72
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "22b"
   short_text: "22b. How many stories are there in your building?"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "22b. How many stories are there in your building?"
-20100329145115_question_73:
+20100330171258_question_73:
   data_export_identifier: year_home_built
   display_order: 73
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "23"
   short_text: "23. In what year was your home built? "
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "23. In what year was your home built? "
-20100329145115_question_74:
+20100330171258_question_74:
   data_export_identifier: home_square_footage
   display_order: 74
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "24"
   short_text: "24. We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "24. We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?"
-20100329145115_question_75:
+20100330171258_question_75:
   data_export_identifier: number_of_rooms_in_home
   display_order: 75
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "25"
   short_text: "25. How many rooms are there in your residence, excluding closets, crawl spaces, attics and basements?"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "25. How many rooms are there in your residence, excluding closets, crawl spaces, attics and basements?"
-20100329145115_question_76:
+20100330171258_question_76:
   data_export_identifier: home_constructed_of
   display_order: 76
   display_type: default
@@ -832,9 +832,9 @@
   question_group: 
   reference_identifier: "26"
   short_text: "26. Is your residence mostly constructed of?  "
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "26. Is your residence mostly constructed of?  "
-20100329145115_question_77:
+20100330171258_question_77:
   data_export_identifier: other_home_material
   display_order: 77
   display_type: default
@@ -843,9 +843,9 @@
   question_group: 
   reference_identifier: "26other"
   short_text: "Other"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "Other"
-20100329145115_question_78:
+20100330171258_question_78:
   data_export_identifier: home_has_attached_garage
   display_order: 78
   display_type: default
@@ -854,9 +854,9 @@
   question_group: 
   reference_identifier: "27"
   short_text: "27. Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "27. Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)"
-20100329145115_question_79:
+20100330171258_question_79:
   data_export_identifier: vehicle_in_garage_1mo
   display_order: 79
   display_type: default
@@ -865,9 +865,9 @@
   question_group: 
   reference_identifier: "27a"
   short_text: "27a. Has there been a car or motorcycle parked in the attached garage during the past month?"
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "27a. Has there been a car or motorcycle parked in the attached garage during the past month?"
-20100329145115_question_80:
+20100330171258_question_80:
   data_export_identifier: freq_in_out_garage_1mo
   display_order: 80
   display_type: default
@@ -876,9 +876,9 @@
   question_group: 
   reference_identifier: "27b"
   short_text: "27b. How often was the car or motorcycle moved in and out of garage during the past month?  Would you say..."
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "27b. How often was the car or motorcycle moved in and out of garage during the past month?  Would you say..."
-20100329145115_question_81:
+20100330171258_question_81:
   data_export_identifier: home_has_electric_cooling
   display_order: 81
   display_type: default
@@ -887,9 +887,9 @@
   question_group: 
   reference_identifier: "28"
   short_text: "28. Does this residence have any type of electric cooling system such as air conditioning? "
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "28. Does this residence have any type of electric cooling system such as air conditioning? "
-20100329145115_question_82:
+20100330171258_question_82:
   data_export_identifier: freq_windows_open_cold_mos_12mos
   display_order: 82
   display_type: default
@@ -898,9 +898,9 @@
   question_group: 
   reference_identifier: "29"
   short_text: "29. During the last 12 months, how often was at least one window open on a regular basis during the colder months?  Would you say..."
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "29. During the last 12 months, how often was at least one window open on a regular basis during the colder months?  Would you say..."
-20100329145115_question_83:
+20100330171258_question_83:
   data_export_identifier: freq_windows_open_warm_mos_12mos
   display_order: 83
   display_type: default
@@ -909,9 +909,9 @@
   question_group: 
   reference_identifier: "30"
   short_text: "30. During the last 12 months, how often was at least one window open on a regular basis during the warmer months?  Would you say..."
-  survey_section: 20100329145115_survey_section_4
+  survey_section: 20100330171258_survey_section_4
   text: "30. During the last 12 months, how often was at least one window open on a regular basis during the warmer months?  Would you say..."
-20100329145115_question_84:
+20100330171258_question_84:
   data_export_identifier: "months_check_all_that_apply"
   display_order: 84
   display_type: "label"
@@ -920,9 +920,9 @@
   question_group: 
   reference_identifier: 
   short_text: "31. Now I am going to ask you about different kinds of heat you may have used to heat your home in  the last 12 months. CHECK ALL THAT APPLY."
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "31. Now I am going to ask you about different kinds of heat you may have used to heat your home in  the last 12 months. CHECK ALL THAT APPLY."
-20100329145115_question_85:
+20100330171258_question_85:
   data_export_identifier: "12_months_did_you_use"
   display_order: 85
   display_type: "label"
@@ -931,9 +931,9 @@
   question_group: 
   reference_identifier: 
   short_text: "In the last 12 months, did you use..."
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "In the last 12 months, did you use..."
-20100329145115_question_86:
+20100330171258_question_86:
   data_export_identifier: used_electric_heat_12mos
   display_order: 86
   display_type: default
@@ -942,9 +942,9 @@
   question_group: 
   reference_identifier: "31_heat_a"
   short_text: "Electric heat"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Electric heat"
-20100329145115_question_87:
+20100330171258_question_87:
   data_export_identifier: used_kerosene_heat_12mos
   display_order: 87
   display_type: default
@@ -953,9 +953,9 @@
   question_group: 
   reference_identifier: "31_heat_b"
   short_text: "Kerosene heat"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Kerosene heat"
-20100329145115_question_88:
+20100330171258_question_88:
   data_export_identifier: used_radiator_12mos
   display_order: 88
   display_type: default
@@ -964,9 +964,9 @@
   question_group: 
   reference_identifier: "31_heat_c"
   short_text: "Radiator or steam heat"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Radiator or steam heat"
-20100329145115_question_89:
+20100330171258_question_89:
   data_export_identifier: used_gas_heat_12mos
   display_order: 89
   display_type: default
@@ -975,9 +975,9 @@
   question_group: 
   reference_identifier: "31_heat_d"
   short_text: "Gas heat (including gas fireplace)"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Gas heat (including gas fireplace)"
-20100329145115_question_90:
+20100330171258_question_90:
   data_export_identifier: used_wood_burning_stove_12mos
   display_order: 90
   display_type: default
@@ -986,9 +986,9 @@
   question_group: 
   reference_identifier: "31_heat_e"
   short_text: "Wood-burning Stove"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Wood-burning Stove"
-20100329145115_question_91:
+20100330171258_question_91:
   data_export_identifier: freq_used_wood_stove_12mos
   display_order: 91
   display_type: default
@@ -997,9 +997,9 @@
   question_group: 
   reference_identifier: "31a"
   short_text: "31a. How often did you use during the past 12 months?"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "31a. How often did you use during the past 12 months?"
-20100329145115_question_92:
+20100330171258_question_92:
   data_export_identifier: used_wood_fireplace_12mos
   display_order: 92
   display_type: default
@@ -1008,9 +1008,9 @@
   question_group: 
   reference_identifier: "31_wood_burning"
   short_text: "Wood-burning Fireplace?"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "Wood-burning Fireplace?"
-20100329145115_question_93:
+20100330171258_question_93:
   data_export_identifier: freq_used_wood_fireplace_12mos
   display_order: 93
   display_type: default
@@ -1019,9 +1019,9 @@
   question_group: 
   reference_identifier: "31b"
   short_text: "31b. How often did you use during the past 12 months?"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "31b. How often did you use during the past 12 months?"
-20100329145115_question_94:
+20100330171258_question_94:
   data_export_identifier: used_fireplace_insert_12mos
   display_order: 94
   display_type: default
@@ -1030,9 +1030,9 @@
   question_group: 
   reference_identifier: "31c"
   short_text: "31c. Was an insert used in the fireplace in the last 12 months? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)"
-  survey_section: 20100329145115_survey_section_5
+  survey_section: 20100330171258_survey_section_5
   text: "31c. Was an insert used in the fireplace in the last 12 months? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)"
-20100329145115_question_95:
+20100330171258_question_95:
   data_export_identifier: "used_your_home_how_about"
   display_order: 95
   display_type: "label"
@@ -1041,9 +1041,9 @@
   question_group: 
   reference_identifier: 
   short_text: "32. In the last 12 months, were any of the following gas appliances used in your home? How about...."
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "32. In the last 12 months, were any of the following gas appliances used in your home? How about...."
-20100329145115_question_96:
+20100330171258_question_96:
   data_export_identifier: used_gas_stove_12mos
   display_order: 96
   display_type: default
@@ -1052,9 +1052,9 @@
   question_group: 
   reference_identifier: 
   short_text: "1 = A gas stove/oven"
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "1 = A gas stove/oven"
-20100329145115_question_97:
+20100330171258_question_97:
   data_export_identifier: used_gas_dryer_12mos
   display_order: 97
   display_type: default
@@ -1063,9 +1063,9 @@
   question_group: 
   reference_identifier: 
   short_text: "2 = A gas clothes dryer"
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "2 = A gas clothes dryer"
-20100329145115_question_98:
+20100330171258_question_98:
   data_export_identifier: used_gas_water_heater_12mos
   display_order: 98
   display_type: default
@@ -1074,9 +1074,9 @@
   question_group: 
   reference_identifier: 
   short_text: "3 = A gas water heater"
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "3 = A gas water heater"
-20100329145115_question_99:
+20100330171258_question_99:
   data_export_identifier: used_other_gas_appliance_12mos
   display_order: 99
   display_type: default
@@ -1085,9 +1085,9 @@
   question_group: 
   reference_identifier: "gas_other"
   short_text: "8 = How about some other gas appliance"
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "8 = How about some other gas appliance"
-20100329145115_question_100:
+20100330171258_question_100:
   data_export_identifier: type_of_other_gas_appliance
   display_order: 100
   display_type: default
@@ -1096,9 +1096,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Other (DO NOT INCLUDE GAS HEAT)"
-  survey_section: 20100329145115_survey_section_6
+  survey_section: 20100330171258_survey_section_6
   text: "Other (DO NOT INCLUDE GAS HEAT)"
-20100329145115_question_101:
+20100330171258_question_101:
   data_export_identifier: "lived_this_home_how_about"
   display_order: 101
   display_type: "label"
@@ -1107,9 +1107,9 @@
   question_group: 
   reference_identifier: 
   short_text: "33. Please tell me if any of the following activities were done during the time you have lived in this home. How about....."
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "33. Please tell me if any of the following activities were done during the time you have lived in this home. How about....."
-20100329145115_question_102:
+20100330171258_question_102:
   data_export_identifier: painted_inside_home
   display_order: 102
   display_type: default
@@ -1118,9 +1118,9 @@
   question_group: 
   reference_identifier: 
   short_text: "1 = Painting done indoors"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "1 = Painting done indoors"
-20100329145115_question_103:
+20100330171258_question_103:
   data_export_identifier: carpeted_in_home
   display_order: 103
   display_type: default
@@ -1129,9 +1129,9 @@
   question_group: 
   reference_identifier: 
   short_text: "2 = Carpeting"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "2 = Carpeting"
-20100329145115_question_104:
+20100330171258_question_104:
   data_export_identifier: refloored_in_home
   display_order: 104
   display_type: default
@@ -1140,9 +1140,9 @@
   question_group: 
   reference_identifier: 
   short_text: "3 = Reflooring"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "3 = Reflooring"
-20100329145115_question_105:
+20100330171258_question_105:
   data_export_identifier: weather_proofed_home
   display_order: 105
   display_type: default
@@ -1151,9 +1151,9 @@
   question_group: 
   reference_identifier: 
   short_text: "4 = Weather Proofing"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "4 = Weather Proofing"
-20100329145115_question_106:
+20100330171258_question_106:
   data_export_identifier: replaced_home_windows
   display_order: 106
   display_type: default
@@ -1162,9 +1162,9 @@
   question_group: 
   reference_identifier: 
   short_text: "5 = Window Replacement"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "5 = Window Replacement"
-20100329145115_question_107:
+20100330171258_question_107:
   data_export_identifier: roof_work_on_home
   display_order: 107
   display_type: default
@@ -1173,9 +1173,9 @@
   question_group: 
   reference_identifier: 
   short_text: "6 = Roofing"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "6 = Roofing"
-20100329145115_question_108:
+20100330171258_question_108:
   data_export_identifier: construction_in_home
   display_order: 108
   display_type: default
@@ -1184,9 +1184,9 @@
   question_group: 
   reference_identifier: 
   short_text: "7 = Construction"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "7 = Construction"
-20100329145115_question_109:
+20100330171258_question_109:
   data_export_identifier: other_home_remodelling
   display_order: 109
   display_type: default
@@ -1195,9 +1195,9 @@
   question_group: 
   reference_identifier: "remodel_other"
   short_text: "8 = Other: SPECIFY"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "8 = Other: SPECIFY"
-20100329145115_question_110:
+20100330171258_question_110:
   data_export_identifier: type_other_home_remodelling
   display_order: 110
   display_type: default
@@ -1206,9 +1206,9 @@
   question_group: 
   reference_identifier: 
   short_text: "Other"
-  survey_section: 20100329145115_survey_section_7
+  survey_section: 20100330171258_survey_section_7
   text: "Other"
-20100329145115_question_111:
+20100330171258_question_111:
   data_export_identifier: regularly_smoked_indoors
   display_order: 111
   display_type: default
@@ -1217,9 +1217,9 @@
   question_group: 
   reference_identifier: "34"
   short_text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?"
-  survey_section: 20100329145115_survey_section_8
+  survey_section: 20100330171258_survey_section_8
   text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?"
-20100329145115_question_112:
+20100330171258_question_112:
   data_export_identifier: regularly_smoked_indoors_12mos
   display_order: 112
   display_type: default
@@ -1228,9 +1228,9 @@
   question_group: 
   reference_identifier: "34a"
   short_text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?"
-  survey_section: 20100329145115_survey_section_8
+  survey_section: 20100330171258_survey_section_8
   text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?"
-20100329145115_question_113:
+20100330171258_question_113:
   data_export_identifier: regularly_smoked_outdoors
   display_order: 113
   display_type: default
@@ -1239,9 +1239,9 @@
   question_group: 
   reference_identifier: "35"
   short_text: "35. During the time you have lived in this home, have you or anyone who lives in this home  regularly smoked cigarettes, pipes or cigars outside this home (in the car, at work, yard, deck, etc.)?"
-  survey_section: 20100329145115_survey_section_8
+  survey_section: 20100330171258_survey_section_8
   text: "35. During the time you have lived in this home, have you or anyone who lives in this home  regularly smoked cigarettes, pipes or cigars outside this home (in the car, at work, yard, deck, etc.)?"
-20100329145115_question_114:
+20100330171258_question_114:
   data_export_identifier: regularly_smoked_outdoors_12mos
   display_order: 114
   display_type: default
@@ -1250,9 +1250,9 @@
   question_group: 
   reference_identifier: "35a"
   short_text: "35a. During the last 12 months, have you or anyone else who lives in this home  regularly smoked  cigarettes, pipes or cigars outside this home?"
-  survey_section: 20100329145115_survey_section_8
+  survey_section: 20100330171258_survey_section_8
   text: "35a. During the last 12 months, have you or anyone else who lives in this home  regularly smoked  cigarettes, pipes or cigars outside this home?"
-20100329145115_question_115:
+20100330171258_question_115:
   data_export_identifier: used_smokeless_tobacco_12mos
   display_order: 115
   display_type: default
@@ -1261,9 +1261,9 @@
   question_group: 
   reference_identifier: "36"
   short_text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?"
-  survey_section: 20100329145115_survey_section_8
+  survey_section: 20100330171258_survey_section_8
   text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?"
-20100329145115_question_116:
+20100330171258_question_116:
   data_export_identifier: qty_of_upholstered_furniture
   display_order: 116
   display_type: default
@@ -1272,9 +1272,9 @@
   question_group: 
   reference_identifier: "37"
   short_text: "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?"
-  survey_section: 20100329145115_survey_section_9
+  survey_section: 20100330171258_survey_section_9
   text: "37. Not including mattresses, how many pieces of upholstered furniture do you have in your home (like padded or cushioned chairs, couches, or love seats)?"
-20100329145115_question_117:
+20100330171258_question_117:
   data_export_identifier: qty_bought_after_2006
   display_order: 117
   display_type: default
@@ -1283,9 +1283,9 @@
   question_group: 
   reference_identifier: "37a"
   short_text: "37a. How many of the items were purchased after 2006?"
-  survey_section: 20100329145115_survey_section_9
+  survey_section: 20100330171258_survey_section_9
   text: "37a. How many of the items were purchased after 2006?"
-20100329145115_question_118:
+20100330171258_question_118:
   data_export_identifier: furniture_has_exposed_foam
   display_order: 118
   display_type: default
@@ -1294,9 +1294,9 @@
   question_group: 
   reference_identifier: "37b"
   short_text: "37b. Does any of the upholstered furniture have exposed or crumbling foam?"
-  survey_section: 20100329145115_survey_section_9
+  survey_section: 20100330171258_survey_section_9
   text: "37b. Does any of the upholstered furniture have exposed or crumbling foam?"
-20100329145115_question_119:
+20100330171258_question_119:
   data_export_identifier: home_has_carpets
   display_order: 119
   display_type: default
@@ -1305,9 +1305,9 @@
   question_group: 
   reference_identifier: "38"
   short_text: "38. Not including area rugs, are there any carpets in your home?"
-  survey_section: 20100329145115_survey_section_9
+  survey_section: 20100330171258_survey_section_9
   text: "38. Not including area rugs, are there any carpets in your home?"
-20100329145115_question_120:
+20100330171258_question_120:
   data_export_identifier: percent_home_with_carpet
   display_order: 120
   display_type: default
@@ -1316,9 +1316,9 @@
   question_group: 
   reference_identifier: "38a"
   short_text: "38a. Approximately what percentage of your home has carpet?"
-  survey_section: 20100329145115_survey_section_9
+  survey_section: 20100330171258_survey_section_9
   text: "38a. Approximately what percentage of your home has carpet?"
-20100329145115_question_121:
+20100330171258_question_121:
   data_export_identifier: home_has_televisions
   display_order: 121
   display_type: default
@@ -1327,20 +1327,20 @@
   question_group: 
   reference_identifier: "39"
   short_text: "39. Do you have any televisions in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "39. Do you have any televisions in your home?"
-20100329145115_question_122:
+20100330171258_question_122:
   data_export_identifier: number_of_televisions_in_home
   display_order: 122
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "39a"
   short_text: "39a. How many televisions are in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "39a. How many televisions are in your home?"
-20100329145115_question_123:
+20100330171258_question_123:
   data_export_identifier: avg_number_hours_tvs_used
   display_order: 123
   display_type: default
@@ -1349,9 +1349,9 @@
   question_group: 
   reference_identifier: "39b"
   short_text: "39b. On average, how many hours per day is the television/are the televisions on in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "39b. On average, how many hours per day is the television/are the televisions on in your home?"
-20100329145115_question_124:
+20100330171258_question_124:
   data_export_identifier: home_has_computers
   display_order: 124
   display_type: default
@@ -1360,20 +1360,20 @@
   question_group: 
   reference_identifier: "40"
   short_text: "40. Do you have any computers in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "40. Do you have any computers in your home?"
-20100329145115_question_125:
+20100330171258_question_125:
   data_export_identifier: number_of_computers_in_home
   display_order: 125
   display_type: default
   is_mandatory: true
-  pick: none
+  pick: one
   question_group: 
   reference_identifier: "40a"
   short_text: "40a. How many computers are in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "40a. How many computers are in your home?"
-20100329145115_question_126:
+20100330171258_question_126:
   data_export_identifier: avg_number_hours_computers_used
   display_order: 126
   display_type: default
@@ -1382,9 +1382,9 @@
   question_group: 
   reference_identifier: "40b"
   short_text: "40b. On average, how many hours per day is the computer/are the computers in use in your home?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "40b. On average, how many hours per day is the computer/are the computers in use in your home?"
-20100329145115_question_127:
+20100330171258_question_127:
   data_export_identifier: additional_comments
   display_order: 127
   display_type: default
@@ -1393,9 +1393,9 @@
   question_group: 
   reference_identifier: "41"
   short_text: "41. Do you have any comments or additional information you would like to tell me?"
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "41. Do you have any comments or additional information you would like to tell me?"
-20100329145115_question_128:
+20100330171258_question_128:
   data_export_identifier: "your_vacuum_bag_prior_collection"
   display_order: 128
   display_type: "label"
@@ -1404,9 +1404,9 @@
   question_group: 
   reference_identifier: 
   short_text: "We will be mailing you a collection kit with all the materials you will need to collect a dust sample from your vacuum cleaner and ship it to the study office. If possible, please do not change or empty your vacuum bag prior to the collection."
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "We will be mailing you a collection kit with all the materials you will need to collect a dust sample from your vacuum cleaner and ship it to the study office. If possible, please do not change or empty your vacuum bag prior to the collection."
-20100329145115_question_129:
+20100330171258_question_129:
   data_export_identifier: "you_25_00_gift_card"
   display_order: 129
   display_type: "label"
@@ -1415,5 +1415,5 @@
   question_group: 
   reference_identifier: 
   short_text: "Once we receive your dust sample, we will mail you a $25.00 gift card."
-  survey_section: 20100329145115_survey_section_10
+  survey_section: 20100330171258_survey_section_10
   text: "Once we receive your dust sample, we will mail you a $25.00 gift card."
