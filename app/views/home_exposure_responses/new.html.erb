@@ -26,19 +26,16 @@
 </tr>
 </tfoot>
 <tbody>
+<%
+	q_and_a_codes = [
+		@response_sets[0].q_and_a_codes_as_attributes,
+		@response_sets[1].q_and_a_codes_as_attributes
+	]
+%>
 <% HomeExposureResponse.q_column_names.each do |column| %>
 	<tr>
-<%#
-
-
-
-	set these q and a codes rather that continually calling the method
-
-
-
-%>
-		<td><%= @response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
-		<td><%= @response_sets[1].q_and_a_codes_as_attributes[column]-%></td>
+		<td><%= q_and_a_codes[0][column]-%></td>
+		<td><%= q_and_a_codes[1][column]-%></td>
 		<td><%=column-%></td>
 	</tr>
 <% end %>
