@@ -9,14 +9,15 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 	before_filter :valid_response_set_id_required, :only => :create
 
 	def new
-#	works but not what I want
-#		@keys = @subject.response_sets.collect(&:q_and_a_codes_as_attributes).collect(&:keys).inject(:|)
+		@response_sets = @subject.response_sets
+		@diffs = @response_sets.inject(:diff)
 	end
 
 	def create
 		@her = @response_set.to_her
 		if @her.new_record?
 			flash.now[:error] = "There was a problem creating HER"
+			new
 			render :action => 'new'
 		else
 			redirect_to subjects_path

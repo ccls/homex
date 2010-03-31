@@ -16,24 +16,29 @@
 </thead>
 <tfoot><%# tfoot needs to be declared BEFORE tbody %>
 <tr>
+<% @response_sets.each do |rs| %>
 <td><% form_tag subject_home_exposure_response_path(@subject) do %>
-<%= hidden_field_tag :response_set_id, @subject.response_sets[0].id, 
-	:id => nil %>
-<%= submit_tag "HER from Survey 1", :id => nil, :name => nil %>
+<%= hidden_field_tag :response_set_id, rs.id, :id => nil %>
+<%= submit_tag "HER from this Survey", :id => nil, :name => nil %>
 <% end %></td>
-<td><% form_tag subject_home_exposure_response_path(@subject) do %>
-<%= hidden_field_tag :response_set_id, @subject.response_sets[1].id, 
-	:id => nil %>
-<%= submit_tag "HER from Survey 2", :id => nil, :name => nil %>
-<% end %></td>
+<% end %>
 <td></td>
 </tr>
 </tfoot>
 <tbody>
 <% HomeExposureResponse.q_column_names.each do |column| %>
 	<tr>
-		<td><%= @subject.response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
-		<td><%= @subject.response_sets[1].q_and_a_codes_as_attributes[column]-%></td>
+<%#
+
+
+
+	set these q and a codes rather that continually calling the method
+
+
+
+%>
+		<td><%= @response_sets[0].q_and_a_codes_as_attributes[column]-%></td>
+		<td><%= @response_sets[1].q_and_a_codes_as_attributes[column]-%></td>
 		<td><%=column-%></td>
 	</tr>
 <% end %>
