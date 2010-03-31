@@ -73,7 +73,7 @@ Factory.define :interviewer, :parent => :person do |f|
 end	#	parent must be defined first
 
 Factory.define :pii do |f|
-	f.association :subject
+#	f.association :subject
 	f.first_name "First"
 	f.middle_name "Middle"
 	f.last_name "Last"

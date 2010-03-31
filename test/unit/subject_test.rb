@@ -10,6 +10,16 @@ class SubjectTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create subject with pii" do
+		assert_difference( 'Pii.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:pii_attributes => Factory.attributes_for(:pii))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+		} }
+	end
+
 #	test "should require description" do
 #		assert_no_difference 'Subject.count' do
 #			subject = create_subject(:description => nil)

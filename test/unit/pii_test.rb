@@ -37,9 +37,15 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+#
+#	subject uses accepts_attributes_for :pii
+#	so the pii can't require subject_id on create
+#	or this test fails.
+#
 	test "should require subject_id" do
-		assert_no_difference 'Pii.count' do
-			pii = create_pii(:subject_id => nil)
+		assert_difference 'Pii.count', 1 do
+			pii = create_pii
+			pii.reload.update_attributes(:first_name => "New First Name")
 			assert pii.errors.on(:subject_id)
 		end
 	end
@@ -59,8 +65,8 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require properly formatted ssn a" do
-		%w( 12345678X 12345678 12-34-56-789 ).each do |invalid_ssn|
+	test "should require 9 digits in ssn" do
+		%w( 12345678X 12345678 1-34-56-789 ).each do |invalid_ssn|
 			assert_no_difference 'Pii.count' do
 				pii = create_pii(:ssn => invalid_ssn)
 				assert pii.errors.on(:ssn)
@@ -85,6 +91,8 @@ class PiiTest < ActiveSupport::TestCase
 
 	test "should belong to subject" do
 		pii = create_pii
+		assert_nil pii.subject
+		pii.subject = Factory(:subject)
 		assert_not_nil pii.subject
 	end
 
