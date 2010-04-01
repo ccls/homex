@@ -3,49 +3,13 @@
 
 <p>Subject id: <%=@subject.id%></p>
 
-<table><thead>
-<tr>
-	<th colspan='2'>Responses</th>
-	<th>&nbsp;</th>
-</tr>
-<tr>
-	<th>1</th>
-	<th>2</th>
-	<th>column</th>
-</tr>
-</thead>
-<tfoot><%# tfoot needs to be declared BEFORE tbody %>
-<tr>
-<% @response_sets.each do |rs| %>
-<td><% form_tag subject_home_exposure_response_path(@subject) do %>
-<%= hidden_field_tag :response_set_id, rs.id, :id => nil %>
-<%= submit_tag "HER from this Survey", :id => nil, :name => nil %>
-<% end %></td>
-<% end %>
-<td></td>
-</tr>
-</tfoot>
-<tbody>
 <%
 	q_and_a_codes = [
 		@response_sets[0].q_and_a_codes_as_attributes,
 		@response_sets[1].q_and_a_codes_as_attributes
 	]
 %>
-<% HomeExposureResponse.q_column_names.each do |column| %>
-	<tr>
-		<td><%= q_and_a_codes[0][column]-%></td>
-		<td><%= q_and_a_codes[1][column]-%></td>
-		<td><%=column-%></td>
-	</tr>
-<% end %>
-</tbody>
-</table>
 
-
-
-
-<p>MERGER FORM BELOW IN DEVELOPMENT.  DOES NOT WORK YET</p>
 
 <% form_for HomeExposureResponse.new, 
 	:url => subject_home_exposure_response_path(@subject) do |f| %>
@@ -62,22 +26,24 @@
 		<td><%=column-%></td>
 		<td>
 <% if @diffs[column] %>
-<% if q_and_a_codes.collect{|rs|rs[column]}.compact.length > 1 %>
-<%= f.radio_button( column, q_and_a_codes[0][column]||nil ) %>
-<%= f.label( column, (q_and_a_codes[0][column]||'_') ) %><br/>
-<%= f.radio_button( column, q_and_a_codes[1][column]||nil ) %>
-<%= f.label( column, (q_and_a_codes[1][column]||'_') ) %>
+<%# if q_and_a_codes.collect{|rs|rs[column]}.compact.length > 1 %>
+<%= f.radio_button( column, q_and_a_codes[0][column]||'' ) %>
+<%= f.label( column, (q_and_a_codes[0][column]||'&nbsp;') ) %><br/>
+<%= f.radio_button( column, q_and_a_codes[1][column]||'',
+	:checked => true ) %>
+<%= f.label( column, (q_and_a_codes[1][column]||'&nbsp;') ) %>
+<%# else %>
+<%# val=q_and_a_codes.collect{|rs|rs[column]}.compact.first %>
+<%#= f.check_box( column, {}, val, nil ) %>
+<%#= f.label( column, val ) %>
+<%# end %>
 <% else %>
-<% val=q_and_a_codes.collect{|rs|rs[column]}.compact.first %>
-<%= f.check_box( column, {}, val, nil ) %>
-<%= f.label( column, val ) %>
-<% end %>
-<% else %>
-<%= f.text_field column, :readonly => 'readonly', :disabled => 'disabled' %>
+<%= f.text_field column, :value => q_and_a_codes[0][column],
+	:readonly => 'readonly', :disabled => 'disabled' %>
 <% end %>
 		</td>
 	<% end %><%# content_tag %>
 <% end %><%# HomeExposureResponse.q_column_names.each %>
 </tbody></table>
-<%= f.submit "Create HER", :name => nil, :id => nil %>
+<p><%= f.submit "Create HER from selections", :name => nil, :id => nil %></p>
 <% end %><%# form_for %>

@@ -9,6 +9,19 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs2 = fill_out_survey(
 			:subject => @rs1.subject, 
 			:survey => @rs1.survey)
+#		@rs2 = Factory(:response_set, 
+#			:completed_at => Time.now,
+#			:subject_id => @rs1.subject_id, 
+#			:survey_id => @rs1.survey_id)
+	end
+
+
+	test "should show new with very different response sets" do
+		@rs2.responses.destroy_all
+		login_as admin_user
+		get :new, :subject_id => @rs1.subject_id
+		assert_response :success
+		assert_template 'new'
 	end
 
 	test "should get new with admin login" do
@@ -90,25 +103,29 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",1) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to subjects_path
+#		assert_equal @rs1.q_and_a_codes_as_attributes,
+#			@rs1.subject.home_exposure_response.attributes
+#		assert_redirected_to subjects_path
+		assert_redirected_to subject_home_exposure_response_path(assigns(:subject))
 	end
 
 	test "should create HER with employee login" do
 		login_as active_user(:role_name => 'employee')
 		assert_difference("HomeExposureResponse.count",1) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to subjects_path
+		assert_redirected_to subject_home_exposure_response_path(assigns(:subject))
+#		assert_redirected_to subjects_path
 	end
 
 	test "should NOT create HER with just login" do
 		login_as active_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
@@ -117,7 +134,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT create HER without login" do
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_redirected_to_cas_login
 	end
@@ -126,7 +143,8 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 		assert_raise(ActionController::RoutingError){
-			post :create, :response_set_id => @rs1.id
+			post :create, 
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		} }
 	end
 
@@ -134,13 +152,13 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => 0, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create HER without response_set_id" do
+	test "should NOT create HER without home_exposure_response" do
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id
@@ -149,33 +167,11 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create HER with other subject's response_set_id" do
-		rs3 = fill_out_survey(:survey => @rs1.survey)
+	test "should NOT create HER without valid home_exposure_response" do
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => rs3.id
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT create HER without valid response_set_id" do
-		login_as admin_user
-		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => 0
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT create HER without complete response_set" do
-		@rs1.update_attribute( :completed_at, nil )
-		login_as admin_user
-		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => 0
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -186,7 +182,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -198,7 +194,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		login_as admin_user
 		assert_difference("HomeExposureResponse.count",0) {
 			post :create, :subject_id => @rs1.subject_id, 
-				:response_set_id => @rs1.id
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
