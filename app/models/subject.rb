@@ -35,6 +35,8 @@ class Subject < ActiveRecord::Base
 
 	def response_sets_the_same?
 		if response_sets.length == 2
+			#	response_sets.inject(:is_the_same_as?) was nice
+			#	but using inject is ruby >= 1.8.7
 			return response_sets[0].is_the_same_as?(response_sets[1])
 		else
 			raise NotTwoResponseSets
@@ -43,6 +45,8 @@ class Subject < ActiveRecord::Base
 
 	def response_set_diffs
 		if response_sets.length == 2
+			#	response_sets.inject(:diff) was nice
+			#	but using inject is ruby >= 1.8.7
 			return response_sets[0].diff(response_sets[1])
 		else
 			raise NotTwoResponseSets

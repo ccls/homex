@@ -6,18 +6,14 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 	before_filter :her_must_exist, :only => [:show]
 	before_filter :two_response_sets_required, :only => [:new,:create]
 	before_filter :all_response_sets_completed_required, :only => [:new,:create]
-#	before_filter :valid_response_set_id_required, :only => :create
-	before_filter :home_exposure_response_attributes_required, :only => :create
+	before_filter :her_attributes_required, :only => :create
 
 	def new
 		@response_sets = @subject.response_sets
-#		@diffs = @response_sets.inject(:diff)
-#		@diffs = @response_sets[0].diff(@response_sets[1])
 		@diffs = @subject.response_set_diffs
 	end
 
 	def create
-#		@her = @response_set.to_her
 		@her = @subject.create_home_exposure_response(
 			params[:home_exposure_response] )
 		if @her.new_record?
@@ -25,7 +21,6 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 			new
 			render :action => 'new'
 		else
-#			redirect_to subjects_path
 			redirect_to subject_home_exposure_response_path(@subject)
 		end
 	end
@@ -38,7 +33,7 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 
 protected
 
-	def home_exposure_response_attributes_required
+	def her_attributes_required
 		if params[:home_exposure_response].nil? ||
 			!params[:home_exposure_response].is_a?(Hash)
 			access_denied("home exposure response attributes hash required")
