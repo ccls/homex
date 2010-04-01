@@ -14,3 +14,7 @@ table tbody tr:nth-child(2n+1) { background-color: #DDD; }
 
 table tbody tr.diff:nth-child(2n)   { background-color: #EBB; }
 table tbody tr.diff:nth-child(2n+1) { background-color: #DBB; }
+
+form input[type='submit'] {
+	font-size: 24pt;
+}
