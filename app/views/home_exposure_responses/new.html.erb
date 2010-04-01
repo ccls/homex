@@ -41,3 +41,43 @@
 <% end %>
 </tbody>
 </table>
+
+
+
+
+<p>MERGER FORM BELOW IN DEVELOPMENT.  DOES NOT WORK YET</p>
+
+<% form_for HomeExposureResponse.new, 
+	:url => subject_home_exposure_response_path(@subject) do |f| %>
+<table>
+<!--
+<thead>
+</thead>
+<tfoot>
+</tfoot>
+-->
+<tbody>
+<% HomeExposureResponse.q_column_names.each do |column| %>
+	<% content_tag( :tr, :class => ((@diffs[column])?'diff':'') ) do %>
+		<td><%=column-%></td>
+		<td>
+<% if @diffs[column] %>
+<% if q_and_a_codes.collect{|rs|rs[column]}.compact.length > 1 %>
+<%= f.radio_button( column, q_and_a_codes[0][column]||nil ) %>
+<%= f.label( column, (q_and_a_codes[0][column]||'_') ) %><br/>
+<%= f.radio_button( column, q_and_a_codes[1][column]||nil ) %>
+<%= f.label( column, (q_and_a_codes[1][column]||'_') ) %>
+<% else %>
+<% val=q_and_a_codes.collect{|rs|rs[column]}.compact.first %>
+<%= f.check_box( column, {}, val, nil ) %>
+<%= f.label( column, val ) %>
+<% end %>
+<% else %>
+<%= f.text_field column, :readonly => 'readonly', :disabled => 'disabled' %>
+<% end %>
+		</td>
+	<% end %><%# content_tag %>
+<% end %><%# HomeExposureResponse.q_column_names.each %>
+</tbody></table>
+<%= f.submit "Create HER", :name => nil, :id => nil %>
+<% end %><%# form_for %>
