@@ -31,4 +31,22 @@ class Subject < ActiveRecord::Base
 	#	s.pii.destroy will destroy the last one !?!?!?
 	accepts_nested_attributes_for :pii
 
+	class NotTwoResponseSets < StandardError; end
+
+	def response_sets_the_same?
+		if response_sets.length == 2
+			return response_sets[0].is_the_same_as?(response_sets[1])
+		else
+			raise NotTwoResponseSets
+		end
+	end
+
+	def response_set_diffs
+		if response_sets.length == 2
+			return response_sets[0].diff(response_sets[1])
+		else
+			raise NotTwoResponseSets
+		end
+	end
+
 end

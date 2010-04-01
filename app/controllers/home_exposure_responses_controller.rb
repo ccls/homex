@@ -10,7 +10,9 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 
 	def new
 		@response_sets = @subject.response_sets
-		@diffs = @response_sets.inject(:diff)
+#		@diffs = @response_sets.inject(:diff)
+#		@diffs = @response_sets[0].diff(@response_sets[1])
+		@diffs = @subject.response_set_diffs
 	end
 
 	def create
