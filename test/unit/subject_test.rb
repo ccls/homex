@@ -122,6 +122,25 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.response_sets.length
 	end
 
+	test "should return nil ssn without pii" do
+		subject = create_subject
+		assert_nil subject.ssn
+	end
+
+	test "should return ssn with pii" do
+		subject = Factory(:pii, :subject => create_subject).subject
+		assert_not_nil subject.ssn
+	end
+
+	test "should return nil full_name without pii" do
+		subject = create_subject
+		assert_nil subject.full_name
+	end
+
+	test "should return full_name with pii" do
+		subject = Factory(:pii, :subject => create_subject).subject
+		assert_not_nil subject.full_name
+	end
 
 protected
 

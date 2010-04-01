@@ -21,4 +21,8 @@ class Pii < ActiveRecord::Base
 		self.ssn.to_s.gsub!(/\D/,'')
 	end
 
+	def full_name
+		[first_name, middle_name, last_name].join(' ')
+	end
+
 end

@@ -17,8 +17,8 @@ class Subject < ActiveRecord::Base
 	validates_presence_of :subject_type_id
 	validates_presence_of :race_id
 
-#	doesn't work as pii may be nil
-#	delegate :ssn, :to => :pii
+	delegate :ssn, :to => :pii, :allow_nil => true
+	delegate :full_name, :to => :pii, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
