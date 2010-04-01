@@ -2,6 +2,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectsControllerTest < ActionController::TestCase
 
+	test "should get index with subjects" do
+		survey = Survey.find_by_access_code("home_exposure_survey")
+		rs1 = fill_out_survey(:survey => survey)
+		rs2 = fill_out_survey(:survey => survey, :subject => rs1.subject)
+		rs2.to_her
+		rs3 = fill_out_survey(:survey => survey)
+		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
+		rs5 = fill_out_survey(:survey => survey)
+		Factory(:subject)
+		login_as admin_user
+		get :index
+		assert_response :success
+		assert_template 'index'
+	end
+
 	test "should get index with admin login" do
 		login_as admin_user
 		get :index
