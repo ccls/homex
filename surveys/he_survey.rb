@@ -225,7 +225,7 @@ survey "Home Exposure survey" do
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "14 = Packer – Agricultural", 
+		question "14 = Packer - Agricultural", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_agr_packer_12mos
 		a "Yes",        :data_export_identifier => 1
@@ -865,14 +865,14 @@ survey "Home Exposure survey" do
 
 	section "Tobacco" do
 
-		q_34 "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?",
+		q_34 "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more -    smoked cigarettes, pipes or cigars inside this home?",
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_indoors
 		a_1 "Yes",      :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		q_34a "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?",
+		q_34a "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars inside this home?",
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_indoors_12mos
 		a_1 "Yes",      :data_export_identifier => 1
@@ -898,7 +898,7 @@ survey "Home Exposure survey" do
 		dependency :rule => "A"
 		condition_A :q_35, "==", :a_1
 
-		q_36 "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?",
+		q_36 "36. During the last 12 months, have you or anyone else regularly - that is once a week or more - used smokeless tobacco products such as dipping or chewing tobacco in this home?",
 			:pick => :one, 
 			:data_export_identifier => :used_smokeless_tobacco_12mos
 		a_1 "Yes",      :data_export_identifier => 1
