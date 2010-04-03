@@ -89,7 +89,7 @@ class PackageTest < ActiveSupport::TestCase
 		assert_nil Package.last_updated
 		Package.just_updated
 		assert File.exists?(Package.packages_updated)
-		assert_in_delta Package.last_updated,
+		assert_in_delta Package.last_updated.to_f,
 			Time.now.to_f, 2
 	end
 
