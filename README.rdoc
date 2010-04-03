@@ -47,7 +47,7 @@
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install rails -v 2.3.4
- sudo gem install aegis surveyor
+ sudo gem install aegis surveyor packet
 
 
 For standard ruby users ...
