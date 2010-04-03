@@ -2,15 +2,6 @@
 
 
 
-== Documentation
-
-Inline documentation is sparse and incomplete, but I'm working on it.
-
- sudo gem install rdoc --source http://gemcutter.org
- rake doc:plugins
- rake doc:app
- open doc/app/README_rdoc.html
-
 == Required Gems
 
 * {rubycas-client}[http://github.com/gunark/rubycas-client] - CalNet CAS (user authentication)
@@ -51,6 +42,13 @@ Inline documentation is sparse and incomplete, but I'm working on it.
 
  #	Copy and add your own FedEx credentials.
  cp config/fed_ex.yml.example config/fed_ex.yml
+
+ #	Need to manually install these first
+ gem source -a http://gemcutter.org
+ gem source -a http://gems.github.com
+ sudo gem install rails -v 2.3.4
+ sudo gem install aegis surveyor
+
 
 For standard ruby users ...
 
@@ -120,6 +118,15 @@ then continue ...
  #	Unfortunately, the contents of the DB are in the DB.
  #	Duh.  So when we move from dev to prod, we will need
  #	to ensure that we do it correctly!
+
+== Documentation
+
+Inline documentation is sparse and incomplete, but I'm working on it.
+
+ sudo gem install rdoc --source http://gemcutter.org
+ rake doc:plugins
+ rake doc:app
+ open doc/app/README_rdoc.html
 
 == Testing
 
