@@ -24,3 +24,41 @@ Html::Test::Validator.send(:include,
 Html::Test::ValidateFilter.send(:include, 
 		HtmlTestExtension::ValidateFilter)
 
+##################################################
+#	begin my default html_test plugin settings
+validate = false
+validators = ["http://localhost/w3c-validator/check", 
+							Html::Test::Validator.w3c_url]
+
+validators.each do |validator|
+	vhost = validator.split('/')[2]
+	vpath = "/"<< validator.split('/')[3..-1].join('/')
+	begin
+		response = Net::HTTP.get_response(vhost, vpath)
+		if response.code == '200'
+			Html::Test::Validator.w3c_url = validator
+			validate = true
+			break
+		end
+	rescue
+	end
+end
+
+if validate
+	ApplicationController.validate_all = true
+	#       default is :tidy, but it doesn't really validate.       
+	#       I've purposely not closed tags and it doesn't complain.
+	#       :w3c is ridiculously slow! even when used locally
+	ApplicationController.validators = [:w3c]
+	#ApplicationController.validators = [:tidy, :w3c]
+	Html::Test::Validator.verbose = false
+	Html::Test::Validator.revalidate_all = true
+	Html::Test::Validator.tidy_ignore_list = 
+		[/<table> lacks "summary" attribute/]
+	puts "Validating all html with " <<
+		Html::Test::Validator.w3c_url
+else
+	puts "NOT validating html at all"
+end
+#	end html_test plugin settings
+##################################################
