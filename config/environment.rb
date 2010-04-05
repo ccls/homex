@@ -68,9 +68,10 @@ Rails::Initializer.run do |config|
 
 
 
+#		:version => '>=0.9.10', 
 	#	not yet tested on jruby
 	config.gem "surveyor", 
-		:version => '>=0.9.10', 
+		:version => '~> 0.10.0', 
 		:source => 'http://gemcutter.org'
 
 

@@ -22,6 +22,7 @@ module ResponseSetExtensions
 			#	"Unable to find that survey".
 			#	I've added the code below that ensures when the
 			#	access_code is set that it is indeed unique.
+#	TO BE Included after 0.10.0
 			validates_uniqueness_of :access_code
 
 
@@ -38,9 +39,12 @@ module ResponseSetExtensions
 			#	I'm assuming that this extension is called
 			#	multiple times causing this???  Wrapping it in this
 			#	condition seems to stop it.
-			unless base.instance_methods.include?('subject')
+#
+#	The condition does not seem to be necessary with the
+#	recent self extending models.
+#			unless base.instance_methods.include?('subject')
 				belongs_to :subject, :counter_cache => true
-			end
+#			end
 
 
 			#	Require childid ... coming soon
@@ -142,6 +146,8 @@ module ResponseSetExtensions
 		#... to ResponseSet seems to "fix" this "problem", although I don't 
 		#	know how kosher it is.
 		#	Override the setting of the access_code to ensure its uniqueness
+		#	
+		#	TO BE Included after 0.10.0
 		def access_code=(value)
 			while ResponseSet.find_by_access_code(value)
 				value = Surveyor.make_tiny_code
@@ -151,5 +157,5 @@ module ResponseSetExtensions
 		
 	end
 end
-
-ResponseSet.send(:include, ResponseSetExtensions)
+#	Automatically included in 0.10.0
+#ResponseSet.send(:include, ResponseSetExtensions)

@@ -116,10 +116,13 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should have many response_sets" do
 		subject = create_subject
 		assert_equal 0, subject.response_sets.length
+		assert_equal 0, subject.reload.response_sets_count
 		Factory(:response_set, :subject_id => subject.id)
 		assert_equal 1, subject.reload.response_sets.length
+		assert_equal 1, subject.reload.response_sets_count
 		Factory(:response_set, :subject_id => subject.id)
 		assert_equal 2, subject.reload.response_sets.length
+		assert_equal 2, subject.reload.response_sets_count
 	end
 
 	test "should return nil ssn without pii" do

@@ -5,6 +5,7 @@ module SurveyExtensions
 		base.class_eval do
 			# Same as typing in the class
 
+#	TO BE Included after 0.10.0
 			validates_uniqueness_of :access_code
 
 		end
@@ -109,6 +110,10 @@ module SurveyExtensions
 		#</pre>
 		#It is not as clean as I would've liked, but works.
 		#	Override the setting of the access_code to ensure its uniqueness
+		#
+		#	While uniqueness was added after 0.10.0, this method
+		#	was not deemed important or likely to be needed enough.
+		#	It is true that this really isn't NEEDed.
 		def access_code=(value)
 			counter = 2
 			original_value = value
@@ -121,6 +126,6 @@ module SurveyExtensions
 		end
 	end
 end
-
 # Add module to Survey
-Survey.send(:include, SurveyExtensions)
+#	Automatically included in 0.10.0
+#Survey.send(:include, SurveyExtensions)

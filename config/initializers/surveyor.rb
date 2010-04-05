@@ -5,7 +5,7 @@ Surveyor::Config.run do |config|
   config['default.index'] =  nil # "/surveys" # or :index_path_method
   config['default.finish'] =  '/subjects'# "/surveys" # or :finish_path_method
   config['use_restful_authentication'] = false # set to true to use restful authentication
-  config['extend_controller'] = true # set to true to extend SurveyorController
+  config['extend'] = %w(survey surveyor_controller response response_set)
 end
 
 # require 'models/survey_extensions' # Extended the survey model

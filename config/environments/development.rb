@@ -6,7 +6,10 @@
 
 #	normally this is false, but due to the extensions
 #	added for the survey, it needs to be true
-config.cache_classes = true
+#	I can't remember exactly what required this to be true.
+#	0.10.0 auto includes the extensions so may no longer 
+#	require this.  Set to false and we'll see.
+config.cache_classes = false
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true

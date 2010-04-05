@@ -37,5 +37,5 @@ module ResponseExtensions
 		end
 	end
 end
-
-Response.send(:include, ResponseExtensions)
+#	Automatically included in 0.10.0
+#Response.send(:include, ResponseExtensions)
