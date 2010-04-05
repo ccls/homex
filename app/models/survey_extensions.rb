@@ -6,7 +6,7 @@ module SurveyExtensions
 			# Same as typing in the class
 
 #	TO BE Included after 0.10.0
-			validates_uniqueness_of :access_code
+#			validates_uniqueness_of :access_code
 
 		end
 	end

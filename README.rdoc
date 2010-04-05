@@ -18,7 +18,6 @@
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
-* {Surveyor}[http://github.com/breakpointer/surveyor] - for the taking of surveys
 
 
 == Required and included plugins
@@ -30,6 +29,7 @@
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
 * {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
+* {Surveyor}[http://github.com/breakpointer/surveyor] - for the taking of surveys (using plugin instead of gem)
 
 
 == Installation

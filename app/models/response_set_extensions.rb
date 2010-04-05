@@ -23,7 +23,7 @@ module ResponseSetExtensions
 			#	I've added the code below that ensures when the
 			#	access_code is set that it is indeed unique.
 #	TO BE Included after 0.10.0
-			validates_uniqueness_of :access_code
+#			validates_uniqueness_of :access_code
 
 
 			#	putting counter_cache here, causes double counting ??
@@ -148,12 +148,12 @@ module ResponseSetExtensions
 		#	Override the setting of the access_code to ensure its uniqueness
 		#	
 		#	TO BE Included after 0.10.0
-		def access_code=(value)
-			while ResponseSet.find_by_access_code(value)
-				value = Surveyor.make_tiny_code
-			end
-			super		#(value)
-		end
+#		def access_code=(value)
+#			while ResponseSet.find_by_access_code(value)
+#				value = Surveyor.make_tiny_code
+#			end
+#			super		#(value)
+#		end
 		
 	end
 end
