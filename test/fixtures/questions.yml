@@ -303,9 +303,9 @@
   pick: one
   question_group: 
   reference_identifier: 
-  short_text: "14 = Packer – Agricultural"
+  short_text: "14 = Packer - Agricultural"
   survey_section: 20100331103925_survey_section_2
-  text: "14 = Packer – Agricultural"
+  text: "14 = Packer - Agricultural"
 20100331103925_question_29:
   data_export_identifier: job_is_painter_12mos
   display_order: 29
@@ -1216,9 +1216,9 @@
   pick: one
   question_group: 
   reference_identifier: "34"
-  short_text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?"
+  short_text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more -    smoked cigarettes, pipes or cigars inside this home?"
   survey_section: 20100331103925_survey_section_8
-  text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more –    smoked cigarettes, pipes or cigars inside this home?"
+  text: "34. During the time you have lived in this home, have you or anyone else regularly - that is once a week or more -    smoked cigarettes, pipes or cigars inside this home?"
 20100331103925_question_112:
   data_export_identifier: regularly_smoked_indoors_12mos
   display_order: 112
@@ -1227,9 +1227,9 @@
   pick: one
   question_group: 
   reference_identifier: "34a"
-  short_text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?"
+  short_text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars inside this home?"
   survey_section: 20100331103925_survey_section_8
-  text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more – smoked cigarettes, pipes or cigars inside this home?"
+  text: "34a. During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars inside this home?"
 20100331103925_question_113:
   data_export_identifier: regularly_smoked_outdoors
   display_order: 113
@@ -1260,9 +1260,9 @@
   pick: one
   question_group: 
   reference_identifier: "36"
-  short_text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?"
+  short_text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more - used smokeless tobacco products such as dipping or chewing tobacco in this home?"
   survey_section: 20100331103925_survey_section_8
-  text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more – used smokeless tobacco products such as dipping or chewing tobacco in this home?"
+  text: "36. During the last 12 months, have you or anyone else regularly - that is once a week or more - used smokeless tobacco products such as dipping or chewing tobacco in this home?"
 20100331103925_question_116:
   data_export_identifier: qty_of_upholstered_furniture
   display_order: 116
