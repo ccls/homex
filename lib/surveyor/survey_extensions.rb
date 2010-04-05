@@ -2,6 +2,8 @@ if surveyor_gem = Gem.searcher.find('surveyor')
 	require surveyor_gem.full_gem_path + '/script/surveyor/parser'
 	require surveyor_gem.full_gem_path + '/script/surveyor/survey'
 end
+#	
+#	http://github.com/breakpointer/surveyor/issues/issue/45
 #
 #	Survey access_code not guaranteed to be unique
 #
