@@ -60,10 +60,10 @@ div#appmenu {
 div#appmenu a {
 	display:block;
 	color: #E7C254;
-	padding: 6px 7px 6px 20px;
+	padding: 6px 7px 6px 10px;
 	border-right: 1px dotted #616688;
 	border-bottom: 1px dotted #616688;
-	width: 120px;
+	width: 125px;
 	text-decoration:none;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	line-height: 1.1;
@@ -85,7 +85,7 @@ div#content {
 	for the background of the menu to ensure that the
 	menu and content are the same height.
 */
-	border-left:150px solid #252C58;	
+	border-left:145px solid #252C58;	
 	padding-top: 20px;
 	padding-left: 20px;
 	background-color: white;
