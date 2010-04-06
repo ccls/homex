@@ -29,6 +29,7 @@ class CreateQuestions < ActiveRecord::Migration
 			t.timestamps
 		end
 		add_index :questions, :survey_section_id
+		add_index :questions, :data_export_identifier
 	end
 
 	def self.down

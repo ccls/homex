@@ -30,6 +30,7 @@ class CreateAnswers < ActiveRecord::Migration
 			
 		end
 		add_index :answers, :question_id
+		add_index :answers, :data_export_identifier
 	end
 
 	def self.down
