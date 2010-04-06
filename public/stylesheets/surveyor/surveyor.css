@@ -120,11 +120,14 @@ body {
       #surveyor .question legend span {
         display: block; }
     #surveyor .question .number {
+      display: none; }
+/*
       padding: 0.2em;
       font-weight: bold;
       font-size: 1.2em;
       letter-spacing: 0;
       float: left; }
+*/
     #surveyor .question .text {
       padding-top: 0.2em;
 /*
