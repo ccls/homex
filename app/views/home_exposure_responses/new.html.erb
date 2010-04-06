@@ -10,38 +10,33 @@
 	]
 %>
 
-
 <% form_for HomeExposureResponse.new, 
 	:url => subject_home_exposure_response_path(@subject) do |f| %>
 <table>
-<!--
-<thead>
-</thead>
-<tfoot>
-</tfoot>
--->
 <tbody>
 <% HomeExposureResponse.q_column_names.each do |column| %>
 	<% content_tag( :tr, :class => ((@diffs[column])?'diff':'') ) do %>
 		<td><%=column-%></td>
 		<td>
 <% if @diffs[column] %>
-<%# if q_and_a_codes.collect{|rs|rs[column]}.compact.length > 1 %>
-<%= f.radio_button( column, q_and_a_codes[0][column]||'' ) %>
-<%= f.label( column, (q_and_a_codes[0][column]||'&nbsp;') ) %><br/>
-<%= f.radio_button( column, q_and_a_codes[1][column]||'',
-	:checked => true ) %>
-<%= f.label( column, (q_and_a_codes[1][column]||'&nbsp;') ) %>
-<%# else %>
-<%# val=q_and_a_codes.collect{|rs|rs[column]}.compact.first %>
-<%#= f.check_box( column, {}, val, nil ) %>
-<%#= f.label( column, val ) %>
-<%# end %>
+	<%= f.radio_button( column, q_and_a_codes[0][column]||'' ) %>
+	<%#= f.label( column, (q_and_a_codes[0][column]||'&nbsp;') ) %>
+	<%= f.label( column, Answer.find_by_data_export_identifier(q_and_a_codes[0][column]).try(:text)||'(no answer)' ) %>
+<br/>
+	<%= f.radio_button( column, q_and_a_codes[1][column]||'',
+		:checked => true ) %>
+	<%#= f.label( column, (q_and_a_codes[1][column]||'&nbsp;') ) %>
+	<%= f.label( column, Answer.find_by_data_export_identifier(q_and_a_codes[1][column]).try(:text)||'(no answer)' ) %>
 <% else %>
-<%= f.text_field column, :value => q_and_a_codes[0][column],
-	:readonly => true %>
+	<%= f.text_field column, :value => q_and_a_codes[0][column],
+		:readonly => true %>
 <% end %>
 		</td>
+
+
+
+
+
 	<% end %><%# content_tag %>
 <% end %><%# HomeExposureResponse.q_column_names.each %>
 </tbody></table>

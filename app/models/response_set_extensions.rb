@@ -5,54 +5,12 @@ module ResponseSetExtensions
 		base.class_eval do
 			# Same as typing in the class
 
-			#	I still don't like this tactic. The access_code
-			#	NEEDs to be unique, but is just a collection of 10
-			#	purely random characters as can be seen in ...
-			#	lib/surveyor.rb's make_tiny_code()
-			#	It is certainly unlikely, but not impossible, that
-			#	2 access_code's could end up being the same.
-			#	This common idea that using cryptic text strings
-			#	as opposed to a guaranteed unique integer is
-			#	bothersome, but for the moment I'm not doing anything
-			#	to remedy it.  I've added this validation, as well as
-			#	a unique index in the db to prevent the creation.
-			#	I suspect that the collision will occur
-			#	and ResponseSet.create will return false which will
-			#	generate the misleading flash[:notice] ...
-			#	"Unable to find that survey".
-			#	I've added the code below that ensures when the
-			#	access_code is set that it is indeed unique.
-#	TO BE Included after 0.10.0
-#			validates_uniqueness_of :access_code
-
-
-			#	putting counter_cache here, causes double counting ??
-			#	I've never had this problem before, but adding
-			#	this association here with the counter_cache
-			#	causes duplicate incrementation
-			#	Subject Update (11.1ms)
-			#		UPDATE `subjects` SET `response_sets_count` =
-			#		COALESCE(`response_sets_count`, 0) + 1 WHERE (`id` = 4) 
-			#	Subject Update (5.9ms)
-			#		UPDATE `subjects` SET `response_sets_count` =
-			#		COALESCE(`response_sets_count`, 0) + 1 WHERE (`id` = 4) 
-			#	I'm assuming that this extension is called
-			#	multiple times causing this???  Wrapping it in this
-			#	condition seems to stop it.
-#
-#	The condition does not seem to be necessary with the
-#	recent self extending models.
-#			unless base.instance_methods.include?('subject')
-				belongs_to :subject, :counter_cache => true
-#			end
-
+			belongs_to :subject, :counter_cache => true
 
 			#	Require childid ... coming soon
 #			validates_presence_of   :childid
 
-
 			validates_presence_of   :subject_id
-			
 		end
 	end
 	
@@ -78,6 +36,11 @@ module ResponseSetExtensions
 		def q_and_a_codes_as_attributes
 			Hash[*self.responses.collect(&:q_and_a_codes).flatten]
 		end
+
+		def q_and_a_codes_and_text_as_attributes
+			Hash[*self.responses.collect(&:codes_and_text).flatten]
+		end
+		alias_method :codes_and_text, :q_and_a_codes_and_text_as_attributes
 
 #	gotta be careful overriding operators as they may be used elsewhere
 #		def ==(another_response_set)

@@ -35,6 +35,29 @@ module ResponseExtensions
 			end
 			[ q_code, a_code ]
 		end
+
+		def q_and_a_codes_and_text
+			q_code = self.question.data_export_identifier
+
+			unless %w( answer string integer float
+					text datetime
+				).include?(self.answer.response_class)
+				raise InvalidResponseClass
+			end
+
+			a_code = if self.answer.response_class == "answer"
+				self.answer.data_export_identifier
+			else
+				self.send("#{self.answer.response_class}_value")
+			end
+
+			a_text = self.answer.text
+			q_text = self.question.text
+
+			[ q_code, { :a_code => a_code, :a_text => a_text, :q_text => q_text }]
+		end
+		alias_method :codes_and_text, :q_and_a_codes_and_text
+		
 	end
 end
 #	Automatically included in 0.10.0
