@@ -12,6 +12,9 @@ Factory.define :aliquot_sample_format do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :child_id do |f|
+end
+
 Factory.define :context do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end

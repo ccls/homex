@@ -14,12 +14,14 @@ class Subject < ActiveRecord::Base
 	has_one :pii
 	has_one :home_exposure_response
 	has_one :patient
+	has_one :child_id
 
 	validates_presence_of :subject_type_id
 	validates_presence_of :race_id
 
-	delegate :ssn, :to => :pii, :allow_nil => true
+	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
+	delegate :childid,   :to => :child_id, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
@@ -32,6 +34,7 @@ class Subject < ActiveRecord::Base
 	#	s.pii.destroy will destroy the last one !?!?!?
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :patient
+	accepts_nested_attributes_for :child_id
 
 	class NotTwoResponseSets < StandardError; end
 

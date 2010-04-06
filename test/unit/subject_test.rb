@@ -41,6 +41,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_not_nil subject.subject_type
 	end
 
+	test "should have one child_id" do
+		subject = create_subject
+		assert_nil subject.child_id
+		Factory(:child_id, :subject_id => subject.id)
+		assert_not_nil subject.reload.child_id
+		subject.child_id.destroy
+		assert_nil subject.reload.child_id
+	end
+
 	test "should have one pii" do
 		subject = create_subject
 		assert_nil subject.pii
