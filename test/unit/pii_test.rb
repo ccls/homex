@@ -42,7 +42,7 @@ class PiiTest < ActiveSupport::TestCase
 #	so the pii can't require subject_id on create
 #	or this test fails.
 #
-	test "should require subject_id" do
+	test "should require subject_id on update" do
 		assert_difference 'Pii.count', 1 do
 			pii = create_pii
 			pii.reload.update_attributes(:first_name => "New First Name")
