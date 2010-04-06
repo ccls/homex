@@ -2,7 +2,6 @@ class CreatePiis < ActiveRecord::Migration
 	def self.up
 		create_table :piis do |t|
 			t.references :subject
-#	related_child_id
 			t.string :first_name
 			t.string :middle_name
 			t.string :last_name
