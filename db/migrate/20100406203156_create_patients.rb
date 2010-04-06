@@ -4,7 +4,6 @@ class CreatePatients < ActiveRecord::Migration
 			t.references :subject
 			t.date :diagnosis_date
 			t.integer :hospital_no
-			t.integer :diagnosis_id
 
 			t.timestamps
 		end
