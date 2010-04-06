@@ -67,6 +67,9 @@ Factory.define :page do |f|
 	f.body  "Page Body"
 end
 
+Factory.define :patient do |f|
+end
+
 Factory.define :person do |f|
 end
 Factory.define :interviewer, :parent => :person do |f|
