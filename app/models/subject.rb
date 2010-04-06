@@ -13,6 +13,7 @@ class Subject < ActiveRecord::Base
 	has_many :response_sets
 	has_one :pii
 	has_one :home_exposure_response
+	has_one :patient
 
 	validates_presence_of :subject_type_id
 	validates_presence_of :race_id
@@ -30,6 +31,7 @@ class Subject < ActiveRecord::Base
 	#	s.reload.pii  will return the first one (sorts by id)
 	#	s.pii.destroy will destroy the last one !?!?!?
 	accepts_nested_attributes_for :pii
+	accepts_nested_attributes_for :patient
 
 	class NotTwoResponseSets < StandardError; end
 

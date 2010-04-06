@@ -50,6 +50,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.pii
 	end
 
+	test "should have one patient" do
+		subject = create_subject
+		assert_nil subject.patient
+		Factory(:patient, :subject_id => subject.id)
+		assert_not_nil subject.reload.patient
+		subject.patient.destroy
+		assert_nil subject.reload.patient
+	end
+
 	test "should have one home_exposure_response" do
 		subject = create_subject
 		assert_nil subject.home_exposure_response
