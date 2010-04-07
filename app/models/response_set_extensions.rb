@@ -38,7 +38,16 @@ module ResponseSetExtensions
 		end
 
 		def q_and_a_codes_and_text_as_attributes
-			Hash[*self.responses.collect(&:codes_and_text).flatten]
+#			Hash[*self.responses.collect(&:codes_and_text).flatten]
+#	set hash defaults for when columns does exist in merging
+			h=Hash.new({:a_code => '', :a_text => '(no answer)', :q_text => ''})
+
+#	can't i do a merge or update or something here
+
+			self.responses.collect(&:codes_and_text).each do |cat|
+				cat.each_pair{|k,v| h[k]=v }
+			end
+			h
 		end
 		alias_method :codes_and_text, :q_and_a_codes_and_text_as_attributes
 

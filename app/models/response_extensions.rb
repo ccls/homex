@@ -54,7 +54,8 @@ module ResponseExtensions
 			a_text = self.answer.text
 			q_text = self.question.text
 
-			[ q_code, { :a_code => a_code, :a_text => a_text, :q_text => q_text }]
+#			[ q_code, { :a_code => a_code, :a_text => a_text, :q_text => q_text }]
+			{ q_code => { :a_code => a_code, :a_text => a_text, :q_text => q_text }}
 		end
 		alias_method :codes_and_text, :q_and_a_codes_and_text
 		
