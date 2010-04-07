@@ -79,6 +79,56 @@ class ResponseTest < ActiveSupport::TestCase
 	end
 
 
+	test "should raise error on q_and_a_codes_and_text with invalid response_class" do
+		#	This is unlikely to happen in reality
+		#	as all of this is part of the gem.
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { :response_class => '' },
+			:response => { :string_value => "xyz" }
+		)
+		assert_raise(Response::InvalidResponseClass){
+			response.q_and_a_codes_and_text
+		}
+	end
+
+	test "should return q_and_a_codes_and_text for response_class integer" do
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { :response_class => 'integer' },
+			:response => { :integer_value => 1942 }
+		)
+		assert_equal response.q_and_a_codes_and_text,
+			Hash['abc'=>{:a_code => 1942, :a_text => 1942, 
+			:q_text => Factory.attributes_for(:question)[:text]}]
+	end
+
+	test "should return q_and_a_codes_and_text for response_class string" do
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { :response_class => 'string' },
+			:response => { :string_value => "xyz" }
+		)
+		assert_equal response.q_and_a_codes_and_text,
+			Hash['abc'=>{:a_code => 'xyz', :a_text => 'xyz', 
+			:q_text => Factory.attributes_for(:question)[:text]}]
+	end
+
+	test "should return q_and_a_codes_and_text for response_class answer" do
+		response = full_response(
+			:question => { :data_export_identifier => "abc" },
+			:answer   => { 
+				:data_export_identifier => "xyz",
+				:response_class => 'answer' 
+			}
+		)
+		assert_equal response.q_and_a_codes_and_text,
+			Hash['abc'=>{:a_code => 'xyz', 
+			:a_text => Factory.attributes_for(:answer)[:text],
+			:q_text => Factory.attributes_for(:question)[:text]}]
+	end
+
+
 protected
 
 	def create_response(options = {})

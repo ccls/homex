@@ -72,7 +72,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 
-	test "should return q_and_a_codes for response_class string" do
+	test "should return codes for response_set" do
 		r1 = full_response(
 			:question => { :data_export_identifier => "abc" },
 			:answer   => { :response_class => 'string' },
@@ -85,9 +85,20 @@ class ResponseSetTest < ActiveSupport::TestCase
 		)
 		assert_equal [["abc","def"],["ghi","jkl"]], 
 			r1.response_set.reload.q_and_a_codes
-#		assert_equal { "abc"=>"def", "ghi"=>"jkl" }, 
 		assert_equal Hash[*[["abc","def"],["ghi","jkl"]].flatten],
 			r1.response_set.reload.q_and_a_codes_as_attributes
+
+		assert_equal r1.response_set.reload.codes_and_text,
+			Hash['abc'=>{
+					:a_code => 'def',
+					:a_text => 'def',
+					:q_text => r1.question.text
+				},
+				'ghi'=>{
+					:a_code => 'jkl',
+					:a_text => Factory.attributes_for(:answer)[:text],
+					:q_text => r2.question.text
+			}]
 	end
 
 
