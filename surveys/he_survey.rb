@@ -10,13 +10,15 @@
 #		variable names for questions and values for answers.
 #
 
-survey "Home Exposure survey" do
+survey "Home Exposure survey",
+	:manual_numbering => true do
 
   section "Basic questions" do
 
 		label "Before we start I would like to remind you that everything you tell us is confidential.  You can refuse to answer any questions and you may stop the interview at any time."
 		
 		q "Does your vacuum cleaner have a disposable bag?", 
+			:number => 1,
 			:pick => :one, 
 			:data_export_identifier => :vacuum_has_disposable_bag
 		a "Yes",        :data_export_identifier => 1
@@ -25,6 +27,7 @@ survey "Home Exposure survey" do
 
 		
 		q "In the last 12 months, on average, how often were the rugs and floors in this home usually vacuumed?  Would you say...", 
+			:number => 2,
 			:pick => :one, 
 			:data_export_identifier => :how_often_vacuumed_12mos
 		a "Less than once a month", :data_export_identifier => 1
@@ -34,6 +37,7 @@ survey "Home Exposure survey" do
 		a "Don't know",             :data_export_identifier => 999
 		
 		q "In the last 12 months, did all of the people who lived in this home usually take off their shoes when entering the home?", 
+			:number => 3,
 			:pick => :one, 
 			:data_export_identifier => :shoes_usually_off_inside_12mos
 		a "Yes",        :data_export_identifier => 1
@@ -41,6 +45,7 @@ survey "Home Exposure survey" do
 		a "Don't know", :data_export_identifier => 999
 		
 		q_4 "During the last 12 months, did you or anyone else in your home eat hamburger, steak, pork, chicken or other meat products?", 
+			:number => 4,
 			:pick => :one, 
 			:data_export_identifier => :someone_ate_meat_12mos
 		a_1 "Yes",        :data_export_identifier => 1
@@ -134,133 +139,133 @@ survey "Home Exposure survey" do
 
 		label "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ..."
 
-		q_7a "1 = Airplane Mechanic", 
+		q_7a "Airplane Mechanic", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_plane_mechanic_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "2 = Artist / Art Teacher", 
+		question "Artist / Art Teacher", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_artist_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "3 = Cleaner / Janitor", 
+		question "Cleaner / Janitor", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_janitor_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "4 = Construction Worker / Carpenter", 
+		question "Construction Worker / Carpenter", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_construction_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "5 = Dentist / Dental Worker", 
+		question "Dentist / Dental Worker", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_dentist_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "6 = Electrician / Lineman / Cable puller", 
+		question "Electrician / Lineman / Cable puller", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_electrician_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "7 = Engineer/ Environmental Scientist", 
+		question "Engineer/ Environmental Scientist", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_engineer_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "8 = Farmer / Farm or Ranch Worker", 
+		question "Farmer / Farm or Ranch Worker", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_farmer_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "9 = Gardner / Groundskeeper / Landscaper / Nursery worker", 
+		question "Gardner / Groundskeeper / Landscaper / Nursery worker", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_gardener_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "10 = Laboratory worker / Lab ScienceTeacher", 
+		question "Laboratory worker / Lab ScienceTeacher", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_lab_worker_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "11 = Manufacturing / Assembly / Industrial operations/ Product repair", 
+		question "Manufacturing / Assembly / Industrial operations/ Product repair", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_manufacturer_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "12 = Mechanic-auto / truck / bus", 
+		question "Mechanic-auto / truck / bus", 
 			:pick => :one, 
 			:data_export_identifier => :job_auto_mechanic_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "13 = Medical Patient Care Worker", 
+		question "Medical Patient Care Worker", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_patient_care_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "14 = Packer - Agricultural", 
+		question "Packer - Agricultural", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_agr_packer_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "15 = Painter / Wallpaperer", 
+		question "Painter / Wallpaperer", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_painter_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "16 = Pesticiding Handling / Production / Formulation or Mixing", 
+		question "Pesticiding Handling / Production / Formulation or Mixing", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_pesticides_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "17 = Photographer / Framer / Photography Teacher", 
+		question "Photographer / Framer / Photography Teacher", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_photographer_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "18 = Teacher-- Preschool to 5th Grade", 
+		question "Teacher-- Preschool to 5th Grade", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_teacher_12mos
 		a "Yes",        :data_export_identifier => 1
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		question "19 = Welder / Joiner", 
+		question "Welder / Joiner", 
 			:pick => :one, 
 			:data_export_identifier => :job_is_welder_12mos
 		a "Yes",        :data_export_identifier => 1
