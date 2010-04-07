@@ -2,7 +2,9 @@ class HomeExposureResponse < ActiveRecord::Base
 	belongs_to :subject
 
 	def self.q_column_names
-		column_names - ['id','subject_id','childid','created_at','updated_at']
+		column_names - 
+			%w( id subject_id childid created_at updated_at ) -
+			%w( vacuum_bag_last_changed vacuum_used_outside_home )
 	end
 
 #	validates_numericality_of :number_of_floors_in_home,
