@@ -43,11 +43,14 @@ module ResponseSetExtensions
 			h=Hash.new({:a_code => '', :a_text => '(no answer)', :q_text => ''})
 
 #	can't i do a merge or update or something here
+#	I'll probably lose the defaults above
+#	h.merge keeps h's defaults!!!  woohoo!
+			h.merge(self.responses.collect(&:codes_and_text).inject(:merge))
 
-			self.responses.collect(&:codes_and_text).each do |cat|
-				cat.each_pair{|k,v| h[k]=v }
-			end
-			h
+#			self.responses.collect(&:codes_and_text).each do |cat|
+#				cat.each_pair{|k,v| h[k]=v }
+#			end
+#			h
 		end
 		alias_method :codes_and_text, :q_and_a_codes_and_text_as_attributes
 

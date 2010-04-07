@@ -51,7 +51,12 @@ module ResponseExtensions
 				self.send("#{self.answer.response_class}_value")
 			end
 
-			a_text = self.answer.text
+			a_text = if self.answer.response_class == "answer"
+				self.answer.text
+			else
+				self.send("#{self.answer.response_class}_value")
+			end
+
 			q_text = self.question.text
 
 #			[ q_code, { :a_code => a_code, :a_text => a_text, :q_text => q_text }]
