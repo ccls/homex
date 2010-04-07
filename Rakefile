@@ -50,6 +50,8 @@ end
 require 'tasks/rails'
 
 #	why?  Included by default
+#	As a plugin, this line will cause all tasks to be duplicated
+#	so DEFINITELY remove this line
 #require 'tasks/surveyor'
 
 require 'lib/surveyor/survey_extensions'
