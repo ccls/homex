@@ -7,7 +7,7 @@
 <div id='subjects'>
 <% @subjects.each do |subject| %>
 <% content_tag_for( :div, subject, :class => 'row' ) do %>
-<div class='id'><%= subject.id -%></div>
+<div class='id'><%= link_to subject.id, subject -%></div>
 <div class='count'>Taken: <%= subject.response_sets_count -%></div>
 <div class='edit_surveys'>
 	<% subject.response_sets.each do |rs| %>
@@ -51,3 +51,10 @@
 <% end %><%# content_tag_for %>
 <% end %><%# @subjects.each %>
 </div>
+
+
+
+<% form_tag(subjects_path, :method => :get) do %>
+	<%= text_field_tag 'Something', nil, :id => nil %>
+	<%= submit_tag 'Search', :name => nil %>
+<% end %>
