@@ -6,6 +6,7 @@ module SurveyParser
     attr_accessor :reference_identifier, :data_export_identifier, :common_namespace, :common_identifier
     attr_accessor :display_order, :display_type, :is_mandatory, :display_width, :custom_class, :custom_renderer
     attr_accessor :dependency
+    attr_accessor :number
     has_children :answers
 
     def default_options

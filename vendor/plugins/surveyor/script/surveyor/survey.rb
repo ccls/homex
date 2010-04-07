@@ -6,6 +6,7 @@ module SurveyParser
     attr_accessor :access_code, :reference_identifier, :data_export_identifier, :common_namespace, :common_identitier
     attr_accessor :active_at, :inactive_at
     attr_accessor :css_url, :custom_class
+    attr_accessor :manual_numbering
     has_children :survey_sections
   
     def parse_args(args)

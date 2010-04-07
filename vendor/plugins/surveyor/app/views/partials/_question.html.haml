@@ -10,7 +10,10 @@
   - if renderer == :slider
     %script{:type => "text/javascript"}= "$(function(){$('#slider_#{question.id}').accessibleUISlider({width: 400, labels:#{question.answers.size} }).hide();});"
   - div_for question, :class => question.css_class(response_set) do
-    .number= next_number unless question.dependent?
+    - if question.survey_section.survey.manual_numbering
+      .number= question.number||'&nbsp;'
+    - else
+      .number= next_number unless question.dependent?
     %fieldset
       %legend{:style => "display:inline;"}
         %span.text= question.text
@@ -60,7 +63,10 @@
       = select_tag("responses[#{question.id}][answer_id]", ["<option value=''>Select one...</option>"].concat(options))
 - else # :default, :inline
   - div_for question, :class => question.css_class(response_set) do
-    .number= next_number unless question.dependent?
+    - if question.survey_section.survey.manual_numbering
+      .number= question.number||'&nbsp;'
+    - else
+      .number= next_number unless question.dependent?
     %fieldset
       %legend
         %span.text= question.text
