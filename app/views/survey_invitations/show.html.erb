@@ -1,2 +1,7 @@
 
-Welcome
+Welcome, your invitation is valid.
+
+<%= link_to "Take survey", edit_my_survey_path( 
+	:survey_code       => @response_set.survey.access_code, 
+	:response_set_code => @response_set.access_code
+) %>

@@ -1,9 +1,11 @@
 class SurveyInvitationsController < ApplicationController
+	skip_before_filter :cas_filter, :only => :show
 	before_filter :may_create_invitations_required, :only => :create
 	before_filter :valid_subject_id_required, :only => :create
 	before_filter :valid_survey_required, :only => :create
-
 	before_filter :valid_invitation_token_required, :only => :show
+
+#	layout 'survey', :only => :show
 
 	def create
 		invitation = @subject.recreate_survey_invitation(@survey)
@@ -16,8 +18,29 @@ class SurveyInvitationsController < ApplicationController
 	end
 
 	def show
+#	if first time
+#	create response_set
+#	attach everything
+#	else
+#	find rs
+# end
+		if @invitation.response_set
+			@response_set = @invitation.response_set
+		else
+			@response_set = ResponseSet.create!( 
+				:survey  => @invitation.survey,
+				:subject => @invitation.subject)
+		end
+
+#	view has forms for consent
+#	button to begin/continue
 
 
+#	destroy cookie when survey is complete
+
+	rescue ActiveRecord::RecordInvalid
+		flash[:error] = "Unable to create a new response set"
+		redirect_to( root_path )
 	end
 
 protected
@@ -34,6 +57,7 @@ protected
 		if( SurveyInvitation.exists?( :token => params[:id] ) )
 			@invitation = SurveyInvitation.first(:conditions => {
 				:token => params[:id] })
+			session[:invitation] = params[:id]
 		else
 			access_denied("Valid Invitation required")
 		end
