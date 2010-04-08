@@ -5,9 +5,9 @@ module SurveyExtensions
 		base.class_eval do
 			# Same as typing in the class
 
-#	TO BE Included after 0.10.0
-#			validates_uniqueness_of :access_code
-
+			#	this relationship is true
+			#	but I don't know how useful it is
+			#has_many :survey_invitations
 		end
 	end
 	

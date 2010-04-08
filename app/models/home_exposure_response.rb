@@ -1,6 +1,7 @@
 class HomeExposureResponse < ActiveRecord::Base
 	belongs_to :subject
 
+	validates_presence_of :subject_id
 	validates_uniqueness_of :subject_id
 
 	def self.q_column_names
