@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 		subject.resource :home_exposure_response, :only => [ :new, :create, :show ]
 	  subject.resource :survey_invitation, :only => :create
 	end
-#  map.resources :survey_invitations, :only => :show
+  map.resources :survey_invitations, :only => :show
 
 
 
