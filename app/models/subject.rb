@@ -15,6 +15,7 @@ class Subject < ActiveRecord::Base
 	has_one :home_exposure_response
 	has_one :patient
 	has_one :child_id
+	has_one :survey_invitation
 
 	validates_presence_of :subject_type_id
 	validates_presence_of :race_id
@@ -37,6 +38,12 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :child_id
 
 	class NotTwoResponseSets < StandardError; end
+	class InvitationInvalid < StandardError
+		attr_reader :subject, :message;
+		def initialize(subject, message=nil)
+			@message, @subject = message, subject
+		end
+	end
 
 	def response_sets_the_same?
 		if response_sets.length == 2
@@ -56,6 +63,20 @@ class Subject < ActiveRecord::Base
 		else
 			raise NotTwoResponseSets
 		end
+	end
+
+	def recreate_survey_invitation
+		if self.survey_invitation
+			#	calling ...
+			#			self.survey_invitation.destroy
+			#	raises TypeError: can't modify frozen hash
+			#	but works???  Destroying more explicitly.
+			SurveyInvitation.destroy_all( :subject_id => self.id )
+#			SurveyInvitation.find(:first, 
+#				:conditions => { :subject_id => self.id }
+#			).destroy
+		end
+		self.create_survey_invitation
 	end
 
 end

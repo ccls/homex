@@ -220,4 +220,8 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
+	permission :create_invitations do
+		allow :employee
+	end
+
 end

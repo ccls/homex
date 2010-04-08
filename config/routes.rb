@@ -56,7 +56,9 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :response_sets, :only => [ :create ]
 	map.resources :subjects, :only => [ :index, :show ] do |subject|
 		subject.resource :home_exposure_response, :only => [ :new, :create, :show ]
+	  subject.resource :survey_invitation, :only => :create
 	end
+#  map.resources :survey_invitations, :only => :show
 
 
 

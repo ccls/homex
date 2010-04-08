@@ -20,6 +20,16 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+
+	test "should create subject with patient" do
+
+	end
+
+	test "should create subject with child_id" do
+
+	end
+
+
 #	test "should require description" do
 #		assert_no_difference 'Subject.count' do
 #			subject = create_subject(:description => nil)
@@ -40,6 +50,17 @@ class SubjectTest < ActiveSupport::TestCase
 #		subject.subject_type = Factory(:subject_type)
 		assert_not_nil subject.subject_type
 	end
+
+	test "should have one survey_invitation" do
+		subject = create_subject
+		assert_nil subject.survey_invitation
+		Factory(:survey_invitation, :subject_id => subject.id)
+		assert_not_nil subject.reload.survey_invitation
+		subject.survey_invitation.destroy
+		assert_nil subject.reload.survey_invitation
+	end
+
+	
 
 	test "should have one child_id" do
 		subject = create_subject
