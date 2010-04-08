@@ -62,17 +62,13 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_equal 2, operational_event_type.reload.operational_events.length
 	end
 
-	test "should belong to a study_event" do
+	test "should initially belong to a study_event" do
 		operational_event_type = create_operational_event_type
-#		assert_nil operational_event_type.study_event
-#		operational_event_type.study_event = Factory(:study_event)
 		assert_not_nil operational_event_type.study_event
 	end
 
-	test "should belong to an interview_event" do
+	test "should initially belong to an interview_event" do
 		operational_event_type = create_operational_event_type
-#		assert_nil operational_event_type.interview_event
-#		operational_event_type.interview_event = Factory(:interview_event)
 		assert_not_nil operational_event_type.interview_event
 	end
 

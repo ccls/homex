@@ -10,6 +10,25 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require survey_id" do
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(:survey_id => nil)
+			assert survey_invitation.errors.on(:survey_id)
+		end
+	end
+
+	test "should require unique survey_id / subject_id" do
+		si = create_survey_invitation
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(
+				:subject_id => si.subject_id,
+				:survey_id  => si.survey_id)
+			#	because of the wording of the validation
+			#	the error is on subject_id
+			assert survey_invitation.errors.on(:subject_id)
+		end
+	end
+
 	test "should require subject_id" do
 		assert_no_difference 'SurveyInvitation.count' do
 			survey_invitation = create_survey_invitation(:subject_id => nil)
@@ -25,6 +44,18 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique token" do
+		si = create_survey_invitation
+		SurveyInvitation.any_instance.stubs(:create_token).returns(true)
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(
+				:token      => si.token,
+				:subject_id => si.subject_id,
+				:survey_id  => si.survey_id )
+			assert survey_invitation.errors.on(:token)
+		end
+	end
+
 	test "should require response_set_id on update" do
 		assert_difference 'SurveyInvitation.count', 1 do
 			survey_invitation = create_survey_invitation
@@ -33,22 +64,36 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should create new invitation" do
+	test "should require unique response_set_id" do
+		rs = Factory(:response_set)
+		si = create_survey_invitation(:response_set_id => rs.id)
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(
+				:response_set_id => si.response_set_id)
+			assert survey_invitation.errors.on(:response_set_id)
+		end
+	end
+
+	test "should create replacement invitation" do
 		survey_invitation = create_survey_invitation
 		subject = survey_invitation.subject
-		before_id = subject.survey_invitation.id
+		survey = survey_invitation.survey
+		before_id = subject.survey_invitations.first.id
 		assert_difference('SurveyInvitation.count', 0) do
-			subject.recreate_survey_invitation
+			subject.recreate_survey_invitation(survey)
 		end
-		after_id = subject.reload.survey_invitation.id
+		after_id = subject.reload.survey_invitations.first.id
 		assert_not_equal before_id, after_id
 	end
 
-	test "should belong to subject" do
+	test "should initially belong to subject" do
 		survey_invitation = create_survey_invitation
-#		assert_nil survey_invitation.subject
-#		survey_invitation.subject = Factory(:subject)
 		assert_not_nil survey_invitation.subject
+	end
+
+	test "should initially belong to survey" do
+		survey_invitation = create_survey_invitation
+		assert_not_nil survey_invitation.survey
 	end
 
 	test "should belong to response_set" do
@@ -57,7 +102,6 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		survey_invitation.response_set = Factory(:response_set)
 		assert_not_nil survey_invitation.response_set
 	end
-
 
 protected
 

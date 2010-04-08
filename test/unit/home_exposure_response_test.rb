@@ -10,50 +10,28 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to subject" do
-		home_exposure_response = create_home_exposure_response
-		assert_nil home_exposure_response.subject
-		home_exposure_response.subject = Factory(:subject)
-		assert_not_nil home_exposure_response.subject
+	test "should require subject_id" do
+		assert_difference( 'HomeExposureResponse.count', 0 ) do
+			home_exposure_response = create_home_exposure_response(
+				:subject => nil)
+			assert home_exposure_response.errors.on(:subject_id)
+		end
 	end
 
-#	test "should require description" do
-#		assert_no_difference 'HomeExposureResponse.count' do
-#			home_exposure_response = create_home_exposure_response(:description => nil)
-#			assert home_exposure_response.errors.on(:description)
-#		end
-#	end
-#
-#	test "should require 4 char description" do
-#		assert_no_difference 'HomeExposureResponse.count' do
-#			home_exposure_response = create_home_exposure_response(:description => 'Hey')
-#			assert home_exposure_response.errors.on(:description)
-#		end
-#	end
-#
-#	test "should require unique description" do
-#		u = create_home_exposure_response
-#		assert_no_difference 'HomeExposureResponse.count' do
-#			home_exposure_response = create_home_exposure_response(:description => u.description)
-#			assert home_exposure_response.errors.on(:description)
-#		end
-#	end
-#
-#	test "should belong to a context" do
-#		home_exposure_response = create_home_exposure_response
-#		assert_nil home_exposure_response.context
-#		home_exposure_response.context = Factory(:context)
-#		assert_not_nil home_exposure_response.context
-#	end
-#
-#	test "should have many samples" do
-#		home_exposure_response = create_home_exposure_response
-#		assert_equal 0, home_exposure_response.samples.length
-#		Factory(:sample, :home_exposure_questionnaire_id => home_exposure_response.id)
-#		assert_equal 1, home_exposure_response.reload.samples.length
-#		Factory(:sample, :home_exposure_questionnaire_id => home_exposure_response.id)
-#		assert_equal 2, home_exposure_response.reload.samples.length
-#	end
+	test "should require unique subject_id" do
+		subject = Factory(:subject)
+		create_home_exposure_response(:subject => subject)
+		assert_difference( 'HomeExposureResponse.count', 0 ) do
+			home_exposure_response = create_home_exposure_response(
+				:subject => subject)
+			assert home_exposure_response.errors.on(:subject_id)
+		end
+	end
+
+	test "should initially belong to subject" do
+		home_exposure_response = create_home_exposure_response
+		assert_not_nil home_exposure_response.subject
+	end
 
 protected
 

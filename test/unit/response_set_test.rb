@@ -42,7 +42,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to a survey" do
+	test "should initially belong to a survey" do
 		response_set = create_response_set
 		assert_not_nil response_set.survey
 	end
@@ -54,7 +54,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_not_nil response_set.user
 	end
 
-	test "should belong to a subject" do
+	test "should initially belong to a subject" do
 		response_set = create_response_set
 		assert_not_nil response_set.reload.subject
 		assert_equal 1, response_set.subject.response_sets_count
@@ -70,7 +70,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 		Factory(:response, :response_set_id => response_set.id)
 		assert_equal 2, response_set.reload.responses.length
 	end
-
 
 	test "should return codes for response_set" do
 		r1 = full_response(
@@ -101,7 +100,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 			}]
 	end
 
-
 	test "should merge matching surveys into single HER" do
 		assert_difference( 'Survey.count', 1 ) {
 		assert_difference( 'SurveySection.count', 1 ) {
@@ -126,7 +124,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 			assert_equal 42, her.subject_id
 		}
 	end
-
 
 	test "should destroy responses on set destroy" do
 		assert_difference( 'Survey.count', 1 ) {

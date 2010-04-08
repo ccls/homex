@@ -20,47 +20,61 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-
 	test "should create subject with patient" do
-
+		assert_difference( 'Patient.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:patient_attributes => Factory.attributes_for(:patient))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+		} }
 	end
 
 	test "should create subject with child_id" do
-
+		assert_difference( 'ChildId.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:child_id_attributes => Factory.attributes_for(:child_id))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+		} }
 	end
 
-
-#	test "should require description" do
-#		assert_no_difference 'Subject.count' do
-#			subject = create_subject(:description => nil)
-#			assert subject.errors.on(:description)
-#		end
-#	end
-
-	test "should belong to race" do
+	test "should initially belong to race" do
 		subject = create_subject
-#		assert_nil subject.race
-#		subject.race = Factory(:race)
 		assert_not_nil subject.race
 	end
 
-	test "should belong to subject_type" do
+	test "should initially belong to subject_type" do
 		subject = create_subject
-#		assert_nil subject.subject_type
-#		subject.subject_type = Factory(:subject_type)
 		assert_not_nil subject.subject_type
 	end
 
-	test "should have one survey_invitation" do
+	test "should have one survey_invitation per survey" do
 		subject = create_subject
-		assert_nil subject.survey_invitation
-		Factory(:survey_invitation, :subject_id => subject.id)
-		assert_not_nil subject.reload.survey_invitation
-		subject.survey_invitation.destroy
-		assert_nil subject.reload.survey_invitation
+		survey  = Factory(:survey)
+		assert_equal [], SurveyInvitation.find(:all,:conditions => {
+			:subject_id => subject.id, :survey_id => survey.id })
+		Factory(:survey_invitation, {
+			:subject_id => subject.id, :survey_id => survey.id })
+
+
+#	TODO
+
+
+#		assert_not_nil subject.reload.survey_invitation
+#		subject.survey_invitation.destroy
+#		assert_nil subject.reload.survey_invitation
 	end
 
-	
+	test "should have many survey_invitations" do
+		subject = create_subject
+		assert_equal 0, subject.survey_invitations.length
+		Factory(:survey_invitation, :subject_id => subject.id)
+		assert_equal 1, subject.reload.survey_invitations.length
+		Factory(:survey_invitation, :subject_id => subject.id)
+		assert_equal 2, subject.reload.survey_invitations.length
+	end
 
 	test "should have one child_id" do
 		subject = create_subject
@@ -239,7 +253,6 @@ class SubjectTest < ActiveSupport::TestCase
 			sets.first.subject.response_set_diffs
 		}
 	end
-
 
 protected
 

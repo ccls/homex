@@ -42,7 +42,6 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		assert_equal 2, refusal_reason.reload.project_subjects.length
 	end
 
-
 protected
 
 	def create_refusal_reason(options = {})

@@ -26,20 +26,15 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to subject" do
+	test "should initially belong to subject" do
 		study_event_eligibility = create_study_event_eligibility
-#		assert_nil study_event_eligibility.subject
-#		study_event_eligibility.subject = Factory(:subject)
 		assert_not_nil study_event_eligibility.subject
 	end
 
-	test "should belong to study_event" do
+	test "should initially belong to study_event" do
 		study_event_eligibility = create_study_event_eligibility
-#		assert_nil study_event_eligibility.study_event
-#		study_event_eligibility.study_event = Factory(:study_event)
 		assert_not_nil study_event_eligibility.study_event
 	end
-
 
 protected
 

@@ -24,17 +24,13 @@ class ResidenceTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to an address" do
+	test "should initially belong to an address" do
 		residence = create_residence
-#		assert_nil residence.address
-#		residence.address = Factory(:address)
 		assert_not_nil residence.address
 	end
 
-	test "should belong to a subject" do
+	test "should initially belong to a subject" do
 		residence = create_residence
-#		assert_nil residence.subject
-#		residence.subject = Factory(:subject)
 		assert_not_nil residence.subject
 	end
 

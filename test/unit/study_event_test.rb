@@ -69,7 +69,6 @@ class StudyEventTest < ActiveSupport::TestCase
 		assert_equal 2, study_event.reload.project_subjects.length
 	end
 
-
 protected
 
 	def create_study_event(options = {})

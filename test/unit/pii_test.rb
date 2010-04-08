@@ -37,15 +37,24 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-#
-#	subject uses accepts_attributes_for :pii
-#	so the pii can't require subject_id on create
-#	or this test fails.
-#
+	#
+	#	subject uses accepts_attributes_for :pii
+	#	so the pii can't require subject_id on create
+	#	or this test fails.
+	#
 	test "should require subject_id on update" do
 		assert_difference 'Pii.count', 1 do
 			pii = create_pii
 			pii.reload.update_attributes(:first_name => "New First Name")
+			assert pii.errors.on(:subject_id)
+		end
+	end
+
+	test "should require unique subject_id" do
+		subject = Factory(:subject)
+		create_pii(:subject => subject)
+		assert_difference( 'Pii.count', 0 ) do
+			pii = create_pii(:subject => subject)
 			assert pii.errors.on(:subject_id)
 		end
 	end
@@ -95,7 +104,6 @@ class PiiTest < ActiveSupport::TestCase
 		pii.subject = Factory(:subject)
 		assert_not_nil pii.subject
 	end
-
 
 protected
 

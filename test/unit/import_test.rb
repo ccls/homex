@@ -10,13 +10,6 @@ class ImportTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require carrier" do
-#		assert_no_difference 'Import.count' do
-#			import = create_import(:carrier => nil)
-#			assert import.errors.on(:carrier)
-#		end
-#	end
-
 protected
 
 	def create_import(options = {})

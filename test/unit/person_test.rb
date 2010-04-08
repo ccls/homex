@@ -10,13 +10,6 @@ class PersonTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require description" do
-#		assert_no_difference 'Person.count' do
-#			person = create_person(:description => nil)
-#			assert person.errors.on(:description)
-#		end
-#	end
-
 	test "should belong to a context" do
 		person = create_person
 		assert_nil person.context

@@ -40,10 +40,8 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to a study event" do
+	test "should initially belong to a study event" do
 		interview_type = create_interview_type
-#		assert_nil interview_type.study_event
-#		interview_type.study_event = Factory(:study_event)
 		assert_not_nil interview_type.study_event
 	end
 
@@ -55,7 +53,6 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		Factory(:interview_version, :interview_type_id => interview_type.id)
 		assert_equal 2, interview_type.reload.interview_versions.length
 	end
-
 
 protected
 

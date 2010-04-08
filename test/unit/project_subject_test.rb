@@ -24,10 +24,8 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to a subject" do
+	test "should initially belong to a subject" do
 		project_subject = create_project_subject
-#		assert_nil project_subject.subject
-#		project_subject.subject = Factory(:subject)
 		assert_not_nil project_subject.subject
 	end
 
@@ -45,13 +43,10 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		assert_not_nil project_subject.refusal_reason
 	end
 
-	test "should belong_to study_event" do
+	test "should initially belong_to study_event" do
 		project_subject = create_project_subject
-#		assert_nil project_subject.study_event
-#		project_subject.study_event = Factory(:study_event)
 		assert_not_nil project_subject.study_event
 	end
-
 
 protected
 

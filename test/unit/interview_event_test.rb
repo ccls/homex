@@ -10,13 +10,6 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should belong to a interview_type" do
-#		interview_event = create_interview_event
-#		assert_nil interview_event.interview_type
-#		interview_event.interview_type = Factory(:interview_type)
-#		assert_not_nil interview_event.interview_type
-#	end
-
 	test "should require address_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:address_id => nil)
@@ -38,24 +31,18 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to an address" do
+	test "should initially belong to an address" do
 		interview_event = create_interview_event
-#		assert_nil interview_event.address
-#		interview_event.address = Factory(:address)
 		assert_not_nil interview_event.address
 	end
 
-	test "should belong to a subject" do
+	test "should initially belong to a subject" do
 		interview_event = create_interview_event
-#		assert_nil interview_event.subject
-#		interview_event.subject = Factory(:subject)
 		assert_not_nil interview_event.subject
 	end
 
-	test "should belong to an interviewer" do
+	test "should initially belong to an interviewer" do
 		interview_event = create_interview_event
-#		assert_nil interview_event.interviewer
-#		interview_event.interviewer = Factory(:interviewer)
 		assert_not_nil interview_event.interviewer
 		assert interview_event.interviewer.is_a?(Person)
 	end

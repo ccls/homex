@@ -38,28 +38,26 @@ class SampleTest < ActiveSupport::TestCase
 		assert_not_nil sample.sample_subtype
 	end
 
-	test "should belong to subject" do
+	test "should initially belong to subject" do
 		sample = create_sample
-#		assert_nil sample.subject
-#		sample.subject = Factory(:subject)
 		assert_not_nil sample.subject
 	end
 
-	test "should belong to unit" do
+	test "should initially belong to unit" do
 		sample = create_sample
-#		assert_nil sample.unit
-#		sample.unit = Factory(:unit)
 		assert_not_nil sample.unit
 	end
 
 #	somehow
 
-#	test "should belong to organization" do
+	test "should belong to organization" do
 #		sample = create_sample
 #		assert_nil sample.organization
 #		sample.organization = Factory(:organization)
 #		assert_not_nil sample.organization
-#	end
+
+#	TODO
+	end
 
 	test "should have many aliquots" do
 		sample = create_sample
@@ -69,7 +67,6 @@ class SampleTest < ActiveSupport::TestCase
 		Factory(:aliquot, :sample_id => sample.id)
 		assert_equal 2, sample.reload.aliquots.length
 	end
-
 
 protected
 

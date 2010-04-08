@@ -45,25 +45,15 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_not_nil aliquot.aliquot_sample_format
 	end
 
-	test "should belong to sample" do
+	test "should initially belong to sample" do
 		aliquot = create_aliquot
-#		assert_nil aliquot.sample
-#		aliquot.sample = Factory(:sample)
 		assert_not_nil aliquot.sample
 	end
 
-	test "should belong to unit" do
+	test "should initially belong to unit" do
 		aliquot = create_aliquot
-#		assert_nil aliquot.unit
-#		aliquot.unit = Factory(:unit)
 		assert_not_nil aliquot.unit
 	end
-
-#	test "should belong to aliquoter" do
-#		aliquot = create_aliquot
-#		assert_not_nil aliquot.aliquoter
-#		assert aliquot.aliquoter.is_a?(Organization)
-#	end
 
 	test "should belong to owner" do
 		aliquot = create_aliquot
@@ -121,7 +111,8 @@ class AliquotTest < ActiveSupport::TestCase
 		initial_owner = aliquot.owner
 		assert_not_nil initial_owner
 		new_owner = Factory(:organization)
-		Transfer.any_instance.stubs(:save!).raises(ActiveRecord::RecordInvalid.new(Transfer.new))
+		Transfer.any_instance.stubs(:save!).raises(
+			ActiveRecord::RecordInvalid.new(Transfer.new))
 		assert_no_difference('aliquot.reload.owner_id') {
 		assert_no_difference('aliquot.transfers.count') {
 		assert_no_difference('initial_owner.aliquots.count') {

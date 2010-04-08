@@ -31,7 +31,7 @@ class ResponseTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to a response_set" do
+	test "should initially belong to a response_set" do
 		response = create_response
 		assert_not_nil response.response_set
 	end
@@ -77,7 +77,6 @@ class ResponseTest < ActiveSupport::TestCase
 		)
 		assert_equal ["abc","xyz"], response.q_and_a_codes
 	end
-
 
 	test "should raise error on q_and_a_codes_and_text with invalid response_class" do
 		#	This is unlikely to happen in reality
@@ -127,7 +126,6 @@ class ResponseTest < ActiveSupport::TestCase
 			:a_text => Factory.attributes_for(:answer)[:text],
 			:q_text => Factory.attributes_for(:question)[:text]}]
 	end
-
 
 protected
 

@@ -10,20 +10,6 @@ class PackageTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require carrier" do
-#		assert_no_difference 'Package.count' do
-#			package = create_package(:carrier => nil)
-#			assert package.errors.on(:carrier)
-#		end
-#	end
-
-#	test "should require 3 char carrier" do
-#		assert_no_difference 'Package.count' do
-#			package = create_package(:carrier => 'Hi')
-#			assert package.errors.on(:carrier)
-#		end
-#	end
-
 	test "should require tracking_number" do
 		assert_no_difference 'Package.count' do
 			package = create_package(:tracking_number => nil)
@@ -105,16 +91,6 @@ class PackageTest < ActiveSupport::TestCase
 		package.update_status
 		assert package.delivered?
 	end
-
-#	test "should have many shipment_events" do
-#		package = create_package
-#		assert_equal 0, package.shipment_events.length
-#		Factory(:shipment_event, :package_id => package.id, 
-#			:time => Chronic.parse('yesterday') )
-#		assert_equal 1, package.reload.shipment_events.length
-#		Factory(:shipment_event, :package_id => package.id)
-#		assert_equal 2, package.reload.shipment_events.length
-#	end
 
 	test "should have many tracks" do
 		package = create_package
