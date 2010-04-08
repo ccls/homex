@@ -43,4 +43,12 @@
 <p>
 If the user has &lt; 2 response_sets and has 0 HERs and has an email address, the user is eligible for self administered survey.  Link to be added here possibly.
 </p>
+	<% form_tag(subject_survey_invitation_path(@subject)) do %>
+		<%= hidden_field_tag :access_code, "home_exposure_survey", :id => nil %>
+		<%= submit_tag "Create new Survey Invitation", :name => nil, :id => nil %>
+	<% end %>
+<% @subject.survey_invitations.each do |invitation| %>
+	<p><%= "#{invitation.survey.access_code}:#{invitation.token}" %></p>
+	<p>Add link here to send invite to subject</p>
+<% end %>
 <% end %><%# content_tag_for %>
