@@ -1,6 +1,8 @@
 class HomeExposureResponse < ActiveRecord::Base
 	belongs_to :subject
 
+	validates_uniqueness_of :subject_id
+
 	def self.q_column_names
 		column_names - 
 			%w( id subject_id childid created_at updated_at ) -
