@@ -20,6 +20,7 @@ Factory.define :context do |f|
 end
 
 Factory.define :home_exposure_response do |f|
+	f.association :subject
 end
 
 Factory.define :ineligible_reason do |f|
@@ -138,6 +139,7 @@ Factory.define :subject_type do |f|
 end
 
 Factory.define :survey_invitation do |f|
+	f.association :survey
 	f.association :subject
 end
 
