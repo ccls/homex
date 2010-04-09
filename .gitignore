@@ -11,6 +11,7 @@ coverage.data
 config/fed_ex.yml
 config/database.yml
 config/initializers/session_store.rb
+config/initializers/mail.rb
 public/javascripts-prototype/
 packages_updated.*
 doc/app/
