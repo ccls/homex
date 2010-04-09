@@ -232,7 +232,7 @@ class SurveyControllerTest < ActionController::TestCase
 			:response_set_code => rs.access_code
 		assert assigns(:survey)
 		assert assigns(:response_set)
-		assert assigns(:current_user)
+#		assert assigns(:current_user)
 		assert_response :success
 		assert_template 'edit'
 	end
