@@ -18,6 +18,7 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :father_first_name
 			t.string :father_middle_name
 			t.string :father_last_name
+			t.string :email
 
 			t.timestamps
 		end
