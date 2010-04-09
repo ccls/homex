@@ -51,6 +51,15 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_template 'show'
 	end
 
+	test "should get show with pii" do
+		subject = Factory(:subject,
+			:pii_attributes => Factory.attributes_for(:pii))
+		login_as admin_user
+		get :show, :id => subject
+		assert_response :success
+		assert_template 'show'
+	end
+
 	test "should get show with employee login" do
 		subject = Factory(:subject)
 		login_as active_user(:role_name => 'employee')

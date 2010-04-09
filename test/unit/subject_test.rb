@@ -254,6 +254,17 @@ class SubjectTest < ActiveSupport::TestCase
 		}
 	end
 
+	test "should be ineligible for invitation without email" do
+		subject = create_subject
+		assert !subject.is_eligible_for_invitation?
+	end
+
+	test "should be eligible for invitation with email" do
+		subject = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii))
+		assert subject.is_eligible_for_invitation?
+	end
+
 protected
 
 	def create_survey_response_sets

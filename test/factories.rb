@@ -86,6 +86,7 @@ Factory.define :pii do |f|
 	f.last_name "Last"
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:state_id_no){|n| "#{n}"}
+	f.sequence(:email){|n| "email#{n}@example.com"}
 end
 
 Factory.define :project_subject do |f|
