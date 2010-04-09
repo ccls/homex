@@ -8,9 +8,9 @@
 				<%= invite.response_set.completed_at.to_s(:mdy) %></p>
 		<% else %>
 			<% if invite.response_set %>
-				<p>Survey started, but not yet completed.</p>
+				<p>Subject has started survey, but has not yet completed.</p>
 			<% else %>
-				<p>Survey hasn't been started yet.</p>
+				<p>Subject hasn't started survey yet.</p>
 			<% end %>
 			
 			<% form_tag(survey_invitation_path(invite), :method => :put) do %>

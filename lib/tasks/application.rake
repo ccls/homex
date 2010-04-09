@@ -7,6 +7,29 @@ namespace :app do
 #	end
 
 
+	desc "Add some CCLS subjects"
+	task :add_ccls_subjects => :environment do
+		race = Race.find_or_create_by_name("TEST RACE")
+		subject_type = SubjectType.find_or_create_by_description("TEST TYPE")
+		[	
+			[ 'Jake', 'jakewendt@berkeley.edu' ],
+			[ 'Monique', 'modoes@berkeley.edu' ],
+			[ 'Catherine', 'cmetayer@berkeley.edu' ],
+			[ 'Magee', 'magee@berkeley.edu' ]
+		].each do |ccls|
+			Subject.create!({
+				:race_id => race.id,
+				:subject_type_id => subject_type.id,
+				:pii_attributes => {
+					:ssn         => nine_digit_number,
+					:state_id_no => nine_digit_number,
+					:first_name  => ccls[0],
+					:email       => ccls[1]
+				}
+			})
+		end
+	end
+
 	desc "Add some subjects"
 	task :add_subjects => :environment do
 		race = Race.find_or_create_by_name("TEST RACE")
@@ -98,4 +121,10 @@ namespace :app do
 		puts
 	end
 
+end
+
+def nine_digit_number
+	@ndn ||= 100
+	@ndn += 1
+	sprintf("%09d",@ndn) 
 end

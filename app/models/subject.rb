@@ -22,6 +22,7 @@ class Subject < ActiveRecord::Base
 
 	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
+	delegate :email,     :to => :pii, :allow_nil => true
 	delegate :childid,   :to => :child_id, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
@@ -69,18 +70,14 @@ class Subject < ActiveRecord::Base
 		)
 	end
 
-	def email
-		#	temporary fake emails
-		( self.id.odd? )? 'jakewendt@berkeley.edu':false
-	end
-
 	def is_eligible_for_invitation?
 		!self.email.blank?
 	end
 
 	def her_invitation
-		survey = Survey.find_by_access_code('home_exposure_survey')
-		self.survey_invitations.find_by_survey_id(survey.id)
+		if survey = Survey.find_by_access_code('home_exposure_survey')
+			self.survey_invitations.find_by_survey_id(survey.id)
+		end
 	end
 
 end

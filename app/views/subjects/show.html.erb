@@ -1,8 +1,16 @@
 <% content_for :head, stylesheet_link_tag('subject') %>
 
 <% content_tag_for( :div, @subject ) do %>
-<div class='id'>Subject: <%= @subject.id -%></div>
-<div class='count'>Started <%= pluralize(@subject.response_sets_count,'survey') -%>.</div>
+<div class='id'>Subject: <%= @subject.full_name -%></div>
+
+<%#
+
+	We are making the assumption that the survey exists
+
+%>
+
+
+<div class='count'>Started <%= @subject.response_sets_count %> of 2 surveys.</div>
 <div class='edit_surveys'>
 	<%= render :partial => 'response_set', 
 		:collection => @subject.response_sets %>
