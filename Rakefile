@@ -53,5 +53,10 @@ require 'tasks/rails'
 #	As a plugin, this line will cause all tasks to be duplicated
 #	so DEFINITELY remove this line
 #require 'tasks/surveyor'
+#	It still tries to run it twice!!!! WTF
+#
+#	There were some lines in one of my rake files for getting 
+#	the tasks from the gem
+#
 
 require 'lib/surveyor/survey_extensions'
