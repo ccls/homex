@@ -22,6 +22,8 @@ module SurveyorControllerExtensions
 			before_filter :permission_or_invitation_required
 
 			before_filter :response_set_must_not_be_complete, :only => :edit
+
+			layout 'survey'
 		end
 	end
 	
