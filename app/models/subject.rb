@@ -38,12 +38,6 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :child_id
 
 	class NotTwoResponseSets < StandardError; end
-#	class InvitationInvalid < StandardError
-#		attr_reader :subject, :message;
-#		def initialize(subject, message=nil)
-#			@message, @subject = message, subject
-#		end
-#	end
 
 	def response_sets_the_same?
 		if response_sets.length == 2
@@ -66,18 +60,27 @@ class Subject < ActiveRecord::Base
 	end
 
 	def recreate_survey_invitation(survey)
-#		if SurveyInvitation.exists?( 
-#				:subject_id => self.id,
-#				:survey_id => survey.id 
-#			)
-			SurveyInvitation.destroy_all( 
-				:subject_id => self.id,
-				:survey_id  => survey.id 
-			)
-#		end
+		SurveyInvitation.destroy_all( 
+			:subject_id => self.id,
+			:survey_id  => survey.id 
+		)
 		self.survey_invitations.create(
 			:survey_id => survey.id
 		)
+	end
+
+	def email
+		#	temporary fake emails
+		( self.id.odd? )? 'jakewendt@berkeley.edu':false
+	end
+
+	def is_eligible_for_invitation?
+		!self.email.blank?
+	end
+
+	def her_invitation
+		survey = Survey.find_by_access_code('home_exposure_survey')
+		self.survey_invitations.find_by_survey_id(survey.id)
 	end
 
 end
