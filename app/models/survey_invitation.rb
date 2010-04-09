@@ -3,13 +3,13 @@ class SurveyInvitation < ActiveRecord::Base
 	belongs_to :response_set
 	belongs_to :survey
 
-	validates_presence_of :subject_id
-	validates_presence_of :survey_id
-	validates_presence_of :token
-	validates_presence_of :response_set_id, :on => :update
-	validates_uniqueness_of :response_set_id, :allow_nil => true
+	validates_presence_of   :subject_id
 	validates_uniqueness_of :subject_id, :scope => :survey_id
+	validates_presence_of   :survey_id
+	validates_presence_of   :token
 	validates_uniqueness_of :token
+	validates_presence_of   :response_set_id, :on => :update
+	validates_uniqueness_of :response_set_id, :allow_nil => true
 
 	before_validation :create_token
 

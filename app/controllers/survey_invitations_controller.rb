@@ -4,6 +4,7 @@ class SurveyInvitationsController < ApplicationController
 	before_filter :valid_subject_id_required, :only => :create
 	before_filter :valid_survey_required, :only => :create
 	before_filter :valid_invitation_token_required, :only => :show
+	before_filter :valid_invitation_id_required, :only => [:update,:destroy]
 
 	layout 'survey', :only => :show
 
@@ -16,6 +17,12 @@ class SurveyInvitationsController < ApplicationController
 			flash[:notice] = "The invitation was successfully created."
 		end
 		redirect_to @subject
+	end
+
+	def update
+		SubjectMailer.deliver_reminder(@invitation)
+		flash[:notice] = "The reminder was successfully sent."
+		redirect_to @invitation.subject
 	end
 
 	def show
@@ -46,6 +53,15 @@ protected
 			@subject = Subject.find( params[:subject_id] )
 		else
 			access_denied("Valid Subject ID required")
+		end
+	end
+
+	def valid_invitation_id_required
+		if( SurveyInvitation.exists?( params[:id] ) )
+			@invitation = SurveyInvitation.find(params[:id])
+#			session[:invitation] = params[:id]
+		else
+			access_denied("Valid Invitation required")
 		end
 	end
 

@@ -7,23 +7,18 @@ class SubjectMailer < ActionMailer::Base
 		body       :invitation => survey_invitation
 	end
 
-	def reminder(sent_at = Time.now)
+	def reminder(survey_invitation)
 		subject    'SubjectMailer#reminder'
-		recipients ''
-		from       ''
-		sent_on    sent_at
-		
+		recipients survey_invitation.subject.email
 		body       :greeting => 'Hi,'
+		body       :invitation => survey_invitation
 	end
 
-	def thank_you(sent_at = Time.now)
+	def thank_you(survey_invitation)
 		subject    'SubjectMailer#thank_you'
-		recipients ''
-		from       ''
-		sent_on    sent_at
-		
+		recipients survey_invitation.subject.email
 		body       :greeting => 'Hi,'
+		body       :invitation => survey_invitation
 	end
 
-	
 end

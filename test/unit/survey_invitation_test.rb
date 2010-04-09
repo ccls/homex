@@ -64,6 +64,14 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should not change token on update" do
+		survey_invitation = create_survey_invitation
+		token_before = survey_invitation.token
+		Factory(:response_set, :survey_invitation => survey_invitation)
+		token_after = survey_invitation.reload.token
+		assert_equal token_before, token_after
+	end
+
 	test "should require unique response_set_id" do
 		rs = Factory(:response_set)
 		si = create_survey_invitation(:response_set_id => rs.id)

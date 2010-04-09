@@ -278,6 +278,20 @@ class SurveyControllerTest < ActionController::TestCase
 	end
 
 #	update
+
+	test "should set completed_at on response_set finish" do
+		SurveyorController.skip_after_filter :validate_page
+		rs = Factory(:response_set, :survey => Survey.first)
+		login_as admin_user
+		put :update, :survey_code => rs.survey.access_code,
+			:responses => {},
+			:response_set_code => rs.access_code,
+			:finish => true
+		assert assigns(:response_set)
+		assert_not_nil flash[:notice]
+		assert_redirected_to survey_finished_path
+	end
+
 #	show
 
 
