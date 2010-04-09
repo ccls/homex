@@ -5,7 +5,7 @@ class SurveyInvitationsController < ApplicationController
 	before_filter :valid_survey_required, :only => :create
 	before_filter :valid_invitation_token_required, :only => :show
 
-#	layout 'survey', :only => :show
+	layout 'survey', :only => :show
 
 	def create
 		invitation = @subject.recreate_survey_invitation(@survey)
@@ -18,25 +18,20 @@ class SurveyInvitationsController < ApplicationController
 	end
 
 	def show
-#	if first time
-#	create response_set
-#	attach everything
-#	else
-#	find rs
-# end
-		if @invitation.response_set
-			@response_set = @invitation.response_set
-		else
-			@response_set = ResponseSet.create!( 
+		unless @invitation.response_set
+			@invitation.response_set = ResponseSet.create!( 
 				:survey  => @invitation.survey,
 				:subject => @invitation.subject)
+			@invitation.save!
 		end
+		@response_set = @invitation.response_set
 
 #	view has forms for consent
 #	button to begin/continue
 
 
 #	destroy cookie when survey is complete
+#	or invalidate and leave invitation as flag?
 
 	rescue ActiveRecord::RecordInvalid
 		flash[:error] = "Unable to create a new response set"
