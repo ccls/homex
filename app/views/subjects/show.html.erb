@@ -1,21 +1,11 @@
 <% content_for :head, stylesheet_link_tag('subject') %>
 
 <% content_tag_for( :div, @subject ) do %>
-<div class='id'>Subject <%= link_to @subject.id, @subject -%></div>
+<div class='id'>Subject: <%= @subject.id -%></div>
 <div class='count'>Started <%= pluralize(@subject.response_sets_count,'survey') -%>.</div>
 <div class='edit_surveys'>
-	<% @subject.response_sets.each do |rs| %>
-		<% content_tag_for( :div, rs ) do %>
-			<% if rs.is_complete? %>
-				<span>Complete</span>
-			<% else %>
-				<%= button_link_to "Continue/Complete HE Survey", edit_my_survey_path(
-						:survey_code => rs.survey.access_code, 
-						:response_set_code	=> rs.access_code
-					) %>
-			<% end %>
-		<% end %>
-	<% end %>
+	<%= render :partial => 'response_set', 
+		:collection => @subject.response_sets %>
 </div>
 <% if ( @subject.response_sets_count < 2 ) %>
 	<% form_tag(response_sets_path, :class => 'take_survey') do %>
@@ -23,40 +13,9 @@
 		<%= hidden_field_tag :subject_id, @subject.id, :id => nil %>
 		<%= submit_tag "Start new Home Exposure Survey", :name => nil, :id => nil %>
 	<% end %>
-<% else %>
-	<% if @subject.home_exposure_response.nil? %>
-		<% if @subject.response_sets.collect(&:is_complete?).all? %>
-			<%= link_to "Merge", 
-				new_subject_home_exposure_response_path(@subject) -%>
-			<% if @subject.response_sets_the_same? %>
-				<span> (Same) </span>
-			<% else %>
-				<span> (Differ) </span>
-			<% end %>
-		<% end %>
-	<% else %>
-		<%= link_to "View Merged HER", 
-			subject_home_exposure_response_path(@subject) %>
-	<% end %>
 <% end %>
 
-<p>
-If the user has &lt; 2 response_sets and has 0 HERs and has an email address, the user is eligible for self administered survey.  Link to be added here possibly.
-</p>
-<%#
+<%= render 'merge' %>
+<%= render 'invite' %>
 
-	why the nested route?
-
-	this view is getting cluttered.  time for some partials or helpers.
-
-%>
-	<% form_tag(subject_survey_invitation_path(@subject)) do %>
-		<%= hidden_field_tag :access_code, "home_exposure_survey", :id => nil %>
-		<%= submit_tag "Create new Survey Invitation", :name => nil, :id => nil %>
-	<% end %>
-<% @subject.survey_invitations.each do |invitation| %>
-	<p><%#= "#{invitation.survey.access_code}:#{invitation.token}" %></p>
-	<%= link_to "Use token", survey_invitation_path(invitation.token) %>
-	<p>Add link here to send invite to subject</p>
-<% end %>
 <% end %><%# content_tag_for %>

@@ -1,0 +1,19 @@
+<%#
+
+	why the nested route?
+
+%>
+<% if @subject.is_eligible_for_invitation? %>
+	<% if invite = @subject.her_invitation %>
+		<p><%= "Subject was sent invitation on #{invite.created_at.to_s(:mdy)}" %></p>
+	<% end %>
+	<% form_tag(subject_survey_invitation_path(@subject)) do %>
+		<%= hidden_field_tag :access_code, "home_exposure_survey", 
+			:id => nil %>
+		<%= submit_tag "Create and send new Survey Invitation", 
+			:name => nil, :id => nil %>
+	<% end %>
+
+<% else %>
+	<p>Subject is not eligible for invitation.</p>
+<% end %><%# @subject.is_eligible_for_invitation? %>
