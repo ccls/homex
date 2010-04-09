@@ -27,21 +27,16 @@ class SurveyInvitationsController < ApplicationController
 
 	def show
 		unless @invitation.response_set
+			#	Yes, it is unconventional to change the database
+			#	in response to a GET request, nevertheless,
+			#	an alternative would've been more complicated.
 			@invitation.response_set = ResponseSet.create!( 
 				:survey  => @invitation.survey,
 				:subject => @invitation.subject)
 			@invitation.save!
 		end
 		@response_set = @invitation.response_set
-
-#	view has forms for consent
-#	button to begin/continue
-
-
-#	destroy cookie when survey is complete
-#	or invalidate and leave invitation as flag?
-
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid 
 		flash[:error] = "Unable to create a new response set"
 		redirect_to( root_path )
 	end
@@ -59,7 +54,6 @@ protected
 	def valid_invitation_id_required
 		if( SurveyInvitation.exists?( params[:id] ) )
 			@invitation = SurveyInvitation.find(params[:id])
-#			session[:invitation] = params[:id]
 		else
 			access_denied("Valid Invitation required")
 		end

@@ -108,8 +108,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 
 	test "should NOT begin survey when create fails" do
 		login_as admin_user
-		ResponseSet.any_instance.stubs(:save!).raises(
-			ActiveRecord::RecordInvalid.new(ResponseSet.new))
+		ResponseSet.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference( 'ResponseSet.count', 0 ) {
 			post :create, :subject_id => Subject.first.id, 
 				:survey_code => Survey.first.access_code

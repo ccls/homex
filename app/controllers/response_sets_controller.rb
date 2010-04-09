@@ -8,17 +8,19 @@ class ResponseSetsController < ApplicationController
 
 	def create
 
-#	include subject_id or child_id or whatever in ResponseSet
+#	include subject_id or child_id or whatever in ResponseSet?
 
-		@response_set = ResponseSet.create!( :survey => @survey,
-			:subject_id => params[:subject_id] )
+		@response_set = ResponseSet.create!( 
+			:survey     => @survey,
+			:subject_id => params[:subject_id] 
+		)
 		redirect_to(
 			edit_my_survey_path(
 				:survey_code => @survey.access_code, 
 					:response_set_code	=> @response_set.access_code
 			)
 		)
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash[:error] = "Unable to create a new response set"
 		redirect_to( subjects_path )
 	end
@@ -29,8 +31,6 @@ protected
 	#	A valid survey code must be passed to begin.
 	def valid_survey_required
 		unless (@survey = Survey.find_by_access_code(params[:survey_code]))
-#			flash[:error] = "Unable to find that survey"
-#			redirect_to( available_surveys_path )
 			access_denied("Unable to find that survey")
 		end
 	end
