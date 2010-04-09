@@ -13,14 +13,14 @@ class SurveyInvitationsController < ApplicationController
 		if invitation.new_record?
 			flash[:error] = "There was a problem creating the invitation!"
 		else
-			SubjectMailer.deliver_invitation(invitation)
+			SurveyInvitationMailer.deliver_invitation(invitation)
 			flash[:notice] = "The invitation was successfully created."
 		end
 		redirect_to @subject
 	end
 
 	def update
-		SubjectMailer.deliver_reminder(@invitation)
+		SurveyInvitationMailer.deliver_reminder(@invitation)
 		flash[:notice] = "The reminder was successfully sent."
 		redirect_to @invitation.subject
 	end

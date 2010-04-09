@@ -8,7 +8,7 @@ class SurveyFinishedsController < ApplicationController
 		flash[:notice] = "Survey complete"
 		if SurveyInvitation.exists?(:token => session[:invitation])
 			si = SurveyInvitation.find_by_token(session[:invitation])
-			SubjectMailer.deliver_thank_you(si)
+			SurveyInvitationMailer.deliver_thank_you(si)
 			session[:invitation] = nil
 		else
 			redirect_to root_path

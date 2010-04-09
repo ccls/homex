@@ -4,7 +4,8 @@
 		<p><%= "Subject was sent invitation on #{invite.created_at.to_s(:mdy)}" %></p>
 
 		<% if invite.response_set && invite.response_set.is_complete? %>
-			<p>Subject completed survey</p>
+			<p>Subject completed survey on 
+				<%= invite.response_set.completed_at.to_s(:mdy) %></p>
 		<% else %>
 			<% if invite.response_set %>
 				<p>Survey started, but not yet completed.</p>
@@ -17,10 +18,10 @@
 					:name => nil, :id => nil %>
 			<% end %>
 			
-			<% form_tag(survey_invitation_path(invite), :method => :delete) do %>
-				<%= submit_tag "Destroy Survey Invitation", 
+			<%# form_tag(survey_invitation_path(invite), :method => :delete) do %>
+				<%#= submit_tag "Destroy Survey Invitation", 
 					:name => nil, :id => nil %>
-			<% end %>
+			<%# end %>
 			
 		<% end %>
 	<% else %>

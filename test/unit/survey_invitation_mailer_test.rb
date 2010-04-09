@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class SubjectMailerTest < ActionMailer::TestCase
+class SurveyInvitationMailerTest < ActionMailer::TestCase
 #
 #	I don't quit understand the mailer testing DSL yet
 #
