@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<link rel="shortcut icon" href="<%=image_path('cal.ico')%>" />
+<title><%= @page_title || "UCB SPH CCLS" -%></title>
+<%= stylesheet_link_tag 'application','survey' %>
+<%= javascript_include_tag :defaults %>
+<%# 
+	this adds a lot of stuff that we may not need or want 
+
+	surveyor_stylsheets -> stylesheet_link_tag 'surveyor/reset', 'surveyor/surveyor', 'surveyor/ui.theme.css','surveyor/jquery-ui-slider-additions'
+
+	surveyor_javascripts -> javascript_include_tag 'surveyor/jquery-1.2.6.js', 'surveyor/jquery-ui-personalized-1.5.3.js', 'surveyor/accessibleUISlider.jQuery.js','surveyor/jquery.form.js', 'surveyor/surveyor.js'
+
+	if its first, it doesn't work.  Probably gets overwritten by something
+%>
+<%= surveyor_includes if( controller.controller_name == 'surveyor') %>
+<%= yield :head %>
+</head>
+<body>
+
+<div id='container'>
+<div id='head'>
+</div><!-- id='head' -->
+
+<div id='content'>
+<% flash.each do |key, msg| %>
+ <%= content_tag :p, msg, :id => key, :class => 'flash' %>
+<% end %>
+<noscript>
+<p id='noscript' class='flash'>Javascript is required for this site to be fully functional.</p>
+</noscript>
+
+<%= yield %>
+
+</div><!-- content -->
+</div><!-- container -->
+<div id='footer'>
+<span>Copyright &copy; UC Regents; all rights reserved.</span>
+</div><!-- id='footer' -->
+</body>
+</html>
