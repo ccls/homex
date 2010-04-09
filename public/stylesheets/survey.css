@@ -1,0 +1,19 @@
+/*
+	Survey overrides
+*/
+
+div#content {
+/*
+	margin-left:160px;	
+	Using a border seems to work just like a margin,
+	except you can specify a color which I am using 
+	for the background of the menu to ensure that the
+	menu and content are the same height.
+*/
+	border-left:0;
+}
+
+#	:not(.dependent) not work as would like
+div.question:nth-child(2n)   { background-color: #EEE; }
+
+
