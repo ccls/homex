@@ -16,6 +16,7 @@ class SurveyInvitation < ActiveRecord::Base
 protected
 
 	def create_token
+		return unless self.token.blank?
 		#	generate random string
 		#self.token = Digest::SHA1.hexdigest( 
 		#			Time.now.to_s.split(//).sort_by {rand}.join )
