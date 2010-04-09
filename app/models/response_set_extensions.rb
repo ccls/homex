@@ -6,6 +6,7 @@ module ResponseSetExtensions
 			# Same as typing in the class
 
 			belongs_to :subject, :counter_cache => true
+			has_one :survey_invitation
 
 			#	Require childid ... coming soon
 #			validates_presence_of   :childid
@@ -37,34 +38,19 @@ module ResponseSetExtensions
 			Hash[*self.responses.collect(&:q_and_a_codes).flatten]
 		end
 
+		#	Return a good chunk of info used when merging
+		#	response sets into one home exposure response
 		def q_and_a_codes_and_text_as_attributes
-#			Hash[*self.responses.collect(&:codes_and_text).flatten]
-#	set hash defaults for when columns does exist in merging
 			h=Hash.new({:a_code => '', :a_text => '(no answer)', :q_text => ''})
-
-#	can't i do a merge or update or something here
-#	I'll probably lose the defaults above
-#	h.merge keeps h's defaults!!!  woohoo!
+			#	h.merge keeps h's defaults!!!  woohoo!
 			h.merge(self.responses.collect(&:codes_and_text).inject(:merge))
-
-#			self.responses.collect(&:codes_and_text).each do |cat|
-#				cat.each_pair{|k,v| h[k]=v }
-#			end
-#			h
 		end
 		alias_method :codes_and_text, :q_and_a_codes_and_text_as_attributes
-
-#	gotta be careful overriding operators as they may be used elsewhere
-#		def ==(another_response_set)
 
 		#	Compare the Q and A codes of 2 response sets
 		#	and return boolean.
 		def is_the_same_as?(another_response_set)
 			ars = ResponseSet.find(another_response_set)
-#	NO!!!
-#			(self.q_and_a_codes - ars.q_and_a_codes).empty?
-#	This only ensures that all of ars is in self,
-#	but not vice versa.  ars could have extra stuff.
 			(self.q_and_a_codes_as_attributes.diff(
 				ars.q_and_a_codes_as_attributes)).blank?
 		end
@@ -88,49 +74,5 @@ module ResponseSetExtensions
 #			false
 			!self.completed_at.nil?
 		end
-		#	ResponseSet access_code not guaranteed to be unique
-		#
-		#As there is no model validation or unique index in the database, 
-		#	there is no guarantee that your response_set access_code will be 
-		#	unique. It is just the output from Surveyor.make_tiny_code which 
-		#	is just 10 randomly selected characters.  The character set is 
-		#	upper and lower case letters plus digits, giving a set size of 62.  
-		#	I concede that 62 ^ 10 is a HUGE number, but each time a survey 
-		#	is taken, the possibility of those 10 randomly selected characters 
-		#	already existing goes up. 
-		#
-		#In the ridiculously unlikely chance that a duplicate access_code 
-		#	is created, when the create action redirects to the edit action, 
-		#	the response set will be the first one and not the one just created.
-		#
-		#<pre>
-		#@response_set = ResponseSet.find_by_access_code(params[:response_set_code])
-		#</pre>
-		#
-		#Update....
-		#
-		#Adding ...
-		#<pre>
-		#def access_code=(value)
-		#  while ResponseSet.find_by_access_code(value)
-		#    value = Surveyor.make_tiny_code
-		#  end
-		#  super
-		#end
-		#</pre>
-		#... to ResponseSet seems to "fix" this "problem", although I don't 
-		#	know how kosher it is.
-		#	Override the setting of the access_code to ensure its uniqueness
-		#	
-		#	TO BE Included after 0.10.0
-#		def access_code=(value)
-#			while ResponseSet.find_by_access_code(value)
-#				value = Surveyor.make_tiny_code
-#			end
-#			super		#(value)
-#		end
-		
 	end
 end
-#	Automatically included in 0.10.0
-#ResponseSet.send(:include, ResponseSetExtensions)
