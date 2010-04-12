@@ -36,6 +36,13 @@ class User < ActiveRecord::Base
 			:mail            => person.mail.first,
 			:telephonenumber => person.telephonenumber.first
 		}) if person
+#
+#	what happened if person is NIL?
+# hack attempt?
+# can a user be in CAS and then not in LDAP?
+#	Might want to handle this "else" condition
+#	TODO
+#
 		user
 	end
 
