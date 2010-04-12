@@ -196,6 +196,21 @@ class SurveyControllerTest < ActionController::TestCase
 
 #	edit
 
+	test "should NOT continue survey with invalid response_set_code" do
+		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
+  	#	<input autocomplete="off" ...
+		SurveyorController.skip_after_filter :validate_page
+		rs = Factory(:response_set, :survey => Survey.first)
+		login_as admin_user
+		get :edit, :survey_code => rs.survey.access_code,
+			:response_set_code => "bogus_response_set_code"
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert !assigns(:current_user)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
 	test "should continue incomplete survey with admin login" do
 		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
   	#	<input autocomplete="off" ...
