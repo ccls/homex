@@ -20,6 +20,15 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should NOT create subject with empty pii" do
+		assert_difference( 'Pii.count', 0) {
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject( :pii_attributes => {})
+			assert subject.errors.on(:pii_ssn)
+			assert subject.errors.on(:pii_state_id_no)
+		} }
+	end
+
 	test "should create subject with patient" do
 		assert_difference( 'Patient.count', 1) {
 		assert_difference( 'Subject.count', 1) {
@@ -30,6 +39,13 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should NOT create subject with empty patient" do
+
+#	patient has no requirements so it would actually work
+#	TODO
+
+	end
+
 	test "should create subject with child_id" do
 		assert_difference( 'ChildId.count', 1) {
 		assert_difference( 'Subject.count', 1) {
@@ -38,6 +54,13 @@ class SubjectTest < ActiveSupport::TestCase
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
 		} }
+	end
+
+	test "should NOT create subject with empty child_id" do
+
+#	child_id has no requirements so it would actually work
+#	TODO
+
 	end
 
 	test "should initially belong to race" do
