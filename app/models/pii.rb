@@ -19,12 +19,14 @@ class Pii < ActiveRecord::Base
 
 	before_validation :format_ssn
 
-	def format_ssn
-		self.ssn.to_s.gsub!(/\D/,'')
-	end
-
 	def full_name
 		[first_name, middle_name, last_name].join(' ')
+	end
+
+protected
+
+	def format_ssn
+		self.ssn.to_s.gsub!(/\D/,'')
 	end
 
 end
