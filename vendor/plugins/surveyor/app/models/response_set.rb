@@ -152,6 +152,23 @@ class ResponseSet < ActiveRecord::Base
     dependencies.select{|d| d.is_met?(self) and self.is_unanswered?(d.question)}.map(&:question)
   end
   
+
+  #	Why return nil, when you can return a real value.
+  #	This is untested so there may be some consequences.
+  def current_section_id
+    @current_section_id || self.survey.sections.first
+  end
+
+  def all_validations
+    arr = validations.partition{|v| v.is_valid?(self) }
+    { :valid   => arr[0].map{|v| "question_#{v.answer.question_id}"},
+      :invalid => arr[1].map{|v| "question_#{v.answer.question_id}"} }
+  end
+
+  def all_things_hash
+    self.all_dependencies.merge(self.all_validations)
+  end
+
   def all_dependencies
     arr = dependencies.partition{|d| d.is_met?(self) }
     {:show => arr[0].map{|d| d.question_group_id.nil? ? "question_#{d.question_id}" : "question_group_#{d.question_group_id}"}, :hide => arr[1].map{|d| d.question_group_id.nil? ? "question_#{d.question_id}" : "question_group_#{d.question_group_id}"}}
@@ -159,6 +176,15 @@ class ResponseSet < ActiveRecord::Base
   
   protected
   
+  def validations(question_ids = nil)
+    question_ids ||= Question.find_all_by_survey_section_id(
+      current_section_id).map(&:id)
+    answer_ids = Answer.all(
+      :conditions => {:question_id => question_ids }).map(&:id)
+    Validation.all(:conditions => {:answer_id => answer_ids}, 
+      :include => :validation_conditions)
+  end
+
   def dependencies(question_ids = nil)
     question_ids ||= Question.find_all_by_survey_section_id(current_section_id).map(&:id)
     depdendecy_ids = DependencyCondition.all(:conditions => {:question_id => question_ids}).map(&:dependency_id)

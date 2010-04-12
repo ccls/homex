@@ -57,7 +57,16 @@ module SurveyParser
       if a =~ /_id$/ # a foreign key, e.g. survey_id
         "  #{a[1..-4]}: " + (instance_variable_get(a).nil? ? "" : "#{self.parser.salt}_#{a[1..-4]}_#{instance_variable_get(a)}")
       else # quote strings
-        "  #{a[1..-1]}: #{instance_variable_get(a).is_a?(String) ? "\"#{instance_variable_get(a)}\"" : instance_variable_get(a) }"
+#
+#	>> Regexp.new( /[0-9a-zA-z\. #]/).to_s
+#	=> "(?-mix:[0-9a-zA-z\\. #])"
+#
+#	The regex in kitchen sink included a space which caused the yml 
+# to have a space which got chopped off in the fixture load leaving 
+# an open ended regex which ruby did not like at all.  Therefore, 
+# wrap Regexp in quotes as well?
+#
+        "  #{a[1..-1]}: #{(instance_variable_get(a).is_a?(String) || instance_variable_get(a).is_a?(Regexp)) ? "\"#{instance_variable_get(a)}\"" : instance_variable_get(a) }"
       end
     end
     def to_file

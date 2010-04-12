@@ -22,6 +22,12 @@ jQuery(document).ready(function(){
 		// surveyor_controller returns a json object to show/hide elements e.g. {"hide":["question_12","question_13"],"show":["question_14"]}
 		jQuery.each(responseText.show, function(){ jQuery('#' + this).show("fast");	});
 		jQuery.each(responseText.hide, function(){ jQuery('#' + this).hide("fast");	});
+
+		jQuery.each(responseText.invalid, function(){ 
+			jQuery('#' + this).addClass("invalid");	});
+		jQuery.each(responseText.valid, function(){ 
+			jQuery('#' + this).removeClass("invalid");});
+
 		return false;
 	}
 	

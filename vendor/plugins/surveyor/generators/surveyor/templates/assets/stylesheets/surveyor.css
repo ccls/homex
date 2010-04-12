@@ -108,6 +108,11 @@ body {
   #surveyor .question {
     margin: 0 0 0.6em 0;
     padding: 0.2em; }
+
+/* Give some obvious style to invalidly responded to questions */
+  #surveyor .question.invalid {
+    background-color: red}
+
     #surveyor .question legend {
       width: 940px;
       white-space: normal; }
