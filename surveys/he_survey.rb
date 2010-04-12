@@ -926,7 +926,7 @@ survey "Home Exposure survey",
 
 	section "Tobacco" do
 
-		q_34 "During the time you have lived in this home, have you or anyone else regularly - that is once a week or more -    smoked cigarettes, pipes or cigars inside this home?",
+		q_34 "During the time you have lived in this home, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
 			:number => 34,
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_indoors
@@ -934,7 +934,7 @@ survey "Home Exposure survey",
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		q_34a "During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars inside this home?",
+		q_34a "During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
 			:number => '34a',
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_indoors_12mos
@@ -945,7 +945,7 @@ survey "Home Exposure survey",
 		condition_A :q_34, "==", :a_1
 
 
-		q_35 "During the time you have lived in this home, have you or anyone who lives in this home  regularly smoked cigarettes, pipes or cigars outside this home (in the car, at work, yard, deck, etc.)?",
+		q_35 "During the time you have lived in this home, have you or anyone who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home (in the car, at work, yard, deck, etc.)?",
 			:number => 35,
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_outdoors
@@ -953,7 +953,7 @@ survey "Home Exposure survey",
 		a "No",         :data_export_identifier => 2
 		a "Don't know", :data_export_identifier => 999
 
-		q_35a "During the last 12 months, have you or anyone else who lives in this home  regularly smoked  cigarettes, pipes or cigars outside this home?",
+		q_35a "During the last 12 months, have you or anyone else who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home?",
 			:number => '35a',
 			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_outdoors_12mos
