@@ -148,6 +148,24 @@ class ResponseSetTest < ActiveSupport::TestCase
 		} } } } } }
 	end
 
+	test "should convert empty response set to HER" do
+		rs = Factory(:response_set)
+		assert_difference( 'HomeExposureResponse.count', 1) {
+			her = rs.to_her
+		}
+	end
+
+	test "should compare 2 empty response sets" do
+		rs1 = Factory(:response_set)
+		rs2 = Factory(:response_set, :survey => rs1.survey )
+		assert_not_equal rs1.id, rs2.id
+		assert_equal rs1.survey_id, rs2.survey_id
+		assert rs1.is_the_same_as?(rs2)
+		assert_equal Hash.new, rs1.diff(rs2)
+		assert_equal Hash.new, rs1.codes_and_text
+	end
+
+
 protected
 
 	def create_response_set(options = {})

@@ -22,7 +22,11 @@ module ResponseSetExtensions
 		#	Collect all of the question and answers coded for
 		#	the Home Exposures questionnaire.
 		# >> ResponseSet.last.q_and_a_codes
-		# => [["how_often_vacuumed_12mos", "1"], ["someone_ate_meat_12mos", "1"], ["freq_grilled_meat_outside_12mos", "2"], ["doneness_of_meat_exterior_12mos", "3"], ["shoes_usually_off_inside_12mos", "1"], ["vacuum_has_disposable_bag", "1"], ["other_pest_community_sprayed", "dogs"], ["cmty_sprayed_other_pest_12mos", "1"], ["home_square_footage", 100], ["year_home_built", 1900], ["number_of_rooms_in_home", 5]]
+		# => [["how_often_vacuumed_12mos", "1"], 
+		#		["freq_grilled_meat_outside_12mos", "2"], 
+		#		["other_pest_community_sprayed", "dogs"], 
+		#		["year_home_built", 1900], 
+		#		["number_of_rooms_in_home", 5]]
 		def q_and_a_codes
 			self.responses.collect(&:q_and_a_codes)
 		end
@@ -30,7 +34,11 @@ module ResponseSetExtensions
 		#	Collect all of the question and answers coded for
 		#	the Home Exposures questionnaire.
 		#	>> ResponseSet.last.q_and_a_codes_as_attributes
-		#	=> {"doneness_of_meat_exterior_12mos"=>"3", "vacuum_has_disposable_bag"=>"1", "freq_grilled_meat_outside_12mos"=>"2", "someone_ate_meat_12mos"=>"1", "number_of_rooms_in_home"=>5, "how_often_vacuumed_12mos"=>"1", "year_home_built"=>1900, "shoes_usually_off_inside_12mos"=>"1", "home_square_footage"=>100, "cmty_sprayed_other_pest_12mos"=>"1", "other_pest_community_sprayed"=>"dogs"}
+		#	=> {"doneness_of_meat_exterior_12mos"=>"3", 
+		#		"number_of_rooms_in_home"=>5, 
+		#		"year_home_built"=>1900, 
+		#		"cmty_sprayed_other_pest_12mos"=>"1", 
+		#		"other_pest_community_sprayed"=>"dogs"}
 		#
 		#	>> HomeExposureResponse.create(
 		#		ResponseSet.find(7).q_and_a_codes_as_attributes)
@@ -43,7 +51,7 @@ module ResponseSetExtensions
 		def q_and_a_codes_and_text_as_attributes
 			h=Hash.new({:a_code => '', :a_text => '(no answer)', :q_text => ''})
 			#	h.merge keeps h's defaults!!!  woohoo!
-			h.merge(self.responses.collect(&:codes_and_text).inject(:merge))
+			h.merge(self.responses.collect(&:codes_and_text).inject(:merge)||{})
 		end
 		alias_method :codes_and_text, :q_and_a_codes_and_text_as_attributes
 
