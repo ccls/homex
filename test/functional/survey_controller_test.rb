@@ -84,7 +84,10 @@ class SurveyControllerTest < ActionController::TestCase
 
 	test "should NOT show surveys without login" do
 		get :new
-		assert_redirected_to_cas_login
+#		assert_redirected_to_cas_login
+		#	get :new route is blocked
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 
@@ -157,7 +160,10 @@ class SurveyControllerTest < ActionController::TestCase
 		assert_difference( 'ResponseSet.count', 0 ) {
 			post :create, :subject_id => 123, :survey_code => survey.access_code
 		}
-		assert_redirected_to_cas_login
+#		assert_redirected_to_cas_login
+		#	post :create route is blocked
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 ##	test "should NOT begin survey with invalid subject_id" do
@@ -232,9 +238,24 @@ class SurveyControllerTest < ActionController::TestCase
 			:response_set_code => rs.access_code
 		assert assigns(:survey)
 		assert assigns(:response_set)
-#		assert assigns(:current_user)
 		assert_response :success
 		assert_template 'edit'
+	end
+
+	test "should NOT continue incomplete survey with invalid invitation" do
+		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
+  	#	<input autocomplete="off" ...
+		SurveyorController.skip_after_filter :validate_page
+		rs1 = Factory(:response_set, :survey => Survey.first)
+		rs2 = Factory(:response_set, :survey => Survey.first)
+		si = Factory(:survey_invitation, :survey => rs1.survey,
+			:response_set => rs2 )
+		session[:invitation] = si.token
+		get :edit, :survey_code => rs1.survey.access_code,
+			:response_set_code => rs1.access_code
+		assert assigns(:response_set)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT continue incomplete survey with just login" do
@@ -243,7 +264,7 @@ class SurveyControllerTest < ActionController::TestCase
 		get :edit, :survey_code => rs.survey.access_code,
 			:response_set_code => rs.access_code
 		assert !assigns(:survey)
-		assert !assigns(:response_set)
+		assert assigns(:response_set)
 		assert assigns(:current_user)
 		assert_response :redirect
 		assert_redirected_to root_path
@@ -254,11 +275,7 @@ class SurveyControllerTest < ActionController::TestCase
 		get :edit, :survey_code => rs.survey.access_code,
 			:response_set_code => rs.access_code
 		assert !assigns(:survey)
-		assert !assigns(:response_set)
-#	it is set, its just :false
-#		assert !assigns(:current_user)
-#		assert_redirected_to_cas_login
-#	due to possible subject self surveying ...
+		assert assigns(:response_set)
 		assert_redirected_to root_path
 	end
 
