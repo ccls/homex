@@ -2,6 +2,11 @@
 
 
 
+== Requirements
+
+* ruby 1.8.7 - primarily due to the liberal use of #inject
+* rails 2.3.4
+
 == Required Gems
 
 * {rubycas-client}[http://github.com/gunark/rubycas-client] - CalNet CAS (user authentication)
