@@ -153,11 +153,13 @@ class ResponseSet < ActiveRecord::Base
   end
   
 
-  #	Why return nil, when you can return a real value.
-  #	This is untested so there may be some consequences.
-  def current_section_id
-    @current_section_id || self.survey.sections.first
-  end
+  # Why return nil, when you can return a real value.
+  # This is untested so there may be some consequences.
+  # I only had it for use in the console.  Commenting.
+#  def current_section_id
+#    # Do all surveys have a first section???
+#    @current_section_id || self.survey.sections.first.id
+#  end
 
   def all_validations
     arr = validations.partition{|v| v.is_valid?(self) }
