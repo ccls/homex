@@ -621,10 +621,16 @@ survey "Home Exposure survey",
 			:pick => :one,
 			:data_export_identifier => :number_of_floors_in_residence
 		a :integer	#, :custom_renderer => :ccls_answers
+#		a :string
 		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A or B"
 		condition_A :q_22, "==", :a_1
 		condition_B :q_22, "==", :a_2
+		#	I don't think that the letters have to be different
+		#	but for clarity, they are.
+#		validation :rule => "C"
+#		vcondition_C ">=", :integer_value => 1
+
 
 
 		q_22b "How many stories are there in your building?",
@@ -632,9 +638,15 @@ survey "Home Exposure survey",
 			:pick => :one,
 			:data_export_identifier => :number_of_stories_in_building
 		a :integer	#, :custom_renderer => :ccls_answers
+#		a :string
 		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A"
 		condition_A :q_22, "==", :a_3
+
+		#	I don't think that the letters have to be different
+		#	but for clarity, they are.
+#		validation :rule => "C"
+#		vcondition_C ">=", :integer_value => 1
 
 
 		q_23 "In what year was your home built? ",
@@ -642,7 +654,13 @@ survey "Home Exposure survey",
 			:pick => :one,
 			:data_export_identifier => :year_home_built
 		a :integer	#, :custom_renderer => :ccls_answers
+#		a :string
 		a "Don't know", :data_export_identifier => 999
+
+		#	I don't think that the letters have to be different
+		#	but for clarity, they are.
+#		validation :rule => "C"
+#		vcondition_C ">=", :integer_value => 1
 
 		q_24 "We are interested in the approximate size of your living space. The living space is defined as all heated areas in the home or apartment that are suitable for year-round use.  About how many square feet is your residence?",
 			:number => 24,
