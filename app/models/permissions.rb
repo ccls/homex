@@ -128,7 +128,10 @@ class Permissions < Aegis::Permissions
 
 	#
 	#	Permission:
-	permission :maintain_pages do #	|current_user|
+	permission :maintain_pages do |current_user|
+#		allow :employee do 
+#			current_user.uid == "859908"	#	Alice's UID
+#		end
 	end
 
 	#
