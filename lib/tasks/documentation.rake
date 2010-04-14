@@ -75,7 +75,7 @@ namespace :doc do	|doc|
 			end
 		end
 
-		skip = %w( Import Export BdrbJobQueue Track )
+		skip = %w( Import Export BdrbJobQueue )
 		Object.subclasses_of(ActiveRecord::Base).sort_by{|a|a.name}.each do |ar|
 			next if skip.include?(ar.name)
 			table_name = ar.table_name
