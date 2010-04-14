@@ -13,6 +13,11 @@ namespace :doc do	|doc|
 #		`rake doc:app` is called.	The Rakefile
 #		is modified to handle the modifications.
 #
+#		Actually, that's not entirely true.  This would
+#		add another task, but you can remove and override
+#		a task.  The rdoc_rails plugin was overriding my
+#		override, which caused all the frustration!!!
+#
 #	}
 
 	plugins = FileList['vendor/plugins/**'].collect { |plugin| 
