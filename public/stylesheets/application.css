@@ -28,8 +28,11 @@ body {
 
 
 div#container {
+/*
 	width: 900px;
 	margin: 0 auto;
+*/
+	margin: 0 5px;
 }
 div#head {
 	background-color: #1D1F45;
@@ -37,6 +40,7 @@ div#head {
 	background-repeat: no-repeat;
 	height: 100px;
 	width: 100%;
+	min-width: 765px;
 }
 span#whoami {
 	color:white;
@@ -51,8 +55,8 @@ div#appmenu {
 /*
 	The background-color is needed here too for
 	when the menu is taller than the content.
-*/
 	background-color:#252C58;
+*/
 	float:left;
 	padding-right:2px;
 	padding-bottom:10px;
@@ -84,11 +88,13 @@ div#content {
 	except you can specify a color which I am using 
 	for the background of the menu to ensure that the
 	menu and content are the same height.
-*/
 	border-left:145px solid #252C58;	
+*/
+	margin-left: 145px;
 	padding-top: 20px;
 	padding-left: 20px;
 	background-color: white;
+	min-width: 600px;
 }
 div#content div#main h1:nth-child(1),
 div#content p:nth-child(2),
@@ -152,3 +158,36 @@ form.link_to {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+
+
+
+div#background  {
+	height:100%;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:-1;
+}
+div#background div.margin {
+	background-repeat:repeat-y;
+	height:100%;
+	position:absolute;
+	width:5px;
+}
+div#background div#menu_back.margin {
+	background-color: #252C58;
+	left:5px;
+	width:145px;
+}
+/*
+div#left_margin {
+	background-position:right top;
+	left:0;
+}
+div#right_margin {
+	background-position:left top;
+	right:0;
+}
+*/
+
