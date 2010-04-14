@@ -68,6 +68,7 @@ namespace :doc do	|doc|
 
 		#	in development, by default, the models are eager loaded,
 		#	so we need to load them manually.
+#		%w( vendor/plugins/surveyor/app/models ).each do |load_path|
 		%w( app/models ).each do |load_path|
 			matcher = /\A#{Regexp.escape(load_path)}(.*)\.rb\Z/
 			Dir.glob("#{load_path}/**/*.rb").sort.each do |file|
