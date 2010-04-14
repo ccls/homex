@@ -28,10 +28,6 @@ body {
 
 
 div#container {
-/*
-	width: 900px;
-	margin: 0 auto;
-*/
 	margin: 0 5px;
 }
 div#head {
@@ -50,13 +46,10 @@ span#whoami {
 
 /*
 	surveyor uses #menu, so we can't
+	Actually, now that I've changed the layout for the survey,
+	we could actually use #menu here.
 */
 div#appmenu {
-/*
-	The background-color is needed here too for
-	when the menu is taller than the content.
-	background-color:#252C58;
-*/
 	float:left;
 	padding-right:2px;
 	padding-bottom:10px;
@@ -71,9 +64,6 @@ div#appmenu a {
 	text-decoration:none;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	line-height: 1.1;
-/*
-	font-size: 85%;
-*/
 }
 div#appmenu a:hover {
 	background-color: #E7C254;
@@ -82,14 +72,6 @@ div#appmenu a:hover {
 
 
 div#content {
-/*
-	margin-left:160px;	
-	Using a border seems to work just like a margin,
-	except you can specify a color which I am using 
-	for the background of the menu to ensure that the
-	menu and content are the same height.
-	border-left:145px solid #252C58;	
-*/
 	margin-left: 145px;
 	padding-top: 20px;
 	padding-left: 20px;
@@ -102,28 +84,16 @@ div#content h1:nth-child(2),
 div#content h2:nth-child(2) {
 	margin-top: 0;
 }
-#main {
-/*
-	margin: 20px auto 0px;
-	border: 2px solid #8DA2B9;
-	padding-top: 0;
-*/
-}
+
 #footer {
 	clear:both;
 	padding-top: 1ex;
 	text-align:center;
 	font-size:8pt;
 	color: gray;
+	min-width: 765px;
 }
 
-/*
-fieldset legend {
-	font-size: 1.2em;
-	color: #61769E;
-	font-weight: bold;
-}
-*/
 
 p > small {
 	color: gray;
@@ -190,4 +160,3 @@ div#right_margin {
 	right:0;
 }
 */
-
