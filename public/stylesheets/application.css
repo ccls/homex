@@ -49,7 +49,7 @@ span#whoami {
 	Actually, now that I've changed the layout for the survey,
 	we could actually use #menu here.
 */
-div#appmenu {
+div#left_margin {
 	float:left;
 	padding-right:2px;
 	padding-bottom:10px;
@@ -70,6 +70,14 @@ div#appmenu a:hover {
 	color:#252C58;
 }
 
+div#ads a {
+	display:block;
+}
+div#ads img {
+	border: 0;
+	padding: 3px;
+	width: 140px;
+}
 
 div#content {
 	margin-left: 145px;
@@ -160,3 +168,5 @@ div#right_margin {
 	right:0;
 }
 */
+
+
