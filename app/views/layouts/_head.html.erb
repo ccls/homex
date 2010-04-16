@@ -21,7 +21,7 @@
 <%# end %>
 
 </div><!-- id='headmenu' -->
-<% if @page && !@page.children.empty? %>
+<% if @page && !@page.root.children.empty? %>
 	<div id='submenu'><div id='current_root'><%= @page.root.title %></div>
 	<div id='children'>
 	<% @page.root.children.each do |child| %>
@@ -31,3 +31,10 @@
 </div><!-- id='submenu'  -->
 <% end %>
 </div><!-- id='head'  -->
+
+<% if @page && @page.is_home? %>
+<div id='home_page_pic'>
+<%= image_tag HomePagePic.first(:conditions => { 
+		:active => true }).image.url(:full) %>
+</div>
+<% end %>

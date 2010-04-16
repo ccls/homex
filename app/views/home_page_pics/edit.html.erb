@@ -1,24 +1,4 @@
 <h1>Editing home_page_pic</h1>
-
-<% form_for(@home_page_pic) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :caption %><br />
-    <%= f.text_area :caption %>
-  </p>
-  <p>
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
+<%= render 'form' %>
 <%= link_to 'Show', @home_page_pic %> |
 <%= link_to 'Back', home_page_pics_path %>

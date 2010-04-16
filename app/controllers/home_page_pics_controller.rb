@@ -1,85 +1,63 @@
 class HomePagePicsController < ApplicationController
-  # GET /home_page_pics
-  # GET /home_page_pics.xml
-  def index
-    @home_page_pics = HomePagePic.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @home_page_pics }
-    end
-  end
+	before_filter :may_view_home_page_pics_required
+	before_filter :valid_id_required, :except => [:index,:new,:create]
 
-  # GET /home_page_pics/1
-  # GET /home_page_pics/1.xml
-  def show
-    @home_page_pic = HomePagePic.find(params[:id])
+	def index
+		@home_page_pics = HomePagePic.all
+	end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @home_page_pic }
-    end
-  end
+	def show
+		@home_page_pic = HomePagePic.find(params[:id])
+	end
 
-  # GET /home_page_pics/new
-  # GET /home_page_pics/new.xml
-  def new
-    @home_page_pic = HomePagePic.new
+	def new
+		@home_page_pic = HomePagePic.new
+	end
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @home_page_pic }
-    end
-  end
+	def edit
+		@home_page_pic = HomePagePic.find(params[:id])
+	end
 
-  # GET /home_page_pics/1/edit
-  def edit
-    @home_page_pic = HomePagePic.find(params[:id])
-  end
+	def create
+		@home_page_pic = HomePagePic.new(params[:home_page_pic])
 
-  # POST /home_page_pics
-  # POST /home_page_pics.xml
-  def create
-    @home_page_pic = HomePagePic.new(params[:home_page_pic])
+		if @home_page_pic.save
+			flash[:notice] = 'HomePagePic was successfully created.'
+			redirect_to(@home_page_pic)
+		else
+			flash[:error] = 'HomePagePic creation failed.'
+			render :action => "new"
+		end
+	end
 
-    respond_to do |format|
-      if @home_page_pic.save
-        flash[:notice] = 'HomePagePic was successfully created.'
-        format.html { redirect_to(@home_page_pic) }
-        format.xml  { render :xml => @home_page_pic, :status => :created, :location => @home_page_pic }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @home_page_pic.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+	def update
+		@home_page_pic = HomePagePic.find(params[:id])
 
-  # PUT /home_page_pics/1
-  # PUT /home_page_pics/1.xml
-  def update
-    @home_page_pic = HomePagePic.find(params[:id])
+		if @home_page_pic.update_attributes(params[:home_page_pic])
+			flash[:notice] = 'HomePagePic was successfully updated.'
+			redirect_to(@home_page_pic)
+		else
+			flash[:error] = 'HomePagePic update failed.'
+			render :action => "edit"
+		end
+	end
 
-    respond_to do |format|
-      if @home_page_pic.update_attributes(params[:home_page_pic])
-        flash[:notice] = 'HomePagePic was successfully updated.'
-        format.html { redirect_to(@home_page_pic) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @home_page_pic.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+	def destroy
+		@home_page_pic = HomePagePic.find(params[:id])
+		@home_page_pic.destroy
 
-  # DELETE /home_page_pics/1
-  # DELETE /home_page_pics/1.xml
-  def destroy
-    @home_page_pic = HomePagePic.find(params[:id])
-    @home_page_pic.destroy
+		redirect_to(home_page_pics_url)
+	end
 
-    respond_to do |format|
-      format.html { redirect_to(home_page_pics_url) }
-      format.xml  { head :ok }
-    end
-  end
+protected
+
+	def valid_id_required
+		if !params[:id].blank? and HomePagePic.exists?(params[:id])
+			@home_page_pic = HomePagePic.find(params[:id])
+		else
+			access_denied("HomePagePic id required!", home_page_pics_path)
+		end
+	end
+
 end

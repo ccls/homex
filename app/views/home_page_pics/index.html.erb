@@ -1,24 +1,9 @@
-<h1>Listing home_page_pics</h1>
+<%= content_for :head, stylesheet_link_tag('home_page_pics') %>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Caption</th>
-    <th>Active</th>
-  </tr>
-
-<% @home_page_pics.each do |home_page_pic| %>
-  <tr>
-    <td><%=h home_page_pic.title %></td>
-    <td><%=h home_page_pic.caption %></td>
-    <td><%=h home_page_pic.active %></td>
-    <td><%= link_to 'Show', home_page_pic %></td>
-    <td><%= link_to 'Edit', edit_home_page_pic_path(home_page_pic) %></td>
-    <td><%= link_to 'Destroy', home_page_pic, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+<div id='home_page_pics'>
+<%= render :partial => 'home_page_pic', :collection => @home_page_pics %>
+</div><!-- id='home_page_pics' -->
 
 <br />
 
-<%= link_to 'New home_page_pic', new_home_page_pic_path %>
+<%= button_link_to 'Create New Home Page Pic', new_home_page_pic_path %>

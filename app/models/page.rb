@@ -52,4 +52,8 @@ class Page < ActiveRecord::Base
 		page
 	end
 
+	def is_home?
+		self.path == "/"
+	end
+
 end

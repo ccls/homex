@@ -227,4 +227,8 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
+	permission :view_home_page_pics do
+		allow :employee
+	end
+
 end
