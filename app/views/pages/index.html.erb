@@ -11,7 +11,8 @@
 </div><!-- id='pages' -->
 
 <p>
-<%= button_link_to "Create new page", new_page_path -%>
+<%= button_link_to "Create new page", 
+	new_page_path(:parent_id => params[:parent_id]) -%>
 <%= submit_tag 'Save page order', :name => nil, :id => 'save_order' %>
 </p>
 
