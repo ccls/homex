@@ -62,11 +62,20 @@ div#rootmenu {
 	background-color: #51A9E7;
 	height: 35px;
 }
+/*
+	5x35
+	menu_normal : 51A9E7 - 2A71CC
+	menu_hover  : 2A71CC - 1629f2
+	menu_active : 1629f2 - 0057AE
+	menu_current: 0057AE - 51A9E7
+*/
 div#rootmenu a {
 	float:left;
 	text-align: center;
 	margin:0 auto;
 	background-color: #51A9E7;
+	background-image: url('/images/menu_normal.png');
+	background-repeat: repeat-x;
 	color: #111111;
 /*	padding: 0px 24px; */
 	
@@ -83,9 +92,15 @@ div#rootmenu a:first-child {
 }
 div#rootmenu a:hover {
 	background-color: #2A71CC;
+	background-image: url('/images/menu_hover.png');
+}
+div#rootmenu a:active {				/* mouse button down */
+	background-color: #0057AE;
+	background-image: url('/images/menu_active.png');
 }
 div#rootmenu a.current {
 	background-color: #1629f2;
+	background-image: url('/images/menu_current.png');
 	color: white;
 	text-shadow: #000 0 1px 2px;
 }
