@@ -30,8 +30,6 @@ body {
   background-color: #FFC5AF;
 }
 
-
-
 div#head,
 div#container {
 	margin: 0 auto;
@@ -44,13 +42,13 @@ div#head {
 	margin: 10px auto;
 }
 
-
-
+/*
 span#whoami {
 	color:white;
 	float:right;
 	padding: 1ex;
 }
+*/
 
 /*
 	surveyor uses #menu, so we can't
@@ -66,11 +64,12 @@ div#rootmenu {
 }
 div#rootmenu a {
 	float:left;
-	display:inline;
-	margin:0;
+	text-align: center;
+	margin:0 auto;
 	background-color: #51A9E7;
 	color: #111111;
-	padding: 0px 24px;
+/*	padding: 0px 24px; */
+	
 	border-right: 1px dotted #2A71CC;
 	text-decoration:none;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
@@ -87,7 +86,6 @@ div#rootmenu a.current {
 	color: white;
 	text-shadow: #000 0 1px 2px;
 }
-
 
 div#submenu {
 	margin: 10px 0;
@@ -112,8 +110,6 @@ div#submenu div#children .child a:hover {
 	color:gray;
 }
 
-
-
 div#content {
 	clear:both;
 	background-color:white;
@@ -136,20 +132,10 @@ div#content h2:nth-child(2) {
 	color: gray;
 }
 
-
 p > small {
 	color: gray;
 	font-size: 6pt;
 }
-
-
-div#users table td {
-	padding-right: 1em;
-}
-div#users table td.is_admin {
-	text-align: center;
-}
-
 
 div.row {
 	border: 1px solid silver;

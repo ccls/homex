@@ -6,9 +6,16 @@
 	@page ||= Page.find_by_path("/" << controller.controller_name.singularize)
 %>
 <%# Page changes outside of ActionController go unnoticed %>
+<%# Due to the variability of the menu, we can't really cache it %>
 <%# cache 'page_menu' do %>
+<% 
+	count = Page.roots.count
+	count = ( count > 0 ) ? count : 1
+	width = ( 900 - count ) / count
+%>
 <% Page.roots.each do |page| -%>
 	<%= link_to page.menu, page.path, 
+		:style => "width: #{width}px",
 		:class => ((page == @page.try(:root))?'current':nil)  %>
 <% end -%>
 <%# end %>
