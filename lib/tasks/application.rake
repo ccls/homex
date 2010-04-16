@@ -85,46 +85,77 @@ namespace :app do
 	desc "Add initial pages."
 	task :add_pages => :environment do
 		puts "Adding default pages"
-		unless p = Page.find_by_path("/")
-			Page.create({
-				:title => "Home Page Title",
-				:menu  => "Home",
-				:path  => "/",
-				:body  => "Home Page Body"
-			})
-		end
-		unless p = Page.find_by_path("/alpha")
-			Page.create({
-				:title => "Alpha Page Title",
-				:menu  => "Alpha",
-				:path  => "/alpha",
-				:body  => "Alpha Page Body"
-			})
-		end
-		unless p = Page.find_by_path("/beta")
-			Page.create({
-				:title => "Beta Page Title",
-				:menu  => "Beta",
-				:path  => "/beta",
-				:body  => "Beta Page Body"
-			})
-		end
-		unless p = Page.find_by_path("/gamma")
-			Page.create({
-				:title => "Gamma Page Title",
-				:menu  => "Gamma",
-				:path  => "/gamma",
-				:body  => "Gamma Page Body"
-			})
-		end
-		unless p = Page.find_by_path("/about")
-			Page.create({
-				:title => "About Page Title",
-				:menu  => "About",
-				:path  => "/about",
-				:body  => "About Page Body"
-			})
-		end
+		home = Page.find_or_create_by_path(
+			:path  => "/", 
+			:title => "Home Page Title",
+			:menu  => "Home",
+			:body  => "Home Page Body"
+		)
+		alpha = Page.find_or_create_by_path(
+			:path  => "/alpha",
+			:title => "Alpha Page Title",
+			:menu  => "Alpha",
+			:body  => "Alpha Page Body"
+		)
+		beta = Page.find_or_create_by_path(
+			:path  => "/beta",
+			:title => "Beta Page Title",
+			:menu  => "Beta",
+			:body  => "Beta Page Body"
+		)
+		gamma = Page.find_or_create_by_path(
+			:path  => "/gamma",
+			:title => "Gamma Page Title",
+			:menu  => "Gamma",
+			:body  => "Gamma Page Body"
+		)
+		about = Page.find_or_create_by_path(
+			:path  => "/about",
+			:title => "About Page Title",
+			:menu  => "About",
+			:body  => "About Page Body"
+		)
+		staff = Page.find_or_create_by_path(
+			:path  => "/staff", 
+			:title => "Staff",
+			:menu  => "Staff",
+			:body  => "Staff stuff"
+		)
+		pages = Page.find_or_create_by_path(
+			:path  => "/pages",
+			:title => "Pages",
+			:menu  => "Pages",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
+		users = Page.find_or_create_by_path(
+			:path  => "/users",
+			:title => "Users",
+			:menu  => "Users",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
+		pages = Page.find_or_create_by_path(
+			:path  => "/calendar",
+			:title => "Calendar",
+			:menu  => "Calendar",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
+		pages = Page.find_or_create_by_path(
+			:path  => "/packages",
+			:title => "Packages",
+			:menu  => "Packages",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
+		pages = Page.find_or_create_by_path(
+			:path  => "/subjects",
+			:title => "Subjects",
+			:menu  => "Subjects",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
 	end
 
 	desc "Deputize user by UID"
