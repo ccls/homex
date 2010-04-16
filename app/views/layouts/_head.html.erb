@@ -21,7 +21,7 @@
 <%# end %>
 
 </div><!-- id='headmenu' -->
-<% if @page %>
+<% if @page && !@page.children.empty? %>
 	<div id='submenu'><div id='current_root'><%= @page.root.title %></div>
 	<div id='children'>
 	<% @page.root.children.each do |child| %>
