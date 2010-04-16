@@ -21,28 +21,8 @@
 <%= yield :head %>
 </head>
 <body>
-
-<div id='background'>
-<!--<div id='left_margin' class='margin'></div>-->
-<div id='menu_back' class='margin'></div>
-<!--<div id='right_margin' class='margin'></div>-->
-</div><!-- <div id='background'> -->
-
-
 <div id='container'>
-<div id='head'>
-<span id='whoami'>
-<% if logged_in? -%>
-Welcome back, <%= current_user.displayname -%>
- [ <%= link_to "Logout", logout_path %> ] 
-<% else %>
-You have not yet been authenticated.
- [ <%= link_to "Login", @login_url %> ] 
-<% end -%>
-</span>
-</div><!-- id='head' -->
-
-<%= render :partial => 'layouts/menu' -%> 
+<%= render :partial => 'layouts/head' -%> 
 
 <div id='content'>
 <% flash.each do |key, msg| %>

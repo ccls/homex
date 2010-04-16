@@ -27,17 +27,22 @@ body {
 
 
 
+div#head,
 div#container {
-	margin: 0 5px;
+	margin: 0 auto;
+	width: 900px;
 }
 div#head {
-	background-color: #1D1F45;
-	background-image: url('/images/berkeley-text.gif');
-	background-repeat: no-repeat;
-	height: 100px;
-	width: 100%;
-	min-width: 765px;
+	margin: 10px auto;
+	background-color: #51A9E7;
+/* Darker blue 2A71CC */
+/* Even darker 1629f2 */
+/* EVEN DARKER 0057AE */
+	height: 35px;
 }
+
+
+
 span#whoami {
 	color:white;
 	float:right;
@@ -49,42 +54,36 @@ span#whoami {
 	Actually, now that I've changed the layout for the survey,
 	we could actually use #menu here.
 */
-div#left_margin {
-	float:left;
-	padding-right:2px;
-	padding-bottom:10px;
+div#headmenu {
+	margin:0;
+	padding:0;
+	text-align: left;
 }
-div#appmenu a {
-	display:block;
-	color: #E7C254;
-	padding: 6px 7px 6px 10px;
-	border-right: 1px dotted #616688;
-	border-bottom: 1px dotted #616688;
-	width: 125px;
+div#headmenu a {
+	float:left;
+	display:inline;
+	margin:0;
+	background-color: #51A9E7;
+	color: #111111;
+	padding: 0px 14px;
+	border-right: 1px dotted #2A71CC;
 	text-decoration:none;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
-	line-height: 1.1;
+	line-height: 35px;
+	font-weight:bold;
 }
-div#appmenu a:hover {
-	background-color: #E7C254;
-	color:#252C58;
+div#headmenu a:hover {
+	background-color: #2A71CC;
+}
+div#headmenu a.current {
+	background-color: #1629f2;
+	color: white;
 }
 
-div#ads a {
-	display:block;
-}
-div#ads img {
-	border: 0;
-	padding: 3px;
-	width: 140px;
-}
+
+
 
 div#content {
-	margin-left: 145px;
-	padding-top: 20px;
-	padding-left: 20px;
-	background-color: white;
-	min-width: 600px;
 }
 div#content div#main h1:nth-child(1),
 div#content p:nth-child(2),
@@ -136,37 +135,4 @@ form.link_to {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-
-
-
-
-div#background  {
-	height:100%;
-	position:fixed;
-	top:0;
-	width:100%;
-	z-index:-1;
-}
-div#background div.margin {
-	background-repeat:repeat-y;
-	height:100%;
-	position:absolute;
-	width:5px;
-}
-div#background div#menu_back.margin {
-	background-color: #252C58;
-	left:5px;
-	width:145px;
-}
-/*
-div#left_margin {
-	background-position:right top;
-	left:0;
-}
-div#right_margin {
-	background-position:left top;
-	right:0;
-}
-*/
-
 
