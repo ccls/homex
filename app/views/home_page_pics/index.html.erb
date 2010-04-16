@@ -1,0 +1,24 @@
+<h1>Listing home_page_pics</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Caption</th>
+    <th>Active</th>
+  </tr>
+
+<% @home_page_pics.each do |home_page_pic| %>
+  <tr>
+    <td><%=h home_page_pic.title %></td>
+    <td><%=h home_page_pic.caption %></td>
+    <td><%=h home_page_pic.active %></td>
+    <td><%= link_to 'Show', home_page_pic %></td>
+    <td><%= link_to 'Edit', edit_home_page_pic_path(home_page_pic) %></td>
+    <td><%= link_to 'Destroy', home_page_pic, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New home_page_pic', new_home_page_pic_path %>

@@ -23,6 +23,9 @@ Factory.define :home_exposure_response do |f|
 	f.association :subject
 end
 
+Factory.define :home_page_pic do |f|
+end
+
 Factory.define :ineligible_reason do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :home_page_pics
+
 
 	# The priority is based upon order of creation: first created -> highest priority.
 

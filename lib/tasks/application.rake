@@ -121,38 +121,45 @@ namespace :app do
 			:menu  => "Staff",
 			:body  => "Staff stuff"
 		)
-		pages = Page.find_or_create_by_path(
+		Page.find_or_create_by_path(
 			:path  => "/pages",
 			:title => "Pages",
 			:menu  => "Pages",
 			:body  => "This text should never be seen.",
 			:parent_id => staff.id
 		)
-		users = Page.find_or_create_by_path(
+		Page.find_or_create_by_path(
 			:path  => "/users",
 			:title => "Users",
 			:menu  => "Users",
 			:body  => "This text should never be seen.",
 			:parent_id => staff.id
 		)
-		pages = Page.find_or_create_by_path(
+		Page.find_or_create_by_path(
 			:path  => "/calendar",
 			:title => "Calendar",
 			:menu  => "Calendar",
 			:body  => "This text should never be seen.",
 			:parent_id => staff.id
 		)
-		pages = Page.find_or_create_by_path(
+		Page.find_or_create_by_path(
 			:path  => "/packages",
 			:title => "Packages",
 			:menu  => "Packages",
 			:body  => "This text should never be seen.",
 			:parent_id => staff.id
 		)
-		pages = Page.find_or_create_by_path(
+		Page.find_or_create_by_path(
 			:path  => "/subjects",
 			:title => "Subjects",
 			:menu  => "Subjects",
+			:body  => "This text should never be seen.",
+			:parent_id => staff.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/home_page_pics",
+			:title => "Home Page Pics",
+			:menu  => "Home Page Pics",
 			:body  => "This text should never be seen.",
 			:parent_id => staff.id
 		)

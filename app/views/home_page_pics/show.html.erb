@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @home_page_pic.title %>
+</p>
+
+<p>
+  <b>Caption:</b>
+  <%=h @home_page_pic.caption %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @home_page_pic.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_home_page_pic_path(@home_page_pic) %> |
+<%= link_to 'Back', home_page_pics_path %>
