@@ -1,22 +1,26 @@
 <div id='head'>
-<div id='headmenu'>
+<div id='rootmenu'>
+<%# For the menuing system to work, we need a page %>
+<%
+	@page ||= Page.find_by_path("/" << controller.controller_name)
+	@page ||= Page.find_by_path("/" << controller.controller_name.singularize)
+%>
 <%# Page changes outside of ActionController go unnoticed %>
 <%# cache 'page_menu' do %>
-<% Page.all.each do |page| -%>
-	<%= link_to page.menu, page.path -%>
+<% Page.roots.each do |page| -%>
+	<%= link_to page.menu, page.path, 
+		:class => ((page == @page.try(:root))?'current':nil)  %>
 <% end -%>
 <%# end %>
 
-<% if logged_in? %>
-  <%= link_to("Calendar",calendar_path) if current_user.may_view_calendar? %>
-  <%= link_to "Subjects", subjects_path if current_user.may_view_subjects? %>
-	<% if current_user.is_admin? %>
-  <%= link_to "Packages", packages_path %>
-  <%= link_to "Pages", pages_path %>
-  <%= link_to "Users", users_path %>
-  <%#= link_to "Permissions", permissions_path %>
-  <%#= link_to "Documentation", '/doc/app/index.html' %>
-	<% end %>
-<% end %>
 </div><!-- id='headmenu' -->
+<% if @page %>
+	<div id='submenu'><div id='current_root'><%= @page.root.title %></div>
+	<div id='children'>
+	<% @page.root.children.each do |child| %>
+	<span class='child<%=(@page==child)?" current_child":""-%>'><%= link_to child.title, child.path %></span>
+	<% end %>
+</div><!-- id='children'  -->
+</div><!-- id='submenu'  -->
+<% end %>
 </div><!-- id='head'  -->

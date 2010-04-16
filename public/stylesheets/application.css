@@ -1,9 +1,14 @@
-/*
-	Much of this style was chosen to mimic berkeley.edu
-*/
 body {
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	margin: 0px;
+	background-color: #F0F0FF;
+/*
+	this gradient image was created at 
+	http://tools.dynamicdrive.com/gradient/
+	It is 1x800, top: F8F8FF, bottom: F0F0FF
+*/
+	background-image: url("/images/gradient.png");
+	background-repeat: repeat-x;
 }
 
 .flash {
@@ -33,12 +38,10 @@ div#container {
 	width: 900px;
 }
 div#head {
-	margin: 10px auto;
-	background-color: #51A9E7;
 /* Darker blue 2A71CC */
 /* Even darker 1629f2 */
 /* EVEN DARKER 0057AE */
-	height: 35px;
+	margin: 10px auto;
 }
 
 
@@ -54,36 +57,68 @@ span#whoami {
 	Actually, now that I've changed the layout for the survey,
 	we could actually use #menu here.
 */
-div#headmenu {
+div#rootmenu {
 	margin:0;
 	padding:0;
 	text-align: left;
+	background-color: #51A9E7;
+	height: 35px;
 }
-div#headmenu a {
+div#rootmenu a {
 	float:left;
 	display:inline;
 	margin:0;
 	background-color: #51A9E7;
 	color: #111111;
-	padding: 0px 14px;
+	padding: 0px 24px;
 	border-right: 1px dotted #2A71CC;
 	text-decoration:none;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	line-height: 35px;
 	font-weight:bold;
+/* text-shadow isn't yet standardized */
+	text-shadow: #FFF 0 1px 2px;
 }
-div#headmenu a:hover {
+div#rootmenu a:hover {
 	background-color: #2A71CC;
 }
-div#headmenu a.current {
+div#rootmenu a.current {
 	background-color: #1629f2;
 	color: white;
+	text-shadow: #000 0 1px 2px;
 }
 
+
+div#submenu {
+	margin: 10px 0;
+	height: 20px;
+}
+div#submenu div#current_root {
+	font-size: 14pt;
+	font-weight: bold;
+	float:left;
+}
+div#submenu div#children {
+	float:right;
+}
+div#submenu div#children .child a {
+	color: black;
+	margin-left: 30px;
+	text-decoration:none;
+}
+div#submenu div#children .child.current_child a, 
+div#submenu div#children .child a:hover {
+	background-color:transparent;
+	color:gray;
+}
 
 
 
 div#content {
+	clear:both;
+	background-color:white;
+	border: 1px solid silver;
+	padding: 5px 25px;
 }
 div#content div#main h1:nth-child(1),
 div#content p:nth-child(2),
@@ -97,8 +132,8 @@ div#content h2:nth-child(2) {
 	padding-top: 1ex;
 	text-align:center;
 	font-size:8pt;
+	line-height:8pt;
 	color: gray;
-	min-width: 765px;
 }
 
 
@@ -135,4 +170,3 @@ form.link_to {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-

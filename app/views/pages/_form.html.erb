@@ -3,6 +3,10 @@
 <fieldset id='main'>
 <legend>Page</legend>
 
+<p><b>Parent?</b> (Is this a main or sub menu page?)</p>
+<%= f.collection_select :parent_id, Page.all(:order => "title"), 
+	:id, :title, :include_blank => true %>  
+
 <p><b>Title</b> (this is the text on the top of the browser)</p>
 <%= f.text_field :title %>
 

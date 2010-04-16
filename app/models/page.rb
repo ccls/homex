@@ -7,7 +7,7 @@
 #	==	named_scope(s)
 #	*	not_home (returns those pages where path is not just '/')
 class Page < ActiveRecord::Base
-	acts_as_list
+	acts_as_list :scope => :parent_id
 	default_scope :order => :position
 
 	validates_length_of :path,  :minimum => 1
@@ -17,10 +17,14 @@ class Page < ActiveRecord::Base
 	validates_length_of :body,  :minimum => 4
 	validates_uniqueness_of :menu
 	validates_uniqueness_of :path
+
+	belongs_to :parent, :class_name => 'Page'
+	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
 	
+	named_scope :roots, :conditions => [ "parent_id IS NULL" ]
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
-	attr_accessible :path, :menu, :title, :body
+	attr_accessible :path, :menu, :title, :body, :parent_id
 
 	after_validation :downcase_path
 	#	downcase the path attribute
@@ -38,6 +42,14 @@ class Page < ActiveRecord::Base
 				:path => path.downcase
 			}
 		)
+	end
+
+	def root
+		page = self
+		until page.parent == nil
+			page = page.parent
+		end 
+		page
 	end
 
 end

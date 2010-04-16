@@ -5,11 +5,11 @@ class PagesController < ApplicationController	#:nodoc:
 	before_filter :may_maintain_pages_required, :except => :show
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 
-	caches_action :show, :layout => false
-	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
+#	caches_action :show, :layout => false
+#	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
 	def order
-		params[:pages].each { |id| Page.find(id).move_to_bottom }
+		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
 		redirect_to pages_path
 	end
 
@@ -29,12 +29,12 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def index
 		@page_title = "CCLS Pages"
-		@pages = Page.all
+		@pages = Page.all(:conditions => { :parent_id => params[:parent_id] })
 	end
 
 	def new
 		@page_title = "Create New CCLS Page"
-		@page = Page.new
+		@page = Page.new(:parent_id => params[:parent_id])
 	end
 
 	def edit

@@ -35,3 +35,7 @@ div.manage {
 div.page.row.ui-sortable-helper {
 	border: 1px dashed #E7C254;
 }
+
+div.children {
+	margin-left:57px;
+}

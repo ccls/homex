@@ -7,27 +7,7 @@
 <% form_tag(order_pages_path, :method => :post, :id => 'order_pages') do -%>
 
 <div id='pages'>
-<% @pages.each do |page| %>
-<% content_tag_for( :div, page, :class => 'row' ) do %>
-<%= hidden_field_tag( 'pages[]', page.id, :id => nil ) %>
-<%= image_tag 'drag.gif', :class => 'handle' %>
-<div class='position'><%= page.position -%></div>
-<div class='path'>
-<%= link_to page.path, page.path -%>
-</div>
-<div class='menu'>
-<%= link_to page.menu, page -%>
-</div>
-<div class='title'>
-<%= link_to page.title, page -%>
-</div>
-<div class='manage'>
-<%= link_to "Edit", edit_page_path(page) -%>
-&nbsp;
-<%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title}'?\nAre you sure?", :method => :delete -%>
-</div>
-<% end %><!-- class='page' -->
-<% end %><%# @pages.each %>
+<%= render :partial => 'page', :collection => @pages %>
 </div><!-- id='pages' -->
 
 <p>
@@ -36,3 +16,10 @@
 </p>
 
 <% end %>
+<p>
+The page model is used as a Content Management System 
+and for menu control.  Some routes are not available 
+because the application is using them, but in order to 
+have the menu function, a "fake page" is created as a 
+placeholder.  The staff functionality is an example.
+</p>
