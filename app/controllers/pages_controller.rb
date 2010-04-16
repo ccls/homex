@@ -5,8 +5,8 @@ class PagesController < ApplicationController	#:nodoc:
 	before_filter :may_maintain_pages_required, :except => :show
 	before_filter :id_required, :only => [ :edit, :update, :destroy ]
 
-#	caches_action :show, :layout => false
-#	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
+	caches_action :show, :layout => false
+	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
 	def order
 		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
