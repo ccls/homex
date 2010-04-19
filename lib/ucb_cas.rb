@@ -40,11 +40,14 @@ protected
 	# has an SSO session open.  This is potentially useful if you
 	#	don't store a copy of the user info locally.  Otherwise,
 	#	not so much.
-	def cas_gateway_filter
-		# Have to add ".filter(self)" when not in before_filter line.
-		CASClient::Frameworks::Rails::GatewayFilter.filter(self)
-		@login_url = CASClient::Frameworks::Rails::Filter.login_url(self)
-	end
+#
+#	Not using, so commented out so not to affect code coverage output.
+#
+#	def cas_gateway_filter
+#		# Have to add ".filter(self)" when not in before_filter line.
+#		CASClient::Frameworks::Rails::GatewayFilter.filter(self)
+#		@login_url = CASClient::Frameworks::Rails::Filter.login_url(self)
+#	end
 
 end
 end
