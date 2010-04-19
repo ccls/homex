@@ -1,3 +1,5 @@
+<% content_for :head, stylesheet_link_tag('home_page_pic') %>
+
 <p>
   <b>Title:</b>
   <%=h @home_page_pic.title %>
@@ -7,9 +9,7 @@
   <b>Image:</b>
 </p>
 <div class='image_preview'>
-<% if @home_page_pic.image? %>
-<%= image_tag @home_page_pic.image.url(:large) %>
-<% end %>
+<%= image_tag @home_page_pic.image.url(:full) %>
 </div>
 
 <p>

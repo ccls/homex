@@ -11,8 +11,9 @@ div.active {
 }
 div.image_preview {
 	clear:left;
-	margin:0 auto;
-	text-align:center;
+}
+div.image_preview img {
+	width: 99%;
 }
 div.caption {
 	clear: left;
