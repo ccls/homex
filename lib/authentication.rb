@@ -53,12 +53,10 @@ protected
 	#	a Cal ID, this will need changed.  Will need to find user
 	#	from user_id or other.
 	def login_from_session
-#		self.current_user = User.find_create_and_update_by_uid(session[:calnetuid]) if session[:calnetuid]
 		self.current_user = if session[:calnetuid] 
 			User.find_create_and_update_by_uid(session[:calnetuid]) 
-			#if session[:calnetuid]
-		elsif session[:user_id]
-			User.find(session[:user_id]) 
+#		elsif session[:user_id]
+#			User.find(session[:user_id]) 
 		end
 	end
 

@@ -32,9 +32,8 @@
 <% end %>
 </div><!-- id='head'  -->
 
-<% if @page && @page.is_home? %>
+<% if @page && @page.is_home? && !@hpp.nil? %>
 <div id='home_page_pic'>
-<%= image_tag HomePagePic.first(:conditions => { 
-		:active => true }).image.url(:full) %>
+<%= image_tag @hpp.image.url(:full) %>
 </div>
 <% end %>

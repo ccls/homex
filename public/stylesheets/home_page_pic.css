@@ -1,0 +1,14 @@
+input[type='text'],
+textarea {
+	width: 99%;
+}
+div.image {
+	float: left;
+	width: 50%;
+}
+div.active {
+	padding-top: 15px;
+}
+div.caption {
+	clear: left;
+}

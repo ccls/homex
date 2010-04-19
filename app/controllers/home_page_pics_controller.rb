@@ -1,7 +1,22 @@
 class HomePagePicsController < ApplicationController
 
 	before_filter :may_view_home_page_pics_required
-	before_filter :valid_id_required, :except => [:index,:new,:create]
+	before_filter :valid_id_required, 
+		:except => [:index,:activate,:new,:create]
+
+	def activate
+		#["1", {"active"=>"true"}]
+		#["2", {"active"=>"false"}]
+		params[:home_page_pics].each do |hpp|
+			HomePagePic.find(hpp[0]).update_attributes!(
+				:active => hpp[1]['active'])
+		end
+		flash[:notice] = "Active statuses updated."
+		redirect_to home_page_pics_path
+	rescue
+		flash[:error] = "Something bad happened?"
+		redirect_to home_page_pics_path
+	end
 
 	def index
 		@home_page_pics = HomePagePic.all

@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :home_page_pics
-
 
 	# The priority is based upon order of creation: first created -> highest priority.
 
@@ -52,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource  :session, :only => [ :destroy ]
 	map.resources :users,  :only => [ :index, :show, :update ]
 	map.resources :pages, :collection => { :order => :post }
+  map.resources :home_page_pics, :collection => { :activate => :post }
 	# new and create for packages are just for demo development
 	map.resources :packages, :only => [ :index, :show, :new, :create, :update ]
 	map.resources :permissions, :only => :index
@@ -64,7 +63,6 @@ ActionController::Routing::Routes.draw do |map|
 			:only => [:create,:update,:destroy]
 	end
 	map.resources :survey_invitations, :only => :show
-
 	map.resource :survey_finished, :only => :show
 
 

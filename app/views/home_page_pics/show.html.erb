@@ -6,7 +6,9 @@
 <p>
   <b>Image:</b>
 </p>
+<% if @home_page_pic.image? %>
 <%= image_tag @home_page_pic.image.url(:medium) %>
+<% end %>
 
 <p>
   <b>Caption:</b>

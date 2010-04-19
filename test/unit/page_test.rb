@@ -89,6 +89,33 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "can have a parent" do
+		parent = create_page
+		page = create_page( :parent_id => parent.id )
+		assert_equal page.reload.parent, parent
+	end
+
+	test "should return self as root with no parent" do
+		page = create_page
+		assert_equal page, page.root
+	end
+
+	test "should return parent as root with parent" do
+		parent = create_page
+		page = create_page( :parent_id => parent.id )
+		assert_equal parent, page.reload.root
+	end
+
+	test "should return false if page is not home" do
+		page = create_page
+		assert !page.is_home?
+	end
+
+	test "should return true if page is home" do
+		page = create_page(:path => '/')
+		assert page.is_home?
+	end
+
 protected
 
 	def create_page(options = {})

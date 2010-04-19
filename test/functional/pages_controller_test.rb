@@ -70,6 +70,17 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to page_path(assigns(:page))
 	end
 
+	test "should create page with parent" do
+		parent = Factory(:page)
+		login_as admin_user
+		assert_difference('Page.count') do
+			post :create, :page => Factory.attributes_for(:page,
+				:parent_id => parent.id)
+		end
+		assert_equal parent, assigns(:page).parent
+		assert_redirected_to page_path(assigns(:page))
+	end
+
 	test "should NOT create page with invalid page" do
 		login_as admin_user
 		assert_no_difference('Page.count') do
@@ -260,6 +271,15 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_select 'title', page.title
 	end
+
+	test "should show HOME page" do
+		page = Factory(:page, :path => "/")
+		get :show, :id => page.id
+		assert_template 'show'
+		assert_response :success
+		assert_select 'title', page.title
+	end
+
 
 
 	test "should get index with both help and non-help pages" do

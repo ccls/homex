@@ -30,6 +30,11 @@ body {
   background-color: #FFC5AF;
 }
 
+/*
+	The common width of 900 is set here and in ...
+		app/views/layouts/_head.html.erb
+		app/models/home_page_pic.rb
+*/
 div#head,
 div#container {
 	margin: 0 auto;

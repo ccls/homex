@@ -24,6 +24,7 @@ Factory.define :home_exposure_response do |f|
 end
 
 Factory.define :home_page_pic do |f|
+	f.sequence(:title){ |n| "Title #{n}" }
 end
 
 Factory.define :ineligible_reason do |f|

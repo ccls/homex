@@ -22,6 +22,9 @@ class PagesController < ApplicationController	#:nodoc:
 			@page = Page.find(params[:id])
 		end
 		@page_title = @page.title
+		if @page.is_home?
+			@hpp = HomePagePic.random_active()
+		end
 	rescue ActiveRecord::RecordNotFound
 		flash_message = "Page not found with "
 		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
