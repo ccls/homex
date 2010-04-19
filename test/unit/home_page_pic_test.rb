@@ -25,8 +25,10 @@ class HomePagePicTest < ActiveSupport::TestCase
 	end
 
 	test "should return random HPP" do
-		active   = Factory(:home_page_pic, :active => true)
-		inactive = Factory(:home_page_pic, :active => false)
+		active   = Factory(:home_page_pic, :active => true, 
+			:image_file_name => 'some_fake_file_name')
+		inactive = Factory(:home_page_pic, :active => false, 
+			:image_file_name => 'some_fake_file_name')
 		assert_equal active, HomePagePic.random_active()
 	end
 

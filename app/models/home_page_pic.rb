@@ -4,6 +4,7 @@ class HomePagePic < ActiveRecord::Base
 
 	has_attached_file :image, :styles => {
 		:full   => "900",
+		:large  => "800",
 		:medium => "600",
 		:small  => "150x50>"
 	}
@@ -19,9 +20,9 @@ class HomePagePic < ActiveRecord::Base
 #			else raise MissingAdapter
 #		end
 #		first( :order => random, :conditions => { :active => true } )
-
-		c = HomePagePic.count(:conditions => { :active => true } )
-		first(:offset => rand(c), :conditions => { :active => true })
+		conditions = [ 'active = ? AND image_file_name IS NOT NULL', true ]
+		c = HomePagePic.count(:conditions => conditions )
+		first(:offset => rand(c), :conditions => conditions )
 	end
 
 protected

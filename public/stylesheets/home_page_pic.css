@@ -9,6 +9,11 @@ div.image {
 div.active {
 	padding-top: 15px;
 }
+div.image_preview {
+	clear:left;
+	margin:0 auto;
+	text-align:center;
+}
 div.caption {
 	clear: left;
 }

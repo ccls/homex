@@ -1,6 +1,6 @@
 <% content_tag_for( :div, home_page_pic, :class => 'row' ) do %>
 <div class='thumb'>
-<%= image_tag(home_page_pic.image.url(:small)) unless (home_page_pic.image_file_name.blank? ) %>&nbsp;
+<%= image_tag(home_page_pic.image.url(:small)) %>
 </div>
 <div class='title'>
 <%= link_to home_page_pic.title, home_page_pic %>
