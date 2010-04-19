@@ -24,6 +24,7 @@ class CreatePiis < ActiveRecord::Migration
 		end
 		add_index :piis, :ssn, :unique => true
 		add_index :piis, :state_id_no, :unique => true
+		add_index :piis, :email, :unique => true
 	end
 
 	def self.down
