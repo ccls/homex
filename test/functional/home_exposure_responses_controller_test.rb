@@ -32,7 +32,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	end
 
 	test "should get new with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :new, :subject_id => @rs1.subject_id
 		assert_response :success
 		assert_template 'new'
@@ -112,7 +112,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	end
 
 	test "should create HER with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		assert_difference("HomeExposureResponse.count",1) {
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
@@ -210,7 +210,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 	test "should show with employee login" do
 		@rs1.to_her
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :show, :subject_id => @rs1.subject_id
 		assert_response :success
 		assert_template 'show'

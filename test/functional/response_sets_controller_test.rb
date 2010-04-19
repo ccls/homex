@@ -17,7 +17,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #	#	end
 #	#
 #	#	test "should show with employee login" do
-#	#		login_as active_user(:role_name => 'employee')
+#	#		login_as employee
 #	#		get :show
 #	#		assert_template 'show'
 #	#		assert_response :success
@@ -45,7 +45,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #		end
 #	
 #		test "should show surveys with employee login" do
-#			login_as active_user(:role_name => 'employee')
+#			login_as employee
 #			get :new
 #			assert_response :success
 #			assert assigns(:surveys)
@@ -91,7 +91,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 
 	test "should begin survey with employee login" do
 		survey = Survey.first
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		assert_difference( 'Subject.first.response_sets_count', 1 ) {
 		assert_difference( 'ResponseSet.count', 1 ) {
 			post :create, :subject_id => Subject.first.id, :survey_code => survey.access_code
@@ -193,7 +193,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #	
 #		test "should continue incomplete survey with employee login" do
 #			rs = Factory(:response_set, :survey => Survey.first)
-#			login_as active_user(:role_name => 'employee')
+#			login_as employee
 #			get :edit, :survey_code => rs.survey.access_code,
 #				:response_set_code => rs.access_code
 #			assert assigns(:survey)
@@ -229,7 +229,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #			rs = Factory(:response_set, :survey => Survey.first)
 #			rs.complete!
 #			rs.save
-#			login_as active_user(:role_name => 'employee')
+#			login_as employee
 #			get :edit, :survey_code => rs.survey.access_code,
 #				:response_set_code => rs.access_code
 #			assert !assigns(:survey)

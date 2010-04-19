@@ -18,7 +18,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 	end
 
 	test "should create invitation for subject with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		assert_difference('SurveyInvitation.count',1) do
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
 		end

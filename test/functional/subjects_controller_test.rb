@@ -25,7 +25,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get index with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :index
 		assert_response :success
 		assert_template 'index'
@@ -62,7 +62,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should get show with employee login" do
 		subject = Factory(:subject)
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'

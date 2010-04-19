@@ -10,7 +10,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	test "should get index with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :index
 		assert_response :success
 		assert_not_nil assigns(:home_page_pics)
@@ -36,7 +36,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	test "should get new with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :new
 		assert_response :success
 	end
@@ -63,7 +63,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	test "should create home_page_pic with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		assert_difference('HomePagePic.count') do
 			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
 		end
@@ -106,7 +106,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	test "should show home_page_pic with employee login" do
 		hpp = Factory(:home_page_pic)
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :show, :id => hpp.id
 		assert_response :success
 	end
@@ -144,7 +144,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	test "should get edit with employee login" do
 		hpp = Factory(:home_page_pic)
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :edit, :id => hpp.id
 		assert_response :success
 	end
@@ -183,7 +183,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	test "should update home_page_pic with employee login" do
 		hpp = Factory(:home_page_pic)
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		put :update, :id => hpp.id,
 			:home_page_pic => Factory.attributes_for(:home_page_pic)
 		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
@@ -236,7 +236,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	test "should destroy home_page_pic with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		hpp = Factory(:home_page_pic)
 		assert_difference('HomePagePic.count', -1) do
 			delete :destroy, :id => hpp.id
@@ -301,7 +301,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	test "should activate all with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)
 		HomePagePic.all.each { |hpp| assert !hpp.active }

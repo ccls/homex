@@ -10,7 +10,7 @@ class CalendarsControllerTest < ActionController::TestCase
 	end
 
 	test "should show with employee login" do
-		login_as active_user(:role_name => 'employee')
+		login_as employee
 		get :show
 		assert_template 'show'
 		assert_response :success
