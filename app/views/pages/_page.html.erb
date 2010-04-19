@@ -12,7 +12,7 @@
 <%= link_to page.title, page -%>
 </div>
 <div class='manage'>
-<% unless page.children.empty? %>
+<% if page.children.length > 1 %>
 <%= link_to "Order", pages_path(:parent_id => page.id) -%>&nbsp;
 <% end %>
 <%= link_to "Edit", edit_page_path(page) -%>&nbsp;
