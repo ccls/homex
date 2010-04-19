@@ -33,8 +33,9 @@ class ActiveSupport::TestCase
 	
 			CASClient::Frameworks::Rails::Filter.stubs(
 				:filter).returns(true)
-			CASClient::Frameworks::Rails::GatewayFilter.stubs(
-				:filter).returns(true)
+#	No longer using the GatewayFilter stuff.
+#			CASClient::Frameworks::Rails::GatewayFilter.stubs(
+#				:filter).returns(true)
 		end
 	end
 	alias :login  :login_as
@@ -109,8 +110,9 @@ class ActiveSupport::TestCase
 		#	with ...
 		#	NoMethodError: undefined method `may_*?' for :false:Symbol
 		#CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-		CASClient::Frameworks::Rails::GatewayFilter.stubs(
-			:filter).returns(false)
+#	No longer using the GatewayFilter stuff.
+#		CASClient::Frameworks::Rails::GatewayFilter.stubs(
+#			:filter).returns(false)
 #		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
 #			"https://auth-test.berkeley.edu/cas/login")
 	end

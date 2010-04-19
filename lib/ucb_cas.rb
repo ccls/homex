@@ -37,7 +37,9 @@ protected
 
 	# This will allow the user to view the page without authentication
 	# but will process CAS authentication data if the user already
-	# has an SSO session open.
+	# has an SSO session open.  This is potentially useful if you
+	#	don't store a copy of the user info locally.  Otherwise,
+	#	not so much.
 	def cas_gateway_filter
 		# Have to add ".filter(self)" when not in before_filter line.
 		CASClient::Frameworks::Rails::GatewayFilter.filter(self)
