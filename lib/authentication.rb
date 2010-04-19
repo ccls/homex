@@ -94,13 +94,14 @@ protected
 		redirect_to_referer_or_default( default )
 	end
 
-#
-#	using more explicit permisions with Aegis::Permissions
-#
-#	def admin_required
-##	test
-##		false or access_denied("Admin privileges required to access that page!")
-#		(logged_in? and current_user.is_admin?) or access_denied("Admin privileges required to access that page!")
+
+
+
+	#	At some point, we are going to need to manage our own login as
+	#	some expected users are not Cal employees and do not have a 
+	#	Cal login.
+#	def login_required()
+#		logged_in? || access_denied("You must login", login_path)
 #	end
 
 end
