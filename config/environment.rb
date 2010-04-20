@@ -64,13 +64,8 @@ Rails::Initializer.run do |config|
 
 	config.gem 'active_shipping'
 
+#	config.gem 'authlogic'
 
-#	using plugin instead of gem as is newer
-#		:version => '>=0.9.10', 
-	#	not yet tested on jruby
-#	config.gem "surveyor", 
-#		:version => '~> 0.10.0', 
-#		:source => 'http://gemcutter.org'
 
 	# Only load the plugins named here, in the order given (default is alphabetical).
 	# :all can be used as a placeholder for all plugins not explicitly named
@@ -92,14 +87,12 @@ Rails::Initializer.run do |config|
 	# config.i18n.default_locale = :de
 
 
-#	this will need more approprate settings
+#	this will need more appropriate settings
 
 	config.action_mailer.default_url_options = { :host => "dev.sph.berkeley.edu:3000" }
 	config.action_mailer.default_content_type = "text/html"
 
-
 end
 
 Time::DATE_FORMATS[:mdy] = "%b %d, %Y"   # Jan 01, 2009
-
 
