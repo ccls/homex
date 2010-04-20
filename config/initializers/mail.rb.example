@@ -7,3 +7,4 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "YOUR_GMAIL_USERNAME@gmail.com",
   :password => "YOUR_GMAIL_PASSWORD"
 }
+ActionMailer::Base.default_content_type = "text/html"

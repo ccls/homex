@@ -65,6 +65,8 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 
 
+#	Using AuthLogic probably won't work as it expects to be the
+#	only authenticator which won't be true when also using UCB CAS.
 #	http://railscasts.com/episodes/160-authlogic
 #	http://asciicasts.com/episodes/160-authlogic
 #	config.gem 'authlogic'
@@ -77,6 +79,7 @@ Rails::Initializer.run do |config|
 	# Skip frameworks you're not going to use. To use Rails without a database,
 	# you must remove the Active Record framework.
 	# config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+	config.frameworks -= [ :active_resource ]
 
 	# Activate observers that should always be running
 	# config.active_record.observers = :cacher, :garbage_collector, :forum_observer
@@ -88,12 +91,6 @@ Rails::Initializer.run do |config|
 	# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 	# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
 	# config.i18n.default_locale = :de
-
-
-#	this will need more appropriate settings
-
-	config.action_mailer.default_url_options = { :host => "dev.sph.berkeley.edu:3000" }
-	config.action_mailer.default_content_type = "text/html"
 
 end
 
