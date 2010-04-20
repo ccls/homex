@@ -1,33 +1,30 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyInvitationMailerTest < ActionMailer::TestCase
-#
-#	I don't quite understand the mailer testing DSL yet
-#
-#	build expectation then create mail and compare??
-#
-#	test "invitation" do
-#		@expected.subject = 'SubjectMailer#invitation'
-#		@expected.body    = read_fixture('invitation')
-#		@expected.date    = Time.now
-#
-#		assert_equal @expected.encoded, SubjectMailer.create_invitation(@expected.date).encoded
-#	end
-#
-#	test "reminder" do
-#		@expected.subject = 'SubjectMailer#reminder'
-#		@expected.body    = read_fixture('reminder')
-#		@expected.date    = Time.now
-#
-#		assert_equal @expected.encoded, SubjectMailer.create_reminder(@expected.date).encoded
-#	end
-#
-#	test "thank_you" do
-#		@expected.subject = 'SubjectMailer#thank_you'
-#		@expected.body    = read_fixture('thank_you')
-#		@expected.date    = Time.now
-#
-#		assert_equal @expected.encoded, SubjectMailer.create_thank_you(@expected.date).encoded
-#	end
+
+	def setup
+		@survey  = Factory(:survey)
+		@subject = Factory(:subject, 
+			:pii_attributes => Factory.attributes_for(:pii))
+		@si      = Factory(:survey_invitation, {
+			:survey_id => @survey.id,
+			:subject_id => @subject.id
+		})
+	end
+
+	test "invitation" do
+		mail = SurveyInvitationMailer.create_invitation(@si)
+		assert_match "@example.com", mail.to.first
+	end
+
+	test "reminder" do
+		mail = SurveyInvitationMailer.create_reminder(@si)
+		assert_match "@example.com", mail.to.first
+	end
+
+	test "thank_you" do
+		mail = SurveyInvitationMailer.create_thank_you(@si)
+		assert_match "@example.com", mail.to.first
+	end
 
 end
