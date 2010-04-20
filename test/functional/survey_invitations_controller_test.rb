@@ -4,7 +4,8 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 
 	def setup
 		@survey  = Factory(:survey)
-		@subject = Factory(:subject)
+		@subject = Factory(:subject, 
+			:pii_attributes => Factory.attributes_for(:pii))
 	end
 
 	test "should create invitation for subject with admin login" do
@@ -145,7 +146,10 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 #	update
 
 	test "should send reminder on invitation update" do
-		si = Factory(:survey_invitation)
+		si = Factory(:survey_invitation,{
+			:subject_id => @subject.id,
+			:survey_id  => @survey.id
+		})
 		login_as admin_user
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 			put :update, :id => si.id
