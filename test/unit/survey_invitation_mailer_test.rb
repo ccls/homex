@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyInvitationMailerTest < ActionMailer::TestCase
 #
-#	I don't quit understand the mailer testing DSL yet
+#	I don't quite understand the mailer testing DSL yet
+#
+#	build expectation then create mail and compare??
 #
 #	test "invitation" do
 #		@expected.subject = 'SubjectMailer#invitation'
