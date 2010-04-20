@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
 
 	has_role :default => :user  #, :name_accessor => :role_name
 	validates_role_name
+	gravatar :email, :rating => 'PG'
 
 	validates_presence_of   :uid
 	validates_uniqueness_of :uid
@@ -73,5 +74,16 @@ class User < ActiveRecord::Base
 #	def undeputize
 #		self.update_attribute( :role_name, 'user' )
 #	end
+
+	#	gravatar can't deal with a nil mail
+	def email
+		(self.mail.nil?)?'':self.mail
+	end
+
+	#	gravatar.url will include & that are not encoded to &amp;
+	#	which works just fine, but technically is invalid html.
+	def gravatar_url
+		gravatar.url.split('&').join('&amp;')
+	end
 
 end

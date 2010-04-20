@@ -1,5 +1,8 @@
+<%= content_for :head, stylesheet_link_tag('user') %>
+
 <fieldset id='main'>
 <legend><%= @user.displayname %></legend>
+
  
 <div class='person'><dl>
 	<% @user.attributes.keys.each do |key| -%>
@@ -10,6 +13,7 @@
 
 
 <div id='roles'>
+<%= image_tag @user.gravatar_url %>
 <ul>
 <% @roles.each do |role| %>
 <li>

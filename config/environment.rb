@@ -63,6 +63,7 @@ Rails::Initializer.run do |config|
 	config.gem "ucb_ldap", :source => "http://gemcutter.org"
 
 	config.gem 'active_shipping'
+	config.gem 'gravatar'
 
 
 #	Using AuthLogic probably won't work as it expects to be the

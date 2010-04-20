@@ -2,6 +2,16 @@ div#users {
 /*
 	padding-top:20px;
 */
+	line-height: 30px;
+}
+div.gravatar {
+	float:left;
+	width: 40px;
+}
+div.gravatar img {
+	border: 0;
+	height: 30px;
+	width: 30px;
 }
 div.sn {
 	float:left;

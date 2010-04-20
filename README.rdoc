@@ -24,6 +24,7 @@
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
+* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
 
 
 == Required and included plugins

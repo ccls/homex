@@ -3,6 +3,10 @@
 <div id='users'>
 <% @users.each do |user| %>
 <div class='<%=user.role_name-%> user row'>
+<div class='gravatar'>
+<%= link_to( image_tag(user.gravatar_url), "http://gravatar.com",
+	:target => 'new' )%>
+</div>
 <div class='sn'>
 <%= link_to user.sn, user -%>
 </div>
