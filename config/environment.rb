@@ -64,6 +64,9 @@ Rails::Initializer.run do |config|
 
 	config.gem 'active_shipping'
 
+
+#	http://railscasts.com/episodes/160-authlogic
+#	http://asciicasts.com/episodes/160-authlogic
 #	config.gem 'authlogic'
 
 
