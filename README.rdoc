@@ -56,6 +56,7 @@
 
 
 
+
 rvm / jruby installation ...
 
  sudo gem install rvm
@@ -109,9 +110,11 @@ Everybody join hands together now to install some gems ...
  sudo rake gems:install
  #
  # This eventually crashed with ...
+ #
  #	Error: Your application used more memory than the safety cap of 500m.
  #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
  #	Specify -w for full OutOfMemoryError stack trace
+ #
  # ... but a rerun continued and completed.
  #
  sudo rake gems:install
@@ -122,10 +125,8 @@ Everybody join hands together now to install some gems ...
 
 
 
-
-
  
-then continue ...
+then we continue ...
 
  #	Add your own session secret to config/initializers/session_store.rb
  #	generate a 128 character hex string perfect for using as your secret.
@@ -219,7 +220,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 
 * Fix <tt>expire_fragment "#{request.try(:host_with_port)}#{page_path}"</tt> so that it works without the <tt>try</tt> (not necessary)
 * Add to <tt>doc/README_FOR_APP</tt>
-* how to include this file <tt>README.rdoc</tt> into the output of <tt>rake doc:app</tt>
 * one of the images in rdoc isn't always the correct directory depth and will create a flash error showing this
 
 === Vaguely related to dos
@@ -259,3 +259,4 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 * {Surveyor Issue 49}[http://github.com/breakpointer/surveyor/issues/issue/49]
 * {Surveyor Issue 50}[http://github.com/breakpointer/surveyor/issues/issue/50]
 * {Surveyor Issue 51}[http://github.com/breakpointer/surveyor/issues/issue/51]
+
