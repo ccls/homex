@@ -15,7 +15,8 @@ class UserTest < ActiveSupport::TestCase
 		assert_difference 'User.count' do
 			user = create_user
 			user.update_attribute(:role_name, 'moderator')
-			assert !user.is_admin?
+#			assert !user.is_admin?
+			assert !user.administrator?
 			assert user.may_moderate?     #	aegis check
 			assert !user.may_administrate? #	aegis check
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
@@ -25,8 +26,10 @@ class UserTest < ActiveSupport::TestCase
 	test "should create administrator" do
 		assert_difference 'User.count' do
 			user = create_user
-			user.deputize
-			assert user.is_admin?
+#			user.deputize
+			user.update_attribute(:role_name, 'administrator')
+#			assert user.is_admin?
+			assert user.administrator?
 			assert user.may_moderate?     #	aegis check
 			assert user.may_administrate? #	aegis check
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
@@ -68,17 +71,17 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should get deputies in alphabetic order by sn" do
-		new_users = [
-			create_user(:sn => "baseball", :role_name => "administrator"),
-			create_user(:sn => "apple", :role_name => "administrator"),
-			create_user(:sn => "pie", :role_name => "administrator")
-		]
-		deputies = User.deputies
-		assert_equal deputies[0], new_users[1]
-		assert_equal deputies[1], new_users[0]
-		assert_equal deputies[2], new_users[2]
-	end
+#	test "should get deputies in alphabetic order by sn" do
+#		new_users = [
+#			create_user(:sn => "baseball", :role_name => "administrator"),
+#			create_user(:sn => "apple", :role_name => "administrator"),
+#			create_user(:sn => "pie", :role_name => "administrator")
+#		]
+#		deputies = User.deputies
+#		assert_equal deputies[0], new_users[1]
+#		assert_equal deputies[1], new_users[0]
+#		assert_equal deputies[2], new_users[2]
+#	end
 
 	test "should create and update user by uid" do
 		stub_ucb_ldap_person()

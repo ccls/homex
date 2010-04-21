@@ -47,29 +47,29 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	Permissions.find_all_role_names.each do |role_name|
-		named_scope role_name.to_s.pluralize, :conditions => { 
-			:role_name => role_name.to_s 
-		}
-	end
-
-	named_scope :deputies, :conditions => { :role_name => "administrator" }
+#	Permissions.find_all_role_names.each do |role_name|
+#		named_scope role_name.to_s.pluralize, :conditions => { 
+#			:role_name => role_name.to_s 
+#		}
+#	end
+#
+#	named_scope :deputies, :conditions => { :role_name => "administrator" }
 
 	#	Checks if role_name is 'administrator'
 	#	Returns: boolean
-	def is_admin?
-		self.role_name == "administrator"
-	end
+#	def is_admin?
+#		self.role_name == "administrator"
+#	end
 
-	def is_employee?
-		%w( administrator employee ).include?( self.role_name )
-	end
+#	def is_employee?
+#		%w( administrator employee ).include?( self.role_name )
+#	end
 
-	#	Assigns role_name to 'administrator'
-	#	Returns: boolean
-	def deputize
-		self.update_attribute( :role_name, 'administrator' )
-	end
+#	#	Assigns role_name to 'administrator'
+#	#	Returns: boolean
+#	def deputize
+#		self.update_attribute( :role_name, 'administrator' )
+#	end
 
 #	def undeputize
 #		self.update_attribute( :role_name, 'user' )
