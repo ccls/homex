@@ -108,6 +108,27 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return non-nil email" do
+		user = create_user
+		assert_nil user.mail
+		assert_not_nil user.email
+	end
+
+	test "should return non-nil gravatar_url" do
+		user = create_user
+		assert_not_nil user.gravatar_url
+	end
+
+	test "should NOT mass assign uid" do
+		user = create_user
+		all_role_names = Permissions.find_all_role_names.collect(&:to_s)
+		other_roles = all_role_names - [user.role_name]
+		other_roles.each do |role_name|
+			user.update_attributes({:role_name => role_name})
+			assert_not_equal user.reload.role_name, role_name
+		end
+	end
+
 protected
 
 	#
