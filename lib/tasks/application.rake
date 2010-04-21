@@ -181,7 +181,8 @@ namespace :app do
 		end
 		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
 		puts "Found user #{user.displayname}.  Deputizing..."
-		user.deputize
+#		user.deputize
+		user.update_attribute(:role_name, 'administrator')
 		puts "User deputized: #{user.is_admin?}"
 		puts
 	end
