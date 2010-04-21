@@ -7,6 +7,7 @@
 * ruby 1.8.7 - primarily due to the liberal use of #inject
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
+* curl
 
 == Required Gems
 
@@ -57,17 +58,20 @@
 
 
 
-rvm / jruby installation ...
+rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/install/] ) ...
 
+ curl http://rvm.beginrescueend.com/releases/rvm-install-head | bash
+ #	or
  sudo gem install rvm
  /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
+
  # add ... 
  #	if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
  # to your .bashrc
  vi .bashrc
  bash
  rvm install jruby
- rvm use jruby
+ rvm use jruby-1.4.0
 
 
 
@@ -213,6 +217,9 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 {UCB LDAP Documentation}[http://ucbrb.rubyforge.org/ucb_ldap/]
 
 {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
+
+{RVM on GitHub}[http://github.com/wayneeseguin/rvm]
+
 
 
 
