@@ -6,7 +6,7 @@
 
 * ruby 1.8.7 - primarily due to the liberal use of #inject
 * rails 2.3.4
-* ImageMagick
+* ImageMagick (which may require {MacPorts}[http://www.macports.org/])
 
 == Required Gems
 
@@ -20,7 +20,7 @@
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {validatious-on-rails}[http://github.com/grimen/validatious-on-rails] - CONSIDERING the use of this javascript form validator
 * {rcov}[http://github.com/relevance/rcov] - testing
-* {mocha}[://github.com/floehopper/mocha] - testing
+* {mocha}[http://github.com/floehopper/mocha] - testing
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
@@ -50,6 +50,9 @@
 
  #	Copy and add your own FedEx credentials.
  cp config/fed_ex.yml.example config/fed_ex.yml
+
+ #	Copy and add your own gmail credentials.
+ cp config/initializers/mail.rb.example config/initializers/mail.rb
 
  #	Need to manually install these first
  gem source -a http://gemcutter.org
@@ -89,7 +92,7 @@ For rvm / jruby users, things get a bit more complicated, at least until I figur
  
 then continue ...
 
- # Add your own session secret to config/initializers/session_store.rb
+ #	Add your own session secret to config/initializers/session_store.rb
  #	generate a 128 character hex string perfect for using as your secret.
  rake secret
 
@@ -142,9 +145,7 @@ If Validator is not installed or Web Sharing is not enabled, testing will produc
 
  Errno::ECONNREFUSED: Connection refused - connect(2)
 
-I've made some mods to check if a local version is running so this should never happen.
-
-Currently, the Package tests would need removed to test offline as they access the FedEx API.
+I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_test_extension] to check if a local version is running so this should never happen.
 
  sudo rake RAILS_ENV=test gems:install
  rake test
@@ -166,27 +167,10 @@ Currently, the Package tests would need removed to test offline as they access t
 
 {Ruby CAS Client Documentation}[http://rubycas-client.rubyforge.org/]
 
-{UCB LDAP Gem on GemCutter}[http://gemcutter.org/gems/ucb_ldap]
-
 {UCB LDAP Documentation}[http://ucbrb.rubyforge.org/ucb_ldap/]
-
-{Chronic Documentation}[http://chronic.rubyforge.org/]
-
-{RedCloth Textile Documentation}[http://redcloth.org/]
-
-{Aegis Permissions on GitHub}[http://github.com/makandra/aegis]
-
-{Aegis Extension Plugin on GitHub}[http://github.com/jakewendt/aegis_extension]
-
-{Active Shipping on GitHub}[http://github.com/Shopify/active_shipping]
-
-{BackgrounDRb Home on RubyForge}[http://backgroundrb.rubyforge.org]
-
-{BackgrounDRb Home on GitHub}[http://github.com/gnufied/backgroundrb]
 
 {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
 
-{ActsAsList on GitHub (Ryan Bates' version)}[http://github.com/ryanb/acts-as-list]
 
 
 == To Do
