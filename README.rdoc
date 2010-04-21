@@ -54,27 +54,9 @@
  #	Copy and add your own gmail credentials.
  cp config/initializers/mail.rb.example config/initializers/mail.rb
 
- #	Need to manually install these first
- gem source -a http://gemcutter.org
- gem source -a http://gems.github.com
- sudo gem install rails -v 2.3.4
- sudo gem install aegis packet rdoc sqlite3-ruby
 
 
-For standard ruby users ...
-
- #	If using mysql ...
- # On Mac OS X:
- #   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
- # On Mac OS X Leopard:
- #   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
- # ... I had to install the mysql gem like so ...
-
- sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
-
- sudo rake gems:install
-
-For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.  `rake gems:install` does not seem to work in jruby.
+rvm / jruby installation ...
 
  sudo gem install rvm
  /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
@@ -85,24 +67,63 @@ For rvm / jruby users, things get a bit more complicated, at least until I figur
  bash
  rvm install jruby
  rvm use jruby
- gem source -a http://gemcutter.org
- gem source -a http://gems.github.com
+
+
+
+
+
+
+For standard ruby users, install mysql gem ...
+
+ #	If using mysql ...
+ # On Mac OS X:
+ #   sudo gem install mysql -- --with-mysql-dir=/usr/local/mysql
+ # On Mac OS X Leopard:
+ #   sudo env ARCHFLAGS="-arch i386" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+ # ... I had to install the mysql gem like so ...
+
+ sudo env ARCHFLAGS="-arch x86_64" gem install mysql -- --with-mysql-config=/usr/local/mysql/bin/mysql_config
+
+
+
+
+Everybody join hands together now to install some gems ...
+
  #
  # Some gems require manual installation for one reason or another.
  #
- gem install rake rdoc
- gem install rails -v 2.3.4
- gem install aegis packet haml
+ # (sudo may or may not be required or desired.
+ #  Usage of sudo will/may cause gem installation in /usr/lib
+ #  which may then require using sudo when running rake tasks
+ #  or other things.  `gem list` and `sudo gem list` will differ.
+ #  I recommend avoiding using sudo with rvm, but its your
+ #  kitchen.)
  #
- #	The rest should actually install with ...
- rake gems:install
+ gem source -a http://gemcutter.org
+ gem source -a http://gems.github.com
+ sudo gem install rake rdoc aegis packet haml
+ sudo gem install rails -v 2.3.4
+ #
+ # The rest should actually install with ...
+ #
+ sudo rake gems:install
+ #
  # This eventually crashed with ...
  #	Error: Your application used more memory than the safety cap of 500m.
  #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
  #	Specify -w for full OutOfMemoryError stack trace
  # ... but a rerun continued and completed.
- rake gems:install
- rake gems:install RAILS_ENV=test
+ #
+ sudo rake gems:install
+ #
+ # Some gems are defined in the environments/test.rb file
+ #
+ sudo rake gems:install RAILS_ENV=test
+
+
+
+
+
  
 then continue ...
 
