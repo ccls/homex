@@ -36,7 +36,12 @@ class User < ActiveRecord::Base
 			:sn              => person.sn.first,
 			:mail            => person.mail.first,
 			:telephonenumber => person.telephonenumber.first
-		}) if person
+		})
+#
+#	seems to work fine without the if
+#	must've been a testing thing as I now have a stub
+#
+#		}) if person
 #
 #	what happened if person is NIL?
 # hack attempt?
