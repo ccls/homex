@@ -22,7 +22,11 @@ class HomePagePic < ActiveRecord::Base
 #		first( :order => random, :conditions => { :active => true } )
 		conditions = [ 'active = ? AND image_file_name IS NOT NULL', true ]
 		c = HomePagePic.count(:conditions => conditions )
-		first(:offset => rand(c), :conditions => conditions )
+		if c > 0
+			first(:offset => rand(c), :conditions => conditions )
+		else
+			nil
+		end
 	end
 
 protected
