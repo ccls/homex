@@ -5,6 +5,8 @@ require 'test_help'
 $LOAD_PATH.unshift File.dirname(__FILE__) # NEEDED for rake test:coverage
 require 'factory_test_helper'
 
+require 'pending'
+
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
 
