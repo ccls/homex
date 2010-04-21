@@ -39,6 +39,7 @@ config.gem "autotest-rails", :lib => 'autotest/rails'
 if RUBY_PLATFORM =~ /java/
 	config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 else
+	config.gem "sqlite3-ruby", :lib => "sqlite3"
 #	Can't have ZenTest in rvm/jruby
 #	/Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.2.1/lib/ZenTest.rb:3:in `each_object': ObjectSpace is disabled; each_object will only work with Class, pass -X+O to enable (RuntimeError)
 	config.gem "ZenTest"	#, :version => '4.1.1'
