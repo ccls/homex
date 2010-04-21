@@ -119,4 +119,6 @@ module SurveyExtensions
 	end
 end
 end
+#	need in rvm/jruby
+require 'vendor/plugins/surveyor/script/surveyor/parser'
 SurveyParser::Survey.send(:include, SurveyParser::SurveyExtensions)
