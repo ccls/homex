@@ -6,6 +6,12 @@
 #
 #	==	named_scope(s)
 #	*	not_home (returns those pages where path is not just '/')
+#	*	roots
+#
+#	uses acts_as_list for parent / child relationship.  As this
+#	is only a parent and child and no deeper, its ok.  If it
+#	were to get any deeper, the list should probably be changed
+#	to something like a nested set.
 class Page < ActiveRecord::Base
 	acts_as_list :scope => :parent_id
 	default_scope :order => :position
