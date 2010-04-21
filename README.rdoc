@@ -166,13 +166,13 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 	and/or
  autotest		#	does not work in jruby
 
- #	testing fails in rvm/jruby with ...
+ # testing fails in rvm/jruby with ...
  #
  #	/Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.3.1/lib/zentest.rb
  #	:3:in `each_object': ObjectSpace is disabled; each_object will only work 
  #	with Class, pass -X+O to enable (RuntimeError)
  #
- #	if ZenTest is included (so autotest won't work either)
+ # ... if ZenTest is included (so autotest won't work either)
 
 == Further Info
 
