@@ -45,8 +45,8 @@ Rails::Initializer.run do |config|
 	end
 
 	config.gem "RedCloth"
-	config.gem "chronic"			#		http://chronic.rubyforge.org/
-	config.gem "packet"			#		http://chronic.rubyforge.org/
+	config.gem "chronic"   #		http://chronic.rubyforge.org/
+	config.gem "packet"    #		http://packet.rubyforge.org/
 
 	config.gem 'ryanb-acts-as-list', 
 		:lib => 'acts_as_list', 

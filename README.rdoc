@@ -5,7 +5,7 @@
 == Requirements
 
 * ruby 1.8.7 - primarily due to the liberal use of #inject
-* rails 2.3.4
+* rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
 
 == Required Gems
@@ -58,7 +58,7 @@
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install rails -v 2.3.4
- sudo gem install aegis surveyor packet rdoc sqlite3
+ sudo gem install aegis packet rdoc sqlite3-ruby
 
 
 For standard ruby users ...
@@ -77,18 +77,32 @@ For standard ruby users ...
 For rvm / jruby users, things get a bit more complicated, at least until I figure out how to simplify.  `rake gems:install` does not seem to work in jruby.
 
  sudo gem install rvm
- /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.22/bin/rvm-install
- # add ... if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+ /usr/lib/ruby/user-gems/1.8/gems/rvm-0.1.27/bin/rvm-install
+ # add ... 
+ #	if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
+ # to your .bashrc
  vi .bashrc
- vi .bash_profile
  bash
  rvm install jruby
  rvm use jruby
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
+ #
+ # Some gems require manual installation for one reason or another.
+ #
+ gem install rake rdoc
  gem install rails -v 2.3.4
- gem install aegis RedCloth chronic packet rubycas-client ucb_ldap active_shipping ryanb-acts-as-list rcov mocha 
- gem install autotest-rails ZenTest thoughtbot-factory_girl activerecord-jdbcmysql-adapter jdbc-sqlite3
+ gem install aegis packet haml
+ #
+ #	The rest should actually install with ...
+ rake gems:install
+ # This eventually crashed with ...
+ #	Error: Your application used more memory than the safety cap of 500m.
+ #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
+ #	Specify -w for full OutOfMemoryError stack trace
+ # ... but a rerun continued and completed.
+ rake gems:install
+ rake gems:install RAILS_ENV=test
  
 then continue ...
 
@@ -152,6 +166,13 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 	and/or
  autotest		#	does not work in jruby
 
+ #	testing fails in rvm/jruby with ...
+ #
+ #	/Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.3.1/lib/zentest.rb
+ #	:3:in `each_object': ObjectSpace is disabled; each_object will only work 
+ #	with Class, pass -X+O to enable (RuntimeError)
+ #
+ #	if ZenTest is included (so autotest won't work either)
 
 == Further Info
 
