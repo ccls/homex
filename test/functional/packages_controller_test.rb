@@ -159,4 +159,20 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to_cas_login
 	end
 
+	test "should destroy package with admin login" do
+		pending
+	end
+
+	test "should NOT destroy package with just login" do
+		pending
+	end
+
+	test "should NOT destroy package without login" do
+		pending
+	end
+
+	test "should NOT destroy package without valid id" do
+		pending
+	end
+
 end
