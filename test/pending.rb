@@ -38,7 +38,7 @@ module ActiveSupport
 							@@pending_cases.each do |test_case|
 								puts test_case
 							end
-							puts "\n"
+							puts " \n"
 						end
 					end
 				end
