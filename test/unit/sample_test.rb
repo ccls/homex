@@ -57,6 +57,7 @@ class SampleTest < ActiveSupport::TestCase
 #		assert_not_nil sample.organization
 
 #	TODO
+		pending
 	end
 
 	test "should have many aliquots" do
