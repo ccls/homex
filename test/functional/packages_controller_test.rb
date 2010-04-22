@@ -37,6 +37,14 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_equal 0, assigns(:packages).length
 	end
 
+	test "should get index with employee login" do
+		login_as employee
+		get :index
+		assert_template 'index'
+		assert_response :success
+		assert_equal 0, assigns(:packages).length
+	end
+
 	test "should NOT get index without admin login" do
 		login_as active_user
 		get :index
@@ -57,6 +65,14 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_not_nil assigns(:package)
 	end
 
+	test "should get new with employee login" do
+		login_as employee
+		get :new
+		assert_template 'new'
+		assert_response :success
+		assert_not_nil assigns(:package)
+	end
+
 	test "should NOT get new without admin login" do
 		login_as active_user
 		get :new
@@ -71,6 +87,13 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should create with admin login" do
 		login_as admin_user
+		post :create, :package => Factory.attributes_for(:package)
+		assert_not_nil assigns(:package)
+		assert_redirected_to packages_path
+	end
+
+	test "should create with employee login" do
+		login_as employee
 		post :create, :package => Factory.attributes_for(:package)
 		assert_not_nil assigns(:package)
 		assert_redirected_to packages_path
@@ -102,6 +125,15 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should update with admin login" do
 		login_as admin_user
+		package = Factory(:package, :tracking_number => '077973360403984')
+		assert_nil package.status
+		put :update, :id => package.id
+		assert_not_nil package.reload.status
+		assert_redirected_to packages_path
+	end
+
+	test "should update with employee login" do
+		login_as employee
 		package = Factory(:package, :tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
@@ -146,6 +178,14 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_template 'show'
 	end
 
+	test "should show package with employee login" do
+		login_as employee
+		package = Factory(:package)
+		get :show, :id => package.id
+		assert_response :success
+		assert_template 'show'
+	end
+
 	test "should NOT show package without admin login" do
 		login_as active_user
 		package = Factory(:package)
@@ -159,20 +199,49 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to_cas_login
 	end
 
+
 	test "should destroy package with admin login" do
-		pending
+		login_as admin_user
+		package = Factory(:package)
+		assert_difference('Package.count',-1) {
+			delete :destroy, :id => package.id
+		}
+		assert_redirected_to packages_path
+	end
+
+	test "should destroy package with employee login" do
+		login_as employee
+		package = Factory(:package)
+		assert_difference('Package.count',-1) {
+			delete :destroy, :id => package.id
+		}
+		assert_redirected_to packages_path
 	end
 
 	test "should NOT destroy package with just login" do
-		pending
+		login_as active_user
+		package = Factory(:package)
+		assert_difference('Package.count',0) {
+			delete :destroy, :id => package.id
+		}
+		assert_redirected_to root_path
 	end
 
 	test "should NOT destroy package without login" do
-		pending
+		package = Factory(:package)
+		assert_difference('Package.count',0) {
+			delete :destroy, :id => package.id
+		}
+		assert_redirected_to_cas_login
 	end
 
 	test "should NOT destroy package without valid id" do
-		pending
+		login_as admin_user
+		package = Factory(:package)
+		assert_difference('Package.count',0) {
+			delete :destroy, :id => 0
+		}
+		assert_redirected_to packages_path
 	end
 
 end
