@@ -23,11 +23,14 @@ class UsersController < ApplicationController	#:nodoc:
 		@user.role_name = params[:role_name]
 		@user.save!
 		flash[:notice] = 'User was successfully updated.'
-		redirect_to @user
+#		redirect_to @user
 	rescue ActiveRecord::RecordInvalid
-		show
-		flash.now[:error] = 'User update failed.'
-		render :show
+#		show
+#		flash.now[:error] = 'User update failed.'
+		flash[:error] = 'User update failed.'
+#		render :show
+	ensure
+		redirect_to @user
 	end
 
 protected

@@ -98,8 +98,9 @@ class UsersControllerTest < ActionController::TestCase
 		login_as admin_user
 		put :update, :id => active_user.id, :role_name => 'bogus_role_name'
 		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'show'
+#		assert_response :success
+#		assert_template 'show'
+		assert_redirected_to user_path(assigns(:user))
 	end
 
 	test "should NOT update without admin login" do
