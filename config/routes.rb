@@ -66,8 +66,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :pages, :collection => { :order => :post }
   map.resources :home_page_pics, :collection => { :activate => :post }
-	# new and create for packages are just for demo development
-	map.resources :packages, :only => [ :index, :show, :new, :create, :update ]
+	map.resources :packages
 	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
 	map.resources :subjects, :shallow => true,
