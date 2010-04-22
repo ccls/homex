@@ -6,8 +6,8 @@ class UserTest < ActiveSupport::TestCase
 		assert_difference 'User.count' do
 			user = create_user
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-			assert !user.may_moderate?      #	aegis check
-			assert !user.may_administrate?  #	aegis check
+			assert !user.may_moderate?     #	aegis check
+			assert !user.may_administrate? #	aegis check
 		end
 	end
 
@@ -17,7 +17,7 @@ class UserTest < ActiveSupport::TestCase
 			user.update_attribute(:role_name, 'moderator')
 #			assert !user.is_admin?
 			assert !user.administrator?
-			assert user.may_moderate?     #	aegis check
+			assert user.may_moderate?      #	aegis check
 			assert !user.may_administrate? #	aegis check
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
 		end
