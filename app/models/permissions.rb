@@ -143,6 +143,7 @@ class Permissions < Aegis::Permissions
 	#
 	#	Permission:
 	permission :view_packages do
+		allow :employee
 	end
 
 	#
