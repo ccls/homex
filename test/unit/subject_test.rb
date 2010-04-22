@@ -44,6 +44,8 @@ class SubjectTest < ActiveSupport::TestCase
 #	patient has no requirements so it would actually work
 #	TODO
 
+		pending
+
 	end
 
 	test "should create subject with child_id" do
@@ -60,6 +62,8 @@ class SubjectTest < ActiveSupport::TestCase
 
 #	child_id has no requirements so it would actually work
 #	TODO
+
+		pending
 
 	end
 
@@ -83,6 +87,8 @@ class SubjectTest < ActiveSupport::TestCase
 
 
 #	TODO
+
+		pending
 
 
 #		assert_not_nil subject.reload.survey_invitation
@@ -286,6 +292,19 @@ class SubjectTest < ActiveSupport::TestCase
 		subject = create_subject(
 			:pii_attributes => Factory.attributes_for(:pii))
 		assert subject.is_eligible_for_invitation?
+	end
+
+
+	test "should destroy patient on subject destroy" do
+		pending
+	end
+
+	test "should destroy child_id on subject destroy" do
+		pending
+	end
+
+	test "should destroy pii on subject destroy" do
+		pending
 	end
 
 protected

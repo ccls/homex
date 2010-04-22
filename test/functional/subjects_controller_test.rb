@@ -81,4 +81,104 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to_cas_login
 	end
 
+
+
+
+	test "should get new with admin login" do
+		pending
+	end
+
+	test "should get new with employee login" do
+		pending
+	end
+
+	test "should NOT get new with just login" do
+		pending
+	end
+
+	test "should NOT get new without login" do
+		pending
+	end
+
+	
+	test "should create with admin login" do
+		pending
+	end
+
+	test "should create with employee login" do
+		pending
+	end
+
+	test "should NOT create with just login" do
+		pending
+	end
+
+	test "should NOT create without login" do
+		pending
+	end
+
+	test "should NOT create without valid subject" do
+		pending
+	end
+
+	test "should edit with admin login" do
+		pending
+	end
+
+	test "should edit with employee login" do
+		pending
+	end
+
+	test "should NOT edit with just login" do
+		pending
+	end
+
+	test "should NOT edit without login" do
+		pending
+	end
+
+	test "should NOT edit without valid id" do
+		pending
+	end
+
+	test "should update with admin login" do
+		pending
+	end
+
+	test "should update with employee login" do
+		pending
+	end
+
+	test "should NOT update with just login" do
+		pending
+	end
+
+	test "should NOT update without login" do
+		pending
+	end
+
+	test "should NOT update with invalid subject" do
+		pending
+	end
+
+	test "should destroy with admin login" do
+		pending
+	end
+
+	test "should destroy with employee login" do
+		pending
+	end
+
+	test "should NOT destroy with just login" do
+		pending
+	end
+
+	test "should NOT destroy without login" do
+		pending
+	end
+
+	test "should NOT destroy with invalid id" do
+		pending
+	end
+
 end
