@@ -267,3 +267,10 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 * {Surveyor Issue 50}[http://github.com/breakpointer/surveyor/issues/issue/50]
 * {Surveyor Issue 51}[http://github.com/breakpointer/surveyor/issues/issue/51]
 
+
+== Credit / Special Thanks
+
+Gradient images made with {Gradient Image Maker}[http://tools.dynamicdrive.com/gradient/]
+
+User icons from {Gravatar}[http://gravatar.com]
+
