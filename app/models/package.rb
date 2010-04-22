@@ -34,7 +34,9 @@ class Package < ActiveRecord::Base
 				:test => true)
 
 			tracking_info.shipment_events.each do |event|
-				unless self.tracks.exists?( :time => event.time )
+				#	Added .utc to search as it was not converting
+				# on .exists? so would fail on .create!
+				unless self.tracks.exists?( :time => event.time.utc )
 					self.tracks.create!({
 						:time  => event.time,
 						:name  => event.name,
