@@ -3,10 +3,12 @@ module FactoryTestHelper
 	def active_user(options={})
 		u = Factory(:user, options)
 	end
+	alias_method :user, :active_user
 
 	def admin_user(options={})
 		u = active_user(options.merge(:role_name => "administrator"))
 	end
+	alias_method :admin, :admin_user
 
 	def employee_user(options={})
 		u = active_user(options.merge(:role_name => 'employee'))
