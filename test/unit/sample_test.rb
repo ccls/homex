@@ -57,6 +57,9 @@ class SampleTest < ActiveSupport::TestCase
 #		assert_not_nil sample.organization
 
 #	TODO
+
+		#	this is not clear in my UML diagram
+
 		pending
 	end
 

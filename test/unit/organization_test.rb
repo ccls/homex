@@ -86,6 +86,8 @@ class OrganizationTest < ActiveSupport::TestCase
 #		flunk samples
 
 #	TODO
+
+		#	this is unclear in my diagram
 		pending
 
 	end
