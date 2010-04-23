@@ -11,10 +11,10 @@ class Subject < ActiveRecord::Base
 	has_many :interview_events
 	has_many :study_event_eligibilities
 	has_many :response_sets
-	has_one :pii
 	has_one :home_exposure_response
-	has_one :patient
-	has_one :child_id
+	has_one :pii,      :dependent => :destroy
+	has_one :patient,  :dependent => :destroy
+	has_one :child_id, :dependent => :destroy
 	has_many :survey_invitations
 
 	validates_presence_of :subject_type_id
