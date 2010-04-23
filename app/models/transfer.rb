@@ -9,12 +9,14 @@ class Transfer < ActiveRecord::Base
 	belongs_to :to_organization,
 		:class_name => "Organization"
 
-	validates_presence_of :aliquot_id
-	validate              :valid_aliquot_id
+#	validates_presence_of :aliquot_id
+#	validate              :valid_aliquot_id
 	validates_presence_of :from_organization_id
 	validate              :valid_from_organization_id
 	validates_presence_of :to_organization_id
 	validate              :valid_to_organization_id
+
+	validates_belongs_to_exists :aliquot_id
 
 	before_save :update_aliquot_owner
 
@@ -31,9 +33,9 @@ protected
 		self.aliquot.update_attribute(:owner, self.to_organization)
 	end
 
-	def valid_aliquot_id
-		errors.add(:aliquot_id,'is invalid') unless Aliquot.exists?(aliquot_id)
-	end
+#	def valid_aliquot_id
+#		errors.add(:aliquot_id,'is invalid') unless Aliquot.exists?(aliquot_id)
+#	end
 
 	def valid_from_organization_id
 		errors.add(:from_organization_id,'is invalid') unless Organization.exists?(from_organization_id)

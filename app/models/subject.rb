@@ -17,10 +17,12 @@ class Subject < ActiveRecord::Base
 	has_one :child_id, :dependent => :destroy
 	has_many :survey_invitations
 
-	validates_presence_of :subject_type_id
-	validate :valid_subject_type
-	validates_presence_of :race_id
-	validate :valid_race
+#	validates_presence_of :subject_type_id
+#	validate :valid_subject_type
+#	validates_presence_of :race_id
+#	validate :valid_race
+
+	validates_belongs_to_exists :subject_type_id, :race_id
 
 	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
@@ -84,12 +86,17 @@ class Subject < ActiveRecord::Base
 
 protected
 
-	def valid_subject_type
-		errors.add(:subject_type_id, "is invalid") unless SubjectType.exists?(subject_type_id)
-	end
-
-	def valid_race
-		errors.add(:race_id, "is invalid") unless Race.exists?(race_id)	
-	end
+#	def valid_subject_type
+#		errors.add(:subject_type_id, "is invalid") unless SubjectType.exists?(subject_type_id)
+#	end
+#
+#	def valid_race
+#		errors.add(:race_id, "is invalid") unless Race.exists?(race_id)	
+#	end
+#
+#	validates_each :subject_type_id, :race_id do |record,attr,value|
+#		column = attr.to_s.sub(/_id$/,'')
+#		record.errors.add(attr,'is invalid') unless (column.camelcase.constantize.exists?(value))
+#	end
 
 end

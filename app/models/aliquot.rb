@@ -16,14 +16,16 @@ class Aliquot < ActiveRecord::Base
 		:counter_cache => :aliquots_count
 	has_many :transfers
 
-	validates_presence_of :sample_id
-	validate              :valid_sample_id
-	validates_presence_of :unit_id
-	validate              :valid_unit_id
+#	validates_presence_of :sample_id
+#	validate              :valid_sample_id
+#	validates_presence_of :unit_id
+#	validate              :valid_unit_id
 	validates_presence_of :owner_id
 	validate              :valid_owner_id
 #	validates_presence_of :aliquot_sample_format_id
 #	validate              :valid_aliquot_sample_format_id
+
+	validates_belongs_to_exists :sample_id, :unit_id
 
 	#	Create a #Transfer for the given #Aliquot from the 
 	#	current owner(#Organization) to the given #Organization.
@@ -50,13 +52,13 @@ protected
 		})
 	end
 
-	def valid_sample_id
-		errors.add(:sample_id, "is invalid") unless Sample.exists?(sample_id)
-	end
-
-	def valid_unit_id
-		errors.add(:unit_id, "is invalid") unless Unit.exists?(unit_id)
-	end
+#	def valid_sample_id
+#		errors.add(:sample_id, "is invalid") unless Sample.exists?(sample_id)
+#	end
+#
+#	def valid_unit_id
+#		errors.add(:unit_id, "is invalid") unless Unit.exists?(unit_id)
+#	end
 
 	def valid_owner_id
 		errors.add(:owner_id, "is invalid") unless Organization.exists?(owner_id)

@@ -10,14 +10,16 @@ class SampleSubtype < ActiveRecord::Base
 #	sample subtype and type could be self referential
 
 	validates_length_of :description, :minimum => 4
-	validates_presence_of :sample_type_id
-	validate              :valid_sample_type_id
+#	validates_presence_of :sample_type_id
+#	validate              :valid_sample_type_id
 	validates_uniqueness_of :description
 
-protected
+	validates_belongs_to_exists :sample_type_id
 
-	def valid_sample_type_id
-		errors.add(:sample_type_id,'is invalid') unless SampleType.exists?(sample_type_id)
-	end
+#protected
+#
+#	def valid_sample_type_id
+#		errors.add(:sample_type_id,'is invalid') unless SampleType.exists?(sample_type_id)
+#	end
 
 end
