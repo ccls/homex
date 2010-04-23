@@ -39,14 +39,14 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should NOT create subject with empty patient" do
-
-#	patient has no requirements so it would actually work
-#	TODO
-
-		pending
-
-	end
+#	test "should NOT create subject with empty patient" do
+#
+##	patient has no requirements so it would actually work
+##	TODO
+#
+#		pending
+#
+#	end
 
 	test "should create subject with child_id" do
 		assert_difference( 'ChildId.count', 1) {
@@ -59,12 +59,12 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT create subject with empty child_id" do
-
-#	child_id has no requirements so it would actually work
-#	TODO
-
-		pending
-
+		assert_difference( 'ChildId.count', 0) {
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject(
+				:child_id_attributes => {} )
+			assert subject.errors.on(:child_id_childid)
+		} }
 	end
 
 	test "should initially belong to race" do
@@ -77,23 +77,23 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_not_nil subject.subject_type
 	end
 
+	def sscount(subject_id,survey_id)
+		SurveyInvitation.find(:all,:conditions => {
+			:subject_id => subject_id, :survey_id => survey_id }).length
+	end
+
 	test "should have one survey_invitation per survey" do
 		subject = create_subject
 		survey  = Factory(:survey)
-		assert_equal [], SurveyInvitation.find(:all,:conditions => {
-			:subject_id => subject.id, :survey_id => survey.id })
-		Factory(:survey_invitation, {
-			:subject_id => subject.id, :survey_id => survey.id })
-
-
-#	TODO
-
-		pending
-
-
-#		assert_not_nil subject.reload.survey_invitation
-#		subject.survey_invitation.destroy
-#		assert_nil subject.reload.survey_invitation
+		assert_difference("sscount(#{subject.id},#{survey.id})",1){
+			Factory(:survey_invitation, {
+				:subject_id => subject.id, :survey_id => survey.id })
+		}
+		assert_difference("sscount(#{subject.id},#{survey.id})",0){
+		assert_raise(ActiveRecord::RecordInvalid){
+			Factory(:survey_invitation, {
+				:subject_id => subject.id, :survey_id => survey.id })
+		} }
 	end
 
 	test "should have many survey_invitations" do
@@ -296,15 +296,39 @@ class SubjectTest < ActiveSupport::TestCase
 
 
 	test "should destroy patient on subject destroy" do
-		pending
+		assert_difference( 'Patient.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			@subject = create_subject(
+				:patient_attributes => Factory.attributes_for(:patient))
+		} }
+		assert_difference( 'Patient.count', -1) {
+		assert_difference( 'Subject.count', -1) {
+			@subject.destroy
+		} }
 	end
 
 	test "should destroy child_id on subject destroy" do
-		pending
+		assert_difference( 'ChildId.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			@subject = create_subject(
+				:child_id_attributes => Factory.attributes_for(:child_id))
+		} }
+		assert_difference( 'ChildId.count', -1) {
+		assert_difference( 'Subject.count', -1) {
+			@subject.destroy
+		} }
 	end
 
 	test "should destroy pii on subject destroy" do
-		pending
+		assert_difference( 'Pii.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			@subject = create_subject(
+				:pii_attributes => Factory.attributes_for(:pii))
+		} }
+		assert_difference( 'Pii.count', -1) {
+		assert_difference( 'Subject.count', -1) {
+			@subject.destroy
+		} }
 	end
 
 protected
