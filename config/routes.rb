@@ -69,8 +69,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :packages, :except => :edit
 	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
-	map.resources :subjects, :shallow => true,
-		:only => [ :index, :show ] do |subject|
+	map.resources :subjects, :shallow => true do |subject|
 		subject.resource :home_exposure_response, 
 			:only => [ :new, :create, :show ]
 		subject.resources :survey_invitations, 
