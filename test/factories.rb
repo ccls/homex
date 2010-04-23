@@ -13,6 +13,7 @@ Factory.define :aliquot_sample_format do |f|
 end
 
 Factory.define :child_id do |f|
+	f.sequence(:childid) { |n| "#{n}" }
 end
 
 Factory.define :context do |f|

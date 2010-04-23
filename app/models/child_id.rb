@@ -6,4 +6,6 @@ class ChildId < ActiveRecord::Base
 	validates_presence_of :subject_id, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
+	validates_presence_of :childid
+
 end
