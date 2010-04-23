@@ -16,7 +16,7 @@ class Pii < ActiveRecord::Base
 	validates_format_of     :ssn, :with => /\A\d{9}\Z/
 	validates_presence_of   :state_id_no
 	validates_uniqueness_of :state_id_no
-	validates_uniqueness_of :email
+	validates_uniqueness_of :email, :allow_nil => true
 
 	before_validation :format_ssn
 

@@ -7,13 +7,10 @@ class SubjectsController < ApplicationController
 	end
 
 	def show
-#		@subject = Subject.find(params[:id])
 	end
 
 	def new
-#		@subject = Subject.new
-#		@races = Race.all
-#		@subject_types = SubjectType.all
+		@subject = Subject.new
 	end
 
 	def create
@@ -27,17 +24,15 @@ class SubjectsController < ApplicationController
 	end
 
 	def edit
-#		@races = Race.all
-#		@subject_types = SubjectType.all
 	end
 
 	def update
 		@subject.update_attributes!(params[:subject])
 		flash[:notice] = 'Subject was successfully updated.'
 		redirect_to(@subject)
-#	rescue ActiveRecord::RecordInvalid
-#		flash.now[:error] = "There was a problem updating the subject."
-#		render :action => "edit"
+	rescue ActiveRecord::RecordInvalid
+		flash.now[:error] = "There was a problem updating the subject."
+		render :action => "edit"
 	end
 
 	def destroy

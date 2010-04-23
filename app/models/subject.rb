@@ -18,7 +18,9 @@ class Subject < ActiveRecord::Base
 	has_many :survey_invitations
 
 	validates_presence_of :subject_type_id
+	validate :valid_subject_type
 	validates_presence_of :race_id
+	validate :valid_race
 
 	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
@@ -78,6 +80,16 @@ class Subject < ActiveRecord::Base
 		if survey = Survey.find_by_access_code('home_exposure_survey')
 			self.survey_invitations.find_by_survey_id(survey.id)
 		end
+	end
+
+protected
+
+	def valid_subject_type
+		errors.add(:subject_type_id, "is invalid") unless SubjectType.exists?(subject_type_id)
+	end
+
+	def valid_race
+		errors.add(:race_id, "is invalid") unless Race.exists?(race_id)	
 	end
 
 end

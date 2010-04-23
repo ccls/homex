@@ -3,11 +3,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SubjectTest < ActiveSupport::TestCase
 
 	test "should create subject" do
-		assert_difference 'Subject.count' do
+		assert_difference( 'Race.count' ){
+		assert_difference( 'SubjectType.count' ){
+		assert_difference( 'Subject.count' ){
 			subject = create_subject
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
-		end
+		} } }
 	end
 
 	test "should create subject with pii" do
@@ -67,6 +69,20 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should require valid race" do
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject(:race_id => 0)
+			assert subject.errors.on(:race_id)
+		}
+	end
+
+	test "should require valid subject_type" do
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject(:subject_type_id => 0)
+			assert subject.errors.on(:subject_type_id)
+		}
+	end
+
 	test "should initially belong to race" do
 		subject = create_subject
 		assert_not_nil subject.race
@@ -78,8 +94,8 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	def sscount(subject_id,survey_id)
-		SurveyInvitation.find(:all,:conditions => {
-			:subject_id => subject_id, :survey_id => survey_id }).length
+		SurveyInvitation.count(:conditions => {
+			:subject_id => subject_id, :survey_id => survey_id })
 	end
 
 	test "should have one survey_invitation per survey" do

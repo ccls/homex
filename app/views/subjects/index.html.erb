@@ -53,8 +53,9 @@
 </div>
 
 
+<%= button_link_to "Create New Subject", new_subject_path %>
 
 <% form_tag(subjects_path, :method => :get) do %>
 	<%= text_field_tag 'Something', nil, :id => nil %>
-	<%= submit_tag 'Search', :name => nil %>
+	<%= submit_tag 'Search Not yet implemented', :name => nil %>
 <% end %>
