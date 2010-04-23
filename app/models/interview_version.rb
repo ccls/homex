@@ -11,6 +11,19 @@ class InterviewVersion < ActiveRecord::Base
 
 	validates_length_of :description, :minimum => 4
 	validates_presence_of :interview_type_id
+	validate              :valid_interview_type_id
 	validates_presence_of :interview_event_id
+	validate              :valid_interview_event_id
 	validates_uniqueness_of :description
+
+protected
+
+	def valid_interview_type_id
+		errors.add(:interview_type_id,'is invalid') unless InterviewType.exists?(interview_type_id)
+	end
+
+	def valid_interview_event_id
+		errors.add(:interview_event_id,'is invalid') unless InterviewEvent.exists?(interview_event_id)
+	end
+
 end

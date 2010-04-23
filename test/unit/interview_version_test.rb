@@ -33,6 +33,22 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid interview_type_id" do
+		assert_no_difference 'InterviewVersion.count' do
+			interview_version = create_interview_version(
+				:interview_type_id => 0)
+			assert interview_version.errors.on(:interview_type_id)
+		end
+	end
+
+	test "should require valid interview_event_id" do
+		assert_no_difference 'InterviewVersion.count' do
+			interview_version = create_interview_version(
+				:interview_event_id => 0)
+			assert interview_version.errors.on(:interview_event_id)
+		end
+	end
+
 	test "should require interview_type_id" do
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(

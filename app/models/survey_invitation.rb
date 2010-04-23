@@ -4,8 +4,10 @@ class SurveyInvitation < ActiveRecord::Base
 	belongs_to :survey
 
 	validates_presence_of   :subject_id
+	validate                :valid_subject_id
 	validates_uniqueness_of :subject_id, :scope => :survey_id
 	validates_presence_of   :survey_id
+	validate                :valid_survey_id
 	validates_presence_of   :token
 	validates_uniqueness_of :token
 	validates_presence_of   :response_set_id, :on => :update
@@ -26,6 +28,14 @@ protected
 			temp_token = ActiveSupport::SecureRandom.hex(64)
 		end while SurveyInvitation.exists?(:token => temp_token)
 		self.token = temp_token
+	end
+
+	def valid_subject_id
+		errors.add(:subject_id,'is invalid') unless Subject.exists?(subject_id)
+	end
+
+	def valid_survey_id
+		errors.add(:survey_id,'is invalid') unless Survey.exists?(survey_id)
 	end
 
 end

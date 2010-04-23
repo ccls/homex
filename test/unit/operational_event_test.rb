@@ -10,6 +10,21 @@ class OperationalEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid operational_event_type_id" do
+		assert_no_difference 'OperationalEvent.count' do
+			operational_event = create_operational_event(
+				:operational_event_type_id => 0)
+			assert operational_event.errors.on(:operational_event_type_id)
+		end
+	end
+
+	test "should require valid subject_id" do
+		assert_no_difference 'OperationalEvent.count' do
+			operational_event = create_operational_event(:subject_id => 0)
+			assert operational_event.errors.on(:subject_id)
+		end
+	end
+
 	test "should require operational_event_type_id" do
 		assert_no_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event(

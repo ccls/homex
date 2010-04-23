@@ -13,7 +13,15 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 	test "should require subject_id" do
 		assert_difference( 'HomeExposureResponse.count', 0 ) do
 			home_exposure_response = create_home_exposure_response(
-				:subject => nil)
+				:subject_id => nil)
+			assert home_exposure_response.errors.on(:subject_id)
+		end
+	end
+
+	test "should require valid subject_id" do
+		assert_difference( 'HomeExposureResponse.count', 0 ) do
+			home_exposure_response = create_home_exposure_response(
+				:subject_id => 0)
 			assert home_exposure_response.errors.on(:subject_id)
 		end
 	end
@@ -27,6 +35,7 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 			assert home_exposure_response.errors.on(:subject_id)
 		end
 	end
+
 
 	test "should initially belong to subject" do
 		home_exposure_response = create_home_exposure_response

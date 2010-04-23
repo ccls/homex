@@ -13,5 +13,18 @@ class Sample < ActiveRecord::Base
 #	this is not clear in my UML diagram
 
 	validates_presence_of :subject_id
+	validate              :valid_subject_id
 	validates_presence_of :unit_id
+	validate              :valid_unit_id
+
+protected
+
+	def valid_subject_id
+		errors.add(:subject_id,'is invalid') unless Subject.exists?(subject_id)
+	end
+
+	def valid_unit_id
+		errors.add(:unit_id,'is invalid') unless Unit.exists?(unit_id)
+	end
+
 end

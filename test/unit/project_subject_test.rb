@@ -10,6 +10,20 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid subject_id" do
+		assert_no_difference 'ProjectSubject.count' do
+			project_subject = create_project_subject(:subject_id => 0)
+			assert project_subject.errors.on(:subject_id)
+		end
+	end
+
+	test "should require valid study_event_id" do
+		assert_no_difference 'ProjectSubject.count' do
+			project_subject = create_project_subject(:study_event_id => 0)
+			assert project_subject.errors.on(:study_event_id)
+		end
+	end
+
 	test "should require subject_id" do
 		assert_no_difference 'ProjectSubject.count' do
 			project_subject = create_project_subject(:subject_id => nil)

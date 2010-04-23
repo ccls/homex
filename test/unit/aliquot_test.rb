@@ -38,6 +38,27 @@ class AliquotTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid sample_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:sample_id => 0)
+			assert aliquot.errors.on(:sample_id)
+		end
+	end
+
+	test "should require valid unit_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:unit_id => 0)
+			assert aliquot.errors.on(:unit_id)
+		end
+	end
+
+	test "should require valid owner_id" do
+		assert_no_difference 'Aliquot.count' do
+			aliquot = create_aliquot(:owner_id => 0)
+			assert aliquot.errors.on(:owner_id)
+		end
+	end
+
 	test "should belong to aliquot_sample_format" do
 		aliquot = create_aliquot
 		assert_nil aliquot.aliquot_sample_format

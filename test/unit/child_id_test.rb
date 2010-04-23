@@ -32,6 +32,14 @@ class ChildIdTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid subject_id on update" do
+		assert_difference( 'ChildId.count', 1 )do
+			child_id = create_child_id(:subject_id => 0)
+			child_id.reload.update_attributes(:childid => 1)
+			assert child_id.errors.on(:subject_id)
+		end
+	end
+
 	test "should belong to subject" do
 		child_id = create_child_id
 		assert_nil child_id.subject

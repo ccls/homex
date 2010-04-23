@@ -10,6 +10,14 @@ class PatientTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid subject_id on update" do
+		assert_difference 'Patient.count', 1 do
+			patient = create_patient(:subject_id => 0)
+			patient.reload.update_attributes(:hospital_no => 1)
+			assert patient.errors.on(:subject_id)
+		end
+	end
+
 	#
 	#	subject uses accepts_attributes_for :pii
 	#	so the pii can't require subject_id on create

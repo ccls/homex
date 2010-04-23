@@ -31,6 +31,27 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid address_id" do
+		assert_no_difference 'InterviewEvent.count' do
+			interview_event = create_interview_event(:address_id => 0)
+			assert interview_event.errors.on(:address_id)
+		end
+	end
+
+	test "should require valid subject_id" do
+		assert_no_difference 'InterviewEvent.count' do
+			interview_event = create_interview_event(:subject_id => 0)
+			assert interview_event.errors.on(:subject_id)
+		end
+	end
+
+	test "should require valid interviewer_id" do
+		assert_no_difference 'InterviewEvent.count' do
+			interview_event = create_interview_event(:interviewer_id => 0)
+			assert interview_event.errors.on(:interviewer_id)
+		end
+	end
+
 	test "should initially belong to an address" do
 		interview_event = create_interview_event
 		assert_not_nil interview_event.address

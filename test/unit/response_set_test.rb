@@ -101,6 +101,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 	test "should merge matching surveys into single HER" do
+		subject = Factory(:subject)
 		assert_difference( 'Survey.count', 1 ) {
 		assert_difference( 'SurveySection.count', 1 ) {
 		assert_difference( 'Question.count', 4 ) {
@@ -108,9 +109,9 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_difference( 'ResponseSet.count', 2 ) {
 		assert_difference( 'Response.count', 8 ) {
 			@rs1 = full_response_set(
-				:response_set => { :subject_id => 42 })
+				:response_set => { :subject_id => subject.id })
 			@rs2 = full_response_set(:survey => @rs1.survey,
-				:response_set => { :subject_id => 42 })
+				:response_set => { :subject_id => subject.id })
 		} } } } } }
 
 		qa1 = @rs1.reload.q_and_a_codes_as_attributes
@@ -121,7 +122,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_equal qa1, qa2
 		assert_difference( 'HomeExposureResponse.count') {
 			her = @rs1.to_her
-			assert_equal 42, her.subject_id
+			assert_equal subject.id, her.subject_id
 		}
 	end
 

@@ -11,5 +11,13 @@ class SampleSubtype < ActiveRecord::Base
 
 	validates_length_of :description, :minimum => 4
 	validates_presence_of :sample_type_id
+	validate              :valid_sample_type_id
 	validates_uniqueness_of :description
+
+protected
+
+	def valid_sample_type_id
+		errors.add(:sample_type_id,'is invalid') unless SampleType.exists?(sample_type_id)
+	end
+
 end

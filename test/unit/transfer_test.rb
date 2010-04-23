@@ -10,6 +10,27 @@ class TransferTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid from_organization" do
+		assert_no_difference 'Transfer.count' do
+			transfer = create_transfer(:from_organization_id => 0)
+			assert transfer.errors.on(:from_organization_id)
+		end
+	end
+
+	test "should require valid to_organization" do
+		assert_no_difference 'Transfer.count' do
+			transfer = create_transfer(:to_organization_id => 0)
+			assert transfer.errors.on(:to_organization_id)
+		end
+	end
+
+	test "should require valid aliquot" do
+		assert_no_difference 'Transfer.count' do
+			transfer = create_transfer(:aliquot_id => 0)
+			assert transfer.errors.on(:aliquot_id)
+		end
+	end
+
 	test "should require from_organization" do
 		assert_no_difference 'Transfer.count' do
 			transfer = create_transfer(:from_organization_id => nil)

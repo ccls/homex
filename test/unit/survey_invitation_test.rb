@@ -10,10 +10,31 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid survey_id" do
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(:survey_id => 0)
+			assert survey_invitation.errors.on(:survey_id)
+		end
+	end
+
+	test "should require valid subject_id" do
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(:subject_id => 0)
+			assert survey_invitation.errors.on(:subject_id)
+		end
+	end
+
 	test "should require survey_id" do
 		assert_no_difference 'SurveyInvitation.count' do
 			survey_invitation = create_survey_invitation(:survey_id => nil)
 			assert survey_invitation.errors.on(:survey_id)
+		end
+	end
+
+	test "should require subject_id" do
+		assert_no_difference 'SurveyInvitation.count' do
+			survey_invitation = create_survey_invitation(:subject_id => nil)
+			assert survey_invitation.errors.on(:subject_id)
 		end
 	end
 
@@ -25,13 +46,6 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 				:survey_id  => si.survey_id)
 			#	because of the wording of the validation
 			#	the error is on subject_id
-			assert survey_invitation.errors.on(:subject_id)
-		end
-	end
-
-	test "should require subject_id" do
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(:subject_id => nil)
 			assert survey_invitation.errors.on(:subject_id)
 		end
 	end
