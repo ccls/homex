@@ -1,0 +1,13 @@
+
+Minor additions to ActiveRecord::Base
+
+	untaint_column
+	untaint_direction
+
+	ignore_articles_in_order_by(column)	#	MySQL specific
+	table_status     #	MySQL specific
+	auto_increment   #	MySQL specific
+	next_id          #	MySQL specific
+
+Nothing too special, but something that I've used often enough to create a plugin rather than continued duplication.
+
