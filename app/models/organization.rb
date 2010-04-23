@@ -11,7 +11,9 @@ class Organization < ActiveRecord::Base
 		:foreign_key => 'from_organization_id',
 		:class_name => 'Transfer'
 
+#	how
 #	has_many :samples
+#	this is not clear in my UML diagram
 
 	validates_length_of :name, :minimum => 4
 	validates_uniqueness_of :name

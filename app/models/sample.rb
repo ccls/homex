@@ -8,7 +8,9 @@ class Sample < ActiveRecord::Base
 	belongs_to :unit
 	has_many :aliquots
 
+#	how
 #	belongs_to :organization
+#	this is not clear in my UML diagram
 
 	validates_presence_of :subject_id
 	validates_presence_of :unit_id
