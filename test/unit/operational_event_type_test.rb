@@ -39,7 +39,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
 				:study_event_id => 0)
-			assert operational_event_type.errors.on(:study_event_id)
+			assert operational_event_type.errors.on(:study_event)
 		end
 	end
 
@@ -47,7 +47,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
 				:interview_event_id => 0)
-			assert operational_event_type.errors.on(:interview_event_id)
+			assert operational_event_type.errors.on(:interview_event)
 		end
 	end
 
@@ -55,7 +55,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
 				:study_event_id => nil)
-			assert operational_event_type.errors.on(:study_event_id)
+			assert operational_event_type.errors.on(:study_event)
 		end
 	end
 
@@ -63,7 +63,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
 				:interview_event_id => nil)
-			assert operational_event_type.errors.on(:interview_event_id)
+			assert operational_event_type.errors.on(:interview_event)
 		end
 	end
 

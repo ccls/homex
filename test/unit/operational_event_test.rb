@@ -14,14 +14,14 @@ class OperationalEventTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event(
 				:operational_event_type_id => 0)
-			assert operational_event.errors.on(:operational_event_type_id)
+			assert operational_event.errors.on(:operational_event_type)
 		end
 	end
 
 	test "should require valid subject_id" do
 		assert_no_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event(:subject_id => 0)
-			assert operational_event.errors.on(:subject_id)
+			assert operational_event.errors.on(:subject)
 		end
 	end
 
@@ -29,14 +29,14 @@ class OperationalEventTest < ActiveSupport::TestCase
 		assert_no_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event(
 				:operational_event_type_id => nil)
-			assert operational_event.errors.on(:operational_event_type_id)
+			assert operational_event.errors.on(:operational_event_type)
 		end
 	end
 
 	test "should require subject_id" do
 		assert_no_difference 'OperationalEvent.count' do
 			operational_event = create_operational_event(:subject_id => nil)
-			assert operational_event.errors.on(:subject_id)
+			assert operational_event.errors.on(:subject)
 		end
 	end
 

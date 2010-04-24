@@ -1,10 +1,8 @@
 class HomeExposureResponse < ActiveRecord::Base
 	belongs_to :subject
 
-#	validates_presence_of   :subject_id
+	validates_presence_of   :subject
 	validates_uniqueness_of :subject_id
-#	validate                :valid_subject_id
-	validates_belongs_to_exists :subject_id
 
 	def self.q_column_names
 		column_names - 
@@ -730,10 +728,4 @@ class HomeExposureResponse < ActiveRecord::Base
 #		}
 #	]
 
-#protected
-#
-#	def valid_subject_id
-#		errors.add(:subject_id, "is invalid") unless Subject.exists?(subject_id)
-#	end
-#
 end

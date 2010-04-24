@@ -14,7 +14,7 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
 				:subject_id => 0)
-			assert study_event_eligibility.errors.on(:subject_id)
+			assert study_event_eligibility.errors.on(:subject)
 		end
 	end
 
@@ -22,7 +22,7 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
 				:study_event_id => 0)
-			assert study_event_eligibility.errors.on(:study_event_id)
+			assert study_event_eligibility.errors.on(:study_event)
 		end
 	end
 
@@ -30,7 +30,7 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
 				:subject_id => nil)
-			assert study_event_eligibility.errors.on(:subject_id)
+			assert study_event_eligibility.errors.on(:subject)
 		end
 	end
 
@@ -38,7 +38,7 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
 				:study_event_id => nil)
-			assert study_event_eligibility.errors.on(:study_event_id)
+			assert study_event_eligibility.errors.on(:study_event)
 		end
 	end
 

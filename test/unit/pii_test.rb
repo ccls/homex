@@ -46,7 +46,7 @@ class PiiTest < ActiveSupport::TestCase
 		assert_difference 'Pii.count', 1 do
 			pii = create_pii
 			pii.reload.update_attributes(:first_name => "New First Name")
-			assert pii.errors.on(:subject_id)
+			assert pii.errors.on(:subject)
 		end
 	end
 

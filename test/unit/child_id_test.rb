@@ -19,7 +19,7 @@ class ChildIdTest < ActiveSupport::TestCase
 		assert_difference 'ChildId.count', 1 do
 			child_id = create_child_id
 			child_id.reload.update_attributes(:childid => 1)
-			assert child_id.errors.on(:subject_id)
+			assert child_id.errors.on(:subject)
 		end
 	end
 
@@ -36,7 +36,7 @@ class ChildIdTest < ActiveSupport::TestCase
 		assert_difference( 'ChildId.count', 1 )do
 			child_id = create_child_id(:subject_id => 0)
 			child_id.reload.update_attributes(:childid => 1)
-			assert child_id.errors.on(:subject_id)
+			assert child_id.errors.on(:subject)
 		end
 	end
 

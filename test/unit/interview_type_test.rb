@@ -36,14 +36,14 @@ class InterviewTypeTest < ActiveSupport::TestCase
 	test "should require study_event_id" do
 		assert_no_difference 'InterviewType.count' do
 			interview_type = create_interview_type(:study_event_id => nil)
-			assert interview_type.errors.on(:study_event_id)
+			assert interview_type.errors.on(:study_event)
 		end
 	end
 
 	test "should require valid study_event_id" do
 		assert_no_difference 'InterviewType.count' do
 			interview_type = create_interview_type(:study_event_id => 0)
-			assert interview_type.errors.on(:study_event_id)
+			assert interview_type.errors.on(:study_event)
 		end
 	end
 

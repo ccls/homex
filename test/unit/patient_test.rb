@@ -14,7 +14,7 @@ class PatientTest < ActiveSupport::TestCase
 		assert_difference 'Patient.count', 1 do
 			patient = create_patient(:subject_id => 0)
 			patient.reload.update_attributes(:hospital_no => 1)
-			assert patient.errors.on(:subject_id)
+			assert patient.errors.on(:subject)
 		end
 	end
 
@@ -27,7 +27,7 @@ class PatientTest < ActiveSupport::TestCase
 		assert_difference 'Patient.count', 1 do
 			patient = create_patient
 			patient.reload.update_attributes(:hospital_no => 1)
-			assert patient.errors.on(:subject_id)
+			assert patient.errors.on(:subject)
 		end
 	end
 

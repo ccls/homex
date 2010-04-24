@@ -8,7 +8,7 @@ class Pii < ActiveRecord::Base
 
 	#	because subject accepts_nested_attributes for pii 
 	#	we can't require subject_id on create
-	validates_presence_of :subject_id, :on => :update
+	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
 	validates_presence_of   :ssn

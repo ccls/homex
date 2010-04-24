@@ -13,28 +13,28 @@ class SampleTest < ActiveSupport::TestCase
 	test "should require valid subject_id" do
 		assert_no_difference 'Sample.count' do
 			sample = create_sample(:subject_id => 0)
-			assert sample.errors.on(:subject_id)
+			assert sample.errors.on(:subject)
 		end
 	end
 
 	test "should require valid unit_id" do
 		assert_no_difference 'Sample.count' do
 			sample = create_sample(:unit_id => 0)
-			assert sample.errors.on(:unit_id)
+			assert sample.errors.on(:unit)
 		end
 	end
 
 	test "should require subject_id" do
 		assert_no_difference 'Sample.count' do
 			sample = create_sample(:subject_id => nil)
-			assert sample.errors.on(:subject_id)
+			assert sample.errors.on(:subject)
 		end
 	end
 
 	test "should require unit_id" do
 		assert_no_difference 'Sample.count' do
 			sample = create_sample(:unit_id => nil)
-			assert sample.errors.on(:unit_id)
+			assert sample.errors.on(:unit)
 		end
 	end
 

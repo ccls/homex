@@ -36,14 +36,14 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 	test "should require valid sample_type_id" do
 		assert_no_difference 'SampleSubtype.count' do
 			sample_subtype = create_sample_subtype(:sample_type_id => 0)
-			assert sample_subtype.errors.on(:sample_type_id)
+			assert sample_subtype.errors.on(:sample_type)
 		end
 	end
 
 	test "should require sample_type_id" do
 		assert_no_difference 'SampleSubtype.count' do
 			sample_subtype = create_sample_subtype(:sample_type_id => nil)
-			assert sample_subtype.errors.on(:sample_type_id)
+			assert sample_subtype.errors.on(:sample_type)
 		end
 	end
 

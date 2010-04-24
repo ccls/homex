@@ -11,22 +11,8 @@ class OperationalEventType < ActiveRecord::Base
 	belongs_to :interview_event
 
 	validates_length_of :description, :minimum => 4
-#	validates_presence_of :study_event_id
-#	validate              :valid_study_event_id
-#	validates_presence_of :interview_event_id
-#	validate              :valid_interview_event_id
 	validates_uniqueness_of :description
 
-	validates_belongs_to_exists :interview_event_id, :study_event_id
-
-#protected
-#
-#	def valid_interview_event_id
-#		errors.add(:interview_event_id,'is invalid') unless InterviewEvent.exists?(interview_event_id)
-#	end
-#
-#	def valid_study_event_id
-#		errors.add(:study_event_id,'is invalid') unless StudyEvent.exists?(study_event_id)
-#	end
+	validates_presence_of :interview_event, :study_event
 
 end

@@ -37,7 +37,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(
 				:interview_type_id => 0)
-			assert interview_version.errors.on(:interview_type_id)
+			assert interview_version.errors.on(:interview_type)
 		end
 	end
 
@@ -45,7 +45,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(
 				:interview_event_id => 0)
-			assert interview_version.errors.on(:interview_event_id)
+			assert interview_version.errors.on(:interview_event)
 		end
 	end
 
@@ -53,7 +53,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(
 				:interview_type_id => nil)
-			assert interview_version.errors.on(:interview_type_id)
+			assert interview_version.errors.on(:interview_type)
 		end
 	end
 
@@ -61,7 +61,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_no_difference 'InterviewVersion.count' do
 			interview_version = create_interview_version(
 				:interview_event_id => nil)
-			assert interview_version.errors.on(:interview_event_id)
+			assert interview_version.errors.on(:interview_event)
 		end
 	end
 

@@ -13,28 +13,28 @@ class ResidenceTest < ActiveSupport::TestCase
 	test "should require valid address_id" do
 		assert_no_difference 'Residence.count' do
 			residence = create_residence(:address_id => 0)
-			assert residence.errors.on(:address_id)
+			assert residence.errors.on(:address)
 		end
 	end
 
 	test "should require valid subject_id" do
 		assert_no_difference 'Residence.count' do
 			residence = create_residence(:subject_id => 0)
-			assert residence.errors.on(:subject_id)
+			assert residence.errors.on(:subject)
 		end
 	end
 
 	test "should require address_id" do
 		assert_no_difference 'Residence.count' do
 			residence = create_residence(:address_id => nil)
-			assert residence.errors.on(:address_id)
+			assert residence.errors.on(:address)
 		end
 	end
 
 	test "should require subject_id" do
 		assert_no_difference 'Residence.count' do
 			residence = create_residence(:subject_id => nil)
-			assert residence.errors.on(:subject_id)
+			assert residence.errors.on(:subject)
 		end
 	end
 

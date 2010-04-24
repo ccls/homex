@@ -14,7 +14,7 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 		assert_difference( 'HomeExposureResponse.count', 0 ) do
 			home_exposure_response = create_home_exposure_response(
 				:subject_id => nil)
-			assert home_exposure_response.errors.on(:subject_id)
+			assert home_exposure_response.errors.on(:subject)
 		end
 	end
 
@@ -22,7 +22,7 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 		assert_difference( 'HomeExposureResponse.count', 0 ) do
 			home_exposure_response = create_home_exposure_response(
 				:subject_id => 0)
-			assert home_exposure_response.errors.on(:subject_id)
+			assert home_exposure_response.errors.on(:subject)
 		end
 	end
 

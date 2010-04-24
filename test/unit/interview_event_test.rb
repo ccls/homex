@@ -13,42 +13,42 @@ class InterviewEventTest < ActiveSupport::TestCase
 	test "should require address_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:address_id => nil)
-			assert interview_event.errors.on(:address_id)
+			assert interview_event.errors.on(:address)
 		end
 	end
 
 	test "should require subject_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:subject_id => nil)
-			assert interview_event.errors.on(:subject_id)
+			assert interview_event.errors.on(:subject)
 		end
 	end
 
 	test "should require interviewer_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:interviewer_id => nil)
-			assert interview_event.errors.on(:interviewer_id)
+			assert interview_event.errors.on(:interviewer)
 		end
 	end
 
 	test "should require valid address_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:address_id => 0)
-			assert interview_event.errors.on(:address_id)
+			assert interview_event.errors.on(:address)
 		end
 	end
 
 	test "should require valid subject_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:subject_id => 0)
-			assert interview_event.errors.on(:subject_id)
+			assert interview_event.errors.on(:subject)
 		end
 	end
 
 	test "should require valid interviewer_id" do
 		assert_no_difference 'InterviewEvent.count' do
 			interview_event = create_interview_event(:interviewer_id => 0)
-			assert interview_event.errors.on(:interviewer_id)
+			assert interview_event.errors.on(:interviewer)
 		end
 	end
 
