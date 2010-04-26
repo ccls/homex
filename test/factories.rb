@@ -20,6 +20,9 @@ Factory.define :context do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :dust_kit do |f|
+end
+
 Factory.define :home_exposure_response do |f|
 	f.association :subject
 end

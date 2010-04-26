@@ -224,6 +224,10 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
+	permission :view_dust_kits do
+		allow :employee
+	end
+
 	permission :create_invitations do
 		allow :employee
 	end

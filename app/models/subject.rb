@@ -15,6 +15,7 @@ class Subject < ActiveRecord::Base
 	has_one :pii,      :dependent => :destroy
 	has_one :patient,  :dependent => :destroy
 	has_one :child_id, :dependent => :destroy
+	has_one :dust_kit, :dependent => :destroy
 	has_many :survey_invitations
 
 	validates_presence_of :subject_type, :race
@@ -36,6 +37,7 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :patient
 	accepts_nested_attributes_for :child_id
+	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
 

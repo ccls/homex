@@ -121,6 +121,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.survey_invitations.length
 	end
 
+	test "should have one dust_kit" do
+		subject = create_subject
+		assert_nil subject.dust_kit
+		Factory(:dust_kit, :subject_id => subject.id)
+		assert_not_nil subject.reload.dust_kit
+		subject.dust_kit.destroy
+		assert_nil subject.reload.dust_kit
+	end
+
 	test "should have one child_id" do
 		subject = create_subject
 		assert_nil subject.child_id
@@ -318,6 +327,18 @@ class SubjectTest < ActiveSupport::TestCase
 				:patient_attributes => Factory.attributes_for(:patient))
 		} }
 		assert_difference( 'Patient.count', -1) {
+		assert_difference( 'Subject.count', -1) {
+			@subject.destroy
+		} }
+	end
+
+	test "should destroy dust_kit on subject destroy" do
+		assert_difference( 'DustKit.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			@subject = create_subject(
+				:dust_kit_attributes => Factory.attributes_for(:dust_kit))
+		} }
+		assert_difference( 'DustKit.count', -1) {
 		assert_difference( 'Subject.count', -1) {
 			@subject.destroy
 		} }
