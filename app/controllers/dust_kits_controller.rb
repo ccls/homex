@@ -4,6 +4,7 @@ class DustKitsController < ApplicationController
 	before_filter :valid_subject_id_required
 
 	def show
+		@last_shipping_update = Package.last_updated
 		@dust_kit = @subject.dust_kit || @subject.build_dust_kit
 	end
 

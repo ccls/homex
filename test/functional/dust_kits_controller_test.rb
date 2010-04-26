@@ -96,6 +96,18 @@ class DustKitsControllerTest < ActionController::TestCase
 		assert assigns(:dust_kit)
 	end
 
+	test "should get show with admin login and packages" do
+		Factory(:dust_kit, 
+			:kit_package_attributes  => Factory.attributes_for(:package),
+			:dust_package_attributes => Factory.attributes_for(:package)
+		)
+		login_as admin_user
+		get :show, :subject_id => @subject.id
+		assert_response :success
+		assert_template 'show'
+		assert assigns(:dust_kit)
+	end
+
 	test "should delete destroy with admin login" do
 		login_as admin_user
 		Factory(:dust_kit,:subject_id => @subject.id)
@@ -155,6 +167,52 @@ class DustKitsControllerTest < ActionController::TestCase
 			delete :destroy, :subject_id => @subject.id
 		}
 		assert_redirected_to subject_path(assigns(:subject))
+	end
+
+#	user login
+
+	test "should NOT get new with just login" do
+		login_as user
+		get :new, :subject_id => @subject.id
+		assert_redirected_to root_path
+	end
+
+	test "should NOT post create with just login" do
+		login_as user
+		assert_difference('DustKit.count',0) {
+			post :create, :subject_id => @subject.id,
+				:dust_kit => Factory.attributes_for(:dust_kit)
+		}
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get edit with just login" do
+		login_as user
+		get :edit, :subject_id => @subject.id
+		assert_redirected_to root_path
+	end
+
+	test "should NOT put update with just login" do
+		login_as user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		put :update, :subject_id => @subject.id,
+			:dust_kit => Factory.attributes_for(:dust_kit)
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get show with just login" do
+		login_as user
+		get :show, :subject_id => @subject.id
+		assert_redirected_to root_path
+	end
+
+	test "should NOT delete destroy with just login" do
+		login_as user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		assert_difference('DustKit.count',0){
+			delete :destroy, :subject_id => @subject.id
+		}
+		assert_redirected_to root_path
 	end
 
 #	no subject_id

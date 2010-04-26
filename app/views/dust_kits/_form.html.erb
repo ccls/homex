@@ -1,0 +1,20 @@
+<% form_for(@dust_kit, :url => subject_dust_kit_path(@subject)) do |f| %>
+	<%= f.error_messages %>
+
+	<% @dust_kit.build_kit_package if @dust_kit.kit_package.nil? %>
+	<% f.fields_for :kit_package do |kit_fields| %>
+		<%= kit_fields.label :tracking_number, 'Kit Tracking Number' %>
+		<%= kit_fields.text_field :tracking_number %>
+	<% end %>
+
+	<br/>
+
+	<% @dust_kit.build_dust_package if @dust_kit.dust_package.nil? %>
+	<% f.fields_for :dust_package do |dust_fields| %>
+		<%= dust_fields.label :tracking_number, 'Dust Tracking Number' %>
+		<%= dust_fields.text_field :tracking_number %>
+	<% end %>
+
+	<br/>
+	<%= f.submit( (@dust_kit.new_record?)?'Create':'Update') %>
+<% end %>
