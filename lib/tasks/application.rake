@@ -6,6 +6,9 @@ namespace :app do
 #		exit
 #	end
 
+	desc "Prepare database for application"
+	task :setup => :populate
+
 	desc "Add a bunch of stuff to the DB"
 	task :populate => [ 
 		:add_races,
