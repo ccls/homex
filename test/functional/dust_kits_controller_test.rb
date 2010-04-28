@@ -298,4 +298,104 @@ class DustKitsControllerTest < ActionController::TestCase
 		assert_redirected_to subject_path(assigns(:subject))
 	end
 
+#	NO subject_id
+
+	test "should NOT get new without subject_id " do
+		login_as admin_user
+		assert_raise(ActionController::RoutingError){
+			get :new
+		}
+	end
+
+	test "should NOT post create without subject_id" do
+		login_as admin_user
+		assert_raise(ActionController::RoutingError){
+		assert_difference('DustKit.count',0) {
+			post :create, :dust_kit => Factory.attributes_for(:dust_kit)
+		} }
+	end
+
+	test "should NOT get edit without subject_id" do
+		login_as admin_user
+		assert_raise(ActionController::RoutingError){
+			get :edit
+		}
+	end
+
+	test "should NOT put update without subject_id" do
+		login_as admin_user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		assert_raise(ActionController::RoutingError){
+			put :update, :dust_kit => Factory.attributes_for(:dust_kit)
+		}
+	end
+
+	test "should NOT get show without subject_id" do
+		login_as admin_user
+		assert_raise(ActionController::RoutingError){
+			get :show
+		}
+	end
+
+	test "should NOT delete destroy without subject_id" do
+		login_as admin_user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		assert_raise(ActionController::RoutingError){
+		assert_difference('DustKit.count',0){
+			delete :destroy
+		} }
+	end
+
+#	INVALID subject_id
+
+	test "should NOT get new with invalid subject_id" do
+		login_as admin_user
+		get :new, :subject_id => 0
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT post create with invalid subject_id" do
+		login_as admin_user
+		assert_difference('DustKit.count',0) {
+			post :create, :subject_id => 0,
+				:dust_kit => Factory.attributes_for(:dust_kit)
+		}
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT get edit with invalid subject_id" do
+		login_as admin_user
+		get :edit, :subject_id => 0
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT put update with invalid subject_id" do
+		login_as admin_user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		put :update, :subject_id => 0,
+			:dust_kit => Factory.attributes_for(:dust_kit)
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT get show with invalid subject_id" do
+		login_as admin_user
+		get :show, :subject_id => 0
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT delete destroy with invalid subject_id" do
+		login_as admin_user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		assert_difference('DustKit.count',0){
+			delete :destroy, :subject_id => 0
+		}
+		assert_redirected_to subjects_path
+		assert_not_nil flash[:error]
+	end
+
 end
