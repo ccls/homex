@@ -46,6 +46,21 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique controller" do
+		p = create_page(:controller => 'foobar')
+		assert_no_difference 'Page.count' do
+			page = create_page(:controller => p.controller)
+			assert page.errors.on(:controller)
+		end
+	end
+
+	test "should require 4 char controller" do
+		assert_no_difference 'Page.count' do
+			page = create_page(:controller => 'Hey')
+			assert page.errors.on(:controller)
+		end
+	end
+
 	test "should require unique menu" do
 		p = create_page
 		assert_no_difference 'Page.count' do

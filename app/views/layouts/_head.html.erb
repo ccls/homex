@@ -2,9 +2,10 @@
 <div id='rootmenu'>
 <%# For the menuing system to work, we need a page %>
 <%
-	@page ||= Page.find_by_path("/" << controller.controller_name)
-	#	because of 'calendar' (and soon maybe 'staff')
-	@page ||= Page.find_by_path("/" << controller.controller_name.singularize)
+	@page ||= Page.find_by_controller(controller.controller_name)
+#	@page ||= Page.find_by_path("/" << controller.controller_name)
+#	#	because of 'calendar' (and soon maybe 'staff')
+#	@page ||= Page.find_by_path("/" << controller.controller_name.singularize)
 %>
 <%# Page changes outside of ActionController go unnoticed %>
 <%# Due to the variability of the menu, we can't really cache it %>

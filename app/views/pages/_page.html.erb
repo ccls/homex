@@ -11,6 +11,9 @@
 <div class='title'>
 <%= link_to page.title, page -%>
 </div>
+<div class='controller'>
+<%= page.controller -%>
+</div>
 <div class='manage'>
 <% if page.children.length > 1 %>
 <%= link_to "Order", pages_path(:parent_id => page.id) -%>&nbsp;

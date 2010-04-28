@@ -16,6 +16,9 @@
 <p><b>Path:</b> (this is the path in the url. ie. /help/login )</p>
 <%= f.text_field :path %>
 
+<p><b>Controller:</b> (if this is a 'fake' page for menuing, otherwise leave blank (see Jake))</p>
+<%= f.text_field :controller %>
+
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
 <%= f.text_area :body %>
 

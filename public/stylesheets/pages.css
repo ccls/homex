@@ -29,6 +29,10 @@ div.title {
 	float:left;
 	width: 200px;
 }
+div.controller {
+	float:left;
+	width: 100px;
+}
 div.manage {
 }
 

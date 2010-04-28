@@ -126,42 +126,56 @@ namespace :app do
 			:title => "Pages",
 			:menu  => "Pages",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'pages'
 		)
 		Page.find_or_create_by_path(
 			:path  => "/users",
 			:title => "Users",
 			:menu  => "Users",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'users'
 		)
 		Page.find_or_create_by_path(
 			:path  => "/calendar",
 			:title => "Calendar",
 			:menu  => "Calendar",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'calendars'
 		)
 		Page.find_or_create_by_path(
 			:path  => "/packages",
 			:title => "Packages",
 			:menu  => "Packages",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'packages'
 		)
-		Page.find_or_create_by_path(
+		subjects = Page.find_or_create_by_path(
 			:path  => "/subjects",
 			:title => "Subjects",
 			:menu  => "Subjects",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'subjects'
+		)
+		Page.find_or_create_by_path(
+			:path  => "/dust_kits",
+			:title => "Dust Kits",
+			:menu  => "Dust Kits",
+			:body  => "This text should never be seen.",
+			:parent_id => subjects.id,
+			:controller => 'dust_kits'
 		)
 		Page.find_or_create_by_path(
 			:path  => "/home_page_pics",
 			:title => "Home Page Pics",
 			:menu  => "Home Page Pics",
 			:body  => "This text should never be seen.",
-			:parent_id => staff.id
+			:parent_id => staff.id,
+			:controller => 'home_page_pics'
 		)
 	end
 

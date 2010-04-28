@@ -23,6 +23,8 @@ class Page < ActiveRecord::Base
 	validates_length_of :body,  :minimum => 4
 	validates_uniqueness_of :menu
 	validates_uniqueness_of :path
+	validates_length_of     :controller, :minimum => 4, :allow_nil => true
+	validates_uniqueness_of :controller, :allow_nil => true
 
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
@@ -30,7 +32,7 @@ class Page < ActiveRecord::Base
 	named_scope :roots, :conditions => [ "parent_id IS NULL" ]
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
-	attr_accessible :path, :menu, :title, :body, :parent_id
+	attr_accessible :path, :menu, :title, :body, :parent_id, :controller
 
 	after_validation :downcase_path
 	#	downcase the path attribute
