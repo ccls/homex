@@ -1,7 +1,8 @@
 class AddControllerToPage < ActiveRecord::Migration
 	def self.up
 		add_column :pages, :controller, :string
-		add_index  :pages, :controller, :unique => true
+		#	can't be unique as most are "" (not NULL)
+		add_index  :pages, :controller	#, :unique => true
 	end
 
 	def self.down
