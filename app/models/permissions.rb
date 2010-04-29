@@ -220,6 +220,10 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
+	permission :view_projects do
+		allow :employee
+	end
+
 	permission :view_subjects do
 		allow :employee
 	end

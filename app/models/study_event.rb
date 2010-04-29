@@ -1,7 +1,7 @@
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class StudyEvent < ActiveRecord::Base
-	acts_as_list
+#	acts_as_list
 	default_scope :order => :position
 
 	has_many :operational_event_types

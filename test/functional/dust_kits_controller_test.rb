@@ -398,4 +398,8 @@ class DustKitsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
+
+#	invalid dust kit
+#	(no validations yet so no tests yet)
+
 end
