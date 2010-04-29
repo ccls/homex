@@ -19,7 +19,10 @@ div.position {
 div.path {
 	margin-left:13px;
 	float:left;
-	width: 150px;
+	width: 130px;
+/*
+	clear:left;
+*/
 }
 div.menu {
 	float:left;
@@ -27,7 +30,7 @@ div.menu {
 }
 div.title {
 	float:left;
-	width: 200px;
+	width: 220px;
 }
 div.controller {
 	float:left;
