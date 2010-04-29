@@ -178,6 +178,52 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
+#	not logged in
+
+	test "should NOT get index without login" do
+		get :index
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT get show without login" do
+		project = Factory(:study_event)
+		get :show, :id => project.id
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT get new without login" do
+		get :new
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT post create without login" do
+		assert_difference('StudyEvent.count',0) do
+			post :create, :project => Factory.attributes_for(:study_event)
+		end
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT get edit without login" do
+		project = Factory(:study_event)
+		get :edit, :id => project.id
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT update without login" do
+		project = Factory(:study_event)
+		put :update, :id => project.id, 
+			:project => Factory.attributes_for(:study_event)
+		assert_redirected_to_cas_login
+	end
+
+	test "should NOT destroy without login" do
+		project = Factory(:study_event)
+		assert_difference('StudyEvent.count',0) do
+			delete :destroy, :id => project.id
+		end
+		assert_redirected_to_cas_login
+	end
+
 #	save errors
 
 	test "should NOT create when create fails" do
@@ -283,13 +329,26 @@ class ProjectsControllerTest < ActionController::TestCase
 
 #	invalid project
 
-
 	test "should NOT create with invalid project" do
-		pending
+		login_as admin
+		assert_difference('StudyEvent.count',0) do
+			post :create, :project => {}
+		end
+		assert_not_nil assigns(:project)
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
 	end
 
 	test "should NOT update with invalid project" do
-		pending
+		project = Factory(:study_event)
+		login_as admin
+		put :update, :id => project.id, 
+			:project => {:description => nil}
+		assert_not_nil assigns(:project)
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
 	end
 
 end

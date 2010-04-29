@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
 		@project.save!
 		flash[:notice] = 'Success!'
 		redirect_to project_path(@project.id)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the project"
 		render :action => "new"
 	end
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
 	def update
 		@project.update_attributes!(params[:project])
 		redirect_to project_path(@project.id)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the project"
 		render :action => "edit"
 	end
