@@ -1,0 +1,7 @@
+<% form_for(@project, :url => { :controller => 'projects' }) do |f| %>
+	<%= f.error_messages %>
+
+	<%= f.label :description %><br/>
+	<%= f.text_area :description %><br/>
+	<%= f.submit( (@project.new_record?)?'Create':'Update' ) %>
+<% end %>

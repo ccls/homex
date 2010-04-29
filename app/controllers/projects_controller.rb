@@ -5,8 +5,13 @@ class ProjectsController < ApplicationController
 	before_filter :may_view_projects_required
 	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
 
+	def new
+		@project = StudyEvent.new
+	end
+
 	def create
-		@project = StudyEvent.create!(params[:project])
+		@project = StudyEvent.new(params[:project])
+		@project.save!
 		flash[:notice] = 'Success!'
 		redirect_to project_path(@project.id)
 	rescue ActiveRecord::RecordNotSaved

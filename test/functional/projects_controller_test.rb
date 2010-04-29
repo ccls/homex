@@ -188,6 +188,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		}
 		assert_response :success
 		assert_template 'new'
+		assert_not_nil assigns(:project)
 	end
 
 	test "should NOT update when save fails" do
