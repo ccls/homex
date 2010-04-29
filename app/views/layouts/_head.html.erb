@@ -24,10 +24,10 @@
 
 </div><!-- id='headmenu' -->
 <% if @page && !@page.root.children.empty? %>
-	<div id='submenu'><div id='current_root'><%= @page.root.title %></div>
+	<div id='submenu'><div id='current_root'><%= @page.root.menu %></div>
 	<div id='children'>
 	<% @page.root.children.each do |child| %>
-	<span class='child<%=(@page==child)?" current_child":""-%>'><%= link_to child.title, child.path %></span>
+	<span class='child<%=(@page==child)?" current_child":""-%>'><%= link_to child.menu, child.path %></span>
 	<% end %>
 </div><!-- id='children'  -->
 </div><!-- id='submenu'  -->
