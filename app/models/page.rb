@@ -23,8 +23,10 @@ class Page < ActiveRecord::Base
 	validates_length_of :body,  :minimum => 4
 	validates_uniqueness_of :menu
 	validates_uniqueness_of :path
-	validates_length_of     :controller, :minimum => 4, :allow_nil => true
-	validates_uniqueness_of :controller, :allow_nil => true
+	validates_length_of     :controller, :minimum => 4, 
+		:allow_nil => true, :allow_blank => true
+	validates_uniqueness_of :controller, 
+		:allow_nil => true, :allow_blank => true
 
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
