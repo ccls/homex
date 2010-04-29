@@ -14,9 +14,9 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with admin login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
-		get :show, :id => project.id
+		get :show, :id => study_event.id
 		assert_response :success
 		assert_template 'show'
 	end
@@ -31,32 +31,32 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "should post create with admin login" do
 		login_as admin
 		assert_difference('StudyEvent.count',1) do
-			post :create, :project => Factory.attributes_for(:study_event)
+			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
-		assert_redirected_to project_path(assigns(:project))
+		assert_redirected_to project_path(assigns(:study_event).id)
 	end
 
 	test "should get edit with admin login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
-		get :edit, :id => project.id
+		get :edit, :id => study_event.id
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should update with admin login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
-		put :update, :id => project.id, 
-			:project => Factory.attributes_for(:study_event)
-		assert_redirected_to project_path(assigns(:project))
+		put :update, :id => study_event.id, 
+			:study_event => Factory.attributes_for(:study_event)
+		assert_redirected_to project_path(assigns(:study_event).id)
 	end
 
 	test "should destroy with admin login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_difference('StudyEvent.count',-1) do
-			delete :destroy, :id => project.id
+			delete :destroy, :id => study_event.id
 		end
 		assert_redirected_to projects_path
 	end
@@ -71,9 +71,9 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with employee login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as employee
-		get :show, :id => project.id
+		get :show, :id => study_event.id
 		assert_response :success
 		assert_template 'show'
 	end
@@ -88,32 +88,32 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "should post create with employee login" do
 		login_as employee
 		assert_difference('StudyEvent.count',1) do
-			post :create, :project => Factory.attributes_for(:study_event)
+			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
-		assert_redirected_to project_path(assigns(:project))
+		assert_redirected_to project_path(assigns(:study_event).id)
 	end
 
 	test "should get edit with employee login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as employee
-		get :edit, :id => project.id
+		get :edit, :id => study_event.id
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should update with employee login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as employee
-		put :update, :id => project.id, 
-			:project => Factory.attributes_for(:study_event)
-		assert_redirected_to project_path(assigns(:project))
+		put :update, :id => study_event.id, 
+			:study_event => Factory.attributes_for(:study_event)
+		assert_redirected_to project_path(assigns(:study_event).id)
 	end
 
 	test "should destroy with employee login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as employee
 		assert_difference('StudyEvent.count',-1) do
-			delete :destroy, :id => project.id
+			delete :destroy, :id => study_event.id
 		end
 		assert_redirected_to projects_path
 	end
@@ -128,9 +128,9 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with just user login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as active_user
-		get :show, :id => project.id
+		get :show, :id => study_event.id
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
@@ -145,34 +145,34 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "should post create with just user login" do
 		login_as active_user
 		assert_difference('StudyEvent.count',0) do
-			post :create, :project => Factory.attributes_for(:study_event)
+			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should get edit with just user login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as active_user
-		get :edit, :id => project.id
+		get :edit, :id => study_event.id
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should update with just user login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as active_user
-		put :update, :id => project.id, 
-			:project => Factory.attributes_for(:study_event)
+		put :update, :id => study_event.id, 
+			:study_event => Factory.attributes_for(:study_event)
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should destroy with just user login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as active_user
 		assert_difference('StudyEvent.count',0) do
-			delete :destroy, :id => project.id
+			delete :destroy, :id => study_event.id
 		end
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
@@ -186,8 +186,8 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get show without login" do
-		project = Factory(:study_event)
-		get :show, :id => project.id
+		study_event = Factory(:study_event)
+		get :show, :id => study_event.id
 		assert_redirected_to_cas_login
 	end
 
@@ -198,28 +198,28 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT post create without login" do
 		assert_difference('StudyEvent.count',0) do
-			post :create, :project => Factory.attributes_for(:study_event)
+			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
 		assert_redirected_to_cas_login
 	end
 
 	test "should NOT get edit without login" do
-		project = Factory(:study_event)
-		get :edit, :id => project.id
+		study_event = Factory(:study_event)
+		get :edit, :id => study_event.id
 		assert_redirected_to_cas_login
 	end
 
 	test "should NOT update without login" do
-		project = Factory(:study_event)
-		put :update, :id => project.id, 
-			:project => Factory.attributes_for(:study_event)
+		study_event = Factory(:study_event)
+		put :update, :id => study_event.id, 
+			:study_event => Factory.attributes_for(:study_event)
 		assert_redirected_to_cas_login
 	end
 
 	test "should NOT destroy without login" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		assert_difference('StudyEvent.count',0) do
-			delete :destroy, :id => project.id
+			delete :destroy, :id => study_event.id
 		end
 		assert_redirected_to_cas_login
 	end
@@ -230,29 +230,29 @@ class ProjectsControllerTest < ActionController::TestCase
 		login_as admin_user
 		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference('StudyEvent.count',0) {
-			post :create, :project => Factory.attributes_for(:study_event)
+			post :create, :study_event => Factory.attributes_for(:study_event)
 		}
 		assert_response :success
 		assert_template 'new'
-		assert_not_nil assigns(:project)
+		assert_not_nil assigns(:study_event)
 	end
 
 	test "should NOT update when save fails" do
 		login_as admin_user
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :id => project.id,
-			:project => Factory.attributes_for(:study_event)
+		put :update, :id => study_event.id,
+			:study_event => Factory.attributes_for(:study_event)
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT destroy when save fails" do
 		login_as admin_user
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		StudyEvent.any_instance.stubs(:new_record?).returns(true)
 		assert_difference('StudyEvent.count',0){
-			delete :destroy, :id => project.id
+			delete :destroy, :id => study_event.id
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to projects_path
@@ -261,7 +261,7 @@ class ProjectsControllerTest < ActionController::TestCase
 #	NO id
 
 	test "should NOT get show without id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_raise(ActionController::RoutingError){
 			get :show
@@ -269,7 +269,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get edit without id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_raise(ActionController::RoutingError){
 			get :edit
@@ -277,15 +277,15 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_raise(ActionController::RoutingError){
-			put :update, :project => Factory.attributes_for(:study_event)
+			put :update, :study_event => Factory.attributes_for(:study_event)
 		}
 	end
 
 	test "should NOT destroy without id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_raise(ActionController::RoutingError){
 		assert_difference('StudyEvent.count',0){
@@ -296,29 +296,29 @@ class ProjectsControllerTest < ActionController::TestCase
 #	INVALID id
 
 	test "should NOT get show without valid id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		get :show, :id => 0
 		assert_redirected_to projects_path
 	end
 
 	test "should NOT get edit without valid id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		get :edit, :id => 0
 		assert_redirected_to projects_path
 	end
 
 	test "should NOT update without valid id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		put :update, :id => 0,
-			:project => Factory.attributes_for(:study_event)
+			:study_event => Factory.attributes_for(:study_event)
 		assert_redirected_to projects_path
 	end
 
 	test "should NOT destroy without valid id" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
 		assert_difference('StudyEvent.count',0) do
 			delete :destroy, :id => 0
@@ -332,20 +332,20 @@ class ProjectsControllerTest < ActionController::TestCase
 	test "should NOT create with invalid project" do
 		login_as admin
 		assert_difference('StudyEvent.count',0) do
-			post :create, :project => {}
+			post :create, :study_event => {}
 		end
-		assert_not_nil assigns(:project)
+		assert_not_nil assigns(:study_event)
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should NOT update with invalid project" do
-		project = Factory(:study_event)
+		study_event = Factory(:study_event)
 		login_as admin
-		put :update, :id => project.id, 
-			:project => {:description => nil}
-		assert_not_nil assigns(:project)
+		put :update, :id => study_event.id, 
+			:study_event => {:description => nil}
+		assert_not_nil assigns(:study_event)
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
