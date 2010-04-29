@@ -168,7 +168,8 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT update page with invalid id" do
 		login_as admin_user
-		put :update, :id => 0, :page => { :title => "a" }
+		put :update, :id => 0, 
+			:page => Factory.attributes_for(:page)
 		assert_not_nil flash[:error]
 		assert_redirected_to pages_path
 	end
