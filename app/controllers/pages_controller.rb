@@ -11,7 +11,7 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def order
 		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
-		redirect_to pages_path
+		redirect_to pages_path(:parent_id=>params[:parent_id])
 	end
 
 	def show
@@ -33,6 +33,7 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def index
 		@page_title = "CCLS Pages"
+		params[:parent_id] = nil if params[:parent_id].blank?
 		@pages = Page.all(:conditions => { :parent_id => params[:parent_id] })
 	end
 

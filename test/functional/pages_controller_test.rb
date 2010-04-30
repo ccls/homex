@@ -10,10 +10,34 @@ class PagesControllerTest < ActionController::TestCase
 	test "should get index with admin login with pages" do
 		3.times{ Factory(:page) }
 		login_as admin_user
-		get :index		
+		get :index
 		assert_template 'index'
 		assert_response :success
 		assert_not_nil assigns(:pages)
+		assigns(:pages).each { |page| assert_nil page.parent }
+	end
+
+	test "should get index with admin login with blank parent" do
+		3.times{ Factory(:page) }
+		login_as admin_user
+		get :index, :parent_id => ''
+		assert_template 'index'
+		assert_response :success
+		assert_not_nil assigns(:pages)
+		assigns(:pages).each { |page| assert_nil page.parent }
+	end
+
+	test "should get index with admin login with subpages" do
+		parent = Factory(:page)
+		3.times{ Factory(:page, :parent_id => parent.id) }
+		login_as admin_user
+		get :index, :parent_id => parent.id
+		assert_template 'index'
+		assert_response :success
+		assert_not_nil assigns(:pages)
+		assigns(:pages).each do |page|
+			assert_equal page.parent_id, parent.id
+		end
 	end
 
 	test "should get index with admin login" do
@@ -322,6 +346,8 @@ class PagesControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
+
+
 #	action: order
 
 	test "should order pages with admin login" do
@@ -360,4 +386,17 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to_cas_login
 	end
 
+	test "should order sub pages with admin login" do
+		login_as admin_user
+		parent = Factory(:page)
+		pages = []
+		3.times{ pages.push(Factory(:page,:parent_id => parent.id)) }
+		assert_equal [1,2,3], pages.collect(&:position)
+		before_page_ids = parent.reload.children.collect(&:id)
+		post :order,:parent_id => parent.id, :pages => before_page_ids.reverse
+		after_page_ids = parent.reload.children.collect(&:id)
+		assert_equal after_page_ids, before_page_ids.reverse
+		assert_redirected_to pages_path(:parent_id => parent.id)
+	end
+	
 end
