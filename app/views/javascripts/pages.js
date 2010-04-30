@@ -33,6 +33,7 @@ function compare_page_order(){
 	if( initial_page_order == page_order() ) {
 		jQuery('#save_order').disable();
 	} else {
+		jQuery('#save_order').highlight(4000);
 		jQuery('#save_order').enable();
 	}
 }
