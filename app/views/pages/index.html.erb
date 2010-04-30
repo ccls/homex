@@ -5,7 +5,7 @@
 <% end %>
 
 <% form_tag(order_pages_path, :method => :post, :id => 'order_pages') do -%>
-
+<%= hidden_field_tag :parent_id, params[:parent_id] %>
 <div id='pages'>
 <%= render :partial => 'page', :collection => @pages %>
 </div><!-- id='pages' -->
