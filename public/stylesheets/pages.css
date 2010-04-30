@@ -44,5 +44,9 @@ div.page.row.ui-sortable-helper {
 }
 
 div.children {
-	margin-left:57px;
+	margin-left:59px;
+	clear:left;
+}
+div.children .children{
+	margin-left: 10px;
 }
