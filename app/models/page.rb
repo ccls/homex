@@ -36,11 +36,20 @@ class Page < ActiveRecord::Base
 
 	attr_accessible :path, :menu, :title, :body, :parent_id, :controller
 
-	after_validation :downcase_path
-	#	downcase the path attribute
-	def downcase_path
+	before_validation :adjust_path
+	def adjust_path
+		#	remove any duplicate /'s
+		#	add leading / if none
 		self.path = path.try(:downcase)
 	end
+
+#	#	why is this after?
+#	#	All errors and testing work with a before_validation
+#	after_validation :downcase_path
+#	#	downcase the path attribute
+#	def downcase_path
+##		self.path = path.try(:downcase)
+#	end
 
 	#	named_scopes ALWAYS return an "Array"
 	#	so if ONLY want one, MUST use a method.
