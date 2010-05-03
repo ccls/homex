@@ -21,9 +21,9 @@
 <%= yield :head %>
 </head>
 <body>
-<div id='container'>
-<%= render :partial => 'layouts/head' -%> 
+<%= render 'layouts/head' -%> 
 
+<div id='container' class='main_width'>
 <div id='content'>
 <% flash.each do |key, msg| %>
  <%= content_tag :p, msg, :id => key, :class => 'flash' %>
@@ -34,10 +34,8 @@
 
 <%= yield %>
 </div><!-- content -->
-
 </div><!-- container -->
-<div id='footer'>
-<span>Copyright &copy; UC Regents; all rights reserved.</span>
-</div><!-- id='footer' -->
+
+<%= render 'layouts/footer' -%>
 </body>
 </html>

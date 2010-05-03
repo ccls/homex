@@ -34,9 +34,10 @@ body {
 	The common width of 900 is set here and in ...
 		app/views/layouts/_head.html.erb
 		app/models/home_page_pic.rb
-*/
 div#head,
 div#container {
+*/
+div.main_width {
 	margin: 0 auto;
 	width: 900px;
 }
@@ -45,6 +46,11 @@ div#head {
 /* Even darker 1629f2 */
 /* EVEN DARKER 0057AE */
 	margin: 10px auto;
+	background-image: url('/images/menu_normal.png');
+	background-repeat: repeat-x;
+	background-color: #DDD;
+	margin-bottom: 1px;
+	padding-bottom: 5px;
 }
 
 div#home_page_pic {
@@ -52,26 +58,18 @@ div#home_page_pic {
 }
 
 /*
-span#whoami {
-	color:white;
-	float:right;
-	padding: 1ex;
-}
-*/
-
-/*
 	surveyor uses #menu, so we can't
 	Actually, now that I've changed the layout for the survey,
 	we could actually use #menu here.
 */
 div#rootmenu {
-	margin:0;
 	padding:0;
 	text-align: left;
 	background-color: #51A9E7;
 	height: 35px;
 }
 /*
+	margin:0;
 	5x35
 	menu_normal : 51A9E7 - 2A71CC
 	menu_hover  : 2A71CC - 1629f2
@@ -115,7 +113,7 @@ div#rootmenu a.current {
 }
 
 div#submenu {
-	margin: 10px 0;
+	margin: 10px auto;
 	height: 20px;
 }
 div#submenu div#current_root {
@@ -156,6 +154,7 @@ div#content h2:nth-child(2) {
 	text-align:center;
 	font-size:8pt;
 	line-height:8pt;
+	background-color: #EEE;
 	color: gray;
 }
 

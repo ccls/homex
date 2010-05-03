@@ -1,5 +1,5 @@
 <div id='head'>
-<div id='rootmenu'>
+<div id='rootmenu' class='main_width'>
 <%# For the menuing system to work, we need a page %>
 <%
 	@page ||= Page.find_by_controller(controller.controller_name)
@@ -24,7 +24,8 @@
 
 </div><!-- id='headmenu' -->
 <% if @page && !@page.root.children.empty? %>
-	<div id='submenu'><div id='current_root'><%= @page.root.menu %></div>
+	<div id='submenu' class='main_width'>
+	<div id='current_root'><%= @page.root.menu %></div>
 	<div id='children'>
 	<% @page.root.children.each do |child| %>
 	<span class='child<%=(@page==child)?" current_child":""-%>'><%= link_to child.menu, child.path %></span>
@@ -35,7 +36,7 @@
 </div><!-- id='head'  -->
 
 <% if @page && @page.is_home? && !@hpp.nil? %>
-<div id='home_page_pic'>
+<div id='home_page_pic' class='main_width'>
 <%= image_tag @hpp.image.url(:full) %>
 </div>
 <% end %>
