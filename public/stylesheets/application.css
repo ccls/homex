@@ -64,9 +64,11 @@ div#home_page_pic {
 */
 div#rootmenu {
 	padding:0;
+	height: 35px;
+/*
 	text-align: left;
 	background-color: #51A9E7;
-	height: 35px;
+*/
 }
 /*
 	margin:0;
