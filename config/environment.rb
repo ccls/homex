@@ -70,7 +70,7 @@ Rails::Initializer.run do |config|
 #	only authenticator which won't be true when also using UCB CAS.
 #	http://railscasts.com/episodes/160-authlogic
 #	http://asciicasts.com/episodes/160-authlogic
-#	config.gem 'authlogic'
+	config.gem 'authlogic'
 
 
 	# Only load the plugins named here, in the order given (default is alphabetical).
