@@ -4,9 +4,16 @@
 <legend>Page</legend>
 
 <p><b>Parent?</b> (Is this a main or sub menu page?)</p>
+<div class='parent'>
 <%= f.collection_select :parent_id, Page.all(:order => "menu"), 
 	:id, :menu, :include_blank => true %>  
+</div>
+<div class='hide_menu'>
+<%= f.check_box :hide_menu %>
+<%= f.label :hide_menu, "Hide in menu system" %>
+</div>
 
+<div class='fields'>
 <p><b>Title</b> (this is the text on the top of the browser)</p>
 <%= f.text_field :title %>
 
@@ -21,5 +28,5 @@
 
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
 <%= f.text_area :body %>
-
+</div><!-- fields -->
 </fieldset>

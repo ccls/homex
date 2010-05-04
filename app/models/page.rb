@@ -31,10 +31,12 @@ class Page < ActiveRecord::Base
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
 	
-	named_scope :roots, :conditions => [ "parent_id IS NULL" ]
+#	named_scope :roots, :conditions => [ "parent_id IS NULL AND hide_menu = false" ]
+	named_scope :roots, :conditions => { :parent_id => nil, :hide_menu => false }
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
-	attr_accessible :path, :menu, :title, :body, :parent_id, :controller
+	attr_accessible :path, :menu, :title, :body, 
+		:parent_id, :controller, :hide_menu
 
 	before_validation :adjust_path
 	def adjust_path

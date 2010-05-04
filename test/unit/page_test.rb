@@ -131,6 +131,15 @@ class PageTest < ActiveSupport::TestCase
 		assert page.is_home?
 	end
 
+	test "should create page with hide_menu true" do
+		page = create_page(:hide_menu => true)
+		assert_equal 1, Page.count
+		assert_equal 0, Page.roots.count
+		assert_not_nil Page.find(page)
+		assert_not_nil Page.find(page.id)
+		assert_not_nil Page.find_by_path(page.path)
+	end
+
 protected
 
 	def create_page(options = {})
