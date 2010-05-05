@@ -117,6 +117,22 @@ class ActsAsTranslatableTest < ActiveSupport::TestCase
 		assert locales.include?('es')
 	end
 
+#	test "should sync translations after translation save" do
+#		page = create_page(:title => 'original')
+#		page.translations << create_page(
+#			:title => 'translated title 1',:locale => 'es')
+#		page.translations << create_page(
+#			:title => 'translated title 2',:locale => 'fr')
+#	end
+#
+#	test "should sync translations after original save" do
+#		page = create_page(:title => 'original', :parent_id => 1234)
+#		page.translations << create_page(
+#			:title => 'translated title 1',:locale => 'es')
+#		page.translations << create_page(
+#			:title => 'translated title 2',:locale => 'fr')
+#	end
+
 protected
 
 	def create_page(options={})

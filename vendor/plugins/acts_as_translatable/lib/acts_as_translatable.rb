@@ -51,6 +51,8 @@ module Acts #:nodoc:
 
 				before_create :set_locale
 				after_create  :set_translatable
+
+#				after_save :sync_translations
 			end
 		end
 
@@ -85,6 +87,11 @@ module Acts #:nodoc:
 				#	as this is an after_create, save is needed
 				save(false)
 			end
+
+#			def sync_translations
+#				( self.translations - [self] ).each do |t|
+#				end
+#			end
 
 		end 
 	end
