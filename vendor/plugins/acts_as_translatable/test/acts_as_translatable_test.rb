@@ -106,8 +106,10 @@ class ActsAsTranslatableTest < ActiveSupport::TestCase
 			:title => 'translated title 1',:locale => 'sp')
 		page.translations << create_page(
 			:title => 'translated title 2',:locale => 'fr')
+		assert_equal 3, page.translations.count
 		translation = page.translate('ru')
-		assert_equal translation.locale, page.locale
+		assert_equal 4, page.translations.count
+		assert_equal translation.locale, 'ru'
 	end
 
 	test "should return available locales" do

@@ -71,8 +71,7 @@ module Acts #:nodoc:
 		module InstanceMethods
 
 			def translate(locale)
-				self.translations.find(:first, 
-					:conditions => {:locale => locale}) || self
+				self.translations.find(:first, :conditions => {:locale => locale}) || self.class.create(self.attributes.merge(:locale => locale))
 			end
 
 		protected
