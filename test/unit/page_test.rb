@@ -140,6 +140,38 @@ class PageTest < ActiveSupport::TestCase
 		assert_not_nil Page.find_by_path(page.path)
 	end
 
+	test "should create translation of page" do
+		page = create_page
+		translation = page.translate('es')
+		%w( translatable_id position parent_id title body hide_menu 
+			).each do |attr|
+			assert_equal page.send(attr), translation.send(attr)
+		end
+	end
+
+	test "should create translation of child page" do
+		parent = create_page
+		page = create_page(:parent_id => parent.id)
+		translation = page.translate('es')
+		%w( translatable_id position parent_id title body hide_menu 
+			).each do |attr|
+			assert_equal page.send(attr), translation.send(attr)
+		end
+	end
+
+	test "should create translation of child page with locale parent" do
+		parent = create_page
+		parent_translation = parent.translate('es')
+		page = create_page(:parent_id => parent.id)
+		translation = page.translate('es')
+		%w( translatable_id position title body hide_menu 
+			).each do |attr|
+			assert_equal page.send(attr), translation.send(attr)
+		end
+		assert_not_equal page.parent_id, translation.parent_id
+		assert_equal translation.parent_id, parent_translation.id
+	end
+
 protected
 
 	def create_page(options = {})

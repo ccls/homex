@@ -13,8 +13,27 @@
 #	were to get any deeper, the list should probably be changed
 #	to something like a nested set.
 class Page < ActiveRecord::Base
-	acts_as_list :scope => :parent_id
 	default_scope :order => :position
+
+#	acts_as_list 
+#	#	due to the apparently complex scope, the acts_as_list 
+#	#	scope condition method is done here by hand.
+#	def scope_condition
+#		scope = if parent_id.nil?
+#			"parent_id IS NULL"
+#		else
+#			"parent_id = '#{parent_id}'"
+#		end
+#		scope << " AND locale = '#{locale}'"
+#	end
+
+#	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= \'\#{parent_id}\''} AND locale = '\#{locale}'"
+
+	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= parent_id'} AND locale = '\#{locale}'"
+
+#	def scope_string
+#		"parent_id #{(parent_id.nil?)?'IS NULL':'= #{parent_id}'} AND locale = '\#{locale}'"
+#	end
 
 	validates_length_of :path,  :minimum => 1
 	validates_format_of :path,  :with => /^\//
@@ -51,6 +70,16 @@ class Page < ActiveRecord::Base
 
 		#	add leading / if none
 		self.path = path.try(:downcase)
+	end
+
+	before_create :set_parent_id_to_locale_parent
+	def set_parent_id_to_locale_parent
+		if !self.parent_id.nil? &&
+			self.parent.locale != self.locale
+			pa = self.parent.translations.first(:conditions => {
+				:locale => self.locale })
+			self.parent = pa unless pa.nil?
+		end
 	end
 
 #	#	why is this after?
