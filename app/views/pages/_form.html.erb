@@ -3,10 +3,15 @@
 <fieldset id='main'>
 <legend>Page</legend>
 
-<p><b>Parent?</b> (Is this a main or sub menu page?)</p>
 <div class='parent'>
+<b>Parent?</b> (Is this a main or sub menu page?)<br/>
 <%= f.collection_select :parent_id, Page.all(:order => "menu"), 
 	:id, :menu, :include_blank => true %>  
+</div>
+<div class='locale'>
+<b>Locale?</b><br/>
+<%= f.select :locale, Page.locales %>
+	
 </div>
 <div class='hide_menu'>
 <%= f.check_box :hide_menu %>
