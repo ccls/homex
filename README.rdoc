@@ -39,6 +39,7 @@
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
+* {ActsAsTranslatable}[http://github.com/jakewendt/acts_as_translatable] - for managing the multilanguage Page model
 
 
 == Installation

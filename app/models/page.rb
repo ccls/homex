@@ -14,6 +14,7 @@
 #	to something like a nested set.
 class Page < ActiveRecord::Base
 	acts_as_list :scope => :parent_id
+	acts_as_translatable :locales => [ :en, :es ]
 	default_scope :order => :position
 
 	validates_length_of :path,  :minimum => 1
