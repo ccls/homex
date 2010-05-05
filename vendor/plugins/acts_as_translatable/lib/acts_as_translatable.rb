@@ -32,6 +32,11 @@ module Acts #:nodoc:
 				#	If associations need a destroy, an after or before
 				#	destroy macro method should be created.
 
+				#	Because of this if condition, the statement ...
+				#		acts_as_translatable ...
+				#	... in your model MUST come after the first 
+				#		attr_accessible ...
+				#	if there is one.
 				if self.accessible_attributes
 					attr_accessible :locale
 					attr_accessible :translatable_id
