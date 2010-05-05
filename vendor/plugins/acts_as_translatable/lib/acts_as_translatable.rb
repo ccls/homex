@@ -52,7 +52,7 @@ module Acts #:nodoc:
 				before_create :set_locale
 				after_create  :set_translatable
 
-#				after_save :sync_translations
+				after_save :sync_translations
 			end
 		end
 
@@ -64,6 +64,10 @@ module Acts #:nodoc:
 
 			def locales
 				translatable_options[:locales] || [:en]
+			end
+
+			def sync_attrs
+				translatable_options[:sync] || []
 			end
 
 		end 
@@ -87,10 +91,13 @@ module Acts #:nodoc:
 				save(false)
 			end
 
-#			def sync_translations
-#				( self.translations - [self] ).each do |t|
-#				end
-#			end
+			def sync_translations
+				( self.translations - [self] ).each do |t|
+					self.class.sync_attrs.each do |attr|
+						t.send("#{attr}=",self.send(attr))
+					end
+				end
+			end
 
 		end 
 	end
