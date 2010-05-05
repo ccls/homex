@@ -27,13 +27,8 @@ class Page < ActiveRecord::Base
 #		scope << " AND locale = '#{locale}'"
 #	end
 
-#	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= \'\#{parent_id}\''} AND locale = '\#{locale}'"
-
 	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= parent_id'} AND locale = '\#{locale}'"
 
-#	def scope_string
-#		"parent_id #{(parent_id.nil?)?'IS NULL':'= #{parent_id}'} AND locale = '\#{locale}'"
-#	end
 
 	validates_length_of :path,  :minimum => 1
 	validates_format_of :path,  :with => /^\//
@@ -61,25 +56,20 @@ class Page < ActiveRecord::Base
 	#	This MUST be AFTER attr_accessible, otherwise
 	#	the attributes added in the plugin won't be
 	#	mass-assignable.
-	acts_as_translatable :locales => [ 'en', 'es' ]
+	acts_as_translatable :locales => [ 'en', 'es' ], :sync => [:position]
+
 
 	before_validation :adjust_path
+	before_save :set_parent_id_to_locale_parent
+	after_save  :set_translation_children_to_locale_parent
+
+
 	def adjust_path
 		#	remove any duplicate /'s
 
 
 		#	add leading / if none
 		self.path = path.try(:downcase)
-	end
-
-	before_create :set_parent_id_to_locale_parent
-	def set_parent_id_to_locale_parent
-		if !self.parent_id.nil? &&
-			self.parent.locale != self.locale
-			pa = self.parent.translations.first(:conditions => {
-				:locale => self.locale })
-			self.parent = pa unless pa.nil?
-		end
 	end
 
 #	#	why is this after?
@@ -94,10 +84,11 @@ class Page < ActiveRecord::Base
 	#	so if ONLY want one, MUST use a method.
 	#	by_path returns the one(max) page that
 	#	matches the given path.
-	def self.by_path(path)
+	def self.by_path(path, locale = 'en')
 		find(:first,
 			:conditions => {
-				:path => path.downcase
+				:path => path.downcase,
+				:locale => locale
 			}
 		)
 	end
@@ -112,6 +103,35 @@ class Page < ActiveRecord::Base
 
 	def is_home?
 		self.path == "/"
+	end
+
+protected
+
+	#	If I am the translation of a child, then
+	#	try to find my correct locale parent.
+	def set_parent_id_to_locale_parent
+		if !self.parent_id.nil? &&
+			self.parent.locale != self.locale
+#			pa = self.parent.translatable.translations.first(
+			pa = self.parent.translations.first(
+				:conditions => { :locale => self.locale })
+			self.parent = pa unless pa.nil?
+		end
+	end
+
+	#	If I am the translation of a parent, then
+	#	try to find any children of my translations
+	#	and adopt those with my locale.
+	def set_translation_children_to_locale_parent
+#		self.translations.each do |t|
+#	^ doesn't work for translations ??
+		self.translatable.translations.each do |t|
+			t.children.each do |c|
+				if c.locale == self.locale
+					c.update_attribute(:parent_id, self.id)
+				end
+			end
+		end
 	end
 
 end

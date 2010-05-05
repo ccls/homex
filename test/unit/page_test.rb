@@ -159,7 +159,7 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should create translation of child page with locale parent" do
+	test "should create translation of page with locale parent" do
 		parent = create_page
 		parent_translation = parent.translate('es')
 		page = create_page(:parent_id => parent.id)
@@ -167,8 +167,23 @@ class PageTest < ActiveSupport::TestCase
 		%w( translatable_id position title body hide_menu 
 			).each do |attr|
 			assert_equal page.send(attr), translation.send(attr)
+			assert_equal parent.send(attr), parent_translation.send(attr)
 		end
 		assert_not_equal page.parent_id, translation.parent_id
+		assert_equal translation.parent_id, parent_translation.id
+	end
+
+	test "should create translation of page with locale child" do
+		parent = create_page
+		page = create_page(:parent_id => parent.id)
+		translation = page.translate('es')
+		parent_translation = parent.translate('es')
+		%w( translatable_id position title body hide_menu 
+			).each do |attr|
+			assert_equal page.send(attr), translation.send(attr)
+			assert_equal parent.send(attr), parent_translation.send(attr)
+		end
+		assert_not_equal page.parent_id, translation.reload.parent_id
 		assert_equal translation.parent_id, parent_translation.id
 	end
 
