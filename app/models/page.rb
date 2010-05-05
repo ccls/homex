@@ -14,7 +14,6 @@
 #	to something like a nested set.
 class Page < ActiveRecord::Base
 	acts_as_list :scope => :parent_id
-	acts_as_translatable :locales => [ :en, :es ]
 	default_scope :order => :position
 
 	validates_length_of :path,  :minimum => 1
@@ -39,9 +38,16 @@ class Page < ActiveRecord::Base
 	attr_accessible :path, :menu, :title, :body, 
 		:parent_id, :controller, :hide_menu
 
+	#	This MUST be AFTER attr_accessible, otherwise
+	#	the attributes added in the plugin won't be
+	#	mass-assignable.
+	acts_as_translatable :locales => [ 'en', 'es' ]
+
 	before_validation :adjust_path
 	def adjust_path
 		#	remove any duplicate /'s
+
+
 		#	add leading / if none
 		self.path = path.try(:downcase)
 	end
