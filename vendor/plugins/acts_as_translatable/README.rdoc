@@ -1,0 +1,22 @@
+= ActsAsTranslatable
+
+Adds a few extra columns and adds translation references to itself.
+
+
+== Notes
+
+I tried using 
+  accepts_nested_attributes_for :translations
+but it screwed up the validations so I removed it all.
+I was trying to validate the presence of a locale
+if there was a translatable_id
+but since the original isn't saved yet, it would be 
+null so the locale wouldn't be forced to exist.
+The translatable_id would be added after validation.
+
+== Example
+
+Example goes here.
+
+
+Copyright (c) 2010 [Jake Wendt], released under the MIT license
