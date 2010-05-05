@@ -110,6 +110,13 @@ class ActsAsTranslatableTest < ActiveSupport::TestCase
 		assert_equal translation.locale, page.locale
 	end
 
+	test "should return available locales" do
+		locales = Page.locales.collect(&:to_s)
+		assert_equal 3, locales.length
+		assert locales.include?('en')
+		assert locales.include?('es')
+	end
+
 protected
 
 	def create_page(options={})

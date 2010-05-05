@@ -12,7 +12,7 @@ module Acts #:nodoc:
 				class_eval <<-EOV
 				cattr_reader :translatable_options
 				@@translatable_options = { :default_locale => :en }
-				@@translatable_options.update(options) if options.is_a?(Hash)
+				@@translatable_options.update(options)
 				EOV
 
 				include Acts::Translatable::InstanceMethods
@@ -53,6 +53,10 @@ module Acts #:nodoc:
 
 			def default_locale
 				translatable_options[:default_locale].to_s || "en"
+			end
+
+			def locales
+				translatable_options[:locales] || [:en]
 			end
 
 		end 

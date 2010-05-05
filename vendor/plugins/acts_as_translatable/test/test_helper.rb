@@ -51,24 +51,11 @@ end
 class Page < ActiveRecord::Base
 	attr_accessible :path, :title, :body
 	validates_uniqueness_of :path, :scope => :locale
-	acts_as_translatable :this_is_a => :test
+	acts_as_translatable :this_is_a => :test,
+		:locales => ['en', :es, :fr]
 end
 
 class ActiveSupport::TestCase
-
-#	def build_track(options = {})
-#		record = Track.new({
-#			:name => 'track name',
-#			:time => Time.now
-#		}.merge(options))
-#		record
-#	end
-#
-#	def create_track(options={})
-#		record = build_track(options)
-#		record.save
-#		record
-#	end
 
 end
 
