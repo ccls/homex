@@ -8,12 +8,14 @@
 <%= f.collection_select :parent_id, Page.all(:order => "menu"), 
 	:id, :menu, :include_blank => true %>  
 </div>
+
 <div class='locale'>
-<b>Locale?</b><br/>
-<%= f.select :locale, Page.locales %>
-	
+<br/>
+<b>Locale:</b> <%= f.object.locale %>
 </div>
+
 <div class='hide_menu'>
+<br/>
 <%= f.check_box :hide_menu %>
 <%= f.label :hide_menu, "Hide in menu system" %>
 </div>
@@ -27,9 +29,6 @@
 
 <p><b>Path:</b> (this is the path in the url. ie. /help/login )</p>
 <%= f.text_field :path %>
-
-<p><b>Controller:</b> (if this is a 'fake' page for menuing, otherwise leave blank (see Jake))</p>
-<%= f.text_field :controller %>
 
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
 <%= f.text_area :body %>

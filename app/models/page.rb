@@ -21,8 +21,8 @@ class Page < ActiveRecord::Base
 	validates_length_of :menu,  :minimum => 4
 	validates_length_of :title, :minimum => 4
 	validates_length_of :body,  :minimum => 4
-	validates_uniqueness_of :menu
-	validates_uniqueness_of :path
+	validates_uniqueness_of :menu, :scope => :locale
+	validates_uniqueness_of :path, :scope => :locale
 	validates_length_of     :controller, :minimum => 4, 
 		:allow_nil => true, :allow_blank => true
 	validates_uniqueness_of :controller, 
@@ -31,12 +31,13 @@ class Page < ActiveRecord::Base
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
 	
-#	named_scope :roots, :conditions => [ "parent_id IS NULL AND hide_menu = false" ]
-	named_scope :roots, :conditions => { :parent_id => nil, :hide_menu => false }
+	named_scope :roots, :conditions => { 
+		:parent_id => nil, :hide_menu => false }
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
 	attr_accessible :path, :menu, :title, :body, 
-		:parent_id, :controller, :hide_menu
+		:parent_id, :hide_menu
+#		:parent_id, :controller, :hide_menu
 
 	#	This MUST be AFTER attr_accessible, otherwise
 	#	the attributes added in the plugin won't be

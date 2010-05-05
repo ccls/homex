@@ -40,6 +40,9 @@ class PagesController < ApplicationController	#:nodoc:
 	def new
 		@page_title = "Create New CCLS Page"
 		@page = Page.new(:parent_id => params[:parent_id])
+#		@page = Page.new(params[:page].merge(:parent_id => params[:parent_id]))
+#		@page = Page.new({
+#			:parent_id => params[:parent_id]}.merge(params[:page]||{}))
 	end
 
 	def edit
@@ -47,16 +50,10 @@ class PagesController < ApplicationController	#:nodoc:
 	end
 
 	def create
-#		# match the value of the submit button clicked
-#		if params[:commit] !~ /cancel/i
-			@page = Page.new(params[:page])
-			@page.save!
-			flash[:notice] = 'Page was successfully created.'
-			redirect_to(@page)
-#		else
-#			flash[:notice] = 'Page creation canceled.'
-#			redirect_to pages_path
-#		end
+		@page = Page.new(params[:page])
+		@page.save!
+		flash[:notice] = 'Page was successfully created.'
+		redirect_to(@page)
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the page"
 		render :action => "new"

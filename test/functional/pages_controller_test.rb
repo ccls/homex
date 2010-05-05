@@ -76,6 +76,7 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
+
 	test "should NOT get new without login" do
 		get :new
 		assert_redirected_to_cas_login
@@ -398,5 +399,18 @@ class PagesControllerTest < ActionController::TestCase
 		assert_equal after_page_ids, before_page_ids.reverse
 		assert_redirected_to pages_path(:parent_id => parent.id)
 	end
+
+
+#	translate
+
+#	test "should post new translation with admin login" do
+#		login_as admin
+#		page = Factory(:page)
+#		post :new, :page => page.attributes
+#		assert assigns(:page)
+#		assert_template 'new'
+#		assert_response :success
+#		assert_equal assigns(:page).translatable_id, page.translatable_id
+#	end
 	
 end
