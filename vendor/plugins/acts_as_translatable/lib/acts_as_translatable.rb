@@ -82,9 +82,27 @@ module Acts #:nodoc:
 #
 #	make sure that it works for translations too
 #
-				self.translations.find(:first, 
-					:conditions => {:locale => locale}) || self.class.create(
-					self.attributes.merge(:locale => locale).merge(attrs))
+#				self.class.find_or_create_by_locale_and_translatable_id(
+				conditions = HashWithIndifferentAccess.new(self.attributes).merge(
+					attrs.merge({
+						:locale => locale,
+						:translatable_id => self.translatable_id
+					})
+				)
+#	use string keys as that is what is in self.attributes
+#	may need to do something to attrs as that comes from the user not me
+#	because the first in the chain is a HWIA, everything else
+#	will be
+#puts self.attributes.inspect
+#puts attrs.inspect
+#puts conditions.inspect
+				self.class.find_or_create_by_locale_and_translatable_id(
+					conditions
+				)
+#	self.translations doesn't always include everyone 
+#				self.translations.find(:first, 
+#					:conditions => {:locale => locale}) || self.class.create(
+#					self.attributes.merge(:locale => locale).merge(attrs))
 			end
 
 		protected
@@ -100,18 +118,30 @@ module Acts #:nodoc:
 				save(false)
 			end
 
+			def sync_attributes
+				attrs = {}
+				self.class.sync_attrs.each do |attr|
+					attrs[attr] = self.send(attr)
+				end
+				attrs
+			end
+
 			def sync_translations
 #	for some reason this isn't returning all translations?????
 #				( self.translatable.translations - [self] ).each do |t|
 #	but this does ...
-				( self.class.find(:all, :conditions => {
-					:translatable_id => self.translatable_id}) - [self] ).each do |t|
-					self.class.sync_attrs.each do |attr|
-						t.send("#{attr}=",self.send(attr))
-					end
-					#	avoid an infinite loop with the dirty check
-					t.save(false) if t.changed?
-				end
+#				( self.class.find(:all, :conditions => {
+#					:translatable_id => self.translatable_id}) - [self] ).each do |t|
+#					self.class.sync_attrs.each do |attr|
+#						t.send("#{attr}=",self.send(attr))
+#					end
+#					#	avoid an infinite loop with the dirty check
+#					t.save(false) if t.changed?
+#				end
+
+				#	less logic, more power
+				self.class.update_all( sync_attributes,
+					{:translatable_id => self.translatable_id})
 			end
 
 		end 
