@@ -56,7 +56,8 @@ class Page < ActiveRecord::Base
 	#	This MUST be AFTER attr_accessible, otherwise
 	#	the attributes added in the plugin won't be
 	#	mass-assignable.
-	acts_as_translatable :locales => [ 'en', 'es' ], :sync => [:position]
+	acts_as_translatable :locales => [ 'en', 'es' ], 
+		:sync => [:position,:hide_menu]
 
 
 	before_validation :adjust_path
