@@ -52,6 +52,8 @@ module Acts #:nodoc:
 				before_validation :set_locale
 				after_create      :set_translatable
 				after_save        :sync_translations
+#	doesn't seem to matter which
+#				before_save       :sync_translations
 			end
 		end
 
