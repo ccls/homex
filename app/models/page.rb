@@ -15,20 +15,7 @@
 class Page < ActiveRecord::Base
 	default_scope :order => :position
 
-#	acts_as_list 
-#	#	due to the apparently complex scope, the acts_as_list 
-#	#	scope condition method is done here by hand.
-#	def scope_condition
-#		scope = if parent_id.nil?
-#			"parent_id IS NULL"
-#		else
-#			"parent_id = '#{parent_id}'"
-#		end
-#		scope << " AND locale = '#{locale}'"
-#	end
-
 	acts_as_list :scope => "parent_id \#{(parent_id.nil?)?'IS NULL':'= parent_id'} AND locale = '\#{locale}'"
-
 
 	validates_length_of :path,  :minimum => 1
 	validates_format_of :path,  :with => /^\//
@@ -45,28 +32,23 @@ class Page < ActiveRecord::Base
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
 	
-#
-#	Add locale argument to roots
-#
-	named_scope :roots, :conditions => { 
-		:parent_id => nil, :hide_menu => false }
+	named_scope :roots, lambda { |*args| { :conditions => { 
+		:parent_id => nil, :hide_menu => false, 
+		:locale => args.first || self.default_locale } } }
+
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
 	attr_accessible :path, :menu, :title, :body, 
 		:parent_id, :hide_menu
-#		:parent_id, :controller, :hide_menu
 
-	#	This MUST be AFTER attr_accessible, otherwise
-	#	the attributes added in the plugin won't be
-	#	mass-assignable.
+	#	This MUST be AFTER attr_accessible, otherwise the 
+	#	attributes added in the plugin won't be mass-assignable.
 	acts_as_translatable :locales => [ 'en', 'es' ], 
 		:sync => [:position,:hide_menu]
-
 
 	before_validation :adjust_path
 	before_save :set_parent_id_to_locale_parent
 	after_save  :set_translation_children_to_locale_parent
-
 
 	def adjust_path
 		#	remove any duplicate /'s
@@ -117,6 +99,9 @@ protected
 		if !self.parent_id.nil? &&
 			self.parent.locale != self.locale
 #			pa = self.parent.translatable.translations.first(
+#			pa = self.find(:first,:conditions => {
+#				:translatable_id => self.parent_id,
+#				:locale => self.locale })
 			pa = self.parent.translations.first(
 				:conditions => { :locale => self.locale })
 			self.parent = pa unless pa.nil?
@@ -129,6 +114,9 @@ protected
 	def set_translation_children_to_locale_parent
 #		self.translations.each do |t|
 #	^ doesn't work for translations ??
+#		self.find(:all, :conditions => {
+#			:translatable_id => self.translatable_id
+#		}).each do |t|
 		self.translatable.translations.each do |t|
 			t.children.each do |c|
 				if c.locale == self.locale

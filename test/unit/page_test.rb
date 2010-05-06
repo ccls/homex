@@ -187,6 +187,38 @@ class PageTest < ActiveSupport::TestCase
 		assert_equal translation.parent_id, parent_translation.id
 	end
 
+	test "should sync position on original change" do
+		p = create_page
+		t = p.translate('es')
+		assert_equal p.position, t.position
+		p.update_attribute(:position, 42)
+		assert_equal p.reload.position, t.reload.position
+	end
+
+	test "should sync hide_menu on original change" do
+		p = create_page
+		t = p.translate('es')
+		assert_equal p.hide_menu, t.hide_menu
+		p.update_attribute(:hide_menu, true)
+		assert_equal p.reload.hide_menu, t.reload.hide_menu
+	end
+
+	test "should sync position on translation change" do
+		p = create_page
+		t = p.translate('es')
+		assert_equal p.position, t.position
+		t.update_attribute(:position, 42)
+		assert_equal p.reload.position, t.reload.position
+	end
+
+	test "should sync hide_menu on translation change" do
+		p = create_page
+		t = p.translate('es')
+		assert_equal p.hide_menu, t.hide_menu
+		t.update_attribute(:hide_menu, true)
+		assert_equal p.reload.hide_menu, t.reload.hide_menu
+	end
+
 protected
 
 	def create_page(options = {})
