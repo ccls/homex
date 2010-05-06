@@ -45,6 +45,9 @@ class Page < ActiveRecord::Base
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
 	
+#
+#	Add locale argument to roots
+#
 	named_scope :roots, :conditions => { 
 		:parent_id => nil, :hide_menu => false }
 	named_scope :not_home, :conditions => [ "path != '/'" ]
