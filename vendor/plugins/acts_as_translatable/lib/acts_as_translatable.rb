@@ -40,19 +40,18 @@ module Acts #:nodoc:
 				if self.accessible_attributes
 					attr_accessible :locale
 					attr_accessible :translatable_id
-					attr_accessible :translations_attributes
 				end
 
 #				validates_presence_of :locale, :if => :translatable
 #				validates_presence_of :locale, :if => :translatable_id
+				validates_length_of :locale, :minimum => 2
 
 				validates_uniqueness_of :locale, 
 					:scope => :translatable_id
 
-				before_create :set_locale
-				after_create  :set_translatable
-
-				after_save :sync_translations
+				before_validation :set_locale
+				after_create      :set_translatable
+				after_save        :sync_translations
 			end
 		end
 
@@ -74,15 +73,25 @@ module Acts #:nodoc:
 
 		module InstanceMethods
 
-			def translate(locale)
-				self.translations.find(:first, :conditions => {:locale => locale}) || self.class.create(self.attributes.merge(:locale => locale))
+			def translate(locale,attrs={})
+#
+#	clean this up
+#	something like ...
+#	find_or_create_by_locale(self.attributes.merge(attrs))
+#	should work and replace all this 
+#
+#	make sure that it works for translations too
+#
+				self.translations.find(:first, 
+					:conditions => {:locale => locale}) || self.class.create(
+					self.attributes.merge(:locale => locale).merge(attrs))
 			end
 
 		protected
 
 			def set_locale
 				self.locale ||= self.class.default_locale
-				#	no save needed as this is a before_create
+				#	no save needed as this is a before_validation
 			end
 
 			def set_translatable
@@ -92,10 +101,16 @@ module Acts #:nodoc:
 			end
 
 			def sync_translations
-				( self.translations - [self] ).each do |t|
+#	for some reason this isn't returning all translations?????
+#				( self.translatable.translations - [self] ).each do |t|
+#	but this does ...
+				( self.class.find(:all, :conditions => {
+					:translatable_id => self.translatable_id}) - [self] ).each do |t|
 					self.class.sync_attrs.each do |attr|
 						t.send("#{attr}=",self.send(attr))
 					end
+					#	avoid an infinite loop with the dirty check
+					t.save(false) if t.changed?
 				end
 			end
 
