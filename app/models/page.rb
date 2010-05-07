@@ -109,12 +109,12 @@ protected
 	def set_parent_id_to_locale_parent
 		if !self.parent_id.nil? &&
 			self.parent.locale != self.locale
-			pa = self.parent.translatable.translations.first(
-#			pa = self.find(:first,:conditions => {
-#				:translatable_id => self.parent_id,
-#				:locale => self.locale })
+			pa = self.class.find(:first,:conditions => {
+				:translatable_id => self.parent_id,
+				:locale => self.locale })
+#			pa = self.parent.translatable.translations.first(
 #			pa = self.parent.translations.first(
-				:conditions => { :locale => self.locale })
+#				:conditions => { :locale => self.locale })
 			self.parent = pa unless pa.nil?
 		end
 	end
@@ -125,10 +125,10 @@ protected
 	def set_translation_children_to_locale_parent
 #		self.translations.each do |t|
 #	^ doesn't work for translations ??
-#		self.find(:all, :conditions => {
-#			:translatable_id => self.translatable_id
-#		}).each do |t|
-		self.translatable.translations.each do |t|
+		self.class.find(:all, :conditions => {
+			:translatable_id => self.translatable_id
+		}).each do |t|
+#		self.translatable.translations.each do |t|
 			t.children.each do |c|
 				if c.locale == self.locale
 					c.update_attribute(:parent_id, self.id)
@@ -137,13 +137,14 @@ protected
 		end
 	end
 
-	#	loop through all translations and set to locale
+	#	Loop through all translations and set to locale
 	#	parent if it exists.  Use update_all to avoid
 	#	AR callbacks and looping forever
 	def set_translations_parent_id_to_locale_parent
 		( self.class.find(:all,:conditions => {
 			:translatable_id => self.translatable_id
 		}) - [self] ).each do |t|
+#		( self.translatable.translations - [self] ).each do |t|
 			pa = self.class.find(:first, :conditions => { 
 				:translatable_id => self.parent_id,
 				:locale => t.locale })
