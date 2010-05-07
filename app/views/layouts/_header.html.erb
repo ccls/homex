@@ -1,21 +1,16 @@
 <div id='header'>
 <div id='rootmenu' class='main_width'>
-<%# For the menuing system to work, we need a page %>
-<%
-	@page ||= Page.find_by_controller(controller.controller_name)
-#	@page ||= Page.find_by_path("/" << controller.controller_name)
-#	#	because of 'calendar' (and soon maybe 'staff')
-#	@page ||= Page.find_by_path("/" << controller.controller_name.singularize)
-%>
 <%# Page changes outside of ActionController go unnoticed %>
 <%# Due to the variability of the menu, we can't really cache it %>
 <%# cache 'page_menu' do %>
 <% 
-	count = Page.roots.count
+	roots = Page.roots(session[:locale]) 
+	roots = Page.roots if roots.empty?
+	count = roots.length
 	count = ( count > 0 ) ? count : 1
 	width = ( 900 - count ) / count
 %>
-<% Page.roots.each do |page| -%>
+<% roots.each do |page| -%>
 	<%= link_to page.menu, page.path, 
 		:style => "width: #{width}px",
 		:class => ((page == @page.try(:root))?'current':nil)  %>
