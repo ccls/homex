@@ -83,6 +83,8 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :projects
 
+	map.resource :locale, :only => :update
+
 
 
 
