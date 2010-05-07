@@ -336,6 +336,28 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
+	test "should show page by path with own locale set" do
+		page_en = Factory(:page)
+		page_es = page_en.translate('es')
+		session[:locale] = 'en'
+		get :show, :path => page_en.path.split('/').delete_if{|x|x.blank?}
+		assert_equal assigns(:page), page_en
+		assert_template 'show'
+		assert_response :success
+	end
+
+	test "should show translation of page by path with locale set" do
+		page_en = Factory(:page)
+		page_es = page_en.translate('es')
+		session[:locale] = 'es'
+		get :show, :path => page_en.path.split('/').delete_if{|x|x.blank?}
+		assert_equal assigns(:page), page_es
+		assert_template 'show'
+		assert_response :success
+	end
+
+
+
 
 	test "should get index with both help and non-help pages" do
 		#	test css menus

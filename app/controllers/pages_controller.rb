@@ -16,7 +16,7 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def show
 		if params[:path]
- 			@page = Page.by_path("/#{params[:path].join('/')}")
+ 			@page = Page.by_path("/#{params[:path].join('/')}",session[:locale])
 			raise ActiveRecord::RecordNotFound if @page.nil?
 		else
 			@page = Page.find(params[:id])

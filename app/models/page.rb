@@ -49,6 +49,7 @@ class Page < ActiveRecord::Base
 	before_validation :adjust_path
 	before_save :set_parent_id_to_locale_parent
 	after_save  :set_translation_children_to_locale_parent
+	after_save  :set_translations_parent_id_to_locale_parent
 
 	def adjust_path
 		#	remove any duplicate /'s
@@ -70,11 +71,21 @@ class Page < ActiveRecord::Base
 	#	so if ONLY want one, MUST use a method.
 	#	by_path returns the one(max) page that
 	#	matches the given path.
-	def self.by_path(path, locale = 'en')
-		find(:first,
+	def self.by_path(path, locale = self.default_locale)
+		locale ||= self.default_locale
+#
+#	Loop through possible searches with locale
+#	in path, not in path, translations, etc.
+#
+		page = find(:first,
 			:conditions => {
-				:path => path.downcase,
+				:path   => path.downcase,
 				:locale => locale
+			}
+		) || find(:first,
+			:conditions => {
+				:path   => path.downcase,
+				:locale => self.default_locale
 			}
 		)
 	end
@@ -98,11 +109,11 @@ protected
 	def set_parent_id_to_locale_parent
 		if !self.parent_id.nil? &&
 			self.parent.locale != self.locale
-#			pa = self.parent.translatable.translations.first(
+			pa = self.parent.translatable.translations.first(
 #			pa = self.find(:first,:conditions => {
 #				:translatable_id => self.parent_id,
 #				:locale => self.locale })
-			pa = self.parent.translations.first(
+#			pa = self.parent.translations.first(
 				:conditions => { :locale => self.locale })
 			self.parent = pa unless pa.nil?
 		end
@@ -122,6 +133,24 @@ protected
 				if c.locale == self.locale
 					c.update_attribute(:parent_id, self.id)
 				end
+			end
+		end
+	end
+
+	#	loop through all translations and set to locale
+	#	parent if it exists.  Use update_all to avoid
+	#	AR callbacks and looping forever
+	def set_translations_parent_id_to_locale_parent
+		( self.class.find(:all,:conditions => {
+			:translatable_id => self.translatable_id
+		}) - [self] ).each do |t|
+			pa = self.class.find(:first, :conditions => { 
+				:translatable_id => self.parent_id,
+				:locale => t.locale })
+			if !pa.nil? && t.parent_id != pa.id
+				#	use update_all to avoid AR callbacks
+				self.class.update_all({ :parent_id => pa.id },
+					{:id => t.id })
 			end
 		end
 	end

@@ -150,41 +150,41 @@ class PageTest < ActiveSupport::TestCase
 	end
 
 	test "should create translation of child page" do
-		parent = create_page
-		page = create_page(:parent_id => parent.id)
-		translation = page.translate('es')
+		parent_en = create_page
+		child_en = create_page(:parent_id => parent_en.id)
+		child_es = child_en.translate('es')
 		%w( translatable_id position parent_id title body hide_menu 
 			).each do |attr|
-			assert_equal page.send(attr), translation.send(attr)
+			assert_equal child_en.send(attr), child_es.send(attr)
 		end
 	end
 
 	test "should create translation of page with locale parent" do
-		parent = create_page
-		parent_translation = parent.translate('es')
-		page = create_page(:parent_id => parent.id)
-		translation = page.translate('es')
+		parent_en = create_page
+		parent_es = parent_en.translate('es')
+		child_en = create_page(:parent_id => parent_en.id)
+		child_es = child_en.translate('es')
 		%w( translatable_id position title body hide_menu 
 			).each do |attr|
-			assert_equal page.send(attr), translation.send(attr)
-			assert_equal parent.send(attr), parent_translation.send(attr)
+			assert_equal child_en.send(attr), child_es.send(attr)
+			assert_equal parent_en.send(attr), parent_es.send(attr)
 		end
-		assert_not_equal page.parent_id, translation.parent_id
-		assert_equal translation.parent_id, parent_translation.id
+		assert_not_equal child_en.parent_id, child_es.parent_id
+		assert_equal child_es.parent_id, parent_es.id
 	end
 
 	test "should create translation of page with locale child" do
-		parent = create_page
-		page = create_page(:parent_id => parent.id)
-		translation = page.translate('es')
-		parent_translation = parent.translate('es')
+		parent_en = create_page
+		child_en = create_page(:parent_id => parent_en.id)
+		child_es = child_en.translate('es')
+		parent_es = parent_en.translate('es')
 		%w( translatable_id position title body hide_menu 
 			).each do |attr|
-			assert_equal page.send(attr), translation.send(attr)
-			assert_equal parent.send(attr), parent_translation.send(attr)
+			assert_equal child_en.send(attr), child_es.send(attr)
+			assert_equal parent_en.send(attr), parent_es.send(attr)
 		end
-		assert_not_equal page.parent_id, translation.reload.parent_id
-		assert_equal translation.parent_id, parent_translation.id
+		assert_not_equal child_en.parent_id, child_es.reload.parent_id
+		assert_equal child_es.parent_id, parent_es.id
 	end
 
 	test "should sync position on original change" do
@@ -217,6 +217,50 @@ class PageTest < ActiveSupport::TestCase
 		assert_equal p.hide_menu, t.hide_menu
 		t.update_attribute(:hide_menu, true)
 		assert_equal p.reload.hide_menu, t.reload.hide_menu
+	end
+
+	test "should find page by path" do
+		p = create_page
+		page = Page.by_path(p.path)
+		assert_equal p, page
+	end
+
+	test "should find page by path and locale" do
+		p = create_page
+		page = Page.by_path(p.path, p.locale)
+		assert_equal p, page
+	end
+
+	test "should find page by path and nil locale" do
+		p = create_page
+		page = Page.by_path(p.path, nil)
+		assert_equal p, page
+	end
+
+	test "should find page by path and non-existant locale" do
+		p = create_page
+		page = Page.by_path(p.path, 'zz')
+		assert_equal p, page
+	end
+
+	test "should find translation of page by path and existant locale" do
+		p = create_page
+		t = p.translate('es')
+		page = Page.by_path(p.path, 'es')
+		assert_equal t, page
+	end
+
+	test "should adjust translations parent" do
+		parent_en = create_page
+		parent_es = parent_en.translate('es')
+		child_en = create_page(:parent_id => parent_en.id)
+		child_es = child_en.translate('es')
+		assert_equal child_es.parent_id, parent_es.id
+		new_parent_en = create_page
+		new_parent_es = new_parent_en.translate('es')
+		child_en.parent = new_parent_en
+		child_en.save
+		assert_equal child_es.reload.parent_id, new_parent_es.id
 	end
 
 protected
