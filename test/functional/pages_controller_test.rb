@@ -425,14 +425,33 @@ class PagesControllerTest < ActionController::TestCase
 
 #	translate
 
-#	test "should post new translation with admin login" do
-#		login_as admin
-#		page = Factory(:page)
-#		post :new, :page => page.attributes
-#		assert assigns(:page)
-#		assert_template 'new'
-#		assert_response :success
-#		assert_equal assigns(:page).translatable_id, page.translatable_id
-#	end
+	test "should edit existing translation with admin login" do
+		login_as admin
+		page = Factory(:page)
+		translation = page.translate('es')
+		assert_difference('Page.count',0) {
+			put :update, :id => page.id, :page => page.attributes,
+				:locale => 'es', :commit => 'Translate'
+		}
+		assert assigns(:page)
+		assert assigns(:translation)
+		assert_equal 'es', assigns(:translation).locale
+		assert_equal assigns(:translation).translatable_id, page.translatable_id
+		assert_redirected_to edit_page_path(assigns(:translation))
+	end
+	
+	test "should create new translation with admin login" do
+		login_as admin
+		page = Factory(:page)
+		assert_difference('Page.count',1) {
+			put :update, :id => page.id, :page => page.attributes,
+				:locale => 'es', :commit => 'Translate'
+		}
+		assert assigns(:page)
+		assert assigns(:translation)
+		assert_equal 'es', assigns(:translation).locale
+		assert_equal assigns(:translation).translatable_id, page.translatable_id
+		assert_redirected_to edit_page_path(assigns(:translation))
+	end
 	
 end

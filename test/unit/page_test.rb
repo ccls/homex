@@ -263,6 +263,18 @@ class PageTest < ActiveSupport::TestCase
 		assert_equal child_es.reload.parent_id, new_parent_es.id
 	end
 
+	test "should find locale parent on translation update" do
+		parent_en = create_page
+		parent_es = parent_en.translate('es')
+		child_en = create_page
+		child_es = child_en.translate('es')
+		child_es.update_attribute(:parent_id, parent_es.id)
+		assert_equal parent_es.reload.id, child_es.reload.parent_id
+		assert_equal parent_en.reload.id, child_en.reload.parent_id
+		assert_not_nil child_es.reload.parent_id
+		assert_not_nil child_en.reload.parent_id
+	end
+
 protected
 
 	def create_page(options = {})

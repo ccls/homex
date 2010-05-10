@@ -45,9 +45,10 @@ class Page < ActiveRecord::Base
 	#	attributes added in the plugin won't be mass-assignable.
 	acts_as_translatable :locales => [ 'en', 'es' ], 
 		:sync => [:position,:hide_menu]
+#		:sync => [:hide_menu]
 
 	before_validation :adjust_path
-	before_save :set_parent_id_to_locale_parent
+	before_save :find_locale_parent
 	after_save  :set_translation_children_to_locale_parent
 	after_save  :set_translations_parent_id_to_locale_parent
 
@@ -106,7 +107,7 @@ protected
 
 	#	If I am the translation of a child, then
 	#	try to find my correct locale parent.
-	def set_parent_id_to_locale_parent
+	def find_locale_parent
 		if !self.parent_id.nil? &&
 			self.parent.locale != self.locale
 			pa = self.class.find(:first,:conditions => {
@@ -115,6 +116,7 @@ protected
 #			pa = self.parent.translatable.translations.first(
 #			pa = self.parent.translations.first(
 #				:conditions => { :locale => self.locale })
+			# THIS IS IN A BEFORE_SAVE CALL
 			self.parent = pa unless pa.nil?
 		end
 	end
@@ -122,36 +124,36 @@ protected
 	#	If I am the translation of a parent, then
 	#	try to find any children of my translations
 	#	and adopt those with my locale.
+	#	Use update_all to avoid AR callbacks and looping forever.
 	def set_translation_children_to_locale_parent
-#		self.translations.each do |t|
-#	^ doesn't work for translations ??
 		self.class.find(:all, :conditions => {
 			:translatable_id => self.translatable_id
 		}).each do |t|
-#		self.translatable.translations.each do |t|
 			t.children.each do |c|
-				if c.locale == self.locale
-					c.update_attribute(:parent_id, self.id)
-				end
+				self.class.update_all({ :parent_id, self.id },
+					{:id => c.id }) if( c.locale == self.locale )
 			end
 		end
 	end
 
 	#	Loop through all translations and set to locale
-	#	parent if it exists.  Use update_all to avoid
-	#	AR callbacks and looping forever
+	#	parent if it exists.  
+	#	Use update_all to avoid AR callbacks and looping forever.
 	def set_translations_parent_id_to_locale_parent
-		( self.class.find(:all,:conditions => {
-			:translatable_id => self.translatable_id
-		}) - [self] ).each do |t|
-#		( self.translatable.translations - [self] ).each do |t|
-			pa = self.class.find(:first, :conditions => { 
-				:translatable_id => self.parent_id,
-				:locale => t.locale })
-			if !pa.nil? && t.parent_id != pa.id
-				#	use update_all to avoid AR callbacks
-				self.class.update_all({ :parent_id => pa.id },
-					{:id => t.id })
+		if self.parent_id.nil?
+			self.class.update_all({ :parent_id => nil },
+				{:translatable_id => self.translatable_id })
+		else
+			( self.class.find(:all,:conditions => {
+				:translatable_id => self.translatable_id
+			}) - [self] ).each do |t|
+				pa = self.class.find(:first, :conditions => { 
+					:translatable_id => self.parent.translatable_id,
+					:locale => t.locale })
+				if !pa.nil? && t.parent_id != pa.id
+					self.class.update_all({ :parent_id => pa.id },
+						{:id => t.id })
+				end
 			end
 		end
 	end

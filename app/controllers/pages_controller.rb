@@ -10,7 +10,9 @@ class PagesController < ApplicationController	#:nodoc:
 #	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
 	def order
-		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
+#		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
+		params[:pages].each_with_index { |id,index| 
+			Page.find(id).update_attribute(:position, index+1 ) }
 		redirect_to pages_path(:parent_id=>params[:parent_id])
 	end
 
@@ -34,15 +36,13 @@ class PagesController < ApplicationController	#:nodoc:
 	def index
 		@page_title = "CCLS Pages"
 		params[:parent_id] = nil if params[:parent_id].blank?
-		@pages = Page.all(:conditions => { :parent_id => params[:parent_id] })
+		@pages = Page.all(:conditions => { :parent_id => params[:parent_id],
+			:locale => 'en' })
 	end
 
 	def new
 		@page_title = "Create New CCLS Page"
 		@page = Page.new(:parent_id => params[:parent_id])
-#		@page = Page.new(params[:page].merge(:parent_id => params[:parent_id]))
-#		@page = Page.new({
-#			:parent_id => params[:parent_id]}.merge(params[:page]||{}))
 	end
 
 	def edit
@@ -60,14 +60,19 @@ class PagesController < ApplicationController	#:nodoc:
 	end
 
 	def update
-#		# match the value of the submit button clicked
-#		if params[:commit] !~ /cancel/i
-			@page.update_attributes!(params[:page])
-			flash[:notice] = 'Page was successfully updated.'
-#		else
-#			flash[:notice] = 'Page update canceled.'
-#		end
-		redirect_to(@page)
+		@page.update_attributes!(params[:page])
+		flash[:notice] = 'Page was successfully updated.'
+		if params[:commit] =~ /translate/i
+			flash[:notice] << "<br/>\nPage translated."
+			@translation = @page.translate(params[:locale])
+#
+#	TODO
+#	what if translation fails?  Add tests.
+#
+			redirect_to(edit_page_path(@translation))
+		else
+			redirect_to(@page)
+		end
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the page."
 		render :action => "edit"

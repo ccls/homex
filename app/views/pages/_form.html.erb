@@ -33,4 +33,13 @@
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
 <%= f.text_area :body %>
 </div><!-- fields -->
+
+<p class='note'>
+For special characters, like &ntilde;, &oacute;, &eacute;, etc., use the 'friendly code' from 
+<%= link_to "About.com", "http://webdesign.about.com/library/bl_htmlcodes.htm", :target => 'new' %> 
+or 'Entity Name' from
+<%= link_to "W3Schools.com", "http://www.w3schools.com/tags/ref_entities.asp", :target => 'new' %>.
+The 'Numerical Code', 'Hex Code' or 'Entity Number' work just as well, but aren't as clear.
+</p>
+
 </fieldset>
