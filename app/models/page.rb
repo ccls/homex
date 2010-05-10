@@ -39,7 +39,9 @@ class Page < ActiveRecord::Base
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
 	attr_accessible :path, :menu, :title, :body, 
-		:parent_id, :hide_menu
+		:parent_id, :hide_menu, :position
+	#	adding :position to this set minimizes the effect
+	#	of creating a page's translation
 
 	#	This MUST be AFTER attr_accessible, otherwise the 
 	#	attributes added in the plugin won't be mass-assignable.
