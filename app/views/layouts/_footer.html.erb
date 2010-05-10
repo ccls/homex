@@ -6,12 +6,7 @@
 <%= link_to 'Users', users_path %>&nbsp;|&nbsp;
 <%= link_to 'Packages', packages_path %>&nbsp;|&nbsp;
 <%= link_to 'Subjects', subjects_path %>&nbsp;|&nbsp;
-<%= link_to 'HomePagePics', home_page_pics_path %>&nbsp;|&nbsp;
-<% if session[:locale] && session[:locale] == 'es' %>
-	<%= link_to 'English', locale_path('en') %>
-<% else %>
-	<%= link_to 'Espa&ntilde;ol', locale_path('es') %>
-<% end %>
+<%= link_to 'HomePagePics', home_page_pics_path %>
 </p>
 </div>
 <div class='main_width'>
@@ -21,6 +16,12 @@
 <%= link_to "Terms of Service", "/terms" %>
 &nbsp;|&nbsp;
 <%= link_to "Privacy Policy", "/privacy" %>
+&nbsp;|&nbsp;
+<% if session[:locale] && session[:locale] == 'es' %>
+	<%= link_to 'English', locale_path('en') %>
+<% else %>
+	<%= link_to 'Espa&ntilde;ol', locale_path('es') %>
+<% end %>
 </p>
 </div>
 </div><!-- footer -->
