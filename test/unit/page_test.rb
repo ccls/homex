@@ -89,6 +89,16 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should filter out multiple continguous slashes" do
+		page = create_page(:path => "///a//b///c" )
+		assert_equal "/a/b/c", page.path
+	end
+
+	test "should downcase path" do
+		page = create_page(:path => "/A/B/C")
+		assert_equal "/a/b/c", page.path
+	end
+
 	test "can have a parent" do
 		parent = create_page
 		page = create_page( :parent_id => parent.id )

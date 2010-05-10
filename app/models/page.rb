@@ -23,8 +23,8 @@ class Page < ActiveRecord::Base
 	validates_length_of :menu_en,  :minimum => 4
 	validates_length_of :title_en, :minimum => 4
 	validates_length_of :body_en,  :minimum => 4
-	validates_uniqueness_of :menu_en	#, :scope => :locale
-	validates_uniqueness_of :path	#, :scope => :locale
+	validates_uniqueness_of :menu_en
+	validates_uniqueness_of :path
 
 	belongs_to :parent, :class_name => 'Page'
 	has_many :children, :class_name => 'Page', :foreign_key => 'parent_id'
@@ -42,20 +42,16 @@ class Page < ActiveRecord::Base
 	before_validation :adjust_path
 
 	def adjust_path
-		#	remove any duplicate /'s
+		unless self.path.nil?
+			#	remove any duplicate /'s
+#			self.path = path.gsub(/\/+/,'/')
+			self.path.gsub!(/\/+/,'/')
 
-
-		#	add leading / if none
-		self.path = path.try(:downcase)
+			#	add leading / if none
+#			self.path = path.downcase
+			self.path.downcase!
+		end
 	end
-
-#	#	why is this after?
-#	#	All errors and testing work with a before_validation
-#	after_validation :downcase_path
-#	#	downcase the path attribute
-#	def downcase_path
-##		self.path = path.try(:downcase)
-#	end
 
 	#	named_scopes ALWAYS return an "Array"
 	#	so if ONLY want one, MUST use a method.
@@ -81,26 +77,15 @@ class Page < ActiveRecord::Base
 		self.path == "/"
 	end
 
-	def menu(locale='en')
-		r = send("menu_#{locale||'en'}")
-		(r.blank?) ? menu_en : r
-	end
-	def menu=(new_menu)
-		self.menu_en = new_menu
-	end
-	def title(locale='en')
-		r = send("title_#{locale||'en'}")
-		(r.blank?) ? title_en : r
-	end
-	def title=(new_title)
-		self.title_en = new_title
-	end
-	def body(locale='en')
-		r = send("body_#{locale||'en'}")
-		(r.blank?) ? body_en : r
-	end
-	def body=(new_body)
-		self.body_en = new_body
+	#	Virtual attributes
+	%w( menu title body ).each do |attr|
+		define_method "#{attr}" do |*args|
+			r = send("#{attr}_#{args[0]||'en'}")
+			(r.blank?) ? send("#{attr}_en") : r
+		end
+		define_method "#{attr}=" do |new_val|
+			self.send("#{attr}_en=",new_val)
+		end
 	end
 
 end
