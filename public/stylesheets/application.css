@@ -52,6 +52,11 @@ div#header {
 	margin-bottom: 1px;
 	padding-bottom: 5px;
 }
+div#header, div#footer {
+	/* keep the header and footer backgrounds 
+		from cutting off on super zoom */
+	min-width: 900px;
+}
 
 div#home_page_pic {
 	margin: 10px auto;
