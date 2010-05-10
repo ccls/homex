@@ -77,7 +77,6 @@ Factory.define :page do |f|
 	f.sequence(:menu) { |n| "Menu #{n}" }
 	f.sequence(:title){ |n| "Title #{n}" }
 	f.body  "Page Body"
-#	f.controller ''
 end
 
 Factory.define :patient do |f|

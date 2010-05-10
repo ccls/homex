@@ -335,30 +335,6 @@ class PagesControllerTest < ActionController::TestCase
 		assert_select 'title', page.title
 	end
 
-
-	test "should show page by path with own locale set" do
-		page_en = Factory(:page)
-		page_es = page_en.translate('es')
-		session[:locale] = 'en'
-		get :show, :path => page_en.path.split('/').delete_if{|x|x.blank?}
-		assert_equal assigns(:page), page_en
-		assert_template 'show'
-		assert_response :success
-	end
-
-	test "should show translation of page by path with locale set" do
-		page_en = Factory(:page)
-		page_es = page_en.translate('es')
-		session[:locale] = 'es'
-		get :show, :path => page_en.path.split('/').delete_if{|x|x.blank?}
-		assert_equal assigns(:page), page_es
-		assert_template 'show'
-		assert_response :success
-	end
-
-
-
-
 	test "should get index with both help and non-help pages" do
 		#	test css menus
 		login_as admin_user
@@ -422,36 +398,4 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to pages_path(:parent_id => parent.id)
 	end
 
-
-#	translate
-
-	test "should edit existing translation with admin login" do
-		login_as admin
-		page = Factory(:page)
-		translation = page.translate('es')
-		assert_difference('Page.count',0) {
-			put :update, :id => page.id, :page => page.attributes,
-				:locale => 'es', :commit => 'Translate'
-		}
-		assert assigns(:page)
-		assert assigns(:translation)
-		assert_equal 'es', assigns(:translation).locale
-		assert_equal assigns(:translation).translatable_id, page.translatable_id
-		assert_redirected_to edit_page_path(assigns(:translation))
-	end
-	
-	test "should create new translation with admin login" do
-		login_as admin
-		page = Factory(:page)
-		assert_difference('Page.count',1) {
-			put :update, :id => page.id, :page => page.attributes,
-				:locale => 'es', :commit => 'Translate'
-		}
-		assert assigns(:page)
-		assert assigns(:translation)
-		assert_equal 'es', assigns(:translation).locale
-		assert_equal assigns(:translation).translatable_id, page.translatable_id
-		assert_redirected_to edit_page_path(assigns(:translation))
-	end
-	
 end

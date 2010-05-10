@@ -4,14 +4,13 @@
 <%# Due to the variability of the menu, we can't really cache it %>
 <%# cache 'page_menu' do %>
 <% 
-	roots = Page.roots(session[:locale]) 
-	roots = Page.roots if roots.empty?
+	roots = Page.roots
 	count = roots.length
 	count = ( count > 0 ) ? count : 1
 	width = ( 900 - count ) / count
 %>
 <% roots.each do |page| -%>
-	<%= link_to page.menu, page.path, 
+	<%= link_to page.menu(session[:locale]), page.path, 
 		:style => "width: #{width}px",
 		:class => ((page == @page.try(:root))?'current':nil)  %>
 <% end -%>
@@ -20,10 +19,11 @@
 </div><!-- id='headmenu' -->
 <% if @page && !@page.root.children.empty? %>
 	<div id='submenu' class='main_width'>
-	<div id='current_root'><%= @page.root.menu %></div>
+	<div id='current_root'><%= @page.root.menu(session[:locale]) %></div>
 	<div id='children'>
 	<% @page.root.children.each do |child| %>
-	<span class='child<%=(@page==child)?" current_child":""-%>'><%= link_to child.menu, child.path %></span>
+	<span class='child<%=(@page==child)?" current_child":""-%>'>
+	<%= link_to child.menu(session[:locale]), child.path %></span>
 	<% end %>
 </div><!-- id='children'  -->
 </div><!-- id='submenu'  -->

@@ -39,68 +39,53 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require menu" do
+	test "should require menu_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:menu => nil)
-			assert page.errors.on(:menu)
+			assert page.errors.on(:menu_en)
 		end
 	end
 
-	test "should require unique controller" do
-		p = create_page(:controller => 'foobar')
-		assert_no_difference 'Page.count' do
-			page = create_page(:controller => p.controller)
-			assert page.errors.on(:controller)
-		end
-	end
-
-	test "should require 4 char controller" do
-		assert_no_difference 'Page.count' do
-			page = create_page(:controller => 'Hey')
-			assert page.errors.on(:controller)
-		end
-	end
-
-	test "should require unique menu" do
+	test "should require unique menu_en" do
 		p = create_page
 		assert_no_difference 'Page.count' do
 			page = create_page(:menu => p.menu)
-			assert page.errors.on(:menu)
+			assert page.errors.on(:menu_en)
 		end
 	end
 
-	test "should require 4 char menu" do
+	test "should require 4 char menu_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:menu => 'Hey')
-			assert page.errors.on(:menu)
+			assert page.errors.on(:menu_en)
 		end
 	end
 
-	test "should require title" do
+	test "should require title_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:title => nil)
-			assert page.errors.on(:title)
+			assert page.errors.on(:title_en)
 		end
 	end
 
-	test "should require 4 char title" do
+	test "should require 4 char title_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:title => 'Hey')
-			assert page.errors.on(:title)
+			assert page.errors.on(:title_en)
 		end
 	end
 
-	test "should require body" do
+	test "should require body_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:body => nil)
-			assert page.errors.on(:body)
+			assert page.errors.on(:body_en)
 		end
 	end
 
-	test "should require 4 char body" do
+	test "should require 4 char body_en" do
 		assert_no_difference 'Page.count' do
 			page = create_page(:body => 'Hey')
-			assert page.errors.on(:body)
+			assert page.errors.on(:body_en)
 		end
 	end
 
@@ -140,139 +125,70 @@ class PageTest < ActiveSupport::TestCase
 		assert_not_nil Page.find_by_path(page.path)
 	end
 
-	test "should create translation of page" do
-		page = create_page
-		translation = page.translate('es')
-		%w( translatable_id position parent_id title body hide_menu 
-			).each do |attr|
-			assert_equal page.send(attr), translation.send(attr)
-		end
-	end
-
-	test "should create translation of child page" do
-		parent_en = create_page
-		child_en = create_page(:parent_id => parent_en.id)
-		child_es = child_en.translate('es')
-		%w( translatable_id position parent_id title body hide_menu 
-			).each do |attr|
-			assert_equal child_en.send(attr), child_es.send(attr)
-		end
-	end
-
-	test "should create translation of page with locale parent" do
-		parent_en = create_page
-		parent_es = parent_en.translate('es')
-		child_en = create_page(:parent_id => parent_en.id)
-		child_es = child_en.translate('es')
-		%w( translatable_id position title body hide_menu 
-			).each do |attr|
-			assert_equal child_en.send(attr), child_es.send(attr)
-			assert_equal parent_en.send(attr), parent_es.send(attr)
-		end
-		assert_not_equal child_en.parent_id, child_es.parent_id
-		assert_equal child_es.parent_id, parent_es.id
-	end
-
-	test "should create translation of page with locale child" do
-		parent_en = create_page
-		child_en = create_page(:parent_id => parent_en.id)
-		child_es = child_en.translate('es')
-		parent_es = parent_en.translate('es')
-		%w( translatable_id position title body hide_menu 
-			).each do |attr|
-			assert_equal child_en.send(attr), child_es.send(attr)
-			assert_equal parent_en.send(attr), parent_es.send(attr)
-		end
-		assert_not_equal child_en.parent_id, child_es.reload.parent_id
-		assert_equal child_es.parent_id, parent_es.id
-	end
-
-	test "should sync position on original change" do
-		p = create_page
-		t = p.translate('es')
-		assert_equal p.position, t.position
-		p.update_attribute(:position, 42)
-		assert_equal p.reload.position, t.reload.position
-	end
-
-	test "should sync hide_menu on original change" do
-		p = create_page
-		t = p.translate('es')
-		assert_equal p.hide_menu, t.hide_menu
-		p.update_attribute(:hide_menu, true)
-		assert_equal p.reload.hide_menu, t.reload.hide_menu
-	end
-
-	test "should sync position on translation change" do
-		p = create_page
-		t = p.translate('es')
-		assert_equal p.position, t.position
-		t.update_attribute(:position, 42)
-		assert_equal p.reload.position, t.reload.position
-	end
-
-	test "should sync hide_menu on translation change" do
-		p = create_page
-		t = p.translate('es')
-		assert_equal p.hide_menu, t.hide_menu
-		t.update_attribute(:hide_menu, true)
-		assert_equal p.reload.hide_menu, t.reload.hide_menu
-	end
-
 	test "should find page by path" do
 		p = create_page
 		page = Page.by_path(p.path)
 		assert_equal p, page
 	end
 
-	test "should find page by path and locale" do
+	test "should return english menu without locale" do
 		p = create_page
-		page = Page.by_path(p.path, p.locale)
-		assert_equal p, page
+		assert_equal p.menu, p.menu_en
 	end
 
-	test "should find page by path and nil locale" do
+	test "should return english title without locale" do
 		p = create_page
-		page = Page.by_path(p.path, nil)
-		assert_equal p, page
+		assert_equal p.title, p.title_en
 	end
 
-	test "should find page by path and non-existant locale" do
+	test "should return english body without locale" do
 		p = create_page
-		page = Page.by_path(p.path, 'zz')
-		assert_equal p, page
+		assert_equal p.body, p.body_en
 	end
 
-	test "should find translation of page by path and existant locale" do
+	test "should return english menu with locale" do
 		p = create_page
-		t = p.translate('es')
-		page = Page.by_path(p.path, 'es')
-		assert_equal t, page
+		assert_equal p.menu('en'), p.menu_en
 	end
 
-	test "should adjust translations parent" do
-		parent_en = create_page
-		parent_es = parent_en.translate('es')
-		child_en = create_page(:parent_id => parent_en.id)
-		child_es = child_en.translate('es')
-		assert_equal child_es.parent_id, parent_es.id
-		new_parent_en = create_page
-		new_parent_es = new_parent_en.translate('es')
-		child_en.parent = new_parent_en
-		child_en.save
-		assert_equal child_es.reload.parent_id, new_parent_es.id
+	test "should return english title with locale" do
+		p = create_page
+		assert_equal p.title('en'), p.title_en
 	end
 
-	test "should find locale parent on translation update" do
-		parent_en = create_page
-		parent_es = parent_en.translate('es')
-		child_en = create_page
-		child_es = child_en.translate('es')
-		child_es.update_attribute(:parent_id, parent_es.id)
-		assert_equal parent_es.reload.id, child_es.reload.parent_id
-		assert_equal parent_en.reload.id, child_en.reload.parent_id
-		assert_not_nil child_es.reload.parent_id
-		assert_not_nil child_en.reload.parent_id
+	test "should return english body with locale" do
+		p = create_page
+		assert_equal p.body('en'), p.body_en
+	end
+
+	test "should return spanish menu with locale" do
+		p = create_page(:menu_es => 'spanish menu')
+		assert_equal p.menu('es'), p.menu_es
+	end
+
+	test "should return spanish title with locale" do
+		p = create_page(:title_es => 'spanish title')
+		assert_equal p.title('es'), p.title_es
+	end
+
+	test "should return spanish body with locale" do
+		p = create_page(:body_es => 'spanish body')
+		assert_equal p.body('es'), p.body_es
+	end
+
+	test "should return english menu with missing spanish locale" do
+		p = create_page(:menu_es => '')
+		assert_equal p.menu('es'), p.menu_en
+	end
+
+	test "should return english title with missing spanish locale" do
+		p = create_page(:title_es => '')
+		assert_equal p.title('es'), p.title_en
+	end
+
+	test "should return english body with missing spanish locale" do
+		p = create_page(:body_es => '')
+		assert_equal p.body('es'), p.body_en
 	end
 
 protected

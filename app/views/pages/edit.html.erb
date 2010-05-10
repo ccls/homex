@@ -5,10 +5,5 @@
   <p>
     <%= f.submit "Update", :id => nil %>&nbsp;
     <%= button_link_to "Cancel and View", @page %>
-<span style='float:right'>
-		<%= f.submit( 'Translate/Edit Locale...', :id => nil ) %>
-    <%= select_tag( :locale, 
-			options_for_select(Page.locales - [f.object.locale]) ) %>
-</span>
   </p>
 <% end %>

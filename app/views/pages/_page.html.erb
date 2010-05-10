@@ -6,17 +6,17 @@
 <%= link_to page.path, page.path -%>
 </div>
 <div class='menu'>
-<%= link_to page.menu, page -%>
+<%= link_to page.menu(session[:locale]), page -%>
 </div>
 <div class='title'>
-<%= link_to page.title, page -%>
+<%= link_to page.title(session[:locale]), page -%>
 </div>
 <div class='manage'>
 <% if page.children.length > 1 %>
 <%= link_to "Order", pages_path(:parent_id => page.id) -%>&nbsp;
 <% end %>
 <%= link_to "Edit", edit_page_path(page) -%>&nbsp;
-<%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title}'?\nAre you sure?", :method => :delete -%>
+<%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title(session[:locale])}'?\nAre you sure?", :method => :delete -%>
 </div>
 
 <div class='children'>

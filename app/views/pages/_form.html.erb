@@ -5,13 +5,8 @@
 
 <div class='parent'>
 <b>Parent?</b> (Is this a main or sub menu page?)<br/>
-<%= f.collection_select :parent_id, Page.all(:order => "menu"), 
+<%= f.collection_select :parent_id, Page.all(:order => "menu_en"), 
 	:id, :menu, :include_blank => true %>  
-</div>
-
-<div class='locale'>
-<br/>
-<b>Locale:</b> <%= f.object.locale %>
 </div>
 
 <div class='hide_menu'>
@@ -21,17 +16,21 @@
 </div>
 
 <div class='fields'>
-<p><b>Title</b> (this is the text on the top of the browser)</p>
-<%= f.text_field :title %>
-
-<p><b>Menu</b> (this is the text on the menu)</p>
-<%= f.text_field :menu %>
 
 <p><b>Path:</b> (this is the path in the url. ie. /help/login )</p>
 <%= f.text_field :path %>
 
+<p><b>Title</b> (this is the text on the top of the browser)</p>
+English:<%= f.text_field :title_en %>
+Spanish:<%= f.text_field :title_es %>
+
+<p><b>Menu</b> (this is the text on the menu)</p>
+English:<%= f.text_field :menu_en %>
+Spanish:<%= f.text_field :menu_es %>
+
 <p><b>Body</b> (uses sanitized <%= link_to 'textile', 'http://redcloth.org', :target => 'new' %>)</p>
-<%= f.text_area :body %>
+English:<%= f.text_area :body_en %>
+Spanish:<%= f.text_area :body_es %>
 </div><!-- fields -->
 
 <p class='note'>

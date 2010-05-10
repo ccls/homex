@@ -18,12 +18,12 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def show
 		if params[:path]
- 			@page = Page.by_path("/#{params[:path].join('/')}",session[:locale])
+ 			@page = Page.by_path("/#{params[:path].join('/')}")
 			raise ActiveRecord::RecordNotFound if @page.nil?
 		else
 			@page = Page.find(params[:id])
 		end
-		@page_title = @page.title
+		@page_title = @page.title(session[:locale])
 		if @page.is_home?
 			@hpp = HomePagePic.random_active()
 		end
@@ -36,8 +36,7 @@ class PagesController < ApplicationController	#:nodoc:
 	def index
 		@page_title = "CCLS Pages"
 		params[:parent_id] = nil if params[:parent_id].blank?
-		@pages = Page.all(:conditions => { :parent_id => params[:parent_id],
-			:locale => 'en' })
+		@pages = Page.all(:conditions => { :parent_id => params[:parent_id] })
 	end
 
 	def new
@@ -46,7 +45,7 @@ class PagesController < ApplicationController	#:nodoc:
 	end
 
 	def edit
-		@page_title = "Edit CCLS Page #{@page.title}"
+		@page_title = "Edit CCLS Page #{@page.title(session[:locale])}"
 	end
 
 	def create
@@ -62,17 +61,7 @@ class PagesController < ApplicationController	#:nodoc:
 	def update
 		@page.update_attributes!(params[:page])
 		flash[:notice] = 'Page was successfully updated.'
-		if params[:commit] =~ /translate/i
-			flash[:notice] << "<br/>\nPage translated."
-			@translation = @page.translate(params[:locale])
-#
-#	TODO
-#	what if translation fails?  Add tests.
-#
-			redirect_to(edit_page_path(@translation))
-		else
-			redirect_to(@page)
-		end
+		redirect_to(@page)
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the page."
 		render :action => "edit"
