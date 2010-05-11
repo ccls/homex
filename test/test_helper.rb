@@ -94,21 +94,29 @@ class ActiveSupport::TestCase
 	end
 	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
-	#	by default, the user is NOT authenticated so make it so
-	#	They actually need to be in setup
-	def setup
-		#	Filter redirects on failure, doesn't just return false
-		#	Doing this stub will make the app think that the user
-		#	is logged in but there won't actually be a user
-		#	making all of the may_*_required filters fail
-		#	with ...
-		#	NoMethodError: undefined method `may_*?' for :false:Symbol
-		#CASClient::Frameworks::Rails::Filter.stubs(:filter).returns(false)
-#	No longer using the GatewayFilter stuff.
-#		CASClient::Frameworks::Rails::GatewayFilter.stubs(
-#			:filter).returns(false)
-#		CASClient::Frameworks::Rails::Filter.stubs(:login_url).returns(
-#			"https://auth-test.berkeley.edu/cas/login")
-	end
+end
 
+#
+#	Because I wanted more verbose testing output
+#
+module ActiveSupport
+	module Testing
+		module Declarative
+			def test(name, &block)
+				test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
+				defined = instance_method(test_name) rescue false
+				raise "#{test_name} is already defined in #{self}" if defined
+				if block_given?
+					define_method(test_name) do
+						print "\n#{self.class.name.gsub(/Test$/,'')} #{name}: "
+						block
+					end
+				else
+					define_method(test_name) do
+						flunk "No implementation provided for #{name}"
+					end
+				end
+			end
+		end
+	end
 end
