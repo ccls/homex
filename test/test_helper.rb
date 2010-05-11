@@ -6,6 +6,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__) # NEEDED for rake test:coverage
 require 'factory_test_helper'
 
 require 'pending'
+require 'declarative'
 
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
@@ -94,29 +95,4 @@ class ActiveSupport::TestCase
 	end
 	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
-end
-
-#
-#	Because I wanted more verbose testing output
-#
-module ActiveSupport
-	module Testing
-		module Declarative
-			def test(name, &block)
-				test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
-				defined = instance_method(test_name) rescue false
-				raise "#{test_name} is already defined in #{self}" if defined
-				if block_given?
-					define_method(test_name) do
-						print "\n#{self.class.name.gsub(/Test$/,'')} #{name}: "
-						block
-					end
-				else
-					define_method(test_name) do
-						flunk "No implementation provided for #{name}"
-					end
-				end
-			end
-		end
-	end
 end
