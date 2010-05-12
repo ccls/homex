@@ -17,7 +17,7 @@ module My
 
 				test_name = "test_#{name.gsub(/\s+/,'_')}".to_sym
 				define_method("_#{test_name}_with_verbosity") do
-					print "\n#{self.class.name.gsub(/Test$/,'')} #{name}: "
+					print "\n#{self.class.name.gsub(/Test$/,'').titleize} #{name}: "
 					send("_#{test_name}_without_verbosity")
 				end
 				#
