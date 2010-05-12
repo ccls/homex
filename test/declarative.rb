@@ -37,3 +37,13 @@ module My
 	end
 end
 ActiveSupport::TestCase.send(:include,My::Declarative)
+
+Rails.backtrace_cleaner.add_silencer {|line|
+	line =~ /\/test\/.*\.\.\/declarative\.rb:/
+#	Due to my modification, every error is accompanied by 
+#		3 additional and unnecessary lines like ...
+#	/test/functional/../declarative.rb:21:in `_test_should_change_locale_to_es_without_verbosity'
+#/test/functional/../declarative.rb:21:in `send'
+#/test/functional/../declarative.rb:21:in `_test_should_change_locale_to_es_with_verbosity']:
+
+} 
