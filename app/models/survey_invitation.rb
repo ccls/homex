@@ -8,8 +8,9 @@ class SurveyInvitation < ActiveRecord::Base
 	validates_uniqueness_of :token
 	validates_presence_of   :response_set_id, :on => :update
 	validates_uniqueness_of :response_set_id, :allow_nil => true
-
 	validates_presence_of :subject, :survey
+
+	delegate :email, :to => :subject
 
 	before_validation :create_token
 

@@ -125,6 +125,13 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		assert_not_nil survey_invitation.response_set
 	end
 
+	test "should respond to email" do
+		subject = Factory(:subject, 
+			:pii_attributes => Factory.attributes_for(:pii) )
+		survey_invitation = create_survey_invitation(:subject => subject)
+		assert_not_nil survey_invitation.email
+	end
+
 protected
 
 	def create_survey_invitation(options = {})
