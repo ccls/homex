@@ -24,6 +24,7 @@ protected
 	end
 	alias_method_chain :deliver!, :required_email
 
+	#	After successful delivery, add timestamp to invitation.
 	def deliver_with_timestamp!(mail=@mail)
 		returned_mail = deliver_without_timestamp!(mail)
 		if self.action_name == 'invitation'
@@ -33,6 +34,9 @@ protected
 	end
 	alias_method_chain :deliver!, :timestamp
 
+	#	The invitation gets lost in the mail, so to speak.
+	#	We need to remember the parameters so that we can
+	#	update the sent_at attribute.
 	def initialize_with_memory(method_name=nil, *parameters)
 		self.parameters = parameters
 		initialize_without_memory(method_name,*parameters)
