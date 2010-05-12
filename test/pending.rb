@@ -36,15 +36,16 @@ module ActiveSupport
 					testmethod = $3
 					model  = self.class.to_s.gsub(/Test$/,'').titleize
 					method = testmethod.gsub(/_/,' ').gsub(/^test /,'')
-					@@pending_cases << "#{model} #{method}:\n\t#{filename} line #{linenumber}"
+					@@pending_cases << "#{model} #{method}:\n.\t#{filename} line #{linenumber}"
 #					@@pending_cases << "#{testmethod} at #{filename}, line #{linenumber}"
 					print "P"
 			
 					@@at_exit ||= begin
 						at_exit do
 							#	For some reason, special characters don't always
-							#	print the way you would expect.  White space (tabs)
+							#	print the way you would expect.  Leading white space (tabs)
 							#	and some carriage returns just weren't happening?
+							#	Is this at_exit doing some parsing??
 							puts "\nPending Cases:"
 							@@pending_cases.each do |test_case|
 								puts test_case
