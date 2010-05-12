@@ -9,6 +9,11 @@ class UserMailer < ActionMailer::Base
 		body       :invitation => user_invitation
 	end
 
+#	activation / email_confirmation
+#	forgot_password / reset_password
+#	forgot_username (or just allow login with email address)
+#	change_email_confirmation
+
 protected
 
 	#	Simple way of enforcing the presence of a recipient.
