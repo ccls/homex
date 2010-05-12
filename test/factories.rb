@@ -176,6 +176,10 @@ Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true
 end	#	parent must be defined first
 
+Factory.define :user_invitation do |f|
+	f.association :sender, :factory => :user
+	f.sequence(:email){|n| "invitation#{n}@example.com"}
+end
 
 
 #
