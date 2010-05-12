@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserMailerTest < ActionMailer::TestCase
+class UserInvitationMailerTest < ActionMailer::TestCase
 
 	def setup
 		@invitation = Factory(:user_invitation)
@@ -8,7 +8,7 @@ class UserMailerTest < ActionMailer::TestCase
 
 	test "should create invitation" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
-			mail = UserMailer.create_invitation(@invitation)
+			mail = UserInvitationMailer.create_invitation(@invitation)
 			assert_match "@example.com", mail.to.first
 		}
 		assert_nil @invitation.sent_at
@@ -16,7 +16,7 @@ class UserMailerTest < ActionMailer::TestCase
 
 	test "should deliver invitation" do
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
-			mail = UserMailer.deliver_invitation(@invitation)
+			mail = UserInvitationMailer.deliver_invitation(@invitation)
 			assert_match "@example.com", mail.to.first
 		}
 		assert_not_nil @invitation.sent_at
@@ -25,8 +25,8 @@ class UserMailerTest < ActionMailer::TestCase
 	test "should NOT deliver invitation without email" do
 		@invitation.update_attribute(:email, nil)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_raise(UserMailer::NoEmailAddress){
-			UserMailer.deliver_invitation(@invitation)
+		assert_raise(UserInvitationMailer::NoEmailAddress){
+			UserInvitationMailer.deliver_invitation(@invitation)
 		} }
 		assert_nil @invitation.sent_at
 	end

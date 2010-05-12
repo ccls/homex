@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class UserInvitationMailer < ActionMailer::Base
  
 	class NoEmailAddress < StandardError; end
 
