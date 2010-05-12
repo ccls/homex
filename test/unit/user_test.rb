@@ -92,6 +92,7 @@ class UserTest < ActiveSupport::TestCase
 	end
 
 	test "should create and update user by a valid uid" do
+		#	will generate "Warning: schema loading from file"
 		stub_ucb_ldap_person()
 		assert_difference 'User.count' do
 			user = User.find_create_and_update_by_uid('859908')
@@ -127,6 +128,10 @@ class UserTest < ActiveSupport::TestCase
 			user.update_attributes({:role_name => role_name})
 			assert_not_equal user.reload.role_name, role_name
 		end
+	end
+
+	test "should require properly formated email address" do
+		pending
 	end
 
 protected

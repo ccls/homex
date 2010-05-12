@@ -105,6 +105,10 @@ class PiiTest < ActiveSupport::TestCase
 		assert_not_nil pii.subject
 	end
 
+	test "should require properly formated email address" do
+		pending
+	end
+
 protected
 
 	def create_pii(options = {})

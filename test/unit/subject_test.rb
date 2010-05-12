@@ -368,6 +368,10 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should require properly formated email address" do
+		pending
+	end
+
 protected
 
 	def create_survey_response_sets
