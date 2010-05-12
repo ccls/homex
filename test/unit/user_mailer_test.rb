@@ -11,6 +11,7 @@ class UserMailerTest < ActionMailer::TestCase
 			mail = UserMailer.create_invitation(@invitation)
 			assert_match "@example.com", mail.to.first
 		}
+		assert_nil @invitation.sent_at
 	end
 
 	test "should deliver invitation" do
@@ -18,6 +19,7 @@ class UserMailerTest < ActionMailer::TestCase
 			mail = UserMailer.deliver_invitation(@invitation)
 			assert_match "@example.com", mail.to.first
 		}
+		assert_not_nil @invitation.sent_at
 	end
 
 	test "should NOT deliver invitation without email" do
@@ -26,6 +28,7 @@ class UserMailerTest < ActionMailer::TestCase
 		assert_raise(UserMailer::NoEmailAddress){
 			UserMailer.deliver_invitation(@invitation)
 		} }
+		assert_nil @invitation.sent_at
 	end
 
 end

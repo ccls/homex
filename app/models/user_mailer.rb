@@ -24,4 +24,21 @@ protected
 	end
 	alias_method_chain :deliver!, :required_email
 
+	def deliver_with_timestamp!(mail=@mail)
+		returned_mail = deliver_without_update!(mail)
+		if self.action_name == 'invitation'
+			self.parameters.first.update_attribute(:sent_at, Time.now)
+		end
+		returned_mail
+	end
+	alias_method_chain :deliver!, :timestamp
+
+	def initialize_with_memory(method_name=nil, *parameters)
+		self.parameters = parameters
+		initialize_without_memory(method_name,*parameters)
+	end
+	alias_method_chain :initialize, :memory
+
+	attr_accessor :parameters
+
 end
