@@ -12,7 +12,6 @@ class SurveyInvitationMailer < ActionMailer::Base
 
 	def invitation(survey_invitation)
 		subject    'CCLS Survey Invitation'
-#		recipients survey_invitation.subject.email
 		recipients survey_invitation.email
 		body       :greeting => 'Hi,'
 		body       :invitation => survey_invitation
@@ -20,7 +19,6 @@ class SurveyInvitationMailer < ActionMailer::Base
 
 	def reminder(survey_invitation)
 		subject    'CCLS Survey Reminder'
-#		recipients survey_invitation.subject.email
 		recipients survey_invitation.email
 		body       :greeting => 'Hi,'
 		body       :invitation => survey_invitation
@@ -28,7 +26,6 @@ class SurveyInvitationMailer < ActionMailer::Base
 
 	def thank_you(survey_invitation)
 		subject    'CCLS Survey Thank You'
-#		recipients survey_invitation.subject.email
 		recipients survey_invitation.email
 		body       :greeting => 'Hi,'
 		body       :invitation => survey_invitation
