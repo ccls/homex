@@ -88,99 +88,140 @@ namespace :app do
 
 	desc "Add initial pages."
 	task :add_pages => :environment do
+#
+#	Due to the bulk and simplicity, I'm considering creating 
+#	fixtures for these.  It might be nice to have them for
+#	testing as well.
+#
 		puts "Adding default pages"
 		home = Page.find_or_create_by_path(
 			:path  => "/", 
-			:title => "Home Page Title",
-			:menu  => "Home",
-			:body  => "Home Page Body"
-		)
-		alpha = Page.find_or_create_by_path(
-			:path  => "/alpha",
-			:title => "Alpha Page Title",
-			:menu  => "Alpha",
-			:body  => "Alpha Page Body"
-		)
-		beta = Page.find_or_create_by_path(
-			:path  => "/beta",
-			:title => "Beta Page Title",
-			:menu  => "Beta",
-			:body  => "Beta Page Body"
-		)
-		gamma = Page.find_or_create_by_path(
-			:path  => "/gamma",
-			:title => "Gamma Page Title",
-			:menu  => "Gamma",
-			:body  => "Gamma Page Body"
+			:title => "CCLS",
+			:menu  => "CCLS",
+			:body  => "CCLS Page Body"
 		)
 		about = Page.find_or_create_by_path(
 			:path  => "/about",
-			:title => "About Page Title",
+			:title => "About",
 			:menu  => "About",
 			:body  => "About Page Body"
 		)
-#		staff = Page.find_or_create_by_path(
-#			:path  => "/staff", 
-#			:title => "Staff",
-#			:menu  => "Staff",
-#			:body  => "Staff stuff"
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/pages",
-#			:title => "Pages",
-#			:menu  => "Pages",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'pages'
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/users",
-#			:title => "Users",
-#			:menu  => "Users",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'users'
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/calendar",
-#			:title => "Calendar",
-#			:menu  => "Calendar",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'calendars'
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/packages",
-#			:title => "Packages",
-#			:menu  => "Packages",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'packages'
-#		)
-#		subjects = Page.find_or_create_by_path(
-#			:path  => "/subjects",
-#			:title => "Subjects",
-#			:menu  => "Subjects",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'subjects'
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/dust_kits",
-#			:title => "Dust Kits",
-#			:menu  => "Dust Kits",
-#			:body  => "This text should never be seen.",
-#			:parent_id => subjects.id,
-#			:controller => 'dust_kits'
-#		)
-#		Page.find_or_create_by_path(
-#			:path  => "/home_page_pics",
-#			:title => "Home Page Pics",
-#			:menu  => "Home Page Pics",
-#			:body  => "This text should never be seen.",
-#			:parent_id => staff.id,
-#			:controller => 'home_page_pics'
-#		)
+		Page.find_or_create_by_path(
+			:path  => "/goals",
+			:title => "Goals",
+			:menu  => "Goals",
+			:body  => "Goals Page Body",
+			:parent_id => about.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/staffbios",
+			:title => "Staff Bios",
+			:menu  => "Staff Bios",
+			:body  => "Staff Bios Page Body",
+			:parent_id => about.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/partners",
+			:title => "Partners",
+			:menu  => "Partners",
+			:body  => "Partners Page Body",
+			:parent_id => about.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/funding",
+			:title => "Funding",
+			:menu  => "Funding",
+			:body  => "Funding Page Body",
+			:parent_id => about.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/contactus",
+			:title => "Contact",
+			:menu  => "Contact",
+			:body  => "Contact Page Body",
+			:parent_id => about.id
+		)
+		families = Page.find_or_create_by_path(
+			:path  => "/families",
+			:title => "Families",
+			:menu  => "Families",
+			:body  => "Families Page Body"
+		)
+		Page.find_or_create_by_path(
+			:path  => "/factsheet",
+			:title => "Factsheet",
+			:menu  => "Factsheet",
+			:body  => "Factsheet Page Body",
+			:parent_id => families.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/links",
+			:title => "Links",
+			:menu  => "Links",
+			:body  => "Links Page Body",
+			:parent_id => families.id
+		)
+		research = Page.find_or_create_by_path(
+			:path  => "/research",
+			:title => "Research",
+			:menu  => "Research",
+			:body  => "Research Page Body"
+		)
+		Page.find_or_create_by_path(
+			:path  => "/cclsprojects",
+			:title => "Projects",
+			:menu  => "Projects",
+			:body  => "Projects Page Body",
+			:parent_id => research.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/publications",
+			:title => "Publications",
+			:menu  => "Publications",
+			:body  => "Publications Page Body",
+			:parent_id => research.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/faq",
+			:title => "FAQ",
+			:menu  => "FAQ",
+			:body  => "FAQ Page Body",
+			:parent_id => research.id
+		)
+		news = Page.find_or_create_by_path(
+			:path  => "/news",
+			:title => "News",
+			:menu  => "News",
+			:body  => "News Page Body"
+		)
+		Page.find_or_create_by_path(
+			:path  => "/findings",
+			:title => "Findings",
+			:menu  => "Findings",
+			:body  => "Findings Page Body",
+			:parent_id => news.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/awards",
+			:title => "Awards",
+			:menu  => "Awards",
+			:body  => "Awards Page Body",
+			:parent_id => news.id
+		)
+		Page.find_or_create_by_path(
+			:path  => "/privacy",
+			:title => "Privacy",
+			:menu  => "Privacy",
+			:body  => "Privacy Page Body",
+			:hide_menu => true
+		)
+		Page.find_or_create_by_path(
+			:path  => "/terms",
+			:title => "Terms",
+			:menu  => "Terms",
+			:body  => "Terms Page Body",
+			:hide_menu => true
+		)
 	end
 
 	desc "Deputize user by UID"
