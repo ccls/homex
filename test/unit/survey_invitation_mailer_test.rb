@@ -17,6 +17,7 @@ class SurveyInvitationMailerTest < ActionMailer::TestCase
 			mail = SurveyInvitationMailer.create_invitation(@si)
 			assert_match "@example.com", mail.to.first
 		}
+		assert_nil @si.sent_at
 	end
 
 	test "should deliver invitation" do
@@ -24,6 +25,7 @@ class SurveyInvitationMailerTest < ActionMailer::TestCase
 			mail = SurveyInvitationMailer.deliver_invitation(@si)
 			assert_match "@example.com", mail.to.first
 		}
+		assert_not_nil @si.sent_at
 	end
 
 	test "should NOT deliver invitation without email" do
@@ -32,6 +34,7 @@ class SurveyInvitationMailerTest < ActionMailer::TestCase
 		assert_raise(SurveyInvitationMailer::NoEmailAddress){
 			SurveyInvitationMailer.deliver_invitation(@si)
 		} }
+		assert_nil @si.sent_at
 	end
 
 	test "should create reminder" do
