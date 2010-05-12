@@ -43,6 +43,8 @@ protected
 	end
 	alias_method_chain :initialize, :memory
 
+	#	The aptly named virtual attibute for storing 
+	#	the parameters passed to the mailer.
 	attr_accessor :parameters
 
 end
