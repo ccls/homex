@@ -8,6 +8,10 @@
 #	*	mail
 #	*	telephonenumber
 class User < ActiveRecord::Base
+
+#	prep for using authlogic for authentication
+#	acts_as_authentic
+
 	default_scope :order => :sn
 
 	##

@@ -5,6 +5,42 @@ class UsersController < ApplicationController	#:nodoc:
 	before_filter :may_view_users_required, :only => :index
 	before_filter :may_not_be_user_required, :only => :update
 
+#
+#	prep for using authlogic for authentication
+#
+#	before_filter :no_current_user_required, :only => [:new, :create]
+#	before_filter :current_user_required, :only => [:edit,:update,:index,:show]
+#
+#	def new	
+#		@user = User.new	
+#	end	
+#
+#	def create	
+#		@user = User.new(params[:user])	
+#		#		if @user.save	
+#		#	don't login, just create user
+#		if @user.save_without_session_maintenance
+#			flash[:notice] = "Registration successful."	
+#			redirect_to login_url	
+#		else	
+#			render :action => 'new'	
+#		end	
+#	end	
+#
+#	def edit	
+#	end	
+#	 
+#	def update	
+#		if @user.update_attributes(params[:user])	
+#			flash[:notice] = "Successfully updated profile."	
+#			redirect_to root_url	
+#		else	
+#			render :action => 'edit'	
+#		end	
+#	end 
+
+
+
 	def show
 		@roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.reverse
 	end

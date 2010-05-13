@@ -56,7 +56,15 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-	map.resource  :session, :only => [ :new, :create, :destroy ]
+#	prep for using authlogic for authentication
+#	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
+#	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
+#	map.resources :user_sessions  
+
+
+
+#	map.resource  :session, :only => [ :new, :create, :destroy ]
+	map.resource  :session, :only => :destroy
 
 	map.resource  :calendar, :only => [ :show ]
 	map.resources :users,  :only => [ :index, :show, :update ]	#	do |user|

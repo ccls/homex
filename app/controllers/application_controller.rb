@@ -13,7 +13,36 @@ class ApplicationController < ActionController::Base
 	# Scrub sensitive parameters from your log
 	# filter_parameter_logging :password
 
-protected
+#
+#	prep for using authlogic for authentication
+#
+#	filter_parameter_logging :password
+#
+#	helper_method :current_user	
+
+protected	#	private (does it matter which or if neither?)
+	
+#	def current_user_session
+#		@current_user_session ||= UserSession.find	
+#	end	
+#	
+#	def current_user	
+#		@current_user ||= current_user_session && current_user_session.record	
+#	end	
+#
+#	def no_current_user_required
+#		if current_user
+#			flash[:error] = "You must be logged out to do that"
+#			redirect_to root_path
+#		end
+#	end
+#
+#	def current_user_required
+#		unless current_user
+#			flash[:error] = "You must be logged in to do that"
+#			redirect_to login_path
+#		end
+#	end
 
 	#	redirections is called from the Aegis plugin.
 	#	Actually from my extension of the Aegis plugin.
