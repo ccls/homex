@@ -20,7 +20,7 @@ namespace :db do
 	end
 
 	desc "Import subject data from CSV file"
-	task :import_subject_data => :environment do
+	task :orig_import_subject_data => :environment do
 #		last_length = 0
 		(f = File.open('DUMMY_ManipulatedData.csv','r')).each do |line|
 #	fortunately, all lines are 35 fields with no commas in fields
@@ -36,6 +36,19 @@ namespace :db do
 				next 
 			end
 			#puts f.lineno
+		end
+	end
+
+	desc "Import subject data from CSV file"
+	task :import_subject_data => :environment do
+		require 'fastercsv'
+#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
+#		FasterCSV.read('DUMMY_ManipulatedData.csv', {
+#			:headers => true })
+		FasterCSV.foreach('DUMMY_ManipulatedData.csv') do |line|
+#		(f=FasterCSV.open('DUMMY_ManipulatedData.csv','r')).each do |line|
+#puts f.lineno, line.length
+puts line.length
 		end
 	end
 
