@@ -62,10 +62,12 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-#	map.resource  :session, :only => :destroy
+	map.resource  :calendar,   :only => [ :show ]
 
-	map.resource  :calendar, :only => [ :show ]
+	#	make user_roles nested /users/:id/role/ ???
+	#	and singular .
 	map.resources :user_roles, :only => [:update]
+
 	map.resources :users
 #	map.resources :users,  :only => [ :index, :show, :update ]	#	do |user|
 #		user.resource  :account, :only => [ :show, :edit, :update ]
