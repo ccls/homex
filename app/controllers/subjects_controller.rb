@@ -1,4 +1,5 @@
 class SubjectsController < ApplicationController
+
 	before_filter :may_view_subjects_required
 	before_filter :valid_id_required, :only => [:edit,:show,:update,:destroy]
 

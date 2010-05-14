@@ -9,10 +9,6 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs2 = fill_out_survey(
 			:subject => @rs1.subject, 
 			:survey => @rs1.survey)
-#		@rs2 = Factory(:response_set, 
-#			:completed_at => Time.now,
-#			:subject_id => @rs1.subject_id, 
-#			:survey_id => @rs1.survey_id)
 	end
 
 
@@ -105,10 +101,8 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-#		assert_equal @rs1.q_and_a_codes_as_attributes,
-#			@rs1.subject.home_exposure_response.attributes
-#		assert_redirected_to subjects_path
-		assert_redirected_to subject_home_exposure_response_path(assigns(:subject))
+		assert_redirected_to subject_home_exposure_response_path(
+			assigns(:subject))
 	end
 
 	test "should create HER with employee login" do
@@ -117,8 +111,8 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to subject_home_exposure_response_path(assigns(:subject))
-#		assert_redirected_to subjects_path
+		assert_redirected_to subject_home_exposure_response_path(
+			assigns(:subject))
 	end
 
 	test "should NOT create HER with just login" do
@@ -253,23 +247,27 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 
 
+
+	test "should get index" do
+		pending
+	end
+
+	test "should get edit" do
+		pending
+	end
+
+	test "should update" do
+		pending
+	end
+
+	test "should destroy" do
+		pending
+	end
+
 #  test "should get index" do
 #    get :index
 #    assert_response :success
 #    assert_not_nil assigns(:home_exposure_responses)
-#  end
-#
-#  test "should create home_exposure_response" do
-#    assert_difference('HomeExposureResponse.count') do
-#      post :create, :home_exposure_response => { }
-#    end
-#
-#    assert_redirected_to home_exposure_response_path(assigns(:home_exposure_response))
-#  end
-#
-#  test "should show home_exposure_response" do
-#    get :show, :id => home_exposure_responses(:one).to_param
-#    assert_response :success
 #  end
 #
 #  test "should get edit" do

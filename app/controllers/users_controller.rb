@@ -1,10 +1,9 @@
 class UsersController < ApplicationController	#:nodoc:
 
 	skip_before_filter :login_required, 
-		:except => [:edit,:update,:index,:show,:destroy]
+		:only => [:new, :create]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
-#	before_filter :current_user_required, :only => [:edit,:update,:index,:show]
 	before_filter :id_required, :only => [:edit, :show, :update ]
 	before_filter :may_view_user_required, :only => [:edit,:update,:show]
 	before_filter :may_view_users_required, :only => :index

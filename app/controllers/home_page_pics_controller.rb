@@ -12,7 +12,6 @@ class HomePagePicsController < ApplicationController
 				:active => hpp[1]['active'])
 		end
 		flash[:notice] = "Active statuses updated."
-#		redirect_to home_page_pics_path
 	rescue
 		flash[:error] = "Something bad happened?"
 	ensure

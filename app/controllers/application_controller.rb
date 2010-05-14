@@ -1,15 +1,7 @@
-#	Require 'ucb_cas' here rather than in config/environment.rb 
-#	allows for UCB::CAS in all caps.  I think that this is a 
-#	violation of a couple rails conventions.
-#require 'ucb_cas'	
-
 class ApplicationController < ActionController::Base
 	before_filter :login_required
-#	before_filter :cas_filter
 
 	helper :all # include all helpers, all the time
-#	include Authentication  #	shows up twice in RDoc !?!?
-#	include UCB::CAS        #	won't show up in RDoc !?!?
 
 	# See ActionController::RequestForgeryProtection for details
 	protect_from_forgery 

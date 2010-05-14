@@ -5,7 +5,8 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 	before_filter :her_must_not_exist, :only => [:new,:create]
 	before_filter :her_must_exist, :only => [:show]
 	before_filter :two_response_sets_required, :only => [:new,:create]
-	before_filter :all_response_sets_completed_required, :only => [:new,:create]
+	before_filter :all_response_sets_completed_required, 
+		:only => [:new,:create]
 	before_filter :her_attributes_required, :only => :create
 
 	def new

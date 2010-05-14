@@ -168,7 +168,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		login_as admin_user
 		get :edit, :id => 0
 		assert_not_nil flash[:error]
-#		assert_redirected_to root_path
 		assert_redirected_to home_page_pics_path
 	end
 
@@ -269,7 +268,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 			delete :destroy, :id => 0
 		end
 		assert_not_nil flash[:error]
-#		assert_redirected_to root_path
 		assert_redirected_to home_page_pics_path
 	end
 
@@ -343,7 +341,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)
 		HomePagePic.all.each { |hpp| assert !hpp.active }
-#		HomePagePic.any_instance.stubs(:save).returns(false)
 		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
 		post :activate, :home_page_pics => {
 			hpp1.id => { 'active' => true },

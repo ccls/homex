@@ -48,7 +48,6 @@ class UsersControllerTest < ActionController::TestCase
 		get :show, :id => active_user.id
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
-#		assert_nil assigns(:user)
 	end
 
 	test "should NOT get user info with invalid id" do

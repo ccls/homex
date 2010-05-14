@@ -1,7 +1,5 @@
 class UserRolesController < ApplicationController
 
-#	skip_before_filter :login_required
-#	before_filter :current_user_required
 	before_filter :id_required
 	before_filter :may_not_be_user_required
 
