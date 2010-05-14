@@ -1,6 +1,6 @@
 class SurveyFinishedsController < ApplicationController
 
-	skip_before_filter :cas_filter
+	skip_before_filter :login_required
 
 	layout 'survey'
 

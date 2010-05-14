@@ -1,48 +1,67 @@
 #	Require 'ucb_cas' here rather than in config/environment.rb 
 #	allows for UCB::CAS in all caps.  I think that this is a 
 #	violation of a couple rails conventions.
-require 'ucb_cas'	
+#require 'ucb_cas'	
 
 class ApplicationController < ActionController::Base
-	helper :all # include all helpers, all the time
-	include Authentication  #	shows up twice in RDoc !?!?
-	include UCB::CAS        #	won't show up in RDoc !?!?
+	before_filter :login_required
+#	before_filter :cas_filter
 
-	protect_from_forgery # See ActionController::RequestForgeryProtection for details
+	helper :all # include all helpers, all the time
+#	include Authentication  #	shows up twice in RDoc !?!?
+#	include UCB::CAS        #	won't show up in RDoc !?!?
+
+	# See ActionController::RequestForgeryProtection for details
+	protect_from_forgery 
 
 	# Scrub sensitive parameters from your log
-	# filter_parameter_logging :password
+	filter_parameter_logging :password
 
-#
-#	prep for using authlogic for authentication
-#
-#	filter_parameter_logging :password
-#
-#	helper_method :current_user	
+	helper_method :current_user, :logged_in?
 
-protected	#	private (does it matter which or if neither?)
+protected	#	private #	(does it matter which or if neither?)
 	
-#	def current_user_session
-#		@current_user_session ||= UserSession.find	
-#	end	
-#	
-#	def current_user	
-#		@current_user ||= current_user_session && current_user_session.record	
-#	end	
-#
-#	def no_current_user_required
-#		if current_user
-#			flash[:error] = "You must be logged out to do that"
-#			redirect_to root_path
-#		end
-#	end
-#
-#	def current_user_required
-#		unless current_user
-#			flash[:error] = "You must be logged in to do that"
-#			redirect_to login_path
-#		end
-#	end
+	def current_user_session
+		@current_user_session ||= UserSession.find	
+	end	
+	
+	def current_user	
+		@current_user ||= current_user_session && current_user_session.record	
+	end	
+
+	def no_current_user_required
+		if current_user
+			flash[:error] = "You must be logged out to do that"
+			redirect_to root_path
+		end
+	end
+
+	def current_user_required
+		unless current_user
+			flash[:error] = "You must be logged in to do that"
+			redirect_to login_path
+		end
+	end
+#	alias_method :cas_filter,     :current_user_required
+	alias_method :login_required, :current_user_required
+
+	def logged_in?
+		!current_user.nil?
+	end
+
+	def redirect_to_referer_or_default(default)
+#		redirect_to(session[:refer_to] || default)
+#	I don't quite know why the writer required that the developer set the :refer_to.
+		redirect_to( session[:refer_to] || request.env["HTTP_REFERER"] || default )
+		session[:refer_to] = nil
+	end
+
+	#	Flash error message and redirect
+	def access_denied( message="You don't have permission to complete that action.", default=root_path )
+#		store_referer
+		flash[:error] = message
+		redirect_to_referer_or_default( default )
+	end
 
 	#	redirections is called from the Aegis plugin.
 	#	Actually from my extension of the Aegis plugin.

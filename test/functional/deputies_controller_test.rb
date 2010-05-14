@@ -41,7 +41,7 @@ class DeputiesControllerTest < ActionController::TestCase
 #		assert !target_user.is_admin?
 #		post :create, :id => target_user.id
 #		assert !target_user.reload.is_admin?
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 #	end
 #
 #
@@ -97,7 +97,7 @@ class DeputiesControllerTest < ActionController::TestCase
 #		assert target_user.is_admin?
 #		delete :destroy, :id => target_user.id
 #		assert target_user.reload.is_admin?
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 #	end
 #
 #
@@ -117,7 +117,7 @@ class DeputiesControllerTest < ActionController::TestCase
 #
 #	test "should NOT get deputies if NOT authenticated" do
 #		get :index
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 #	end
 
 end

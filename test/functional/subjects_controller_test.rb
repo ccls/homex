@@ -40,7 +40,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -80,7 +80,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT get show without login" do
 		subject = Factory(:subject)
 		get :show, :id => subject
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get show with invalid id" do
@@ -116,7 +116,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should NOT get new without login" do
 		get :new
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "new subject should have non nil pii" do
@@ -170,7 +170,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		post :create, :subject => Factory.attributes_for(:subject,
 			:race_id => Race.first.id,
 			:subject_type_id => SubjectType.first.id)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT create with invalid subject" do
@@ -274,7 +274,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT edit without login" do
 		subject = Factory(:subject)
 		get :edit, :id => subject.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT edit without valid id" do
@@ -332,7 +332,7 @@ class SubjectsControllerTest < ActionController::TestCase
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
 		} } }
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT update with invalid id" do
@@ -439,7 +439,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_difference('Subject.count',0) {
 			delete :destroy, :id => subject.id
 		}
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT destroy with invalid id" do

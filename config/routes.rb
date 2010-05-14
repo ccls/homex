@@ -44,7 +44,7 @@ ActionController::Routing::Routes.draw do |map|
 
 #	map.logout   '/login',
 #		:controller => 'sessions',  :action => 'new'
-	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
+#	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
 #	map.activate '/activate/:id', 
 #		:controller => 'accounts',  :action => 'show'
 #	map.forgot_password '/forgot_password', 
@@ -56,18 +56,18 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-#	prep for using authlogic for authentication
-#	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
-#	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
-#	map.resources :user_sessions  
+	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
+	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
+	map.resources :user_sessions, :only => [ :new, :create, :destroy ]
 
 
 
-#	map.resource  :session, :only => [ :new, :create, :destroy ]
-	map.resource  :session, :only => :destroy
+#	map.resource  :session, :only => :destroy
 
 	map.resource  :calendar, :only => [ :show ]
-	map.resources :users,  :only => [ :index, :show, :update ]	#	do |user|
+	map.resources :user_roles, :only => [:update]
+	map.resources :users
+#	map.resources :users,  :only => [ :index, :show, :update ]	#	do |user|
 #		user.resource  :account, :only => [ :show, :edit, :update ]
 #	end
 #	map.resource :password, :only => [ :new, :create, :edit, :update ]

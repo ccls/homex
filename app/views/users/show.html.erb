@@ -20,7 +20,7 @@
 <% if @user.role_name == role.name.to_s %>
 User is a(n) '<%= role.name -%>'
 <% else %>
-<%= link_to "Assign user role of '#{role.name}'", user_path(@user.id, :role_name => role.name ), :method => :put %>
+<%= link_to "Assign user role of '#{role.name}'", user_role_path(@user.id, :role_name => role.name ), :method => :put %>
 <% end %>
 </li>
 <% end %>

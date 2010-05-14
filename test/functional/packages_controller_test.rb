@@ -53,7 +53,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -81,7 +81,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should NOT get new without login" do
 		get :new
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -116,7 +116,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should NOT create without login" do
 		post :create, :package => Factory.attributes_for(:package)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -166,7 +166,7 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_nil package.status
 		put :update, :id => package.id
 		assert_nil package.reload.status
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -196,7 +196,7 @@ class PackagesControllerTest < ActionController::TestCase
 	test "should NOT show package without login" do
 		package = Factory(:package)
 		get :show, :id => package.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
@@ -232,7 +232,7 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_difference('Package.count',0) {
 			delete :destroy, :id => package.id
 		}
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT destroy package without valid id" do

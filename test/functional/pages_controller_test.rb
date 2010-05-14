@@ -72,14 +72,14 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 
 
 	test "should NOT get new without login" do
 		get :new
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should get new with admin login" do
@@ -101,7 +101,7 @@ class PagesControllerTest < ActionController::TestCase
 		assert_no_difference( 'Page.count' ) do
 			post :create, :page => Factory.attributes_for(:page)
 		end
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should create page with admin login" do
@@ -144,7 +144,7 @@ class PagesControllerTest < ActionController::TestCase
 
 	test "should NOT get edit without login" do
 		get :edit, :id => Factory(:page).id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should get edit with admin login" do
@@ -172,7 +172,7 @@ class PagesControllerTest < ActionController::TestCase
 	test "should NOT update without login" do
 		put :update, :id => Factory(:page).id, 
 			:page => Factory.attributes_for(:page)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should update page with admin login" do
@@ -213,7 +213,7 @@ class PagesControllerTest < ActionController::TestCase
 		assert_no_difference( 'Page.count' ) do
 			delete :destroy, :id => page.id
 		end
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should destroy page with admin login" do
@@ -382,7 +382,7 @@ class PagesControllerTest < ActionController::TestCase
 		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should order sub pages with admin login" do

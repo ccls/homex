@@ -36,7 +36,7 @@ class SurveyControllerTest < ActionController::TestCase
 #
 #	test "should NOT show without login" do
 #		get :show
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 #	end
 
 
@@ -71,7 +71,7 @@ class SurveyControllerTest < ActionController::TestCase
 ##available_surveys GET    /surveys  {:controller=>"surveyor", :action=>"new"}
 ##	I think that this is kinda stupid, but new is like index
 #		get :new
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 #	end
 
 
@@ -84,7 +84,7 @@ class SurveyControllerTest < ActionController::TestCase
 
 	test "should NOT show surveys without login" do
 		get :new
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 		#	get :new route is blocked
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -160,7 +160,7 @@ class SurveyControllerTest < ActionController::TestCase
 		assert_difference( 'ResponseSet.count', 0 ) {
 			post :create, :subject_id => 123, :survey_code => survey.access_code
 		}
-#		assert_redirected_to_cas_login
+#		assert_redirected_to login_path
 		#	post :create route is blocked
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path

@@ -1,0 +1,12 @@
+<% form_for @user_session do |form| %>  
+<%# error_messages gives too much info so don't use %>
+<%#= form.error_messages %>  
+	<div><%= form.label :username, "Username" %>  
+    <%= form.text_field :username %>  </div>
+	<div><%= form.label :password, "Password" %>  
+    <%= form.password_field :password %>  </div>
+	<p>
+		<%= form.submit "Sign In" %>&nbsp;
+		<%= button_link_to "Sign Up", new_user_path %>
+	</p>
+<% end %> 

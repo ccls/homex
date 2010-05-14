@@ -47,7 +47,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 	test "should NOT get new without login" do
 		get :new, :subject_id => @rs1.subject_id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get new without valid subject_id" do
@@ -136,7 +136,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT create HER without subject_id" do
@@ -227,7 +227,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT show without login" do
 		@rs1.to_her
 		get :show, :subject_id => @rs1.subject_id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT show without valid subject_id" do

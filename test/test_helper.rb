@@ -11,6 +11,16 @@ require 'declarative'
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
 
+require 'authlogic/test_case'
+class ActionController::TestCase
+#	doing this caused a persistant login between a couple
+#	of my tests which seemed odd. I never called 'login_as'
+#	yet, I was allowed to do things that I shouldn't've
+#	been able to do.  Calling activate_authlogic from
+#	within the login_as method seemed to clear this up.
+#  setup :activate_authlogic
+end
+
 class ActiveSupport::TestCase
 
 	self.use_transactional_fixtures = true
@@ -22,15 +32,13 @@ class ActiveSupport::TestCase
 	def login_as( user=nil )
 		uid = ( user.is_a?(User) ) ? user.uid : user
 		if !uid.blank?
-			@request.session[:calnetuid] = uid
+#			@request.session[:calnetuid] = uid
 			stub_ucb_ldap_person()
-			User.find_create_and_update_by_uid(uid)
-	
-			CASClient::Frameworks::Rails::Filter.stubs(
-				:filter).returns(true)
-#	No longer using the GatewayFilter stuff.
-#			CASClient::Frameworks::Rails::GatewayFilter.stubs(
-#				:filter).returns(true)
+#			u = User.find_create_and_update_by_uid(uid)
+			u = User.find_by_uid(uid)
+#			u = Factory(:user)
+  		activate_authlogic
+			UserSession.create(u)
 		end
 	end
 	alias :login  :login_as
@@ -81,18 +89,19 @@ class ActiveSupport::TestCase
 				ActiveMerchant::Shipping::ResponseError)
 	end
 
-	def assert_redirected_to_cas_login
-		assert_response :redirect
-		assert_match "https://auth-test.berkeley.edu/cas/login",
-			@response.redirected_to
-	end
-	alias :assert_redirected_to_login :assert_redirected_to_cas_login
+#	def assert_redirected_to_cas_login
+##		assert_response :redirect
+##		assert_match "https://auth-test.berkeley.edu/cas/login",
+##			@response.redirected_to
+#		assert_redirected_to login_path
+#	end
+#	alias :assert_redirected_to_login :assert_redirected_to_cas_login
 
-	def assert_redirected_to_cas_logout
-		assert_response :redirect
-		assert_match "https://auth-test.berkeley.edu/cas/logout", 
-			@response.redirected_to
-	end
-	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
+#	def assert_redirected_to_cas_logout
+#		assert_response :redirect
+#		assert_match "https://auth-test.berkeley.edu/cas/logout", 
+#			@response.redirected_to
+#	end
+#	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
 end

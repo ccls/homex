@@ -182,38 +182,38 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get show without login" do
 		study_event = Factory(:study_event)
 		get :show, :id => study_event.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get new without login" do
 		get :new
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT post create without login" do
 		assert_difference('StudyEvent.count',0) do
 			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get edit without login" do
 		study_event = Factory(:study_event)
 		get :edit, :id => study_event.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT update without login" do
 		study_event = Factory(:study_event)
 		put :update, :id => study_event.id, 
 			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT destroy without login" do
@@ -221,7 +221,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',0) do
 			delete :destroy, :id => study_event.id
 		end
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 #	save errors

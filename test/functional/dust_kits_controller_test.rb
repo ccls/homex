@@ -19,7 +19,7 @@ class DustKitsControllerTest < ActionController::TestCase
 
 	test "should NOT get new without login" do
 		get :new, :subject_id => @subject.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT post create without login" do
@@ -27,30 +27,30 @@ class DustKitsControllerTest < ActionController::TestCase
 			post :create, :subject_id => @subject.id, 
 				:dust_kit => Factory.attributes_for(:dust_kit)
 		}
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get edit without login" do
 		get :edit, :subject_id => @subject.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT put update without login" do
 		put :update, :subject_id => @subject.id,
 			:dust_kit => Factory.attributes_for(:dust_kit)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT get show without login" do
 		get :show, :subject_id => @subject.id
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT delete destroy without login" do
 		assert_difference('DustKit.count',0) {
 			delete :destroy, :subject_id => @subject.id
 		}
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 #	admin login

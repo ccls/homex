@@ -1,5 +1,7 @@
 class SurveyInvitationsController < ApplicationController
-	skip_before_filter :cas_filter, :only => :show
+
+	skip_before_filter :login_required, :only => :show
+
 	before_filter :may_create_invitations_required, :only => :create
 	before_filter :valid_subject_id_required, :only => :create
 	before_filter :valid_survey_required, :only => :create

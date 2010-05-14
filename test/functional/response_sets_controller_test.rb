@@ -31,7 +31,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #	#
 #	#	test "should NOT show without login" do
 #	#		get :show
-#	#		assert_redirected_to_cas_login
+#	#		assert_redirected_to login_path
 #	#	end
 #	
 #	
@@ -66,7 +66,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #	#available_surveys GET    /surveys  {:controller=>"surveyor", :action=>"new"}
 #	#	I think that this is kinda stupid, but new is like index
 #			get :new
-#			assert_redirected_to_cas_login
+#			assert_redirected_to login_path
 #		end
 	
 	
@@ -134,7 +134,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		}
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
-		assert_redirected_to_cas_login
+		assert_redirected_to login_path
 	end
 
 	test "should NOT begin survey with invalid subject_id" do
@@ -222,7 +222,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 #			assert !assigns(:survey)
 #			assert !assigns(:response_set)
 #			assert !assigns(:current_user)
-#			assert_redirected_to_cas_login
+#			assert_redirected_to login_path
 #		end
 #	
 #		test "should NOT continue complete survey" do

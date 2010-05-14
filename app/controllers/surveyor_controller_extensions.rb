@@ -19,7 +19,7 @@ module SurveyorControllerExtensions
 			#	skip and "permission_or_invitation" and i
 			#	uncomment the "may_take...".
 			#
-			skip_before_filter :cas_filter
+			skip_before_filter :login_required
 #			before_filter :may_take_surveys_required
 
 #	this will stop a user from completing a survey

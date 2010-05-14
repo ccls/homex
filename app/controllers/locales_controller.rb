@@ -1,5 +1,7 @@
 class LocalesController < ApplicationController
-	skip_before_filter :cas_filter
+
+	skip_before_filter :login_required
+
 	def show
 		session[:locale] = params[:id]
 		respond_to do |format|
@@ -7,4 +9,5 @@ class LocalesController < ApplicationController
 			format.js { render :text => '' }
 		end
 	end
+
 end

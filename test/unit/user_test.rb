@@ -36,22 +36,82 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require uid" do
+	test "should require matching password and confirmation" do
 		assert_no_difference 'User.count' do
-			u = create_user(:uid => '')
-			assert_match "can't be blank", u.errors.on(:uid)
-			assert u.errors.on(:uid)
+			u = create_user(
+				:password              => 'alpha',
+				:password_confirmation => 'beta')
+			assert u.errors.on(:password)
 		end
 	end
 
-	test "should require unique uid" do
-		user = create_user
+	test "should require password_confirmation" do
 		assert_no_difference 'User.count' do
-			u = create_user(:uid => user.uid)
-			assert_match "has already been taken", u.errors.on(:uid)
-			assert u.errors.on(:uid)
+			u = create_user(:password_confirmation => nil)
+			assert u.errors.on(:password_confirmation)
 		end
 	end
+
+	test "should require password" do
+		assert_no_difference 'User.count' do
+			u = create_user(:password => nil)
+			assert u.errors.on(:password)
+		end
+	end
+
+	test "should require properly formated email address" do
+		assert_no_difference 'User.count' do
+			u = create_user(:email => 'blah blah blah')
+			assert u.errors.on(:email)
+		end
+	end
+
+	test "should require email" do
+		assert_no_difference 'User.count' do
+			u = create_user(:email => nil)
+			assert u.errors.on(:email)
+		end
+	end
+
+	test "should require unique email" do
+		user = create_user
+		assert_no_difference 'User.count' do
+			u = create_user(:email => user.email)
+			assert u.errors.on(:email)
+		end
+	end
+
+	test "should require username" do
+		assert_no_difference 'User.count' do
+			u = create_user(:username => nil)
+			assert u.errors.on(:username)
+		end
+	end
+
+	test "should require unique username" do
+		user = create_user
+		assert_no_difference 'User.count' do
+			u = create_user(:username => user.username)
+			assert u.errors.on(:username)
+		end
+	end
+
+#	test "should require uid" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:uid => '')
+#			assert_match "can't be blank", u.errors.on(:uid)
+#			assert u.errors.on(:uid)
+#		end
+#	end
+#
+#	test "should require unique uid" do
+#		user = create_user
+#		assert_no_difference 'User.count' do
+#			u = create_user(:uid => user.uid)
+#			assert_match "has already been taken", u.errors.on(:uid)
+#			assert u.errors.on(:uid)
+#		end
+#	end
 
 	test "should require that role_name NOT be mass assignable" do
 		assert_difference 'User.count' do
@@ -83,31 +143,31 @@ class UserTest < ActiveSupport::TestCase
 #		assert_equal deputies[2], new_users[2]
 #	end
 
-	test "should create and update user by uid" do
-		stub_ucb_ldap_person()
-		assert_difference 'User.count' do
-			user = User.find_create_and_update_by_uid('012345')
-			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should create and update user by a valid uid" do
-		#	will generate "Warning: schema loading from file"
-		stub_ucb_ldap_person()
-		assert_difference 'User.count' do
-			user = User.find_create_and_update_by_uid('859908')
-			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should find and update user by uid" do
-		stub_ucb_ldap_person()
-		create_user(:uid => '012345')
-		assert_no_difference 'User.count' do
-			user = User.find_create_and_update_by_uid('012345')
-			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create and update user by uid" do
+#		stub_ucb_ldap_person()
+#		assert_difference 'User.count' do
+#			user = User.find_create_and_update_by_uid('012345')
+#			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+#		end
+#	end
+#
+#	test "should create and update user by a valid uid" do
+#		#	will generate "Warning: schema loading from file"
+#		stub_ucb_ldap_person()
+#		assert_difference 'User.count' do
+#			user = User.find_create_and_update_by_uid('859908')
+#			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+#		end
+#	end
+#
+#	test "should find and update user by uid" do
+#		stub_ucb_ldap_person()
+#		create_user(:uid => '012345')
+#		assert_no_difference 'User.count' do
+#			user = User.find_create_and_update_by_uid('012345')
+#			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should return non-nil email" do
 		user = create_user
@@ -128,10 +188,6 @@ class UserTest < ActiveSupport::TestCase
 			user.update_attributes({:role_name => role_name})
 			assert_not_equal user.reload.role_name, role_name
 		end
-	end
-
-	test "should require properly formated email address" do
-		pending
 	end
 
 protected

@@ -1,48 +1,47 @@
 class UsersController < ApplicationController	#:nodoc:
 
-	before_filter :id_required, :only => [ :show, :update ]
-	before_filter :may_view_user_required, :only => :show
-	before_filter :may_view_users_required, :only => :index
-	before_filter :may_not_be_user_required, :only => :update
+	skip_before_filter :login_required, 
+		:except => [:edit,:update,:index,:show,:destroy]
 
-#
-#	prep for using authlogic for authentication
-#
-#	before_filter :no_current_user_required, :only => [:new, :create]
+	before_filter :no_current_user_required, :only => [:new, :create]
 #	before_filter :current_user_required, :only => [:edit,:update,:index,:show]
-#
-#	def new	
-#		@user = User.new	
-#	end	
-#
-#	def create	
-#		@user = User.new(params[:user])	
-#		#		if @user.save	
-#		#	don't login, just create user
-#		if @user.save_without_session_maintenance
-#			flash[:notice] = "Registration successful."	
-#			redirect_to login_url	
-#		else	
-#			render :action => 'new'	
-#		end	
-#	end	
-#
-#	def edit	
-#	end	
-#	 
-#	def update	
-#		if @user.update_attributes(params[:user])	
-#			flash[:notice] = "Successfully updated profile."	
-#			redirect_to root_url	
-#		else	
-#			render :action => 'edit'	
-#		end	
-#	end 
+	before_filter :id_required, :only => [:edit, :show, :update ]
+	before_filter :may_view_user_required, :only => [:edit,:update,:show]
+	before_filter :may_view_users_required, :only => :index
 
+	def new	
+		@user = User.new	
+	end	
 
+	def create	
+		@user = User.new(params[:user])	
+		#		if @user.save	
+		#	don't login, just create user
+		if @user.save_without_session_maintenance
+			flash[:notice] = "Registration successful."	
+			redirect_to login_url	
+		else	
+			flash[:error] = 'User creation failed'
+			render :action => 'new'	
+		end	
+	end	
+
+	def edit	
+	end	
+	 
+	def update	
+		if @user.update_attributes(params[:user])	
+			flash[:notice] = "Successfully updated profile."	
+			redirect_to root_url	
+		else	
+			flash[:error] = "Update failed"
+			render :action => 'edit'	
+		end	
+	end 
 
 	def show
-		@roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.reverse
+		@roles = Permissions.find_all_roles.sort_by{|role| 
+			role.options[:position]}.reverse
 	end
 
 	def index
@@ -53,20 +52,6 @@ class UsersController < ApplicationController	#:nodoc:
 			flash[:error] = "No such role '#{params[:role_name]}'"
 		end
 		@users = User.all( :conditions => conditions )
-	end
-
-	def update
-		@user.role_name = params[:role_name]
-		@user.save!
-		flash[:notice] = 'User was successfully updated.'
-#		redirect_to @user
-	rescue ActiveRecord::RecordInvalid
-#		show
-#		flash.now[:error] = 'User update failed.'
-		flash[:error] = 'User update failed.'
-#		render :show
-	ensure
-		redirect_to @user
 	end
 
 protected
