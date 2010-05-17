@@ -12,7 +12,7 @@ namespace :app do
 	desc "Add a bunch of stuff to the DB"
 	task :populate => [ 
 		:add_races,
-		:add_users, 
+#		:add_users, 		#	TODO
 		:add_packages, 
 		:add_pages
 	]
@@ -77,13 +77,14 @@ namespace :app do
 	end
 
 	desc "Add some expected users."
-	task :add_users => :environment do
-		puts "Adding users"
-		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 
-			10883 86094 754783 769067 740176 315002 854720 16647 ).each do |uid|
-			puts " - Adding user with uid:#{uid}:"
-			User.find_create_and_update_by_uid(uid)
-		end
+	task :add_users => :environment do		#	TODO
+puts "This is temporarily disabled due to changes in User model"
+#		puts "Adding users"
+#		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 
+#			10883 86094 754783 769067 740176 315002 854720 16647 ).each do |uid|
+#			puts " - Adding user with uid:#{uid}:"
+#			User.find_create_and_update_by_uid(uid)
+#		end
 	end
 
 	desc "Add initial pages."
@@ -225,25 +226,26 @@ namespace :app do
 	end
 
 	desc "Deputize user by UID"
-	task :deputize => :environment do
-		puts
-		if ENV['uid'].blank?
-			puts "User's CalNet UID required."
-			puts "Usage: rake #{$*} uid=INTEGER"
-			puts
-			exit
-		end
-		if !User.exists?(:uid => ENV['uid'])
-			puts "No user found with uid=#{ENV['uid']}."
-			puts
-			exit
-		end
-		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
-		puts "Found user #{user.displayname}.  Deputizing..."
-#		user.deputize
-		user.update_attribute(:role_name, 'administrator')
-		puts "User deputized: #{user.is_admin?}"
-		puts
+	task :deputize => :environment do		#	TODO
+puts "This is temporarily disabled due to changes in User model"
+#		puts
+#		if ENV['uid'].blank?
+#			puts "User's CalNet UID required."
+#			puts "Usage: rake #{$*} uid=INTEGER"
+#			puts
+#			exit
+#		end
+#		if !User.exists?(:uid => ENV['uid'])
+#			puts "No user found with uid=#{ENV['uid']}."
+#			puts
+#			exit
+#		end
+#		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
+#		puts "Found user #{user.displayname}.  Deputizing..."
+##		user.deputize
+#		user.update_attribute(:role_name, 'administrator')
+#		puts "User deputized: #{user.is_admin?}"
+#		puts
 	end
 
 end
