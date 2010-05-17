@@ -13,12 +13,7 @@ require 'declarative'
 
 require 'authlogic/test_case'
 class ActionController::TestCase
-#	doing this caused a persistant login between a couple
-#	of my tests which seemed odd. I never called 'login_as'
-#	yet, I was allowed to do things that I shouldn't've
-#	been able to do.  Calling activate_authlogic from
-#	within the login_as method seemed to clear this up.
-#  setup :activate_authlogic
+	setup :activate_authlogic
 end
 
 class ActiveSupport::TestCase
@@ -32,37 +27,32 @@ class ActiveSupport::TestCase
 	def login_as( user=nil )
 		uid = ( user.is_a?(User) ) ? user.uid : user
 		if !uid.blank?
-#			@request.session[:calnetuid] = uid
-			stub_ucb_ldap_person()
-#			u = User.find_create_and_update_by_uid(uid)
 			u = User.find_by_uid(uid)
-#			u = Factory(:user)
-  		activate_authlogic
 			UserSession.create(u)
 		end
 	end
 	alias :login  :login_as
 	alias :log_in :login_as
 
-	def stub_ucb_ldap_person(options={})
-		UCB::LDAP::Person.stubs(:find_by_uid).returns(
-			UCB::LDAP::Person.new({
-				:sn => ["Wendt"],
-				:displayname => ["Mr. Jake Wendt, BA"],
-				:telephonenumber => ["+1 510 642-9749"],
-				:mail => []
-			})
-		)
-		#	Load schema locally for offline testing.
-		#	This will generate this warning...
-		#		Warning: schema loading from file
-		#	from ucb_ldap-1.3.2/lib/ucb_ldap_schema.rb
-		#	Comment this out to get the schema from Cal.
-		#	This will generate this warning...
-		#		warning: peer certificate won't be verified in this SSL session
-		UCB::LDAP::Schema.stubs(
-			:load_attributes_from_url).raises(StandardError)
-	end
+#	def stub_ucb_ldap_person(options={})
+#		UCB::LDAP::Person.stubs(:find_by_uid).returns(
+#			UCB::LDAP::Person.new({
+#				:sn => ["Wendt"],
+#				:displayname => ["Mr. Jake Wendt, BA"],
+#				:telephonenumber => ["+1 510 642-9749"],
+#				:mail => []
+#			})
+#		)
+#		#	Load schema locally for offline testing.
+#		#	This will generate this warning...
+#		#		Warning: schema loading from file
+#		#	from ucb_ldap-1.3.2/lib/ucb_ldap_schema.rb
+#		#	Comment this out to get the schema from Cal.
+#		#	This will generate this warning...
+#		#		warning: peer certificate won't be verified in this SSL session
+#		UCB::LDAP::Schema.stubs(
+#			:load_attributes_from_url).raises(StandardError)
+#	end
 
 	def stub_package_for_successful_delivery(options={})
 		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(
