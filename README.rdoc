@@ -11,8 +11,6 @@
 
 == Required Gems
 
-* {rubycas-client}[http://github.com/gunark/rubycas-client] - CalNet CAS (user authentication)
-* {ucb_ldap}[http://gemcutter.org/gems/ucb_ldap] - CalNet LDAP (user information)
 * {RedCloth}[http://redcloth.org] - textile parser.
 * {aegis}[http://github.com/makandra/aegis] - manage permissions for user accounts in a central place. 
 * {active_shipping}[http://github.com/Shopify/active_shipping] - package tracking
@@ -147,7 +145,11 @@ then we continue ...
  #	login to your app
  #	The first administrator/deputy must be created via the command line.
  #	Others can be created via the command line or web app.
- rake app:deputize uid=<Your CalNet UID>
+#
+#	UID is gone so need to change this
+#		(set role_name to 'administrator')
+#
+# rake app:deputize uid=<Your CalNet UID>
 
 
 
@@ -204,18 +206,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 
 {Ruby Best Practices}[http://github.com/sandal/rbp-book/tree/gh-pages/pdfs/]
 
-{Adapting a Web Application to Interoperate with CAS}[https://calnet.berkeley.edu/developers/developerResources/cas/CASAppSetup.html]
-
-{UCB CAS Registration}[https://calnet.berkeley.edu/developers/developerResources/cas/CASRegistration.html]
-
-{UCB LDAP Registration}[https://calnet.berkeley.edu/developers/developerResources/applyingForAccess/ldap.html]
-
-{Ruby CAS Client Gem on GitHub}[http://github.com/gunark/rubycas-client/tree/master/examples/rails/]
-
-{Ruby CAS Client Documentation}[http://rubycas-client.rubyforge.org/]
-
-{UCB LDAP Documentation}[http://ucbrb.rubyforge.org/ucb_ldap/]
-
 {FedEx credentials}[http://www.fedex.com/us/developer/index.html]
 
 {RVM on GitHub}[http://github.com/wayneeseguin/rvm]
@@ -244,7 +234,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
   * User.has_role
 * The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
 * Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
-*	rdoc shows that ApplicationController includes Authentication twice and not UCB::CAS
 *	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
 * rdoc the rake tasks??
 * thickbox-compressed.js has relative location for image which isn't always correct.
