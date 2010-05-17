@@ -2,6 +2,25 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
+	#	not really a controller test
+	test "should NOT automatically log in new user with my helper" do
+		assert_difference('User.count',1) do
+			active_user
+		end
+		assert_equal Hash.new, session
+		assert_nil UserSession.find
+	end
+
+	#	not really a controller test
+	test "should NOT automatically log in new user with create" do
+		assert_difference('User.count',1) do
+			User.create(Factory.attributes_for(:user))
+		end
+		assert_equal Hash.new, session
+		assert_nil UserSession.find
+	end
+
+
 	test "should NOT get users index without login" do
 		get :index
 		assert_redirected_to login_path
@@ -117,7 +136,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique username" do
-		u = Factory(:user)
+		u = active_user
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:username => u.username)
@@ -179,7 +198,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique email" do
-		u = Factory(:user)
+		u = active_user
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:email => u.email)
