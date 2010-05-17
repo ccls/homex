@@ -5,7 +5,7 @@ class AddAuthlogicColumnsToUser < ActiveRecord::Migration
 		add_column :users, :crypted_password,  :string
 		add_column :users, :password_salt,     :string
 		add_column :users, :persistence_token, :string
-#		add_column :users, :perishable_token,  :string
+		add_column :users, :perishable_token,  :string
 		remove_index :users, :uid
 		change_column :users, :uid, :string, :null => true
 		add_index :users, :username, :unique => true
@@ -20,7 +20,7 @@ class AddAuthlogicColumnsToUser < ActiveRecord::Migration
 		remove_column :users, :crypted_password
 		remove_column :users, :password_salt
 		remove_column :users, :persistence_token
-#		remove_column :users, :perishable_token
+		remove_column :users, :perishable_token
 		change_column :users, :uid, :string, :null => false
 		add_index :users, :uid, :unique => true
 	end
