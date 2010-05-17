@@ -11,6 +11,30 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create employee" do
+		assert_difference 'User.count' do
+			user = create_user
+			user.update_attribute(:role_name, 'employee')
+			assert  user.employee?
+			assert !user.administrator?
+			assert !user.may_moderate?      #	aegis check
+			assert !user.may_administrate? #	aegis check
+			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+		end
+	end
+
+	test "should create editor" do
+		assert_difference 'User.count' do
+			user = create_user
+			user.update_attribute(:role_name, 'editor')
+			assert  user.editor?
+			assert !user.administrator?
+			assert !user.may_moderate?      #	aegis check
+			assert !user.may_administrate? #	aegis check
+			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
+		end
+	end
+
 	test "should create moderator" do
 		assert_difference 'User.count' do
 			user = create_user
