@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyControllerTest < ActionController::TestCase
 
-	def setup
+	setup :prep_stuff
+	def prep_stuff	#	setup
 		#	for whatever brilliant reason they had,
 		#	surveys/ goes to the Surveyor controller's
 		#	"new" action!!!

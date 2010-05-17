@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyInvitationsControllerTest < ActionController::TestCase
 
-	def setup
+	setup :build_stuff
+	def build_stuff	#	setup
 		@survey  = Factory(:survey)
 		@subject = Factory(:subject, 
 			:pii_attributes => Factory.attributes_for(:pii))

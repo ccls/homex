@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomeExposureResponsesControllerTest < ActionController::TestCase
 
-	def setup
+	setup :build_response_sets
+	def build_response_sets	#	setup
 		@rs1 = fill_out_survey(
 			:survey => Survey.find_by_access_code("home_exposure_survey"))
 		@rs1.reload

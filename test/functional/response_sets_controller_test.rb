@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResponseSetsControllerTest < ActionController::TestCase
 
-	def setup
+	setup :build_stuff
+	def build_stuff	#	setup
 		#	Make 2 so that the index tests duplication.
 		Factory(:survey_section)	#	creates a survey too
 		Factory(:survey_section)	#	creates a survey too
