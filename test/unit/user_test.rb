@@ -132,6 +132,34 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique perishable token" do
+		user = create_user
+		user.reload
+		Authlogic::Random.stubs(:friendly_token).returns(user.perishable_token)
+		User.stubs(:find_by_perishable_token).returns(nil)
+		assert_difference('User.count',0) do
+			#	Just build the user
+			u = Factory.build(:user)
+			#	Then force the perishable token
+			u.reset_perishable_token
+			#	Then save which will validate and raise a
+			#	validation error.
+			u.save
+			assert u.errors.on(:perishable_token)
+		end
+	end
+
+	test "should require unique persistence token" do
+		user = create_user
+		user.reload
+		Authlogic::Random.stubs(:hex_token).returns(user.persistence_token)
+		User.stubs(:find_by_persistence_token).returns(nil)
+		assert_difference('User.count',0) do
+			u = create_user
+			assert u.errors.on(:persistence_token)
+		end
+	end
+
 protected
 
 	#
