@@ -135,6 +135,7 @@ class UserTest < ActiveSupport::TestCase
 	test "should require unique perishable token" do
 		user = create_user
 		user.reload
+		assert_not_nil user.perishable_token
 		Authlogic::Random.stubs(:friendly_token).returns(user.perishable_token)
 		User.stubs(:find_by_perishable_token).returns(nil)
 		assert_difference('User.count',0) do
@@ -144,6 +145,7 @@ class UserTest < ActiveSupport::TestCase
 			u.reset_perishable_token
 			#	Then save which will validate and raise a
 			#	validation error.
+			assert_not_nil u.perishable_token
 			u.save
 			assert u.errors.on(:perishable_token)
 		end
@@ -152,10 +154,12 @@ class UserTest < ActiveSupport::TestCase
 	test "should require unique persistence token" do
 		user = create_user
 		user.reload
+		assert_not_nil user.persistence_token
 		Authlogic::Random.stubs(:hex_token).returns(user.persistence_token)
 		User.stubs(:find_by_persistence_token).returns(nil)
 		assert_difference('User.count',0) do
 			u = create_user
+			assert_not_nil u.persistence_token
 			assert u.errors.on(:persistence_token)
 		end
 	end
