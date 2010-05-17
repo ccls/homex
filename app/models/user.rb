@@ -10,7 +10,12 @@ class User < ActiveRecord::Base
 
 	#	by default, expects a username or login attribute
 	#	which I didn't have and caused a bit of a headache!
-	acts_as_authentic
+	#	Also automatically logs newly created user in
+	#	behind the scenes which caused testing headaches.
+	#	Set this to false to remove this "feature."
+	acts_as_authentic do |c|
+		c.maintain_sessions = false
+	end
 
 	default_scope :order => :sn
 
