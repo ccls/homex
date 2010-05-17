@@ -48,13 +48,21 @@ class PagesControllerTest < ActionController::TestCase
 		assert_not_nil assigns(:pages)
 	end
 
-	test "should get index with employee 180918 login" do
-		login_as employee(:uid => 180918)					#	this is Alice Kang
+
+
+
+#	test "should get index with employee 180918 login" do
+#		login_as employee(:uid => 180918)					#	this is Alice Kang
+	test "should get index with editor login" do
+		login_as editor
 		get :index
 		assert_template 'index'
 		assert_response :success
 		assert_not_nil assigns(:pages)
 	end
+
+
+
 
 	test "should NOT get index with just employee login" do
 		login_as employee

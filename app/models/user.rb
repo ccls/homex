@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
 		c.maintain_sessions = false
 	end
 
-	default_scope :order => :sn
+	default_scope :order => :username
 
 	##
 	#	:singleton-method: has_role

@@ -24,12 +24,9 @@ class ActiveSupport::TestCase
 
 	include FactoryTestHelper
 
-	def login_as( user=nil )
-		uid = ( user.is_a?(User) ) ? user.uid : user
-		if !uid.blank?
-			u = User.find_by_uid(uid)
-			UserSession.create(u)
-		end
+	def login_as( user )
+		u = User.find(user)
+		UserSession.create(u)
 	end
 	alias :login  :login_as
 	alias :log_in :login_as

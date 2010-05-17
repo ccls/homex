@@ -15,6 +15,10 @@ module FactoryTestHelper
 	end
 	alias_method :employee, :employee_user
 
+	def editor(options={})
+		u = active_user(options.merge(:role_name => 'editor'))
+	end
+
 	def full_response(options={})
 		survey = Factory(:survey)
 		survey_section = Factory(:survey_section, :survey => survey)

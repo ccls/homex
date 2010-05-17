@@ -113,7 +113,7 @@ class UserTest < ActiveSupport::TestCase
 
 	test "should return non-nil email" do
 		user = create_user
-		assert_nil user.mail
+#		assert_nil user.mail
 		assert_not_nil user.email
 	end
 
@@ -122,7 +122,7 @@ class UserTest < ActiveSupport::TestCase
 		assert_not_nil user.gravatar_url
 	end
 
-	test "should NOT mass assign uid" do
+	test "should NOT mass assign role_name" do
 		user = create_user
 		all_role_names = Permissions.find_all_role_names.collect(&:to_s)
 		other_roles = all_role_names - [user.role_name]

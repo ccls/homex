@@ -45,12 +45,13 @@ class Permissions < Aegis::Permissions
 	#	Role: Possible user role.
 	role :moderator, :position => 3
 
+	role :editor, :position => 4
 
 	##
 	#	Role: Possible user role.
 	#	Always allow the administrators so don't have to include it
 	#	in every permission block.
-	role :administrator, :default_permission => :allow, :position => 4
+	role :administrator, :default_permission => :allow, :position => 5
 
 
 	#	all of the following blocks create User methods
@@ -129,9 +130,10 @@ class Permissions < Aegis::Permissions
 	#
 	#	Permission:
 	permission :maintain_pages do |current_user|
-		allow :employee do 
-			current_user.uid == "180918"	#	Alice's UID
-		end
+		allow :editor
+#		allow :employee do 
+#			current_user.uid == "180918"	#	Alice's UID
+#		end
 	end
 
 	#

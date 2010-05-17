@@ -13,11 +13,7 @@ div.gravatar img {
 	height: 30px;
 	width: 30px;
 }
-div.sn {
-	float:left;
-	width: 150px;
-}
-div.displayname {
+div.username {
 	float:left;
 	width: 300px;
 }

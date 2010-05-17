@@ -170,7 +170,7 @@ Factory.define :unit do |f|
 end
 
 Factory.define :user do |f|
-	f.sequence(:uid) { |n| "UID#{n}" }
+#	f.sequence(:uid) { |n| "UID#{n}" }
 	f.sequence(:username) { |n| "username#{n}" }
 	f.sequence(:email) { |n| "username#{n}@example.com" }
 	f.password 'test'
