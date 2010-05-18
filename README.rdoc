@@ -8,7 +8,7 @@
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
-* curl (why?)
+* curl - for the installation of rvm
 
 == Required Gems
 
