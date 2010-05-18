@@ -160,18 +160,26 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user if invitation update fails" do
-		pending
-#
-#	Transactions aren't working
-#
-#		ui = Factory(:user_invitation)
-#		UserInvitation.any_instance.stubs(:create_or_update).returns(false)
-#		assert_difference('User.count',0) {
-#			post :create, :user => Factory.attributes_for(:user),
-#				:token => ui.token
-#		}
-#		assert_nil ui.recipient_id
-#		assert_nil ui.accepted_on
+		#
+		#	Nest transactions and savepoints don't work with SQLite
+		#	so testing User creation and UserInvitation validation
+		#	can't really be done.  This test is the outer transaction
+		#	so the rollback triggered by the failure doesn't occur 
+		#	until after the completion of the test.
+		#
+		a = User.connection.instance_variable_get(:@config)[:adapter]
+		if a == 'sqlite3'
+			puts "\n\nWarning: Nested transactions don't work on SQLite\n"
+		else
+			ui = Factory(:user_invitation)
+			UserInvitation.any_instance.stubs(:create_or_update).returns(false)
+			assert_difference('User.count',0) {
+				post :create, :user => Factory.attributes_for(:user),
+					:token => ui.token
+			}
+			assert_nil ui.recipient_id
+			assert_nil ui.accepted_on
+		end
 	end
 
 	test "should NOT create new user with expired invitation token" do

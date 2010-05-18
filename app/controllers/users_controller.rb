@@ -16,16 +16,12 @@ class UsersController < ApplicationController	#:nodoc:
 	def create	
 		#	We want to create a user and invalidate the invitation.
 		#	NOT one or the other.  Must be both.
-		#	But of course, this doesn't work for me in testing.
-		#	The User gets created and the invitation stays valid.
 		User.transaction do
-			UserInvitation.transaction do
-				@user = User.new(params[:user])	
-				@user.save!
-				@user_invitation.accepted_on = Time.now
-				@user_invitation.recipient_id = @user.id
-				@user_invitation.save!
-			end
+			@user = User.new(params[:user])	
+			@user.save!
+			@user_invitation.accepted_on = Time.now
+			@user_invitation.recipient_id = @user.id
+			@user_invitation.save!
 		end
 		flash[:notice] = "Registration successful."	
 		redirect_to login_url	
