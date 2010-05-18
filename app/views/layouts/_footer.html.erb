@@ -7,6 +7,10 @@
 <%= link_to 'Packages', packages_path %>&nbsp;|&nbsp;
 <%= link_to 'Subjects', subjects_path %>&nbsp;|&nbsp;
 <%= link_to 'HomePagePics', home_page_pics_path %>
+<% if logged_in? %>
+	&nbsp;|&nbsp;
+	<%= link_to "My Account", user_path(current_user) %>
+<% end %>
 </p>
 </div>
 <div class='main_width'>
