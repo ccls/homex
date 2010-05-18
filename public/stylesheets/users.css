@@ -23,8 +23,12 @@ div.role_name {
 
 div.row:nth-child(2n).administrator   { background-color: #EE8; }
 div.row:nth-child(2n+1).administrator { background-color: #DD8; }
-div.row:nth-child(2n).employee        { background-color: #ECE; }
-div.row:nth-child(2n+1).employee      { background-color: #DCD; }
+div.row:nth-child(2n).moderator       { background-color: #ECE; }
+div.row:nth-child(2n+1).moderator     { background-color: #DCD; }
+div.row:nth-child(2n).editor          { background-color: #CEE; }
+div.row:nth-child(2n+1).editor        { background-color: #CDD; }
+div.row:nth-child(2n).employee        { background-color: #FDD; }
+div.row:nth-child(2n+1).employee      { background-color: #EDD; }
 /*
 div.row:nth-child(2n).administrator   { background-color: #EEE; }
 div.row:nth-child(2n+1).administrator { background-color: #DDD; }
