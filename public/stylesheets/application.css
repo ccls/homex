@@ -148,6 +148,7 @@ div#content {
 	background-color:white;
 	border: 1px solid silver;
 	padding: 5px 25px;
+	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
