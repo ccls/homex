@@ -7,7 +7,8 @@
 * ruby 1.8.7 - primarily due to the liberal use of #inject
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
-* curl
+  * ImageMagick is used to image manipulation
+* curl (why?)
 
 == Required Gems
 
