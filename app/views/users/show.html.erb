@@ -16,7 +16,8 @@
 
 
 <div id='roles'>
-<%= image_tag @user.gravatar_url %>
+<%= link_to( image_tag(@user.gravatar_url), "http://gravatar.com",
+	:target => 'new' )%>
 <ul>
 <% @roles.each do |role| %>
 <li>
