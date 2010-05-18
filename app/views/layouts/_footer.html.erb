@@ -10,6 +10,8 @@
 <% if logged_in? %>
 	&nbsp;|&nbsp;
 	<%= link_to "My Account", user_path(current_user) %>
+	&nbsp;|&nbsp;
+	<%= link_to "Logout", logout_path %>
 <% end %>
 </p>
 </div>
