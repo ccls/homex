@@ -5,11 +5,14 @@
 
  
 <div class='person'><dl>
-	<% @user.attributes.keys.each do |key| -%>
+	<%# @user.attributes.keys.each do |key| -%>
+	<% %w( id username role_name email ).each do |key| -%>
 		<dt><%= key -%></dt>
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>
-</dl></div>
+</dl>
+<%= link_to 'Edit User', edit_user_path(@user) %>
+</div>
 
 
 <div id='roles'>
