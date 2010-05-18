@@ -78,17 +78,20 @@ class UsersControllerTest < ActionController::TestCase
 
 	test "should get user info with admin login" do
 		login_as admin_user
-		get :show, :id => active_user.id
+		u = active_user
+		get :show, :id => u.id
 		assert_response :success
 		assert_not_nil assigns(:user)
+		assert_equal u, assigns(:user)
 	end
 
 	test "should get user info with self login" do
-		user = active_user
-		login_as user
-		get :show, :id => user.id
+		u = active_user
+		login_as u
+		get :show, :id => u.id
 		assert_response :success
 		assert_not_nil assigns(:user)
+		assert_equal u, assigns(:user)
 	end
 
 
