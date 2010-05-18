@@ -143,10 +143,14 @@ div#submenu div#children .child a:hover {
 }
 
 div#content {
+	margin: 10px auto;
 	clear:both;
 	background-color:white;
 	border: 1px solid silver;
 	padding: 5px 25px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 div#content div#main h1:nth-child(1),
 div#content p:nth-child(2),
