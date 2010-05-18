@@ -1,3 +1,10 @@
-UserMailer#invitation
+Hello, <br/>
 
-Find me in app/views/user_mailer/invitation.erb
+This is an invitation to create a user on our site.
+
+<%= link_to "Click on this link to begin creating your user",
+	user_invitation_url(@invitation.token) %><br/>
+
+Thank you,<br/>
+
+CCLS Investigation Team<br/>

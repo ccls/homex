@@ -242,4 +242,7 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
+	permission :create_user_invitations do
+	end
+
 end

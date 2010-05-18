@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserInvitationMailerTest < ActionMailer::TestCase
 
-	def setup
+	setup :build_stuff
+	def build_stuff
 		@invitation = Factory(:user_invitation)
 	end
 

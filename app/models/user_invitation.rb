@@ -1,5 +1,6 @@
 class UserInvitation < ActiveRecord::Base
 	belongs_to :sender, :class_name => 'User'
+	belongs_to :recipient, :class_name => 'User'
 
 	validates_presence_of :sender_id
 	validates_presence_of :email
@@ -8,6 +9,8 @@ class UserInvitation < ActiveRecord::Base
 	validates_uniqueness_of :token
 
 	before_validation_on_create :generate_unique_token
+
+	attr_accessible :email, :message
 
 protected
 

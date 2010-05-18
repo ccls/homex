@@ -4,6 +4,7 @@ class UsersController < ApplicationController	#:nodoc:
 		:only => [:new, :create]
 
 	before_filter :no_current_user_required, :only => [:new, :create]
+	before_filter :valid_invitation_required, :only => [:new,:create]
 	before_filter :id_required, :only => [:edit, :show, :update ]
 	before_filter :may_view_user_required, :only => [:edit,:update,:show]
 	before_filter :may_view_users_required, :only => :index
@@ -13,29 +14,36 @@ class UsersController < ApplicationController	#:nodoc:
 	end	
 
 	def create	
-		@user = User.new(params[:user])	
-		#		if @user.save	
-		#	don't login, just create user
-		if @user.save_without_session_maintenance
-			flash[:notice] = "Registration successful."	
-			redirect_to login_url	
-		else	
-			flash[:error] = 'User creation failed'
-			render :action => 'new'	
-		end	
+		#	We want to create a user and invalidate the invitation.
+		#	NOT one or the other.  Must be both.
+		#	But of course, this doesn't work for me in testing.
+		#	The User gets created and the invitation stays valid.
+		User.transaction do
+			UserInvitation.transaction do
+				@user = User.new(params[:user])	
+				@user.save!
+				@user_invitation.accepted_on = Time.now
+				@user_invitation.recipient_id = @user.id
+				@user_invitation.save!
+			end
+		end
+		flash[:notice] = "Registration successful."	
+		redirect_to login_url	
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
+		flash[:error] = 'User creation failed'
+		render :action => 'new'	
 	end	
 
 	def edit	
 	end	
 	 
 	def update	
-		if @user.update_attributes(params[:user])	
-			flash[:notice] = "Successfully updated profile."	
-			redirect_to root_url	
-		else	
-			flash[:error] = "Update failed"
-			render :action => 'edit'	
-		end	
+		@user.update_attributes!(params[:user])	
+		flash[:notice] = "Successfully updated profile."	
+		redirect_to root_url	
+	rescue ActiveRecord::RecordInvalid
+		flash[:error] = "Update failed"
+		render :action => 'edit'	
 	end 
 
 	def show
@@ -62,5 +70,16 @@ protected
 			access_denied("user id required!", users_path)
 		end
 	end
+
+	def valid_invitation_required
+		if !params[:token].blank? && UserInvitation.exists?(
+			:token => params[:token],
+			:recipient_id => nil)
+			@user_invitation = UserInvitation.find_by_token(params[:token])
+		else
+			access_denied("Valid UserInvitation token required!")
+		end
+	end
+
 
 end

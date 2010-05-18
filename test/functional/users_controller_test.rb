@@ -95,40 +95,131 @@ class UsersControllerTest < ActionController::TestCase
 
 
 	test "should get new user without login" do
-		get :new
+		ui = Factory(:user_invitation)
+		get :new, :token => ui.token
 		assert_response :success
 		assert_template 'new'
 	end
 
-	test "should NOT get new user with login" do
-		login_as user
+	test "should NOT get new user without invitation token" do
 		get :new
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get new user without existing invitation token" do
+		get :new, :token => 'blah blah blah'
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get new user without unused invitation token" do
+		ui = Factory(:user_invitation,:recipient_id => 0)
+		get :new, :token => ui.token
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get new user without expired invitation token" do
+		pending
+#		ui = Factory(:user_invitation,:recipient_id => 0)
+#		get :new, :token => ui.token
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+	end
+
+	test "should NOT get new user with login" do
+		ui = Factory(:user_invitation)
+		login_as user
+		get :new, :token => ui.token
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
 
 	test "should create new user without login" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',1) {
-			post :create, :user => Factory.attributes_for(:user)
+			post :create, :user => Factory.attributes_for(:user),
+				:token => ui.token
 		}
 		assert_not_nil flash[:notice]
-		assert_redirected_to login_path	#	user_path(assigns(:user))
+		assert_redirected_to login_path
+	end
+
+	test "should mark invitation as used after use" do
+		ui = Factory(:user_invitation)
+		assert_difference('User.count',1) {
+			post :create, :user => Factory.attributes_for(:user),
+				:token => ui.token
+		}
+		ui.reload
+		assert_not_nil ui.recipient_id
+		assert_not_nil ui.accepted_on
+		assert_equal ui.recipient_id, assigns(:user).id
+	end
+
+	test "should NOT create new user if invitation update fails" do
+		pending
+#
+#	Transactions aren't working
+#
+#		ui = Factory(:user_invitation)
+#		UserInvitation.any_instance.stubs(:create_or_update).returns(false)
+#		assert_difference('User.count',0) {
+#			post :create, :user => Factory.attributes_for(:user),
+#				:token => ui.token
+#		}
+#		assert_nil ui.recipient_id
+#		assert_nil ui.accepted_on
+	end
+
+	test "should NOT create new user with expired invitation token" do
+#		ui = Factory(:user_invitation, :recipient_id => 0)
+#		assert_difference('User.count',0) {
+#			post :create, :user => Factory.attributes_for(:user),
+#				:token => ui.token
+#		}
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+		pending
+	end
+
+	test "should NOT create new user without unused invitation token" do
+		ui = Factory(:user_invitation, :recipient_id => 0)
+		assert_difference('User.count',0) {
+			post :create, :user => Factory.attributes_for(:user),
+				:token => ui.token
+		}
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT create new user without existing invitation token" do
+		assert_difference('User.count',0) {
+			post :create, :user => Factory.attributes_for(:user),
+				:token => 'blah blah blah'
+		}
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT create new user with login" do
+		ui = Factory(:user_invitation)
 		login_as user
 		assert_difference('User.count',0) {
-			post :create, :user => Factory.attributes_for(:user)
+			post :create, :user => Factory.attributes_for(:user), 
+				:token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
 	test "should NOT create new user without username" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:username => nil)
+				:username => nil), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -136,10 +227,11 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique username" do
+		ui = Factory(:user_invitation)
 		u = active_user
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:username => u.username)
+				:username => u.username), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -147,9 +239,10 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without password" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:password => nil)
+				:password => nil), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -157,9 +250,10 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without password confirmation" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:password_confirmation => nil)
+				:password_confirmation => nil), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -167,10 +261,11 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without matching password and confirmation" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
 				:password => 'alpha',
-				:password_confirmation => 'beta')
+				:password_confirmation => 'beta'), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -178,9 +273,10 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without email" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:email => nil)
+				:email => nil), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -188,9 +284,10 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without formatted email" do
+		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:email => 'blah blah blah')
+				:email => 'blah blah blah'), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -198,10 +295,11 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new user without unique email" do
+		ui = Factory(:user_invitation)
 		u = active_user
 		assert_difference('User.count',0) {
 			post :create, :user => Factory.attributes_for(:user,
-				:email => u.email)
+				:email => u.email), :token => ui.token
 		}
 		assert_not_nil flash[:error]
 		assert_response :success

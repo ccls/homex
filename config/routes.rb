@@ -84,9 +84,9 @@ ActionController::Routing::Routes.draw do |map|
 		subject.resource :home_exposure_response, 
 			:only => [ :new, :create, :show ]
 		subject.resources :survey_invitations, 
-			:only => [:create,:update,:destroy]
+			:only => [:create,:update,:destroy,:show]
 	end
-	map.resources :survey_invitations, :only => :show
+#	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
 	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
@@ -96,6 +96,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :locales, :only => :show
 
 
+	map.resources :user_invitations, :only => [:new,:create,:show]
 
 
 

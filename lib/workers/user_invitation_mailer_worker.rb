@@ -15,7 +15,7 @@ class UserInvitationMailerWorker < BackgrounDRb::MetaWorker
 		}).each do |invitation|
 			puts "Sending unsent user invitation to #{invitation.email}"
 
-
+			UserInvitationMailer.deliver_invitation(invitation)
 
 		end
 	end

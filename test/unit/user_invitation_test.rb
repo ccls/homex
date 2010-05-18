@@ -49,12 +49,12 @@ class UserInvitationTest < ActiveSupport::TestCase
 		assert invitation.sender.is_a?(User)
 	end
 
-	test "should send email after create" do
-		pending
-	end
-
-	test "should be findable by email and token" do
-		pending
+	test "should be findable by token" do
+		ui = UserInvitation.find_by_token('blah blah blah')
+		assert_nil ui
+		invitation = create_invitation
+		ui = UserInvitation.find_by_token(invitation.token)
+		assert_not_nil ui
 	end
 
 	test "should expire?" do

@@ -5,7 +5,6 @@ class UserInvitationMailer < ActionMailer::Base
 	def invitation(user_invitation)
 		subject    'User Invitation'
 		recipients user_invitation.email
-		body       :greeting => 'Hi,'
 		body       :invitation => user_invitation
 	end
 
