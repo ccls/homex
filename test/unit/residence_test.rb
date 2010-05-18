@@ -48,6 +48,14 @@ class ResidenceTest < ActiveSupport::TestCase
 		assert_not_nil residence.subject
 	end
 
+	test "should destroy address on destroy" do
+		residence = create_residence
+		assert_difference('Residence.count', -1) {
+		assert_difference('Address.count', -1) {
+			residence.destroy
+		} }
+	end
+
 protected
 
 	def create_residence(options = {})

@@ -19,6 +19,16 @@ class AddressTest < ActiveSupport::TestCase
 		assert_equal 2, address.reload.residences.length
 	end
 
+	test "should destroy residences on destroy" do
+		address = create_address
+		Factory(:residence, :address_id => address.id)
+		Factory(:residence, :address_id => address.id)
+		assert_difference('Residence.count',-2) {
+		assert_difference('Address.count',-1) {
+			address.destroy
+		} }
+	end
+
 	test "should have many interview_events" do
 		address = create_address
 		assert_equal 0, address.interview_events.length
