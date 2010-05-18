@@ -28,6 +28,8 @@ namespace :db do
 		#	If you want the lineno, you need the file (f)
 		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
 			:headers => true })).each do |line|
+			puts "Processing line #{f.lineno}"
+			puts line
 
 			subject_type = SubjectType.find_or_create_by_description(
 				line[2])
@@ -35,6 +37,8 @@ namespace :db do
 			#	TODO	(not included in csv)
 			race = Race.find_or_create_by_name('TEST')			
 
+			dob = (line[6].blank?)?'':Time.parse(line[6])
+			refdate = (line[7].blank?)?'':Time.parse(line[7])
 			subject = Subject.create!({
 				:child_id_attributes => { :childid => line[0] },
 				:patient_attributes  => { },										#	TODO (patid)
@@ -49,13 +53,17 @@ namespace :db do
 					:father_last_name   => line[18],
 					:mother_first_name  => line[12],
 					:mother_middle_name => line[13],
+					:mother_maiden_name => line[14],
 					:mother_last_name   => line[15],
-					:dob => Time.parse(line[6]),
+					:dob => dob,
 					:phone_primary => line[27],
 					:phone_alternate => line[28],
+					:phone_alternate_2 => line[29],
+					:phone_alternate_3 => line[30],
 				},
 				:subject_type => subject_type,
 				:race => race,
+				:referenced_on => refdate
 			})
 			
 			subject.residences.create(:address => Address.new({
@@ -75,15 +83,13 @@ namespace :db do
 
 #	use Time.parse to parse all dates (better than Date.parse)
 
-#	add Mother_Maiden_Name to PII
 #	need ssn, state_id_no in data (making it up now)
-#	add patid to Patient ???
+#	patid goes where?
 #	orderno goes where??
 #	subjectid goes where??
 #	is refdate what I called referenced_on?
 #	interviewdate is what?
-#	add 2 more phone numbers to PII
-#	rename phone number field names
+#	rename phone number field names ?
 #	datestorefdate, daystointerviewdate,calcrefdate,calcinterviewdate ??
 
 
@@ -112,7 +118,6 @@ namespace :db do
 # 33 34
 # "calcRefDate","calcInterviewDate"
 
-			exit if f.lineno > 5
 		end
 	end
 
