@@ -19,9 +19,10 @@
 <p>
 <span>Copyright &copy; UC Regents; all rights reserved.</span>
 &nbsp;|&nbsp;
-<%= link_to "Terms of Service", "/terms" %>
+<% I18n.locale = session[:locale]||'en' %>
+<%= link_to t('pages.terms'), "/terms" %>
 &nbsp;|&nbsp;
-<%= link_to "Privacy Policy", "/privacy" %>
+<%= link_to t('pages.privacy'), "/privacy" %>
 &nbsp;|&nbsp;
 <% if session[:locale] && session[:locale] == 'es' %>
 	<%= link_to 'English', locale_path('en') %>
