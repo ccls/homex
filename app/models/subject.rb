@@ -82,7 +82,7 @@ class Subject < ActiveRecord::Base
 	end
 
 	def self.search(params={})
-		conditions = {}
+		conditions = { }
 		joins = []
 		if params[:type] && !params[:type].blank?
 			joins.push(:subject_type)
@@ -92,9 +92,12 @@ class Subject < ActiveRecord::Base
 			joins.push(:race)
 			conditions['races.name'] = params[:race]
 		end
-		all(
+		paginate(
+			:page => params[:page], 
+			:per_page => params[:per_page]||25,
 			:joins => joins,
-			:conditions => conditions
+			:conditions => conditions,
+			:include => [:race,:subject_type,:child_id]
 		)
 	end
 
