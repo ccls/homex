@@ -75,46 +75,4 @@ protected
 		end
 	end
 
-#	def valid_response_set_id_required
-#		if( @subject.response_sets.exists?( params[:response_set_id] ) )
-#			@response_set = ResponseSet.find( params[:response_set_id] )
-#		else
-#			access_denied("Valid ResponseSet ID required")
-#		end
-#	end
-
-
-#  # GET /home_exposure_responses/1/edit
-#  def edit
-#    @home_exposure_response = HomeExposureResponse.find(params[:id])
-#  end
-#
-#  # PUT /home_exposure_responses/1
-#  # PUT /home_exposure_responses/1.xml
-#  def update
-#    @home_exposure_response = HomeExposureResponse.find(params[:id])
-#
-#    respond_to do |format|
-#      if @home_exposure_response.update_attributes(params[:home_exposure_response])
-#        flash[:notice] = 'HomeExposureResponse was successfully updated.'
-#        format.html { redirect_to(@home_exposure_response) }
-#        format.xml  { head :ok }
-#      else
-#        format.html { render :action => "edit" }
-#        format.xml  { render :xml => @home_exposure_response.errors, :status => :unprocessable_entity }
-#      end
-#    end
-#  end
-#
-#  # DELETE /home_exposure_responses/1
-#  # DELETE /home_exposure_responses/1.xml
-#  def destroy
-#    @home_exposure_response = HomeExposureResponse.find(params[:id])
-#    @home_exposure_response.destroy
-#
-#    respond_to do |format|
-#      format.html { redirect_to(home_exposure_responses_url) }
-#      format.xml  { head :ok }
-#    end
-#  end
 end
