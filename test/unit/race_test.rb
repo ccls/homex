@@ -41,6 +41,11 @@ class RaceTest < ActiveSupport::TestCase
 		assert_equal 2, race.reload.subjects.length
 	end
 
+	test "should return name as to_s" do
+		race = create_race
+		assert_equal race.name, "#{race}"
+	end
+
 protected
 
 	def create_race(options = {})

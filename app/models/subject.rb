@@ -81,4 +81,21 @@ class Subject < ActiveRecord::Base
 		end
 	end
 
+	def self.search(params={})
+		conditions = {}
+		joins = []
+		if params[:type] && !params[:type].blank?
+			joins.push(:subject_type)
+			conditions['subject_types.description'] = params[:type]
+		end
+		if params[:race] && !params[:race].blank?
+			joins.push(:race)
+			conditions['races.name'] = params[:race]
+		end
+		all(
+			:joins => joins,
+			:conditions => conditions
+		)
+	end
+
 end

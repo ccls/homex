@@ -8,16 +8,14 @@ div#content h2:nth-child(2) {
 }
 
 div.childid {
-	width: 50px;
-	float:left;
-}
-/*
-div.count {
 	width: 100px;
 	float:left;
 }
-div.response_set {
+div.race {
 	width: 100px;
 	float:left;
 }
-*/
+div.subject_type {
+	width: 100px;
+	float:left;
+}

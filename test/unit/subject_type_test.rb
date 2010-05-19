@@ -42,6 +42,12 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		assert_equal 2, subject_type.reload.subjects.length
 	end
 
+	test "should return description as to_s" do
+		subject_type = create_subject_type
+		assert_equal subject_type.description,
+			"#{subject_type}"
+	end
+
 protected
 
 	def create_subject_type(options = {})

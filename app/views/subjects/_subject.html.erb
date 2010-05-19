@@ -1,4 +1,13 @@
 <% content_tag_for( :div, subject, :class => 'row' ) do %>
 <div class='childid'><%= link_to subject.childid, subject -%></div>
+<div class='race'>
+<%= link_to subject.race, subjects_path(
+	params.merge(:race => subject.race.name) ) -%>
+</div>
+<div class='subject_type'>
+<%= link_to subject.subject_type, subjects_path(
+	params.merge(:type => subject.subject_type.description) ) -%>
+</div>
+
 <%#= render 'surveys', :subject => subject %>
 <% end %><%# content_tag_for %>

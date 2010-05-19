@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
 	before_filter :valid_id_required, :only => [:edit,:show,:update,:destroy]
 
 	def index
-		@subjects = Subject.all.paginate({
+		@subjects = Subject.search(params).paginate({
 			:page => params[:page], 
 			:per_page => params[:per_page]||25
 		})

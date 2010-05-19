@@ -497,6 +497,50 @@ class SubjectTest < ActiveSupport::TestCase
 		pending
 	end
 
+	test "should return race name for string" do
+		subject = create_subject
+		assert_equal subject.race.name, 
+			"#{subject.race}"
+	end
+
+	test "should return subject_type description for string" do
+		subject = create_subject
+		assert_equal subject.subject_type.description,
+			"#{subject.subject_type}"
+	end
+
+	test "should respond to search" do
+		assert Subject.respond_to?(:search)
+	end
+
+	test "search should return Array" do
+		subjects = Subject.search()
+		assert subjects.is_a?(Array)
+	end
+
+	test "search should include subject" do
+		subject = create_subject
+		subjects = Subject.search()
+		assert subjects.include?(subject)
+	end
+
+	test "search should include subject by subject_type" do
+		subject1 = create_subject
+		subject2 = create_subject
+		subjects = Subject.search(
+			:type => subject1.subject_type.description)
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
+	test "search should include subject by race" do
+		subject1 = create_subject
+		subject2 = create_subject
+		subjects = Subject.search(:race => subject1.race.name)
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
 protected
 
 	def create_survey_response_sets
