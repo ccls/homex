@@ -7,10 +7,11 @@ div#content h2:nth-child(2) {
 	margin-top: 0;
 }
 
-div.id {
+div.childid {
 	width: 50px;
 	float:left;
 }
+/*
 div.count {
 	width: 100px;
 	float:left;
@@ -19,3 +20,4 @@ div.response_set {
 	width: 100px;
 	float:left;
 }
+*/

@@ -64,6 +64,7 @@ Rails::Initializer.run do |config|
 
 	config.gem 'active_shipping'
 	config.gem 'gravatar'
+	config.gem 'will_paginate'
 
 
 #	Using AuthLogic probably won't work as it expects to be the

@@ -25,6 +25,7 @@
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
 * {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
+* {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 
 
 == Required and included plugins

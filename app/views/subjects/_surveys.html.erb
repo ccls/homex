@@ -1,0 +1,39 @@
+<div class='count'>Taken: <%= subject.response_sets_count -%></div>
+<div class='edit_surveys'>
+	<% subject.response_sets.each do |rs| %>
+		<% content_tag_for( :div, rs ) do %>
+			<% if rs.is_complete? %>
+				<span>Complete</span>
+			<% else %>
+				<%= link_to "Edit", edit_my_survey_path(
+						:survey_code => rs.survey.access_code, 
+						:response_set_code	=> rs.access_code
+					) %>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>
+<% if ( subject.response_sets_count < 2 ) %>
+	<% form_tag(response_sets_path, :class => 'take_survey') do %>
+		<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
+		<%= hidden_field_tag :subject_id, subject.id, :id => nil %>
+		<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
+	<% end %>
+<% else %>
+	<% if subject.home_exposure_response.nil? %>
+		<% if subject.response_sets.collect(&:is_complete?).all? %>
+			<%= link_to "Merge", 
+				new_subject_home_exposure_response_path(subject) -%>
+			<%# if subject.response_sets.inject(:is_the_same_as?) %>
+			<%# if subject.response_sets[0].is_the_same_as?(subject.response_sets[1]) %>
+			<% if subject.response_sets_the_same? %>
+				<span> (Same) </span>
+			<% else %>
+				<span> (Differ) </span>
+			<% end %>
+		<% end %>
+	<% else %>
+		<%= link_to "View Merged HER", 
+			subject_home_exposure_response_path(subject) %>
+	<% end %>
+<% end %>

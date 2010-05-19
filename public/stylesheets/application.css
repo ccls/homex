@@ -203,3 +203,7 @@ form.link_to {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
+
+div.pagination {
+	text-align: center;
+}
