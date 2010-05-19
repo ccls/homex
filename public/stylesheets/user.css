@@ -2,3 +2,14 @@ div.person {
 	float:left;
 	width: 60%;
 }
+div#roles {
+	margin-left: 60%;
+}
+div#roles a img {
+	margin-left: 50px;
+}
+div#roles ul {
+	list-style-position: outside;
+	list-style-type: none;
+	padding: 0;
+}

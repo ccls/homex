@@ -148,16 +148,20 @@ div#content {
 	background-color:white;
 	border: 1px solid silver;
 	padding: 5px 25px;
-	/* http://css-radius.heroku.com */
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
 }
 div#content div#main h1:nth-child(1),
 div#content p:nth-child(2),
 div#content h1:nth-child(2),
 div#content h2:nth-child(2) {
 	margin-top: 0;
+}
+
+div#content,
+fieldset {
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 #footer {
