@@ -18,11 +18,10 @@
 <div class='main_width'>
 <p>
 <span>Copyright &copy; UC Regents; all rights reserved.</span>
+<% Page.hidden.each do |page| %>
 &nbsp;|&nbsp;
-<% I18n.locale = session[:locale]||'en' %>
-<%= link_to t('pages.terms'), "/terms" %>
-&nbsp;|&nbsp;
-<%= link_to t('pages.privacy'), "/privacy" %>
+<%= link_to page.menu(session[:locale]), page.path %>
+<% end %>
 &nbsp;|&nbsp;
 <% if session[:locale] && session[:locale] == 'es' %>
 	<%= link_to 'English', locale_path('en') %>

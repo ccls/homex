@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 	before_filter :login_required
-	before_filter :set_locale
+#	before_filter :set_locale
 
 	helper :all # include all helpers, all the time
 
@@ -14,9 +14,9 @@ class ApplicationController < ActionController::Base
 
 protected	#	private #	(does it matter which or if neither?)
 
-	def set_locale
-		I18n.locale = session[:locale]||'en'
-	end
+#	def set_locale
+#		I18n.locale = session[:locale]||'en'
+#	end
 	
 	def current_user_session
 		@current_user_session ||= UserSession.find	

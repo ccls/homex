@@ -32,6 +32,9 @@ class Page < ActiveRecord::Base
 	named_scope :roots, :conditions => { 
 		:parent_id => nil, :hide_menu => false }
 
+	named_scope :hidden, :conditions => { 
+		:hide_menu => true }
+
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
 	attr_accessible :path, :menu, :menu_en, :menu_es, 
