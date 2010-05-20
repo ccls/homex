@@ -11,7 +11,10 @@ class UserSessionsController < ApplicationController
 		@user_session = UserSession.new(params[:user_session])	
 		if @user_session.save	
 			flash[:notice] = "Successfully logged in."	
-			redirect_to root_url	
+			redirect_to session[:aegis_return_to] || 
+				session[:return_to] || root_url	
+			session[:aegis_return_to] = nil
+			session[:return_to] = nil
 		else	
 			flash[:error] = "Login Failed."
 			render :action => 'new'	

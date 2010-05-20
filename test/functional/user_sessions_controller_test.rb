@@ -24,6 +24,41 @@ class UserSessionsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
+	test "should redirect to aegis_return_to first on login" do
+		session[:return_to] = "http://www.cnn.com"
+		session[:aegis_return_to] = "http://www.google.com"
+		user = active_user
+		post :create, :user_session => {
+			:username => user.username,
+			:password => 'test'
+		}
+		assert_redirected_to "http://www.google.com"
+		assert_nil session[:return_to]
+		assert_nil session[:aegis_return_to]
+	end
+
+	test "should redirect to aegis_return_to on login" do
+		session[:aegis_return_to] = "http://www.google.com"
+		user = active_user
+		post :create, :user_session => {
+			:username => user.username,
+			:password => 'test'
+		}
+		assert_redirected_to "http://www.google.com"
+	end
+
+	test "should redirect to return_to on login" do
+		session[:return_to] = "http://www.google.com"
+		user = active_user
+		post :create, :user_session => {
+			:username => user.username,
+			:password => 'test'
+		}
+		assert_redirected_to "http://www.google.com"
+		assert_nil session[:return_to]
+		assert_nil session[:aegis_return_to]
+	end
+
 	test "should NOT create session if logged in" do
 		login_as active_user
 		user = active_user
