@@ -26,7 +26,7 @@ class UsersController < ApplicationController	#:nodoc:
 		flash[:notice] = "Registration successful."	
 		redirect_to login_url	
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-		flash[:error] = 'User creation failed'
+		flash.now[:error] = 'User creation failed'
 		render :action => 'new'	
 	end	
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController	#:nodoc:
 		flash[:notice] = "Successfully updated profile."	
 		redirect_to root_url	
 	rescue ActiveRecord::RecordInvalid
-		flash[:error] = "Update failed"
+		flash.now[:error] = "Update failed"
 		render :action => 'edit'	
 	end 
 
