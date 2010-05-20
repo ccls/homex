@@ -2,6 +2,7 @@
 #	*	user ( default setting in #User model )
 #	*	employee
 #	*	moderator
+#	*	editor
 #	*	administrator
 #
 #	The aegis_extension plugin adds accessibility to the 
@@ -45,6 +46,8 @@ class Permissions < Aegis::Permissions
 	#	Role: Possible user role.
 	role :moderator, :position => 3
 
+	##
+	#	Role: Editor role for page management
 	role :editor, :position => 4
 
 	##
@@ -99,16 +102,16 @@ class Permissions < Aegis::Permissions
 	#
 
 	#
-	#	Permission:  This is really a catch all is-user-an-administrator permission.
-
+	#	Permission:  
+	#	This is really a catch all is-user-an-administrator?
 	permission :administrate do
 	end
 
 	#	For some reason RDoc will NOT document more than one Permission???
 
 	#
-	#	Permission:  This is really a catch all is-user-an-administrator-or-moderator permission.
-
+	#	Permission:  
+	#	This is really a catch all is-user-an-administrator-or-moderator?
 	permission :moderate do
 		allow :moderator
 	end
@@ -118,27 +121,46 @@ class Permissions < Aegis::Permissions
 	permission :deputize do
 	end
 
-#	permission :deputize_user do |current_user,target_user|
-#		allow :administrator do 
-#			current_user != target_user
-#		end
-#	end
-
-
-	#	this will also create singular maintain_page permission (no arguments)
-
 	#
 	#	Permission:
-	permission :maintain_pages do |current_user|
-		allow :editor
-#		allow :employee do 
-#			current_user.uid == "180918"	#	Alice's UID
-#		end
+	permission :view_permissions do
 	end
 
 	#
 	#	Permission:
+	permission :create_user_invitations do
+	end
+
+	#
+	#	Permission:
+	permission :view_users do
+	end
+
+
+
+
+
+
+
+
+
+
+	#
+	#	Permission:
+	#	This will also create singular maintain_page permission (no arguments)
+	permission :maintain_pages do
+		allow :editor		#	Alice
+	end
+
+	permission :view_home_page_pics do
+		allow :editor		#	Alice
+	end
+
+
+	#
+	#	Permission:
 	permission :view_calendar do
+		allow :editor		#	Alice
 		allow :employee
 	end
 
@@ -146,11 +168,6 @@ class Permissions < Aegis::Permissions
 	#	Permission:
 	permission :view_packages do
 		allow :employee
-	end
-
-	#
-	#	Permission:
-	permission :view_permissions do
 	end
 
 #	:crud_addresses creates the following ...
@@ -165,41 +182,14 @@ class Permissions < Aegis::Permissions
 #puts address.inspect
 	end
 
-	#	this will be normalized to "read_users" and a singular
-	#		read_user permission will also be created.
-
-	#
-	#	Permission:
-	permission :view_users do #	|current_user|
-	end
-
 	#
 	#	Permission:
 	permission :view_user do |current_user,user|
-		allow :user do
+		allow :everyone do
 			current_user == user
 		end
+		allow :administrator
 	end
-
-	#	this will be normalized to "read_user" and override above
-#	permission :view_user do |calling_user,target_user|
-#		deny :everyone
-#		allow :everyone do
-#puts calling_user.inspect
-#puts target_user.inspect
-#			false
-#		end
-#	end
-
-	#	This one is awkward and the natural english is wrong.
-	#	Really should be MUST_NOT_be_self
-	#		current_user.may_not_be_self?(target_user)
-	#	surprised that the negatives aren't created.
-#	permission :not_be_self do |current_user, target_user|
-#		allow :everyone do
-#			!target_user.blank? && current_user != target_user
-#		end
-#	end
 
 	#
 	#	Permission:
@@ -208,11 +198,12 @@ class Permissions < Aegis::Permissions
 		#	so that negative works.  "be user" is more of
 		#	an absolute so an admin isn't someone else.
 		deny :everyone
-#		allow :user, :moderator, :administrator do 
 		allow :everyone do
 			current_user == target_user
 		end
 	end
+
+
 
 	permission :view_responses do
 		allow :employee
@@ -234,15 +225,8 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
-	permission :create_invitations do
+	permission :create_survey_invitations do
 		allow :employee
-	end
-
-	permission :view_home_page_pics do
-		allow :employee
-	end
-
-	permission :create_user_invitations do
 	end
 
 end

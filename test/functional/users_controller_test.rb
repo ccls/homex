@@ -85,6 +85,15 @@ class UsersControllerTest < ActionController::TestCase
 		assert_equal u, assigns(:user)
 	end
 
+	test "should get editor info with self login" do
+		u = editor
+		login_as u
+		get :show, :id => u.id
+		assert_response :success
+		assert_not_nil assigns(:user)
+		assert_equal u, assigns(:user)
+	end
+
 	test "should get user info with self login" do
 		u = active_user
 		login_as u

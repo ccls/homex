@@ -6,7 +6,7 @@
  
 <div class='person'><dl>
 	<%# @user.attributes.keys.each do |key| -%>
-	<% %w( username email ).each do |key| -%>
+	<% %w( username email role_name ).each do |key| -%>
 		<dt><%= key -%></dt>
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>
@@ -18,6 +18,7 @@
 <div id='roles'>
 <%= link_to( image_tag(@user.gravatar_url), "http://gravatar.com",
 	:target => 'new' )%>
+<% if current_user.administrator? %>
 <ul>
 <% @roles.each do |role| %>
 <li>
@@ -31,6 +32,7 @@ User is a(n) '<%= role.name -%>'
 </li>
 <% end %>
 </ul>
+<% end %>
 </div>
  
 </fieldset> 
