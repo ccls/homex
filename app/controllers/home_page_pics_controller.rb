@@ -32,7 +32,7 @@ class HomePagePicsController < ApplicationController
 		flash[:notice] = 'HomePagePic was successfully created.'
 		redirect_to(@home_page_pic)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-		flash[:error] = 'HomePagePic creation failed.'
+		flash.now[:error] = 'HomePagePic creation failed.'
 		render :action => "new"
 	end
 
@@ -41,7 +41,7 @@ class HomePagePicsController < ApplicationController
 		flash[:notice] = 'HomePagePic was successfully updated.'
 		redirect_to(@home_page_pic)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-		flash[:error] = 'HomePagePic update failed.'
+		flash.now[:error] = 'HomePagePic update failed.'
 		render :action => "edit"
 	end
 

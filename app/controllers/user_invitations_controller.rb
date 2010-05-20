@@ -17,7 +17,7 @@ class UserInvitationsController < ApplicationController
 		flash[:notice] = "Invitation queued to send"
 		redirect_to root_path
 	rescue ActiveRecord::RecordInvalid
-		flash[:error] = "Invitation failed"
+		flash.now[:error] = "Invitation failed"
 		render :action => 'new'
 	end
 

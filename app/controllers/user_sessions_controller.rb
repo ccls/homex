@@ -21,7 +21,7 @@ class UserSessionsController < ApplicationController
 			#	page which is bad practice as it gives a would-be
 			#	hacker assistance in valid user names.
 			@user_session.errors.clear
-			flash[:error] = "Login Failed."
+			flash.now[:error] = "Login Failed."
 			render :action => 'new'	
 		end	
 	end	
