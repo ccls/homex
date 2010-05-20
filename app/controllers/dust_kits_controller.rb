@@ -17,7 +17,7 @@ class DustKitsController < ApplicationController
 		@dust_kit.save!
 		flash[:notice] = 'Success!'
 		redirect_to subject_path(@subject)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the dust kit"
 		render :action => "new"
 	end
@@ -30,7 +30,7 @@ class DustKitsController < ApplicationController
 		@dust_kit = @subject.dust_kit
 		@dust_kit.update_attributes!(params[:dust_kit])
 		redirect_to subject_path(@subject)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the dust kit"
 		render :action => "edit"
 	end

@@ -267,6 +267,19 @@ class DustKitsControllerTest < ActionController::TestCase
 
 #	save errors
 
+	test "should NOT post create with empty packages" do
+		login_as admin_user
+		assert_difference('DustKit.count',0) {
+			post :create, :subject_id => @subject.id,
+				:dust_kit => {
+					:kit_package_attributes  => {},
+					:dust_package_attributes => {} 
+				}
+		}
+		assert_response :success
+		assert_template 'new'
+	end
+
 	test "should NOT post create with save failure" do
 		login_as admin_user
 		DustKit.any_instance.stubs(:create_or_update).returns(false)
@@ -276,6 +289,18 @@ class DustKitsControllerTest < ActionController::TestCase
 		}
 		assert_response :success
 		assert_template 'new'
+	end
+
+	test "should NOT put update with empty packages" do
+		login_as admin_user
+		Factory(:dust_kit,:subject_id => @subject.id)
+		put :update, :subject_id => @subject.id,
+			:dust_kit => {
+				:kit_package_attributes  => {},
+				:dust_package_attributes => {} 
+			}
+		assert_response :success
+		assert_template 'edit'
 	end
 
 	test "should NOT put update with save failure" do

@@ -1,3 +1,5 @@
+<% content_for :head, stylesheet_link_tag('dust_kit') %>
+
 <% form_for(@dust_kit, :url => subject_dust_kit_path(@subject)) do |f| %>
 	<%= f.error_messages %>
 
@@ -7,14 +9,14 @@
 		<%= kit_fields.text_field :tracking_number %>
 	<% end %>
 
-	<br/>
-
 	<% @dust_kit.build_dust_package if @dust_kit.dust_package.nil? %>
 	<% f.fields_for :dust_package do |dust_fields| %>
 		<%= dust_fields.label :tracking_number, 'Dust Tracking Number' %>
 		<%= dust_fields.text_field :tracking_number %>
 	<% end %>
 
-	<br/>
-	<%= f.submit( (@dust_kit.new_record?)?'Create':'Update') %>
+	<p>
+		<%= f.submit( (@dust_kit.new_record?)?'Create':'Update') %>
+		<%= button_link_to "Cancel", subject_path(@subject) %>
+	</p>
 <% end %>
