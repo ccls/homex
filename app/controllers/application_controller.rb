@@ -27,19 +27,14 @@ protected	#	private #	(does it matter which or if neither?)
 	end	
 
 	def no_current_user_required
-		if current_user
-			flash[:error] = "You must be logged out to do that"
-			redirect_to root_path
-		end
+		current_user &&
+			access_denied("You must be logged out to do that",root_path)
 	end
 
 	def current_user_required
-		unless current_user
-			flash[:error] = "You must be logged in to do that"
-			redirect_to login_path
-		end
+		current_user ||
+			access_denied("You must be logged in to do that",login_path)
 	end
-#	alias_method :cas_filter,     :current_user_required
 	alias_method :login_required, :current_user_required
 
 	def logged_in?
@@ -47,17 +42,18 @@ protected	#	private #	(does it matter which or if neither?)
 	end
 
 	def redirect_to_referer_or_default(default)
-#		redirect_to(session[:refer_to] || default)
-#	I don't quite know why the writer required that the developer set the :refer_to.
-		redirect_to( session[:refer_to] || request.env["HTTP_REFERER"] || default )
+		redirect_to( session[:refer_to] || 
+			request.env["HTTP_REFERER"] || default )
 		session[:refer_to] = nil
 	end
 
 	#	Flash error message and redirect
-	def access_denied( message="You don't have permission to complete that action.", default=root_path )
-#		store_referer
+	def access_denied( 
+			message="You don't have permission to complete that action.", 
+			default=root_path )
+		session[:return_to] = request.request_uri
 		flash[:error] = message
-		redirect_to_referer_or_default( default )
+		redirect_to default
 	end
 
 	#	redirections is called from the Aegis plugin.
@@ -67,7 +63,8 @@ protected	#	private #	(does it matter which or if neither?)
 	#	containing another hash with redirect_to and 
 	#	message keys for special redirection.  By default,
 	#	my plugin will redirect to root_path on failure
-	#	and the flash error will be the before_filter.
+	#	and the flash error will be a humanized
+	#	version of the before_filter's name.
 	def redirections
 #			@@redirections ||= HashWithIndifferentAccess.new({
 #	#			:view_calendar => {},
