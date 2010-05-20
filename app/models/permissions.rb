@@ -167,6 +167,7 @@ class Permissions < Aegis::Permissions
 	#
 	#	Permission:
 	permission :view_packages do
+		allow :editor
 		allow :employee
 	end
 
@@ -218,10 +219,12 @@ class Permissions < Aegis::Permissions
 	end
 
 	permission :view_subjects do
+		allow :editor
 		allow :employee
 	end
 
 	permission :view_dust_kits do
+		allow :editor
 		allow :employee
 	end
 
