@@ -6,6 +6,7 @@ label {
 	float: left;
 	width: 100px;
 }
+form#new_user_session button,
 form#new_user_session input,
 form#new_user_session label,
 form#new_user_session div,
