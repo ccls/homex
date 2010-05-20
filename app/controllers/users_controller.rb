@@ -30,9 +30,6 @@ class UsersController < ApplicationController	#:nodoc:
 		render :action => 'new'	
 	end	
 
-	def edit	
-	end	
-	 
 	def update	
 		@user.update_attributes!(params[:user])	
 		flash[:notice] = "Successfully updated profile."	
@@ -76,6 +73,5 @@ protected
 			access_denied("Valid UserInvitation token required!")
 		end
 	end
-
 
 end

@@ -12,6 +12,10 @@ body {
 }
 
 .flash {
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
   padding: 0.7em;
   text-align: center;
   font-weight: bold;
