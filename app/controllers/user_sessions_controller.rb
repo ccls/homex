@@ -16,6 +16,11 @@ class UserSessionsController < ApplicationController
 			session[:aegis_return_to] = nil
 			session[:return_to] = nil
 		else	
+			#	The save will add errors to the object if login
+			#	fails.  These errors will be shown on the login
+			#	page which is bad practice as it gives a would-be
+			#	hacker assistance in valid user names.
+			@user_session.errors.clear
 			flash[:error] = "Login Failed."
 			render :action => 'new'	
 		end	

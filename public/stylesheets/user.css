@@ -13,3 +13,20 @@ div#roles ul {
 	list-style-type: none;
 	padding: 0;
 }
+
+form.edit_user {
+	width: 490px;
+	margin: 50px auto;
+}
+form.edit_user label {
+	float: left;
+	width: 100px;
+}
+form.edit_user input,
+form.edit_user label,
+form.edit_user div,
+form.edit_user p {
+	text-align: center;
+	margin: 5px;
+	font-size: 12pt;
+}

@@ -1,13 +1,17 @@
 form#new_user_session {
-	width: 350px;
+	width: 490px;
 	margin: 50px auto;
 }
 label {
 	float: left;
 	width: 100px;
 }
+form#new_user_session input,
+form#new_user_session label,
 form#new_user_session div,
 form#new_user_session p {
-	padding:10px;
 	text-align: center;
+	margin: 5px;
+	font-size: 12pt;
+	line-height: 20pt;
 }
