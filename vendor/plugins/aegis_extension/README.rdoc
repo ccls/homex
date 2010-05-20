@@ -1,6 +1,6 @@
 = Mods of Aegis
 
-This rails plugin includes modifications to the Aegis gem.
+This rails plugin includes modifications to the Aegis gem.  As it is a gem, I haven't created my own fork.  I could possibly have forked and sent a pull request, but haven't.
 
 == Assumptions
 
@@ -28,19 +28,6 @@ Added attr_reader for the options passed to new Aegis::Roles.  The initialize me
 
  >> @roles = Permissions.find_all_roles.sort_by{|role| role.options[:position]}.collect(&:name)
  => [:user, :employee, :moderator, :administrator]
-
----
-
-Fix for when Rails 2.3.4 throws 
-
- DEPRECATION WARNING: ActiveRecord::Errors.default_error_messages has been deprecated. 
- Please use I18n.translate('activerecord.errors.messages').. 
- (called from default_error_messages at /Library/Ruby/Gems/1.8/gems/activerecord-2.3.4
- /lib/active_record/validations.rb:131)
-
-when validates_role_name is used in the User model.
-
-UPDATE: This patch is included in the latest gem but I haven't removed it.
 
 ---
 
@@ -92,9 +79,11 @@ I don't see a lot of demand for this so it may have been simply a programming ex
 
 == ToDo
 
-Devise a way for the user to control access denied redirects and perhaps messages.
+* Devise a way for the user to control access denied redirects and perhaps messages.  This is currently in progress.
 
 == Further Information
 
 {Aegis Permissions on GitHub}[http://github.com/makandra/aegis]
+
+http://github.com/makandra/aegis/commit/691083a0513e1901ccca87ee846e5923fdeb4fb6 fixed the need for the validates_role_name override so removed it here.
 

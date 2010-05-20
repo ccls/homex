@@ -1,3 +1,7 @@
+# Use the updated rdoc gem rather than version
+# included with ruby.
+require 'rdoc'
+
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
@@ -18,6 +22,6 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'AegisExtension'
   rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

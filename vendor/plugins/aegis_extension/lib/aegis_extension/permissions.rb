@@ -15,7 +15,11 @@ module AegisExtension
 					Aegis::Normalization.normalize_permission(permission.to_s).to_sym
 				)
 			end
-		end
 
+			def valid_role?(role)
+				#	I didn't know that this existed
+				find_role_by_name(role)
+			end
+		end
 	end
 end

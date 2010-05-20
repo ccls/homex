@@ -66,7 +66,7 @@ class Permissions < Aegis::Permissions
 		#	so that negative works.  "be user" is more of
 		#	an absolute so an admin isn't someone else.
 		deny :everyone
-		allow :user do 
+		allow :everyone do 
 			current_user == target_user
 		end
 	end
@@ -79,17 +79,11 @@ class ActiveSupport::TestCase
 	end
 
 	def admin_user(options={})
-		u = active_user(options.merge(:role_name => "administrator"))
-		u
+		active_user(options.merge(:role_name => "administrator"))
 	end
 
 	def login_as( user=nil )
-		@request.session[:user_id] = case 
-			when user.is_a?(Integer) then user
-			when user.is_a?(String)  then user
-			when user.is_a?(User)    then user.id
-			else nil
-		end
+		@request.session[:user_id] = ( user.is_a?(User) ) ? user.id : user
 	end
 
 end

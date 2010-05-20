@@ -13,4 +13,13 @@ class ApplicationController < ActionController::Base
 		self.current_user = User.find_or_create_by_id(session[:user_id]) if session[:user_id]
 	end
 
+	def redirections
+		@redirections ||= HashWithIndifferentAccess.new({
+			:not_be_user => {
+				:message => "You can't be the user!",
+				:redirect_to => "http://cnn.com"
+			}
+		})
+	end
+
 end
