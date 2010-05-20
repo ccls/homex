@@ -9,11 +9,18 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_not_nil assigns(:home_page_pics)
 	end
 
-	test "should get index with employee login" do
-		login_as employee
+	test "should get index with editor login" do
+		login_as editor
 		get :index
 		assert_response :success
 		assert_not_nil assigns(:home_page_pics)
+	end
+
+	test "should get NOT index with employee login" do
+		login_as employee
+		get :index
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT get index with just login" do
@@ -35,10 +42,17 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should get new with employee login" do
-		login_as employee
+	test "should get new with editor login" do
+		login_as editor
 		get :new
 		assert_response :success
+	end
+
+	test "should NOT get new with employee login" do
+		login_as employee
+		get :new
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT get new with just login" do
@@ -62,12 +76,21 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
 	end
 
-	test "should create home_page_pic with employee login" do
-		login_as employee
-		assert_difference('HomePagePic.count') do
+	test "should create home_page_pic with editor login" do
+		login_as editor
+		assert_difference('HomePagePic.count',1) do
 			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
 		end
 		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
+	end
+
+	test "should NOT create home_page_pic with employee login" do
+		login_as employee
+		assert_difference('HomePagePic.count',0) do
+			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
+		end
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT create home_page_pic with just login" do
@@ -104,11 +127,19 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should show home_page_pic with employee login" do
+	test "should show home_page_pic with editor login" do
+		hpp = Factory(:home_page_pic)
+		login_as editor
+		get :show, :id => hpp.id
+		assert_response :success
+	end
+
+	test "should NOT show home_page_pic with employee login" do
 		hpp = Factory(:home_page_pic)
 		login_as employee
 		get :show, :id => hpp.id
-		assert_response :success
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT show home_page_pic with just login" do
@@ -142,11 +173,19 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should get edit with employee login" do
+	test "should get edit with editor login" do
+		hpp = Factory(:home_page_pic)
+		login_as editor
+		get :edit, :id => hpp.id
+		assert_response :success
+	end
+
+	test "should NOT get edit with employee login" do
 		hpp = Factory(:home_page_pic)
 		login_as employee
 		get :edit, :id => hpp.id
-		assert_response :success
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT get edit with just login" do
@@ -180,12 +219,21 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
 	end
 
-	test "should update home_page_pic with employee login" do
+	test "should update home_page_pic with editor login" do
+		hpp = Factory(:home_page_pic)
+		login_as editor
+		put :update, :id => hpp.id,
+			:home_page_pic => Factory.attributes_for(:home_page_pic)
+		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
+	end
+
+	test "should NOT update home_page_pic with employee login" do
 		hpp = Factory(:home_page_pic)
 		login_as employee
 		put :update, :id => hpp.id,
 			:home_page_pic => Factory.attributes_for(:home_page_pic)
-		assert_redirected_to home_page_pic_path(assigns(:home_page_pic))
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT update home_page_pic with just login" do
@@ -234,13 +282,23 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to home_page_pics_path
 	end
 
-	test "should destroy home_page_pic with employee login" do
-		login_as employee
+	test "should destroy home_page_pic with editor login" do
+		login_as editor
 		hpp = Factory(:home_page_pic)
 		assert_difference('HomePagePic.count', -1) do
 			delete :destroy, :id => hpp.id
 		end
 		assert_redirected_to home_page_pics_path
+	end
+
+	test "should NOT destroy home_page_pic with employee login" do
+		login_as employee
+		hpp = Factory(:home_page_pic)
+		assert_difference('HomePagePic.count', 0) do
+			delete :destroy, :id => hpp.id
+		end
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT destroy home_page_pic with just login" do
@@ -296,10 +354,11 @@ class HomePagePicsControllerTest < ActionController::TestCase
 			hpp2.id => { 'active' => false }
 		}
 		HomePagePic.all.each { |hpp| assert !hpp.active }
+		assert_redirected_to home_page_pics_path
 	end
 
-	test "should activate all with employee login" do
-		login_as employee
+	test "should activate all with editor login" do
+		login_as editor
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)
 		HomePagePic.all.each { |hpp| assert !hpp.active }
@@ -308,6 +367,21 @@ class HomePagePicsControllerTest < ActionController::TestCase
 			hpp2.id => { 'active' => true }
 		}
 		HomePagePic.all.each { |hpp| assert hpp.active }
+		assert_redirected_to home_page_pics_path
+	end
+
+	test "should NOT activate all with employee login" do
+		login_as employee
+		hpp1 = Factory(:home_page_pic, :active => false)
+		hpp2 = Factory(:home_page_pic, :active => false)
+		HomePagePic.all.each { |hpp| assert !hpp.active }
+		post :activate, :home_page_pics => {
+			hpp1.id => { 'active' => true },
+			hpp2.id => { 'active' => true }
+		}
+		HomePagePic.all.each { |hpp| assert !hpp.active }
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT activate all with just login" do
