@@ -541,6 +541,15 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "search should include subject with dust kit" do
+		subject1 = create_subject
+		dust_kit = Factory(:dust_kit, :subject_id => subject1.id)
+		subject2 = create_subject
+		subjects = Subject.search(:dust_kit => true)
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
 protected
 
 	def create_survey_response_sets

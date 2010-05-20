@@ -92,6 +92,9 @@ class Subject < ActiveRecord::Base
 			joins.push(:race)
 			conditions['races.name'] = params[:race]
 		end
+		if params[:dust_kit] && !params[:dust_kit].blank?
+			joins.push(:dust_kit)
+		end
 		paginate(
 			:page => params[:page], 
 			:per_page => params[:per_page]||25,
