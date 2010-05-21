@@ -2,7 +2,8 @@ class PackagesController < ApplicationController	#:nodoc:
 
 	before_filter :may_view_packages_required
 	before_filter :valid_package_id_required, 
-		:only => [:edit,:update,:show,:destroy]
+		:except => [:new,:create,:index]
+#		:only => [:edit,:update,:show,:destroy]
 
 	def index
 		@last_shipping_update = Package.last_updated
@@ -26,6 +27,16 @@ class PackagesController < ApplicationController	#:nodoc:
 
 	def update
 		@package.update_status
+		redirect_to_referer_or_default packages_path
+	end
+
+	def ship
+		@package.update_attribute(:status,'Transit')
+		redirect_to_referer_or_default packages_path
+	end
+
+	def deliver
+		@package.update_attribute(:status,'Delivered')
 		redirect_to_referer_or_default packages_path
 	end
 

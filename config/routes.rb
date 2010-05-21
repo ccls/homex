@@ -76,7 +76,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :pages, :collection => { :order => :post }
 	map.resources :home_page_pics, :collection => { :activate => :post }
-	map.resources :packages, :except => :edit
+	map.resources :packages, :except => :edit, :member => { :ship => :put, :deliver => :put }
 	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
 	map.resources :subjects, :shallow => true do |subject|
