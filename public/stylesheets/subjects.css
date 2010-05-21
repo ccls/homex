@@ -22,16 +22,18 @@ div.subject_type {
 
 form#subject_search {
 }
-form#subject_search ul#races {
+form#subject_search div#races {
 	float:left;
+	margin: auto 10px;
 }
-form#subject_search ul#races li {
-	list-style-type: none;
-}
-form#subject_search ul#types {
+form#subject_search div#types {
 	float:left;
+	margin: auto 10px;
 }
-form#subject_search ul#types li {
+form#subject_search ul {
+	padding-left: 5px;
+}
+form#subject_search ul li {
 	list-style-type: none;
 }
 form#subject_search div#something {

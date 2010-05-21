@@ -1,7 +1,9 @@
 <% form_tag(subjects_path, :id => 'subject_search',:method => :get) do %>
 
 	<% if Race.count > 0 %>
-	<ul id='races'>
+	<div id='races'>
+	<p>Races: </p>
+	<ul>
 		<% Race.all.each do |race| %>
 			<li><%= check_box_tag 'races[]', race.name, params['races'].try(:include?,race.name), 
 					:id => dom_id(race)  %>
@@ -9,11 +11,14 @@
 			</li>
 		<% end %>
 	</ul><!-- races -->
+	</div>
 	<% end %>
 
 
 	<% if SubjectType.count > 0 %>
-	<ul id='types'>
+	<div id='types'>
+	<p>SubjectTypes:</p>
+	<ul>
 		<% SubjectType.all.each do |type| %>
 			<li><%= check_box_tag 'types[]', type.name, params['types'].try(:include?,type.name), 
 					:id => dom_id(type)  %>
@@ -21,6 +26,7 @@
 			</li>
 		<% end %>
 	</ul><!-- types -->
+	</div>
 	<% end %>
 
 
