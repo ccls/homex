@@ -101,8 +101,23 @@ class Subject < ActiveRecord::Base
 			conditions['races.name'] = params[:races]
 		end
 		if params[:dust_kit] && !params[:dust_kit].blank?
-			joins.push(:dust_kit)
-#	Subject.find(:all,:joins=>[:dust_kit => [:dust_package]],:conditions => { 'packages.tracking_number' => 222 }).first.dust_kit.dust_package
+			if params[:dust_kit] == 'shipped'
+				#	Shipped to subject
+				joins.push(:dust_kit => [:kit_package])
+			elsif params[:dust_kit] == 'delivered'
+				#	Delivered to subject
+				joins.push(:dust_kit => [:kit_package])
+				conditions['packages.status'] = 'Delivered'
+			elsif params[:dust_kit] == 'returned'
+				#	Subject has returned
+				joins.push(:dust_kit => [:dust_package])
+				conditions['packages.status'] = 'Transit'
+			elsif params[:dust_kit] == 'received'
+				#	WE have received it
+				joins.push(:dust_kit => [:dust_package])
+				conditions['packages.status'] = 'Delivered'
+			else
+			end
 		end
 		paginate(
 			:page => params[:page], 

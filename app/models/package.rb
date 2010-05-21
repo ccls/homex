@@ -57,10 +57,15 @@ class Package < ActiveRecord::Base
 			#	On FedEx vehicle for delivery
 			#	Delivered
 			event = tracking_info.latest_event
-			self.update_attribute(:status, 
-				"#{event.name} at #{event.location.city}, " <<
-					"#{event.location.state} on #{event.time}."
-			)
+			status = case
+				when 'Delivered' then 'Delivered'
+				else 'Transit'
+			end
+			self.update_attributes({
+				:latest_event => "#{event.name} at #{event.location.city}, " <<
+					"#{event.location.state} on #{event.time}.",
+				:status => status
+			})
 		rescue
 			self.update_attribute(:status, "Update failed")
 		end

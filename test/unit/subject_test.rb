@@ -565,9 +565,42 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "search should include subject with dust kit" do
 		subject1 = create_subject
-		dust_kit = Factory(:dust_kit, :subject_id => subject1.id)
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
 		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => true)
+		subjects = Subject.search(:dust_kit => 'shipped')
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
+	test "search should include subject with dust kit delivered to subject" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		dust_kit.kit_package.update_attributes(:status => 'Delivered')
+		subject2 = create_subject
+		create_dust_kit(:subject_id => subject2.id)
+		subjects = Subject.search(:dust_kit => 'delivered')
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
+	test "search should include subject with dust kit returned to us" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		dust_kit.dust_package.update_attributes(:status => 'Transit')
+		subject2 = create_subject
+		create_dust_kit(:subject_id => subject2.id)
+		subjects = Subject.search(:dust_kit => 'returned')
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
+	test "search should include subject with dust kit received by us" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		dust_kit.dust_package.update_attributes(:status => 'Delivered')
+		subject2 = create_subject
+		create_dust_kit(:subject_id => subject2.id)
+		subjects = Subject.search(:dust_kit => 'received')
 		assert  subjects.include?(subject1)
 		assert !subjects.include?(subject2)
 	end
@@ -588,4 +621,10 @@ protected
 		record
 	end
 
+	def create_dust_kit(options = {})
+		Factory(:dust_kit, {
+			:kit_package_attributes  => Factory.attributes_for(:package),
+			:dust_package_attributes => Factory.attributes_for(:package) 
+		}.merge(options))
+	end
 end
