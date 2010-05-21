@@ -1,8 +1,8 @@
 <% form_tag(subjects_path, :id => 'subject_search',:method => :get) do %>
 
 	<% if Race.count > 0 %>
-	<div id='races'>
-	<p>Races: </p>
+	<fieldset id='races'>
+	<legend>Races</legend>
 	<ul>
 		<% Race.all.each do |race| %>
 			<li><%= check_box_tag 'races[]', race.name, params['races'].try(:include?,race.name), 
@@ -10,14 +10,13 @@
 				<%= label_tag dom_id(race), race.name %>
 			</li>
 		<% end %>
-	</ul><!-- races -->
-	</div>
-	<% end %>
-
+	</ul>
+	</fieldset><!-- races -->
+	<% end %><%# if Race.count > 0 %>
 
 	<% if SubjectType.count > 0 %>
-	<div id='types'>
-	<p>SubjectTypes:</p>
+	<fieldset id='types'>
+	<legend>SubjectTypes</legend>
 	<ul>
 		<% SubjectType.all.each do |type| %>
 			<li><%= check_box_tag 'types[]', type.name, params['types'].try(:include?,type.name), 
@@ -25,13 +24,19 @@
 				<%= label_tag dom_id(type), type.name %>
 			</li>
 		<% end %>
-	</ul><!-- types -->
-	</div>
-	<% end %>
+	</ul>
+	</fieldset><!-- types -->
+	<% end %><%# if SubjectType.count > 0 %>
 
+	<fieldset id='other'>
+	<legend>Other</legend>
+	<ul>
+		<li><%= check_box_tag 'dust_kit', nil, params['dust_kit'] %><%= label_tag 'dust_kit' %></li>
+	</ul>
+	</fieldset><!-- other -->
 
 	<div id='something'>
-	<%= text_field_tag 'Something', nil, :id => nil %>
-	<%= submit_tag 'Search Coming Soon!', :name => nil %>
+	<%= submit_tag 'Search Subjects', :name => nil %>
+<p>What other conditions do you want to search by?  Tell Jake.</p>
 	</div>
 <% end %>

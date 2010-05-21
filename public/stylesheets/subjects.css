@@ -22,11 +22,15 @@ div.subject_type {
 
 form#subject_search {
 }
-form#subject_search div#races {
+form#subject_search #races {
 	float:left;
 	margin: auto 10px;
 }
-form#subject_search div#types {
+form#subject_search #types {
+	float:left;
+	margin: auto 10px;
+}
+form#subject_search #other {
 	float:left;
 	margin: auto 10px;
 }
@@ -38,4 +42,8 @@ form#subject_search ul li {
 }
 form#subject_search div#something {
 	clear:both;
+}
+
+form#subject_search input[type='submit']{
+	font-size:12pt;
 }
