@@ -1,4 +1,31 @@
-<% form_tag(subjects_path, :method => :get) do %>
+<% form_tag(subjects_path, :id => 'subject_search',:method => :get) do %>
+
+	<% if Race.count > 0 %>
+	<ul id='races'>
+		<% Race.all.each do |race| %>
+			<li><%= check_box_tag 'races[]', race.name, params['races'].try(:include?,race.name), 
+					:id => dom_id(race)  %>
+				<%= label_tag dom_id(race), race.name %>
+			</li>
+		<% end %>
+	</ul><!-- races -->
+	<% end %>
+
+
+	<% if SubjectType.count > 0 %>
+	<ul id='types'>
+		<% SubjectType.all.each do |type| %>
+			<li><%= check_box_tag 'types[]', type.name, params['types'].try(:include?,type.name), 
+					:id => dom_id(type)  %>
+				<%= label_tag dom_id(type), type.name %>
+			</li>
+		<% end %>
+	</ul><!-- types -->
+	<% end %>
+
+
+	<div id='something'>
 	<%= text_field_tag 'Something', nil, :id => nil %>
 	<%= submit_tag 'Search Coming Soon!', :name => nil %>
+	</div>
 <% end %>

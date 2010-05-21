@@ -19,3 +19,21 @@ div.subject_type {
 	width: 100px;
 	float:left;
 }
+
+form#subject_search {
+}
+form#subject_search ul#races {
+	float:left;
+}
+form#subject_search ul#races li {
+	list-style-type: none;
+}
+form#subject_search ul#types {
+	float:left;
+}
+form#subject_search ul#types li {
+	list-style-type: none;
+}
+form#subject_search div#something {
+	clear:both;
+}

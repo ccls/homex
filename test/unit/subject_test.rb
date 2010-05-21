@@ -533,12 +533,34 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "search should include subject by subject_types" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		subjects = Subject.search(
+			:types => [s1,s2].collect{|s|s.subject_type.description})
+		assert  subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert !subjects.include?(s3)
+	end
+
 	test "search should include subject by race" do
 		subject1 = create_subject
 		subject2 = create_subject
 		subjects = Subject.search(:race => subject1.race.name)
 		assert  subjects.include?(subject1)
 		assert !subjects.include?(subject2)
+	end
+
+	test "search should include subject by races" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		subjects = Subject.search(
+			:races => [s1,s2].collect{|s|s.race.name})
+		assert  subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert !subjects.include?(s3)
 	end
 
 	test "search should include subject with dust kit" do

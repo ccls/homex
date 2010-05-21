@@ -88,12 +88,21 @@ class Subject < ActiveRecord::Base
 			joins.push(:subject_type)
 			conditions['subject_types.description'] = params[:type]
 		end
+		if params[:types] && !params[:types].blank?
+			joins.push(:subject_type)
+			conditions['subject_types.description'] = params[:types]
+		end
 		if params[:race] && !params[:race].blank?
 			joins.push(:race)
 			conditions['races.name'] = params[:race]
 		end
+		if params[:races] && !params[:races].blank?
+			joins.push(:race)
+			conditions['races.name'] = params[:races]
+		end
 		if params[:dust_kit] && !params[:dust_kit].blank?
 			joins.push(:dust_kit)
+#	Subject.find(:all,:joins=>[:dust_kit => [:dust_package]],:conditions => { 'packages.tracking_number' => 222 }).first.dust_kit.dust_package
 		end
 		paginate(
 			:page => params[:page], 

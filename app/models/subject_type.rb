@@ -14,4 +14,8 @@ class SubjectType < ActiveRecord::Base
 		description
 	end
 
+	def name
+		description
+	end
+
 end
