@@ -179,9 +179,14 @@ class UsersControllerTest < ActionController::TestCase
 		#	so the rollback triggered by the failure doesn't occur 
 		#	until after the completion of the test.
 		#
-		a = User.connection.instance_variable_get(:@config)[:adapter]
-		if a == 'sqlite3'
-			puts "\n\nWarning: Nested transactions don't work on SQLite\n"
+#		a = User.connection.instance_variable_get(:@config)[:adapter]
+#		a = User.connection.adapter_name
+#		if a =~ /sqlite/i
+		unless User.connection.supports_savepoints?
+			puts "\n\nWarning: Nested transactions (savepoints)\n" <<
+				"don't work on SQLite\n" <<
+				"or with jruby apparently.\n\n"
+			pending
 		else
 			ui = Factory(:user_invitation)
 			UserInvitation.any_instance.stubs(:create_or_update).returns(false)
