@@ -116,6 +116,9 @@ class Subject < ActiveRecord::Base
 				#	WE have received it
 				joins.push(:dust_kit => [:dust_package])
 				conditions['packages.status'] = 'Delivered'
+			elsif params[:dust_kit] == 'none'
+				joins.push('LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
+				conditions['dust_kits.id'] = nil
 #			else
 			end
 		end

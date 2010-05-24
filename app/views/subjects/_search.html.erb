@@ -31,6 +31,9 @@
 	<fieldset id='dust_kit'>
 	<legend>Dust Kit</legend>
 	<ul>
+		<li><%= radio_button_tag 'dust_kit', 'ignore', 
+			params['dust_kit'].try(:==,'ignore') || params['dust_kit'].blank? %>
+			<%= label_tag 'dust_kit_ignore', 'Ignore Dust Kit' %></li>
 		<li><%= radio_button_tag 'dust_kit', 'none', 
 			params['dust_kit'].try(:==,'none') || params['dust_kit'].blank? %>
 			<%= label_tag 'dust_kit_none', 'No Dust Kit' %></li>

@@ -563,6 +563,24 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(s3)
 	end
 
+	test "search should include all subjects and ignore dust kits" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		subject2 = create_subject
+		subjects = Subject.search(:dust_kit => 'ignore')
+		assert subjects.include?(subject1)
+		assert subjects.include?(subject2)
+	end
+
+	test "search should include subjects with no dust kits" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		subject2 = create_subject
+		subjects = Subject.search(:dust_kit => 'none')
+		assert  subjects.include?(subject2)
+		assert !subjects.include?(subject1)
+	end
+
 	test "search should include subject with dust kit" do
 		subject1 = create_subject
 		dust_kit = create_dust_kit(:subject_id => subject1.id)
