@@ -11,13 +11,14 @@ class ResponseSetsController < ApplicationController
 #	include subject_id or child_id or whatever in ResponseSet?
 
 		@response_set = ResponseSet.create!( 
+			:user_id    => current_user.id,
 			:survey     => @survey,
 			:subject_id => params[:subject_id] 
 		)
 		redirect_to(
 			edit_my_survey_path(
 				:survey_code => @survey.access_code, 
-					:response_set_code	=> @response_set.access_code
+				:response_set_code	=> @response_set.access_code
 			)
 		)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
