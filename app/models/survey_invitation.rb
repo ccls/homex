@@ -12,12 +12,13 @@ class SurveyInvitation < ActiveRecord::Base
 
 	delegate :email, :to => :subject
 
-	before_validation :create_token
+#	before_validation :create_token
+	before_validation_on_create :create_token
 
 protected
 
 	def create_token
-		return unless self.token.blank?
+#		return unless self.token.blank?
 		#	generate random string
 		#self.token = Digest::SHA1.hexdigest( 
 		#			Time.now.to_s.split(//).sort_by {rand}.join )

@@ -10,15 +10,16 @@ class UserInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should generate token before create" do
+	test "should generate token before validation" do
 		invitation = Factory.build(:user_invitation)
 		assert_nil invitation.token
-		invitation.save
+		assert invitation.valid?
 		assert_not_nil invitation.token
 	end
 
 	test "should generate unique token before create" do
 		i = create_invitation
+		UserInvitation.any_instance.stubs(:generate_unique_token).returns(true)
 		assert_difference( 'UserInvitation.count', 0 ) do
 			invitation = create_invitation(:token => i.token)
 			assert invitation.errors.on(:token)
@@ -71,6 +72,14 @@ class UserInvitationTest < ActiveSupport::TestCase
 
 	test "should accept a message" do
 		pending
+	end
+
+	test "should not change token on invitation update" do
+		i = create_invitation
+		before = i.token
+		i.update_attribute(:email, "me@here.com")
+		after = i.reload.token
+		assert_equal before, after
 	end
 
 protected
