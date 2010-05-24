@@ -37,10 +37,10 @@ class Page < ActiveRecord::Base
 
 	named_scope :not_home, :conditions => [ "path != '/'" ]
 
-	attr_accessible :path, :menu, :menu_en, :menu_es, 
+	attr_accessible :path, :parent_id, :hide_menu,
+		:menu,  :menu_en,  :menu_es, 
 		:title, :title_en, :title_es,
-		:body, :body_en, :body_es,
-		:parent_id, :hide_menu
+		:body,  :body_en,  :body_es
 
 	before_validation :adjust_path
 
@@ -89,6 +89,10 @@ class Page < ActiveRecord::Base
 		define_method "#{attr}=" do |new_val|
 			self.send("#{attr}_en=",new_val)
 		end
+#		attr_accessible attr.to_sym
+#		%w( en es ).each do |lang|
+#			attr_accessible "#{attr}_#{lang}".to_sym
+#		end
 	end
 
 end
