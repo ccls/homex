@@ -67,11 +67,15 @@ Rails::Initializer.run do |config|
 	config.gem 'will_paginate'
 
 
-#	Using AuthLogic probably won't work as it expects to be the
-#	only authenticator which won't be true when also using UCB CAS.
-#	http://railscasts.com/episodes/160-authlogic
-#	http://asciicasts.com/episodes/160-authlogic
-	config.gem 'authlogic'
+	#	http://railscasts.com/episodes/160-authlogic
+	#	http://asciicasts.com/episodes/160-authlogic
+	#	version 2.1.4 includes patches for Rails 3 that
+	#	are not compatible with Rails 2.3.4
+	#	acts_as_authentic/password.rb line 185
+	#	session/callbacks.rb line 69
+	#		change singleton_class back to metaclass
+	config.gem 'authlogic', :version => '2.1.3'
+	
 
 
 	# Only load the plugins named here, in the order given (default is alphabetical).
