@@ -32,6 +32,8 @@ class HomePagePic < ActiveRecord::Base
 protected
 
 #	def self.adapter
+#		could've used connection.adapter_name 
+#		(but be careful as the CaSE isn't always the same for all rubies)
 #		@adapter ||= connection.instance_variable_get(:@config)[:adapter]
 #	end
 
