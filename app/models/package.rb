@@ -12,9 +12,13 @@ class Package < ActiveRecord::Base
 		IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 	@@packages_updated = "#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
 
-	named_scope :delivered, :conditions => [
-		'status LIKE ?', 'Delivered%'
-	]
+#	named_scope :delivered, :conditions => [
+#		'status LIKE ?', 'Delivered%'
+#	]
+
+	named_scope :delivered, :conditions => {
+		:status => 'Delivered'
+	}
 
 	named_scope :undelivered, :conditions => [
 		'status IS NULL OR status NOT LIKE ?', 'Delivered%'
