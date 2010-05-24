@@ -116,7 +116,7 @@ class Subject < ActiveRecord::Base
 				#	WE have received it
 				joins.push(:dust_kit => [:dust_package])
 				conditions['packages.status'] = 'Delivered'
-			else
+#			else
 			end
 		end
 		paginate(

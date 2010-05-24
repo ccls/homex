@@ -61,7 +61,7 @@ class Package < ActiveRecord::Base
 			#	On FedEx vehicle for delivery
 			#	Delivered
 			event = tracking_info.latest_event
-			status = case
+			status = case event.name
 				when 'Delivered' then 'Delivered'
 				else 'Transit'
 			end

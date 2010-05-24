@@ -84,6 +84,15 @@ class PackageTest < ActiveSupport::TestCase
 		assert !package.delivered?
 	end
 
+	test "should not be delivered? when in transit" do
+		stub_package_for_in_transit()
+		package = create_package
+		assert !package.delivered?
+		package.update_status
+		assert !package.delivered?
+		assert_equal 'Transit', package.status
+	end
+
 	test "should be delivered? when delivered" do
 		stub_package_for_successful_delivery()
 		package = create_package
