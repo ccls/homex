@@ -8,6 +8,9 @@
 <%= link_to subject.subject_type, subjects_path(
 	params.merge('types[]' => subject.subject_type.description) ) -%>
 </div>
+<div class='dust_kit'>
+Dust Kit:<%= subject.dust_kit_status -%>
+</div>
 <%#
 
 	params.merge on these arrays works but can lead to a 

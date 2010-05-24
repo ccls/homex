@@ -623,6 +623,17 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "should return dust_kit_status of None" do
+		subject = create_subject
+		assert_equal 'None', subject.dust_kit_status
+	end
+
+	test "should return dust_kit_status of New" do
+		subject = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject.id)
+		assert_equal 'New', subject.dust_kit_status
+	end
+
 protected
 
 	def create_survey_response_sets

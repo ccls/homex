@@ -81,6 +81,10 @@ class Subject < ActiveRecord::Base
 		end
 	end
 
+	def dust_kit_status
+		dust_kit.try(:status) || 'None'
+	end
+
 	def self.search(params={})
 		conditions = { }
 		joins = []
@@ -127,7 +131,8 @@ class Subject < ActiveRecord::Base
 			:per_page => params[:per_page]||25,
 			:joins => joins,
 			:conditions => conditions,
-			:include => [:race,:subject_type,:child_id]
+			:include => [:race,:subject_type,:child_id,
+				{:dust_kit => [:kit_package,:dust_package]}]
 		)
 	end
 

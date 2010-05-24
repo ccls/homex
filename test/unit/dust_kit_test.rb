@@ -57,7 +57,43 @@ class DustKitTest < ActiveSupport::TestCase
 		assert_not_nil dust_kit.dust_package
 	end
 
+	test "should returned status New" do
+		dust_kit = create_complete_dust_kit	
+		assert_equal 'New', dust_kit.status
+	end
+
+	test "should returned status Shipped" do
+		dust_kit = create_complete_dust_kit	
+		dust_kit.kit_package.update_attribute(:status,'Transit')
+		assert_equal 'Shipped', dust_kit.status
+	end
+
+	test "should returned status Delivered" do
+		dust_kit = create_complete_dust_kit	
+		dust_kit.kit_package.update_attribute(:status,'Delivered')
+		assert_equal 'Delivered', dust_kit.status
+	end
+
+	test "should returned status Returned" do
+		dust_kit = create_complete_dust_kit	
+		dust_kit.dust_package.update_attribute(:status,'Transit')
+		assert_equal 'Returned', dust_kit.status
+	end
+
+	test "should returned status Received" do
+		dust_kit = create_complete_dust_kit	
+		dust_kit.dust_package.update_attribute(:status,'Delivered')
+		assert_equal 'Received', dust_kit.status
+	end
+
 protected
+
+	def create_complete_dust_kit(options={})
+		dust_kit = create_dust_kit(
+			:kit_package_attributes  => Factory.attributes_for(:package),
+			:dust_package_attributes => Factory.attributes_for(:package) 
+		)
+	end
 
 	def create_dust_kit(options = {})
 		record = Factory.build(:dust_kit,options)
