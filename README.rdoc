@@ -48,8 +48,6 @@
  cp config/initializers/session_store.rb.example config/initializers/session_store.rb
 
  #	Copy and setup database file.
- #	This application has at least one 'transaction' which cannot
- #	be tested in SQLite3.  Please use MySQL or better.
  cp config/database.yml.example config/database.yml
 
  #	Copy and add your own FedEx credentials.
