@@ -174,29 +174,34 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT create new user if invitation update fails" do
 		#
 		#	Nest transactions and savepoints don't work with SQLite
+		#	or with jruby database adapters
 		#	so testing User creation and UserInvitation validation
 		#	can't really be done.  This test is the outer transaction
 		#	so the rollback triggered by the failure doesn't occur 
 		#	until after the completion of the test.
 		#
-#		a = User.connection.instance_variable_get(:@config)[:adapter]
-#		a = User.connection.adapter_name
-#		if a =~ /sqlite/i
-		unless User.connection.supports_savepoints?
-			puts "\n\nWarning: Nested transactions (savepoints)\n" <<
-				"don't work on SQLite\n" <<
-				"or with jruby apparently.\n\n"
-			pending
-		else
-			ui = Factory(:user_invitation)
-			UserInvitation.any_instance.stubs(:create_or_update).returns(false)
-			assert_difference('User.count',0) {
-				post :create, :user => Factory.attributes_for(:user),
-					:token => ui.token
-			}
-			assert_nil ui.recipient_id
-			assert_nil ui.accepted_on
+		#	Actually, by manually rolling back
+		#	I think that I am breaking the outer transaction
+		#	making testing the controller transaction possible.
+		#	I don't know how kosher this is and I'm actually
+		#	surprised that it works as I haven't read it anywhere.
+		#	Doing this with Sqlite and MySQL both with and
+		#	without jruby and all seem to work.
+		#
+		#	break the outer transaction
+		User.connection.rollback_db_transaction
+		User.connection.decrement_open_transactions
+		ui = Factory(:user_invitation)
+		UserInvitation.any_instance.stubs(:create_or_update).returns(false)
+		assert_difference('User.count',0) do
+			post :create, :user => Factory.attributes_for(:user),
+				:token => ui.token
 		end
+		assert_nil ui.recipient_id
+		assert_nil ui.accepted_on
+		#	killed test transaction so need to cleanup after self
+		ui.sender.destroy
+		ui.destroy
 	end
 
 	test "should NOT create new user with expired invitation token" do
