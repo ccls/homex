@@ -63,7 +63,7 @@ namespace :db do
 				},
 				:subject_type => subject_type,
 				:race => race,
-				:referenced_on => refdate
+				:reference_date => refdate
 			})
 			
 			subject.residences.create(:address => Address.new({
@@ -87,7 +87,6 @@ namespace :db do
 #	patid goes where?
 #	orderno goes where??
 #	subjectid goes where??
-#	is refdate what I called referenced_on?
 #	interviewdate is what?
 #	rename phone number field names ?
 #	datestorefdate, daystointerviewdate,calcrefdate,calcinterviewdate ??
