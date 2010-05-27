@@ -1,4 +1,4 @@
-class AddAddessTypeIdToAddress < ActiveRecord::Migration
+class AddAddressTypeIdToAddress < ActiveRecord::Migration
 	def self.up
 		add_column :addresses, :address_type_id, :integer
 	end
