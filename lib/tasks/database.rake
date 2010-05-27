@@ -26,7 +26,9 @@ namespace :db do
 		#FasterCSV.foreach('DUMMY_ManipulatedData.csv', {
 		#	:headers => true }) do |line|
 		#	If you want the lineno, you need the file (f)
-		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
+#		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
+		(f=FasterCSV.open('dummy_subject_pii_etc.csv', 'rb',{
+#	Childid,patID,Type,OrderNo,subjectID,sex,DOB,RefDate,InterviewDate,First_Name,Middle_Name,Last_Name,Mother_First_Name,Mother_Middle_Name,Mother_Maiden_Name,Mother_Last_Name,Father_First_Name,Father_Middle_Name,Father_Last_Name,Primary_Phone,Alternate_phone1,Alternate_phone2,Alternate_phone3
 			:headers => true })).each do |line|
 			puts "Processing line #{f.lineno}"
 			puts line
@@ -66,19 +68,21 @@ namespace :db do
 				:reference_date => refdate
 			})
 			
-			subject.residences.create(:address => Address.new({
-				:line_1 => line[19],
-				:city   => line[20],
-				:state  => line[21],
-				:zip    => line[22]
-			})) unless line.fields[19..22].join.blank?
-			
-			subject.residences.create(:address => Address.new({
-				:line_1 => line[23],
-				:city   => line[24],
-				:state  => line[25],
-				:zip    => line[26]
-			})) unless line.fields[23..26].join.blank?
+#	dummy_subject_pii_etc.csv does not contain addresses
+
+#			subject.residences.create(:address => Address.new({
+#				:line_1 => line[19],
+#				:city   => line[20],
+#				:state  => line[21],
+#				:zip    => line[22]
+#			})) unless line.fields[19..22].join.blank?
+#			
+#			subject.residences.create(:address => Address.new({
+#				:line_1 => line[23],
+#				:city   => line[24],
+#				:state  => line[25],
+#				:zip    => line[26]
+#			})) unless line.fields[23..26].join.blank?
 			
 
 #	use Time.parse to parse all dates (better than Date.parse)
