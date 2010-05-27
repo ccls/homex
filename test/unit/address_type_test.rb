@@ -41,6 +41,13 @@ class AddressTypeTest < ActiveSupport::TestCase
 		assert_equal 2, address_type.reload.addresses.length
 	end
 
+	test "should act as list" do
+		address_type = create_address_type
+		assert_equal 1, address_type.position
+		address_type = create_address_type
+		assert_equal 2, address_type.position
+	end
+
 protected
 
 	def create_address_type(options = {})
