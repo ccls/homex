@@ -57,6 +57,13 @@ class UnitTest < ActiveSupport::TestCase
 		assert_equal 2, unit.reload.samples.length
 	end
 
+	test "should act as list" do
+		unit = create_unit
+		assert_equal 1, unit.position
+		unit = create_unit
+		assert_equal 2, unit.position
+	end
+
 protected
 
 	def create_unit(options = {})

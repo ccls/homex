@@ -88,6 +88,13 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_not_nil operational_event_type.interview_event
 	end
 
+	test "should act as list" do
+		operational_event_type = create_operational_event_type
+		assert_equal 1, operational_event_type.position
+		operational_event_type = create_operational_event_type
+		assert_equal 2, operational_event_type.position
+	end
+
 protected
 
 	def create_operational_event_type(options = {})

@@ -51,6 +51,13 @@ class ContextTest < ActiveSupport::TestCase
 		assert_equal 2, context.reload.people.length
 	end
 
+	test "should act as list" do
+		context = create_context
+		assert_equal 1, context.position
+		context = create_context
+		assert_equal 2, context.position
+	end
+
 protected
 
 	def create_context(options = {})

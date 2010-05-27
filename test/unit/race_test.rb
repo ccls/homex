@@ -46,6 +46,13 @@ class RaceTest < ActiveSupport::TestCase
 		assert_equal race.name, "#{race}"
 	end
 
+	test "should act as list" do
+		race = create_race
+		assert_equal 1, race.position
+		race = create_race
+		assert_equal 2, race.position
+	end
+
 protected
 
 	def create_race(options = {})

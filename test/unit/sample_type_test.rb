@@ -42,6 +42,13 @@ class SampleTypeTest < ActiveSupport::TestCase
 		assert_equal 2, sample_type.reload.sample_subtypes.length
 	end
 
+	test "should act as list" do
+		sample_type = create_sample_type
+		assert_equal 1, sample_type.position
+		sample_type = create_sample_type
+		assert_equal 2, sample_type.position
+	end
+
 protected
 
 	def create_sample_type(options = {})

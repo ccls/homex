@@ -53,6 +53,13 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 		assert_equal 2, aliquot_sample_format.reload.samples.length
 	end
 
+	test "should act as list" do
+		aliquot_sample_format = create_aliquot_sample_format
+		assert_equal 1, aliquot_sample_format.position
+		aliquot_sample_format = create_aliquot_sample_format
+		assert_equal 2, aliquot_sample_format.position
+	end
+
 protected
 
 	def create_aliquot_sample_format(options = {})

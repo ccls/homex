@@ -75,6 +75,13 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_not_nil interview_version.interview_event
 	end
 
+	test "should act as list" do
+		interview_version = create_interview_version
+		assert_equal 1, interview_version.position
+		interview_version = create_interview_version
+		assert_equal 2, interview_version.position
+	end
+
 protected
 
 	def create_interview_version(options = {})

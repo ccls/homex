@@ -61,6 +61,13 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		assert_equal 2, interview_type.reload.interview_versions.length
 	end
 
+	test "should act as list" do
+		interview_type = create_interview_type
+		assert_equal 1, interview_type.position
+		interview_type = create_interview_type
+		assert_equal 2, interview_type.position
+	end
+
 protected
 
 	def create_interview_type(options = {})

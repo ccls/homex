@@ -48,6 +48,13 @@ class SubjectTypeTest < ActiveSupport::TestCase
 			"#{subject_type}"
 	end
 
+	test "should act as list" do
+		subject_type = create_subject_type
+		assert_equal 1, subject_type.position
+		subject_type = create_subject_type
+		assert_equal 2, subject_type.position
+	end
+
 protected
 
 	def create_subject_type(options = {})

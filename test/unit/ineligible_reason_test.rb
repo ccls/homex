@@ -42,6 +42,13 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		assert_equal 2, ineligible_reason.reload.project_subjects.length
 	end
 
+	test "should act as list" do
+		ineligible_reason = create_ineligible_reason
+		assert_equal 1, ineligible_reason.position
+		ineligible_reason = create_ineligible_reason
+		assert_equal 2, ineligible_reason.position
+	end
+
 protected
 
 	def create_ineligible_reason(options = {})
