@@ -1,6 +1,10 @@
 Factory.define :address do |f|
 end
 
+Factory.define :address_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+end
+
 Factory.define :aliquot do |f|
 	f.association :sample
 	f.association :unit

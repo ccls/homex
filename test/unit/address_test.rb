@@ -38,6 +38,13 @@ class AddressTest < ActiveSupport::TestCase
 		assert_equal 2, address.reload.interview_events.length
 	end
 
+	test "should belong to address_type" do
+		address = create_address
+		assert_nil address.address_type
+		address.address_type = Factory(:address_type)
+		assert_not_nil address.address_type
+	end
+
 protected
 
 	def create_address(options = {})

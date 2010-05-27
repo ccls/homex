@@ -7,4 +7,6 @@ class Address < ActiveRecord::Base
 	has_many :residences, :dependent => :destroy
 
 #	has_many :subjects, :through => :residences
+
+	belongs_to :address_type
 end
