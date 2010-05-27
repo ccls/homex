@@ -244,4 +244,24 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
+
+
+	test "should simulate ship with admin login" do
+		login_as admin_user
+		package = Factory(:package)
+		assert_not_equal 'Transit', package.reload.status
+		put :ship, :id => package.id
+		assert_equal 'Transit', package.reload.status
+		assert_response :redirect
+	end
+
+	test "should simulate delivery with admin login" do
+		login_as admin_user
+		package = Factory(:package)
+		assert_not_equal 'Delivered', package.reload.status
+		put :deliver, :id => package.id
+		assert_equal 'Delivered', package.reload.status
+		assert_response :redirect
+	end
+
 end
