@@ -36,7 +36,8 @@ class User < ActiveRecord::Base
 	#	gravatar.url will include & that are not encoded to &amp;
 	#	which works just fine, but technically is invalid html.
 	def gravatar_url
-		gravatar.url.split('&').join('&amp;')
+#		gravatar.url.split('&').join('&amp;')
+		gravatar.url.gsub(/&/,'&amp;')
 	end
 
 protected
