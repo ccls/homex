@@ -74,7 +74,7 @@ Rails::Initializer.run do |config|
 	#	acts_as_authentic/password.rb line 185
 	#	session/callbacks.rb line 69
 	#		change singleton_class back to metaclass
-	config.gem 'authlogic', :version => '2.1.3'
+	config.gem 'authlogic', :version => '>= 2.1.5'
 	
 
 
