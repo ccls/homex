@@ -12,6 +12,7 @@ namespace :app do
 	desc "Add a bunch of stuff to the DB"
 	task :populate => [ 
 		:add_races,
+		:add_address_types,
 #		:add_users, 		#	TODO
 		:add_packages, 
 		:add_pages
@@ -56,6 +57,16 @@ namespace :app do
 				:race_id => race.id,
 				:subject_type_id => subject_type.id
 			})
+		end
+	end
+
+	desc "Add address_types"
+	task :add_address_types => :environment do
+		[
+			{:code => "Home",:description => "address of residence of subject"},
+			{:code => "Mailing", :description => "mailing address"}
+		].each do |attrs|
+			AddressType.find_or_create_by_code(attrs)
 		end
 	end
 
