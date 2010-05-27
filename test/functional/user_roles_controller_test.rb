@@ -46,7 +46,7 @@ class UserRolesControllerTest < ActionController::TestCase
 
 	test "should NOT update without login" do
 		put :update, :id => active_user.id, :role_name => 'administrator'
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 end

@@ -5,7 +5,7 @@ class UserInvitationsControllerTest < ActionController::TestCase
 	test "should NOT get new without login" do
 		get :new
 		assert_not_nil flash[:error]
-		assert_redirected_to login_path
+		assert_redirected_to_login
 		assert_nil assigns(:user_invitation)
 	end
 
@@ -33,7 +33,7 @@ class UserInvitationsControllerTest < ActionController::TestCase
 				:user_invitation)
 		end
 		assert_not_nil flash[:error]
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT create with just login" do

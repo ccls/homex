@@ -47,7 +47,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_difference('SurveyInvitation.count',0) {
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
 		} }
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT create invitation without subject" do

@@ -122,7 +122,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 	test "should NOT logout if NOT logged in" do
 		delete :destroy
 		assert_not_nil flash[:error]
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should logout if logged in" do

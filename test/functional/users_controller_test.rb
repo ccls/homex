@@ -23,7 +23,7 @@ class UsersControllerTest < ActionController::TestCase
 
 	test "should NOT get users index without login" do
 		get :index
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT get users index without admin login" do
@@ -59,7 +59,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT get user info without login" do
 		u = active_user
 		get :show, :id => u.id
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT get user info without admin login" do
@@ -156,7 +156,7 @@ class UsersControllerTest < ActionController::TestCase
 				:token => ui.token
 		}
 		assert_not_nil flash[:notice]
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should mark invitation as used after use" do
@@ -365,7 +365,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT edit user without login" do
 		u = user
 		get :edit, :id => u.id
-		assert_redirected_to login_path
+		assert_redirected_to_login
 		assert_not_nil flash[:error]
 	end
 
@@ -415,7 +415,7 @@ class UsersControllerTest < ActionController::TestCase
 	test "should NOT update user without login" do
 		u = user
 		put :update, :id => u.id, :user => Factory.attributes_for(:user)
-		assert_redirected_to login_path
+		assert_redirected_to_login
 		assert_not_nil flash[:error]
 	end
 

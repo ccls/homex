@@ -32,7 +32,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 
@@ -64,7 +64,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	test "should NOT get new without login" do
 		get :new
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 
@@ -106,7 +106,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_difference('HomePagePic.count',0) do
 			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
 		end
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT create home_page_pic without valid HPP" do
@@ -153,7 +153,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	test "should NOT show home_page_pic without login" do
 		hpp = Factory(:home_page_pic)
 		get :show, :id => hpp.id
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT show home_page_pic with invalid id" do
@@ -199,7 +199,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	test "should NOT get edit without login" do
 		hpp = Factory(:home_page_pic)
 		get :edit, :id => hpp.id
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT get edit with invalid id" do
@@ -249,7 +249,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		hpp = Factory(:home_page_pic)
 		put :update, :id => hpp.id,
 			:home_page_pic => Factory.attributes_for(:home_page_pic)
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT update home_page_pic with invalid id" do
@@ -316,7 +316,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_difference('HomePagePic.count', 0) do
 			delete :destroy, :id => hpp.id
 		end
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT destroy home_page_pic with invalid id" do
@@ -407,7 +407,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 			hpp2.id => { 'active' => true }
 		}
 		HomePagePic.all.each { |hpp| assert !hpp.active }
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 	test "should NOT activate all when save fails" do

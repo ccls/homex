@@ -11,10 +11,11 @@ require 'declarative'
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
 
-require 'authlogic/test_case'
-class ActionController::TestCase
-	setup :activate_authlogic
-end
+require 'authlogic_test_helper'
+#require 'authlogic/test_case'
+#class ActionController::TestCase
+#	setup :activate_authlogic
+#end
 
 class ActiveSupport::TestCase
 
@@ -24,12 +25,12 @@ class ActiveSupport::TestCase
 
 	include FactoryTestHelper
 
-	def login_as( user )
-		u = User.find(user)
-		UserSession.create(u)
-	end
-	alias :login  :login_as
-	alias :log_in :login_as
+#	def login_as( user )
+#		u = User.find(user)
+#		UserSession.create(u)
+#	end
+#	alias :login  :login_as
+#	alias :log_in :login_as
 
 #	def stub_ucb_ldap_person(options={})
 #		UCB::LDAP::Person.stubs(:find_by_uid).returns(

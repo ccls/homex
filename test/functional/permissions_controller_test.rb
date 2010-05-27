@@ -21,7 +21,7 @@ class PermissionsControllerTest < ActionController::TestCase
 
 	test "should NOT get index without login" do
 		get :index
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 end

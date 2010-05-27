@@ -24,7 +24,7 @@ class CalendarsControllerTest < ActionController::TestCase
 
 	test "should NOT show without login" do
 		get :show
-		assert_redirected_to login_path
+		assert_redirected_to_login
 	end
 
 end
