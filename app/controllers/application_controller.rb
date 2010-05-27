@@ -1,6 +1,9 @@
+require 'auth_by_authlogic'
 class ApplicationController < ActionController::Base
 	before_filter :login_required
 #	before_filter :set_locale
+
+	include AuthBy::Authlogic
 
 	helper :all # include all helpers, all the time
 
@@ -18,24 +21,10 @@ protected	#	private #	(does it matter which or if neither?)
 #		I18n.locale = session[:locale]||'en'
 #	end
 	
-	def current_user_session
-		@current_user_session ||= UserSession.find	
-	end	
-	
-	def current_user	
-		@current_user ||= current_user_session && current_user_session.record	
-	end	
-
 	def no_current_user_required
-		current_user &&
+		logged_in? &&
 			access_denied("You must be logged out to do that",root_path)
 	end
-
-	def current_user_required
-		current_user ||
-			access_denied("You must be logged in to do that",login_path)
-	end
-	alias_method :login_required, :current_user_required
 
 	def logged_in?
 		!current_user.nil?

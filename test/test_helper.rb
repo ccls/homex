@@ -12,10 +12,6 @@ require 'declarative'
 #	html_test and html_test_extension plugins
 
 require 'authlogic_test_helper'
-#require 'authlogic/test_case'
-#class ActionController::TestCase
-#	setup :activate_authlogic
-#end
 
 class ActiveSupport::TestCase
 
@@ -24,33 +20,6 @@ class ActiveSupport::TestCase
 	fixtures :all
 
 	include FactoryTestHelper
-
-#	def login_as( user )
-#		u = User.find(user)
-#		UserSession.create(u)
-#	end
-#	alias :login  :login_as
-#	alias :log_in :login_as
-
-#	def stub_ucb_ldap_person(options={})
-#		UCB::LDAP::Person.stubs(:find_by_uid).returns(
-#			UCB::LDAP::Person.new({
-#				:sn => ["Wendt"],
-#				:displayname => ["Mr. Jake Wendt, BA"],
-#				:telephonenumber => ["+1 510 642-9749"],
-#				:mail => []
-#			})
-#		)
-#		#	Load schema locally for offline testing.
-#		#	This will generate this warning...
-#		#		Warning: schema loading from file
-#		#	from ucb_ldap-1.3.2/lib/ucb_ldap_schema.rb
-#		#	Comment this out to get the schema from Cal.
-#		#	This will generate this warning...
-#		#		warning: peer certificate won't be verified in this SSL session
-#		UCB::LDAP::Schema.stubs(
-#			:load_attributes_from_url).raises(StandardError)
-#	end
 
 	def stub_package_for_in_transit(options={})
 		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(
@@ -95,20 +64,5 @@ class ActiveSupport::TestCase
 			:find_tracking_info).raises(
 				ActiveMerchant::Shipping::ResponseError)
 	end
-
-#	def assert_redirected_to_cas_login
-##		assert_response :redirect
-##		assert_match "https://auth-test.berkeley.edu/cas/login",
-##			@response.redirected_to
-#		assert_redirected_to login_path
-#	end
-#	alias :assert_redirected_to_login :assert_redirected_to_cas_login
-
-#	def assert_redirected_to_cas_logout
-#		assert_response :redirect
-#		assert_match "https://auth-test.berkeley.edu/cas/logout", 
-#			@response.redirected_to
-#	end
-#	alias :assert_redirected_to_logout :assert_redirected_to_cas_logout
 
 end
