@@ -25,6 +25,13 @@ module PerishableToken
 				self.class.find_by_perishable_token(self.perishable_token) )
 		end
 
+	#	Why ...
+	#	before_save :reset_perishable_token, 
+	#		:unless => :disable_perishable_token_maintenance?
+	#	and not before_validate?
+	#	before_save means that the uniqueness isn't validated
+	#	unless the token is manually changed.
+
 	end
 
 end
