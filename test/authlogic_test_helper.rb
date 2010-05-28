@@ -20,4 +20,12 @@ class ActiveSupport::TestCase
 		assert_redirected_to logout_path
 	end
 
+	def assert_logged_in
+		assert_not_nil UserSession.find
+	end
+
+	def assert_not_logged_in
+		assert_nil UserSession.find
+	end
+
 end

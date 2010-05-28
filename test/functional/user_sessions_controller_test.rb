@@ -119,6 +119,40 @@ class UserSessionsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
+	test "should increment failed_login_count when login fails" do
+		user = active_user
+		assert_difference("User.find(#{user.id}).failed_login_count",1){
+			post :create, :user_session => {
+				:username => user.username,
+				:password => 'wrongpassword'
+			}
+		}
+	end
+
+	test "should clear failed_login_count with successful login" do
+		user = active_user
+		user.update_attribute(:failed_login_count, 5)
+		assert_equal 5, user.reload.failed_login_count
+		post :create, :user_session => {
+			:username => user.username,
+			:password => 'test'
+		}
+		assert_equal 0, user.reload.failed_login_count
+		assert_logged_in
+	end
+
+	test "should NOT login with high failed_login_count" do
+		user = active_user
+		user.update_attribute(:failed_login_count, 50)
+		assert_equal 50, user.reload.failed_login_count
+		post :create, :user_session => {
+			:username => user.username,
+			:password => 'test'
+		}
+		assert_equal 50, user.reload.failed_login_count
+		assert_not_logged_in
+	end
+
 	test "should NOT logout if NOT logged in" do
 		delete :destroy
 		assert_not_nil flash[:error]

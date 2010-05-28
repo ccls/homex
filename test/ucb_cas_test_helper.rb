@@ -50,4 +50,12 @@ class ActiveSupport::TestCase
 			@response.redirected_to
 	end
 
+	def assert_logged_in
+		flunk "Method not yet defined"
+	end
+
+	def assert_not_logged_in
+		flunk "Method not yet defined"
+	end
+
 end
