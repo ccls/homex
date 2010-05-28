@@ -19,6 +19,49 @@ namespace :db do
 		exit
 	end
 
+#	Rake::Task['morning:make_coffee'].invoke
+	task :import_csv_data => [
+		'app:add_address_types',
+		:import_subject_data,
+		:import_address_data
+	]
+
+	desc "Import address data from CSV file"
+	task :import_address_data => :environment do
+		require 'fastercsv'
+		#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
+		#FasterCSV.foreach('DUMMY_ManipulatedData.csv', {
+		#	:headers => true }) do |line|
+		#	If you want the lineno, you need the file (f)
+#		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
+		(f=FasterCSV.open('dummy_addresses.csv', 'rb',{
+#	subjectID,Address_Type_ID,Address_Line1,Address_City,Address_State,Address_Zip
+			:headers => true })).each do |line|
+			puts "Processing line #{f.lineno}"
+			puts line
+
+			subject = Subject.find_by_subjectid(line[0])
+			raise ActiveRecord::RecordNotFound unless subject
+
+			address_type = AddressType.find_by_code(
+				(line[1].to_s == '1')?'Home':'Mailing')
+			raise ActiveRecord::RecordNotFound unless address_type
+
+			address = Address.create!(
+				:address_type => address_type,
+				:line_1 => line[2],
+				:city => line[3],
+				:state => line[4],
+				:zip => line[5]
+			)
+
+			Residence.create!(
+				:subject => subject,
+				:address => address
+			)
+		end
+	end
+
 	desc "Import subject data from CSV file"
 	task :import_subject_data => :environment do
 		require 'fastercsv'
@@ -41,6 +84,7 @@ namespace :db do
 
 			dob = (line[6].blank?)?'':Time.parse(line[6])
 			refdate = (line[7].blank?)?'':Time.parse(line[7])
+			interview_date = (line[8].blank?)?'':Time.parse(line[8])
 			subject = Subject.create!({
 				:child_id_attributes => { :childid => line[0] },
 				:patient_attributes  => { },										#	TODO (patid)
@@ -58,14 +102,25 @@ namespace :db do
 					:mother_maiden_name => line[14],
 					:mother_last_name   => line[15],
 					:dob => dob,
+					:patid => line[1],
+					:type => line[2],
+					:orderno => line[3],
 					:phone_primary => line[27],
 					:phone_alternate => line[28],
 					:phone_alternate_2 => line[29],
-					:phone_alternate_3 => line[30],
+					:phone_alternate_3 => line[30]
 				},
 				:subject_type => subject_type,
 				:race => race,
+				:subjectid => line[4],
+				:sex => line[5],
 				:reference_date => refdate
+			})
+
+			InterviewEvent.create!({
+				:subject_id => subject.id,
+				:began_on   => interview_date,
+				:ended_on   => interview_date
 			})
 			
 #	dummy_subject_pii_etc.csv does not contain addresses
@@ -88,9 +143,6 @@ namespace :db do
 #	use Time.parse to parse all dates (better than Date.parse)
 
 #	need ssn, state_id_no in data (making it up now)
-#	patid goes where?
-#	orderno goes where??
-#	subjectid goes where??
 #	interviewdate is what?
 #	rename phone number field names ?
 #	datestorefdate, daystointerviewdate,calcrefdate,calcinterviewdate ??
