@@ -188,6 +188,14 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should respond to extended methods" do
+		user = create_user
+		assert user.respond_to?(:reset_persistence_token_with_uniqueness)
+		assert user.respond_to?(:reset_perishable_token_with_uniqueness)
+		assert user.respond_to?(:reset_persistence_token_without_uniqueness)
+		assert user.respond_to?(:reset_perishable_token_without_uniqueness)
+	end
+
 protected
 
 	#
