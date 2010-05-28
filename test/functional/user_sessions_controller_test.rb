@@ -150,6 +150,7 @@ class UserSessionsControllerTest < ActionController::TestCase
 			:password => 'test'
 		}
 		assert_equal 50, user.reload.failed_login_count
+		assert assigns(:user_session).errors.on(:base)
 		assert_not_logged_in
 	end
 

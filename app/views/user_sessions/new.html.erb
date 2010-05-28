@@ -1,6 +1,7 @@
 <% content_for :head, stylesheet_link_tag('user_session') %>
 
 <% form_for @user_session do |form| %>  
+	<%= form.error_messages %>
 	<div><%= form.label :username, "Username" %>  
     <%= form.text_field :username %>  </div>
 	<div><%= form.label :password, "Password" %>  

@@ -20,7 +20,13 @@ class UserSessionsController < ApplicationController
 			#	fails.  These errors will be shown on the login
 			#	page which is bad practice as it gives a would-be
 			#	hacker assistance in valid user names.
+#	If I clear the errors, the brute force attack message
+#	of too many failed login attempts will disappear.
+#	Need to find a way to clear except ...
+			#	Remember any base error messages.
+			e = @user_session.errors.on(:base)
 			@user_session.errors.clear
+			@user_session.errors.add(:base, e) if e
 			flash.now[:error] = "Login Failed."
 			render :action => 'new'	
 		end	
