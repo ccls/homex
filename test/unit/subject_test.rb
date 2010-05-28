@@ -69,6 +69,21 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should require subjectid" do
+		assert_no_difference 'Subject.count' do
+			subject = create_subject(:subjectid => nil)
+			assert subject.errors.on(:subjectid)
+		end
+	end
+
+	test "should require unique subjectid" do
+		s = create_subject
+		assert_no_difference 'Subject.count' do
+			subject = create_subject(:subjectid => s.subjectid)
+			assert subject.errors.on(:subjectid)
+		end
+	end
+
 	test "should require valid race" do
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject(:race_id => 0)

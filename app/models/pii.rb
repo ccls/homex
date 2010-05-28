@@ -11,6 +11,8 @@ class Pii < ActiveRecord::Base
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
+#	validates_presence_of   :patid
+#	validates_uniqueness_of :patid
 	validates_presence_of   :ssn
 	validates_uniqueness_of :ssn
 	validates_format_of     :ssn, :with => /\A\d{9}\Z/

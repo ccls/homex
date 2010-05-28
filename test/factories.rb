@@ -98,6 +98,7 @@ Factory.define :pii do |f|
 	f.last_name "Last"
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:state_id_no){|n| "#{n}"}
+	f.sequence(:patid){|n| "#{n}"}
 	f.sequence(:email){|n| "email#{n}@example.com"}
 end
 
@@ -145,6 +146,7 @@ end
 Factory.define :subject do |f|
 	f.association :subject_type
 	f.association :race
+	f.sequence(:subjectid){|n| "#{n}"}
 end
 
 Factory.define :subject_type do |f|

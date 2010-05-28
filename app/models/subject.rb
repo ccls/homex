@@ -19,6 +19,8 @@ class Subject < ActiveRecord::Base
 	has_many :survey_invitations, :dependent => :destroy
 
 	validates_presence_of :subject_type, :race
+	validates_presence_of   :subjectid
+	validates_uniqueness_of :subjectid
 
 	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
