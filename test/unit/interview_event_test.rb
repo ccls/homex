@@ -10,12 +10,12 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require address_id" do
-		assert_no_difference 'InterviewEvent.count' do
-			interview_event = create_interview_event(:address_id => nil)
-			assert interview_event.errors.on(:address)
-		end
-	end
+#	test "should require address_id" do
+#		assert_no_difference 'InterviewEvent.count' do
+#			interview_event = create_interview_event(:address_id => nil)
+#			assert interview_event.errors.on(:address)
+#		end
+#	end
 
 	test "should require subject_id" do
 		assert_no_difference 'InterviewEvent.count' do
@@ -24,19 +24,19 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require interviewer_id" do
-		assert_no_difference 'InterviewEvent.count' do
-			interview_event = create_interview_event(:interviewer_id => nil)
-			assert interview_event.errors.on(:interviewer)
-		end
-	end
+#	test "should require interviewer_id" do
+#		assert_no_difference 'InterviewEvent.count' do
+#			interview_event = create_interview_event(:interviewer_id => nil)
+#			assert interview_event.errors.on(:interviewer)
+#		end
+#	end
 
-	test "should require valid address_id" do
-		assert_no_difference 'InterviewEvent.count' do
-			interview_event = create_interview_event(:address_id => 0)
-			assert interview_event.errors.on(:address)
-		end
-	end
+#	test "should require valid address_id" do
+#		assert_no_difference 'InterviewEvent.count' do
+#			interview_event = create_interview_event(:address_id => 0)
+#			assert interview_event.errors.on(:address)
+#		end
+#	end
 
 	test "should require valid subject_id" do
 		assert_no_difference 'InterviewEvent.count' do
@@ -45,15 +45,18 @@ class InterviewEventTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid interviewer_id" do
-		assert_no_difference 'InterviewEvent.count' do
-			interview_event = create_interview_event(:interviewer_id => 0)
-			assert interview_event.errors.on(:interviewer)
-		end
-	end
+#	test "should require valid interviewer_id" do
+#		assert_no_difference 'InterviewEvent.count' do
+#			interview_event = create_interview_event(:interviewer_id => 0)
+#			assert interview_event.errors.on(:interviewer)
+#		end
+#	end
 
-	test "should initially belong to an address" do
+#	test "should initially belong to an address" do
+	test "should belong to an address" do
 		interview_event = create_interview_event
+		assert_nil interview_event.address
+		interview_event.address = Factory(:address)
 		assert_not_nil interview_event.address
 	end
 
@@ -62,8 +65,11 @@ class InterviewEventTest < ActiveSupport::TestCase
 		assert_not_nil interview_event.subject
 	end
 
-	test "should initially belong to an interviewer" do
+#	test "should initially belong to an interviewer" do
+	test "should belong to an interviewer" do
 		interview_event = create_interview_event
+		assert_nil interview_event.interviewer
+		interview_event.interviewer = Factory(:person)
 		assert_not_nil interview_event.interviewer
 		assert interview_event.interviewer.is_a?(Person)
 	end

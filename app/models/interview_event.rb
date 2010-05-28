@@ -9,6 +9,7 @@ class InterviewEvent < ActiveRecord::Base
 	has_many :interview_versions
 	has_many :operational_event_types
 
-	validates_presence_of :address, :subject, :interviewer
+#	validates_presence_of :address, :subject, :interviewer
+	validates_presence_of :subject
 
 end

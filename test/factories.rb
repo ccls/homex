@@ -40,9 +40,9 @@ Factory.define :ineligible_reason do |f|
 end
 
 Factory.define :interview_event do |f|
-	f.association :address
+#	f.association :address
 	f.association :subject
-	f.association :interviewer, :factory => :person
+#	f.association :interviewer, :factory => :person
 end
 
 Factory.define :interview_type do |f|
