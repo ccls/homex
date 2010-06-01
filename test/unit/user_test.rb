@@ -80,6 +80,15 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require password with at least 8 chars" do
+		invalid_password = "1nV@l!d"
+		assert_no_difference 'User.count' do
+			u = create_user(:password => invalid_password,
+				:password_confirmation => invalid_password)
+			assert u.errors.on(:password)
+		end
+	end
+
 	test "should require password with symbol" do
 		invalid_password = Factory.attributes_for(:user
 			)[:password].gsub(/\W/,'a')

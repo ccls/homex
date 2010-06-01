@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
 	default_scope :order => :username
 
+	validates_length_of :password, :minimum => 8
 	validates_format_of :password,
 		:with => Regexp.new(
 			'(?=.*[a-z])' <<
