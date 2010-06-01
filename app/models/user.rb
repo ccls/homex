@@ -14,12 +14,17 @@ class User < ActiveRecord::Base
 	#	behind the scenes which caused testing headaches.
 	#	Set this to false to remove this "feature."
 	acts_as_authentic do |c|
+		#	This can be a pain in testing so disabled.
+		#	Creating objects via Factory with associated users 
+		#	results in them being autmatically logged in.
 		c.maintain_sessions = false
 	end
 
 	default_scope :order => :username
 
-	validates_length_of :password, :minimum => 8
+	validates_length_of :password, :minimum => 8, 
+		:if => :password_changed?
+
 	validates_format_of :password,
 		:with => Regexp.new(
 			'(?=.*[a-z])' <<
