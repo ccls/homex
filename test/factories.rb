@@ -179,8 +179,8 @@ Factory.define :user do |f|
 #	f.sequence(:uid) { |n| "UID#{n}" }
 	f.sequence(:username) { |n| "username#{n}" }
 	f.sequence(:email) { |n| "username#{n}@example.com" }
-	f.password 'test'
-	f.password_confirmation 'test'
+	f.password 'V@1!dP@55w0rd'
+	f.password_confirmation 'V@1!dP@55w0rd'
 end
 Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true

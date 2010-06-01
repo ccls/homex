@@ -19,6 +19,11 @@ class User < ActiveRecord::Base
 
 	default_scope :order => :username
 
+#	validates_format_of :password,
+#		:with => /.*/,
+#		:message => 'requires things',
+#		:if => :password_changed?
+
 	##
 	#	:singleton-method: has_role
 	#	Associate #User with #Permissions and set the default 

@@ -478,7 +478,8 @@ class UsersControllerTest < ActionController::TestCase
 		u = user
 		login_as admin
 		put :update, :id => u.id, :user => Factory.attributes_for(:user,
-			:password => 'alpha', :password_confirmation => 'beta')
+			:password => 'alphaV@1!d', 
+			:password_confirmation => 'betaV@1!d')
 		assert_response :success
 		assert_template 'edit'
 		assert_not_nil flash[:error]
