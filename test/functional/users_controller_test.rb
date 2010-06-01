@@ -132,7 +132,7 @@ class UsersControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get new user without expired invitation token" do
+	test "should NOT get new user with expired invitation token" do
 		pending
 #		ui = Factory(:user_invitation,:recipient_id => 0)
 #		get :new, :token => ui.token
