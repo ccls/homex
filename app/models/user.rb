@@ -19,10 +19,19 @@ class User < ActiveRecord::Base
 
 	default_scope :order => :username
 
-#	validates_format_of :password,
-#		:with => /.*/,
-#		:message => 'requires things',
-#		:if => :password_changed?
+	validates_format_of :password,
+		:with => Regexp.new(
+			'(?=.*[a-z])' <<
+			'(?=.*[A-Z])' <<
+			'(?=.*\d)' <<
+			#	!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+#			'(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
+			'(?=.*\W)'	#	this probably includes control chars
+		),
+		:message => 'requires at least one lowercase ' <<
+			'and one uppercase letter, ' <<
+			'one number and one special character',
+		:if => :password_changed?
 
 	##
 	#	:singleton-method: has_role

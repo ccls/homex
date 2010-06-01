@@ -57,7 +57,7 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require matching password and confirmation" do
+	test "should require password matching confirmation" do
 		assert_no_difference 'User.count' do
 			u = create_user(
 				:password              => 'alpha',
@@ -76,6 +76,44 @@ class UserTest < ActiveSupport::TestCase
 	test "should require password" do
 		assert_no_difference 'User.count' do
 			u = create_user(:password => nil)
+			assert u.errors.on(:password)
+		end
+	end
+
+	test "should require password with symbol" do
+		invalid_password = Factory.attributes_for(:user
+			)[:password].gsub(/\W/,'a')
+		assert_no_difference 'User.count' do
+			u = create_user(:password => invalid_password,
+				:password_confirmation => invalid_password)
+			assert u.errors.on(:password)
+		end
+	end
+
+	test "should require password with number" do
+		invalid_password = Factory.attributes_for(:user
+			)[:password].gsub(/\d/,'a')
+		assert_no_difference 'User.count' do
+			u = create_user(:password => invalid_password,
+				:password_confirmation => invalid_password)
+			assert u.errors.on(:password)
+		end
+	end
+
+	test "should require password with lowercase letter" do
+		invalid_password = Factory.attributes_for(:user)[:password].upcase
+		assert_no_difference 'User.count' do
+			u = create_user(:password => invalid_password,
+				:password_confirmation => invalid_password)
+			assert u.errors.on(:password)
+		end
+	end
+
+	test "should require password with uppercase letter" do
+		invalid_password = Factory.attributes_for(:user)[:password].downcase
+		assert_no_difference 'User.count' do
+			u = create_user(:password => invalid_password,
+				:password_confirmation => invalid_password)
 			assert u.errors.on(:password)
 		end
 	end
