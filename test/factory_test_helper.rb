@@ -1,11 +1,11 @@
 module FactoryTestHelper
 
 	def active_user(options={})
-		u = Factory.build(:user, options)
+		u = Factory(:user, options)
 		#	leave this special save here just in case I change things.
 		#	although this would need changed for UCB CAS.
-		u.save_without_session_maintenance
-		u
+		#	u.save_without_session_maintenance
+		#	u
 	end
 	alias_method :user, :active_user
 
