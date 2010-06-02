@@ -5,6 +5,7 @@ class CreateSurveyInvitations < ActiveRecord::Migration
 			t.references :response_set
 			t.references :survey
 			t.string :token, :null => false
+			t.datetime :sent_at
 			t.timestamps
 		end
 		add_index :survey_invitations, :token, :unique => true

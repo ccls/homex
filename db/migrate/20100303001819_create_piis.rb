@@ -12,19 +12,27 @@ class CreatePiis < ActiveRecord::Migration
 #			t.string :alternate_phone_number
 			t.string :phone_primary
 			t.string :phone_alternate
+			t.string :phone_alternate_2
+			t.string :phone_alternate_3
 			t.string :mother_first_name
 			t.string :mother_middle_name
+			t.string :mother_maiden_name
 			t.string :mother_last_name
 			t.string :father_first_name
 			t.string :father_middle_name
 			t.string :father_last_name
 			t.string :email
 
+			t.string :patid
+			t.string :type
+			t.string :orderno
+
 			t.timestamps
 		end
 		add_index :piis, :ssn, :unique => true
 		add_index :piis, :state_id_no, :unique => true
 		add_index :piis, :email, :unique => true
+		add_index :piis, :subject_id, :unique => true
 	end
 
 	def self.down

@@ -8,11 +8,14 @@ class CreateSubjects < ActiveRecord::Migration
 #			t.references :ineligible_reason
 #			t.references :refusal_reason
 #			t.string     :other_refusal_reason
-			t.date :referenced_on
+			t.date :reference_date
 			t.boolean :is_hispanic
 			t.integer :response_sets_count, :default => 0
+			t.string :sex
+			t.string :subjectid
 			t.timestamps
 		end
+		add_index :subjects, :subjectid, :unique => true
 	end
 
 	def self.down

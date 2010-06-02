@@ -2,6 +2,7 @@ class CreateAddresses < ActiveRecord::Migration
 	def self.up
 		create_table :addresses do |t|
 			t.integer :position
+			t.references :address_type
 			t.string :line_1
 			t.string :line_2
 			t.string :city

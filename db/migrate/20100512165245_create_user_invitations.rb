@@ -4,9 +4,10 @@ class CreateUserInvitations < ActiveRecord::Migration
 			t.integer  :sender_id
 			t.string   :email
 			t.string   :token
-			t.datetime :accepted_on
+			t.datetime :accepted_at
 			t.integer  :recipient_id
 			t.text     :message
+			t.datetime :sent_at
 			t.timestamps
 		end
 	end
