@@ -19,7 +19,7 @@ class UsersController < ApplicationController	#:nodoc:
 		User.transaction do
 			@user = User.new(params[:user])	
 			@user.save!
-			@user_invitation.accepted_on = Time.now
+			@user_invitation.accepted_at = Time.now
 			@user_invitation.recipient_id = @user.id
 			@user_invitation.save!
 		end

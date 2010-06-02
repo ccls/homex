@@ -167,7 +167,7 @@ class UsersControllerTest < ActionController::TestCase
 		}
 		ui.reload
 		assert_not_nil ui.recipient_id
-		assert_not_nil ui.accepted_on
+		assert_not_nil ui.accepted_at
 		assert_equal ui.recipient_id, assigns(:user).id
 	end
 
@@ -198,7 +198,7 @@ class UsersControllerTest < ActionController::TestCase
 				:token => ui.token
 		end
 		assert_nil ui.recipient_id
-		assert_nil ui.accepted_on
+		assert_nil ui.accepted_at
 		#	killed test transaction so need to cleanup after self
 		ui.sender.destroy
 		ui.destroy
