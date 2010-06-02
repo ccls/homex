@@ -11,10 +11,11 @@ namespace :app do
 
 	desc "Add a bunch of stuff to the DB"
 	task :populate => [ 
+#		:add_users, 		#	TODO
+#		:add_packages, 
+		:add_study_events,
 		:add_races,
 		:add_address_types,
-#		:add_users, 		#	TODO
-		:add_packages, 
 		:add_pages
 	]
 
@@ -62,6 +63,7 @@ namespace :app do
 
 	desc "Add address_types"
 	task :add_address_types => :environment do
+		puts "Adding Address Types"
 		[
 			{:code => "Home",:description => "address of residence of subject"},
 			{:code => "Mailing", :description => "mailing address"}
@@ -70,14 +72,24 @@ namespace :app do
 		end
 	end
 
+	desc "Add StudyEvents"
+	task :add_study_events => :environment do
+		puts "Adding Study Events"
+		[ "Home Exposure" ].each do |d|
+			StudyEvent.find_or_create_by_description(d)
+		end
+	end
+
 	desc "Add races"
 	task :add_races => :environment do
-		puts "Adding races"
+		puts "Adding Races"
+
+
 	end
 
 	desc "Add some package tracking numbers"
 	task :add_packages => :environment do
-		puts "Adding packages"
+		puts "Adding Packages"
 		%w( 077973360403984 134619889171013 134619889171020 
 				918192619433536 918192619433550 918192619433567 
 				918192619433710 918192619433734 
@@ -105,7 +117,7 @@ puts "This is temporarily disabled due to changes in User model"
 #	fixtures for these.  It might be nice to have them for
 #	testing as well.
 #
-		puts "Adding default pages"
+		puts "Adding Default Pages"
 		home = Page.find_or_create_by_path(
 			:path  => "/", 
 			:title => "CCLS",
