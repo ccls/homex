@@ -30,7 +30,7 @@ class PagesController < ApplicationController	#:nodoc:
 	rescue ActiveRecord::RecordNotFound
 		flash_message = "Page not found with "
 		flash_message << (( params[:id].blank? ) ? "path '/#{params[:path].join('/')}'" : "ID #{params[:id]}")
-		flash[:error] = flash_message
+		flash.now[:error] = flash_message
 	end
 
 	def index
