@@ -99,6 +99,8 @@ Factory.define :pii do |f|
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:state_id_no){|n| "#{n}"}
 	f.sequence(:patid){|n| "#{n}"}
+	f.sequence(:orderno){|n| "#{n}"}
+	f.sequence(:stype){|n| "#{n}"}
 	f.sequence(:email){|n| "email#{n}@example.com"}
 end
 
