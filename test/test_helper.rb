@@ -4,6 +4,7 @@ require 'test_help'
 
 $LOAD_PATH.unshift File.dirname(__FILE__) # NEEDED for rake test:coverage
 require 'factory_test_helper'
+require 'package_test_helper'
 
 require 'pending'
 require 'declarative'
@@ -21,49 +22,5 @@ class ActiveSupport::TestCase
 	fixtures :all
 
 	include FactoryTestHelper
-
-	def stub_package_for_in_transit(options={})
-		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(
-			:latest_event).returns(
-			ActiveMerchant::Shipping::ShipmentEvent.new(
-				'Departed',
-				Time.now,
-				ActiveMerchant::Shipping::Location.new({
-					:city => 'BERKELEY',
-					:state => 'CA',
-					:zip => '94703'
-				})
-			)
-		)
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(
-			:find_tracking_info).returns(
-				ActiveMerchant::Shipping::TrackingResponse.new(true ,'hello')
-		)
-	end
-
-	def stub_package_for_successful_delivery(options={})
-		ActiveMerchant::Shipping::TrackingResponse.any_instance.stubs(
-			:latest_event).returns(
-			ActiveMerchant::Shipping::ShipmentEvent.new(
-				'Delivered',
-				Time.now,
-				ActiveMerchant::Shipping::Location.new({
-					:city => 'BERKELEY',
-					:state => 'CA',
-					:zip => '94703'
-				})
-			)
-		)
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(
-			:find_tracking_info).returns(
-				ActiveMerchant::Shipping::TrackingResponse.new(true ,'hello')
-		)
-	end
-
-	def stub_package_for_failure(options={})
-		ActiveMerchant::Shipping::FedEx.any_instance.stubs(
-			:find_tracking_info).raises(
-				ActiveMerchant::Shipping::ResponseError)
-	end
 
 end
