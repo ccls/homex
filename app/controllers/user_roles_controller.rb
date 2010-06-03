@@ -1,5 +1,6 @@
 class UserRolesController < ApplicationController
 
+	before_filter :may_assign_roles_required
 	before_filter :id_required
 	before_filter :may_not_be_user_required
 

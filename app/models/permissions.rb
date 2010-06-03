@@ -205,6 +205,8 @@ class Permissions < Aegis::Permissions
 	end
 
 
+	permission :assign_roles do
+	end
 
 	permission :view_responses do
 		allow :employee

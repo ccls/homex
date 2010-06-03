@@ -4,7 +4,10 @@ class UserRolesControllerTest < ActionController::TestCase
 
 	test "should update with admin login" do
 		login_as admin_user
-		put :update, :id => active_user.id, :role_name => 'employee'
+		u = active_user
+		assert_not_equal 'employee', u.reload.role_name
+		put :update, :id => u.id, :role_name => 'employee'
+		assert_equal 'employee', u.reload.role_name
 		assert_not_nil flash[:notice]
 		assert_redirected_to user_path(assigns(:user))
 	end
@@ -40,8 +43,12 @@ class UserRolesControllerTest < ActionController::TestCase
 
 	test "should NOT update without admin login" do
 		login_as active_user
-		put :update, :id => active_user.id, :role_name => 'administrator'
-		assert_redirected_to user_path(assigns(:user))
+		u = active_user
+		assert_not_equal 'administrator', u.reload.role_name
+		put :update, :id => u.id, :role_name => 'administrator'
+		assert_not_equal 'administrator', u.reload.role_name
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
 	end
 
 	test "should NOT update without login" do
