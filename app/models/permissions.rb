@@ -216,7 +216,7 @@ class Permissions < Aegis::Permissions
 		allow :employee
 	end
 
-	permission :view_projects do
+	permission :view_study_events do
 		allow :employee
 	end
 

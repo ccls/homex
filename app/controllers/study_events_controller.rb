@@ -1,9 +1,6 @@
 class StudyEventsController < ApplicationController
-#
-#	I think that a Project and a StudyEvent are the same thing
-#	but I think that StudyEvent sounds wrong for this context
-#
-	before_filter :may_view_projects_required
+
+	before_filter :may_view_study_events_required
 	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
 
 	def new
