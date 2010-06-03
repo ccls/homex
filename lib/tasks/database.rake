@@ -103,7 +103,7 @@ namespace :db do
 					:mother_last_name   => line[15],
 					:dob => dob,
 					:patid => line[1],
-					:type => line[2],
+					:stype => line[2],
 					:orderno => line[3],
 					:phone_primary => line[27],
 					:phone_alternate => line[28],
