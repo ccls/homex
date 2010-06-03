@@ -3,6 +3,10 @@ class StudyEventsController < ApplicationController
 	before_filter :may_view_study_events_required
 	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
 
+	def index
+		@study_events = StudyEvent.all
+	end
+
 	def new
 		@study_event = StudyEvent.new
 	end
