@@ -24,7 +24,7 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :email
 
 			t.string :patid
-			t.string :type
+			t.string :stype
 			t.string :orderno
 
 			t.timestamps
