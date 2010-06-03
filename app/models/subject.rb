@@ -90,6 +90,16 @@ class Subject < ActiveRecord::Base
 	def self.search(params={})
 		conditions = { }
 		joins = []
+		#	mixing Strings and Symbols in the joins array caused
+		#		raise ConfigurationError, 
+		#			"Association named '#{ associations } ' was not found; 
+		#				perhaps you misspelled it?"
+		#	so I created a separate scope to handle the strings.
+		#	The rails documentation which states that it can be 
+		#		"an array containing a mixture of both 
+		#			strings and named associations"
+		#	is incorrect.
+		sql_scope = { :joins => [] }
 		if params[:type] && !params[:type].blank?
 			joins.push(:subject_type)
 			conditions['subject_types.description'] = params[:type]
@@ -123,19 +133,31 @@ class Subject < ActiveRecord::Base
 				joins.push(:dust_kit => [:dust_package])
 				conditions['packages.status'] = 'Delivered'
 			elsif params[:dust_kit] == 'none'
-				joins.push('LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
+				sql_scope[:joins].push(
+					'LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
 				conditions['dust_kits.id'] = nil
-#			else
 			end
 		end
-		paginate(
-			:page => params[:page], 
-			:per_page => params[:per_page]||25,
-			:joins => joins,
-			:conditions => conditions,
-			:include => [:race,:subject_type,:child_id,
-				{:dust_kit => [:kit_package,:dust_package]}]
-		)
+		if params[:study_events] && !params[:study_events].blank?
+			joins.push(:project_subjects)
+			params[:study_events].keys.each do |id|
+#
+#	more than one will always return nothing (for now)
+#
+				conditions['project_subjects.study_event_id'] = id
+			end
+		end
+		with_scope( :find => sql_scope ) do
+			paginate(
+				:readonly => false,
+				:page => params[:page], 
+				:per_page => params[:per_page]||25,
+				:joins => joins,
+				:conditions => conditions,
+				:include => [:race,:subject_type,:child_id,
+					{:dust_kit => [:kit_package,:dust_package]}]
+			)
+		end
 	end
 
 end

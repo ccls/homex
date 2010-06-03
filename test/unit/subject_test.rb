@@ -638,6 +638,30 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "search should include subject by study_event" do
+		subject1 = create_subject
+		subject2 = create_subject
+		se = Factory(:study_event)
+		Factory(:project_subject, :study_event => se,
+			:subject => subject1)
+		se2 = Factory(:study_event)
+		Factory(:project_subject, :study_event => se2,
+			:subject => subject2)
+		subjects = Subject.search(:study_events => {se.id => ''})
+		assert  subjects.include?(subject1)
+		assert !subjects.include?(subject2)
+	end
+
+	test "search should work with both dust_kit string and race symbol" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		subject2 = create_subject
+		subjects = Subject.search(:dust_kit => 'none', 
+			:races => [subject2.race.name] )
+		assert  subjects.include?(subject2)
+		assert !subjects.include?(subject1)
+	end
+
 	test "should return dust_kit_status of None" do
 		subject = create_subject
 		assert_equal 'None', subject.dust_kit_status
