@@ -59,20 +59,38 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require patid" do
-#		assert_no_difference 'Pii.count' do
-#			pii = create_pii(:patid => nil)
-#			assert pii.errors.on(:patid)
-#		end
-#	end
-#
-#	test "should require unique patid" do
-#		p = create_pii
-#		assert_no_difference 'Pii.count' do
-#			pii = create_pii(:patid => p.patid)
-#			assert pii.errors.on(:patid)
-#		end
-#	end
+	test "should require stype" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:stype => nil)
+			assert pii.errors.on(:stype)
+		end
+	end
+
+	test "should require orderno" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:orderno => nil)
+			assert pii.errors.on(:orderno)
+		end
+	end
+
+	test "should require patid" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:patid => nil)
+			assert pii.errors.on(:patid)
+		end
+	end
+
+	test "should require unique patid, stype and orderno" do
+		p = create_pii
+		assert_no_difference 'Pii.count' do
+			pii = create_pii({
+				:patid => p.patid,
+				:stype => p.stype,
+				:orderno => p.orderno
+			})
+			assert pii.errors.on(:patid)
+		end
+	end
 
 	test "should require ssn" do
 		assert_no_difference 'Pii.count' do

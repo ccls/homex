@@ -11,8 +11,12 @@ class Pii < ActiveRecord::Base
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
-#	validates_presence_of   :patid
-#	validates_uniqueness_of :patid
+	validates_presence_of   :stype
+	validates_presence_of   :orderno
+	validates_presence_of   :patid
+	validates_uniqueness_of :patid, :scope => [:stype,:orderno]
+#	PatID is not unique. PatID, Type and OrderNo in combination is unique. (I still haven't renamed Type to be code friendly -- that does have to be done, however.)
+
 	validates_presence_of   :ssn
 	validates_uniqueness_of :ssn
 	validates_format_of     :ssn, :with => /\A\d{9}\Z/
