@@ -78,3 +78,23 @@ protected	#	private #	(does it matter which or if neither?)
 	end
 
 end
+
+class Hash
+
+	#	params.dig('study_events',se.id.to_s,'eligible')
+	def dig(*args)
+		if args.length > 0 && self.keys.include?(args.first)
+			key = args.shift
+			if args.length > 0 
+				if self[key].is_a?(Hash)
+					self[key].dig(*args)
+				else
+					nil
+				end
+			else
+				self[key]
+			end
+		end
+	end
+
+end
