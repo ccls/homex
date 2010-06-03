@@ -12,6 +12,7 @@ require 'declarative'
 #	html_test and html_test_extension plugins
 
 require 'authlogic_test_helper'
+#require 'ucb_cas_test_helper'
 
 class ActiveSupport::TestCase
 
