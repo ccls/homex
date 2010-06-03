@@ -30,3 +30,6 @@ form.edit_user p {
 	margin: 5px;
 	font-size: 12pt;
 }
+form.edit_user p {
+	clear:left;
+}
