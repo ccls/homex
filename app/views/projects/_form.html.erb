@@ -1,9 +1,0 @@
-<% content_for :head, stylesheet_link_tag('project') %>
-
-<% form_for(@study_event, :url => { :controller => 'projects' }) do |f| %>
-	<%= f.error_messages %>
-
-	Project <%= f.label :description %><br/>
-	<%= f.text_field :description %><br/>
-	<p><%= f.submit( (@study_event.new_record?)?'Create':'Update' ) %></p>
-<% end %>

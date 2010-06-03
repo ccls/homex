@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
 
-	map.resources :projects
+	map.resources :study_events
 
 	map.resources :locales, :only => :show
 

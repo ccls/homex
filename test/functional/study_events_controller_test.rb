@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProjectsControllerTest < ActionController::TestCase
-
-#	I think that a Project and a StudyEvent are the same thing
+class StudyEventsControllerTest < ActionController::TestCase
 
 #	admin
 
@@ -33,7 +31,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',1) do
 			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
-		assert_redirected_to project_path(assigns(:study_event).id)
+		assert_redirected_to assigns(:study_event)
 	end
 
 	test "should get edit with admin login" do
@@ -49,7 +47,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		login_as admin
 		put :update, :id => study_event.id, 
 			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to project_path(assigns(:study_event).id)
+		assert_redirected_to assigns(:study_event)
 	end
 
 	test "should destroy with admin login" do
@@ -58,7 +56,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',-1) do
 			delete :destroy, :id => study_event.id
 		end
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 #	employee
@@ -90,7 +88,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',1) do
 			post :create, :study_event => Factory.attributes_for(:study_event)
 		end
-		assert_redirected_to project_path(assigns(:study_event).id)
+		assert_redirected_to assigns(:study_event)
 	end
 
 	test "should get edit with employee login" do
@@ -106,7 +104,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		login_as employee
 		put :update, :id => study_event.id, 
 			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to project_path(assigns(:study_event).id)
+		assert_redirected_to assigns(:study_event)
 	end
 
 	test "should destroy with employee login" do
@@ -115,7 +113,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',-1) do
 			delete :destroy, :id => study_event.id
 		end
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 #	just user
@@ -255,7 +253,7 @@ class ProjectsControllerTest < ActionController::TestCase
 			delete :destroy, :id => study_event.id
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 #	NO id
@@ -299,14 +297,14 @@ class ProjectsControllerTest < ActionController::TestCase
 		study_event = Factory(:study_event)
 		login_as admin
 		get :show, :id => 0
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 	test "should NOT get edit without valid id" do
 		study_event = Factory(:study_event)
 		login_as admin
 		get :edit, :id => 0
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 	test "should NOT update without valid id" do
@@ -314,7 +312,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		login_as admin
 		put :update, :id => 0,
 			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 	test "should NOT destroy without valid id" do
@@ -323,13 +321,13 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',0) do
 			delete :destroy, :id => 0
 		end
-		assert_redirected_to projects_path
+		assert_redirected_to study_events_path
 	end
 
 
-#	invalid project
+#	invalid study_event
 
-	test "should NOT create with invalid project" do
+	test "should NOT create with invalid study_event" do
 		login_as admin
 		assert_difference('StudyEvent.count',0) do
 			post :create, :study_event => {}
@@ -340,7 +338,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update with invalid project" do
+	test "should NOT update with invalid study_event" do
 		study_event = Factory(:study_event)
 		login_as admin
 		put :update, :id => study_event.id, 
