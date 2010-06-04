@@ -30,14 +30,14 @@ class User < ActiveRecord::Base
 			'(?=.*[a-z])' <<
 			'(?=.*[A-Z])' <<
 			'(?=.*\d)' <<
-			#	!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-#			'(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
-			'(?=.*\W)'	#	this probably includes control chars
-		),
-		:message => 'requires at least one lowercase ' <<
-			'and one uppercase letter, ' <<
-			'one number and one special character',
+			# !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+			# '(?=.*[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E])' 
+			#	this probably includes control chars
+			'(?=.*\W)' ), 
+		:message => 'requires at least one lowercase and one uppercase ' <<
+			'letter, one number and one special character',
 		:if => :password_changed?
+
 
 	##
 	#	:singleton-method: has_role

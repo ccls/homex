@@ -11,6 +11,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 		rs5 = fill_out_survey(:survey => survey)
 		Factory(:subject)
+		Factory(:study_event)	#	test search code in view
 		#	There should now be 4 subjects in different states.
 		login_as admin_user
 		get :index

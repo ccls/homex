@@ -662,8 +662,8 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se2, :subject => s1)
 		Factory(:project_subject, :study_event => se2, :subject => s2)
 		subjects = Subject.search(:study_events => {
-			se1.id => {:eligible => 'irrelevant value'}, 
-			se2.id => {:eligible => 'irrelevant value'}})
+			se1.id => {:eligible => [true,false]}, 
+			se2.id => {:eligible => [true,false]}})
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
@@ -677,7 +677,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:completed_on => Time.now)
 		subjects = Subject.search(:study_events => {se.id => {
-			:completed => nil
+			:completed => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)
@@ -725,7 +725,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:is_closed => true)
 		subjects = Subject.search(:study_events => {se.id => {
-			:closed => nil
+			:closed => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)
@@ -771,7 +771,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:subject_terminated_participation => true)
 		subjects = Subject.search(:study_events => {se.id => {
-			:terminated => nil
+			:terminated => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)
@@ -817,7 +817,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:consented => true)
 		subjects = Subject.search(:study_events => {se.id => {
-			:consented => nil
+			:consented => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)
@@ -862,7 +862,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:is_chosen => true)
 		subjects = Subject.search(:study_events => {se.id => {
-			:chosen => nil
+			:chosen => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)
@@ -908,7 +908,7 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s2,
 			:is_eligible => true)
 		subjects = Subject.search(:study_events => {se.id => {
-			:eligible => nil
+			:eligible => [true,false]
 		}})
 		assert subjects.include?(s1)
 		assert subjects.include?(s2)

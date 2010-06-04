@@ -268,6 +268,19 @@ class UsersControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
+	test "should NOT create new user without complex password" do
+		ui = Factory(:user_invitation)
+		assert_difference('User.count',0) {
+			post :create, :user => Factory.attributes_for(:user,
+				:password              => 'mybigbadpassword',
+				:password_confirmation => 'mybigbadpassword'
+			), :token => ui.token
+		}
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
 	test "should NOT create new user without password" do
 		ui = Factory(:user_invitation)
 		assert_difference('User.count',0) {
@@ -472,6 +485,17 @@ class UsersControllerTest < ActionController::TestCase
 		put :update, :id => u.id, :user => Factory.attributes_for(:user,
 			:password => nil)
 		assert_redirected_to root_path
+	end
+
+	test "should NOT update user without complex password" do
+		u = user
+		login_as admin
+		put :update, :id => u.id, :user => Factory.attributes_for(:user,
+			:password              => 'mybigbadpassword',
+			:password_confirmation => 'mybigbadpassword')
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 	test "should NOT update user without matching password and confirmation" do
