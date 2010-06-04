@@ -17,6 +17,10 @@ module NilClassExtension
 			[]
 		end
 
+		def include?(*args)
+			false
+		end
+
 	end
 
 end

@@ -16,6 +16,10 @@ class RubyExtensionTest < ActiveSupport::TestCase
 		assert_equal [], nil.split()
 	end
 
+	test "should not include anything" do
+		assert_equal false, nil.include?(1)
+	end
+
 #	Array
 
 	test "should arrange array" do
@@ -116,6 +120,53 @@ class RubyExtensionTest < ActiveSupport::TestCase
 		assert_nil x.first_index('pineapple')
 	end
 
+
+	#	to_boolean / to_b / true?
+	test "should be true with all true" do
+		assert [true, 'true', 1, '1', 't'].to_boolean
+		assert [true, 'true', 1, '1', 't'].to_b
+		assert [true, 'true', 1, '1', 't'].true?
+	end
+
+	test "should be false with one false" do
+		assert ![true, 'true', 1, '1', 't', 'sorry'].to_boolean
+		assert ![true, 'true', 1, '1', 't', 'sorry'].to_b
+		assert ![true, 'true', 1, '1', 't', 'sorry'].true?
+	end
+
+	#	I don't like it, but it follows all?
+	test "should be true when empty" do
+		assert [].to_boolean
+		assert [].to_b
+		assert [].true?
+	end
+
+	#	true_xor_false?
+	test "should be true_xor_false? with only true" do
+		assert [true].true_xor_false?
+		assert ['true'].true_xor_false?
+		assert [1].true_xor_false?
+		assert ['1'].true_xor_false?
+		assert ['t'].true_xor_false?
+	end
+
+	test "should be true_xor_false? with only false" do
+		assert [false].true_xor_false?
+		assert ['false'].true_xor_false?
+		assert [0].true_xor_false?
+		assert ['0'].true_xor_false?
+		assert ['f'].true_xor_false?
+	end
+
+	test "should not be true_xor_false? with both true and false" do
+		assert ![true,false].true_xor_false?
+		assert !['true','false'].true_xor_false?
+		assert ![1,0].true_xor_false?
+		assert !['1','0'].true_xor_false?
+		assert !['t','f'].true_xor_false?
+	end
+
+
 #	String
 
 	test "should convert url query string to hash" do
@@ -139,6 +190,49 @@ class RubyExtensionTest < ActiveSupport::TestCase
 
 	test "should return -3 factorial" do
 		assert_equal -3, -3.factorial
+	end
+
+
+#	Hash
+
+	#	delete_keys_matching!(regex)
+
+	#	delete_keys!(*keys)
+
+	#	dig
+	test "should return Gold when all keys match dig" do
+		h = { :a => { :b => { :c => 'Gold' } } }
+		assert_equal 'Gold', h.dig(:a,:b,:c)
+	end
+
+	test "should return nil when no key matching dig" do
+		h = { :a => { :b => { :c => 'Gold' } } }
+		assert_nil h.dig('a')
+		assert_nil h.dig(:a,:b,:d)
+		assert_nil h.dig(:d,:e,:f)
+	end
+
+#	Object
+
+	#	to_boolean
+	test "should return true when true" do
+		assert 1.to_boolean
+		assert '1'.to_boolean
+		assert true.to_boolean
+		assert 'tRUe'.to_boolean
+		assert 'true'.to_boolean
+		assert 't'.to_boolean
+	end
+
+	test "should return false when false" do
+		assert !0.to_boolean
+		assert !8.to_boolean
+		assert !'0'.to_boolean
+		assert !'18'.to_boolean
+		assert !false.to_boolean
+		assert !'fALsE'.to_boolean
+		assert !'false'.to_boolean
+		assert !'f'.to_boolean
 	end
 
 end

@@ -102,6 +102,24 @@ module ArrayExtension
 			return nil
 		end
 
+		def to_boolean
+			all?{|v| v.to_boolean }
+		end
+		alias_method :true?, :to_boolean
+		alias_method :to_b,  :to_boolean
+
+
+		#	I need to work on this one ...
+		def true_xor_false?
+#			self.include?('true') ^ self.include?('false') ^
+#				self.include?(true) ^ self.include?(false)
+			contains_true = contains_false = false
+			each {|v|
+				( v.to_boolean ) ? contains_true = true : contains_false = true
+			}
+			contains_true ^ contains_false
+		end
+
 	end
 end
 end
