@@ -1,0 +1,29 @@
+= RubyExtension
+
+Minor additions to some Ruby core classes.
+(This may be better as a gem.)
+
+	Array
+		arrange(new_array_index=[])
+		drop_blanks
+		capitalize
+		capitalize!
+		downcase
+		average
+		median
+		first_index
+
+	Hash
+		delete_keys_matching!(regex)
+		delete_keys!(*keys)
+
+	String
+		to_params_hash
+		uniq
+
+	NilClass
+		split(*args)
+
+	Integer
+		factorial
+
