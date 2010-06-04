@@ -662,7 +662,8 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se2, :subject => s1)
 		Factory(:project_subject, :study_event => se2, :subject => s2)
 		subjects = Subject.search(:study_events => {
-			se1.id => {}, se2.id => {}})
+			se1.id => {:eligible => 'irrelevant value'}, 
+			se2.id => {:eligible => 'irrelevant value'}})
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end

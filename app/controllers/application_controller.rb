@@ -98,3 +98,9 @@ class Hash
 	end
 
 end
+
+class NilClass
+	def include?(*args)
+		false
+	end
+end

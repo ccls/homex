@@ -150,43 +150,45 @@ class Subject < ActiveRecord::Base
 #
 			params[:study_events].keys.each do |id|
 				sql_scope[:joins].push(
-					"JOIN project_subjects se_#{id} ON subjects.id = se_#{id}.subject_id AND se_#{id}.study_event_id = #{id}" 
+					"JOIN project_subjects se_#{id} ON subjects.id "<<
+						"= se_#{id}.subject_id AND se_#{id}.study_event_id = #{id}" 
 				)
 				params[:study_events][id].keys.each do |attr|
-					val = params[:study_events][id][attr]
+					val = [params[:study_events][id][attr]].flatten
 					case attr.to_s.downcase
 						when 'eligible'
-							if [true,false].include?(val)
-								conditions["se_#{id}.is_eligible"] = val
+							if val.true_xor_false?
+								conditions["se_#{id}.is_eligible"] = val.to_boolean
 							end
 						when 'chosen'
-							if [true,false].include?(val)
-								conditions["se_#{id}.is_chosen"] = val
+							if val.true_xor_false?
+								conditions["se_#{id}.is_chosen"] = val.to_boolean
 							end
 						when 'consented'
-							if [true,false].include?(val)
-								conditions["se_#{id}.consented"] = val
+							if val.true_xor_false?
+								conditions["se_#{id}.consented"] = val.to_boolean
 							end
 						when 'terminated'
-							if [true,false].include?(val)
-								conditions["se_#{id}.subject_terminated_participation"] = val
+							if val.true_xor_false?
+								conditions["se_#{id}.subject_terminated_participation"] = val.to_boolean
 							end
 						when 'closed'
-							if [true,false].include?(val)
-								conditions["se_#{id}.is_closed"] = val
+							if val.true_xor_false?
+								conditions["se_#{id}.is_closed"] = val.to_boolean
 							end
 						when 'completed'
-							if [true,false].include?(val)
-							if val
-								sql_conditions.push(
-										"se_#{id}.completed_on IS NOT NULL")
-							else
-								conditions["se_#{id}.completed_on"] = nil
-							end
+							if val.true_xor_false?
+								if val.true?
+									sql_conditions.push(
+											"se_#{id}.completed_on IS NOT NULL")
+								else
+									conditions["se_#{id}.completed_on"] = nil
+								end
 							end
 #=> ProjectSubject(id: integer, position: integer, subject_id: integer, study_event_id: integer, ineligible_reason_id: integer, refusal_reason_id: integer, reason_not_chosen: string, recruitment_priority: string, completed_on: date, consented_on: date, other_refusal_reason: string, subject_terminated_reason: string, reason_closed: string, created_at: datetime, updated_at: datetime)
 					end
 				end if params[:study_events][id].is_a?(Hash)
+
 			end
 		end
 
@@ -206,4 +208,21 @@ class Subject < ActiveRecord::Base
 		end
 	end
 
+end
+
+class Array
+	def to_boolean
+		if self.true?	#self.join() =~ /^true$/i
+	    return true
+		else
+    	return false
+		end
+	end
+	def true_xor_false?
+		self.include?('true') ^ self.include?('false') ^
+			self.include?(true) ^ self.include?(false)
+	end
+	def true?
+		self.include?('true') || self.include?(true)
+	end
 end
