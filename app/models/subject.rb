@@ -209,23 +209,3 @@ class Subject < ActiveRecord::Base
 	end
 
 end
-
-class Array
-	def to_boolean
-		all?{|v| v.to_boolean }
-	end
-	alias_method :true?, :to_boolean
-	alias_method :to_b,  :to_boolean
-
-	def true_xor_false?
-		self.include?('true') ^ self.include?('false') ^
-			self.include?(true) ^ self.include?(false)
-	end
-end
-
-class Object
-	def to_boolean
-		return [true, 'true', 1, '1', 't'].include?(
-			( self.class == String ) ? self.downcase : self )
-	end
-end
