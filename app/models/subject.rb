@@ -100,6 +100,8 @@ class Subject < ActiveRecord::Base
 		#			strings and named associations"
 		#	is incorrect.
 		sql_scope = { :joins => [] }
+		sql_conditions = []
+		sql_values = []
 		if params[:type] && !params[:type].blank?
 			joins.push(:subject_type)
 			conditions['subject_types.description'] = params[:type]
@@ -139,14 +141,58 @@ class Subject < ActiveRecord::Base
 			end
 		end
 		if params[:study_events] && !params[:study_events].blank?
-			joins.push(:project_subjects)
+#
+#	more than one study_event will always return nothing (for now)
+#	would be nice if I could do a "join as" or something to give the
+#	joined table an alias.  Should look into this. Would move the
+#	join inside this loop.
+#	This should now work with the added aliases
+#
 			params[:study_events].keys.each do |id|
-#
-#	more than one will always return nothing (for now)
-#
-				conditions['project_subjects.study_event_id'] = id
+				sql_scope[:joins].push(
+					"JOIN project_subjects se_#{id} ON subjects.id = se_#{id}.subject_id AND se_#{id}.study_event_id = #{id}" 
+				)
+				params[:study_events][id].keys.each do |attr|
+					val = params[:study_events][id][attr]
+					case attr.to_s.downcase
+						when 'eligible'
+							if [true,false].include?(val)
+								conditions["se_#{id}.is_eligible"] = val
+							end
+						when 'chosen'
+							if [true,false].include?(val)
+								conditions["se_#{id}.is_chosen"] = val
+							end
+						when 'consented'
+							if [true,false].include?(val)
+								conditions["se_#{id}.consented"] = val
+							end
+						when 'terminated'
+							if [true,false].include?(val)
+								conditions["se_#{id}.subject_terminated_participation"] = val
+							end
+						when 'closed'
+							if [true,false].include?(val)
+								conditions["se_#{id}.is_closed"] = val
+							end
+						when 'completed'
+							if [true,false].include?(val)
+							if val
+								sql_conditions.push(
+										"se_#{id}.completed_on IS NOT NULL")
+							else
+								conditions["se_#{id}.completed_on"] = nil
+							end
+							end
+#=> ProjectSubject(id: integer, position: integer, subject_id: integer, study_event_id: integer, ineligible_reason_id: integer, refusal_reason_id: integer, reason_not_chosen: string, recruitment_priority: string, completed_on: date, consented_on: date, other_refusal_reason: string, subject_terminated_reason: string, reason_closed: string, created_at: datetime, updated_at: datetime)
+					end
+				end if params[:study_events][id].is_a?(Hash)
 			end
 		end
+
+		sql_scope[:conditions] = [sql_conditions.join(" && "), 
+			sql_values].flatten
+
 		with_scope( :find => sql_scope ) do
 			paginate(
 				:readonly => false,
