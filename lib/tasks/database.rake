@@ -26,6 +26,37 @@ namespace :db do
 		:import_address_data
 	]
 
+	task :random_project_subjects_data => :environment do 
+		se = StudyEvent.find_or_create_by_description("Home Exposure")
+		Subject.all.each do |s|
+			puts s.id
+			#	2440000 is sometime in 1968
+			#	2455000 is sometime in 2009
+			completed_on = ( rand > 0.5 ) ? Date.jd(2440000+rand(15000)) : nil
+			ProjectSubject.create!({
+				:subject => s,
+				:study_event => se,
+				:is_eligible => rand > 0.5,
+				:is_chosen   => rand > 0.5,
+				:consented   => rand > 0.5,
+				:subject_terminated_participation => rand > 0.5,
+				:is_closed   => rand > 0.5,
+				:completed_on => completed_on
+			})
+#	Should add some of these and smarten it up a bit
+#ineligible_reason_id: integer, 
+#refusal_reason_id: integer, 
+#reason_not_chosen: string, 
+#recruitment_priority: string, 
+#consented_on: date, 
+#other_refusal_reason: string, 
+#subject_terminated_reason: string, 
+#reason_closed: string
+
+		end
+	end
+
+
 	desc "Import address data from CSV file"
 	task :import_address_data => :environment do
 		require 'fastercsv'
