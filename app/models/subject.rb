@@ -212,17 +212,20 @@ end
 
 class Array
 	def to_boolean
-		if self.true?	#self.join() =~ /^true$/i
-	    return true
-		else
-    	return false
-		end
+		all?{|v| v.to_boolean }
 	end
+	alias_method :true?, :to_boolean
+	alias_method :to_b,  :to_boolean
+
 	def true_xor_false?
 		self.include?('true') ^ self.include?('false') ^
 			self.include?(true) ^ self.include?(false)
 	end
-	def true?
-		self.include?('true') || self.include?(true)
+end
+
+class Object
+	def to_boolean
+		return [true, 'true', 1, '1', 't'].include?(
+			( self.class == String ) ? self.downcase : self )
 	end
 end
