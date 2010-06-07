@@ -32,4 +32,6 @@ Minor additions to some Ruby core classes.
 		factorial
 
 	Object
-		to_boolean
+		to_boolean / true?
+		false?
+

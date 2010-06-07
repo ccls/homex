@@ -129,16 +129,15 @@ class RubyExtensionTest < ActiveSupport::TestCase
 	end
 
 	test "should be false with one false" do
-		assert ![true, 'true', 1, '1', 't', 'sorry'].to_boolean
-		assert ![true, 'true', 1, '1', 't', 'sorry'].to_b
-		assert ![true, 'true', 1, '1', 't', 'sorry'].true?
+		assert ![true, 'true', 1, '1', 't', 'f'].to_boolean
+		assert ![true, 'true', 1, '1', 't', 'f'].to_b
+		assert ![true, 'true', 1, '1', 't', 'f'].true?
 	end
 
-	#	I don't like it, but it follows all?
-	test "should be true when empty" do
-		assert [].to_boolean
-		assert [].to_b
-		assert [].true?
+	test "should be false when empty" do
+		assert ![].to_boolean
+		assert ![].to_b
+		assert ![].true?
 	end
 
 	#	true_xor_false?
@@ -214,6 +213,27 @@ class RubyExtensionTest < ActiveSupport::TestCase
 
 #	Object
 
+	#	true?
+	test "should be true? when true" do
+		assert 1.true?
+		assert '1'.true?
+		assert true.true?
+		assert 'tRUe'.true?
+		assert 'true'.true?
+		assert 't'.true?
+	end
+
+	#	false?
+	test "should be false? when false" do
+		assert nil.false?
+		assert 0.false?
+		assert '0'.false?
+		assert false.false?
+		assert 'fALsE'.false?
+		assert 'false'.false?
+		assert 'f'.false?
+	end
+
 	#	to_boolean
 	test "should return true when true" do
 		assert 1.to_boolean
@@ -225,10 +245,9 @@ class RubyExtensionTest < ActiveSupport::TestCase
 	end
 
 	test "should return false when false" do
+		assert !nil.to_boolean
 		assert !0.to_boolean
-		assert !8.to_boolean
 		assert !'0'.to_boolean
-		assert !'18'.to_boolean
 		assert !false.to_boolean
 		assert !'fALsE'.to_boolean
 		assert !'false'.to_boolean
