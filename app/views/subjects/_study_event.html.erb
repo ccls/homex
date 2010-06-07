@@ -1,0 +1,10 @@
+<hr/>
+<h3><%= study_event.description %></h3>
+<% if p = @project_subjects.detect{|p|p.study_event_id==study_event.id} %>
+<dl>
+<% p.attributes.each_pair do |k,v| %>
+<dt><%= k %></dt>
+<dd><%= v %></dd>
+<% end %>
+</dl>
+<% end %>
