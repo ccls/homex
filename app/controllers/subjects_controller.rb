@@ -22,7 +22,7 @@ class SubjectsController < ApplicationController
 		flash[:notice] = 'Subject was successfully created.'
 		redirect_to(@subject)
 	rescue ActiveRecord::RecordInvalid
-		flash.now[:error] = "There was a problem creating the page"
+		flash.now[:error] = "There was a problem creating the subject"
 		render :action => "new"
 	end
 
