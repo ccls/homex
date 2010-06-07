@@ -1,0 +1,147 @@
+body {
+	padding:0;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	margin: 0px;
+	background-color: #F0F0FF;
+}
+
+.flash {
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+  padding: 0.7em;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12pt;
+}
+.flash#error {
+  border: 2px solid #F44;
+  background-color: #FCC;
+}
+.flash#notice {
+  border: 2px solid #4F4;
+  background-color: #CFC;
+}
+.flash#noscript {
+  border: 2px solid #FF8C00;
+  background-color: #FFC5AF;
+}
+
+div#container {
+	width: 1000px;
+	margin: 0 auto;
+	background-color: #DDEEDD;	/* guidance background color */
+}
+
+div#header {
+	background-color: #8899AA;
+	height: 100px;
+	background-image: url('/images/berkeley-text.gif');
+	background-repeat: no-repeat;
+}
+
+div#minimenu {
+	float:right;
+	padding: 5px 10px;
+	color: white;
+}
+div#minisearch {
+	clear:right;
+	float:right;
+}
+
+div#mainmenu {
+	padding-top:68px;
+}
+div#mainmenu a {
+	margin:0;
+	float:left;
+	padding: 4px 24px;
+	font-size: 12pt;
+	font-weight: bold;
+	border: 2px solid black;
+	border-bottom: 1px solid black;
+	border-left: 0;
+	background-color: #AACCFF;
+}
+div#mainmenu a:nth-child(1) {
+	border-left: 2px solid black;
+}
+
+
+div#submenu {
+	clear:left;
+	width: 798px;
+	margin: 0;
+	background-color: #CCCCBB;
+	border: 1px solid black;
+	line-height: 22pt;
+}
+div#submenu a {
+	padding: 5px 20px;
+}
+
+div#content {
+	width: 748px;	/* 800 - 2 * ( 25 + 1 ) */
+	float:left;
+	clear:both;
+	background-color:white;
+	border-right: 1px solid silver;
+	border-left: 1px solid silver;
+	min-height: 200px;	
+	padding: 5px 25px;
+}
+
+fieldset {
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+div#guidance {
+	width: 140px;
+	float:right;
+	height: 200px;	
+}
+
+#footer {
+	clear:both;
+	padding-top: 1ex;
+	padding-bottom: 1ex;
+	text-align:center;
+	font-size:8pt;
+	line-height:8pt;
+	background-color: #EEE;
+	color: gray;
+}
+
+p > small {
+	color: gray;
+	font-size: 6pt;
+}
+
+div.row {
+	border: 1px solid silver;
+	border-top: 0;
+	padding: 6px;
+	overflow: auto;
+}
+div.row div.manage {
+	text-align:right;
+}
+div.row:nth-child(1) {
+	border-top: 1px solid silver;
+}
+div.row:nth-child(2n)   { background-color: #EEE; }
+div.row:nth-child(2n+1) { background-color: #DDD; }
+
+form.link_to {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+div.pagination {
+	text-align: center;
+}

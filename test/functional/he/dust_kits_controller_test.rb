@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../../test_helper'
 
-class DustKitsControllerTest < ActionController::TestCase
+class He::DustKitsControllerTest < ActionController::TestCase
 
 	setup :build_subject
 	def build_subject	#setup

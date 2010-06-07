@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../../test_helper'
 
-class SurveyInvitationsControllerTest < ActionController::TestCase
+class He::SurveyInvitationsControllerTest < ActionController::TestCase
 
 	setup :build_stuff
 	def build_stuff	#	setup

@@ -1,4 +1,4 @@
-class HomeExposureResponsesController < ApplicationController #:nodoc:
+class He::HomeExposureResponsesController < ApplicationController #:nodoc:
 
 	before_filter :may_view_responses_required
 	before_filter :valid_subject_id_required
@@ -8,6 +8,8 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 	before_filter :all_response_sets_completed_required, 
 		:only => [:new,:create]
 	before_filter :her_attributes_required, :only => :create
+
+	layout 'home_exposure'
 
 	def new
 		@response_sets = @subject.response_sets
@@ -22,7 +24,7 @@ class HomeExposureResponsesController < ApplicationController #:nodoc:
 			new
 			render :action => 'new'
 		else
-			redirect_to subject_home_exposure_response_path(@subject)
+			redirect_to he_subject_home_exposure_response_path(@subject)
 		end
 	end
 

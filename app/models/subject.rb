@@ -25,6 +25,11 @@ class Subject < ActiveRecord::Base
 	delegate :ssn,       :to => :pii, :allow_nil => true
 	delegate :full_name, :to => :pii, :allow_nil => true
 	delegate :email,     :to => :pii, :allow_nil => true
+	delegate :patid,     :to => :pii, :allow_nil => true
+	delegate :orderno,   :to => :pii, :allow_nil => true
+	delegate :last_name, :to => :pii, :allow_nil => true
+	delegate :first_name,:to => :pii, :allow_nil => true
+	delegate :dob,       :to => :pii, :allow_nil => true
 	delegate :childid,   :to => :child_id, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
@@ -42,6 +47,10 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
+
+	def studyid
+		"#{patid}-#{orderno}"
+	end
 
 	def response_sets_the_same?
 		if response_sets.length == 2

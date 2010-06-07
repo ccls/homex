@@ -1,7 +1,9 @@
-class DustKitsController < ApplicationController
+class He::DustKitsController < ApplicationController
 
 	before_filter :may_view_dust_kits_required
 	before_filter :valid_subject_id_required
+
+	layout 'home_exposure'
 
 	def show
 		@last_shipping_update = Package.last_updated

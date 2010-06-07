@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.dirname(__FILE__) + '/../../test_helper'
 
-class HomeExposureResponsesControllerTest < ActionController::TestCase
+class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 
 	setup :build_response_sets
 	def build_response_sets	#	setup
@@ -102,7 +102,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to subject_home_exposure_response_path(
+		assert_redirected_to he_subject_home_exposure_response_path(
 			assigns(:subject))
 	end
 
@@ -112,7 +112,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
-		assert_redirected_to subject_home_exposure_response_path(
+		assert_redirected_to he_subject_home_exposure_response_path(
 			assigns(:subject))
 	end
 

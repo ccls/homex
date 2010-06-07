@@ -1,0 +1,22 @@
+<% content_for :head do %>
+<%= stylesheet_link_tag('he_subjects') %>
+<% end %>
+
+<%= will_paginate @subjects %>
+
+<div>
+<div class='childid'>ChildID</div>
+<div class='studyid'>StudyID</div>
+<div class='last_name'>Last Name</div>
+<div class='first_name'>First Name</div>
+<div class='dob'>DOB</div>
+</div>
+<div id='subjects'>
+<%= render :partial => 'subject', :collection => @subjects %>
+</div>
+
+<%= will_paginate @subjects %>
+
+<%= button_link_to "Create New Subject", new_subject_path %>
+
+<%= render 'search' %>

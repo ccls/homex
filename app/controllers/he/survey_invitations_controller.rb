@@ -1,4 +1,4 @@
-class SurveyInvitationsController < ApplicationController
+class He::SurveyInvitationsController < ApplicationController
 
 	skip_before_filter :login_required, :only => :show
 
@@ -8,6 +8,7 @@ class SurveyInvitationsController < ApplicationController
 	before_filter :valid_invitation_token_required, :only => :show
 	before_filter :valid_invitation_id_required, :only => [:update,:destroy]
 
+	layout 'home_exposure', :except => :show
 	layout 'survey', :only => :show
 
 	def create

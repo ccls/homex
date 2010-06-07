@@ -1,6 +1,6 @@
 <% content_for :head, stylesheet_link_tag('dust_kit') %>
 
-<% form_for(@dust_kit, :url => subject_dust_kit_path(@subject)) do |f| %>
+<% form_for(@dust_kit, :url => he_subject_dust_kit_path(@subject)) do |f| %>
 	<%= f.error_messages %>
 
 	<% @dust_kit.build_kit_package if @dust_kit.kit_package.nil? %>
@@ -17,6 +17,6 @@
 
 	<p>
 		<%= f.submit( (@dust_kit.new_record?)?'Create':'Update') %>
-		<%= button_link_to "Cancel", subject_path(@subject) %>
+		<%= button_link_to "Cancel", he_subject_path(@subject) %>
 	</p>
 <% end %>

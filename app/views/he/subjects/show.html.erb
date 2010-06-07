@@ -1,0 +1,31 @@
+<% content_for :head, stylesheet_link_tag('he_subject') %>
+
+<% content_tag_for( :div, @subject ) do %>
+<div class='id'>Subject: <%= @subject.full_name -%></div>
+
+<%#
+
+	We are making the assumption that the survey exists
+
+%>
+
+
+<div class='count'>Started <%= @subject.response_sets_count %> of 2 surveys.</div>
+<div class='edit_surveys'>
+	<%= render :partial => 'response_set', 
+		:collection => @subject.response_sets %>
+</div>
+<% if ( @subject.response_sets_count < 2 ) %>
+	<% form_tag(response_sets_path, :class => 'take_survey') do %>
+		<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
+		<%= hidden_field_tag :subject_id, @subject.id, :id => nil %>
+		<%= submit_tag "Start new Home Exposure Survey", :name => nil, :id => nil %>
+	<% end %>
+<% end %>
+
+<%= render 'merge' %>
+<%= render 'invite' %>
+<%= render 'dust_kit' %>
+<%= render :partial => 'study_event', :collection => @study_events %>
+
+<% end %><%# content_tag_for %>
