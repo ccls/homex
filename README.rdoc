@@ -1,6 +1,6 @@
 = UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
-* link:Installation
+* link:#Installation
 
 
 
@@ -46,8 +46,9 @@
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 
 
-== Installation 
 <a name="Installation"></a>
+
+== Installation 
 
  #	Copy session file.
  cp config/initializers/session_store.rb.example config/initializers/session_store.rb
