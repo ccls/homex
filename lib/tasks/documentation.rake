@@ -86,4 +86,10 @@ namespace :doc do	|doc|
 		end
 
 	end
+
+	task :parse_readme => :environment do
+		require 'rdoc/markup/to_html'
+		h = RDoc::Markup::ToHtml.new
+		puts h.convert( File.read('README.rdoc') )
+	end
 end
