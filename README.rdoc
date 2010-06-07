@@ -1,6 +1,6 @@
 = UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
-* <a href='#Installation'>Installation</a>
+* {Installation}[link:#Installation]
 
 
 
