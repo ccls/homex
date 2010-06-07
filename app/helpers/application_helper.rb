@@ -34,12 +34,14 @@ module ApplicationHelper	#:nodoc:
 	def se_check_boxes(se,attr)
 		s = "<li>#{attr.to_s.capitalize}?<ul><li>\n"
 		s << check_box_tag( "study_events[#{se.id}][#{attr}][]", 'true',
-				params.dig('study_events',se.id.to_s,attr.to_s).include?('true'),
+#				params.dig('study_events',se.id.to_s,attr.to_s).include?('true'),
+				params.dig('study_events',se.id.to_s,attr.to_s).true?,
 				:id => "study_events_#{se.id}_#{attr}_true" )
 		s << label_tag( "study_events_#{se.id}_#{attr}_true", "True" )
 		s << "</li><li>\n"
 		s << check_box_tag( "study_events[#{se.id}][#{attr}][]", 'false',
-				params.dig('study_events',se.id.to_s,attr.to_s).include?('false'),
+#				params.dig('study_events',se.id.to_s,attr.to_s).include?('false'),
+				params.dig('study_events',se.id.to_s,attr.to_s).false?,
 				:id => "study_events_#{se.id}_#{attr}_false" )
 		s << label_tag( "study_events_#{se.id}_#{attr}_false", "False" )
 		s << "</li></ul></li>\n"
