@@ -1,6 +1,5 @@
 = UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
-* link:#Installation
 
 
 
@@ -45,8 +44,6 @@
 * {authlogic_extension}[http://github.com/jakewendt/authlogic_extension] - modifications, updates and patches for authlogic gem.
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 
-
-<a name="Installation"></a>
 
 == Installation 
 
