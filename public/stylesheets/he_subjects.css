@@ -3,8 +3,8 @@ div#subjects {
 	padding-top:20px;
 */
 }
-div#content h2:nth-child(2) {
-	margin-top: 0;
+div.header {
+	padding: 6px;	/* same as a .row */
 }
 
 div.childid {

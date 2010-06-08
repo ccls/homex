@@ -8,7 +8,7 @@
 	:target => 'new' )%>
 </div>
 <div class='username'>
-<%= link_to user.username, user_path(user) -%>
+<%= link_to user.displayname, user_path(user) -%>
 </div>
 <div class='role_name'>
 <%= link_to user.role_name, users_path( :role_name => user.role_name ) -%>

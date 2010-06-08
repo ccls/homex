@@ -2,9 +2,7 @@
 <%= stylesheet_link_tag('he_subjects') %>
 <% end %>
 
-<%= will_paginate @subjects %>
-
-<div>
+<div class='header'>
 <div class='childid'>ChildID</div>
 <div class='studyid'>StudyID</div>
 <div class='last_name'>Last Name</div>
@@ -17,6 +15,6 @@
 
 <%= will_paginate @subjects %>
 
-<%= button_link_to "Create New Subject", new_subject_path %>
+<%#= button_link_to "Create New Subject", new_subject_path %>
 
 <%= render 'search' %>

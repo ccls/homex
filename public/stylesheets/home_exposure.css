@@ -68,6 +68,9 @@ div#mainmenu a {
 div#mainmenu a:nth-child(1) {
 	border-left: 2px solid black;
 }
+div#mainmenu a.current {
+	background-color: #CCCCBB;
+}
 
 
 div#submenu {

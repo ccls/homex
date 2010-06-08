@@ -266,7 +266,7 @@ puts "This is temporarily disabled due to changes in User model"
 		puts "Found user #{user.displayname}.  Deputizing..."
 #		user.deputize
 		user.update_attribute(:role_name, 'administrator')
-		puts "User deputized: #{user.administrate?}"
+		puts "User deputized: #{user.administrator?}"
 		puts
 	end
 
