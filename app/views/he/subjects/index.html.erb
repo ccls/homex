@@ -3,18 +3,18 @@
 <% end %>
 
 <div class='header'>
-<div class='childid'>ChildID</div>
-<div class='studyid'>StudyID</div>
-<div class='last_name'>Last Name</div>
-<div class='first_name'>First Name</div>
-<div class='dob'>DOB</div>
+<%= sort_link('ChildID') %>
+<%= sort_link('StudyID') %>
+<%= sort_link('Last Name') %>
+<%= sort_link('First Name') %>
+<%= sort_link('DOB') %>
 </div>
 <div id='subjects'>
-<%= render :partial => 'subject', :collection => @subjects %>
+<%= render :partial => 'he/subjects/subject', :collection => @subjects %>
 </div>
 
 <%= will_paginate @subjects %>
 
 <%#= button_link_to "Create New Subject", new_subject_path %>
 
-<%= render 'search' %>
+<%= render 'he/subjects/search' %>

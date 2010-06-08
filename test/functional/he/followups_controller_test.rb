@@ -1,8 +1,25 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::FollowupsControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+
+	test "should get index with admin login" do
+		login_as admin
+		get :index
+		assert assigns(:subjects)
+		assert_response :success
+		assert_template 'index'
+	end
+
+	test "should NOT get index with just login" do
+		login_as user
+		get :index
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get index without login" do
+		get :index
+		assert_redirected_to_login
+	end
+
 end

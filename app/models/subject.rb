@@ -97,6 +97,7 @@ class Subject < ActiveRecord::Base
 	end
 
 	def self.search(params={})
+		order = nil
 		conditions = { }
 		joins = []
 		#	mixing Strings and Symbols in the joins array caused
@@ -201,17 +202,36 @@ class Subject < ActiveRecord::Base
 			end
 		end
 
+		if params[:order]
+			order = case params[:order].downcase
+				when 'childid'    then 'child_ids.childid'
+				when 'last_name'  then 'piis.last_name'
+				when 'first_name' then 'piis.first_name'
+				when 'dob'        then 'piis.dob'
+				when 'studyid'    then 'piis.patid'
+				else nil
+			end
+		end
+
+		if params[:dir]
+			order << ' ' << case params[:dir].downcase
+				when 'desc' then 'desc'
+				else 'asc'
+			end
+		end
+
 		sql_scope[:conditions] = [sql_conditions.join(" && "), 
 			sql_values].flatten
 
 		with_scope( :find => sql_scope ) do
 			paginate(
+				:order => order,
 				:readonly => false,
 				:page => params[:page], 
 				:per_page => params[:per_page]||25,
 				:joins => joins,
 				:conditions => conditions,
-				:include => [:race,:subject_type,:child_id,
+				:include => [:race,:subject_type,:child_id,:pii,
 					{:dust_kit => [:kit_package,:dust_package]}]
 			)
 		end
