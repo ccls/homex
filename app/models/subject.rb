@@ -145,6 +145,7 @@ class Subject < ActiveRecord::Base
 				joins.push(:dust_kit => [:dust_package])
 				conditions['packages.status'] = 'Delivered'
 			elsif params[:dust_kit] == 'none'
+#	ActiveRecord::ConfigurationError: Association named 'LEFT JOIN dust_kits dk1 ON dust_kits.subject_id = subjects.id' was not found; perhaps you misspelled it?
 				sql_scope[:joins].push(
 					'LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
 				conditions['dust_kits.id'] = nil
@@ -214,14 +215,18 @@ class Subject < ActiveRecord::Base
 		end
 
 		if params[:dir]
-			order << ' ' << case params[:dir].downcase
+			dir = case params[:dir].downcase
 				when 'desc' then 'desc'
 				else 'asc'
 			end
+			order << ' ' << dir
 		end
 
 		sql_scope[:conditions] = [sql_conditions.join(" && "), 
 			sql_values].flatten
+
+#	DO NOT :include anything that may also be used in :joins
+#	this will cause confusion and ambiguouity.
 
 		with_scope( :find => sql_scope ) do
 			paginate(
@@ -231,8 +236,9 @@ class Subject < ActiveRecord::Base
 				:per_page => params[:per_page]||25,
 				:joins => joins,
 				:conditions => conditions,
-				:include => [:race,:subject_type,:child_id,:pii,
-					{:dust_kit => [:kit_package,:dust_package]}]
+				:include => [:child_id,:pii]
+#				:include => [:race,:subject_type,:child_id,:pii]#,
+#					{:dust_kit => [:kit_package,:dust_package]}]
 			)
 		end
 	end

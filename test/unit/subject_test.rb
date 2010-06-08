@@ -69,6 +69,14 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "studyid should be patid and orderno" do
+		subject = create_subject( :pii_attributes => {
+			:patid => '123',
+			:orderno => '456'
+		})
+		assert_equal '123-456', subject.studyid
+	end
+
 	test "should require subjectid" do
 		assert_no_difference 'Subject.count' do
 			subject = create_subject(:subjectid => nil)
@@ -958,11 +966,27 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
-	test "search should order by childid asc" do
+	test "search should NOT order by other stuff" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		subjects = Subject.search(:order => 'whatever')
+		assert_equal [s1,s2,s3], subjects
+	end
+
+	test "search should order by childid asc by default" do
 		s1 = create_subject(:child_id_attributes => { :childid => '9' })
 		s2 = create_subject(:child_id_attributes => { :childid => '3' })
 		s3 = create_subject(:child_id_attributes => { :childid => '6' })
 		subjects = Subject.search(:order => 'childid')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by childid asc" do
+		s1 = create_subject(:child_id_attributes => { :childid => '9' })
+		s2 = create_subject(:child_id_attributes => { :childid => '3' })
+		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		subjects = Subject.search(:order => 'childid', :dir => 'asc')
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -1061,6 +1085,19 @@ class SubjectTest < ActiveSupport::TestCase
 		subjects = Subject.search(:order => 'dob', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
+
+	#	There was a problem doing finds which included joins
+	#	which included both sql join fragment strings and an order.
+	test "search should work with both dust_kit string and order" do
+		subject1 = create_subject
+		dust_kit = create_dust_kit(:subject_id => subject1.id)
+		subject2 = create_subject
+		subjects = Subject.search(:dust_kit => 'none', 
+			:order => 'childid')
+		assert  subjects.include?(subject2)
+		assert !subjects.include?(subject1)
+	end
+
 
 	test "should return dust_kit_status of None" do
 		subject = create_subject
