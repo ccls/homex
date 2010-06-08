@@ -17,10 +17,17 @@ module ObjectExtension
 			return ![nil, false, 'false', 0, '0', 'f'].include?(
 				( self.class == String ) ? self.downcase : self )
 		end
-		alias_method :true?, :to_boolean
 
+		#	looking for an explicit true
+		def true?
+			return [true, 'true', 1, '1', 't'].include?(
+				( self.class == String ) ? self.downcase : self )
+		end
+
+		#	looking for an explicit false (not nil)
 		def false?
-			!self.true?
+			return [false, 'false', 0, '0', 'f'].include?(
+				( self.class == String ) ? self.downcase : self )
 		end
 
 	end

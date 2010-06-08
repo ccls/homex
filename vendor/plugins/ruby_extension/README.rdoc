@@ -12,7 +12,9 @@ Minor additions to some Ruby core classes.
 		average
 		median
 		first_index
-		to_boolean / to_b / true?
+		to_boolean / to_b 
+		true? (explicitly so)
+		false? (explicitly so)
 		true_xor_false?
 
 	Hash
@@ -32,6 +34,7 @@ Minor additions to some Ruby core classes.
 		factorial
 
 	Object
-		to_boolean / true?
-		false?
+		to_boolean
+		true? (explicitly so)
+		false? (explicitly so)
 

@@ -105,9 +105,24 @@ module ArrayExtension
 		def to_boolean
 			!empty? && all?{|v| v.to_boolean }
 		end
-		alias_method :true?, :to_boolean
+#		alias_method :true?, :to_boolean
 		alias_method :to_b,  :to_boolean
 
+		#	[].true? 
+		#	=> false
+		#	[true].true? 
+		#	=> true
+		#	[true,false].true? 
+		#	=> true
+		#	[false].true? 
+		#	=> false
+		def true?
+			!empty? && any?{|v| v.true? }
+		end
+
+		def false?
+			!empty? && any?{|v| v.false? }
+		end
 
 		#	I need to work on this one ...
 		def true_xor_false?

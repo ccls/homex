@@ -121,23 +121,28 @@ class RubyExtensionTest < ActiveSupport::TestCase
 	end
 
 
-	#	to_boolean / to_b / true?
+	#	to_boolean / to_b / true? / false?
 	test "should be true with all true" do
 		assert [true, 'true', 1, '1', 't'].to_boolean
 		assert [true, 'true', 1, '1', 't'].to_b
-		assert [true, 'true', 1, '1', 't'].true?
+
+		assert  [true, 'true', 1, '1', 't'].true?
+		assert ![true, 'true', 1, '1', 't'].false?
 	end
 
 	test "should be false with one false" do
 		assert ![true, 'true', 1, '1', 't', 'f'].to_boolean
 		assert ![true, 'true', 1, '1', 't', 'f'].to_b
-		assert ![true, 'true', 1, '1', 't', 'f'].true?
+
+		assert [true, 'true', 1, '1', 't', 'f'].true?
+		assert [true, 'true', 1, '1', 't', 'f'].false?
 	end
 
 	test "should be false when empty" do
 		assert ![].to_boolean
 		assert ![].to_b
 		assert ![].true?
+		assert ![].false?
 	end
 
 	#	true_xor_false?
@@ -225,7 +230,7 @@ class RubyExtensionTest < ActiveSupport::TestCase
 
 	#	false?
 	test "should be false? when false" do
-		assert nil.false?
+		assert !nil.false?
 		assert 0.false?
 		assert '0'.false?
 		assert false.false?
