@@ -958,6 +958,110 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "search should order by childid asc" do
+		s1 = create_subject(:child_id_attributes => { :childid => '9' })
+		s2 = create_subject(:child_id_attributes => { :childid => '3' })
+		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		subjects = Subject.search(:order => 'childid')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by childid desc" do
+		s1 = create_subject(:child_id_attributes => { :childid => '9' })
+		s2 = create_subject(:child_id_attributes => { :childid => '3' })
+		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		subjects = Subject.search(:order => 'childid', :dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
+	end
+
+	test "search should order by studyid asc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '6' ))
+		subjects = Subject.search(:order => 'studyid')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by studyid desc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:patid => '6' ))
+		subjects = Subject.search(:order => 'studyid', :dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
+	end
+
+	test "search should order by last_name asc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '6' ))
+		subjects = Subject.search(:order => 'last_name')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by last_name desc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => '6' ))
+		subjects = Subject.search(:order => 'last_name', :dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
+	end
+
+	test "search should order by first_name asc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '6' ))
+		subjects = Subject.search(:order => 'first_name')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by first_name desc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '9' ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '3' ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => '6' ))
+		subjects = Subject.search(:order => 'first_name', :dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
+	end
+
+	test "search should order by dob asc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2005') ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2001') ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2003') ))
+		subjects = Subject.search(:order => 'dob')
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "search should order by dob desc" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2005') ))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2001') ))
+		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:dob => Time.parse('12/31/2003') ))
+		subjects = Subject.search(:order => 'dob', :dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
+	end
+
 	test "should return dust_kit_status of None" do
 		subject = create_subject
 		assert_equal 'None', subject.dust_kit_status
