@@ -25,11 +25,16 @@
 </form>
 </div>
 <div id='mainmenu'>
-	<%= link_to "Subjects", he_subjects_path %>
-	<a>Enroll</a>
-	<a>Interview</a>
-	<a>Samples</a>
-	<a>Follow-Up</a>
+	<%= link_to "Subjects", he_subjects_path, 
+		:class => (controller.controller_name == 'subjects')?'current':nil %>
+	<%= link_to "Enroll", he_enrolls_path, 
+		:class => (controller.controller_name == 'enrolls')?'current':nil %>
+	<%= link_to "Interview", he_interviews_path, 
+		:class => (controller.controller_name == 'interviews')?'current':nil %>
+	<%= link_to "Samples", he_samples_path, 
+		:class => (controller.controller_name == 'samples')?'current':nil %>
+	<%= link_to "Follow-Up", he_followups_path, 
+		:class => (controller.controller_name == 'followups')?'current':nil %>
 </div><!-- mainmenu -->
 </div><!-- header -->
 <div id='main'>
