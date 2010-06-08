@@ -72,10 +72,10 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	#	only called from rake app:deputize ....
-	def is_admin?
-		role_name == 'administrator'
-	end
+#	#	only called from rake app:deputize ....
+#	def is_admin?
+#		role_name == 'administrator'
+#	end
 
 	##
 	#	:singleton-method: has_role

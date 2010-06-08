@@ -23,10 +23,10 @@ protected	#	private #	(does it matter which or if neither?)
 #		I18n.locale = session[:locale]||'en'
 #	end
 	
-	def no_current_user_required
-		logged_in? &&
-			access_denied("You must be logged out to do that",root_path)
-	end
+#	def no_current_user_required
+#		logged_in? &&
+#			access_denied("You must be logged out to do that",root_path)
+#	end
 
 	def logged_in?
 		!current_user.nil?
