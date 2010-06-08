@@ -13,6 +13,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		Factory(:subject)
 		Factory(:study_event)	#	test search code in view
 		#	There should now be 4 subjects in different states.
+		Factory(:study_event, :description => "Home Exposure")
 		login_as admin_user
 		get :index
 		assert_response :success
@@ -20,6 +21,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get index with admin login" do
+		Factory(:study_event, :description => "Home Exposure")
 		login_as admin_user
 		get :index
 		assert_response :success
@@ -27,6 +29,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get index with employee login" do
+		Factory(:study_event, :description => "Home Exposure")
 		login_as employee
 		get :index
 		assert_response :success
