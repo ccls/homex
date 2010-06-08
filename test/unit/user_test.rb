@@ -57,112 +57,168 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require password matching confirmation" do
+	test "should require uid" do
 		assert_no_difference 'User.count' do
-			u = create_user(
-				:password              => 'alpha',
-				:password_confirmation => 'beta')
-			assert u.errors.on(:password)
+			u = create_user(:uid => nil)
+			assert u.errors.on(:uid)
 		end
 	end
 
-	test "should require password_confirmation" do
-		assert_no_difference 'User.count' do
-			u = create_user(:password_confirmation => nil)
-			assert u.errors.on(:password_confirmation)
-		end
-	end
-
-	test "should require password" do
-		assert_no_difference 'User.count' do
-			u = create_user(:password => nil)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require password with at least 8 chars" do
-		invalid_password = "1nV@l!d"
-		assert_no_difference 'User.count' do
-			u = create_user(:password => invalid_password,
-				:password_confirmation => invalid_password)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require password with symbol" do
-		invalid_password = Factory.attributes_for(:user
-			)[:password].gsub(/\W/,'a')
-		assert_no_difference 'User.count' do
-			u = create_user(:password => invalid_password,
-				:password_confirmation => invalid_password)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require password with number" do
-		invalid_password = Factory.attributes_for(:user
-			)[:password].gsub(/\d/,'a')
-		assert_no_difference 'User.count' do
-			u = create_user(:password => invalid_password,
-				:password_confirmation => invalid_password)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require password with lowercase letter" do
-		invalid_password = Factory.attributes_for(:user)[:password].upcase
-		assert_no_difference 'User.count' do
-			u = create_user(:password => invalid_password,
-				:password_confirmation => invalid_password)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require password with uppercase letter" do
-		invalid_password = Factory.attributes_for(:user)[:password].downcase
-		assert_no_difference 'User.count' do
-			u = create_user(:password => invalid_password,
-				:password_confirmation => invalid_password)
-			assert u.errors.on(:password)
-		end
-	end
-
-	test "should require properly formated email address" do
-		assert_no_difference 'User.count' do
-			u = create_user(:email => 'blah blah blah')
-			assert u.errors.on(:email)
-		end
-	end
-
-	test "should require email" do
-		assert_no_difference 'User.count' do
-			u = create_user(:email => nil)
-			assert u.errors.on(:email)
-		end
-	end
-
-	test "should require unique email" do
+	test "should require unique uid" do
 		user = create_user
 		assert_no_difference 'User.count' do
-			u = create_user(:email => user.email)
-			assert u.errors.on(:email)
+			u = create_user(:uid => user.uid)
+			assert u.errors.on(:uid)
 		end
 	end
 
-	test "should require username" do
-		assert_no_difference 'User.count' do
-			u = create_user(:username => nil)
-			assert u.errors.on(:username)
-		end
-	end
-
-	test "should require unique username" do
-		user = create_user
-		assert_no_difference 'User.count' do
-			u = create_user(:username => user.username)
-			assert u.errors.on(:username)
-		end
-	end
+#	test "should require unique perishable token" do
+#	test "should require password matching confirmation" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(
+#				:password              => 'alpha',
+#				:password_confirmation => 'beta')
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password_confirmation" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password_confirmation => nil)
+#			assert u.errors.on(:password_confirmation)
+#		end
+#	end
+#
+#	test "should require password" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => nil)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password with at least 8 chars" do
+#		invalid_password = "1nV@l!d"
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => invalid_password,
+#				:password_confirmation => invalid_password)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password with symbol" do
+#		invalid_password = Factory.attributes_for(:user
+#			)[:password].gsub(/\W/,'a')
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => invalid_password,
+#				:password_confirmation => invalid_password)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password with number" do
+#		invalid_password = Factory.attributes_for(:user
+#			)[:password].gsub(/\d/,'a')
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => invalid_password,
+#				:password_confirmation => invalid_password)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password with lowercase letter" do
+#		invalid_password = Factory.attributes_for(:user)[:password].upcase
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => invalid_password,
+#				:password_confirmation => invalid_password)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require password with uppercase letter" do
+#		invalid_password = Factory.attributes_for(:user)[:password].downcase
+#		assert_no_difference 'User.count' do
+#			u = create_user(:password => invalid_password,
+#				:password_confirmation => invalid_password)
+#			assert u.errors.on(:password)
+#		end
+#	end
+#
+#	test "should require properly formated email address" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:email => 'blah blah blah')
+#			assert u.errors.on(:email)
+#		end
+#	end
+#
+#	test "should require email" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:email => nil)
+#			assert u.errors.on(:email)
+#		end
+#	end
+#
+#	test "should require unique email" do
+#		user = create_user
+#		assert_no_difference 'User.count' do
+#			u = create_user(:email => user.email)
+#			assert u.errors.on(:email)
+#		end
+#	end
+#
+#	test "should require username" do
+#		assert_no_difference 'User.count' do
+#			u = create_user(:username => nil)
+#			assert u.errors.on(:username)
+#		end
+#	end
+#
+#	test "should require unique username" do
+#		user = create_user
+#		assert_no_difference 'User.count' do
+#			u = create_user(:username => user.username)
+#			assert u.errors.on(:username)
+#		end
+#	end
+#
+#	test "should require unique perishable token" do
+#		user = create_user
+#		user.reload
+#		assert_not_nil user.perishable_token
+#		Authlogic::Random.stubs(:friendly_token).returns(user.perishable_token)
+#		User.stubs(:find_by_perishable_token).returns(nil)
+#		assert_difference('User.count',0) do
+#			#	Just build the user
+#			u = Factory.build(:user)
+#			#	Then force the perishable token
+#			u.reset_perishable_token
+#			#	Then save which will validate and raise a
+#			#	validation error.
+#			assert_not_nil u.perishable_token
+#			u.save
+#			assert u.errors.on(:perishable_token)
+#		end
+#	end
+#
+#	test "should require unique persistence token" do
+#		user = create_user
+#		user.reload
+#		assert_not_nil user.persistence_token
+#		Authlogic::Random.stubs(:hex_token).returns(user.persistence_token)
+#		User.stubs(:find_by_persistence_token).returns(nil)
+#		assert_difference('User.count',0) do
+#			u = create_user
+#			assert_not_nil u.persistence_token
+#			assert u.errors.on(:persistence_token)
+#		end
+#	end
+#
+#	test "should respond to extended methods" do
+#		user = create_user
+#		assert user.respond_to?(:reset_persistence_token_with_uniqueness)
+#		assert user.respond_to?(:reset_perishable_token_with_uniqueness)
+#		assert user.respond_to?(:reset_persistence_token_without_uniqueness)
+#		assert user.respond_to?(:reset_perishable_token_without_uniqueness)
+#	end
 
 	test "should require that role_name NOT be mass assignable" do
 		assert_difference 'User.count' do
@@ -201,46 +257,6 @@ class UserTest < ActiveSupport::TestCase
 			user.update_attributes({:role_name => role_name})
 			assert_not_equal user.reload.role_name, role_name
 		end
-	end
-
-	test "should require unique perishable token" do
-		user = create_user
-		user.reload
-		assert_not_nil user.perishable_token
-		Authlogic::Random.stubs(:friendly_token).returns(user.perishable_token)
-		User.stubs(:find_by_perishable_token).returns(nil)
-		assert_difference('User.count',0) do
-			#	Just build the user
-			u = Factory.build(:user)
-			#	Then force the perishable token
-			u.reset_perishable_token
-			#	Then save which will validate and raise a
-			#	validation error.
-			assert_not_nil u.perishable_token
-			u.save
-			assert u.errors.on(:perishable_token)
-		end
-	end
-
-	test "should require unique persistence token" do
-		user = create_user
-		user.reload
-		assert_not_nil user.persistence_token
-		Authlogic::Random.stubs(:hex_token).returns(user.persistence_token)
-		User.stubs(:find_by_persistence_token).returns(nil)
-		assert_difference('User.count',0) do
-			u = create_user
-			assert_not_nil u.persistence_token
-			assert u.errors.on(:persistence_token)
-		end
-	end
-
-	test "should respond to extended methods" do
-		user = create_user
-		assert user.respond_to?(:reset_persistence_token_with_uniqueness)
-		assert user.respond_to?(:reset_perishable_token_with_uniqueness)
-		assert user.respond_to?(:reset_persistence_token_without_uniqueness)
-		assert user.respond_to?(:reset_perishable_token_without_uniqueness)
 	end
 
 protected

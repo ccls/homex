@@ -42,25 +42,15 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.root :controller => "pages", :action => "show", :path => [""]
 
-#	map.logout   '/login',
-#		:controller => 'sessions',  :action => 'new'
-#	map.logout   '/logout', :controller => 'sessions', :action => 'destroy'
-#	map.activate '/activate/:id', 
-#		:controller => 'accounts',  :action => 'show'
-#	map.forgot_password '/forgot_password', 
-#		:controller => 'passwords', :action => 'new'
-#	map.reset_password '/reset_password/:id', 
-#		:controller => 'passwords', :action => 'edit'
-#	map.change_password '/change_password', 
-#		:controller => 'accounts',  :action => 'edit'
 
 
+#	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
+#	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
+#	#	keep user_sessions route plural or form on 'new' will fail.
+#	map.resources :user_sessions, :only => [ :new, :create, :destroy ]
 
-	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
-	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
-	#	keep user_sessions route plural or form on 'new' will fail.
-	map.resources :user_sessions, :only => [ :new, :create, :destroy ]
-
+	map.logout 'logout', :controller => 'sessions', :action => 'destroy'  
+	map.resources :sessions, :only => [ :destroy ]
 
 
 	map.resource  :calendar,   :only => [ :show ]
@@ -69,11 +59,7 @@ ActionController::Routing::Routes.draw do |map|
 	#	and singular .
 	map.resources :user_roles, :only => [:update]
 
-	map.resources :users
-#	map.resources :users,  :only => [ :index, :show, :update ]	#	do |user|
-#		user.resource  :account, :only => [ :show, :edit, :update ]
-#	end
-#	map.resource :password, :only => [ :new, :create, :edit, :update ]
+	map.resources :users, :only => [:show, :index]
 
 	map.resources :pages, :collection => { :order => :post }
 	map.resources :home_page_pics, :collection => { :activate => :post }
@@ -115,7 +101,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :locales, :only => :show
 
 
-	map.resources :user_invitations, :only => [:new,:create,:show]
+#	map.resources :user_invitations, :only => [:new,:create,:show]
 
 
 

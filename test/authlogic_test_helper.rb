@@ -13,6 +13,7 @@ class ActiveSupport::TestCase
 	alias :log_in :login_as
 
 	def assert_redirected_to_login
+		assert_not_nil flash[:error]
 		assert_redirected_to login_path
 	end
 

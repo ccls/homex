@@ -1,11 +1,11 @@
-require 'auth_by_authlogic'
-#require 'auth_by_ucb_cas'
+#require 'auth_by_authlogic'
+require 'auth_by_ucb_cas'
 class ApplicationController < ActionController::Base
 	before_filter :login_required
 #	before_filter :set_locale
 
-	include AuthBy::Authlogic
-#	include AuthBy::UCB::CAS
+#	include AuthBy::Authlogic
+	include AuthBy::UCB::CAS
 
 	helper :all # include all helpers, all the time
 

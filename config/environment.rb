@@ -56,11 +56,11 @@ Rails::Initializer.run do |config|
 	config.gem 'aegis', :source => 'http://gemcutter.org'
 
 	#	For CAS / CalNet Authentication
-#	config.gem "rubycas-client"
+	config.gem "rubycas-client"
 
 	#	probably will come from http://gemcutter.org/gems/ucb_ldap
 	#	version 1.3.2 as of Jan 25, 2010
-#	config.gem "ucb_ldap", :source => "http://gemcutter.org"
+	config.gem "ucb_ldap", :source => "http://gemcutter.org"
 
 	config.gem 'active_shipping'
 	config.gem 'gravatar'
@@ -74,7 +74,7 @@ Rails::Initializer.run do |config|
 	#	acts_as_authentic/password.rb line 185
 	#	session/callbacks.rb line 69
 	#		change singleton_class back to metaclass
-	config.gem 'authlogic', :version => '>= 2.1.5'
+#	config.gem 'authlogic', :version => '>= 2.1.5'
 	
 
 

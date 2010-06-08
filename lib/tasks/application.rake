@@ -249,26 +249,25 @@ puts "This is temporarily disabled due to changes in User model"
 	end
 
 	desc "Deputize user by UID"
-	task :deputize => :environment do		#	TODO
-puts "This is temporarily disabled due to changes in User model"
-#		puts
-#		if ENV['uid'].blank?
-#			puts "User's CalNet UID required."
-#			puts "Usage: rake #{$*} uid=INTEGER"
-#			puts
-#			exit
-#		end
-#		if !User.exists?(:uid => ENV['uid'])
-#			puts "No user found with uid=#{ENV['uid']}."
-#			puts
-#			exit
-#		end
-#		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
-#		puts "Found user #{user.displayname}.  Deputizing..."
-##		user.deputize
-#		user.update_attribute(:role_name, 'administrator')
-#		puts "User deputized: #{user.is_admin?}"
-#		puts
+	task :deputize => :environment do
+		puts
+		if ENV['uid'].blank?
+			puts "User's CalNet UID required."
+			puts "Usage: rake #{$*} uid=INTEGER"
+			puts
+			exit
+		end
+		if !User.exists?(:uid => ENV['uid'])
+			puts "No user found with uid=#{ENV['uid']}."
+			puts
+			exit
+		end
+		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
+		puts "Found user #{user.displayname}.  Deputizing..."
+#		user.deputize
+		user.update_attribute(:role_name, 'administrator')
+		puts "User deputized: #{user.is_admin?}"
+		puts
 	end
 
 end

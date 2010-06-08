@@ -18,7 +18,6 @@ class HomeExposuresControllerTest < ActionController::TestCase
 
 	test "should NOT get without login" do
 		get :show
-		assert_not_nil flash[:error]
 		assert_redirected_to_login
 	end
 
