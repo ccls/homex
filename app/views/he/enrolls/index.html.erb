@@ -1,0 +1,18 @@
+<% content_for :head, stylesheet_link_tag('he_subjects') %>
+
+<div class='header'>
+<%= sort_link('ChildID') %>
+<%= sort_link('StudyID') %>
+<%= sort_link('Priority') %>
+<%= sort_link('Last Name') %>
+<%= sort_link('First Name') %>
+<%= sort_link('Outcome') %>
+<%= sort_link('Outcome Date') %>
+</div>
+<div id='subjects'>
+<%= render :partial => 'he/enrolls/subject', :collection => @subjects %>
+</div>
+
+<%= will_paginate @subjects %>
+
+<%= render 'he/subjects/search' %>

@@ -8,11 +8,15 @@ div.header {
 }
 
 div.childid {
-	width: 100px;
+	width: 70px;
 	float:left;
 }
 div.studyid {
-	width: 100px;
+	width: 70px;
+	float:left;
+}
+div.priority {
+	width: 60px;
 	float:left;
 }
 div.last_name {
@@ -21,6 +25,10 @@ div.last_name {
 }
 div.first_name {
 	width: 150px;
+	float:left;
+}
+div.outcome {
+	width: 100px;
 	float:left;
 }
 

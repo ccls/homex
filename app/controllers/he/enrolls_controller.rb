@@ -9,7 +9,6 @@ class He::EnrollsController < ApplicationController
 		params[:study_events] ||= {}
 		params[:study_events][he.id] ||= {}
 		@subjects = Subject.search(params)
-		render :template => "he/subjects/index"
 	end
 
 end

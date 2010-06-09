@@ -52,6 +52,18 @@ class Subject < ActiveRecord::Base
 		"#{patid}-#{orderno}"
 	end
 
+	def outcome_date
+		"TEST"
+	end
+
+	def outcome
+		"TEST"
+	end
+
+	def priority
+		"TEST"
+	end
+
 	def response_sets_the_same?
 		if response_sets.length == 2
 			#	response_sets.inject(:is_the_same_as?) was nice
@@ -219,7 +231,7 @@ class Subject < ActiveRecord::Base
 				when 'desc' then 'desc'
 				else 'asc'
 			end
-			order << ' ' << dir
+			order = [order,dir].join(' ')
 		end
 
 		sql_scope[:conditions] = [sql_conditions.join(" && "), 

@@ -189,6 +189,7 @@ p > small {
 }
 
 div.row {
+	clear:left;
 	border: 1px solid silver;
 	border-top: 0;
 	padding: 6px;
