@@ -1,8 +1,15 @@
 <% content_for :head, stylesheet_link_tag('he_subjects') %>
 
-<%= render 'he/subjects/subsearch' %>
+<% form_tag(update_select_he_enrolls_path, :method => :put ) do %>
+	<span>select all</span>
+	<span>deselect all</span>
+	<span>letter sent on:</span>
+	<%= text_field_tag :date %>
+	<%= submit_tag 'set date' %>
+	<%= submit_tag 'download' %>
 
 <div class='header'>
+<div class='checkbox'>&nbsp;</div>
 <%= sort_link('ChildID') %>
 <%= sort_link('StudyID') %>
 <%= sort_link('Priority') %>
@@ -14,5 +21,6 @@
 <div id='subjects'>
 <%= render :partial => 'he/enrolls/subject', :collection => @subjects %>
 </div>
+<% end %><%# form_tag %>
 
 <%= will_paginate @subjects %>

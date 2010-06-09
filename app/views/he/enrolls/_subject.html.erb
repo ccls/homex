@@ -1,6 +1,10 @@
 <% content_tag_for( :div, subject, :class => 'row' ) do %>
+<div class='checkbox'>
+<%= check_box_tag "subjects[#{subject.id}]",true,false %>
+</div>
 <div class='childid'>
-<%= link_to subject.childid, he_subject_path(subject) -%></div>
+<%= link_to subject.childid, he_subject_path(subject) -%>
+</div>
 <div class='studyid'>
 <%= subject.studyid %>
 </div>

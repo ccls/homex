@@ -78,7 +78,8 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
 		end
-		he.resources  :enrolls
+		he.resources  :enrolls, :only => [:index],
+			:collection => { :update_select => :put }
 		he.resources  :interviews
 		he.resources  :samples
 		he.resources  :followups

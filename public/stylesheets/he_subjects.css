@@ -8,6 +8,10 @@ div.header {
 	padding: 6px;	/* same as a .row */
 }
 
+div.checkbox {
+	width: 30px;
+	float:left;
+}
 div.childid {
 	width: 70px;
 	float:left;
@@ -21,15 +25,15 @@ div.priority {
 	float:left;
 }
 div.last_name {
-	width: 150px;
+	width: 140px;
 	float:left;
 }
 div.first_name {
-	width: 150px;
+	width: 140px;
 	float:left;
 }
 div.outcome {
-	width: 100px;
+	width: 80px;
 	float:left;
 }
 
