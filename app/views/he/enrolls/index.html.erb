@@ -1,5 +1,7 @@
 <% content_for :head, stylesheet_link_tag('he_subjects') %>
 
+<%= render 'he/subjects/subsearch' %>
+
 <div class='header'>
 <%= sort_link('ChildID') %>
 <%= sort_link('StudyID') %>
@@ -14,5 +16,3 @@
 </div>
 
 <%= will_paginate @subjects %>
-
-<%= render 'he/subjects/search' %>

@@ -125,4 +125,10 @@ module FactoryTestHelper
 		response_set
 	end
 
+	def create_home_exposure_with_subject
+		s = Factory(:subject)
+		se = Factory(:study_event, :description => "Home Exposure")
+		Factory(:project_subject, :subject => s, :study_event => se )
+	end
+
 end

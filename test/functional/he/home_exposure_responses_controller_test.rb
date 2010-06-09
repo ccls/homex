@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 
+	setup :create_home_exposure_with_subject
+
 	setup :build_response_sets
 	def build_response_sets	#	setup
 		@rs1 = fill_out_survey(

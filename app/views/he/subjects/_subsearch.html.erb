@@ -1,0 +1,7 @@
+<div id='subsearch'>
+<% form_tag(params,:method => :get) do %>
+	<%= text_field_tag 'q', params[:q]  %>
+	<%= submit_tag 'find', :name => nil %>
+	<%= submit_tag 'download', :name => nil %>
+<% end %>
+</div><!-- subsearch -->

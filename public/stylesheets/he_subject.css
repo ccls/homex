@@ -2,3 +2,62 @@ div.subject,
 button,
 input {
 }
+
+
+.subject {
+}
+#main .manage {
+	background-color: silver;
+	padding: 10px;
+}
+
+#main .manage .childid {
+	float:left;
+}
+#main .manage .studyid {
+	float:left;
+}
+#main .manage .controls {
+	text-align: right;
+}
+#main .manage .controls a {
+	background-color: white;
+	padding: 2px 15px;
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid gray;
+
+	/* http://gradients.glrzad.com/ */
+	background-image: -moz-linear-gradient(
+		center bottom,
+		rgb(235,235,235) 10%,
+		rgb(179,179,179) 47%,
+		rgb(235,235,235) 74%
+	);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.10, rgb(235,235,235)),
+		color-stop(0.47, rgb(179,179,179)),
+		color-stop(0.74, rgb(235,235,235))
+	);
+
+}
+
+.subject .info {
+	clear: left;
+}
+.subject .info .col {
+	padding: 10px;
+}
+.subject .info .col1 {
+	float:left;
+}
+.subject .info .col2 {
+	float:left;
+}
+.subject .info .col3 {
+}

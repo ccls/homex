@@ -5,6 +5,9 @@ class He::InterviewsController < ApplicationController
 	layout 'home_exposure'
 
 	def index
+
+#	interview outcome != complete
+
 		he = StudyEvent.find_by_description('Home Exposure')
 		params[:study_events] ||= {}
 		params[:study_events][he.id] ||= {}

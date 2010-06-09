@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::DustKitsControllerTest < ActionController::TestCase
 
+	setup :create_home_exposure_with_subject
 	setup :build_subject
 	def build_subject	#setup
 		@subject = Factory(:subject)

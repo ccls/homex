@@ -2,8 +2,10 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::InterviewsControllerTest < ActionController::TestCase
 
+	setup :create_home_exposure_with_subject
+
 	test "should get index with admin login" do
-		Factory(:study_event, :description => "Home Exposure")
+#		Factory(:study_event, :description => "Home Exposure")
 		login_as admin
 		get :index
 		assert assigns(:subjects)

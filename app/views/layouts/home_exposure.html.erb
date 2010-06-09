@@ -18,7 +18,7 @@
 	<a>Reports</a>&nbsp;|&nbsp;
 	<a>FAQs</a>
 </div><!-- minimenu -->
-<div id='minisearch'>
+<div id='fullsearch'>
 <form action='search'>
 	<input type='text' />
 	<input type='submit' value='Find' />
@@ -44,6 +44,7 @@
 	<a>address/contact</a>
 	<a>eligibility/enrollments</a>
 </div><!-- submenu -->
+<%= yield :main %>
 <div id='content'>
 <% flash.each do |key, msg| %>
  <%= content_tag :p, msg, :id => key, :class => 'flash' %>

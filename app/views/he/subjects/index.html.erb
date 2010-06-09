@@ -1,6 +1,6 @@
-<% content_for :head do %>
-<%= stylesheet_link_tag('he_subjects') %>
-<% end %>
+<% content_for :head, stylesheet_link_tag('he_subjects') %>
+
+<%= render 'he/subjects/subsearch' %>
 
 <div class='header'>
 <%= sort_link('ChildID') %>
@@ -14,7 +14,3 @@
 </div>
 
 <%= will_paginate @subjects %>
-
-<%#= button_link_to "Create New Subject", new_subject_path %>
-
-<%= render 'he/subjects/search' %>

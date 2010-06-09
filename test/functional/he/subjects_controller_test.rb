@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::SubjectsControllerTest < ActionController::TestCase
 
+	setup :create_home_exposure_with_subject
+
 	test "should get index with subjects" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
 		rs1 = fill_out_survey(:survey => survey)
@@ -10,18 +12,16 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		rs3 = fill_out_survey(:survey => survey)
 		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 		rs5 = fill_out_survey(:survey => survey)
-		Factory(:subject)
 		Factory(:study_event)	#	test search code in view
 		#	There should now be 4 subjects in different states.
-		Factory(:study_event, :description => "Home Exposure")
 		login_as admin_user
 		get :index
+		assert_equal 1, assigns(:subjects).length
 		assert_response :success
 		assert_template 'index'
 	end
 
 	test "should get index with admin login" do
-		Factory(:study_event, :description => "Home Exposure")
 		login_as admin_user
 		get :index
 		assert_response :success
@@ -29,7 +29,6 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get index with employee login" do
-		Factory(:study_event, :description => "Home Exposure")
 		login_as employee
 		get :index
 		assert_response :success

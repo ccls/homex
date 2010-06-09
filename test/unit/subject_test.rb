@@ -135,6 +135,15 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "her_invitation should return home_exposure_survey invitation" do
+		subject = create_subject
+		assert_nil subject.her_invitation
+		si = Factory(:survey_invitation, 
+			:subject => subject,
+			:survey  => Survey.first)
+		assert_not_nil subject.her_invitation
+	end
+
 	test "should have many survey_invitations" do
 		subject = create_subject
 		assert_equal 0, subject.survey_invitations.length
@@ -966,12 +975,44 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject2)
 	end
 
+	test "search should NOT order by other stuff with dir" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		subjects = Subject.search(:order => 'whatever', :dir => 'asc')
+		assert_equal [s1,s2,s3], subjects
+	end
+
 	test "search should NOT order by other stuff" do
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
 		subjects = Subject.search(:order => 'whatever')
 		assert_equal [s1,s2,s3], subjects
+	end
+
+	test "search should order by outcome_date asc by default" do
+		pending
+	end
+
+	test "search should order by outcome_date desc" do
+		pending
+	end
+
+	test "search should order by outcome asc by default" do
+		pending
+	end
+
+	test "search should order by outcome desc" do
+		pending
+	end
+
+	test "search should order by priority asc by default" do
+		pending
+	end
+
+	test "search should order by priority desc" do
+		pending
 	end
 
 	test "search should order by childid asc by default" do

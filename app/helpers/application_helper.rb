@@ -12,7 +12,9 @@ module ApplicationHelper	#:nodoc:
 #			"class='#{options[:class]}'"
 #		end
 #		s =  "<button #{id} #{klass} type='button'>"
-		s =  "<button class='link' type='button'>"
+		classes = ['link']
+		classes << options[:class]
+		s =  "<button class='#{classes.flatten.join(' ')}' type='button'>"
 		s << "<span class='href' style='display:none;'>"
 		s << url_for(url)
 		s << "</span>"

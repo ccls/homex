@@ -46,7 +46,11 @@ div#minimenu {
 	padding: 5px 10px;
 	color: white;
 }
-div#minisearch {
+div#fullsearch {
+	clear:right;
+	float:right;
+}
+div#subsearch {
 	clear:right;
 	float:right;
 }
@@ -73,9 +77,13 @@ div#mainmenu a.current {
 }
 
 
+div#main {
+	width: 800px;
+	background-color:white;
+	float:left;
+}
 div#submenu {
 	clear:left;
-	width: 798px;
 	margin: 0;
 	background-color: #CCCCBB;
 	border: 1px solid black;
@@ -86,13 +94,18 @@ div#submenu a {
 }
 
 div#content {
-	width: 748px;	/* 800 - 2 * ( 25 + 1 ) */
-	float:left;
-	clear:both;
+/* 800 - 2 * ( 25 + 1 ) */
+/*
+	width: 748px;	
 	background-color:white;
 	border-right: 1px solid silver;
 	border-left: 1px solid silver;
+	float:left;
+*/
 	min-height: 200px;	
+	border-right: 1px solid silver;
+	border-left: 1px solid silver;
+	clear:both;
 	padding: 5px 25px;
 }
 

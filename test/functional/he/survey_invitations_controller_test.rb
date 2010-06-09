@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class He::SurveyInvitationsControllerTest < ActionController::TestCase
 
+	setup :create_home_exposure_with_subject
+
 	setup :build_stuff
 	def build_stuff	#	setup
 		@survey  = Factory(:survey)

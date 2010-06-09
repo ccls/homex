@@ -224,14 +224,13 @@ class Subject < ActiveRecord::Base
 				when 'studyid'    then 'piis.patid'
 				else nil
 			end
-		end
-
-		if params[:dir]
-			dir = case params[:dir].downcase
-				when 'desc' then 'desc'
-				else 'asc'
+			if order && params[:dir]
+				dir = case params[:dir].downcase
+					when 'desc' then 'desc'
+					else 'asc'
+				end
+				order = [order,dir].join(' ')
 			end
-			order = [order,dir].join(' ')
 		end
 
 		sql_scope[:conditions] = [sql_conditions.join(" && "), 
