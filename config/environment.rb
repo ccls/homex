@@ -130,4 +130,6 @@ end
 
 Time::DATE_FORMATS[:mdy] = "%b %d, %Y"   # Jan 01, 2009
 Date::DATE_FORMATS[:dob] = "%m/%d/%Y"   # 01/01/2009
+Time::DATE_FORMATS[:filename] = "%Y%m%d%H%M%S"   # 20091231235959
+
 
