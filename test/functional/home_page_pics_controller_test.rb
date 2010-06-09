@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomePagePicsControllerTest < ActionController::TestCase
 
+#		{	:create => { :home_page_pic => Factory.attributes_for(:home_page_pic) },
+	assert_no_access_without_login [:new,:create,:index,:edit,:update,:show,:destroy], {	:factory => :home_page_pic }
+
 	test "should get index with admin login" do
 		login_as admin_user
 		get :index
@@ -30,10 +33,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get index without login" do
-		get :index
-		assert_redirected_to_login
-	end
+#	test "should NOT get index without login" do
+#		get :index
+#		assert_redirected_to_login
+#	end
 
 
 	test "should get new with admin login" do
@@ -62,10 +65,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get new without login" do
-		get :new
-		assert_redirected_to_login
-	end
+#	test "should NOT get new without login" do
+#		get :new
+#		assert_redirected_to_login
+#	end
 
 
 	test "should create home_page_pic with admin login" do
@@ -102,12 +105,12 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create home_page_pic without login" do
-		assert_difference('HomePagePic.count',0) do
-			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
-		end
-		assert_redirected_to_login
-	end
+#	test "should NOT create home_page_pic without login" do
+#		assert_difference('HomePagePic.count',0) do
+#			post :create, :home_page_pic => Factory.attributes_for(:home_page_pic)
+#		end
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT create home_page_pic without valid HPP" do
 		login_as admin_user
@@ -150,11 +153,11 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT show home_page_pic without login" do
-		hpp = Factory(:home_page_pic)
-		get :show, :id => hpp.id
-		assert_redirected_to_login
-	end
+#	test "should NOT show home_page_pic without login" do
+#		hpp = Factory(:home_page_pic)
+#		get :show, :id => hpp.id
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT show home_page_pic with invalid id" do
 		hpp = Factory(:home_page_pic)
@@ -196,11 +199,11 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get edit without login" do
-		hpp = Factory(:home_page_pic)
-		get :edit, :id => hpp.id
-		assert_redirected_to_login
-	end
+#	test "should NOT get edit without login" do
+#		hpp = Factory(:home_page_pic)
+#		get :edit, :id => hpp.id
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT get edit with invalid id" do
 		hpp = Factory(:home_page_pic)
@@ -245,12 +248,12 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT update home_page_pic without login" do
-		hpp = Factory(:home_page_pic)
-		put :update, :id => hpp.id,
-			:home_page_pic => Factory.attributes_for(:home_page_pic)
-		assert_redirected_to_login
-	end
+#	test "should NOT update home_page_pic without login" do
+#		hpp = Factory(:home_page_pic)
+#		put :update, :id => hpp.id,
+#			:home_page_pic => Factory.attributes_for(:home_page_pic)
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT update home_page_pic with invalid id" do
 		hpp = Factory(:home_page_pic)
@@ -311,13 +314,13 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT destroy home_page_pic without login" do
-		hpp = Factory(:home_page_pic)
-		assert_difference('HomePagePic.count', 0) do
-			delete :destroy, :id => hpp.id
-		end
-		assert_redirected_to_login
-	end
+#	test "should NOT destroy home_page_pic without login" do
+#		hpp = Factory(:home_page_pic)
+#		assert_difference('HomePagePic.count', 0) do
+#			delete :destroy, :id => hpp.id
+#		end
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT destroy home_page_pic with invalid id" do
 		login_as admin_user

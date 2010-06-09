@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PackagesControllerTest < ActionController::TestCase
 
+	assert_no_access_without_login [:new, :create, :show, :destroy, :index],{:factory => :package}
+
 	test "delivered packages should NOT have update status link" do
 		Factory(:package, :status => "Delivered")
 		login_as admin_user
@@ -51,10 +53,10 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get index without login" do
-		get :index
-		assert_redirected_to_login
-	end
+#	test "should NOT get index without login" do
+#		get :index
+#		assert_redirected_to_login
+#	end
 
 
 	test "should get new with admin login" do
@@ -79,10 +81,10 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get new without login" do
-		get :new
-		assert_redirected_to_login
-	end
+#	test "should NOT get new without login" do
+#		get :new
+#		assert_redirected_to_login
+#	end
 
 
 	test "should create with admin login" do
@@ -114,10 +116,10 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create without login" do
-		post :create, :package => Factory.attributes_for(:package)
-		assert_redirected_to_login
-	end
+#	test "should NOT create without login" do
+#		post :create, :package => Factory.attributes_for(:package)
+#		assert_redirected_to_login
+#	end
 
 
 
@@ -193,11 +195,11 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT show package without login" do
-		package = Factory(:package)
-		get :show, :id => package.id
-		assert_redirected_to_login
-	end
+#	test "should NOT show package without login" do
+#		package = Factory(:package)
+#		get :show, :id => package.id
+#		assert_redirected_to_login
+#	end
 
 
 	test "should destroy package with admin login" do
@@ -227,13 +229,13 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT destroy package without login" do
-		package = Factory(:package)
-		assert_difference('Package.count',0) {
-			delete :destroy, :id => package.id
-		}
-		assert_redirected_to_login
-	end
+#	test "should NOT destroy package without login" do
+#		package = Factory(:package)
+#		assert_difference('Package.count',0) {
+#			delete :destroy, :id => package.id
+#		}
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT destroy package without valid id" do
 		login_as admin_user

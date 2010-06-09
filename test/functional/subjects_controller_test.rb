@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectsControllerTest < ActionController::TestCase
 
+	assert_no_access_without_login [:new,:edit,:show,:destroy,:index],{:factory => :subject }
+
 	test "should get index with subjects" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
 		rs1 = fill_out_survey(:survey => survey)
@@ -39,10 +41,10 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get index without login" do
-		get :index
-		assert_redirected_to_login
-	end
+#	test "should NOT get index without login" do
+#		get :index
+#		assert_redirected_to_login
+#	end
 
 
 	test "should get show with admin login" do
@@ -78,11 +80,11 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get show without login" do
-		subject = Factory(:subject)
-		get :show, :id => subject
-		assert_redirected_to_login
-	end
+#	test "should NOT get show without login" do
+#		subject = Factory(:subject)
+#		get :show, :id => subject
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT get show with invalid id" do
 		subject = Factory(:subject)
@@ -115,10 +117,10 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get new without login" do
-		get :new
-		assert_redirected_to_login
-	end
+#	test "should NOT get new without login" do
+#		get :new
+#		assert_redirected_to_login
+#	end
 
 	test "new subject should have non nil pii" do
 		login_as admin
@@ -272,11 +274,11 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT edit without login" do
-		subject = Factory(:subject)
-		get :edit, :id => subject.id
-		assert_redirected_to_login
-	end
+#	test "should NOT edit without login" do
+#		subject = Factory(:subject)
+#		get :edit, :id => subject.id
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT edit without valid id" do
 		subject = Factory(:subject)
@@ -435,13 +437,13 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT destroy without login" do
-		subject = Factory(:subject)
-		assert_difference('Subject.count',0) {
-			delete :destroy, :id => subject.id
-		}
-		assert_redirected_to_login
-	end
+#	test "should NOT destroy without login" do
+#		subject = Factory(:subject)
+#		assert_difference('Subject.count',0) {
+#			delete :destroy, :id => subject.id
+#		}
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT destroy with invalid id" do
 		subject = Factory(:subject)

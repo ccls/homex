@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PagesControllerTest < ActionController::TestCase
 
+	assert_no_access_without_login [:new,:create,:edit,:update,:destroy,:index],{:factory => :page}
+
 #
 #		index/new/create/edit/update/destroy 
 #			should only be visible to admins for editing
@@ -78,17 +80,17 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get index without login" do
-		get :index
-		assert_redirected_to_login
-	end
+#	test "should NOT get index without login" do
+#		get :index
+#		assert_redirected_to_login
+#	end
 
 
 
-	test "should NOT get new without login" do
-		get :new
-		assert_redirected_to_login
-	end
+#	test "should NOT get new without login" do
+#		get :new
+#		assert_redirected_to_login
+#	end
 
 	test "should get new with admin login" do
 		login_as admin_user
@@ -105,12 +107,12 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should NOT create without login" do
-		assert_no_difference( 'Page.count' ) do
-			post :create, :page => Factory.attributes_for(:page)
-		end
-		assert_redirected_to_login
-	end
+#	test "should NOT create without login" do
+#		assert_no_difference( 'Page.count' ) do
+#			post :create, :page => Factory.attributes_for(:page)
+#		end
+#		assert_redirected_to_login
+#	end
 
 	test "should create page with admin login" do
 		login_as admin_user
@@ -150,10 +152,10 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should NOT get edit without login" do
-		get :edit, :id => Factory(:page).id
-		assert_redirected_to_login
-	end
+#	test "should NOT get edit without login" do
+#		get :edit, :id => Factory(:page).id
+#		assert_redirected_to_login
+#	end
 
 	test "should get edit with admin login" do
 		login_as admin_user
@@ -177,11 +179,11 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should NOT update without login" do
-		put :update, :id => Factory(:page).id, 
-			:page => Factory.attributes_for(:page)
-		assert_redirected_to_login
-	end
+#	test "should NOT update without login" do
+#		put :update, :id => Factory(:page).id, 
+#			:page => Factory.attributes_for(:page)
+#		assert_redirected_to_login
+#	end
 
 	test "should update page with admin login" do
 		login_as admin_user
@@ -216,13 +218,13 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should NOT destroy without login" do
-		page = Factory(:page)
-		assert_no_difference( 'Page.count' ) do
-			delete :destroy, :id => page.id
-		end
-		assert_redirected_to_login
-	end
+#	test "should NOT destroy without login" do
+#		page = Factory(:page)
+#		assert_no_difference( 'Page.count' ) do
+#			delete :destroy, :id => page.id
+#		end
+#		assert_redirected_to_login
+#	end
 
 	test "should destroy page with admin login" do
 		login_as admin_user

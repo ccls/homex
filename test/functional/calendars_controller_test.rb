@@ -22,9 +22,11 @@ class CalendarsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT show without login" do
-		get :show
-		assert_redirected_to_login
-	end
+#	test "should NOT show without login" do
+#		get :show
+#		assert_redirected_to_login
+#	end
+
+	assert_no_access_without_login [:show]
 
 end

@@ -46,6 +46,12 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
+	test "should download csv with admin login" do
+		login_as admin
+		get :index, :commit => 'download'
+		assert_response :success
+		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
+	end
 
 	test "should get show with admin login" do
 		subject = Factory(:subject)

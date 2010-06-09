@@ -20,11 +20,12 @@ class UsersControllerTest < ActionController::TestCase
 #		assert_nil UserSession.find
 #	end
 
+	assert_no_access_without_login [:index,:show],{:factory => :user}
 
-	test "should NOT get users index without login" do
-		get :index
-		assert_redirected_to_login
-	end
+#	test "should NOT get users index without login" do
+#		get :index
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT get users index without admin login" do
 		login_as active_user
@@ -56,11 +57,11 @@ class UsersControllerTest < ActionController::TestCase
 
 
 
-	test "should NOT get user info without login" do
-		u = active_user
-		get :show, :id => u.id
-		assert_redirected_to_login
-	end
+#	test "should NOT get user info without login" do
+#		u = active_user
+#		get :show, :id => u.id
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT get user info without admin login" do
 		login_as active_user

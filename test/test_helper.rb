@@ -8,6 +8,8 @@ require 'package_test_helper'
 
 require 'pending'
 require 'declarative'
+require 'no_access_without_login'
+#require 'full_access_with_admin_login'
 
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
