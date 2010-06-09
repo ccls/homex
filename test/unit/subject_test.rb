@@ -556,6 +556,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert subjects.include?(subject)
 	end
 
+	test "search should include subject without pagination" do
+		subject = create_subject
+		subjects = Subject.search(:paginate => false)
+		assert subjects.include?(subject)
+	end
+
 	test "search should include subject by subject_type" do
 		subject1 = create_subject
 		subject2 = create_subject

@@ -1,7 +1,12 @@
 <div id='subsearch'>
-<% form_tag(params,:method => :get) do %>
-	<%= text_field_tag 'q', params[:q]  %>
-	<%= submit_tag 'find', :name => nil %>
-	<%= submit_tag 'download', :name => nil %>
+<% form_tag("/#{params[:controller]}",:method => :get) do %>
+<%# params.dup.delete_keys!(:q,:commit,:action,:controller).each_pair do |k,v| -%>
+	<%#= hidden_field_tag k, v %>
+<%# end -%>
+	<%= hidden_field_tag :order, params[:order] %>
+	<%= hidden_field_tag :dir, params[:dir] %>
+	<%= text_field_tag :q, params[:q]  %>
+	<%= submit_tag 'find' %>
+	<%= submit_tag 'download' %>
 <% end %>
 </div><!-- subsearch -->

@@ -238,19 +238,26 @@ class Subject < ActiveRecord::Base
 
 #	DO NOT :include anything that may also be used in :joins
 #	this will cause confusion and ambiguouity.
+	
+		find_options = {
+			:order => order,
+#			:readonly => false,
+			:joins => joins,
+			:conditions => conditions,
+			:include => [:child_id,:pii]
+#			:include => [:race,:subject_type,:child_id,:pii]#,
+#				{:dust_kit => [:kit_package,:dust_package]}]
+		}
 
 		with_scope( :find => sql_scope ) do
-			paginate(
-				:order => order,
-				:readonly => false,
-				:page => params[:page], 
-				:per_page => params[:per_page]||25,
-				:joins => joins,
-				:conditions => conditions,
-				:include => [:child_id,:pii]
-#				:include => [:race,:subject_type,:child_id,:pii]#,
-#					{:dust_kit => [:kit_package,:dust_package]}]
-			)
+			if !params[:paginate].nil? && params[:paginate].false?
+				find(:all, find_options)
+			else
+				paginate(find_options.merge({
+					:page => params[:page], 
+					:per_page => params[:per_page]||25
+				}))
+			end
 		end
 	end
 
