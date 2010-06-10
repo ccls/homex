@@ -233,7 +233,20 @@ class Subject < ActiveRecord::Base
 			end
 		end
 
-		sql_scope[:conditions] = [sql_conditions.join(" && "), 
+		if params[:q]
+			c = []
+			v = {}
+			params[:q].split(/\s+/).each_with_index do |q,i|
+				c.push("piis.first_name LIKE :q#{i}")
+				c.push("piis.last_name LIKE :q#{i}")
+				v["q#{i}".to_sym] = "%#{q}%"
+			end
+			sql_conditions.push("( #{c.join(' OR ')} )")
+			sql_values.push(v)
+		end
+
+		#	sqlite doesn't like && apparently
+		sql_scope[:conditions] = [sql_conditions.join(" AND "), 
 			sql_values].flatten
 
 #	DO NOT :include anything that may also be used in :joins

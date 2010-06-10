@@ -1145,6 +1145,26 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(subject1)
 	end
 
+	test "search should include subject by q first_name" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => 'Michael'))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:first_name => 'Bob'))
+		subjects = Subject.search(:q => 'mi ch ha')
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
+	test "search should include subject by q last_name" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => 'Michael'))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
+			:last_name => 'Bob'))
+		subjects = Subject.search(:q => 'cha ael')
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
 
 	test "should return dust_kit_status of None" do
 		subject = create_subject
