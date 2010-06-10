@@ -124,18 +124,20 @@ class Subject < ActiveRecord::Base
 		sql_scope = { :joins => [] }
 		sql_conditions = []
 		sql_values = []
-		if params[:type] && !params[:type].blank?
-			joins.push(:subject_type)
-			conditions['subject_types.description'] = params[:type]
-		end
+#	no longer used this way
+#		if params[:type] && !params[:type].blank?
+#			joins.push(:subject_type)
+#			conditions['subject_types.description'] = params[:type]
+#		end
 		if params[:types] && !params[:types].blank?
 			joins.push(:subject_type)
 			conditions['subject_types.description'] = params[:types]
 		end
-		if params[:race] && !params[:race].blank?
-			joins.push(:race)
-			conditions['races.name'] = params[:race]
-		end
+#	no longer used this way
+#		if params[:race] && !params[:race].blank?
+#			joins.push(:race)
+#			conditions['races.name'] = params[:race]
+#		end
 		if params[:races] && !params[:races].blank?
 			joins.push(:race)
 			conditions['races.name'] = params[:races]
@@ -208,7 +210,6 @@ class Subject < ActiveRecord::Base
 									conditions["se_#{id}.completed_on"] = nil
 								end
 							end
-#=> ProjectSubject(id: integer, position: integer, subject_id: integer, study_event_id: integer, ineligible_reason_id: integer, refusal_reason_id: integer, reason_not_chosen: string, recruitment_priority: string, completed_on: date, consented_on: date, other_refusal_reason: string, subject_terminated_reason: string, reason_closed: string, created_at: datetime, updated_at: datetime)
 					end
 				end if params[:study_events][id].is_a?(Hash)
 
@@ -256,11 +257,11 @@ class Subject < ActiveRecord::Base
 		#
 		#	I'm kinda surprised that this :select line works.
 		#	It seems to be ignored when not needed which is weird.
+		#	The :include option can block the :select option.
 		#
 		find_options = {
 			:select => "subjects.*, project_subjects.recruitment_priority as priority",
 			:order => order,
-#			:readonly => false,
 			:joins => joins,
 			:conditions => conditions,
 			:include => [:child_id,:pii]

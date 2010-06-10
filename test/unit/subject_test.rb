@@ -562,14 +562,14 @@ class SubjectTest < ActiveSupport::TestCase
 		assert subjects.include?(subject)
 	end
 
-	test "search should include subject by subject_type" do
-		subject1 = create_subject
-		subject2 = create_subject
-		subjects = Subject.search(
-			:type => subject1.subject_type.description)
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject by subject_type" do
+#		subject1 = create_subject
+#		subject2 = create_subject
+#		subjects = Subject.search(
+#			:type => subject1.subject_type.description)
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
 	test "search should include subject by subject_types" do
 		s1 = create_subject
@@ -582,13 +582,13 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(s3)
 	end
 
-	test "search should include subject by race" do
-		subject1 = create_subject
-		subject2 = create_subject
-		subjects = Subject.search(:race => subject1.race.name)
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject by race" do
+#		subject1 = create_subject
+#		subject2 = create_subject
+#		subjects = Subject.search(:race => subject1.race.name)
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
 	test "search should include subject by races" do
 		s1 = create_subject
