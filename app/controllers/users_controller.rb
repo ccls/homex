@@ -9,6 +9,9 @@ class UsersController < ApplicationController	#:nodoc:
 	before_filter :may_view_user_required, :only => [:edit,:update,:show]
 	before_filter :may_view_users_required, :only => :index
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	def new	
 #		@user = User.new	
 #	end	

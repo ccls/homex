@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserSessionsControllerTest < ActionController::TestCase
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	test "should get login if NOT logged in" do
 #		get :new
 #		assert_response :success

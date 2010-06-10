@@ -1,5 +1,8 @@
 class UserInvitationsController < ApplicationController
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	before_filter :may_create_user_invitations_required,
 #		:only => [ :new, :create ]
 #	skip_before_filter :login_required, :only => :show

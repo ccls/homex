@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	#	not really a controller test
 #	test "should NOT automatically log in new user with my helper" do
 #		assert_difference('User.count',1) do
@@ -107,6 +110,9 @@ class UsersControllerTest < ActionController::TestCase
 
 
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	test "should get new user without login" do
 #		ui = Factory(:user_invitation)
 #		get :new, :token => ui.token

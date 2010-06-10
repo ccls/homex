@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserInvitationsControllerTest < ActionController::TestCase
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	test "should NOT get new without login" do
 #		get :new
 #		assert_not_nil flash[:error]

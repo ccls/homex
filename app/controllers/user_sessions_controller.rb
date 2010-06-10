@@ -1,5 +1,8 @@
 class UserSessionsController < ApplicationController
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	skip_before_filter :login_required, :except => [:destroy]
 #	before_filter :no_current_user_required, :only => [:new,:create]
 #

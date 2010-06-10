@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserInvitationMailerTest < ActionMailer::TestCase
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	setup :build_stuff
 #	def build_stuff
 #		@invitation = Factory(:user_invitation)

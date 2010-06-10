@@ -8,6 +8,9 @@
 #	*	telephonenumber
 class User < ActiveRecord::Base
 
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	#	by default, expects a username or login attribute
 #	#	which I didn't have and caused a bit of a headache!
 #	#	Also automatically logs newly created user in

@@ -72,7 +72,9 @@ class UserTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require unique perishable token" do
+#	We are using UCB CAS for authentication so this is unused.
+#	If Authlogic or other is reused, uncomment all this.
+#
 #	test "should require password matching confirmation" do
 #		assert_no_difference 'User.count' do
 #			u = create_user(
