@@ -39,19 +39,22 @@ protected
 	def her_attributes_required
 		if params[:home_exposure_response].nil? ||
 			!params[:home_exposure_response].is_a?(Hash)
-			access_denied("home exposure response attributes hash required")
+			access_denied("home exposure response attributes hash required",
+				home_exposure_path)
 		end
 	end
 
 	def her_must_exist
 		unless HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
-			access_denied("HER does not exist for this subject")
+			access_denied("HER does not exist for this subject",
+				home_exposure_path)
 		end
 	end
 
 	def her_must_not_exist
 		if HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
-			access_denied("HER already exists for this subject")
+			access_denied("HER already exists for this subject",
+				home_exposure_path)
 		end
 	end
 
@@ -59,7 +62,8 @@ protected
 		if( Subject.exists?( params[:subject_id] ) )
 			@subject = Subject.find( params[:subject_id] )
 		else
-			access_denied("Valid Subject ID required")
+			access_denied("Valid Subject ID required",
+				home_exposure_path)
 		end
 	end
 
@@ -67,13 +71,15 @@ protected
 		if @subject.response_sets.count > 2 ||
 			@subject.response_sets.count < 2
 			access_denied("Must complete 2 response sets before merging. " <<
-				":#{@subject.response_sets.count}:" )
+				":#{@subject.response_sets.count}:" ,
+				home_exposure_path)
 		end
 	end
 
 	def all_response_sets_completed_required
 		unless @subject.response_sets.collect(&:is_complete?).all?
-			access_denied("All response sets need to be completed")
+			access_denied("All response sets need to be completed",
+				home_exposure_path)
 		end
 	end
 

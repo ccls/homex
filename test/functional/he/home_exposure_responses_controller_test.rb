@@ -52,7 +52,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT get new without valid subject_id" do
 		login_as admin_user
 		get :new, :subject_id => 0
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -67,7 +67,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs2.destroy
 		login_as admin_user
 		get :new, :subject_id => @rs1.subject_id
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -75,7 +75,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		rs3 = fill_out_survey(:subject => @rs1.subject, :survey => @rs1.survey)
 		login_as admin_user
 		get :new, :subject_id => @rs1.subject_id
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -83,7 +83,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs1.update_attribute(:completed_at, nil)
 		login_as admin_user
 		get :new, :subject_id => @rs1.subject_id
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -93,7 +93,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		}
 		login_as admin_user
 		get :new, :subject_id => @rs1.subject_id
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -152,7 +152,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 	end
 
 	test "should NOT create HER without home_exposure_response" do
@@ -161,7 +161,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 			post :create, :subject_id => @rs1.subject_id
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 	end
 
 	test "should NOT create HER without valid home_exposure_response" do
@@ -171,7 +171,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 				:home_exposure_response => 0
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 	end
 
 	test "should NOT create HER when HER.create fails" do
@@ -194,7 +194,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 	end
 
 	test "should show with admin login" do
@@ -230,7 +230,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT show without valid subject_id" do
 		login_as admin_user
 		get :show, :subject_id => 0
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 
@@ -244,7 +244,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT show without existing home_exposure_response" do
 		login_as admin_user
 		get :show, :subject_id => @rs1.subject_id
-		assert_redirected_to root_path
+		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
 

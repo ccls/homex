@@ -18,7 +18,7 @@ class He::DustKitsController < ApplicationController
 		@dust_kit = @subject.build_dust_kit(params[:dust_kit])
 		@dust_kit.save!
 		flash[:notice] = 'Success!'
-		redirect_to subject_path(@subject)
+		redirect_to he_subject_path(@subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the dust kit"
 		render :action => "new"
@@ -31,7 +31,7 @@ class He::DustKitsController < ApplicationController
 	def update
 		@dust_kit = @subject.dust_kit
 		@dust_kit.update_attributes!(params[:dust_kit])
-		redirect_to subject_path(@subject)
+		redirect_to he_subject_path(@subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the dust kit"
 		render :action => "edit"
@@ -41,7 +41,7 @@ class He::DustKitsController < ApplicationController
 		if @subject.dust_kit.destroy
 			flash[:error] = "Dust Kit destruction failed."
 		end
-		redirect_to subject_path(@subject)
+		redirect_to he_subject_path(@subject)
 	end
 
 protected
@@ -50,7 +50,7 @@ protected
 		if !params[:subject_id].blank? and Subject.exists?(params[:subject_id])
 			@subject = Subject.find(params[:subject_id])
 		else
-			access_denied("Valid subject id required!", subjects_path)
+			access_denied("Valid subject id required!", he_subjects_path)
 		end
 	end
 

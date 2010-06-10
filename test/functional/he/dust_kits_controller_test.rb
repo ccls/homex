@@ -71,7 +71,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 			post :create, :subject_id => @subject.id,
 				:dust_kit => Factory.attributes_for(:dust_kit)
 		}
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should get edit with admin login" do
@@ -87,7 +87,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		Factory(:dust_kit,:subject_id => @subject.id)
 		put :update, :subject_id => @subject.id,
 			:dust_kit => Factory.attributes_for(:dust_kit)
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should get show with admin login" do
@@ -116,7 +116,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_difference('DustKit.count',-1){
 			delete :destroy, :subject_id => @subject.id
 		}
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 #	employee login
@@ -135,7 +135,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 			post :create, :subject_id => @subject.id,
 				:dust_kit => Factory.attributes_for(:dust_kit)
 		}
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should get edit with employee login" do
@@ -151,7 +151,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		Factory(:dust_kit,:subject_id => @subject.id)
 		put :update, :subject_id => @subject.id,
 			:dust_kit => Factory.attributes_for(:dust_kit)
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should get show with employee login" do
@@ -168,7 +168,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_difference('DustKit.count',-1){
 			delete :destroy, :subject_id => @subject.id
 		}
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 #	user login
@@ -322,7 +322,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 			delete :destroy, :subject_id => @subject.id
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 #	NO subject_id
@@ -378,7 +378,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 	test "should NOT get new with invalid subject_id" do
 		login_as admin_user
 		get :new, :subject_id => 0
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
@@ -388,14 +388,14 @@ class He::DustKitsControllerTest < ActionController::TestCase
 			post :create, :subject_id => 0,
 				:dust_kit => Factory.attributes_for(:dust_kit)
 		}
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should NOT get edit with invalid subject_id" do
 		login_as admin_user
 		get :edit, :subject_id => 0
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
@@ -404,14 +404,14 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		Factory(:dust_kit,:subject_id => @subject.id)
 		put :update, :subject_id => 0,
 			:dust_kit => Factory.attributes_for(:dust_kit)
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
 	test "should NOT get show with invalid subject_id" do
 		login_as admin_user
 		get :show, :subject_id => 0
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
@@ -421,7 +421,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_difference('DustKit.count',0){
 			delete :destroy, :subject_id => 0
 		}
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 		assert_not_nil flash[:error]
 	end
 
