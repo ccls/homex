@@ -253,6 +253,10 @@ class Subject < ActiveRecord::Base
 #	DO NOT :include anything that may also be used in :joins
 #	this will cause confusion and ambiguouity.
 	
+		#
+		#	I'm kinda surprised that this :select line works.
+		#	It seems to be ignored when not needed which is weird.
+		#
 		find_options = {
 			:select => "subjects.*, project_subjects.recruitment_priority as priority",
 			:order => order,

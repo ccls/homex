@@ -1,4 +1,7 @@
-<% content_for :head, stylesheet_link_tag('he_subjects') %>
+<% content_for :head do %>
+<%= javascript_include_tag('he_subjects') %>
+<%= stylesheet_link_tag('he_subjects') %>
+<% end %>
 <% content_for :main do %>
 <div id='submenu'>
 	<a>send letters</a>
@@ -9,8 +12,8 @@
 <% end %>
 
 <% form_tag(update_select_he_enrolls_path, :method => :put ) do %>
-	<span>select all</span>
-	<span>deselect all</span>
+	<button type='button' id='select_all'>select all</button>
+	<button type='button' id='deselect_all'>deselect all</button>
 	<span>letter sent on:</span>
 	<%= text_field_tag :date %>
 	<%= submit_tag 'set date' %>
