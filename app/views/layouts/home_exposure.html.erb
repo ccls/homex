@@ -14,7 +14,7 @@
 <div id='container'>
 <div id='header'>
 <div id='minimenu'>
-	<a>Home</a>&nbsp;|&nbsp;
+	<%= link_to "Home", home_exposure_path %>&nbsp;|&nbsp;
 	<a>Reports</a>&nbsp;|&nbsp;
 	<a>FAQs</a>
 </div><!-- minimenu -->
@@ -50,6 +50,7 @@
 </div><!-- content -->
 </div><!-- main -->
 <div id='guidance'>
+<%= yield :guidance %>
 </div><!-- guidance -->
 <div id='footer'>
 <p>
