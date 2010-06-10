@@ -1,4 +1,12 @@
 <% content_for :head, stylesheet_link_tag('he_subjects') %>
+<% content_for :main do %>
+<div id='submenu'>
+	<a>send letters</a>
+	<a>returned mail</a>
+	<a>enroll subjects</a>
+	<a>record outcomes</a>
+</div><!-- submenu -->
+<% end %>
 
 <% form_tag(update_select_he_enrolls_path, :method => :put ) do %>
 	<span>select all</span>

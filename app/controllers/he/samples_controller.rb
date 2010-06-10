@@ -21,8 +21,9 @@ class He::SamplesController < ApplicationController
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
 				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
+			render :template => "he/subjects/index"
 		end
-		render :template => "he/subjects/index"
+#		render :template => "he/subjects/index"
 	end
 
 end
