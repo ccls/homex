@@ -1,6 +1,8 @@
-<% @subjects.each do |s| -%>
-<%= s.childid -%>,<%= s.studyid -%>,<%= s.last_name -%>,<%= s.first_name -%>,<%= s.dob %>
-<% end -%>
-<%#
-		NEED TO IMPLEMENT A REAL CSV OUTPUT HERE
-%>
+<% require 'fastercsv' -%>
+<% csv_string = FasterCSV.generate do |csv|
+@subjects.each do |s|
+	csv << [ s.childid, s.studyid, s.last_name, s.first_name, s.dob ]
+end
+end
+-%>
+<%= csv_string -%>
