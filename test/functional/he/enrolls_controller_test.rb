@@ -33,4 +33,18 @@ class He::EnrollsControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
+	test "should update selected with admin login" do
+		login_as admin
+		put :update_select, :date => Time.now,
+			:subjects => { }
+		assert_response :redirect
+		assert_match he_enrolls_path, @response.redirected_to
+	end
+
+	test "should NOT update selected without login" do
+		put :update_select, :date => Time.now,
+			:subjects => { }
+		assert_redirected_to_login
+	end
+
 end

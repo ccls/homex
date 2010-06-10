@@ -59,11 +59,6 @@ module NoAccessWithoutLogin
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 			test "should NOT delete destroy without login" do
-#				if options[:delete]
-#					delete :destroy, options[:delete]||{}
-#				else
-#					delete :destroy
-#				end
 				model = options[:factory].to_s.camelize
 				args=[]
 				if options[:factory]
