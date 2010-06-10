@@ -10,7 +10,6 @@
 <%= subject.first_name %>
 </div>
 <div class='dob'>
-<%# using try here as not all subjects have dob in testing %>
-<%= subject.dob.try(:to_s,:dob) %>
+<%= subject.birthdate %>
 </div>
 <% end %><%# content_tag_for %>

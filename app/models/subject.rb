@@ -48,8 +48,27 @@ class Subject < ActiveRecord::Base
 
 	class NotTwoResponseSets < StandardError; end
 
+	def birthdate
+		bd = ( respond_to?(:dob) ) ? dob : pii.dob
+		#	for some reason this can be a String and not Date???
+		#	if it is acquired through sql joins as a virtual column
+		if bd
+			if bd.is_a?(String)
+				Date.parse(bd).to_s(:dob)
+			else
+				bd.try(:to_s,:dob)
+			end
+		else
+			nil
+		end
+	end
+
 	def studyid
-		"#{patid}-#{orderno}"
+		if respond_to?(:patid) && respond_to?(:orderno)
+			"#{patid}-#{orderno}"
+		else
+			"#{pii.patid}-#{pii.orderno}"
+		end
 	end
 
 	def outcome_date
@@ -60,9 +79,15 @@ class Subject < ActiveRecord::Base
 		"TEST"
 	end
 
-#	def priority
-#		"TEST"
-#	end
+	def priority
+		if respond_to?('project_subjects.recruitment_priority')
+			project_subjects.recruitment_priority
+		elsif respond_to?('recruitment_priority')
+			recruitment_priority
+		else
+			'TEST'
+		end
+	end
 
 	def response_sets_the_same?
 		if response_sets.length == 2
@@ -112,36 +137,26 @@ class Subject < ActiveRecord::Base
 		order = nil
 		conditions = { }
 		joins = []
-		#	mixing Strings and Symbols in the joins array caused
-		#		raise ConfigurationError, 
-		#			"Association named '#{ associations } ' was not found; 
-		#				perhaps you misspelled it?"
-		#	so I created a separate scope to handle the strings.
-		#	The rails documentation which states that it can be 
-		#		"an array containing a mixture of both 
-		#			strings and named associations"
-		#	is incorrect.
+		includes = [:pii,:child_id]
 		sql_scope = { :joins => [] }
+#			'LEFT OUTER JOIN piis ON subjects.id = piis.subject_id',
+#			'LEFT OUTER JOIN child_ids ON subjects.id = child_ids.subject_id'
+#		]}
 		sql_conditions = []
 		sql_values = []
-#	no longer used this way
-#		if params[:type] && !params[:type].blank?
-#			joins.push(:subject_type)
-#			conditions['subject_types.description'] = params[:type]
-#		end
+#		selects = [Subject.default_scoping.first[:find][:select]]
+#		selects = ['subjects.*']
+
 		if params[:types] && !params[:types].blank?
 			joins.push(:subject_type)
 			conditions['subject_types.description'] = params[:types]
 		end
-#	no longer used this way
-#		if params[:race] && !params[:race].blank?
-#			joins.push(:race)
-#			conditions['races.name'] = params[:race]
-#		end
+
 		if params[:races] && !params[:races].blank?
 			joins.push(:race)
 			conditions['races.name'] = params[:races]
 		end
+
 		if params[:dust_kit] && !params[:dust_kit].blank?
 			if params[:dust_kit] == 'shipped'
 				#	Shipped to subject
@@ -165,6 +180,7 @@ class Subject < ActiveRecord::Base
 				conditions['dust_kits.id'] = nil
 			end
 		end
+
 		if params[:study_events] && !params[:study_events].blank?
 #
 #	more than one study_event will always return nothing (for now)
@@ -173,11 +189,14 @@ class Subject < ActiveRecord::Base
 #	join inside this loop.
 #	This should now work with the added aliases
 #
+
 			params[:study_events].keys.each do |id|
 				sql_scope[:joins].push(
 					"JOIN project_subjects se_#{id} ON subjects.id "<<
 						"= se_#{id}.subject_id AND se_#{id}.study_event_id = #{id}" 
 				)
+#				#	No idea what'll happen with multiple se's here.
+#				selects.push("se_#{id}.recruitment_priority as priority")
 				params[:study_events][id].keys.each do |attr|
 					val = [params[:study_events][id][attr]].flatten
 					case attr.to_s.downcase
@@ -212,7 +231,6 @@ class Subject < ActiveRecord::Base
 							end
 					end
 				end if params[:study_events][id].is_a?(Hash)
-
 			end
 		end
 
@@ -223,7 +241,11 @@ class Subject < ActiveRecord::Base
 				when 'first_name' then 'piis.first_name'
 				when 'dob'        then 'piis.dob'
 				when 'studyid'    then 'piis.patid'
-				when 'priority'   then 'priority'
+				when 'priority'   then 'recruitment_priority'
+#				when 'priority'   then 'project_subjects.recruitment_priority'
+#				when 'priority'   then 'priority'
+#					selects.push('recruitment_priority as priority')
+#					'recruitment_priority'
 				else nil
 			end
 			if order && params[:dir]
@@ -235,7 +257,7 @@ class Subject < ActiveRecord::Base
 			end
 		end
 
-		if params[:q]
+		if params[:q] && !params[:q].blank?
 			c = []
 			v = {}
 			params[:q].split(/\s+/).each_with_index do |q,i|
@@ -247,26 +269,15 @@ class Subject < ActiveRecord::Base
 			sql_values.push(v)
 		end
 
-		#	sqlite doesn't like && apparently
 		sql_scope[:conditions] = [sql_conditions.join(" AND "), 
 			sql_values].flatten
 
-#	DO NOT :include anything that may also be used in :joins
-#	this will cause confusion and ambiguouity.
-	
-		#
-		#	I'm kinda surprised that this :select line works.
-		#	It seems to be ignored when not needed which is weird.
-		#	The :include option can block the :select option.
-		#
 		find_options = {
-			:select => "subjects.*, project_subjects.recruitment_priority as priority",
+#			:select => selects.join(','),
 			:order => order,
 			:joins => joins,
-			:conditions => conditions,
-			:include => [:child_id,:pii]
-#			:include => [:race,:subject_type,:child_id,:pii]#,
-#				{:dust_kit => [:kit_package,:dust_package]}]
+			:include => includes,
+			:conditions => conditions
 		}
 
 		with_scope( :find => sql_scope ) do
@@ -280,5 +291,19 @@ class Subject < ActiveRecord::Base
 			end
 		end
 	end
+
+#	default_scope :select => "subjects.*, child_ids.childid, piis.orderno, piis.patid, piis.first_name, piis.last_name, piis.dob",
+#		:joins => [
+#			'LEFT OUTER JOIN piis ON subjects.id = piis.subject_id',
+#			'LEFT OUTER JOIN child_ids ON subjects.id = child_ids.subject_id'
+#		]
+
+#
+#	Tried all these special selects and virtual columns as
+#	it was supposed to speed things up, but hasn't made
+#	much difference.  Created a default_scope and removed
+#	some delegated stuff.  Probably put it back.  The includes
+#	were causing some grief, but may try again.
+#
 
 end

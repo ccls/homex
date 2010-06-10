@@ -9,12 +9,12 @@ class He::InterviewsController < ApplicationController
 #	interview outcome != complete
 
 		he = StudyEvent.find_by_description('Home Exposure')
-#		params[:study_events] ||= {}
-#		params[:study_events][he.id] ||= {}
-#		@subjects = Subject.search(params)
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
+#		params[:study_events] ||= {}
+#		params[:study_events][he.id] ||= {}
+#		@subjects = Subject.search(params)
 		@subjects = he.subjects.search(params)
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'

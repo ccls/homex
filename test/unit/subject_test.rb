@@ -1025,6 +1025,8 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s3,
 			:recruitment_priority => 6)
 		subjects = se.subjects.search(:order => 'priority')
+#		subjects = Subject.search(:order => 'priority',
+#			:study_events => { se.id => {} })
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -1040,6 +1042,8 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:project_subject, :study_event => se, :subject => s3,
 			:recruitment_priority => 6)
 		subjects = se.subjects.search(:order => 'priority',:dir => 'desc')
+#		subjects = Subject.search(:order => 'priority',:dir => 'desc',
+#			:study_events => { se.id => {} })
 		assert_equal [s1,s3,s2], subjects
 	end
 
