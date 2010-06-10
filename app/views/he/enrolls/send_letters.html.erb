@@ -2,14 +2,7 @@
 <%= javascript_include_tag('he_subjects') %>
 <%= stylesheet_link_tag('he_subjects') %>
 <% end %>
-<% content_for :main do %>
-<div id='submenu'>
-	<a>send letters</a>
-	<a>returned mail</a>
-	<a>enroll subjects</a>
-	<a>record outcomes</a>
-</div><!-- submenu -->
-<% end %>
+<%= render 'submenu' %>
 
 <% form_tag(update_select_he_enrolls_path, :method => :put ) do %>
 	<button type='button' id='select_all'>select all</button>
@@ -24,8 +17,8 @@
 <%= sort_link('ChildID') %>
 <%= sort_link('StudyID') %>
 <%= sort_link('Priority') %>
-<%= sort_link('Last Name') %>
 <%= sort_link('First Name') %>
+<%= sort_link('Last Name') %>
 <%= sort_link('Outcome') %>
 <%= sort_link('Outcome Date') %>
 </div>

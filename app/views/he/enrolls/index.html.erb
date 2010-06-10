@@ -1,0 +1,19 @@
+<% content_for :head, stylesheet_link_tag('he_subjects') %>
+<%= render 'submenu' %>
+<%= render 'he/subjects/subsearch' %>
+
+<div class='header'>
+<%= sort_link('ChildID') %>
+<%= sort_link('StudyID') %>
+<%= sort_link('Priority') %>
+<%= sort_link('First Name') %>
+<%= sort_link('Last Name') %>
+<%= sort_link('Outcome') %>
+<%= sort_link('Outcome Date') %>
+</div>
+<div id='subjects'>
+<%= render :partial => 'he/enrolls/subject', :collection => @subjects,
+	:locals => { :no_check_box => true } %>
+</div>
+
+<%= will_paginate @subjects %>

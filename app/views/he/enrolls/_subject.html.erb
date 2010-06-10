@@ -1,7 +1,9 @@
 <% content_tag_for( :div, subject, :class => 'row' ) do %>
+<% unless defined?(no_check_box) %>
 <div class='checkbox'>
 <%= check_box_tag "subjects[#{subject.id}]",true,false %>
 </div>
+<% end %>
 <div class='childid'>
 <%= link_to subject.childid, he_subject_path(subject) -%>
 </div>
@@ -11,11 +13,11 @@
 <div class='priority'>
 <%= subject.priority||'&nbsp;' %>
 </div>
-<div class='last_name'>
-<%= subject.last_name %>
-</div>
 <div class='first_name'>
 <%= subject.first_name %>
+</div>
+<div class='last_name'>
+<%= subject.last_name %>
 </div>
 <div class='outcome'>
 <%= subject.outcome %>
