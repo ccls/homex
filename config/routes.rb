@@ -79,7 +79,9 @@ ActionController::Routing::Routes.draw do |map|
 				:only => [:create,:update,:destroy,:show]
 		end
 		he.resources  :enrolls, :only => [:index],
-			:collection => { :update_select => :put }
+			:collection => { 
+				:send_letters  => :get,
+				:update_select => :put }
 		he.resources  :interviews
 		he.resources  :samples
 		he.resources  :followups
