@@ -29,7 +29,7 @@ class He::EnrollsController < ApplicationController
 		end
 		
 		redirect_to he_enrolls_path(params.delete_keys!(
-			:_method,:authenticity_token,:action
+			:_method,:authenticity_token,:action,:subjects,:date
 		))
 	end
 
