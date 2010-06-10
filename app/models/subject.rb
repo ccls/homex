@@ -49,26 +49,27 @@ class Subject < ActiveRecord::Base
 	class NotTwoResponseSets < StandardError; end
 
 	def birthdate
-		bd = ( respond_to?(:dob) ) ? dob : pii.dob
-		#	for some reason this can be a String and not Date???
-		#	if it is acquired through sql joins as a virtual column
-		if bd
-			if bd.is_a?(String)
-				Date.parse(bd).to_s(:dob)
-			else
-				bd.try(:to_s,:dob)
-			end
-		else
-			nil
-		end
+#		bd = ( respond_to?(:dob) ) ? dob : pii.dob
+#		#	for some reason this can be a String and not Date???
+#		#	if it is acquired through sql joins as a virtual column
+#		if bd
+#			if bd.is_a?(String)
+#				Date.parse(bd).to_s(:dob)
+#			else
+#				bd.try(:to_s,:dob)
+#			end
+#		else
+#			nil
+#		end
+		dob.try(:to_s,:dob)
 	end
 
 	def studyid
-		if respond_to?(:patid) && respond_to?(:orderno)
+#		if respond_to?(:patid) && respond_to?(:orderno)
 			"#{patid}-#{orderno}"
-		else
-			"#{pii.patid}-#{pii.orderno}"
-		end
+#		else
+#			"#{pii.patid}-#{pii.orderno}"
+#		end
 	end
 
 	def outcome_date
@@ -80,13 +81,13 @@ class Subject < ActiveRecord::Base
 	end
 
 	def priority
-		if respond_to?('project_subjects.recruitment_priority')
-			project_subjects.recruitment_priority
-		elsif respond_to?('recruitment_priority')
-			recruitment_priority
-		else
+#		if respond_to?('project_subjects.recruitment_priority')
+#			project_subjects.recruitment_priority
+#		elsif respond_to?('recruitment_priority')
+#			recruitment_priority
+#		else
 			'TEST'
-		end
+#		end
 	end
 
 	def response_sets_the_same?
