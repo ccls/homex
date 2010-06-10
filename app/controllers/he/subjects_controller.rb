@@ -46,7 +46,7 @@ class He::SubjectsController < ApplicationController
 	def update
 		@subject.update_attributes!(params[:subject])
 		flash[:notice] = 'Subject was successfully updated.'
-		redirect_to(@subject)
+		redirect_to(he_subject_path(@subject))
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the subject."
 		render :action => "edit"
@@ -54,7 +54,7 @@ class He::SubjectsController < ApplicationController
 
 	def destroy
 		@subject.destroy
-		redirect_to(subjects_path)
+		redirect_to(he_subjects_path)
 	end
 
 protected
@@ -63,7 +63,7 @@ protected
 		if !params[:id].blank? and Subject.exists?(params[:id])
 			@subject = Subject.find(params[:id])
 		else
-			access_denied("Valid subject id required!", subjects_path)
+			access_denied("Valid subject id required!", he_subjects_path)
 		end
 	end
 

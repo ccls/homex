@@ -1,4 +1,4 @@
-<% form_for(@subject) do |f| %>
+<% form_for(@subject, :url => he_subject_path(@subject)) do |f| %>
 	<%= f.error_messages %>
 
 	<div>

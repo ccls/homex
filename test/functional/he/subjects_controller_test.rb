@@ -97,7 +97,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		login_as admin
 		get :show, :id => 0
 		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 
@@ -291,7 +291,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		login_as admin
 		get :edit, :id => 0
 		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 
@@ -305,7 +305,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
 		} } }
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should update with employee login" do
@@ -317,7 +317,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
 		} } }
-		assert_redirected_to subject_path(assigns(:subject))
+		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
 	test "should NOT update with just login" do
@@ -354,7 +354,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 				:subject => Factory.attributes_for(:subject)
 		} } }
 		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 	test "should NOT update without subject_type_id" do
@@ -421,7 +421,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_difference('Subject.count',-1) {
 			delete :destroy, :id => subject.id
 		}
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 	test "should destroy with employee login" do
@@ -430,7 +430,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_difference('Subject.count',-1) {
 			delete :destroy, :id => subject.id
 		}
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 	test "should NOT destroy with just login" do
@@ -458,7 +458,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 			delete :destroy, :id => 0
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
+		assert_redirected_to he_subjects_path
 	end
 
 end
