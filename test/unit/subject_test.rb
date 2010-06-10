@@ -1014,11 +1014,33 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	test "search should order by priority asc by default" do
-		pending
+		se = Factory(:study_event)
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		Factory(:project_subject, :study_event => se, :subject => s1,
+			:recruitment_priority => 9)
+		Factory(:project_subject, :study_event => se, :subject => s2,
+			:recruitment_priority => 3)
+		Factory(:project_subject, :study_event => se, :subject => s3,
+			:recruitment_priority => 6)
+		subjects = se.subjects.search(:order => 'priority')
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by priority desc" do
-		pending
+		se = Factory(:study_event)
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		Factory(:project_subject, :study_event => se, :subject => s1,
+			:recruitment_priority => 9)
+		Factory(:project_subject, :study_event => se, :subject => s2,
+			:recruitment_priority => 3)
+		Factory(:project_subject, :study_event => se, :subject => s3,
+			:recruitment_priority => 6)
+		subjects = se.subjects.search(:order => 'priority',:dir => 'desc')
+		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by childid asc by default" do

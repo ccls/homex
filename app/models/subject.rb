@@ -60,9 +60,9 @@ class Subject < ActiveRecord::Base
 		"TEST"
 	end
 
-	def priority
-		"TEST"
-	end
+#	def priority
+#		"TEST"
+#	end
 
 	def response_sets_the_same?
 		if response_sets.length == 2
@@ -222,6 +222,7 @@ class Subject < ActiveRecord::Base
 				when 'first_name' then 'piis.first_name'
 				when 'dob'        then 'piis.dob'
 				when 'studyid'    then 'piis.patid'
+				when 'priority'   then 'priority'
 				else nil
 			end
 			if order && params[:dir]
@@ -253,6 +254,7 @@ class Subject < ActiveRecord::Base
 #	this will cause confusion and ambiguouity.
 	
 		find_options = {
+			:select => "subjects.*, project_subjects.recruitment_priority as priority",
 			:order => order,
 #			:readonly => false,
 			:joins => joins,
