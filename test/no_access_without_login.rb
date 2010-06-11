@@ -8,15 +8,16 @@ module NoAccessWithoutLogin
 
 		def assert_no_access_without_login(actions=[],options={})
 
-			test "should NOT get new without login" do
+			test "NAWoL should NOT get new without login" do
 				get :new
 				assert_redirected_to_login
 			end if actions.include?(:new) || options.keys.include?(:new)
 
-			test "should NOT post create without login" do
-				args = {}
+			test "NAWoL should NOT post create without login" do
+#				args = {}
 				model = options[:factory].to_s.camelize
-				args[model] = if options[:create]
+#				args[model] = if options[:create]
+				args = if options[:create]
 					options[:create]
 				else
 					{options[:factory] => Factory.attributes_for(options[:factory])}
@@ -27,7 +28,7 @@ module NoAccessWithoutLogin
 				assert_redirected_to_login
 			end if actions.include?(:create) || options.keys.include?(:create)
 
-			test "should NOT get edit without login" do
+			test "NAWoL should NOT get edit without login" do
 				args=[]
 				if options[:factory]
 					obj = Factory(options[:factory])
@@ -37,7 +38,7 @@ module NoAccessWithoutLogin
 				assert_redirected_to_login
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
-			test "should NOT put update without login" do
+			test "NAWoL should NOT put update without login" do
 				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
@@ -48,7 +49,7 @@ module NoAccessWithoutLogin
 				assert_redirected_to_login
 			end if actions.include?(:update) || options.keys.include?(:update)
 
-			test "should NOT get show without login" do
+			test "NAWoL should NOT get show without login" do
 				args=[]
 				if options[:factory]
 					obj = Factory(options[:factory])
@@ -58,7 +59,7 @@ module NoAccessWithoutLogin
 				assert_redirected_to_login
 			end if actions.include?(:show) || options.keys.include?(:show)
 
-			test "should NOT delete destroy without login" do
+			test "NAWoL should NOT delete destroy without login" do
 				model = options[:factory].to_s.camelize
 				args=[]
 				if options[:factory]
@@ -71,7 +72,7 @@ module NoAccessWithoutLogin
 				assert_redirected_to_login
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
-			test "should NOT get index without login" do
+			test "NAWoL should NOT get index without login" do
 				get :index
 				assert_redirected_to_login
 			end if actions.include?(:index) || options.keys.include?(:index)

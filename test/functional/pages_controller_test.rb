@@ -2,8 +2,24 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PagesControllerTest < ActionController::TestCase
 
-	assert_no_access_without_login [:new,:create,:edit,:update,:destroy,:index],{:factory => :page}
+	#	I need a function to predefine some settings (like :factory)
+
+	assert_access_with_login [:new,:create,:edit,:update,:show,:destroy,:index],{:login => :admin, 
+		:factory => :page}
+	assert_access_with_login [:new,:create,:edit,:update,:show,:destroy,:index],{:login => :editor, 
+		:factory => :page}
+	assert_access_with_login [:show],{:login => :employee, 
+		:factory => :page}
+	assert_access_with_login [:show],{:login => :active_user, 
+		:factory => :page}
 	assert_access_without_login [:show],{:factory => :page}
+
+	assert_no_access_with_login [:new,:create,:edit,:update,:destroy,:index],{
+		:login => :employee, :factory => :page}
+	assert_no_access_with_login [:new,:create,:edit,:update,:destroy,:index],{
+		:login => :active_user, :factory => :page}
+
+	assert_no_access_without_login [:new,:create,:edit,:update,:destroy,:index],{:factory => :page}
 
 #
 #		index/new/create/edit/update/destroy 
@@ -51,37 +67,33 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_not_nil assigns(:pages)
 #	end
 
-	assert_access_with_login [:index],{:login => :admin, :factory => :page}
-	assert_access_with_login [:index],{:login => :editor, :factory => :page}
-
-
 
 #	test "should get index with employee 180918 login" do
 #		login_as employee(:uid => 180918)					#	this is Alice Kang
-	test "should get index with editor login" do
-		login_as editor
-		get :index
-		assert_template 'index'
-		assert_response :success
-		assert_not_nil assigns(:pages)
-	end
+#	test "should get index with editor login" do
+#		login_as editor
+#		get :index
+#		assert_template 'index'
+#		assert_response :success
+#		assert_not_nil assigns(:pages)
+#	end
 
 
 
 
-	test "should NOT get index with just employee login" do
-		login_as employee
-		get :index
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT get index with just employee login" do
+#		login_as employee
+#		get :index
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
-	test "should NOT get index without admin login" do
-		login_as active_user
-		get :index
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT get index without admin login" do
+#		login_as active_user
+#		get :index
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 #	test "should NOT get index without login" do
 #		get :index
@@ -95,19 +107,19 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
-	test "should get new with admin login" do
-		login_as admin_user
-		get :new
-		assert_template 'new'
-		assert_response :success
-	end
+#	test "should get new with admin login" do
+#		login_as admin_user
+#		get :new
+#		assert_template 'new'
+#		assert_response :success
+#	end
 
-	test "should NOT get new without admin login" do
-		login_as active_user
-		get :new
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT get new without admin login" do
+#		login_as active_user
+#		get :new
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 
 #	test "should NOT create without login" do
@@ -117,13 +129,13 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
-	test "should create page with admin login" do
-		login_as admin_user
-		assert_difference('Page.count') do
-			post :create, :page => Factory.attributes_for(:page)
-		end
-		assert_redirected_to page_path(assigns(:page))
-	end
+#	test "should create page with admin login" do
+#		login_as admin_user
+#		assert_difference('Page.count') do
+#			post :create, :page => Factory.attributes_for(:page)
+#		end
+#		assert_redirected_to page_path(assigns(:page))
+#	end
 
 	test "should create page with parent" do
 		parent = Factory(:page)
@@ -145,14 +157,14 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should NOT create page without admin login" do
-		login_as active_user
-		assert_no_difference('Page.count') do
-			post :create, :page => Factory.attributes_for(:page)
-		end
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT create page without admin login" do
+#		login_as active_user
+#		assert_no_difference('Page.count') do
+#			post :create, :page => Factory.attributes_for(:page)
+#		end
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 
 #	test "should NOT get edit without login" do
@@ -160,12 +172,12 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
-	test "should get edit with admin login" do
-		login_as admin_user
-		get :edit, :id => Factory(:page).id
-		assert_template 'edit'
-		assert_response :success
-	end
+#	test "should get edit with admin login" do
+#		login_as admin_user
+#		get :edit, :id => Factory(:page).id
+#		assert_template 'edit'
+#		assert_response :success
+#	end
 
 	test "should NOT get edit with invalid id" do
 		login_as admin_user
@@ -174,12 +186,12 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to pages_path
 	end
 
-	test "should NOT get edit without admin login" do
-		login_as active_user
-		get :edit, :id => Factory(:page).id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT get edit without admin login" do
+#		login_as active_user
+#		get :edit, :id => Factory(:page).id
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 
 #	test "should NOT update without login" do
@@ -188,12 +200,12 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
-	test "should update page with admin login" do
-		login_as admin_user
-		put :update, :id => Factory(:page).id, 
-			:page => Factory.attributes_for(:page)
-		assert_redirected_to page_path(assigns(:page))
-	end
+#	test "should update page with admin login" do
+#		login_as admin_user
+#		put :update, :id => Factory(:page).id, 
+#			:page => Factory.attributes_for(:page)
+#		assert_redirected_to page_path(assigns(:page))
+#	end
 
 	test "should NOT update page with invalid page" do
 		login_as admin_user
@@ -212,13 +224,13 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to pages_path
 	end
 
-	test "should NOT update page without admin login" do
-		login_as active_user
-		put :update, :id => Factory(:page).id, 
-			:page => Factory.attributes_for(:page)
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT update page without admin login" do
+#		login_as active_user
+#		put :update, :id => Factory(:page).id, 
+#			:page => Factory.attributes_for(:page)
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 
 #	test "should NOT destroy without login" do
@@ -229,24 +241,24 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_redirected_to_login
 #	end
 
-	test "should destroy page with admin login" do
-		login_as admin_user
-		page = Factory(:page)
-		assert_difference('Page.count', -1) do
-			delete :destroy, :id => page.id
-		end
-		assert_redirected_to pages_path
-	end
+#	test "should destroy page with admin login" do
+#		login_as admin_user
+#		page = Factory(:page)
+#		assert_difference('Page.count', -1) do
+#			delete :destroy, :id => page.id
+#		end
+#		assert_redirected_to pages_path
+#	end
 
-	test "should NOT destroy page without admin login" do
-		login_as active_user
-		page = Factory(:page)
-		assert_no_difference('Page.count') do
-			delete :destroy, :id => page.id
-		end
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT destroy page without admin login" do
+#		login_as active_user
+#		page = Factory(:page)
+#		assert_no_difference('Page.count') do
+#			delete :destroy, :id => page.id
+#		end
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 	test "should NOT destroy page with invalid id" do
 		login_as admin_user
@@ -284,24 +296,24 @@ class PagesControllerTest < ActionController::TestCase
 #		assert_select 'title', page.title
 #	end
 
-	test "should show page with login" do
-		login_as active_user
-		page = Factory(:page)
-		get :show, :id => page.id
-		assert_template 'show'
-		assert_response :success
-		assert_select 'title', page.title
-	end
+#	test "should show page with login" do
+#		login_as active_user
+#		page = Factory(:page)
+#		get :show, :id => page.id
+#		assert_template 'show'
+#		assert_response :success
+#		assert_select 'title', page.title
+#	end
 
 	#	test admin so that any special admin view code is tested
-	test "should show page with admin login" do		
-		login_as admin_user
-		page = Factory(:page)
-		get :show, :id => page.id
-		assert_template 'show'
-		assert_response :success
-		assert_select 'title', page.title
-	end
+#	test "should show page with admin login" do		
+#		login_as admin_user
+#		page = Factory(:page)
+#		get :show, :id => page.id
+#		assert_template 'show'
+#		assert_response :success
+#		assert_select 'title', page.title
+#	end
 
 	test "should NOT show page without matching path" do
 		get :show, :path => "/i/do/not/exist".split('/').delete_if{|x|x.blank?}
