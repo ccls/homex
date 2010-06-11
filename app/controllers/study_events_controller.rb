@@ -30,9 +30,10 @@ class StudyEventsController < ApplicationController
 	end
 
 	def destroy
-		if @study_event.destroy
-			flash[:error] = "Study event destruction failed."
-		end
+		@study_event.destroy
+#		if @study_event.destroy
+#			flash[:error] = "Study event destruction failed."
+#		end
 		redirect_to study_events_path
 	end
 

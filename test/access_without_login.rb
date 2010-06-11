@@ -60,6 +60,7 @@ module AccessWithoutLogin
 				assert_response :success
 				assert_template 'show'
 				assert assigns(options[:factory])
+				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 #			test "should NOT delete destroy without login" do

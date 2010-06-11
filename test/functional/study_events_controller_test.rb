@@ -2,183 +2,201 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class StudyEventsControllerTest < ActionController::TestCase
 
+	assert_access_with_login [
+		:new,:create,:edit,:update,:show,:destroy,:index],{
+		:login => :admin, :factory => :study_event }
+
+	assert_access_with_login [
+		:new,:create,:edit,:update,:show,:destroy,:index],{
+		:login => :employee, :factory => :study_event }
+
+	assert_no_access_with_login [
+		:new,:create,:edit,:update,:show,:destroy,:index],{
+		:login => :editor, :factory => :study_event }
+
+	assert_no_access_with_login [
+		:new,:create,:edit,:update,:show,:destroy,:index],{
+		:login => :active_user, :factory => :study_event }
+
+	assert_no_access_without_login [
+		:new,:create,:edit,:update,:show,:destroy,:index],{
+		:factory => :study_event}
+
 #	admin
 
-	test "should get index with admin login" do
-		login_as admin
-		get :index
-		assert_response :success
-		assert_template 'index'
-	end
-
-	test "should get show with admin login" do
-		study_event = Factory(:study_event)
-		login_as admin
-		get :show, :id => study_event.id
-		assert_response :success
-		assert_template 'show'
-	end
-
-	test "should get new with admin login" do
-		login_as admin
-		get :new
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should post create with admin login" do
-		login_as admin
-		assert_difference('StudyEvent.count',1) do
-			post :create, :study_event => Factory.attributes_for(:study_event)
-		end
-		assert_redirected_to assigns(:study_event)
-	end
-
-	test "should get edit with admin login" do
-		study_event = Factory(:study_event)
-		login_as admin
-		get :edit, :id => study_event.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should update with admin login" do
-		study_event = Factory(:study_event)
-		login_as admin
-		put :update, :id => study_event.id, 
-			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to assigns(:study_event)
-	end
-
-	test "should destroy with admin login" do
-		study_event = Factory(:study_event)
-		login_as admin
-		assert_difference('StudyEvent.count',-1) do
-			delete :destroy, :id => study_event.id
-		end
-		assert_redirected_to study_events_path
-	end
+#	test "should get index with admin login" do
+#		login_as admin
+#		get :index
+#		assert_response :success
+#		assert_template 'index'
+#	end
+#
+#	test "should get show with admin login" do
+#		study_event = Factory(:study_event)
+#		login_as admin
+#		get :show, :id => study_event.id
+#		assert_response :success
+#		assert_template 'show'
+#	end
+#
+#	test "should get new with admin login" do
+#		login_as admin
+#		get :new
+#		assert_response :success
+#		assert_template 'new'
+#	end
+#
+#	test "should post create with admin login" do
+#		login_as admin
+#		assert_difference('StudyEvent.count',1) do
+#			post :create, :study_event => Factory.attributes_for(:study_event)
+#		end
+#		assert_redirected_to assigns(:study_event)
+#	end
+#
+#	test "should get edit with admin login" do
+#		study_event = Factory(:study_event)
+#		login_as admin
+#		get :edit, :id => study_event.id
+#		assert_response :success
+#		assert_template 'edit'
+#	end
+#
+#	test "should update with admin login" do
+#		study_event = Factory(:study_event)
+#		login_as admin
+#		put :update, :id => study_event.id, 
+#			:study_event => Factory.attributes_for(:study_event)
+#		assert_redirected_to assigns(:study_event)
+#	end
+#
+#	test "should destroy with admin login" do
+#		study_event = Factory(:study_event)
+#		login_as admin
+#		assert_difference('StudyEvent.count',-1) do
+#			delete :destroy, :id => study_event.id
+#		end
+#		assert_redirected_to study_events_path
+#	end
 
 #	employee
 
-	test "should get index with employee login" do
-		login_as employee
-		get :index
-		assert_response :success
-		assert_template 'index'
-	end
-
-	test "should get show with employee login" do
-		study_event = Factory(:study_event)
-		login_as employee
-		get :show, :id => study_event.id
-		assert_response :success
-		assert_template 'show'
-	end
-
-	test "should get new with employee login" do
-		login_as employee
-		get :new
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should post create with employee login" do
-		login_as employee
-		assert_difference('StudyEvent.count',1) do
-			post :create, :study_event => Factory.attributes_for(:study_event)
-		end
-		assert_redirected_to assigns(:study_event)
-	end
-
-	test "should get edit with employee login" do
-		study_event = Factory(:study_event)
-		login_as employee
-		get :edit, :id => study_event.id
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should update with employee login" do
-		study_event = Factory(:study_event)
-		login_as employee
-		put :update, :id => study_event.id, 
-			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to assigns(:study_event)
-	end
-
-	test "should destroy with employee login" do
-		study_event = Factory(:study_event)
-		login_as employee
-		assert_difference('StudyEvent.count',-1) do
-			delete :destroy, :id => study_event.id
-		end
-		assert_redirected_to study_events_path
-	end
+#	test "should get index with employee login" do
+#		login_as employee
+#		get :index
+#		assert_response :success
+#		assert_template 'index'
+#	end
+#
+#	test "should get show with employee login" do
+#		study_event = Factory(:study_event)
+#		login_as employee
+#		get :show, :id => study_event.id
+#		assert_response :success
+#		assert_template 'show'
+#	end
+#
+#	test "should get new with employee login" do
+#		login_as employee
+#		get :new
+#		assert_response :success
+#		assert_template 'new'
+#	end
+#
+#	test "should post create with employee login" do
+#		login_as employee
+#		assert_difference('StudyEvent.count',1) do
+#			post :create, :study_event => Factory.attributes_for(:study_event)
+#		end
+#		assert_redirected_to assigns(:study_event)
+#	end
+#
+#	test "should get edit with employee login" do
+#		study_event = Factory(:study_event)
+#		login_as employee
+#		get :edit, :id => study_event.id
+#		assert_response :success
+#		assert_template 'edit'
+#	end
+#
+#	test "should update with employee login" do
+#		study_event = Factory(:study_event)
+#		login_as employee
+#		put :update, :id => study_event.id, 
+#			:study_event => Factory.attributes_for(:study_event)
+#		assert_redirected_to assigns(:study_event)
+#	end
+#
+#	test "should destroy with employee login" do
+#		study_event = Factory(:study_event)
+#		login_as employee
+#		assert_difference('StudyEvent.count',-1) do
+#			delete :destroy, :id => study_event.id
+#		end
+#		assert_redirected_to study_events_path
+#	end
 
 #	just user
 
-	test "should NOT get index with just user login" do
-		login_as active_user
-		get :index
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should get show with just user login" do
-		study_event = Factory(:study_event)
-		login_as active_user
-		get :show, :id => study_event.id
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should get new with just user login" do
-		login_as active_user
-		get :new
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should post create with just user login" do
-		login_as active_user
-		assert_difference('StudyEvent.count',0) do
-			post :create, :study_event => Factory.attributes_for(:study_event)
-		end
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should get edit with just user login" do
-		study_event = Factory(:study_event)
-		login_as active_user
-		get :edit, :id => study_event.id
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should update with just user login" do
-		study_event = Factory(:study_event)
-		login_as active_user
-		put :update, :id => study_event.id, 
-			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should destroy with just user login" do
-		study_event = Factory(:study_event)
-		login_as active_user
-		assert_difference('StudyEvent.count',0) do
-			delete :destroy, :id => study_event.id
-		end
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
+#	test "should NOT get index with just user login" do
+#		login_as active_user
+#		get :index
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should get show with just user login" do
+#		study_event = Factory(:study_event)
+#		login_as active_user
+#		get :show, :id => study_event.id
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should get new with just user login" do
+#		login_as active_user
+#		get :new
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should post create with just user login" do
+#		login_as active_user
+#		assert_difference('StudyEvent.count',0) do
+#			post :create, :study_event => Factory.attributes_for(:study_event)
+#		end
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should get edit with just user login" do
+#		study_event = Factory(:study_event)
+#		login_as active_user
+#		get :edit, :id => study_event.id
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should update with just user login" do
+#		study_event = Factory(:study_event)
+#		login_as active_user
+#		put :update, :id => study_event.id, 
+#			:study_event => Factory.attributes_for(:study_event)
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should destroy with just user login" do
+#		study_event = Factory(:study_event)
+#		login_as active_user
+#		assert_difference('StudyEvent.count',0) do
+#			delete :destroy, :id => study_event.id
+#		end
+#		assert_redirected_to root_path
+#		assert_not_nil flash[:error]
+#	end
 
 #	not logged in
-
-	assert_no_access_without_login [:new,:create,:edit,:update,:show,:destroy,:index],{:factory => :study_event}
 
 #	test "should NOT get index without login" do
 #		get :index
@@ -254,7 +272,7 @@ class StudyEventsControllerTest < ActionController::TestCase
 		assert_difference('StudyEvent.count',0){
 			delete :destroy, :id => study_event.id
 		}
-		assert_not_nil flash[:error]
+#		assert_not_nil flash[:error]
 		assert_redirected_to study_events_path
 	end
 

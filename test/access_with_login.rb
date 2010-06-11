@@ -14,6 +14,7 @@ module AccessWithLogin
 				assert_response :success
 				assert_template 'new'
 				assert assigns(options[:factory])
+				assert_nil flash[:error]
 			end if actions.include?(:new) || options.keys.include?(:new)
 
 			test "AWiL should post create with #{options[:login]} login" do
@@ -30,6 +31,7 @@ module AccessWithLogin
 					send(:post,:create,args)
 				end
 				assert_response :redirect
+				assert_nil flash[:error]
 			end if actions.include?(:create) || options.keys.include?(:create)
 
 			test "AWiL should get edit with #{options[:login]} login" do
@@ -43,6 +45,7 @@ module AccessWithLogin
 				assert_response :success
 				assert_template 'edit'
 				assert assigns(options[:factory])
+				assert_nil flash[:error]
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
 			test "AWiL should put update with #{options[:login]} login" do
@@ -55,6 +58,7 @@ module AccessWithLogin
 				end
 				send(:put,:update, args)
 				assert_response :redirect
+				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
 
 			test "AWiL should get show with #{options[:login]} login" do
@@ -68,6 +72,7 @@ module AccessWithLogin
 				assert_response :success
 				assert_template 'show'
 				assert assigns(options[:factory])
+				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 			test "AWiL should delete destroy with #{options[:login]} login" do
@@ -83,6 +88,7 @@ module AccessWithLogin
 				end
 				assert_response :redirect
 				assert assigns(options[:factory])
+				assert_nil flash[:error]
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
 			test "AWiL should get index with #{options[:login]} login" do
@@ -90,7 +96,10 @@ module AccessWithLogin
 				get :index
 				assert_response :success
 				assert_template 'index'
-				assert assigns(options[:factory].to_s.pluralize.to_sym)
+				unless options[:factory].blank?
+					assert assigns(options[:factory].to_s.pluralize.to_sym)
+				end
+				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
 		end
