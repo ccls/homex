@@ -40,7 +40,8 @@
 <div id='columns' class='equal_height_column_wrapper'>
 <div id='main' class='equal_height_column'>
 <%= yield :main %>
-<div id='content' class='equal_height_column'>
+<div id='content_wrapper' class='equal_height_column'>
+<div id='content'>
 <% flash.each do |key, msg| %>
  <%= content_tag :p, msg, :id => key, :class => 'flash' %>
 <% end %>
@@ -49,6 +50,8 @@
 </noscript>
 <%= yield %>
 </div><!-- content -->
+<%= yield :content_bottom %>
+</div><!-- content_wrapper -->
 </div><!-- main -->
 <div id='guidance' class='equal_height_column'>
 <h3>Guidance</h3>
