@@ -84,10 +84,10 @@ div#content {
 
 div#preview {
 	margin-top: 20px;
-	border-top: 2px solid black;
+	border-top: 1px solid silver;
 }
 div.section {
-	border-right: 2px solid black;
+	border-right: 1px solid silver;
 	float:left;
 	width: 33.1%;
 	text-align:center;
@@ -98,7 +98,7 @@ div.section:last-child {
 div.section h4 {
 	margin: 10px;
 	padding-bottom:5px;
-	border-bottom:1px solid black;
+	border-bottom:1px solid silver;
 }
 div.section table {
 	float:left;
