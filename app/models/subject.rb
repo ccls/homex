@@ -8,6 +8,7 @@ class Subject < ActiveRecord::Base
 	has_many :project_subjects, :dependent => :destroy
 	has_many :operational_events, :dependent => :destroy
 	has_many :residences, :dependent => :destroy
+	has_many :addresses, :through => :residences
 	has_many :interview_events, :dependent => :destroy
 	has_many :study_event_eligibilities, :dependent => :destroy
 	has_many :response_sets, :dependent => :destroy
