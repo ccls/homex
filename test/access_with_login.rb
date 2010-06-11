@@ -90,6 +90,7 @@ module AccessWithLogin
 				get :index
 				assert_response :success
 				assert_template 'index'
+				assert assigns(options[:factory].to_s.pluralize.to_sym)
 			end if actions.include?(:index) || options.keys.include?(:index)
 
 		end
