@@ -142,6 +142,7 @@ div#guidance {
 
 	/* column hack */
 	padding-bottom: 32767px;
+	/* smaller to put some real padding on bottom */
 	margin-bottom: -32700px;
 
 }
