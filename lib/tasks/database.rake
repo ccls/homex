@@ -136,10 +136,10 @@ namespace :db do
 					:patid => line[1],
 					:stype => line[2],
 					:orderno => line[3],
-					:phone_primary => line[27],
-					:phone_alternate => line[28],
-					:phone_alternate_2 => line[29],
-					:phone_alternate_3 => line[30]
+					:phone_primary => line[19],
+					:phone_alternate => line[20],
+					:phone_alternate_2 => line[21],
+					:phone_alternate_3 => line[22]
 				},
 				:subject_type => subject_type,
 				:race => race,
