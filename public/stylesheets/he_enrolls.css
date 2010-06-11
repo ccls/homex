@@ -1,0 +1,29 @@
+@import url('he_subjects.css');
+div.checkbox {
+	width: 30px;
+	float:left;
+}
+div.childid {
+	width: 70px;
+	float:left;
+}
+div.studyid {
+	width: 70px;
+	float:left;
+}
+div.priority {
+	width: 60px;
+	float:left;
+}
+div.last_name {
+	width: 140px;
+	float:left;
+}
+div.first_name {
+	width: 140px;
+	float:left;
+}
+div.outcome {
+	width: 80px;
+	float:left;
+}
