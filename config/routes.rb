@@ -85,6 +85,11 @@ ActionController::Routing::Routes.draw do |map|
 		he.resources  :interviews
 		he.resources  :samples
 		he.resources  :followups
+#		he.resources  :letters, :only => [:index],
+#			:collection => {
+#				:bulk_create => :post,
+#				:bulk_update => :post
+#			}
 	end
 
 	map.resources :subjects, :shallow => true do |subject|

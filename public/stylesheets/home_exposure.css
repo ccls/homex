@@ -84,6 +84,11 @@ div#main {
 	width: 800px;
 	background-color:white;
 	float:left;
+
+	/* column hack */
+	padding-bottom: 32767px;
+	margin-bottom: -32767px;
+
 }
 div#submenu {
 	clear:left;
@@ -96,20 +101,30 @@ div#submenu a {
 	padding: 5px 20px;
 }
 
+div#columns {
+	/* column hack */
+	/* http://www.positioniseverything.net/articles/onetruelayout/equalheight */
+	overflow:hidden;
+}
+
 div#content {
 /* 800 - 2 * ( 25 + 1 ) */
 /*
 	width: 748px;	
+	border-right: 1px solid silver;
+	border-left: 1px solid silver;
+	min-height: 200px;	
+	clear:both;
+*/
+
 	background-color:white;
 	border-right: 1px solid silver;
 	border-left: 1px solid silver;
-	float:left;
-*/
-	min-height: 200px;	
-	border-right: 1px solid silver;
-	border-left: 1px solid silver;
-	clear:both;
 	padding: 5px 25px;
+
+	/* column hack */
+	padding-bottom: 32767px;
+	margin-bottom: -32767px;
 }
 
 fieldset {
@@ -124,6 +139,11 @@ div#guidance {
 	float:right;
 	text-align:justify;
 	padding:9px;
+
+	/* column hack */
+	padding-bottom: 32767px;
+	margin-bottom: -32700px;
+
 }
 
 #footer {
