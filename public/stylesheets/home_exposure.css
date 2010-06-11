@@ -39,6 +39,7 @@ div#header {
 	height: 100px;
 	background-image: url('/images/berkeley-text.gif');
 	background-repeat: no-repeat;
+	position:relative; /* NEEDED so that mainmenu can be at bottom */
 }
 
 div#minimenu {
@@ -55,8 +56,10 @@ div#subsearch {
 	float:right;
 }
 
-div#mainmenu {
-	padding-top:68px;
+div#mainmenu { 
+	/* NEEDED so that mainmenu can be at bottom */
+	position:absolute;
+	bottom:0;
 }
 div#mainmenu a {
 	margin:0;
@@ -117,9 +120,10 @@ fieldset {
 }
 
 div#guidance {
-	width: 140px;
+	width: 180px;
 	float:right;
-	height: 200px;	
+	text-align:justify;
+	padding:9px;
 }
 
 #footer {
