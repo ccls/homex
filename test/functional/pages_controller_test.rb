@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PagesControllerTest < ActionController::TestCase
 
 	assert_no_access_without_login [:new,:create,:edit,:update,:destroy,:index],{:factory => :page}
+	assert_access_without_login [:show],{:factory => :page}
 
 #
 #		index/new/create/edit/update/destroy 
@@ -42,14 +43,16 @@ class PagesControllerTest < ActionController::TestCase
 		end
 	end
 
-	test "should get index with admin login" do
-		login_as admin_user
-		get :index
-		assert_template 'index'
-		assert_response :success
-		assert_not_nil assigns(:pages)
-	end
+#	test "should get index with admin login" do
+#		login_as admin_user
+#		get :index
+#		assert_template 'index'
+#		assert_response :success
+#		assert_not_nil assigns(:pages)
+#	end
 
+	assert_access_with_login [:index],{:login => :admin, :factory => :page}
+	assert_access_with_login [:index],{:login => :editor, :factory => :page}
 
 
 
@@ -273,13 +276,13 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should show page without login" do
-		page = Factory(:page)
-		get :show, :id => page.id
-		assert_template 'show'
-		assert_response :success
-		assert_select 'title', page.title
-	end
+#	test "should show page without login" do
+#		page = Factory(:page)
+#		get :show, :id => page.id
+#		assert_template 'show'
+#		assert_response :success
+#		assert_select 'title', page.title
+#	end
 
 	test "should show page with login" do
 		login_as active_user
