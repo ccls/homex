@@ -56,8 +56,17 @@ input {
 .subject .info .col1 {
 	float:left;
 }
+.subject .info #sex {
+	margin-top: 15px;
+}
 .subject .info .col2 {
 	float:left;
+}
+.subject .info .address {
+	margin-top: 15px;
+}
+.subject .info #phone_numbers {
+	margin-top: 15px;
 }
 .subject .info .col3 {
 }

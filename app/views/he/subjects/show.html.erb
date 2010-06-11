@@ -22,18 +22,40 @@
 <div class='info'>
 <div class='col col1'>
 <div class='full_name'><%= @subject.full_name -%></div>
-<div>male:</div>
-<div>female:</div>
+<div id='sex'>
+<% %w( m f ).each do |sex| %>
+<%= radio_button_tag 'sex', sex, @subject.sex.try(:match,/^#{sex}/i), 
+	:disabled => true %>
+<%= label_tag "sex_#{sex}",sex %><br/>
+<% end %>
+</div><!-- id='sex' -->
 </div><!-- class='col1' -->
 
 <div class='col col2'>
 <div>birth date:&nbsp;<%= @subject.birthdate -%></div>
-<div>latest address:</div>
-<div>phone number:</div>
+
+<div id='addresses'>
+<% @subject.addresses.each do |a| %>
+<div class='address'>
+<%= "#{a.line_1}<br/>" %>
+<%= (a.line_2)?"#{a.line_2}<br/>":nil %>
+<%= "#{a.city}, #{a.state} #{a.zip}<br/>" %>
+</div><!-- class='address' -->
+<% end %>
+</div><!-- id='addresses' -->
+
+<div id='phone_numbers'>
+<% %w( primary alternate alternate_2 alternate_3 ).each do |p| %>
+<% if ( phone_number = @subject.pii.try("phone_#{p}") )%>
+<%= "#{phone_number} #{p}" %><br/>
+<% end %>
+<% end %>
+</div>
+
 </div><!-- class='col2' -->
 
 <div class='col col3'>
-<div>diagnosis date:</div>
+<div>diagnosis date:&nbsp;<%= @subject.patient.try(:diagnosis_date) %></div>
 </div><!-- class='col3' -->
 </div><!-- class='info' -->
 <% end %><%# content_tag_for %>
