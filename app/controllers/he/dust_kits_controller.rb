@@ -38,9 +38,10 @@ class He::DustKitsController < ApplicationController
 	end
 
 	def destroy
-		if @subject.dust_kit.destroy
-			flash[:error] = "Dust Kit destruction failed."
-		end
+		@subject.dust_kit.destroy
+#		unless @subject.dust_kit.frozen?
+#			flash[:error] = "Dust Kit destruction failed."
+#		end
 		redirect_to he_subject_path(@subject)
 	end
 

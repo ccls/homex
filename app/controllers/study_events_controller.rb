@@ -31,7 +31,7 @@ class StudyEventsController < ApplicationController
 
 	def destroy
 		@study_event.destroy
-#		if @study_event.destroy
+#		unless @study_event.frozen?
 #			flash[:error] = "Study event destruction failed."
 #		end
 		redirect_to study_events_path
