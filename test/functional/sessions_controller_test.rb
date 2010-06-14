@@ -2,8 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
 
-#	assert_no_access_without_login [:destroy]
-
 	test "should logout if authenticated" do
 		login_as active_user
 		delete :destroy

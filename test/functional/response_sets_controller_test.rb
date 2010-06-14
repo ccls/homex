@@ -72,10 +72,12 @@ class ResponseSetsControllerTest < ActionController::TestCase
 	
 	
 #	create
+
+%w( admin employee ).each do |cu|
 	
-	test "should begin survey with admin login" do
+	test "should begin survey with #{cu} login" do
 		survey = Survey.first
-		login_as u = admin_user
+		login_as u = send(cu)
 		assert_difference( 'Subject.first.response_sets_count', 1 ) {
 		assert_difference( 'ResponseSet.count', 1 ) {
 			post :create, :subject_id => Subject.first.id, 
@@ -92,24 +94,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		)
 	end
 
-	test "should begin survey with employee login" do
-		survey = Survey.first
-		login_as u = employee
-		assert_difference( 'Subject.first.response_sets_count', 1 ) {
-		assert_difference( 'ResponseSet.count', 1 ) {
-			post :create, :subject_id => Subject.first.id, 
-				:survey_code => survey.access_code
-		} }
-		assert assigns(:survey)
-		assert assigns(:response_set)
-		assert_equal assigns(:response_set).user_id, u.id
-		assert_redirected_to(
-			edit_my_survey_path(
-				:survey_code => assigns(:survey).access_code, 
-				:response_set_code  => assigns(:response_set).access_code	
-			)
-		)
-	end
+end
 
 	test "should NOT begin survey when create fails" do
 		login_as admin_user
@@ -120,9 +105,11 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT begin survey with just login" do
+%w( active_user editor ).each do |cu|
+
+	test "should NOT begin survey with #{cu} login" do
 		survey = Survey.first
-		login_as active_user
+		login_as send(cu)
 		assert_difference( 'ResponseSet.count', 0 ) {
 			post :create, :subject_id => Subject.first.id, :survey_code => survey.access_code
 		}
@@ -131,6 +118,8 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
+
+end
 
 	test "should NOT begin survey without login" do
 		survey = Survey.first

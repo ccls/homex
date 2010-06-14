@@ -67,9 +67,10 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_not_nil assigns(:subject).pii
 	end
 
+%w( admin employee editor ).each do |cu|
 	
-	test "should create with admin login" do
-		login_as admin
+	test "should create with #{cu} login" do
+		login_as send(cu)
 		Factory(:race)
 		Factory(:subject_type)
 		assert_difference('Subject.count',1){
@@ -80,20 +81,12 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to subject_path(assigns(:subject))
 	end
 
-	test "should create with employee login" do
-		login_as employee
-		Factory(:race)
-		Factory(:subject_type)
-		assert_difference('Subject.count',1){
-			post :create, :subject => Factory.attributes_for(:subject,
-				:race_id => Race.first.id,
-				:subject_type_id => SubjectType.first.id)
-		}
-		assert_redirected_to subject_path(assigns(:subject))
-	end
+end
 
-	test "should NOT create with just login" do
-		login_as user
+%w( active_user ).each do |cu|
+
+	test "should NOT create with #{cu} login" do
+		login_as send(cu)
 		Factory(:race)
 		Factory(:subject_type)
 		assert_difference('Subject.count',0){
@@ -104,6 +97,8 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
+
+end
 
 	test "should NOT create without login" do
 		Factory(:race)

@@ -55,18 +55,18 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-#	admin login
+%w( admin employee editor ).each do |u|
 
-	test "should get new with admin login" do
-		login_as admin_user
+	test "should get new with #{u} login" do
+		login_as send(u)
 		get :new, :subject_id => @subject.id
 		assert_response :success
 		assert_template 'new'
 		assert assigns(:dust_kit)
 	end
 
-	test "should post create with admin login" do
-		login_as admin_user
+	test "should post create with #{u} login" do
+		login_as send(u)
 		assert_difference('DustKit.count',1) {
 			post :create, :subject_id => @subject.id,
 				:dust_kit => Factory.attributes_for(:dust_kit)
@@ -74,44 +74,44 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
-	test "should get edit with admin login" do
-		login_as admin_user
+	test "should get edit with #{u} login" do
+		login_as send(u)
 		get :edit, :subject_id => @subject.id
 		assert_response :success
 		assert_template 'edit'
 		assert assigns(:dust_kit)
 	end
 
-	test "should put update with admin login" do
-		login_as admin_user
+	test "should put update with #{u} login" do
+		login_as send(u)
 		Factory(:dust_kit,:subject_id => @subject.id)
 		put :update, :subject_id => @subject.id,
 			:dust_kit => Factory.attributes_for(:dust_kit)
 		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
-	test "should get show with admin login" do
-		login_as admin_user
+	test "should get show with #{u} login" do
+		login_as send(u)
 		get :show, :subject_id => @subject.id
 		assert_response :success
 		assert_template 'show'
 		assert assigns(:dust_kit)
 	end
 
-	test "should get show with admin login and packages" do
+	test "should get show with #{u} login and packages" do
 		Factory(:dust_kit, 
 			:kit_package_attributes  => Factory.attributes_for(:package),
 			:dust_package_attributes => Factory.attributes_for(:package)
 		)
-		login_as admin_user
+		login_as send(u)
 		get :show, :subject_id => @subject.id
 		assert_response :success
 		assert_template 'show'
 		assert assigns(:dust_kit)
 	end
 
-	test "should delete destroy with admin login" do
-		login_as admin_user
+	test "should delete destroy with #{u} login" do
+		login_as send(u)
 		Factory(:dust_kit,:subject_id => @subject.id)
 		assert_difference('DustKit.count',-1){
 			delete :destroy, :subject_id => @subject.id
@@ -119,68 +119,18 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
-#	employee login
+end
 
-	test "should get new with employee login" do
-		login_as employee
-		get :new, :subject_id => @subject.id
-		assert_response :success
-		assert_template 'new'
-		assert assigns(:dust_kit)
-	end
+%w( active_user ).each do |u|
 
-	test "should post create with employee login" do
-		login_as employee
-		assert_difference('DustKit.count',1) {
-			post :create, :subject_id => @subject.id,
-				:dust_kit => Factory.attributes_for(:dust_kit)
-		}
-		assert_redirected_to he_subject_path(assigns(:subject))
-	end
-
-	test "should get edit with employee login" do
-		login_as employee
-		get :edit, :subject_id => @subject.id
-		assert_response :success
-		assert_template 'edit'
-		assert assigns(:dust_kit)
-	end
-
-	test "should put update with employee login" do
-		login_as employee
-		Factory(:dust_kit,:subject_id => @subject.id)
-		put :update, :subject_id => @subject.id,
-			:dust_kit => Factory.attributes_for(:dust_kit)
-		assert_redirected_to he_subject_path(assigns(:subject))
-	end
-
-	test "should get show with employee login" do
-		login_as employee
-		get :show, :subject_id => @subject.id
-		assert_response :success
-		assert_template 'show'
-		assert assigns(:dust_kit)
-	end
-
-	test "should delete destroy with employee login" do
-		login_as employee
-		Factory(:dust_kit,:subject_id => @subject.id)
-		assert_difference('DustKit.count',-1){
-			delete :destroy, :subject_id => @subject.id
-		}
-		assert_redirected_to he_subject_path(assigns(:subject))
-	end
-
-#	user login
-
-	test "should NOT get new with just login" do
-		login_as user
+	test "should NOT get new with #{u} login" do
+		login_as send(u)
 		get :new, :subject_id => @subject.id
 		assert_redirected_to root_path
 	end
 
-	test "should NOT post create with just login" do
-		login_as user
+	test "should NOT post create with #{u} login" do
+		login_as send(u)
 		assert_difference('DustKit.count',0) {
 			post :create, :subject_id => @subject.id,
 				:dust_kit => Factory.attributes_for(:dust_kit)
@@ -188,34 +138,36 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get edit with just login" do
-		login_as user
+	test "should NOT get edit with #{u} login" do
+		login_as send(u)
 		get :edit, :subject_id => @subject.id
 		assert_redirected_to root_path
 	end
 
-	test "should NOT put update with just login" do
-		login_as user
+	test "should NOT put update with #{u} login" do
+		login_as send(u)
 		Factory(:dust_kit,:subject_id => @subject.id)
 		put :update, :subject_id => @subject.id,
 			:dust_kit => Factory.attributes_for(:dust_kit)
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get show with just login" do
-		login_as user
+	test "should NOT get show with #{u} login" do
+		login_as send(u)
 		get :show, :subject_id => @subject.id
 		assert_redirected_to root_path
 	end
 
-	test "should NOT delete destroy with just login" do
-		login_as user
+	test "should NOT delete destroy with #{u} login" do
+		login_as send(u)
 		Factory(:dust_kit,:subject_id => @subject.id)
 		assert_difference('DustKit.count',0){
 			delete :destroy, :subject_id => @subject.id
 		}
 		assert_redirected_to root_path
 	end
+
+end
 
 #	no subject_id
 

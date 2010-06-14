@@ -38,15 +38,6 @@ class PackagesControllerTest < ActionController::TestCase
 		end
 	end
 
-	test "should get index with admin login with packages" do
-		Factory(:package)
-		login_as admin_user
-		get :index
-		assert_template 'index'
-		assert_response :success
-		assert_equal 1, assigns(:packages).length
-	end
-
 	test "should NOT create with invalid package" do
 		login_as admin_user
 		post :create, :package => {}
@@ -57,10 +48,10 @@ class PackagesControllerTest < ActionController::TestCase
 
 
 
+%w( admin employee editor ).each do |cu|
 
-
-	test "should update with admin login" do
-		login_as admin_user
+	test "should update with #{cu} login" do
+		login_as send(cu)
 		package = Factory(:package, :tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
@@ -68,14 +59,7 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
-	test "should update with employee login" do
-		login_as employee
-		package = Factory(:package, :tracking_number => '077973360403984')
-		assert_nil package.status
-		put :update, :id => package.id
-		assert_not_nil package.reload.status
-		assert_redirected_to packages_path
-	end
+end
 
 	test "should update and redirect to referer if set" do
 		login_as admin_user
@@ -88,14 +72,18 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to package_path(package)
 	end
 
-	test "should NOT update without admin login" do
-		login_as active_user
+%w( active_user ).each do |cu|
+
+	test "should NOT update with #{cu} login" do
+		login_as send(cu)
 		package = Factory(:package, :tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
 		assert_nil package.reload.status
 		assert_redirected_to root_path
 	end
+
+end
 
 	test "should NOT update without login" do
 		package = Factory(:package, :tracking_number => '077973360403984')

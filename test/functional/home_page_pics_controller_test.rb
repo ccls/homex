@@ -82,8 +82,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 #	activate
 
-	test "should activate all with admin login" do
-		login_as admin_user
+%w( admin editor ).each do |cu|
+
+	test "should activate all with #{cu} login" do
+		login_as send(cu)
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)
 		HomePagePic.all.each { |hpp| assert !hpp.active }
@@ -94,8 +96,8 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		HomePagePic.all.each { |hpp| assert hpp.active }
 	end
 
-	test "should deactivate all with admin login" do
-		login_as admin_user
+	test "should deactivate all with #{cu} login" do
+		login_as send(cu)
 		hpp1 = Factory(:home_page_pic, :active => true)
 		hpp2 = Factory(:home_page_pic, :active => true)
 		HomePagePic.all.each { |hpp| assert hpp.active }
@@ -107,21 +109,12 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to home_page_pics_path
 	end
 
-	test "should activate all with editor login" do
-		login_as editor
-		hpp1 = Factory(:home_page_pic, :active => false)
-		hpp2 = Factory(:home_page_pic, :active => false)
-		HomePagePic.all.each { |hpp| assert !hpp.active }
-		post :activate, :home_page_pics => {
-			hpp1.id => { 'active' => true },
-			hpp2.id => { 'active' => true }
-		}
-		HomePagePic.all.each { |hpp| assert hpp.active }
-		assert_redirected_to home_page_pics_path
-	end
+end
 
-	test "should NOT activate all with employee login" do
-		login_as employee
+%w( employee active_user ).each do |cu|
+
+	test "should NOT activate all with #{cu} login" do
+		login_as send(cu)
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)
 		HomePagePic.all.each { |hpp| assert !hpp.active }
@@ -134,19 +127,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT activate all with just login" do
-		login_as active_user
-		hpp1 = Factory(:home_page_pic, :active => false)
-		hpp2 = Factory(:home_page_pic, :active => false)
-		HomePagePic.all.each { |hpp| assert !hpp.active }
-		post :activate, :home_page_pics => {
-			hpp1.id => { 'active' => true },
-			hpp2.id => { 'active' => true }
-		}
-		HomePagePic.all.each { |hpp| assert !hpp.active }
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+end
 
 	test "should NOT activate all without login" do
 		hpp1 = Factory(:home_page_pic, :active => false)

@@ -11,8 +11,10 @@ class He::SurveyInvitationsControllerTest < ActionController::TestCase
 			:pii_attributes => Factory.attributes_for(:pii))
 	end
 
-	test "should create invitation for subject with admin login" do
-		login_as admin_user
+%w( admin employee ).each do |u|
+
+	test "should create invitation for subject with #{u} login" do
+		login_as send(u)
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 		assert_difference('SurveyInvitation.count',1) {
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
@@ -22,19 +24,12 @@ class He::SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_nil flash[:error]
 	end
 
-	test "should create invitation for subject with employee login" do
-		login_as employee
-		assert_difference('ActionMailer::Base.deliveries.length',1) {
-		assert_difference('SurveyInvitation.count',1) {
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-		} }
-		assert_redirected_to assigns(:subject)
-		assert_not_nil flash[:notice]
-		assert_nil flash[:error]
-	end
+end
 
-	test "should NOT create invitation for subject with just login" do
-		login_as active_user
+%w( editor active_user ).each do |u|
+
+	test "should NOT create invitation for subject with #{u} login" do
+		login_as send(u)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
@@ -43,6 +38,8 @@ class He::SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_nil flash[:notice]
 	end
+
+end
 
 	test "should NOT create invitation for subject without login" do
 		assert_difference('ActionMailer::Base.deliveries.length',0) {

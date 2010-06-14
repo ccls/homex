@@ -30,26 +30,63 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should get new with admin login" do
-		login_as admin_user
+%w( admin employee ).each do |u|
+
+	test "should get new with #{u} login" do
+		login_as send(u)
 		get :new, :subject_id => @rs1.subject_id
 		assert_response :success
 		assert_template 'new'
 	end
 
-	test "should get new with employee login" do
-		login_as employee
-		get :new, :subject_id => @rs1.subject_id
-		assert_response :success
-		assert_template 'new'
+	test "should create HER with #{u} login" do
+		login_as send(u)
+		assert_difference("HomeExposureResponse.count",1) {
+			post :create, :subject_id => @rs1.subject_id, 
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
+		}
+		assert_redirected_to he_subject_home_exposure_response_path(
+			assigns(:subject))
 	end
 
-	test "should NOT get new with just login" do
-		login_as active_user
+	test "should show with #{u} login" do
+		@rs1.to_her
+		login_as send(u)
+		get :show, :subject_id => @rs1.subject_id
+		assert_response :success
+		assert_template 'show'
+	end
+
+end
+
+%w( editor active_user ).each do |u|
+
+	test "should NOT get new with #{u} login" do
+		login_as send(u)
 		get :new, :subject_id => @rs1.subject_id
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
+
+	test "should NOT create HER with #{u} login" do
+		login_as send(u)
+		assert_difference("HomeExposureResponse.count",0) {
+			post :create, :subject_id => @rs1.subject_id, 
+				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
+		}
+		assert_redirected_to root_path
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT show with #{u} login" do
+		@rs1.to_her
+		login_as send(u)
+		get :show, :subject_id => @rs1.subject_id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+end
 
 	test "should NOT get new without login" do
 		get :new, :subject_id => @rs1.subject_id
@@ -97,36 +134,6 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-
-	test "should create HER with admin login" do
-		login_as admin_user
-		assert_difference("HomeExposureResponse.count",1) {
-			post :create, :subject_id => @rs1.subject_id, 
-				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
-		}
-		assert_redirected_to he_subject_home_exposure_response_path(
-			assigns(:subject))
-	end
-
-	test "should create HER with employee login" do
-		login_as employee
-		assert_difference("HomeExposureResponse.count",1) {
-			post :create, :subject_id => @rs1.subject_id, 
-				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
-		}
-		assert_redirected_to he_subject_home_exposure_response_path(
-			assigns(:subject))
-	end
-
-	test "should NOT create HER with just login" do
-		login_as active_user
-		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
-				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
-		}
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
 
 	test "should NOT create HER without login" do
 		assert_difference("HomeExposureResponse.count",0) {
@@ -195,30 +202,6 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to home_exposure_path
-	end
-
-	test "should show with admin login" do
-		@rs1.to_her
-		login_as admin_user
-		get :show, :subject_id => @rs1.subject_id
-		assert_response :success
-		assert_template 'show'
-	end
-
-	test "should show with employee login" do
-		@rs1.to_her
-		login_as employee
-		get :show, :subject_id => @rs1.subject_id
-		assert_response :success
-		assert_template 'show'
-	end
-
-	test "should NOT show with just login" do
-		@rs1.to_her
-		login_as active_user
-		get :show, :subject_id => @rs1.subject_id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
 	end
 
 	test "should NOT show without login" do

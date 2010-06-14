@@ -49,13 +49,6 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
-	test "should download csv with admin login" do
-		login_as admin
-		get :index, :commit => 'download'
-		assert_response :success
-		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
-	end
-
 	test "should get show with pii" do
 		subject = Factory(:subject,
 			:pii_attributes => Factory.attributes_for(:pii))
@@ -65,9 +58,18 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_template 'show'
 	end
 
-	test "should update with admin login" do
+%w( admin employee editor ).each do |u|
+
+	test "should download csv with #{u} login" do
+		login_as send(u)
+		get :index, :commit => 'download'
+		assert_response :success
+		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
+	end
+
+	test "should update with #{u} login" do
 		subject = Factory(:subject)
-		login_as admin
+		login_as send(u)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
@@ -77,21 +79,19 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
-	test "should update with employee login" do
-		subject = Factory(:subject)
-		login_as employee
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => subject.id, 
-				:subject => Factory.attributes_for(:subject)
-		} } }
-		assert_redirected_to he_subject_path(assigns(:subject))
+end
+
+%w( active_user ).each do |u|
+
+	test "should NOT download csv with #{u} login" do
+		login_as send(u)
+		get :index, :commit => 'download'
+		assert_redirected_to root_path
 	end
 
-	test "should NOT update with just login" do
+	test "should NOT update with #{u} login" do
 		subject = Factory(:subject)
-		login_as user
+		login_as send(u)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
@@ -100,6 +100,13 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		} } }
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
+	end
+
+end
+
+	test "should NOT download csv without login" do
+		get :index, :commit => 'download'
+		assert_redirected_to_login
 	end
 
 	test "should NOT update without login" do
@@ -112,6 +119,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		} } }
 		assert_redirected_to_login
 	end
+
 
 	test "should NOT update with invalid id" do
 		subject = Factory(:subject)

@@ -18,12 +18,31 @@ class He::FollowupsControllerTest < ActionController::TestCase
 
 	assert_no_access_without_login [:index]
 
+%w( admin employee editor ).each do |u|
 
-	test "should download csv with admin login" do
-		login_as admin
+	test "should download csv with #{u} login" do
+		login_as send(u)
 		get :index, :commit => 'download'
 		assert_response :success
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
+	end
+
+end
+
+%w( active_user ).each do |u|
+
+	test "should NOT download csv with #{u} login" do
+		login_as send(u)
+		get :index, :commit => 'download'
+		assert_redirected_to root_path
+		assert_not_nil flash[:error]
+	end
+
+end
+
+	test "should NOT download csv without login" do
+		get :index, :commit => 'download'
+		assert_redirected_to_login
 	end
 
 end
