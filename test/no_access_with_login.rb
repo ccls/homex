@@ -103,6 +103,8 @@ module NoAccessWithLogin
 
 	module InstanceMethods
 
+		#	This needs to be static and not dynamic or the multiple
+		#	calls that would create it would overwrite each other.
 		def nawil_redirection(options={})
 			if options[:redirect]
 				send(options[:redirect])
