@@ -42,12 +42,12 @@ module AccessWithLogin
 
 			test "AWiL should get edit #{awil_title}" do
 				login_as send(options[:login])
-				args=[]
+				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
-					args.push(:id => obj.id)
+					args[:id] = obj.id
 				end
-				send(:get,:edit, *args)
+				send(:get,:edit, args)
 				assert_response :success
 				assert_template 'edit'
 				assert assigns(options[:factory])
@@ -69,12 +69,12 @@ module AccessWithLogin
 
 			test "AWiL should get show #{awil_title}" do
 				login_as send(options[:login])
-				args=[]
+				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
-					args.push(:id => obj.id)
+					args[:id] = obj.id
 				end
-				send(:get,:show, *args)
+				send(:get,:show, args)
 				assert_response :success
 				assert_template 'show'
 				assert assigns(options[:factory])
@@ -84,13 +84,13 @@ module AccessWithLogin
 			test "AWiL should delete destroy #{awil_title}" do
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
-				args=[]
+				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
-					args.push(:id => obj.id)
+					args[:id] = obj.id
 				end
 				assert_difference("#{model}.count",-1) do
-					send(:delete,:destroy,*args)
+					send(:delete,:destroy,args)
 				end
 				assert_response :redirect
 				assert assigns(options[:factory])
@@ -109,13 +109,15 @@ module AccessWithLogin
 			end if actions.include?(:index) || options.keys.include?(:index)
 
 			test "AWiL should get index #{awil_title} and items" do
+				send(options[:before]) if !options[:before].blank?
 				login_as send(options[:login])
 				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
 				get :index
 				assert_response :success
 				assert_template 'index'
 				unless options[:factory].blank?
-					assert assigns(options[:factory].to_s.pluralize.to_sym)
+					f = options[:factory].to_s.pluralize.to_sym
+					assert assigns(f)
 				end
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)

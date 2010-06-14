@@ -5,12 +5,15 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	setup :create_home_exposure_with_subject
 
 	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+		:before => :create_home_exposure_subjects,
 		:login => :admin, :factory => :subject }
 
 	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+		:before => :create_home_exposure_subjects,
 		:login => :employee, :factory => :subject }
 
 	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+		:before => :create_home_exposure_subjects,
 		:login => :editor, :factory => :subject }
 
 	assert_no_access_with_login [:edit,:update,:show,:destroy,:index],{
@@ -177,6 +180,17 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
+	end
+
+protected
+
+	def create_home_exposure_subjects
+		se = StudyEvent.find_or_create_by_description('Home Exposure')
+		3.times do
+			s  = Factory(:subject)
+			Factory(:project_subject, :subject => s, :study_event => se )
+			s
+		end
 	end
 
 end

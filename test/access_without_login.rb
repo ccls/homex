@@ -51,12 +51,12 @@ module AccessWithoutLogin
 #			end if actions.include?(:update) || options.keys.include?(:update)
 
 			test "AWoL should get show without login" do
-				args=[]
+				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
-					args.push(:id => obj.id)
+					args[:id] = obj.id
 				end
-				send(:get,:show, *args)
+				send(:get,:show, args)
 				assert_response :success
 				assert_template 'show'
 				assert assigns(options[:factory])
