@@ -2,46 +2,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
-#	We are using UCB CAS for authentication so this is unused.
-#	If Authlogic or other is reused, uncomment all this.
-#
-#	#	not really a controller test
-#	test "should NOT automatically log in new user with my helper" do
-#		assert_difference('User.count',1) do
-#			active_user
-#		end
-#		assert_equal Hash.new, session
-#		assert_nil UserSession.find
-#	end
-#
-#	#	not really a controller test
-#	test "should NOT automatically log in new user with create" do
-#		assert_difference('User.count',1) do
-#			User.create(Factory.attributes_for(:user))
-#		end
-#		assert_equal Hash.new, session
-#		assert_nil UserSession.find
-#	end
+	assert_access_with_login [:index,:show],{
+		:login => :admin, :factory => :user}
 
-	assert_no_access_without_login [:index,:show],{:factory => :user}
+	assert_no_access_with_login [:index,:show],{
+		:login => :editor, :factory => :user}
 
-#	test "should NOT get users index without login" do
-#		get :index
-#		assert_redirected_to_login
-#	end
+	assert_no_access_with_login [:index,:show],{
+		:login => :employee, :factory => :user}
 
-	test "should NOT get users index without admin login" do
-		login_as active_user
-		get :index
-		assert_redirected_to root_path
-	end
+	assert_no_access_with_login [:index,:show],{
+		:login => :active_user, :factory => :user}
 
-	test "should get users index with admin login" do
-		login_as admin_user
-		get :index
-		assert_nil flash[:error]
-		assert_response :success
-	end
+	assert_no_access_without_login [:index,:show],{
+		:factory => :user}
+
 
 	test "should filter users index by role" do
 		login_as admin_user
@@ -57,36 +32,11 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-
-
-
-#	test "should NOT get user info without login" do
-#		u = active_user
-#		get :show, :id => u.id
-#		assert_redirected_to_login
-#	end
-
-	test "should NOT get user info without admin login" do
-		login_as active_user
-		get :show, :id => active_user.id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
 	test "should NOT get user info with invalid id" do
 		login_as admin_user
 		get :show, :id => 0
 		assert_not_nil flash[:error]
 		assert_redirected_to users_path
-	end
-
-	test "should get user info with admin login" do
-		login_as admin_user
-		u = active_user
-		get :show, :id => u.id
-		assert_response :success
-		assert_not_nil assigns(:user)
-		assert_equal u, assigns(:user)
 	end
 
 	test "should get editor info with self login" do
@@ -109,9 +59,26 @@ class UsersControllerTest < ActionController::TestCase
 
 
 
-
 #	We are using UCB CAS for authentication so this is unused.
 #	If Authlogic or other is reused, uncomment all this.
+#
+#	#	not really a controller test
+#	test "should NOT automatically log in new user with my helper" do
+#		assert_difference('User.count',1) do
+#			active_user
+#		end
+#		assert_equal Hash.new, session
+#		assert_nil UserSession.find
+#	end
+#
+#	#	not really a controller test
+#	test "should NOT automatically log in new user with create" do
+#		assert_difference('User.count',1) do
+#			User.create(Factory.attributes_for(:user))
+#		end
+#		assert_equal Hash.new, session
+#		assert_nil UserSession.find
+#	end
 #
 #	test "should get new user without login" do
 #		ui = Factory(:user_invitation)

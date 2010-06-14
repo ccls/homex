@@ -18,6 +18,8 @@ class PackagesControllerTest < ActionController::TestCase
 		:new, :create, :show, :destroy, :index],{
 		:factory => :package}
 
+
+
 	test "delivered packages should NOT have update status link" do
 		Factory(:package, :status => "Delivered")
 		login_as admin_user
@@ -45,76 +47,6 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_equal 1, assigns(:packages).length
 	end
 
-#	test "should get index with admin login" do
-#		login_as admin_user
-#		get :index
-#		assert_template 'index'
-#		assert_response :success
-#		assert_equal 0, assigns(:packages).length
-#	end
-
-#	test "should get index with employee login" do
-#		login_as employee
-#		get :index
-#		assert_template 'index'
-#		assert_response :success
-#		assert_equal 0, assigns(:packages).length
-#	end
-
-#	test "should NOT get index without admin login" do
-#		login_as active_user
-#		get :index
-#		assert_redirected_to root_path
-#	end
-
-#	test "should NOT get index without login" do
-#		get :index
-#		assert_redirected_to_login
-#	end
-
-
-#	test "should get new with admin login" do
-#		login_as admin_user
-#		get :new
-#		assert_template 'new'
-#		assert_response :success
-#		assert_not_nil assigns(:package)
-#	end
-
-#	test "should get new with employee login" do
-#		login_as employee
-#		get :new
-#		assert_template 'new'
-#		assert_response :success
-#		assert_not_nil assigns(:package)
-#	end
-
-#	test "should NOT get new without admin login" do
-#		login_as active_user
-#		get :new
-#		assert_redirected_to root_path
-#	end
-
-#	test "should NOT get new without login" do
-#		get :new
-#		assert_redirected_to_login
-#	end
-
-
-#	test "should create with admin login" do
-#		login_as admin_user
-#		post :create, :package => Factory.attributes_for(:package)
-#		assert_not_nil assigns(:package)
-#		assert_redirected_to packages_path
-#	end
-
-#	test "should create with employee login" do
-#		login_as employee
-#		post :create, :package => Factory.attributes_for(:package)
-#		assert_not_nil assigns(:package)
-#		assert_redirected_to packages_path
-#	end
-
 	test "should NOT create with invalid package" do
 		login_as admin_user
 		post :create, :package => {}
@@ -122,18 +54,6 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'new'
 	end
-
-#	test "should NOT create without admin login" do
-#		login_as active_user
-#		post :create, :package => Factory.attributes_for(:package)
-#		assert_not_nil flash[:error]
-#		assert_redirected_to root_path
-#	end
-
-#	test "should NOT create without login" do
-#		post :create, :package => Factory.attributes_for(:package)
-#		assert_redirected_to_login
-#	end
 
 
 
@@ -185,71 +105,6 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-
-#	test "should show package with admin login" do
-#		login_as admin_user
-#		package = Factory(:package)
-#		get :show, :id => package.id
-#		assert_response :success
-#		assert_template 'show'
-#	end
-
-#	test "should show package with employee login" do
-#		login_as employee
-#		package = Factory(:package)
-#		get :show, :id => package.id
-#		assert_response :success
-#		assert_template 'show'
-#	end
-
-#	test "should NOT show package without admin login" do
-#		login_as active_user
-#		package = Factory(:package)
-#		get :show, :id => package.id
-#		assert_redirected_to root_path
-#	end
-
-#	test "should NOT show package without login" do
-#		package = Factory(:package)
-#		get :show, :id => package.id
-#		assert_redirected_to_login
-#	end
-
-
-#	test "should destroy package with admin login" do
-#		login_as admin_user
-#		package = Factory(:package)
-#		assert_difference('Package.count',-1) {
-#			delete :destroy, :id => package.id
-#		}
-#		assert_redirected_to packages_path
-#	end
-
-#	test "should destroy package with employee login" do
-#		login_as employee
-#		package = Factory(:package)
-#		assert_difference('Package.count',-1) {
-#			delete :destroy, :id => package.id
-#		}
-#		assert_redirected_to packages_path
-#	end
-
-#	test "should NOT destroy package with just login" do
-#		login_as active_user
-#		package = Factory(:package)
-#		assert_difference('Package.count',0) {
-#			delete :destroy, :id => package.id
-#		}
-#		assert_redirected_to root_path
-#	end
-
-#	test "should NOT destroy package without login" do
-#		package = Factory(:package)
-#		assert_difference('Package.count',0) {
-#			delete :destroy, :id => package.id
-#		}
-#		assert_redirected_to_login
-#	end
 
 	test "should NOT destroy package without valid id" do
 		login_as admin_user

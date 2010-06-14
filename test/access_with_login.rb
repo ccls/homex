@@ -102,6 +102,18 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
+			test "AWiL should get index with #{options[:login]} login and items" do
+				login_as send(options[:login])
+				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
+				get :index
+				assert_response :success
+				assert_template 'index'
+				unless options[:factory].blank?
+					assert assigns(options[:factory].to_s.pluralize.to_sym)
+				end
+				assert_nil flash[:error]
+			end if actions.include?(:index) || options.keys.include?(:index)
+
 		end
 	end
 end
