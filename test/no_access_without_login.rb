@@ -14,9 +14,7 @@ module NoAccessWithoutLogin
 			end if actions.include?(:new) || options.keys.include?(:new)
 
 			test "NAWoL should NOT post create without login" do
-#				args = {}
 				model = options[:factory].to_s.camelize
-#				args[model] = if options[:create]
 				args = if options[:create]
 					options[:create]
 				else

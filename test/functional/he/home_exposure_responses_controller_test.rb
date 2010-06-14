@@ -14,6 +14,13 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 			:survey => @rs1.survey)
 	end
 
+	assert_no_access_with_login [],{
+		:suffix => " and invalid subject_id",
+		:redirect => :home_exposure_path,
+		:login => :admin,
+		:new => { :subject_id => 0 },
+		:show => { :subject_id => 0 }
+	}
 
 	test "should show new with very different response sets" do
 		@rs2.responses.destroy_all
@@ -47,13 +54,6 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT get new without login" do
 		get :new, :subject_id => @rs1.subject_id
 		assert_redirected_to_login
-	end
-
-	test "should NOT get new without valid subject_id" do
-		login_as admin_user
-		get :new, :subject_id => 0
-		assert_redirected_to home_exposure_path
-		assert_not_nil flash[:error]
 	end
 
 	test "should NOT get new without subject_id" do
@@ -225,13 +225,6 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs1.to_her
 		get :show, :subject_id => @rs1.subject_id
 		assert_redirected_to_login
-	end
-
-	test "should NOT show without valid subject_id" do
-		login_as admin_user
-		get :show, :subject_id => 0
-		assert_redirected_to home_exposure_path
-		assert_not_nil flash[:error]
 	end
 
 	test "should NOT show without subject_id" do

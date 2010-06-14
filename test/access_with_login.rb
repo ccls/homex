@@ -2,26 +2,32 @@ module AccessWithLogin
 
 	def self.included(base)
 		base.extend ClassMethods
+		base.send(:include,InstanceMethods)
 	end
 
 	module ClassMethods
 
+		def awil_title
+			"with #{@options[:login]} login#{@options[:suffix]}"
+		end
+
 		def assert_access_with_login(actions=[],options={})
 
-			test "AWiL should get new with #{options[:login]} login" do
+			@options = options
+
+			test "AWiL should get new #{awil_title}" do
 				login_as send(options[:login])
-				get :new
+				args = options[:new] || {}
+				send(:get,:new,args)
 				assert_response :success
 				assert_template 'new'
 				assert assigns(options[:factory])
 				assert_nil flash[:error]
 			end if actions.include?(:new) || options.keys.include?(:new)
 
-			test "AWiL should post create with #{options[:login]} login" do
+			test "AWiL should post create #{awil_title}" do
 				login_as send(options[:login])
-#				args = {}
 				model = options[:factory].to_s.camelize
-#				args[model] = if options[:create]
 				args = if options[:create]
 					options[:create]
 				else
@@ -34,7 +40,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:create) || options.keys.include?(:create)
 
-			test "AWiL should get edit with #{options[:login]} login" do
+			test "AWiL should get edit #{awil_title}" do
 				login_as send(options[:login])
 				args=[]
 				if options[:factory]
@@ -48,7 +54,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
-			test "AWiL should put update with #{options[:login]} login" do
+			test "AWiL should put update #{awil_title}" do
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -61,7 +67,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
 
-			test "AWiL should get show with #{options[:login]} login" do
+			test "AWiL should get show #{awil_title}" do
 				login_as send(options[:login])
 				args=[]
 				if options[:factory]
@@ -75,7 +81,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
-			test "AWiL should delete destroy with #{options[:login]} login" do
+			test "AWiL should delete destroy #{awil_title}" do
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args=[]
@@ -91,7 +97,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
-			test "AWiL should get index with #{options[:login]} login" do
+			test "AWiL should get index #{awil_title}" do
 				login_as send(options[:login])
 				get :index
 				assert_response :success
@@ -102,7 +108,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
-			test "AWiL should get index with #{options[:login]} login and items" do
+			test "AWiL should get index #{awil_title} and items" do
 				login_as send(options[:login])
 				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
 				get :index
@@ -115,6 +121,11 @@ module AccessWithLogin
 			end if actions.include?(:index) || options.keys.include?(:index)
 
 		end
+
+	end
+
+	module InstanceMethods
+
 	end
 end
 ActionController::TestCase.send(:include, AccessWithLogin)
