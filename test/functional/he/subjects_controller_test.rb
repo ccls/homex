@@ -62,14 +62,6 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_template 'show'
 	end
 
-#		test "new subject should have non nil pii" do
-#			login_as admin
-#			get :new
-#			assert_not_nil assigns(:subject)
-#			assert_not_nil assigns(:subject).pii
-#		end
-
-
 	test "should update with admin login" do
 		subject = Factory(:subject)
 		login_as admin
