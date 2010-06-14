@@ -34,6 +34,11 @@ div#subsearch {
 	float:right;
 }
 
+#mainmenu a,
+#submenu a {
+	text-decoration: none;
+	color:black;
+}
 div#mainmenu { 
 	/* NEEDED so that mainmenu can be at bottom */
 	position:absolute;
@@ -71,6 +76,9 @@ div#submenu {
 }
 div#submenu a {
 	padding: 5px 20px;
+}
+div#submenu a.current {
+	font-weight:bold;
 }
 
 div#content_wrapper {

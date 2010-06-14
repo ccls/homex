@@ -52,7 +52,3 @@ form#subject_search div#something {
 form#subject_search input[type='submit']{
 	font-size:12pt;
 }
-
-#submenu a.current {
-	font-weight:bold;
-}
