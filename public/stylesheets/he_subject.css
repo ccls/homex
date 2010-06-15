@@ -13,6 +13,7 @@ input {
 
 #main .manage .childid {
 	float:left;
+	padding-right: 10px;
 }
 #main .manage .studyid {
 	float:left;
