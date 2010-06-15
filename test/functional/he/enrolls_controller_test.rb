@@ -61,7 +61,15 @@ class He::EnrollsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:notice]
 	end
 
-end
+	test "should update selected with #{u} login if in HE" do
+		pending
+	end
+
+	test "should NOT update selected with #{u} login if not in HE" do
+		pending
+	end
+
+end	#	%w( admin employee editor ).each do |u|
 
 %w( active_user ).each do |u|
 
@@ -87,7 +95,7 @@ end
 		assert_not_nil flash[:error]
 	end
 
-end
+end	#	%w( active_user ).each do |u|
 
 	test "should NOT download csv without login" do
 		get :index, :commit => 'download'
