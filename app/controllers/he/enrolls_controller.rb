@@ -19,10 +19,11 @@ class He::EnrollsController < ApplicationController
 
 	def update_select
 		if !params[:date].blank?
-			params[:subjects].keys.each do |id|
+			params[:subjects]||{}.keys.each do |id|
 #	add before filter to ensure permission
 #				Subject.find(id).update_attribute(:some date, params[:date])
 			end
+			flash[:notice] = "Date set (not really, still deving)"
 		end
 		
 		redirect_to he_enrolls_path(params.delete_keys!(
