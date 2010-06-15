@@ -27,8 +27,8 @@
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
 * {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
-* rubycas-client - user authentication
-* ucb_ldap - user info
+* {rubycas-client}[http://code.google.com/p/rubycas-client/] - user authentication
+* {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 
 
 == Required and included plugins
