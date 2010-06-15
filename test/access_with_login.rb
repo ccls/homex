@@ -62,7 +62,10 @@ module AccessWithLogin
 					args[:id] = obj.id
 					args[options[:factory]] = Factory.attributes_for(options[:factory])
 				end
+				before = obj.updated_at
 				send(:put,:update, args)
+				after = obj.reload.updated_at
+				assert_not_equal before,after
 				assert_response :redirect
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
