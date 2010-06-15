@@ -40,10 +40,6 @@ class UserInvitationTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require properly formated email address" do
-		pending
-	end
-
 	test "should belong to a sender" do
 		invitation = create_invitation
 		assert_not_nil invitation.sender
@@ -58,22 +54,6 @@ class UserInvitationTest < ActiveSupport::TestCase
 		assert_not_nil ui
 	end
 
-	test "should expire?" do
-		pending
-	end
-
-	test "should be usable once and only once" do
-		pending
-	end
-
-	test "should belong to a recipient after used" do
-		pending
-	end
-
-	test "should accept a message" do
-		pending
-	end
-
 	test "should not change token on invitation update" do
 		i = create_invitation
 		before = i.token
@@ -81,6 +61,29 @@ class UserInvitationTest < ActiveSupport::TestCase
 		after = i.reload.token
 		assert_equal before, after
 	end
+
+#	Not using this, so pending tests are more pointless
+#	than the functioning ones.
+#
+#	test "should require properly formated email address" do
+#		pending
+#	end
+#
+#	test "should expire?" do
+#		pending
+#	end
+#
+#	test "should be usable once and only once" do
+#		pending
+#	end
+#
+#	test "should belong to a recipient after used" do
+#		pending
+#	end
+#
+#	test "should accept a message" do
+#		pending
+#	end
 
 protected
 
