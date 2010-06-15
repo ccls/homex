@@ -18,8 +18,11 @@ class He::EnrollsController < ApplicationController
 	end
 
 	def update_select
-		if !params[:date].blank?
-			params[:subjects]||{}.keys.each do |id|
+		if params[:date].blank?
+			flash[:notice] = "No date so nothing done"
+		else
+			date = Date.parse(params[:date].to_s)
+			(params[:subjects]||[]).each do |id|
 #	add before filter to ensure permission
 #				Subject.find(id).update_attribute(:some date, params[:date])
 			end
@@ -28,6 +31,11 @@ class He::EnrollsController < ApplicationController
 		
 		redirect_to he_enrolls_path(params.delete_keys!(
 			:_method,:authenticity_token,:action,:subjects,:date
+		))
+	rescue Exception => e
+		flash[:error] = e.message
+		redirect_to send_letters_he_enrolls_path(params.delete_keys!(
+			:_method,:authenticity_token,:action,:commit
 		))
 	end
 

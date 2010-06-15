@@ -8,7 +8,7 @@
 	<button type='button' id='select_all'>select all</button>
 	<button type='button' id='deselect_all'>deselect all</button>
 	<span>letter sent on:</span>
-	<%= text_field_tag :date %>
+	<%= text_field_tag :date, params[:date] %>
 	<%= submit_tag 'set date' %>
 	<%= submit_tag 'download' %>
 

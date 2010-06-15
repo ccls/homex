@@ -36,10 +36,29 @@ class He::EnrollsControllerTest < ActionController::TestCase
 
 	test "should update selected with #{u} login" do
 		login_as send(u)
-		put :update_select, :date => Time.now,
-			:subjects => { }
+		put :update_select, :date => Time.now.to_s,
+			:subjects => [ ]
 		assert_response :redirect
 		assert_match he_enrolls_path, @response.redirected_to
+		assert_not_nil flash[:notice]
+	end
+
+	test "should NOT update selected with #{u} login with invalid date" do
+		login_as send(u)
+		put :update_select, :date => "can't parse this!",
+			:subjects => [ ]
+		assert_response :redirect
+		assert_match send_letters_he_enrolls_path, @response.redirected_to
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update selected with #{u} login without date" do
+		login_as send(u)
+		put :update_select, 
+			:subjects => [ ]
+		assert_response :redirect
+		assert_match he_enrolls_path, @response.redirected_to
+		assert_not_nil flash[:notice]
 	end
 
 end
@@ -62,8 +81,8 @@ end
 
 	test "should NOT update selected with #{u} login" do
 		login_as send(u)
-		put :update_select, :date => Time.now,
-			:subjects => { }
+		put :update_select, :date => Time.now.to_s,
+			:subjects => [ ]
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
@@ -81,8 +100,8 @@ end
 	end
 
 	test "should NOT update selected without login" do
-		put :update_select, :date => Time.now,
-			:subjects => { }
+		put :update_select, :date => Time.now.to_s,
+			:subjects => [ ]
 		assert_redirected_to_login
 	end
 

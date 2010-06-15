@@ -1,7 +1,9 @@
 <% content_tag_for( :div, subject, :class => 'row' ) do %>
 <% unless defined?(no_check_box) %>
 <div class='checkbox'>
-<%= check_box_tag "subjects[#{subject.id}]",true,false %>
+<%#= check_box_tag "subjects[#{subject.id}]",true, %>
+<%= check_box_tag "subjects[]",subject.id,
+	(params[:subjects]||[]).include?(subject.id.to_s)?true:false %>
 </div>
 <% end %>
 <div class='childid'>
