@@ -19,10 +19,10 @@
 	<a>FAQs</a>
 </div><!-- minimenu -->
 <div id='fullsearch'>
-<form action='search'>
-	<input type='text' />
-	<input type='submit' value='Find' />
-</form>
+<% form_tag '/subjects', :method => :get do %>
+	<%= text_field_tag :q, params[:q] %>
+	<%= submit_tag :find, :name => nil %>
+<% end %>
 </div>
 <div id='mainmenu'>
 	<%= link_to "Subjects", he_subjects_path, 
