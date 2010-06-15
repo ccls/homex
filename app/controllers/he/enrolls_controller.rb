@@ -1,11 +1,12 @@
 class He::EnrollsController < ApplicationController
 
 	before_filter :may_view_subjects_required
+	before_filter :get_subjects, :only => [:index,:send_letters]
 
 	layout 'home_exposure'
 
 	def index
-		get_subjects
+#		get_subjects
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
@@ -14,7 +15,7 @@ class He::EnrollsController < ApplicationController
 	end
 
 	def send_letters
-		get_subjects
+#		get_subjects
 	end
 
 	def update_select
@@ -24,6 +25,7 @@ class He::EnrollsController < ApplicationController
 			date = Date.parse(params[:date].to_s)
 			(params[:subjects]||[]).each do |id|
 #	add before filter to ensure permission
+#	also ensure an he subject
 #				Subject.find(id).update_attribute(:some date, params[:date])
 			end
 			flash[:notice] = "Date set (not really, still deving)"
