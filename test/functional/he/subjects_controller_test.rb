@@ -49,6 +49,22 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
+	test "should get index with order and dir desc" do
+		login_as admin
+		get :index, :order => 'last_name', :dir => 'desc'
+		assert_response :success
+		assert_template 'index'
+		assert_select "span.arrow", :count => 1
+	end
+
+	test "should get index with order and dir asc" do
+		login_as admin
+		get :index, :order => 'last_name', :dir => 'asc'
+		assert_response :success
+		assert_template 'index'
+		assert_select "span.arrow", :count => 1
+	end
+
 	test "should get show with pii" do
 		subject = Factory(:subject,
 			:pii_attributes => Factory.attributes_for(:pii))
