@@ -6,16 +6,18 @@ module HeSubjectsHelper
 		dir = ( params[:dir] && params[:dir] == 'asc' ) ? 'desc' : 'asc'
 		link_text = text||column
 		classes = [order]
+		arrow = ''
 		if params[:order] && params[:order] == order
 			classes.push('sorted')
-			link_text << if dir == 'desc'
-				"&nbsp;&darr;"
+			arrow = if dir == 'desc'
+				"<span class='arrow'>&darr;</span>"
 			else
-				"&nbsp;&uarr;"
+				"<span class='arrow'>&uarr;</span>"
 			end
 		end
 		s = "<div class='#{classes.join(' ')}'>"
 		s << link_to(link_text,params.merge(:order => order,:dir => dir))
+		s << arrow unless arrow.blank?
 		s << "</div>"
 		s
 	end

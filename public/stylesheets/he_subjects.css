@@ -24,7 +24,9 @@ div.first_name {
 	width: 180px;
 	float:left;
 }
-
+span.arrow {
+	padding-left:0.5ex;
+}
 form#subject_search {
 }
 form#subject_search #races {
