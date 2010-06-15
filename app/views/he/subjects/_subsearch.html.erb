@@ -5,7 +5,7 @@
 <%# end -%>
 	<%= hidden_field_tag :order, params[:order] %>
 	<%= hidden_field_tag :dir, params[:dir] %>
-	<%= text_field_tag :q, params[:q]  %>
+	<%= text_field_tag :q, params[:q], :id => nil  %>
 	<%= submit_tag 'find' %>
 	<%= submit_tag 'download' %>
 <% end %>

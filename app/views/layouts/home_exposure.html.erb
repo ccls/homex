@@ -20,7 +20,7 @@
 </div><!-- minimenu -->
 <div id='fullsearch'>
 <% form_tag '/subjects', :method => :get do %>
-	<%= text_field_tag :q, params[:q] %>
+	<%= text_field_tag :q, params[:q], :id => nil %>
 	<%= submit_tag :find, :name => nil %>
 <% end %>
 </div>
