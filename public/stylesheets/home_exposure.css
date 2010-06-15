@@ -88,6 +88,7 @@ div#content_wrapper {
 }
 div#content {
 	padding: 5px 25px;
+	font-size: 10pt;
 }
 
 div#preview {
@@ -124,6 +125,7 @@ div#guidance {
 	padding-bottom: 32767px;
 	/* smaller to put some real padding on bottom */
 	margin-bottom: -32740px;
+	font-size: 10pt;
 }
 
 #footer {

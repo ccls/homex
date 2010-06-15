@@ -27,3 +27,7 @@ div.outcome {
 	width: 80px;
 	float:left;
 }
+
+div.set_date {
+	float:right;
+}

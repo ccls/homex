@@ -7,10 +7,12 @@
 <% form_tag(update_select_he_enrolls_path, :method => :put ) do %>
 	<button type='button' id='select_all'>select all</button>
 	<button type='button' id='deselect_all'>deselect all</button>
+<div class='set_date'>
 	<span>letter sent on:</span>
 	<%= text_field_tag :date, params[:date] %>
 	<%= submit_tag 'set date' %>
 	<%= submit_tag 'download' %>
+</div>
 
 <div class='header'>
 <div class='checkbox'>&nbsp;</div>
