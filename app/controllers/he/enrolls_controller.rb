@@ -8,6 +8,7 @@ class He::EnrollsController < ApplicationController
 	def index
 #		get_subjects
 		if params[:commit] && params[:commit] == 'download'
+			flash.discard	#	discard possible flash from before redirects
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
 				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
