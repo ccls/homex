@@ -142,8 +142,8 @@ then we continue ...
 
  rake db:migrate
 
- #	add some expected items
- rake app:populate
+ #	add some expected items (loads fixtures OVERWRITING some db data)
+ rake app:setup
 
  script/server
  script/backgroundrb start

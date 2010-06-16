@@ -6,18 +6,11 @@ namespace :app do
 #		exit
 #	end
 
-	desc "Prepare database for application"
-	task :setup => :populate
-
-	desc "Add a bunch of stuff to the DB"
-	task :populate => [ 
-#		:add_users, 		#	TODO
-#		:add_packages, 
-		:add_study_events,
-		:add_races,
-		:add_address_types,
-		:add_pages
-	]
+	desc "Load some fixtures to database for application"
+	task :setup => :populate do
+		ENV['FIXTURES'] = 'address_types,subject_types,units,races,study_events,pages'
+		Rake::Task["db:fixtures:load"].invoke
+	end
 
 	desc "DEV: Add some CCLS subjects"
 	task :add_ccls_subjects => :environment do
@@ -59,32 +52,6 @@ namespace :app do
 				:subject_type_id => subject_type.id
 			})
 		end
-	end
-
-	desc "Add address_types"
-	task :add_address_types => :environment do
-		puts "Adding Address Types"
-		[
-			{:code => "Home",:description => "address of residence of subject"},
-			{:code => "Mailing", :description => "mailing address"}
-		].each do |attrs|
-			AddressType.find_or_create_by_code(attrs)
-		end
-	end
-
-	desc "Add StudyEvents"
-	task :add_study_events => :environment do
-		puts "Adding Study Events"
-		[ "Home Exposure" ].each do |d|
-			StudyEvent.find_or_create_by_description(d)
-		end
-	end
-
-	desc "Add races"
-	task :add_races => :environment do
-		puts "Adding Races"
-
-
 	end
 
 	desc "Add some package tracking numbers"

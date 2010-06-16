@@ -1,0 +1,5 @@
+#	explicitly assign id or it will be a hash of the label
+#	which will be large.
+home_exposure:
+  id: 1
+  description: Home Exposure

@@ -11,6 +11,8 @@ class PagesController < ApplicationController	#:nodoc:
 
 	def order
 #		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
+#	this doesn't even check for parents or anything
+#	making it faster, but potentially error prone.
 		params[:pages].each_with_index { |id,index| 
 			Page.find(id).update_attribute(:position, index+1 ) }
 		redirect_to pages_path(:parent_id=>params[:parent_id])

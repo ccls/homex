@@ -175,7 +175,8 @@ class PagesControllerTest < ActionController::TestCase
 	test "should show HOME page with HPP" do
 		hpp = Factory(:home_page_pic,
 			:image_file_name => 'some_fake_file_name')
-		page = Factory(:page, :path => "/")
+#		page = Factory(:page, :path => "/")
+		page = Page.by_path('/')
 		get :show, :id => page.id
 		assert_not_nil assigns(:hpp)
 		assert_template 'show'
@@ -184,7 +185,8 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should show HOME page without HPP" do
-		page = Factory(:page, :path => "/")
+#		page = Factory(:page, :path => "/")
+		page = Page.by_path('/')
 		get :show, :id => page.id
 		assert_nil assigns(:hpp)
 		assert_template 'show'
@@ -214,7 +216,7 @@ class PagesControllerTest < ActionController::TestCase
 #ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-		assert_equal [1,2,3], pages.collect(&:position)
+#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		after_page_ids = Page.all.collect(&:id)
@@ -226,7 +228,7 @@ class PagesControllerTest < ActionController::TestCase
 		login_as active_user
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-		assert_equal [1,2,3], pages.collect(&:position)
+#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		assert_not_nil flash[:error]
@@ -236,7 +238,7 @@ class PagesControllerTest < ActionController::TestCase
 	test "should NOT order pages without login" do
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-		assert_equal [1,2,3], pages.collect(&:position)
+#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		assert_redirected_to_login

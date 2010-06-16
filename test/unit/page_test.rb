@@ -127,12 +127,15 @@ class PageTest < ActiveSupport::TestCase
 	end
 
 	test "should create page with hide_menu true" do
-		page = create_page(:hide_menu => true)
-		assert_equal 1, Page.count
-		assert_equal 0, Page.roots.count
-		assert_not_nil Page.find(page)
-		assert_not_nil Page.find(page.id)
-		assert_not_nil Page.find_by_path(page.path)
+		assert_difference('Page.count',1){
+		assert_difference('Page.roots.count',0){
+			page = create_page(:hide_menu => true)
+#			assert_equal 1, Page.count
+#			assert_equal 0, Page.roots.count
+			assert_not_nil Page.find(page)
+			assert_not_nil Page.find(page.id)
+			assert_not_nil Page.find_by_path(page.path)
+		} }
 	end
 
 	test "should find page by path" do
