@@ -43,6 +43,7 @@
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
+* {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 
 
 == Installation 
