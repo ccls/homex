@@ -29,3 +29,24 @@ class ActiveSupport::TestCase
 	include FactoryTestHelper
 
 end
+
+class ActionController::TestCase
+
+	setup :turn_https_on
+
+	def turn_https_on
+		@request.env['HTTPS'] = 'on'
+#		@request.env['HTTP_X_FORWARDED_PROTO'] == 'https'
+	end
+
+	def turn_https_off
+		@request.env['HTTPS'] = nil
+	end
+
+end
+
+#class ActionController::TestRequest
+#	def ssl?
+#		true
+#	end
+#end

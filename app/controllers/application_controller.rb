@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 #	include AuthBy::Authlogic
 	include AuthBy::UCB::CAS
 
+	include SslRequirement
+
 	helper :all # include all helpers, all the time
 
 	# See ActionController::RequestForgeryProtection for details
@@ -26,6 +28,18 @@ protected	#	private #	(does it matter which or if neither?)
 #	def no_current_user_required
 #		logged_in? &&
 #			access_denied("You must be logged out to do that",root_path)
+#	end
+
+	#	Does nothing in testing as https just causes errors.
+	#	Gotta figure this thing out.
+	def ssl_required?
+		#	Force https everywhere except during testing
+#		( Rails.env == 'test' ) ? false : true
+true
+	end
+
+#	def ssl_allowed?
+#		true	#	Allow https anywhere (actually, just ignores the protocol so this could be read as non_ssl_allowed?) should make this false but CAS
 #	end
 
 	def logged_in?

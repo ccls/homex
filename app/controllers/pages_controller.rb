@@ -9,6 +9,8 @@ class PagesController < ApplicationController	#:nodoc:
 #	caches_action :show, :layout => false
 #	cache_sweeper :page_sweeper, :only => [:create, :update, :order, :destroy]
 
+	ssl_allowed :show
+
 	def order
 #		params[:pages].reverse.each { |id| Page.find(id).move_to_top }
 #	this doesn't even check for parents or anything
