@@ -19,9 +19,8 @@ namespace :db do
 		exit
 	end
 
-#	Rake::Task['morning:make_coffee'].invoke
+	desc "Import subject and address data from CSV files"
 	task :import_csv_data => [
-		'app:add_address_types',
 		:import_subject_data,
 		:import_address_data
 	]
@@ -55,7 +54,6 @@ namespace :db do
 
 		end
 	end
-
 
 	desc "Import address data from CSV file"
 	task :import_address_data => :environment do
