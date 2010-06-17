@@ -1,34 +1,38 @@
-module NoAccessWithLogin
+module NoAccessWithHttp
 
 	def self.included(base)
 		base.extend ClassMethods
-		base.send(:include, InstanceMethods)
 	end
 
 	module ClassMethods
 
-		def nawil_title(options={})
+		def nawihttp_title(options={})
 			"with #{options[:login]} login#{options[:suffix]}"
 		end
 
-		def assert_no_access_with_login(*actions)
+		def assert_no_access_with_http(*actions)
 			user_options = actions.extract_options!
 
-			options = {}
+			options = {
+				:login => :admin
+			}
 			if ( self.constants.include?('ASSERT_ACCESS_OPTIONS') )
 				options.merge!(self::ASSERT_ACCESS_OPTIONS)
 			end
 			options.merge!(user_options)
 
-			test "NAWiL should NOT get new #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT get new #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args = options[:new]||{}
 				send(:get,:new,args)
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_redirected_to @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'new', :protocol => "https://")
 			end if actions.include?(:new) || options.keys.include?(:new)
 
-			test "NAWiL should NOT post create #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT post create #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args = if options[:create]
@@ -39,11 +43,13 @@ module NoAccessWithLogin
 				assert_no_difference("#{model}.count") do
 					send(:post,:create,args)
 				end
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_match @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'create', :protocol => "https://"),@response.redirected_to
 			end if actions.include?(:create) || options.keys.include?(:create)
 
-			test "NAWiL should NOT get edit #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT get edit #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args=options[:edit]||{}
 				if options[:factory]
@@ -51,11 +57,13 @@ module NoAccessWithLogin
 					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_redirected_to @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'edit', :id => args[:id], :protocol => "https://")
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
-			test "NAWiL should NOT put update #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT put update #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -64,11 +72,13 @@ module NoAccessWithLogin
 					args[options[:factory]] = Factory.attributes_for(options[:factory])
 				end
 				send(:put,:update, args)
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_match @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'update', :id => args[:id], :protocol => "https://"), @response.redirected_to
 			end if actions.include?(:update) || options.keys.include?(:update)
 
-			test "NAWiL should NOT get show #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT get show #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args=options[:show]||{}
 				if options[:factory]
@@ -76,11 +86,13 @@ module NoAccessWithLogin
 					args[:id] = obj.id
 				end
 				send(:get,:show, args)
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_redirected_to @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'show', :id => args[:id], :protocol => "https://")
 			end if actions.include?(:show) || options.keys.include?(:show)
 
-			test "NAWiL should NOT delete destroy #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT delete destroy #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				model = options[:model]||options[:factory].to_s.camelize
 				args=options[:destroy]||{}
@@ -91,33 +103,23 @@ module NoAccessWithLogin
 				assert_no_difference("#{model}.count") do
 					send(:delete,:destroy,args)
 				end
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_redirected_to @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'destroy', :id => args[:id], :protocol => "https://")
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
-			test "NAWiL should NOT get index #{nawil_title(options)}" do
+			test "NAWiHTTP should NOT get index #{nawihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				get :index
-				assert_not_nil flash[:error]
-				assert_redirected_to nawil_redirection(options)
+				assert_redirected_to @controller.url_for(
+					:controller => @controller.controller_name,
+					:action => 'index', :protocol => "https://")
 			end if actions.include?(:index) || options.keys.include?(:index)
 
 		end
 
 	end
 
-	module InstanceMethods
-
-		#	This needs to be static and not dynamic or the multiple
-		#	calls that would create it would overwrite each other.
-		def nawil_redirection(options={})
-			if options[:redirect]
-				send(options[:redirect])
-			else
-				root_path
-			end
-		end
-
-	end
 end
-ActionController::TestCase.send(:include, NoAccessWithLogin)
+ActionController::TestCase.send(:include, NoAccessWithHttp)

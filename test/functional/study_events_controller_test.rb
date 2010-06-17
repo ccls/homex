@@ -2,25 +2,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class StudyEventsControllerTest < ActionController::TestCase
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :admin, :factory => :study_event }
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :study_event
+	}
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :employee, :factory => :study_event }
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :admin }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :editor, :factory => :study_event }
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :employee }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :active_user, :factory => :study_event }
+	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :editor }
 
-	assert_no_access_without_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:factory => :study_event}
+	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :active_user }
+
+	assert_no_access_without_login :new,:create,:edit,:update,:show,:destroy,:index
+
+
+	assert_access_with_https :new,:create,:edit,:update,:show,:destroy,:index
+
+	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
+
 
 #	save errors
 

@@ -2,21 +2,25 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PackagesControllerTest < ActionController::TestCase
 
-	assert_access_with_login [
-		:new,:create,:show,:destroy,:index],{
-		:login => :admin, :factory => :package }
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :package
+	}
 
-	assert_access_with_login [
-		:new,:create,:show,:destroy,:index],{
-		:login => :employee, :factory => :package }
+	assert_access_with_login :new,:create,:show,:destroy,:index,{
+		:login => :admin }
 
-	assert_no_access_with_login [
-		:new,:create,:show,:destroy,:index],{
-		:login => :active_user, :factory => :package }
+	assert_access_with_login :new,:create,:show,:destroy,:index,{
+		:login => :employee }
 
-	assert_no_access_without_login [
-		:new, :create, :show, :destroy, :index],{
-		:factory => :package}
+	assert_no_access_with_login :new,:create,:show,:destroy,:index,{
+		:login => :active_user }
+
+	assert_no_access_without_login :new,:create,:show,:destroy,:index
+
+
+	assert_access_with_https :new,:create,:show,:destroy,:index
+
+	assert_no_access_with_http :new,:create,:show,:destroy,:index
 
 
 

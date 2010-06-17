@@ -1,34 +1,29 @@
-module AccessWithLogin
+module AccessWithHttp
 
 	def self.included(base)
 		base.extend ClassMethods
-		base.send(:include,InstanceMethods)
 	end
 
 	module ClassMethods
 
-		def awil_title(options={})
+		def awihttp_title(options={})
 			"with #{options[:login]} login#{options[:suffix]}"
 		end
 
-		def assert_access_with_login(*actions)
+		def assert_access_with_http(*actions)
 			user_options = actions.extract_options!
 
-			options = {}
+			options = {
+				:login => :admin 
+			}
 			if ( self.constants.include?('ASSERT_ACCESS_OPTIONS') )
 				options.merge!(self::ASSERT_ACCESS_OPTIONS)
 			end
 			options.merge!(user_options)
 
-#			o = {
-#				:actions => {
-#					:new => {
-#						:request => [ :get, :new ]
-#					}
-#				}
-#			}
 
-			test "AWiL should get new #{awil_title(options)}" do
+			test "AWiHTTP should get new #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args = options[:new] || {}
 				send(:get,:new,args)
@@ -38,7 +33,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:new) || options.keys.include?(:new)
 
-			test "AWiL should post create #{awil_title(options)}" do
+			test "AWiHTTP should post create #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args = if options[:create]
@@ -53,7 +49,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:create) || options.keys.include?(:create)
 
-			test "AWiL should get edit #{awil_title(options)}" do
+			test "AWiHTTP should get edit #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -67,7 +64,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
-			test "AWiL should put update #{awil_title(options)}" do
+			test "AWiHTTP should put update #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -83,7 +81,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
 
-			test "AWiL should get show #{awil_title(options)}" do
+			test "AWiHTTP should get show #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -97,7 +96,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
-			test "AWiL should delete destroy #{awil_title(options)}" do
+			test "AWiHTTP should delete destroy #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args={}
@@ -113,7 +113,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
-			test "AWiL should get index #{awil_title(options)}" do
+			test "AWiHTTP should get index #{awihttp_title(options)}" do
+				turn_https_off
 				login_as send(options[:login])
 				get :index
 				assert_response :success
@@ -124,7 +125,8 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
-			test "AWiL should get index #{awil_title(options)} and items" do
+			test "AWiHTTP should get index #{awihttp_title(options)} and items" do
+				turn_https_off
 				send(options[:before]) if !options[:before].blank?
 				login_as send(options[:login])
 				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
@@ -142,8 +144,5 @@ module AccessWithLogin
 
 	end
 
-	module InstanceMethods
-
-	end
 end
-ActionController::TestCase.send(:include, AccessWithLogin)
+ActionController::TestCase.send(:include, AccessWithHttp)

@@ -2,25 +2,28 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomePagePicsControllerTest < ActionController::TestCase
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :admin, :factory => :home_page_pic }
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :home_page_pic
+	}
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :editor, :factory => :home_page_pic }
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :admin }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :employee, :factory => :home_page_pic }
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :editor }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :active_user, :factory => :home_page_pic }
+	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :employee }
 
-	assert_no_access_without_login [
-		:new,:create,:index,:edit,:update,:show,:destroy], {
-		:factory => :home_page_pic }
+	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :active_user }
+
+	assert_no_access_without_login :new,:create,:edit,:update,:show,:destroy,:index
+
+
+	assert_access_with_https :new,:create,:edit,:update,:show,:destroy,:index
+
+	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
 
 
 	test "should NOT create home_page_pic without valid HPP" do

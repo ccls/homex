@@ -4,19 +4,23 @@ class He::FollowupsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
 
-	assert_access_with_login [:index],{
+	assert_access_with_login :index,{
 		:login => :admin}
 
-	assert_access_with_login [:index],{
+	assert_access_with_login :index,{
 		:login => :employee}
 
-	assert_access_with_login [:index],{
+	assert_access_with_login :index,{
 		:login => :editor}
 
-	assert_no_access_with_login [:index],{
+	assert_no_access_with_login :index,{
 		:login => :active_user}
 
-	assert_no_access_without_login [:index]
+	assert_no_access_without_login :index
+
+	assert_access_with_https :index
+
+	assert_no_access_with_http :index
 
 %w( admin employee editor ).each do |u|
 

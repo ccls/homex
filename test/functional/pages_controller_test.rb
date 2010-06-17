@@ -2,36 +2,38 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PagesControllerTest < ActionController::TestCase
 
-	#	I need a function to predefine some settings (like :factory)
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :page 
+	}
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :admin, :factory => :page}
+	assert_access_with_http :show
 
-	assert_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :editor, :factory => :page}
+	assert_access_with_https :new,:create,:edit,:update,:show,:destroy,:index
 
-	assert_access_with_login [:show],{
-		:login => :employee, :factory => :page}
+	assert_no_access_with_http :new,:create,:edit,:update,:destroy,:index
 
-	assert_access_with_login [:show],{
-		:login => :active_user, :factory => :page}
 
-	assert_access_without_login [:show],{
-		:factory => :page}
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :admin }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:destroy,:index],{
-		:login => :employee, :factory => :page}
+	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :editor }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:destroy,:index],{
-		:login => :active_user, :factory => :page}
+	assert_access_with_login :show,{
+		:login => :employee }
 
-	assert_no_access_without_login [
-		:new,:create,:edit,:update,:destroy,:index],{
-		:factory => :page}
+	assert_access_with_login :show,{
+		:login => :active_user }
+
+	assert_access_without_login :show
+
+	assert_no_access_with_login :new,:create,:edit,:update,:destroy,:index,{
+		:login => :employee }
+
+	assert_no_access_with_login :new,:create,:edit,:update,:destroy,:index,{
+		:login => :active_user }
+
+	assert_no_access_without_login :new,:create,:edit,:update,:destroy,:index
 
 #
 #		index/new/create/edit/update/destroy 

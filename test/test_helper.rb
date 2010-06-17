@@ -12,6 +12,9 @@ require 'no_access_without_login'
 require 'no_access_with_login'
 require 'access_without_login'
 require 'access_with_login'
+require 'access_with_https'
+require 'access_with_http'
+require 'no_access_with_http'
 #require 'full_access_with_admin_login'
 
 #	Using default validation settings from within the 

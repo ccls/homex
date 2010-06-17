@@ -4,25 +4,34 @@ class He::SubjectsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
 
-	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :subject
+	}
+
+	assert_access_with_login :edit,:update,:show,:destroy,:index,{
 		:before => :create_home_exposure_subjects,
-		:login => :admin, :factory => :subject }
+		:login => :admin }
 
-	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+	assert_access_with_login :edit,:update,:show,:destroy,:index,{
 		:before => :create_home_exposure_subjects,
-		:login => :employee, :factory => :subject }
+		:login => :employee }
 
-	assert_access_with_login [:edit,:update,:show,:destroy,:index],{
+	assert_access_with_login :edit,:update,:show,:destroy,:index,{
 		:before => :create_home_exposure_subjects,
-		:login => :editor, :factory => :subject }
+		:login => :editor }
 
-	assert_no_access_with_login [:edit,:update,:show,:destroy,:index],{
-		:login => :active_user, :factory => :subject }
+	assert_no_access_with_login :edit,:update,:show,:destroy,:index,{
+		:login => :active_user }
 
-	assert_no_access_without_login [:edit,:update,:show,:destroy,:index],{
-		:factory => :subject }
+	assert_no_access_without_login :edit,:update,:show,:destroy,:index
 
-	assert_no_access_with_login [],{
+	assert_access_with_https :edit,:update,:show,:destroy,:index,{
+		:before => :create_home_exposure_subjects }
+
+	assert_no_access_with_http :edit,:update,:show,:destroy,:index
+
+	assert_no_access_with_login(
+		:factory => nil,	#	override the default setting from above
 		:model => 'Subject',
 		:suffix => " and invalid id",
 		:redirect => :he_subjects_path,
@@ -30,7 +39,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 },
 		:edit => { :id => 0 },
 		:show => { :id => 0 }
-	}
+	)
 
 	test "should get index with subjects" do
 		survey = Survey.find_by_access_code("home_exposure_survey")

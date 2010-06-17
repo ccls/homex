@@ -2,20 +2,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UsersControllerTest < ActionController::TestCase
 
-	assert_access_with_login [:index,:show],{
-		:login => :admin, :factory => :user}
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :user
+	}
 
-	assert_no_access_with_login [:index,:show],{
-		:login => :editor, :factory => :user}
+	assert_access_with_login :index,:show,{
+		:login => :admin }
 
-	assert_no_access_with_login [:index,:show],{
-		:login => :employee, :factory => :user}
+	assert_no_access_with_login :index,:show,{
+		:login => :editor }
 
-	assert_no_access_with_login [:index,:show],{
-		:login => :active_user, :factory => :user}
+	assert_no_access_with_login :index,:show,{
+		:login => :employee }
 
-	assert_no_access_without_login [:index,:show],{
-		:factory => :user}
+	assert_no_access_with_login :index,:show,{
+		:login => :active_user }
+
+	assert_no_access_without_login :index,:show
+
+
+	assert_access_with_https :index,:show
+
+	assert_no_access_with_http :index,:show
+
 
 
 	test "should filter users index by role" do

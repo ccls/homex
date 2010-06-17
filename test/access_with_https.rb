@@ -1,36 +1,30 @@
-module AccessWithLogin
+module AccessWithHttps
 
 	def self.included(base)
 		base.extend ClassMethods
-		base.send(:include,InstanceMethods)
 	end
 
 	module ClassMethods
 
-		def awil_title(options={})
+		def awihttps_title(options={})
 			"with #{options[:login]} login#{options[:suffix]}"
 		end
 
-		def assert_access_with_login(*actions)
+		def assert_access_with_https(*actions)
 			user_options = actions.extract_options!
 
-			options = {}
+			options = {
+				:login => :admin
+			}
 			if ( self.constants.include?('ASSERT_ACCESS_OPTIONS') )
 				options.merge!(self::ASSERT_ACCESS_OPTIONS)
 			end
 			options.merge!(user_options)
 
-#			o = {
-#				:actions => {
-#					:new => {
-#						:request => [ :get, :new ]
-#					}
-#				}
-#			}
-
-			test "AWiL should get new #{awil_title(options)}" do
+			test "AWiHTTPS should get new #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				args = options[:new] || {}
+				turn_https_on
 				send(:get,:new,args)
 				assert_response :success
 				assert_template 'new'
@@ -38,7 +32,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:new) || options.keys.include?(:new)
 
-			test "AWiL should post create #{awil_title(options)}" do
+			test "AWiHTTPS should post create #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args = if options[:create]
@@ -46,6 +40,7 @@ module AccessWithLogin
 				else
 					{options[:factory] => Factory.attributes_for(options[:factory])}
 				end
+				turn_https_on
 				assert_difference("#{model}.count",1) do
 					send(:post,:create,args)
 				end
@@ -53,13 +48,14 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:create) || options.keys.include?(:create)
 
-			test "AWiL should get edit #{awil_title(options)}" do
+			test "AWiHTTPS should get edit #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
 					args[:id] = obj.id
 				end
+				turn_https_on
 				send(:get,:edit, args)
 				assert_response :success
 				assert_template 'edit'
@@ -67,7 +63,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
-			test "AWiL should put update #{awil_title(options)}" do
+			test "AWiHTTPS should put update #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
@@ -76,6 +72,7 @@ module AccessWithLogin
 					args[options[:factory]] = Factory.attributes_for(options[:factory])
 				end
 				before = obj.updated_at
+				turn_https_on
 				send(:put,:update, args)
 				after = obj.reload.updated_at
 				assert_not_equal before,after
@@ -83,13 +80,14 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
 
-			test "AWiL should get show #{awil_title(options)}" do
+			test "AWiHTTPS should get show #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				args={}
 				if options[:factory]
 					obj = Factory(options[:factory])
 					args[:id] = obj.id
 				end
+				turn_https_on
 				send(:get,:show, args)
 				assert_response :success
 				assert_template 'show'
@@ -97,7 +95,7 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
-			test "AWiL should delete destroy #{awil_title(options)}" do
+			test "AWiHTTPS should delete destroy #{awihttps_title(options)}" do
 				login_as send(options[:login])
 				model = options[:factory].to_s.camelize
 				args={}
@@ -105,6 +103,7 @@ module AccessWithLogin
 					obj = Factory(options[:factory])
 					args[:id] = obj.id
 				end
+				turn_https_on
 				assert_difference("#{model}.count",-1) do
 					send(:delete,:destroy,args)
 				end
@@ -113,8 +112,9 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
-			test "AWiL should get index #{awil_title(options)}" do
+			test "AWiHTTPS should get index #{awihttps_title(options)}" do
 				login_as send(options[:login])
+				turn_https_on
 				get :index
 				assert_response :success
 				assert_template 'index'
@@ -124,10 +124,11 @@ module AccessWithLogin
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
-			test "AWiL should get index #{awil_title(options)} and items" do
+			test "AWiHTTPS should get index #{awihttps_title(options)} and items" do
 				send(options[:before]) if !options[:before].blank?
 				login_as send(options[:login])
 				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
+				turn_https_on
 				get :index
 				assert_response :success
 				assert_template 'index'
@@ -142,8 +143,5 @@ module AccessWithLogin
 
 	end
 
-	module InstanceMethods
-
-	end
 end
-ActionController::TestCase.send(:include, AccessWithLogin)
+ActionController::TestCase.send(:include, AccessWithHttps)

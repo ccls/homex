@@ -2,25 +2,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectsControllerTest < ActionController::TestCase
 
-	assert_access_with_login [
-		:new,:edit,:update,:show,:destroy,:index],{
-		:login => :admin, :factory => :subject }
+	ASSERT_ACCESS_OPTIONS = {
+		:factory => :subject
+	}
 
-	assert_access_with_login [
-		:new,:edit,:update,:show,:destroy,:index],{
-		:login => :employee, :factory => :subject }
+	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
+		:login => :admin }
 
-	assert_access_with_login [
-		:new,:edit,:update,:show,:destroy,:index],{
-		:login => :editor, :factory => :subject }
+	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
+		:login => :employee }
 
-	assert_no_access_with_login [
-		:new,:create,:edit,:update,:show,:destroy,:index],{
-		:login => :active_user, :factory => :subject }
+	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
+		:login => :editor }
 
-	assert_no_access_without_login [
-		:new,:edit,:update,:show,:destroy,:index],{
-		:factory => :subject }
+	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
+		:login => :active_user }
+
+	assert_no_access_without_login :new,:edit,:update,:show,:destroy,:index
+
+
+	#	can't test create due to other requirements
+	assert_access_with_https :new,:edit,:update,:show,:destroy,:index
+
+	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
 
 
 	test "should get index with subjects" do

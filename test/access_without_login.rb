@@ -8,7 +8,14 @@ module AccessWithoutLogin
 
 #	I can't imagine a whole lot of use for this one.
 
-		def assert_access_without_login(actions=[],options={})
+		def assert_access_without_login(*actions)
+			user_options = actions.extract_options!
+
+			options = {}
+			if ( self.constants.include?('ASSERT_ACCESS_OPTIONS') )
+				options.merge!(self::ASSERT_ACCESS_OPTIONS)
+			end
+			options.merge!(user_options)
 
 #			test "should NOT get new without login" do
 #				get :new
