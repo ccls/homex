@@ -35,6 +35,17 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
 
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :subjects_path,
+		:edit => { :id => 0 },
+		:update => { :id => 0 },
+		:show => { :id => 0 },
+		:destroy => { :id => 0 }
+	) 
 
 	test "should get index with subjects" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
@@ -60,14 +71,6 @@ class SubjectsControllerTest < ActionController::TestCase
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'
-	end
-
-	test "should NOT get show with invalid id" do
-		subject = Factory(:subject)
-		login_as admin
-		get :show, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
 	end
 
 
@@ -195,30 +198,6 @@ end
 	end
 
 
-
-	test "should NOT edit without valid id" do
-		subject = Factory(:subject)
-		login_as admin
-		get :edit, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
-	end
-
-
-
-	test "should NOT update with invalid id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => 0,
-				:subject => Factory.attributes_for(:subject)
-		} } }
-		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
-	end
-
 	test "should NOT update without subject_type_id" do
 		subject = Factory(:subject)
 		login_as admin
@@ -273,18 +252,6 @@ end
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
-	end
-
-
-
-	test "should NOT destroy with invalid id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0) {
-			delete :destroy, :id => 0
-		}
-		assert_not_nil flash[:error]
-		assert_redirected_to subjects_path
 	end
 
 end

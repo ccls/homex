@@ -34,6 +34,17 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
 
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :home_page_pics_path,
+		:update => { :id => 0 },
+		:edit => { :id => 0 },
+		:show => { :id => 0 },
+		:destroy => { :id => 0 }
+	)
 
 	test "should NOT create home_page_pic without valid HPP" do
 		login_as admin_user
@@ -45,32 +56,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT show home_page_pic with invalid id" do
-		hpp = Factory(:home_page_pic)
-		login_as admin_user
-		get :show, :id => 0
-		assert_not_nil flash[:error]
-#		assert_redirected_to root_path
-		assert_redirected_to home_page_pics_path
-	end
-
-	test "should NOT get edit with invalid id" do
-		hpp = Factory(:home_page_pic)
-		login_as admin_user
-		get :edit, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to home_page_pics_path
-	end
-
-	test "should NOT update home_page_pic with invalid id" do
-		hpp = Factory(:home_page_pic)
-		login_as admin_user
-		put :update, :id => 0,
-			:home_page_pic => Factory.attributes_for(:home_page_pic)
-		assert_not_nil flash[:error]
-		assert_redirected_to home_page_pics_path
-	end
-
 	test "should NOT update home_page_pic when update fails" do
 		hpp = Factory(:home_page_pic)
 		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
@@ -80,16 +65,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
-	end
-
-	test "should NOT destroy home_page_pic with invalid id" do
-		login_as admin_user
-		hpp = Factory(:home_page_pic)
-		assert_difference('HomePagePic.count', 0) do
-			delete :destroy, :id => 0
-		end
-		assert_not_nil flash[:error]
-		assert_redirected_to home_page_pics_path
 	end
 
 #	activate

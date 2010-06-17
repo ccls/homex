@@ -41,7 +41,6 @@ module AccessWithHttps
 				elsif options[:attributes_for_create]
 					{m_key => send(options[:attributes_for_create])}
 				else
-#					{m_key => Factory.attributes_for(options[:factory])}
 					{}
 				end
 				turn_https_on
@@ -58,9 +57,6 @@ module AccessWithHttps
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				turn_https_on
 				send(:get,:edit, args)
@@ -77,16 +73,12 @@ module AccessWithHttps
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
 					args[m_key] = send(options[:attributes_for_create])
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
-#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
-				before = obj.updated_at
+				before = obj.updated_at if obj
 				turn_https_on
 				send(:put,:update, args)
-				after = obj.reload.updated_at
-				assert_not_equal before,after
+				after = obj.reload.updated_at if obj
+				assert_not_equal before,after if obj
 				assert_response :redirect
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
@@ -97,9 +89,6 @@ module AccessWithHttps
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				turn_https_on
 				send(:get,:show, args)
@@ -115,9 +104,6 @@ module AccessWithHttps
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				turn_https_on
 				assert_difference("#{options[:model]}.count",-1) do
@@ -142,7 +128,6 @@ module AccessWithHttps
 				send(options[:before]) if !options[:before].blank?
 				login_as send(options[:login])
 				3.times{ send(options[:method_for_create]) } if !options[:method_for_create].blank?
-#				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
 				turn_https_on
 				get :index
 				assert_response :success

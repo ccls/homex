@@ -37,7 +37,6 @@ module NoAccessWithLogin
 				elsif options[:attributes_for_create]
 					{m_key => send(options[:attributes_for_create])}
 				else
-#					{m_key => Factory.attributes_for(options[:factory])}
 					{}
 				end
 				assert_no_difference("#{options[:model]}.count") do
@@ -53,9 +52,6 @@ module NoAccessWithLogin
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_not_nil flash[:error]
@@ -64,17 +60,16 @@ module NoAccessWithLogin
 
 			test "NAWiL should NOT put update #{nawil_title(options)}" do
 				login_as send(options[:login])
-				args={}
+				args=options[:update]||{}
 				if options[:method_for_create] && options[:attributes_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
 					args[m_key] = send(options[:attributes_for_create])
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
-#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
+				before = obj.updated_at if obj
 				send(:put,:update, args)
+				after = obj.reload.updated_at if obj
+				assert_equal before.to_s(:db), after.to_s(:db) if obj
 				assert_not_nil flash[:error]
 				assert_redirected_to nawil_redirection(options)
 			end if actions.include?(:update) || options.keys.include?(:update)
@@ -85,9 +80,6 @@ module NoAccessWithLogin
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_not_nil flash[:error]
@@ -100,9 +92,6 @@ module NoAccessWithLogin
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				assert_no_difference("#{options[:model]}.count") do
 					send(:delete,:destroy,args)

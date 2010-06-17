@@ -39,13 +39,12 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	assert_no_access_with_http :edit,:update,:show,:destroy,:index
 
 	assert_no_access_with_login(
-#		:factory => nil,	#	override the default setting from above
-#		:model => 'Subject',
 		:attributes_for_create => nil,
 		:method_for_create => nil,
 		:suffix => " and invalid id",
 		:redirect => :he_subjects_path,
 		:login => :admin,
+		:update => { :id => 0 },
 		:destroy => { :id => 0 },
 		:edit => { :id => 0 },
 		:show => { :id => 0 }
@@ -155,19 +154,6 @@ end
 		assert_redirected_to_login
 	end
 
-
-	test "should NOT update with invalid id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => 0,
-				:subject => Factory.attributes_for(:subject)
-		} } }
-		assert_not_nil flash[:error]
-		assert_redirected_to he_subjects_path
-	end
 
 	test "should NOT update without subject_type_id" do
 		subject = Factory(:subject)

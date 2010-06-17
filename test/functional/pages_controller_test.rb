@@ -44,6 +44,18 @@ class PagesControllerTest < ActionController::TestCase
 
 	assert_no_access_without_login :new,:create,:edit,:update,:destroy,:index
 
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :pages_path,
+		:edit => { :id => 0 },
+		:update => { :id => 0 },
+		:destroy => { :id => 0 }
+	)
+
+
 #
 #		index/new/create/edit/update/destroy 
 #			should only be visible to admins for editing
@@ -104,14 +116,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should NOT get edit with invalid id" do
-		login_as admin_user
-		get :edit, :id => 0
-		assert_not_nil flash[:error]
-		assert_redirected_to pages_path
-	end
-
-
 	test "should NOT update page with invalid page" do
 		login_as admin_user
 		put :update, :id => Factory(:page).id, 
@@ -120,27 +124,6 @@ class PagesControllerTest < ActionController::TestCase
 		assert_template 'edit'
 		assert_response :success
 	end
-
-	test "should NOT update page with invalid id" do
-		login_as admin_user
-		put :update, :id => 0, 
-			:page => Factory.attributes_for(:page)
-		assert_not_nil flash[:error]
-		assert_redirected_to pages_path
-	end
-
-
-	test "should NOT destroy page with invalid id" do
-		login_as admin_user
-		page = Factory(:page)
-		assert_no_difference('Page.count') do
-			delete :destroy, :id => 0
-		end
-		assert_not_nil flash[:error]
-		assert_redirected_to pages_path
-	end
-
-
 
 
 #
@@ -186,7 +169,6 @@ class PagesControllerTest < ActionController::TestCase
 	test "should show HOME page with HPP" do
 		hpp = Factory(:home_page_pic,
 			:image_file_name => 'some_fake_file_name')
-#		page = Factory(:page, :path => "/")
 		page = Page.by_path('/')
 		get :show, :id => page.id
 		assert_not_nil assigns(:hpp)
@@ -196,7 +178,6 @@ class PagesControllerTest < ActionController::TestCase
 	end
 
 	test "should show HOME page without HPP" do
-#		page = Factory(:page, :path => "/")
 		page = Page.by_path('/')
 		get :show, :id => page.id
 		assert_nil assigns(:hpp)
@@ -227,7 +208,6 @@ class PagesControllerTest < ActionController::TestCase
 #ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		after_page_ids = Page.all.collect(&:id)
@@ -239,7 +219,6 @@ class PagesControllerTest < ActionController::TestCase
 		login_as active_user
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		assert_not_nil flash[:error]
@@ -249,7 +228,6 @@ class PagesControllerTest < ActionController::TestCase
 	test "should NOT order pages without login" do
 		pages = []
 		3.times{ pages.push(Factory(:page)) }
-#		assert_equal [1,2,3], pages.collect(&:position)
 		before_page_ids = Page.all.collect(&:id)
 		post :order, :pages => before_page_ids.reverse
 		assert_redirected_to_login

@@ -32,6 +32,17 @@ class PackagesControllerTest < ActionController::TestCase
 	assert_no_access_with_http :new,:create,:show,:destroy,:index
 
 
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :packages_path,
+		:update => { :id => 0 },
+		:show => { :id => 0 }, 
+		:destroy => { :id => 0 }
+	)
+
 
 	test "delivered packages should NOT have update status link" do
 		Factory(:package, :status => "Delivered")
@@ -105,17 +116,6 @@ end
 		assert_nil package.reload.status
 		assert_redirected_to_login
 	end
-
-
-	test "should NOT destroy package without valid id" do
-		login_as admin_user
-		package = Factory(:package)
-		assert_difference('Package.count',0) {
-			delete :destroy, :id => 0
-		}
-		assert_redirected_to packages_path
-	end
-
 
 
 	test "should simulate ship with admin login" do

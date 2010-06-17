@@ -34,6 +34,17 @@ class StudyEventsControllerTest < ActionController::TestCase
 
 	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
 
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :study_events_path,
+		:edit => { :id => 0 },
+		:update => { :id => 0 },
+		:show => { :id => 0 },
+		:destroy => { :id => 0 }
+	)
 
 #	save errors
 
@@ -103,40 +114,6 @@ class StudyEventsControllerTest < ActionController::TestCase
 			delete :destroy
 		} }
 	end
-
-#	INVALID id
-
-	test "should NOT get show without valid id" do
-		study_event = Factory(:study_event)
-		login_as admin
-		get :show, :id => 0
-		assert_redirected_to study_events_path
-	end
-
-	test "should NOT get edit without valid id" do
-		study_event = Factory(:study_event)
-		login_as admin
-		get :edit, :id => 0
-		assert_redirected_to study_events_path
-	end
-
-	test "should NOT update without valid id" do
-		study_event = Factory(:study_event)
-		login_as admin
-		put :update, :id => 0,
-			:study_event => Factory.attributes_for(:study_event)
-		assert_redirected_to study_events_path
-	end
-
-	test "should NOT destroy without valid id" do
-		study_event = Factory(:study_event)
-		login_as admin
-		assert_difference('StudyEvent.count',0) do
-			delete :destroy, :id => 0
-		end
-		assert_redirected_to study_events_path
-	end
-
 
 #	invalid study_event
 

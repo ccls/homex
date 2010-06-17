@@ -63,9 +63,6 @@ module AccessWithoutLogin
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_response :success

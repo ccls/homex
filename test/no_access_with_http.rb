@@ -41,7 +41,6 @@ module NoAccessWithHttp
 				elsif options[:attributes_for_create]
 					{m_key => send(options[:attributes_for_create])}
 				else
-#					{m_key => Factory.attributes_for(options[:factory])}
 					{}
 				end
 				assert_no_difference("#{options[:model]}.count") do
@@ -59,9 +58,6 @@ module NoAccessWithHttp
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_redirected_to @controller.url_for(
@@ -77,12 +73,11 @@ module NoAccessWithHttp
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
 					args[m_key] = send(options[:attributes_for_create])
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
-#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
+				before = obj.updated_at if obj
 				send(:put,:update, args)
+				after = obj.reload.updated_at if obj
+				assert_equal before.to_s(:db), after.to_s(:db) if obj
 				assert_match @controller.url_for(
 					:controller => @controller.controller_name,
 					:action => 'update', :id => args[:id], :protocol => "https://"), @response.redirected_to
@@ -95,9 +90,6 @@ module NoAccessWithHttp
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_redirected_to @controller.url_for(
@@ -112,9 +104,6 @@ module NoAccessWithHttp
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-#				elsif options[:factory]
-#					obj = Factory(options[:factory])
-#					args[:id] = obj.id
 				end
 				assert_no_difference("#{options[:model]}.count") do
 					send(:delete,:destroy,args)
