@@ -4,6 +4,7 @@ class UsersControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'User',
+		:actions => [:index,:show],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -15,25 +16,14 @@ class UsersControllerTest < ActionController::TestCase
 		Factory(:user)
 	end
 
-	assert_access_with_login :index,:show,{
-		:login => :admin }
+	assert_access_with_login({ :login => :admin })
+	assert_no_access_with_login({ :login => :editor })
+	assert_no_access_with_login({ :login => :employee })
+	assert_no_access_with_login({ :login => :active_user })
+	assert_no_access_without_login
 
-	assert_no_access_with_login :index,:show,{
-		:login => :editor }
-
-	assert_no_access_with_login :index,:show,{
-		:login => :employee }
-
-	assert_no_access_with_login :index,:show,{
-		:login => :active_user }
-
-	assert_no_access_without_login :index,:show
-
-
-	assert_access_with_https :index,:show
-
-	assert_no_access_with_http :index,:show
-
+	assert_access_with_https
+	assert_no_access_with_http
 
 
 	test "should filter users index by role" do

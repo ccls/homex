@@ -14,6 +14,7 @@ module NoAccessWithoutLogin
 				options.merge!(self::ASSERT_ACCESS_OPTIONS)
 			end
 			options.merge!(user_options)
+			actions += options[:actions]||[]
 
 			m_key = options[:model].try(:underscore).try(:to_sym)
 

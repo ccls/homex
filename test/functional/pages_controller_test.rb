@@ -4,6 +4,7 @@ class PagesControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Page',
+		:actions => [:new,:create,:edit,:update,:destroy,:index],
 		:method_for_create => :factory_create,
 		:attributes_for_create => :factory_attributes
 	}
@@ -15,38 +16,23 @@ class PagesControllerTest < ActionController::TestCase
 		Factory.attributes_for(:page)
 	end
 
-	assert_access_with_http :show
+	assert_access_with_http :show, { :actions => nil }
+	assert_access_with_https :show
+	assert_no_access_with_http 
 
-	assert_access_with_https :new,:create,:edit,:update,:show,:destroy,:index
-
-	assert_no_access_with_http :new,:create,:edit,:update,:destroy,:index
-
-
-	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :admin }
-
-	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :editor }
-
-	assert_access_with_login :show,{
-		:login => :employee }
-
-	assert_access_with_login :show,{
-		:login => :active_user }
-
-	assert_access_without_login :show
-
-	assert_no_access_with_login :new,:create,:edit,:update,:destroy,:index,{
-		:login => :employee }
-
-	assert_no_access_with_login :new,:create,:edit,:update,:destroy,:index,{
-		:login => :active_user }
-
-	assert_no_access_without_login :new,:create,:edit,:update,:destroy,:index
+	assert_access_with_login( :show, { :login => :admin })
+	assert_access_with_login( :show, { :login => :editor })
+	assert_access_with_login( :show, { :login => :employee, :actions => nil })
+	assert_access_with_login( :show, { :login => :active_user, :actions => nil })
+	assert_access_without_login( :show, { :actions => nil })
+	assert_no_access_with_login({ :login => :employee })
+	assert_no_access_with_login({ :login => :active_user })
+	assert_no_access_without_login
 
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
+		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :admin,
 		:redirect => :pages_path,

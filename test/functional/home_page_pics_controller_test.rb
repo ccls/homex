@@ -4,6 +4,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'HomePagePic',
+		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -15,28 +16,19 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		Factory(:home_page_pic)
 	end
 
-	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :admin }
+	assert_access_with_login(    { :login => :admin } )
+	assert_access_with_login(    { :login => :editor } )
+	assert_no_access_with_login( { :login => :employee } )
+	assert_no_access_with_login( { :login => :active_user } )
+	assert_no_access_without_login
 
-	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :editor }
-
-	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :employee }
-
-	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :active_user }
-
-	assert_no_access_without_login :new,:create,:edit,:update,:show,:destroy,:index
-
-
-	assert_access_with_https :new,:create,:edit,:update,:show,:destroy,:index
-
-	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
+	assert_access_with_https 
+	assert_no_access_with_http 
 
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
+		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :admin,
 		:redirect => :home_page_pics_path,

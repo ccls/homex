@@ -4,6 +4,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Subject',
+		:actions => [:new,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -15,29 +16,20 @@ class SubjectsControllerTest < ActionController::TestCase
 		Factory(:subject)
 	end
 
-	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
-		:login => :admin }
-
-	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
-		:login => :employee }
-
-	assert_access_with_login :new,:edit,:update,:show,:destroy,:index,{
-		:login => :editor }
-
-	assert_no_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
-		:login => :active_user }
-
-	assert_no_access_without_login :new,:edit,:update,:show,:destroy,:index
-
+	assert_access_with_login({ :login => :admin })
+	assert_access_with_login({ :login => :employee })
+	assert_access_with_login({ :login => :editor })
+	assert_no_access_with_login( :create, { :login => :active_user })
+	assert_no_access_without_login
 
 	#	can't test create due to other requirements
-	assert_access_with_https :new,:edit,:update,:show,:destroy,:index
-
-	assert_no_access_with_http :new,:create,:edit,:update,:show,:destroy,:index
+	assert_access_with_https
+	assert_no_access_with_http :create
 
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
+		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :admin,
 		:redirect => :subjects_path,
