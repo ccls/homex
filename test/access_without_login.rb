@@ -17,6 +17,8 @@ module AccessWithoutLogin
 			end
 			options.merge!(user_options)
 
+			m_key = options[:model].try(:underscore).try(:to_sym)
+
 #			test "should NOT get new without login" do
 #				get :new
 #				assert_redirected_to_login
@@ -24,13 +26,12 @@ module AccessWithoutLogin
 #
 #			test "should NOT post create without login" do
 #				args = {}
-#				model = options[:factory].to_s.camelize
-#				args[model] = if options[:create]
+#				args = if options[:create]
 #					options[:create]
 #				else
 #					{options[:factory] => Factory.attributes_for(options[:factory])}
 #				end
-#				assert_no_difference("#{model}.count") do
+#				assert_no_difference("#{options[:model]}.count") do
 #					send(:post,:create,args)
 #				end
 #				assert_redirected_to_login
@@ -59,25 +60,27 @@ module AccessWithoutLogin
 
 			test "AWoL should get show without login" do
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_response :success
 				assert_template 'show'
-				assert assigns(options[:factory])
+				assert assigns(m_key)
 				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 #			test "should NOT delete destroy without login" do
-#				model = options[:factory].to_s.camelize
 #				args=[]
 #				if options[:factory]
 #					obj = Factory(options[:factory])
 #					args.push(:id => obj.id)
 #				end
-#				assert_no_difference("#{model}.count") do
+#				assert_no_difference("#{options[:model]}.count") do
 #					send(:delete,:destroy,*args)
 #				end
 #				assert_redirected_to_login

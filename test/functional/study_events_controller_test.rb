@@ -3,8 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class StudyEventsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:factory => :study_event
+		:model => 'StudyEvent',
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+
+	def factory_attributes
+		Factory.attributes_for(:study_event)
+	end
+	def factory_create
+		Factory(:study_event)
+	end
 
 	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
 		:login => :admin }

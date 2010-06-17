@@ -15,19 +15,23 @@ module NoAccessWithoutLogin
 			end
 			options.merge!(user_options)
 
+			m_key = options[:model].try(:underscore).try(:to_sym)
+
 			test "NAWoL should NOT get new without login" do
 				get :new
 				assert_redirected_to_login
 			end if actions.include?(:new) || options.keys.include?(:new)
 
 			test "NAWoL should NOT post create without login" do
-				model = options[:factory].to_s.camelize
 				args = if options[:create]
 					options[:create]
+				elsif options[:attributes_for_create]
+					{m_key => send(options[:attributes_for_create])}
 				else
-					{options[:factory] => Factory.attributes_for(options[:factory])}
+#					{m_key => Factory.attributes_for(options[:factory])}
+					{}
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:post,:create,args)
 				end
 				assert_redirected_to_login
@@ -35,9 +39,12 @@ module NoAccessWithoutLogin
 
 			test "NAWoL should NOT get edit without login" do
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_redirected_to_login
@@ -45,10 +52,14 @@ module NoAccessWithoutLogin
 
 			test "NAWoL should NOT put update without login" do
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create] && options[:attributes_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-					args[options[:factory]] = Factory.attributes_for(options[:factory])
+					args[m_key] = send(options[:attributes_for_create])
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
+#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
 				send(:put,:update, args)
 				assert_redirected_to_login
@@ -56,22 +67,27 @@ module NoAccessWithoutLogin
 
 			test "NAWoL should NOT get show without login" do
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_redirected_to_login
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 			test "NAWoL should NOT delete destroy without login" do
-				model = options[:factory].to_s.camelize
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:delete,:destroy,args)
 				end
 				assert_redirected_to_login

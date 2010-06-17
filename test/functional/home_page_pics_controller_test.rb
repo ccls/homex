@@ -3,8 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class HomePagePicsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:factory => :home_page_pic
+		:model => 'HomePagePic',
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+
+	def factory_attributes
+		Factory.attributes_for(:home_page_pic)
+	end
+	def factory_create
+		Factory(:home_page_pic)
+	end
 
 	assert_access_with_login :new,:create,:edit,:update,:show,:destroy,:index,{
 		:login => :admin }

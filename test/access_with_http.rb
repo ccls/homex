@@ -21,6 +21,7 @@ module AccessWithHttp
 			end
 			options.merge!(user_options)
 
+			m_key = options[:model].try(:underscore).try(:to_sym)
 
 			test "AWiHTTP should get new #{awihttp_title(options)}" do
 				turn_https_off
@@ -29,20 +30,23 @@ module AccessWithHttp
 				send(:get,:new,args)
 				assert_response :success
 				assert_template 'new'
-				assert assigns(options[:factory])
+				assert assigns(m_key)
 				assert_nil flash[:error]
 			end if actions.include?(:new) || options.keys.include?(:new)
 
 			test "AWiHTTP should post create #{awihttp_title(options)}" do
 				turn_https_off
 				login_as send(options[:login])
-				model = options[:factory].to_s.camelize
 				args = if options[:create]
 					options[:create]
+				elsif options[:attributes_for_create]
+					{m_key => send(options[:attributes_for_create])}
+#				else
+#					{m_key => Factory.attributes_for(options[:factory])}
 				else
-					{options[:factory] => Factory.attributes_for(options[:factory])}
+					{}
 				end
-				assert_difference("#{model}.count",1) do
+				assert_difference("#{options[:model]}.count",1) do
 					send(:post,:create,args)
 				end
 				assert_response :redirect
@@ -53,14 +57,17 @@ module AccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_response :success
 				assert_template 'edit'
-				assert assigns(options[:factory])
+				assert assigns(m_key)
 				assert_nil flash[:error]
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
@@ -68,10 +75,14 @@ module AccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create] && options[:attributes_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-					args[options[:factory]] = Factory.attributes_for(options[:factory])
+					args[m_key] = send(options[:attributes_for_create])
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
+#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
 				before = obj.updated_at
 				send(:put,:update, args)
@@ -85,31 +96,36 @@ module AccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_response :success
 				assert_template 'show'
-				assert assigns(options[:factory])
+				assert assigns(m_key)
 				assert_nil flash[:error]
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 			test "AWiHTTP should delete destroy #{awihttp_title(options)}" do
 				turn_https_off
 				login_as send(options[:login])
-				model = options[:factory].to_s.camelize
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
-				assert_difference("#{model}.count",-1) do
+				assert_difference("#{options[:model]}.count",-1) do
 					send(:delete,:destroy,args)
 				end
 				assert_response :redirect
-				assert assigns(options[:factory])
+				assert assigns(m_key)
 				assert_nil flash[:error]
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
@@ -119,9 +135,7 @@ module AccessWithHttp
 				get :index
 				assert_response :success
 				assert_template 'index'
-				unless options[:factory].blank?
-					assert assigns(options[:factory].to_s.pluralize.to_sym)
-				end
+				assert assigns(m_key.try(:to_s).try(:pluralize).try(:to_sym))
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 
@@ -129,14 +143,12 @@ module AccessWithHttp
 				turn_https_off
 				send(options[:before]) if !options[:before].blank?
 				login_as send(options[:login])
-				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
+#				3.times{ Factory(options[:factory]) } if !options[:factory].blank?
+				3.times{ send(options[:method_for_create]) } if !options[:method_for_create].blank?
 				get :index
 				assert_response :success
 				assert_template 'index'
-				unless options[:factory].blank?
-					f = options[:factory].to_s.pluralize.to_sym
-					assert assigns(f)
-				end
+				assert assigns(m_key.try(:to_s).try(:pluralize).try(:to_sym))
 				assert_nil flash[:error]
 			end if actions.include?(:index) || options.keys.include?(:index)
 

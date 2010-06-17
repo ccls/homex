@@ -3,8 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PackagesControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:factory => :package
+		:model => 'Package',
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+
+	def factory_attributes
+		Factory.attributes_for(:package)
+	end
+	def factory_create
+		Factory(:package)
+	end
 
 	assert_access_with_login :new,:create,:show,:destroy,:index,{
 		:login => :admin }

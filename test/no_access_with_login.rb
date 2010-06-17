@@ -20,6 +20,8 @@ module NoAccessWithLogin
 			end
 			options.merge!(user_options)
 
+			m_key = options[:model].try(:underscore).try(:to_sym)
+
 			test "NAWiL should NOT get new #{nawil_title(options)}" do
 				login_as send(options[:login])
 				args = options[:new]||{}
@@ -30,13 +32,15 @@ module NoAccessWithLogin
 
 			test "NAWiL should NOT post create #{nawil_title(options)}" do
 				login_as send(options[:login])
-				model = options[:factory].to_s.camelize
 				args = if options[:create]
 					options[:create]
+				elsif options[:attributes_for_create]
+					{m_key => send(options[:attributes_for_create])}
 				else
-					{options[:factory] => Factory.attributes_for(options[:factory])}
+#					{m_key => Factory.attributes_for(options[:factory])}
+					{}
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:post,:create,args)
 				end
 				assert_not_nil flash[:error]
@@ -46,9 +50,12 @@ module NoAccessWithLogin
 			test "NAWiL should NOT get edit #{nawil_title(options)}" do
 				login_as send(options[:login])
 				args=options[:edit]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_not_nil flash[:error]
@@ -58,10 +65,14 @@ module NoAccessWithLogin
 			test "NAWiL should NOT put update #{nawil_title(options)}" do
 				login_as send(options[:login])
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create] && options[:attributes_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-					args[options[:factory]] = Factory.attributes_for(options[:factory])
+					args[m_key] = send(options[:attributes_for_create])
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
+#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
 				send(:put,:update, args)
 				assert_not_nil flash[:error]
@@ -71,9 +82,12 @@ module NoAccessWithLogin
 			test "NAWiL should NOT get show #{nawil_title(options)}" do
 				login_as send(options[:login])
 				args=options[:show]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_not_nil flash[:error]
@@ -82,13 +96,15 @@ module NoAccessWithLogin
 
 			test "NAWiL should NOT delete destroy #{nawil_title(options)}" do
 				login_as send(options[:login])
-				model = options[:model]||options[:factory].to_s.camelize
 				args=options[:destroy]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:delete,:destroy,args)
 				end
 				assert_not_nil flash[:error]

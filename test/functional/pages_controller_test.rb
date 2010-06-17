@@ -3,8 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PagesControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:factory => :page 
+		:model => 'Page',
+		:method_for_create => :factory_create,
+		:attributes_for_create => :factory_attributes
 	}
+
+	def factory_create
+		Factory(:page)
+	end
+	def factory_attributes
+		Factory.attributes_for(:page)
+	end
 
 	assert_access_with_http :show
 

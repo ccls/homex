@@ -5,8 +5,16 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	setup :create_home_exposure_with_subject
 
 	ASSERT_ACCESS_OPTIONS = {
-		:factory => :subject
+		:model => 'Subject',
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+	def factory_attributes
+		Factory.attributes_for(:subject)
+	end
+	def factory_create
+		Factory(:subject)
+	end
 
 	assert_access_with_login :edit,:update,:show,:destroy,:index,{
 		:before => :create_home_exposure_subjects,
@@ -31,8 +39,10 @@ class He::SubjectsControllerTest < ActionController::TestCase
 	assert_no_access_with_http :edit,:update,:show,:destroy,:index
 
 	assert_no_access_with_login(
-		:factory => nil,	#	override the default setting from above
-		:model => 'Subject',
+#		:factory => nil,	#	override the default setting from above
+#		:model => 'Subject',
+		:attributes_for_create => nil,
+		:method_for_create => nil,
 		:suffix => " and invalid id",
 		:redirect => :he_subjects_path,
 		:login => :admin,

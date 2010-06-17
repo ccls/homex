@@ -21,6 +21,8 @@ module NoAccessWithHttp
 			end
 			options.merge!(user_options)
 
+			m_key = options[:model].try(:underscore).try(:to_sym)
+
 			test "NAWiHTTP should NOT get new #{nawihttp_title(options)}" do
 				turn_https_off
 				login_as send(options[:login])
@@ -34,13 +36,15 @@ module NoAccessWithHttp
 			test "NAWiHTTP should NOT post create #{nawihttp_title(options)}" do
 				turn_https_off
 				login_as send(options[:login])
-				model = options[:factory].to_s.camelize
 				args = if options[:create]
 					options[:create]
+				elsif options[:attributes_for_create]
+					{m_key => send(options[:attributes_for_create])}
 				else
-					{options[:factory] => Factory.attributes_for(options[:factory])}
+#					{m_key => Factory.attributes_for(options[:factory])}
+					{}
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:post,:create,args)
 				end
 				assert_match @controller.url_for(
@@ -52,9 +56,12 @@ module NoAccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args=options[:edit]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:edit, args)
 				assert_redirected_to @controller.url_for(
@@ -66,10 +73,14 @@ module NoAccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args={}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create] && options[:attributes_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
-					args[options[:factory]] = Factory.attributes_for(options[:factory])
+					args[m_key] = send(options[:attributes_for_create])
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
+#					args[m_key] = Factory.attributes_for(options[:factory])
 				end
 				send(:put,:update, args)
 				assert_match @controller.url_for(
@@ -81,9 +92,12 @@ module NoAccessWithHttp
 				turn_https_off
 				login_as send(options[:login])
 				args=options[:show]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
 				send(:get,:show, args)
 				assert_redirected_to @controller.url_for(
@@ -94,13 +108,15 @@ module NoAccessWithHttp
 			test "NAWiHTTP should NOT delete destroy #{nawihttp_title(options)}" do
 				turn_https_off
 				login_as send(options[:login])
-				model = options[:model]||options[:factory].to_s.camelize
 				args=options[:destroy]||{}
-				if options[:factory]
-					obj = Factory(options[:factory])
+				if options[:method_for_create]
+					obj = send(options[:method_for_create])
 					args[:id] = obj.id
+#				elsif options[:factory]
+#					obj = Factory(options[:factory])
+#					args[:id] = obj.id
 				end
-				assert_no_difference("#{model}.count") do
+				assert_no_difference("#{options[:model]}.count") do
 					send(:delete,:destroy,args)
 				end
 				assert_redirected_to @controller.url_for(
