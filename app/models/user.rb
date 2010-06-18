@@ -1,5 +1,4 @@
 #	== requires
-#	*	valid role_name
 #
 #	== accessible attributes
 #	*	sn
@@ -75,31 +74,84 @@ class User < ActiveRecord::Base
 		user
 	end
 
-#	#	only called from rake app:deputize ....
-#	def is_admin?
-#		role_name == 'administrator'
-#	end
-
-	##
-	#	:singleton-method: has_role
-	#	Associate #User with #Permissions and set the default 
-	#	role of a user to :user
-
-	has_role :default => :user  #, :name_accessor => :role_name
-	validates_role_name
+	has_and_belongs_to_many :roles
 
 	#	gravatar can't deal with a nil email
 #	gravatar :email, :rating => 'PG'
 	gravatar :mail, :rating => 'PG'
 
-	#	role_name CANNOT be mass-assignable!
-	attr_protected :role_name
+#	#	role_name CANNOT be mass-assignable!
+#	attr_protected :role_name
 
 	#	gravatar.url will include & that are not encoded to &amp;
 	#	which works just fine, but technically is invalid html.
 	def gravatar_url
 #		gravatar.url.split('&').join('&amp;')
 		gravatar.url.gsub(/&/,'&amp;')
+	end
+
+	def role_names
+		roles.collect(&:name)
+	end
+
+
+	def may_administrate?(*args)
+		self.role_names.include?('administrator')
+#		['administrator'].include?(self.role_name)
+	end
+#	alias_method :may_deputize?, :may_administrate?
+	alias_method :may_view_permissions?, :may_administrate?
+	alias_method :may_create_user_invitations?, :may_administrate?
+	alias_method :may_view_users?, :may_administrate?
+#	alias_method :may_crud_addresses?, :may_administrate?
+	alias_method :may_assign_roles?, :may_administrate?
+	alias_method :administrator?, :may_administrate?
+
+	def may_moderate?
+		(self.role_names & ['administrator','moderator']).length > 0
+#		['administrator','moderator'].include?(self.role_name)
+	end
+	alias_method :moderator?, :may_moderate?
+
+	def employee?
+		(self.role_names & ['administrator','employee']).length > 0
+#		['administrator','employee'].include?(self.role_name)
+	end
+
+	def editor?
+		(self.role_names & ['administrator','editor']).length > 0
+#		['administrator','editor'].include?(self.role_name)
+	end
+
+	def may_maintain_pages?(*args)
+		(self.role_names & ['administrator','editor']).length > 0
+#		['administrator','editor'].include?(self.role_name)
+	end
+	alias_method :may_view_home_page_pics?, :may_maintain_pages?
+
+	def may_view_calendar?(*args)
+		(self.role_names & ['administrator','editor','employee']).length > 0
+#		['administrator','editor','employee'].include?(self.role_name)
+	end
+	alias_method :may_view_packages?, :may_view_calendar?
+	alias_method :may_view_subjects?, :may_view_calendar?
+	alias_method :may_view_dust_kits?, :may_view_calendar?
+
+	def may_view_responses?(*args)
+		(self.role_names & ['administrator','employee']).length > 0
+#		['administrator','employee'].include?(self.role_name)
+	end
+	alias_method :may_take_surveys?, :may_view_responses?
+	alias_method :may_view_study_events?, :may_view_responses?
+	alias_method :may_create_survey_invitations?, :may_view_responses?
+
+	def may_view_user?(user=nil)
+		( (self.role_names & ['administrator']).length > 0 ) || ( !user.nil? && self == user )
+#		['administrator'].include?(self.role_name) || ( !user.nil? && self == user )
+	end
+
+	def may_be_user?(user=nil)
+		!user.nil? && self == user
 	end
 
 end

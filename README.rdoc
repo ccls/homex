@@ -14,7 +14,6 @@
 == Required Gems
 
 * {RedCloth}[http://redcloth.org] - textile parser.
-* {aegis}[http://github.com/makandra/aegis] - manage permissions for user accounts in a central place. 
 * {active_shipping}[http://github.com/Shopify/active_shipping] - package tracking
 * {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
@@ -36,7 +35,6 @@
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 * {html_test}[http://github.com/peter/html_test] - html testing and validation
 * {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
-* {aegis_extension}[http://github.com/jakewendt/aegis_extension] - modifications, updates and patches for aegis gem.
 * {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
 * {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
@@ -111,7 +109,7 @@ Everybody join hands together now to install some gems ...
  #
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
- sudo gem install rake rdoc aegis packet haml
+ sudo gem install rake rdoc packet haml
  sudo gem install rails -v 2.3.4
  #
  # The rest should actually install with ...
@@ -239,11 +237,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
   * attr_protected
   * attr_accessible
 * Make RDoc auto recognize these specific commands and group them together under user definable separate headings (like Public Instance Methods, Private Instance Methods, etc.)
-  * Permissions.role
-  * Permissions.permission
-  * User.has_role
-* The aforementioned auto recognizable commands should work just as an uncommented method works.  It just does!
-* Comments in Permissions intended to create metaprogrammed method comments are somehow creating a false class Object with the method inside it.???
 *	so far, rdoc_rails does everything except the Owner relationship of the Aliquot (counter_cache is causing the problem)
 * rdoc the rake tasks??
 * thickbox-compressed.js has relative location for image which isn't always correct.

@@ -53,7 +53,7 @@ Rails::Initializer.run do |config|
 		:source => 'http://gems.github.com'
 
 	#	For user model permissions
-	config.gem 'aegis', :source => 'http://gemcutter.org'
+#	config.gem 'aegis', :source => 'http://gemcutter.org'
 
 	#	For CAS / CalNet Authentication
 	config.gem "rubycas-client"

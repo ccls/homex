@@ -55,17 +55,15 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resource  :calendar,   :only => [ :show ]
 
-	#	make user_roles nested /users/:id/role/ ???
-	#	and singular .
-	map.resources :user_roles, :only => [:update]
-
-	map.resources :users, :only => [:show, :index]
+	map.resources :users, :only => [:show, :index] do |user|
+		user.resources :roles, :only => [:update,:destroy]
+	end
 
 	map.resources :pages, :collection => { :order => :post }
 	map.resources :home_page_pics, :collection => { :activate => :post }
 	map.resources :packages, :except => :edit, 
 		:member => { :ship => :put, :deliver => :put }
-	map.resources :permissions, :only => :index
+#	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
 
 	map.resource :home_exposure, :only => :show

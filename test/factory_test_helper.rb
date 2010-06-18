@@ -10,17 +10,26 @@ module FactoryTestHelper
 	alias_method :user, :active_user
 
 	def admin_user(options={})
-		u = active_user(options.merge(:role_name => "administrator"))
+#		u = active_user(options.merge(:role_name => "administrator"))
+		u = active_user(options)
+		u.roles << Role.find_or_create_by_name('administrator')
+		u
 	end
 	alias_method :admin, :admin_user
 
 	def employee_user(options={})
-		u = active_user(options.merge(:role_name => 'employee'))
+#		u = active_user(options.merge(:role_name => 'employee'))
+		u = active_user(options)
+		u.roles << Role.find_or_create_by_name('employee')
+		u
 	end
 	alias_method :employee, :employee_user
 
 	def editor(options={})
-		u = active_user(options.merge(:role_name => 'editor'))
+#		u = active_user(options.merge(:role_name => 'editor'))
+		u = active_user(options)
+		u.roles << Role.find_or_create_by_name('editor')
+		u
 	end
 
 	def full_response(options={})

@@ -6,7 +6,7 @@
  
 <div class='person'><dl>
 	<%# @user.attributes.keys.each do |key| -%>
-	<% %w( displayname mail username email role_name ).each do |key| -%>
+	<% %w( displayname mail username email ).each do |key| -%>
 		<dt><%= key -%></dt>
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>
@@ -22,11 +22,11 @@
 <ul>
 <% @roles.each do |role| %>
 <li>
-<% if @user.role_name == role.name.to_s %>
+<% if @user.roles.collect(&:name).include?(role.name.to_s) %>
 User is a(n) '<%= role.name -%>'
 <% else %>
 <%= link_to "Assign user role of '#{role.name}'", 
-	user_role_path(@user.id, :role_name => role.name ), 
+	user_role_path(@user,role ), 
 	:method => :put %>
 <% end %>
 </li>

@@ -12,6 +12,7 @@ namespace :app do
 		fixtures.push('address_types')
 		fixtures.push('pages')
 		fixtures.push('races')
+		fixtures.push('roles')
 		fixtures.push('study_events')
 		fixtures.push('subject_types')
 		fixtures.push('units')
