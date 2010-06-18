@@ -3,6 +3,7 @@ module AegisExtension
 
 		def self.included(base)
 			base.send(:include, InstanceMethods)
+			base.alias_method_chain :method_missing, :aegis_permissions
 		end
 
 		module InstanceMethods
@@ -83,7 +84,6 @@ module AegisExtension
 					method_missing_without_aegis_permissions(symb, *args)
 				end
 			end
-			alias_method_chain :method_missing, :aegis_permissions
 
 		end
 	end
