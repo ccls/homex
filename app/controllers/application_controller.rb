@@ -1,5 +1,6 @@
 #require 'auth_by_authlogic'
 require 'auth_by_ucb_cas'
+require 'authorization'
 class ApplicationController < ActionController::Base
 	before_filter :login_required
 
