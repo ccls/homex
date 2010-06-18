@@ -19,3 +19,4 @@ protected
 
 end
 end
+ActionController::Base.send(:include,AuthBy::Authlogic)

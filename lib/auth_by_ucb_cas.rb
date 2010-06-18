@@ -61,3 +61,4 @@ protected
 end
 end
 end
+ActionController::Base.send(:include,AuthBy::UCB::CAS)
