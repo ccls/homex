@@ -17,9 +17,7 @@ class UsersControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ :login => :admin })
-	assert_no_access_with_login({ :login => :editor })
-	assert_no_access_with_login({ :login => :employee })
-	assert_no_access_with_login({ :login => :active_user })
+	assert_no_access_with_login({ :logins => [:editor,:employee,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https

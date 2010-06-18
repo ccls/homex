@@ -7,9 +7,7 @@ class He::InterviewsControllerTest < ActionController::TestCase
 	ASSERT_ACCESS_OPTIONS = {
 		:actions => [:index]
 	}
-	assert_access_with_login({ :login => :admin })
-	assert_access_with_login({ :login => :employee })
-	assert_access_with_login({ :login => :editor })
+	assert_access_with_login({ :logins => [:admin,:employee,:editor] })
 	assert_no_access_with_login({ :login => :active_user })
 	assert_no_access_without_login
 

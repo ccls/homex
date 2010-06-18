@@ -23,8 +23,15 @@ module NoAccessWithLogin
 
 			m_key = options[:model].try(:underscore).try(:to_sym)
 
+			logins = Array(options[:logins]||options[:login])
+			logins.each do |login|
+				#	options[:login] is set for the title,
+				#	but "login_as send(login)" as options[:login]
+				#	will be the last in the array at runtime.
+				options[:login] = login
+
 			test "NAWiL should NOT get new #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args = options[:new]||{}
 				send(:get,:new,args)
 				assert_not_nil flash[:error]
@@ -32,7 +39,7 @@ module NoAccessWithLogin
 			end if actions.include?(:new) || options.keys.include?(:new)
 
 			test "NAWiL should NOT post create #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args = if options[:create]
 					options[:create]
 				elsif options[:attributes_for_create]
@@ -48,7 +55,7 @@ module NoAccessWithLogin
 			end if actions.include?(:create) || options.keys.include?(:create)
 
 			test "NAWiL should NOT get edit #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args=options[:edit]||{}
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
@@ -60,7 +67,7 @@ module NoAccessWithLogin
 			end if actions.include?(:edit) || options.keys.include?(:edit)
 
 			test "NAWiL should NOT put update #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args=options[:update]||{}
 				if options[:method_for_create] && options[:attributes_for_create]
 					obj = send(options[:method_for_create])
@@ -76,7 +83,7 @@ module NoAccessWithLogin
 			end if actions.include?(:update) || options.keys.include?(:update)
 
 			test "NAWiL should NOT get show #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args=options[:show]||{}
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
@@ -88,7 +95,7 @@ module NoAccessWithLogin
 			end if actions.include?(:show) || options.keys.include?(:show)
 
 			test "NAWiL should NOT delete destroy #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				args=options[:destroy]||{}
 				if options[:method_for_create]
 					obj = send(options[:method_for_create])
@@ -102,12 +109,13 @@ module NoAccessWithLogin
 			end if actions.include?(:destroy) || options.keys.include?(:destroy)
 
 			test "NAWiL should NOT get index #{nawil_title(options)}" do
-				login_as send(options[:login])
+				login_as send(login)
 				get :index
 				assert_not_nil flash[:error]
 				assert_redirected_to nawil_redirection(options)
 			end if actions.include?(:index) || options.keys.include?(:index)
 
+			end	#	logins.each
 		end
 
 	end

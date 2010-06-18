@@ -20,13 +20,10 @@ class PagesControllerTest < ActionController::TestCase
 	assert_access_with_https :show
 	assert_no_access_with_http 
 
-	assert_access_with_login( :show, { :login => :admin })
-	assert_access_with_login( :show, { :login => :editor })
-	assert_access_with_login( :show, { :login => :employee, :actions => nil })
-	assert_access_with_login( :show, { :login => :active_user, :actions => nil })
+	assert_access_with_login(:show,{:logins => [:admin,:editor]})
+	assert_access_with_login(:show,{:logins => [:employee,:active_user], :actions => nil})
 	assert_access_without_login( :show, { :actions => nil })
-	assert_no_access_with_login({ :login => :employee })
-	assert_no_access_with_login({ :login => :active_user })
+	assert_no_access_with_login({ :logins => [:employee,:active_user] })
 	assert_no_access_without_login
 
 	assert_no_access_with_login(

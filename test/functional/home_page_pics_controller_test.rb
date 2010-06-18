@@ -16,10 +16,8 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		Factory(:home_page_pic)
 	end
 
-	assert_access_with_login(    { :login => :admin } )
-	assert_access_with_login(    { :login => :editor } )
-	assert_no_access_with_login( { :login => :employee } )
-	assert_no_access_with_login( { :login => :active_user } )
+	assert_access_with_login(    { :logins => [:admin,:editor] } )
+	assert_no_access_with_login( { :logins => [:employee,:active_user] } )
 	assert_no_access_without_login
 
 	assert_access_with_https 
