@@ -222,6 +222,10 @@ class UserTest < ActiveSupport::TestCase
 #		assert user.respond_to?(:reset_perishable_token_without_uniqueness)
 #	end
 
+
+#
+#	Aegis Permissions tests
+#
 #	test "should require that role_name NOT be mass assignable" do
 #		assert_difference 'User.count' do
 #			u = create_user
@@ -230,7 +234,7 @@ class UserTest < ActiveSupport::TestCase
 #			assert_not_equal u.role_name, 'administrator'
 #		end
 #	end
-
+#
 #	test "should require role_name be a defined role in permissions" do
 #		assert_no_difference 'User.count' do
 #			#	role_name is mass assignable in the Factory context (which seems wrong)
@@ -239,18 +243,7 @@ class UserTest < ActiveSupport::TestCase
 #			assert u.errors.on(:role_name)
 #		end
 #	end
-
-	test "should return non-nil email" do
-		user = create_user
-#		assert_nil user.mail
-		assert_not_nil user.email
-	end
-
-	test "should return non-nil gravatar_url" do
-		user = create_user
-		assert_not_nil user.gravatar_url
-	end
-
+#
 #	test "should NOT mass assign role_name" do
 #		user = create_user
 ##		all_role_names = Permissions.find_all_role_names.collect(&:to_s)
@@ -262,6 +255,46 @@ class UserTest < ActiveSupport::TestCase
 #			assert_not_equal user.reload.role_name, role_name
 #		end
 #	end
+
+	test "should deputize to create administrator" do
+		u = create_user
+		assert !u.role_names.include?('administrator')
+		u.deputize
+		assert  u.role_names.include?('administrator')
+	end
+
+	test "should return non-nil email" do
+		user = create_user
+		assert_not_nil user.email
+	end
+
+	test "should return non-nil mail" do
+		user = create_user
+		assert_not_nil user.mail
+	end
+
+	test "should return non-nil gravatar_url" do
+		user = create_user
+		assert_not_nil user.gravatar_url
+	end
+
+	test "should respond to roles" do
+		user = create_user
+		assert user.respond_to?(:roles)
+	end
+
+	test "should have many roles" do
+		u = create_user
+		assert_equal 0, u.roles.length
+		roles = Role.all
+		assert roles.length > 0
+		roles.each do |role|
+			assert_difference("User.find(#{u.id}).role_names.length") {
+			assert_difference("User.find(#{u.id}).roles.length") {
+				u.roles << role
+			} }
+		end
+	end
 
 protected
 

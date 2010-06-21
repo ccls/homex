@@ -17,9 +17,14 @@ class RolesController < ApplicationController
 
 	def update
 		@user.roles << @role
+		flash[:notice] = 'User was successfully updated.'
+		redirect_to @user
 	end
 
 	def destroy
+		flash[:notice] = 'User was successfully updated.'
+		@user.roles.delete @role
+		redirect_to @user
 	end
 
 protected
@@ -33,10 +38,10 @@ protected
 	end
 
 	def id_required
-		if !params[:id].blank? and Role.exists?(params[:id])
-			@role = Role.find(params[:id])
+		if !params[:id].blank? and Role.exists?(:name => params[:id])
+			@role = Role.find_by_name(params[:id])
 		else
-			access_denied("id required!", users_path)
+			access_denied("id required!", @user)
 		end
 	end
 

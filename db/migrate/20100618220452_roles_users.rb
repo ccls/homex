@@ -4,6 +4,8 @@ class RolesUsers < ActiveRecord::Migration
 			t.references :role
 			t.references :user
 		end
+		add_index :roles_users, :role_id
+		add_index :roles_users, :user_id
 	end
 
 	def self.down

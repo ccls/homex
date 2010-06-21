@@ -74,7 +74,8 @@ class User < ActiveRecord::Base
 		user
 	end
 
-	has_and_belongs_to_many :roles
+	ROLES = %w( administrator moderator employee editor )
+	has_and_belongs_to_many :roles, :uniq => true
 
 	#	gravatar can't deal with a nil email
 #	gravatar :email, :rating => 'PG'
@@ -91,9 +92,12 @@ class User < ActiveRecord::Base
 	end
 
 	def role_names
-		roles.collect(&:name)
+		roles.collect(&:name).uniq
 	end
 
+	def deputize
+		roles << Role.find_or_create_by_name('administrator')
+	end
 
 	def may_administrate?(*args)
 		self.role_names.include?('administrator')
@@ -153,5 +157,11 @@ class User < ActiveRecord::Base
 	def may_be_user?(user=nil)
 		!user.nil? && self == user
 	end
+
+#	Role.all.each do |role|
+#		named_scope role.name.to_sym,
+#			:joins => [:roles],
+#			:conditions => ["roles.name = '#{role.name}'"]
+#	end
 
 end

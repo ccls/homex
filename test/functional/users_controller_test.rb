@@ -25,8 +25,13 @@ class UsersControllerTest < ActionController::TestCase
 
 
 	test "should filter users index by role" do
+		some_other_user = active_user
 		login_as admin_user
 		get :index, :role_name => 'administrator'
+		assert assigns(:users).length > 0
+		assigns(:users).each do |u|
+			assert u.role_names.include?('administrator')
+		end
 		assert_nil flash[:error]
 		assert_response :success
 	end

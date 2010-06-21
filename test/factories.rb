@@ -122,6 +122,10 @@ Factory.define :refusal_reason do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :role do |f|
+	f.sequence(:name) { |n| "name#{n}" }
+end
+
 Factory.define :sample do |f|
 	f.association :subject
 	f.association :unit

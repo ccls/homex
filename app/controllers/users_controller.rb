@@ -43,22 +43,21 @@ class UsersController < ApplicationController	#:nodoc:
 #	end 
 
 	def show
-#		@roles = Permissions.find_all_roles.sort_by{|role| 
-#			role.options[:position]}.reverse
-#		@roles = Permissions.find_all_roles
+#		@roles = User::ROLES
 		@roles = Role.all
 	end
 
 	def index
 		conditions = {}
-#		if Permissions.find_role_by_name(params[:role_name])
-#		if ['administrator','moderator','editor','employee'].include?(params[:role_name])
+		joins = []
+#		if User::ROLES.include?(params[:role_name])
 		if Role.all.collect(&:name).include?(params[:role_name])
-			conditions[:role_name] = params[:role_name]
+			joins = [:roles]
+			conditions = ["roles.name = '#{params[:role_name]}'"]
 		elsif !params[:role_name].blank?
 			flash[:error] = "No such role '#{params[:role_name]}'"
 		end
-		@users = User.all( :conditions => conditions )
+		@users = User.all( :joins => joins, :conditions => conditions )
 	end
 
 protected

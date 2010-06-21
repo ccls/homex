@@ -22,11 +22,11 @@
 <ul>
 <% @roles.each do |role| %>
 <li>
-<% if @user.roles.collect(&:name).include?(role.name.to_s) %>
+<% if @user.role_names.include?(role.name) %>
 User is a(n) '<%= role.name -%>'
 <% else %>
 <%= link_to "Assign user role of '#{role.name}'", 
-	user_role_path(@user,role ), 
+	user_role_path(@user,role.name), 
 	:method => :put %>
 <% end %>
 </li>

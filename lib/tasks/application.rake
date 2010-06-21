@@ -102,8 +102,7 @@ puts "This is temporarily disabled due to changes in User model"
 		end
 		user = User.find(:first, :conditions => { :uid => ENV['uid'] })
 		puts "Found user #{user.displayname}.  Deputizing..."
-#		user.deputize
-		user.update_attribute(:role_name, 'administrator')
+		user.deputize
 		puts "User deputized: #{user.administrator?}"
 		puts
 	end
