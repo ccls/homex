@@ -1,9 +1,8 @@
-class PackagesController < ApplicationController	#:nodoc:
+class PackagesController < ApplicationController
 
 	before_filter :may_view_packages_required
 	before_filter :valid_package_id_required, 
 		:except => [:new,:create,:index]
-#		:only => [:edit,:update,:show,:destroy]
 
 	def index
 		@last_shipping_update = Package.last_updated

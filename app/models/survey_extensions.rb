@@ -1,4 +1,4 @@
-module SurveyExtensions
+module SurveyExtensions	#	:nodoc:
 	def self.included(base)
 		base.extend(ClassMethods)
 		base.send(:include, InstanceMethods)
@@ -126,6 +126,3 @@ module SurveyExtensions
 		end
 	end
 end
-# Add module to Survey
-#	Automatically included in 0.10.0
-#Survey.send(:include, SurveyExtensions)

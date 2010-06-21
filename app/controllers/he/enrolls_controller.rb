@@ -6,7 +6,6 @@ class He::EnrollsController < ApplicationController
 	layout 'home_exposure'
 
 	def index
-#		get_subjects
 		if params[:commit] && params[:commit] == 'download'
 			flash.discard	#	discard possible flash from before redirects
 			params[:format] = 'csv'
@@ -16,7 +15,6 @@ class He::EnrollsController < ApplicationController
 	end
 
 	def send_letters
-#		get_subjects
 	end
 
 	def update_select

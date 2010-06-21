@@ -1,4 +1,4 @@
-class He::HomeExposureResponsesController < ApplicationController #:nodoc:
+class He::HomeExposureResponsesController < ApplicationController
 
 	before_filter :may_view_responses_required
 	before_filter :valid_subject_id_required

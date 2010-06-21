@@ -1,4 +1,4 @@
-module SurveyorControllerExtensions
+module SurveyorControllerExtensions	#	:nodoc:
 	def self.included(base)
 		base.extend(ClassMethods)
 		base.send(:include, InstanceMethods)

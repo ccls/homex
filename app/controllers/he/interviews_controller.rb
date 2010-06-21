@@ -22,7 +22,6 @@ class He::InterviewsController < ApplicationController
 				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
 			render :template => "he/subjects/index"
 		end
-#		render :template => "he/subjects/index"
 	end
 
 end

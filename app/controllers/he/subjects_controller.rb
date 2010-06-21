@@ -26,20 +26,6 @@ class He::SubjectsController < ApplicationController
 		@project_subjects = @subject.project_subjects
 	end
 
-#	def new
-#		@subject = Subject.new
-#	end
-#
-#	def create
-#		@subject = Subject.new(params[:subject])
-#		@subject.save!
-#		flash[:notice] = 'Subject was successfully created.'
-#		redirect_to(@subject)
-#	rescue ActiveRecord::RecordInvalid
-#		flash.now[:error] = "There was a problem creating the subject"
-#		render :action => "new"
-#	end
-
 	def edit
 	end
 

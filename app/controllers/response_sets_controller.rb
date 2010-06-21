@@ -7,9 +7,6 @@ class ResponseSetsController < ApplicationController
 	before_filter :limit_response_set_count,  :only => :create
 
 	def create
-
-#	include subject_id or child_id or whatever in ResponseSet?
-
 		@response_set = ResponseSet.create!( 
 			:user_id    => current_user.id,
 			:survey     => @survey,
@@ -25,7 +22,6 @@ class ResponseSetsController < ApplicationController
 		flash[:error] = "Unable to create a new response set"
 		redirect_to( subjects_path )
 	end
-
 
 protected
 

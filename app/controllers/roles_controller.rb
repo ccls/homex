@@ -5,16 +5,6 @@ class RolesController < ApplicationController
 	before_filter :may_not_be_user_required
 	before_filter :id_required
 
-#	def update
-#		@user.role_name = params[:role_name]
-#		@user.save!
-#		flash[:notice] = 'User was successfully updated.'
-#	rescue ActiveRecord::RecordInvalid
-#		flash[:error] = 'User update failed.'
-#	ensure
-#		redirect_to @user
-#	end
-
 	def update
 		@user.roles << @role
 		flash[:notice] = 'User was successfully updated.'
