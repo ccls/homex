@@ -1,5 +1,17 @@
 require 'active_support'
 require 'active_support/inflector'
+
+require 'cgi'
+class CGI
+	def self.escapeHTML_with_nil_check(string)
+		string = '' if string.nil?
+		escapeHTML_without_nil_check(string)
+	end
+	class << self
+		alias_method_chain :escapeHTML, :nil_check
+	end
+end
+
 class RDoc::ArAssociation < RDoc::Context
   include RDoc::TokenStream
   attr_accessor :atype
@@ -83,7 +95,8 @@ class RDoc::ArAssociation < RDoc::Context
       end
     end
     
-    add_line_numbers src if RDoc::RDoc.current.options.include_line_numbers
+#    add_line_numbers src if RDoc::RDoc.current.options.include_line_numbers
+# change for rdoc > 2.4.3
     
     src
   end

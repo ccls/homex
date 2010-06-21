@@ -213,7 +213,9 @@ class RDoc::Parser::Rails < RDoc::Parser::Ruby
   # basically assumes tk is the first non-whitespace token on the line.
   def restore_init_token(tk)
     start_collecting_tokens
-    indent = TkSPACE.new(1, 1)
+#    indent = TkSPACE.new(1, 1)
+#	change for rdoc > 2.4.3
+    indent = TkSPACE.new(nil,1, 1)
     indent.set_text(' ' * tk.char_no)
     add_tokens([indent, tk])
   end
@@ -300,7 +302,9 @@ class RDoc::Parser::Rails < RDoc::Parser::Ruby
         
       when TkCONSTANT then
         if container.document_self then
-          parse_constant container, single, tk, comment
+#          parse_constant container, single, tk, comment
+#	change for rdoc > 2.4.3
+          parse_constant container, tk, comment
         end
         
       when TkALIAS then

@@ -1,4 +1,5 @@
 = RDoc::Rails
+
 This package adds Rails-specific information to RDoc generated docs on Rails
 projects. It could be particularly useful for people wanting to document Rails
 applications for internal use within a team of developers. It includes
