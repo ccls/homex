@@ -47,6 +47,15 @@ parsings.
 * attr_accessible parsing
 * custom user grouping and parsing (probably more core rdoc)
 
+== Tests
+
+* Tests are in development
+* Both tests for Comment model's belongs_to associations fail
+  * one is polymorphic
+  * the other has a redefined class_name and counter_cache => true
+* tests run, but I don't parse the output yet
+
+
 == Contributing
 I will try to document things better to make it easy for others to contribute
 additional documentation features. For now, get in touch if you have any
