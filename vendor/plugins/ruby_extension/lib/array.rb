@@ -1,5 +1,5 @@
 module RubyExtension	#	:nodoc:
-module ArrayExtension
+module Array	#	:nodoc:
 	def self.included(base)
 #		base.extend(ClassMethods)
 		base.instance_eval do
@@ -139,4 +139,4 @@ module ArrayExtension
 	end
 end
 end
-Array.send(:include, RubyExtension::ArrayExtension)
+Array.send(:include, RubyExtension::Array)

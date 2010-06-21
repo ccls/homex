@@ -1,5 +1,5 @@
 module RubyExtension	#	:nodoc:
-module StringExtension
+module String	#	:nodoc:
   def self.included(base)
 #    base.extend(ClassMethods)
     base.instance_eval do
@@ -32,4 +32,4 @@ module StringExtension
 
 end
 end
-String.send( :include, RubyExtension::StringExtension )
+String.send( :include, RubyExtension::String )

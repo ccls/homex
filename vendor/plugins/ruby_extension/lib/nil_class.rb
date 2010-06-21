@@ -1,5 +1,5 @@
 module RubyExtension	#	:nodoc:
-module NilClassExtension
+module NilClass	#	:nodoc:
 	def self.included(base)
 #		base.extend(ClassMethods)
 		base.instance_eval do
@@ -25,4 +25,4 @@ module NilClassExtension
 
 end
 end
-NilClass.send( :include, RubyExtension::NilClassExtension )
+NilClass.send( :include, RubyExtension::NilClass )

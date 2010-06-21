@@ -1,5 +1,5 @@
 module RubyExtension	#	:nodoc:
-module IntegerExtension
+module Integer	#	:nodoc:
 	def self.included(base)
 #		base.extend(ClassMethods)
 		base.instance_eval do
@@ -23,4 +23,4 @@ module IntegerExtension
 
 end
 end
-Integer.send( :include, RubyExtension::IntegerExtension )
+Integer.send( :include, RubyExtension::Integer )

@@ -1,5 +1,5 @@
 module RubyExtension	#	:nodoc:
-module HashExtension
+module Hash	#	:nodoc:
 	def self.included(base)
 #		base.extend(ClassMethods)
 		base.instance_eval do
@@ -52,5 +52,4 @@ module HashExtension
 
 end
 end
-Hash.send( :include, RubyExtension::HashExtension )
-#HashWithIndifferentAccess.send( :include, HashExtension )
+Hash.send( :include, RubyExtension::Hash )
