@@ -209,11 +209,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 
 {RVM on GitHub}[http://github.com/wayneeseguin/rvm]
 
-{AuthLogic Activation Tutorial}[http://www.claytonlz.com/index.php/2009/07/authlogic-account-activation-tutorial/]
-
-{AuthLogic Activation Tutorial}[http://github.com/matthooks/authlogic-activation-tutorial]
-
-
 
 == To Do
 
