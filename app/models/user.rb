@@ -58,36 +58,18 @@ class User < ActiveRecord::Base
 			:mail            => person.mail.first || '',
 			:telephonenumber => person.telephonenumber.first
 		})
-#
-#	seems to work fine without the if
-#	must've been a testing thing as I now have a stub
-#
-#		}) if person
-#
-#	what happened if person is NIL?
-# hack attempt?
-# can a user be in CAS and then not in LDAP?
-#	Might want to handle this "else" condition
-#	TODO
-#
-#	rescue
 		user
 	end
 
-	ROLES = %w( administrator moderator employee editor )
+#	ROLES = %w( administrator moderator employee editor )
 	has_and_belongs_to_many :roles, :uniq => true
 
 	#	gravatar can't deal with a nil email
-#	gravatar :email, :rating => 'PG'
 	gravatar :mail, :rating => 'PG'
-
-#	#	role_name CANNOT be mass-assignable!
-#	attr_protected :role_name
 
 	#	gravatar.url will include & that are not encoded to &amp;
 	#	which works just fine, but technically is invalid html.
 	def gravatar_url
-#		gravatar.url.split('&').join('&amp;')
 		gravatar.url.gsub(/&/,'&amp;')
 	end
 
@@ -101,41 +83,33 @@ class User < ActiveRecord::Base
 
 	def may_administrate?(*args)
 		self.role_names.include?('administrator')
-#		['administrator'].include?(self.role_name)
 	end
-#	alias_method :may_deputize?, :may_administrate?
 	alias_method :may_view_permissions?, :may_administrate?
 	alias_method :may_create_user_invitations?, :may_administrate?
 	alias_method :may_view_users?, :may_administrate?
-#	alias_method :may_crud_addresses?, :may_administrate?
 	alias_method :may_assign_roles?, :may_administrate?
 	alias_method :administrator?, :may_administrate?
 
 	def may_moderate?
 		(self.role_names & ['administrator','moderator']).length > 0
-#		['administrator','moderator'].include?(self.role_name)
 	end
 	alias_method :moderator?, :may_moderate?
 
 	def employee?
 		(self.role_names & ['administrator','employee']).length > 0
-#		['administrator','employee'].include?(self.role_name)
 	end
 
 	def editor?
 		(self.role_names & ['administrator','editor']).length > 0
-#		['administrator','editor'].include?(self.role_name)
 	end
 
 	def may_maintain_pages?(*args)
 		(self.role_names & ['administrator','editor']).length > 0
-#		['administrator','editor'].include?(self.role_name)
 	end
 	alias_method :may_view_home_page_pics?, :may_maintain_pages?
 
 	def may_view_calendar?(*args)
 		(self.role_names & ['administrator','editor','employee']).length > 0
-#		['administrator','editor','employee'].include?(self.role_name)
 	end
 	alias_method :may_view_packages?, :may_view_calendar?
 	alias_method :may_view_subjects?, :may_view_calendar?
@@ -143,7 +117,6 @@ class User < ActiveRecord::Base
 
 	def may_view_responses?(*args)
 		(self.role_names & ['administrator','employee']).length > 0
-#		['administrator','employee'].include?(self.role_name)
 	end
 	alias_method :may_take_surveys?, :may_view_responses?
 	alias_method :may_view_study_events?, :may_view_responses?
@@ -151,17 +124,10 @@ class User < ActiveRecord::Base
 
 	def may_view_user?(user=nil)
 		( (self.role_names & ['administrator']).length > 0 ) || ( !user.nil? && self == user )
-#		['administrator'].include?(self.role_name) || ( !user.nil? && self == user )
 	end
 
 	def may_be_user?(user=nil)
 		!user.nil? && self == user
 	end
-
-#	Role.all.each do |role|
-#		named_scope role.name.to_sym,
-#			:joins => [:roles],
-#			:conditions => ["roles.name = '#{role.name}'"]
-#	end
 
 end

@@ -223,39 +223,6 @@ class UserTest < ActiveSupport::TestCase
 #	end
 
 
-#
-#	Aegis Permissions tests
-#
-#	test "should require that role_name NOT be mass assignable" do
-#		assert_difference 'User.count' do
-#			u = create_user
-#			u.update_attributes({:role_name => 'administrator'})
-#			#	the default role is NOT administrator so this should be true
-#			assert_not_equal u.role_name, 'administrator'
-#		end
-#	end
-#
-#	test "should require role_name be a defined role in permissions" do
-#		assert_no_difference 'User.count' do
-#			#	role_name is mass assignable in the Factory context (which seems wrong)
-#			u = create_user(:role_name => 'my_fake_role_name')
-#			assert_match "is not included in the list", u.errors.on(:role_name)
-#			assert u.errors.on(:role_name)
-#		end
-#	end
-#
-#	test "should NOT mass assign role_name" do
-#		user = create_user
-##		all_role_names = Permissions.find_all_role_names.collect(&:to_s)
-##		all_role_names = %w(administrator moderator editor employee user)
-#		all_role_names = Role.all.collect(&:name)
-#		other_roles = all_role_names - [user.role_name]
-#		other_roles.each do |role_name|
-#			user.update_attributes({:role_name => role_name})
-#			assert_not_equal user.reload.role_name, role_name
-#		end
-#	end
-
 	test "should deputize to create administrator" do
 		u = create_user
 		assert !u.role_names.include?('administrator')
