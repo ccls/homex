@@ -9,8 +9,8 @@ namespace :db do
 				data = table_name.singularize.capitalize.constantize.find(
 					:all).collect(&:attributes)
 				file.write data.inject({}) { |hash, record|
-#					record.delete('created_at')
-#					record.delete('updated_at')
+					record.delete('created_at')
+					record.delete('updated_at')
 					hash["#{table_name}_#{record['id']}"] = record
 					hash
 				}.to_yaml
@@ -59,10 +59,6 @@ namespace :db do
 	task :import_address_data => :environment do
 		require 'fastercsv'
 		#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
-		#FasterCSV.foreach('DUMMY_ManipulatedData.csv', {
-		#	:headers => true }) do |line|
-		#	If you want the lineno, you need the file (f)
-#		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
 		(f=FasterCSV.open('dummy_addresses.csv', 'rb',{
 #	subjectID,Address_Type_ID,Address_Line1,Address_City,Address_State,Address_Zip
 			:headers => true })).each do |line|
@@ -95,10 +91,6 @@ namespace :db do
 	task :import_subject_data => :environment do
 		require 'fastercsv'
 		#	DO NOT COMMENT OUT THE HEADER LINE OR IT RAISES CRYPTIC ERROR
-		#FasterCSV.foreach('DUMMY_ManipulatedData.csv', {
-		#	:headers => true }) do |line|
-		#	If you want the lineno, you need the file (f)
-#		(f=FasterCSV.open('DUMMY_ManipulatedData.csv', 'rb',{
 		(f=FasterCSV.open('dummy_subject_pii_etc.csv', 'rb',{
 #	Childid,patID,Type,OrderNo,subjectID,sex,DOB,RefDate,InterviewDate,First_Name,Middle_Name,Last_Name,Mother_First_Name,Mother_Middle_Name,Mother_Maiden_Name,Mother_Last_Name,Father_First_Name,Father_Middle_Name,Father_Last_Name,Primary_Phone,Alternate_phone1,Alternate_phone2,Alternate_phone3
 			:headers => true })).each do |line|
@@ -152,57 +144,10 @@ namespace :db do
 				:ended_on   => interview_date
 			})
 			
-#	dummy_subject_pii_etc.csv does not contain addresses
-
-#			subject.residences.create(:address => Address.new({
-#				:line_1 => line[19],
-#				:city   => line[20],
-#				:state  => line[21],
-#				:zip    => line[22]
-#			})) unless line.fields[19..22].join.blank?
-#			
-#			subject.residences.create(:address => Address.new({
-#				:line_1 => line[23],
-#				:city   => line[24],
-#				:state  => line[25],
-#				:zip    => line[26]
-#			})) unless line.fields[23..26].join.blank?
-			
-
 #	use Time.parse to parse all dates (better than Date.parse)
 
 #	need ssn, state_id_no in data (making it up now)
-#	interviewdate is what?
-#	rename phone number field names ?
-#	datestorefdate, daystointerviewdate,calcrefdate,calcinterviewdate ??
-
-
-# 0 .. 6
-#"Childid","patID","Type","OrderNo","subjectID","sex","DOB",
-#	7 .. 11
-#	"RefDate","InterviewDate","First_Name","Middle_Name","Last_Name",
-# 12 .. 14
-# "Mother_First_Name","Mother_Middle_Name","Mother_Maiden_Name",
-# 15 .. 17
-# "Mother_Last_Name","Father_First_Name","Father_Middle_Name",
-# 18
-# "Father_Last_Name",
-# 19 20
-# "Address_Mailing_Line1","Address_Mailing_City",
-# 21 22
-# "Address_Mailing_State","Address_Mailing_Zip",
-# 23 24
-# "Address_Residence_Line1","Address_Residence_City",
-# 25 26
-# "Address_Residence_State","Address_Residence_Zip",
-# 27 .. 29
-# "Primary_Phone","Alternate_phone1","Alternate_phone2",
-# 30 .. 32
-# "Alternate_phone3","daysToRefDate","daysToInterviewDate",
-# 33 34
-# "calcRefDate","calcInterviewDate"
 
 		end
 	end
-
 end

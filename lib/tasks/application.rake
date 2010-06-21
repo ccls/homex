@@ -76,14 +76,13 @@ namespace :app do
 	end
 
 	desc "Add some expected users."
-	task :add_users => :environment do		#	TODO
-puts "This is temporarily disabled due to changes in User model"
-#		puts "Adding users"
-#		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 
-#			10883 86094 754783 769067 740176 315002 854720 16647 ).each do |uid|
-#			puts " - Adding user with uid:#{uid}:"
-#			User.find_create_and_update_by_uid(uid)
-#		end
+	task :add_users => :environment do
+		puts "Adding users"
+		%w( 859908 228181 855747 214766 279143 180918 66458 808 768475 
+			10883 86094 754783 769067 740176 315002 854720 16647 ).each do |uid|
+			puts " - Adding user with uid:#{uid}:"
+			User.find_create_and_update_by_uid(uid)
+		end
 	end
 
 	desc "Deputize user by UID"
