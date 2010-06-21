@@ -150,14 +150,8 @@ then we continue ...
  #	login to your app
  #	The first administrator/deputy must be created via the command line.
  #	Others can be created via the command line or web app.
-#
-#	UID is gone so need to change this
-#		(set role_name to 'administrator')
-#
-# rake app:deputize uid=<Your CalNet UID>				#	TODO
-
-
-
+ #
+ rake app:deputize uid=<Your CalNet UID>
 
 
  #	Install your survey(s)
