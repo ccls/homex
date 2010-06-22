@@ -1,4 +1,5 @@
-#require 'rdoc'
+require 'rdoc'
+require 'rdoc/rdoc'
 #require 'rake'
 #require 'rake/testtask'
 require 'rake/rdoctask'
