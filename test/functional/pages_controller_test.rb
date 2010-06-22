@@ -169,6 +169,7 @@ class PagesControllerTest < ActionController::TestCase
 		assert_select 'title', page.title
 	end
 
+	#	I don't think that this is pertinant anymore
 	test "should get index with both help and non-help pages" do
 		#	test css menus
 		login_as admin_user
@@ -179,6 +180,14 @@ class PagesControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
+	#	Test all page fixtures for menus
+	Page.all.each do |page|
+		test "should get show for page id #{page.id}" do
+			get :show, :id => page.id
+			assert_response :success
+			assert_template 'show'
+		end
+	end
 
 
 #	action: order
