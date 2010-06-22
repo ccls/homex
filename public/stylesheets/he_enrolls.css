@@ -5,23 +5,20 @@ div.checkbox {
 }
 div.childid {
 	width: 70px;
-	float:left;
 }
 div.studyid {
-	width: 70px;
-	float:left;
+	width: 80px;
 }
 div.priority {
-	width: 60px;
+	width: 70px;
+	text-align:center;
 	float:left;
 }
 div.last_name {
 	width: 140px;
-	float:left;
 }
 div.first_name {
 	width: 140px;
-	float:left;
 }
 div.outcome {
 	width: 80px;
