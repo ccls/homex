@@ -69,12 +69,13 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "studyid should be patid and orderno" do
+	test "studyid should be patid, subject_type and orderno" do
 		subject = create_subject( :pii_attributes => {
 			:patid => '123',
 			:orderno => '456'
 		})
-		assert_equal '123-456', subject.studyid
+		subject.subject_type = SubjectType.first
+		assert_equal '123-4-456', subject.studyid
 	end
 
 	test "should require subjectid" do

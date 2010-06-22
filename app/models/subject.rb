@@ -67,7 +67,7 @@ class Subject < ActiveRecord::Base
 
 	def studyid
 #		if respond_to?(:patid) && respond_to?(:orderno)
-			"#{patid}-#{orderno}"
+			"#{patid}-#{subject_type}-#{orderno}"
 #		else
 #			"#{pii.patid}-#{pii.orderno}"
 #		end
