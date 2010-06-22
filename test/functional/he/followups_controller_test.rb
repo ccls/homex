@@ -7,8 +7,10 @@ class He::FollowupsControllerTest < ActionController::TestCase
 		:actions => [:index]
 	}
 
-	assert_access_with_login({ :logins => [:admin,:employee,:editor] })
-	assert_no_access_with_login({ :login => :active_user })
+	assert_access_with_login({ 
+		:logins => [:admin,:employee,:editor] })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -26,7 +28,7 @@ class He::FollowupsControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user ).each do |u|
+%w( moderator active_user ).each do |u|
 
 	test "should NOT download csv with #{u} login" do
 		login_as send(u)

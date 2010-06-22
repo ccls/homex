@@ -16,8 +16,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		Factory(:home_page_pic)
 	end
 
-	assert_access_with_login(    { :logins => [:admin,:editor] } )
-	assert_no_access_with_login( { :logins => [:employee,:active_user] } )
+	assert_access_with_login(    { 
+		:logins => [:admin,:editor] } )
+	assert_no_access_with_login( { 
+		:logins => [:moderator,:employee,:active_user] } )
 	assert_no_access_without_login
 
 	assert_access_with_https 
@@ -88,7 +90,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 end
 
-%w( employee active_user ).each do |cu|
+%w( moderator employee active_user ).each do |cu|
 
 	test "should NOT activate all with #{cu} login" do
 		login_as send(cu)

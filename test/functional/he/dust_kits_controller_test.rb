@@ -121,7 +121,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user ).each do |u|
+%w( moderator active_user ).each do |u|
 
 	test "should NOT get new with #{u} login" do
 		login_as send(u)

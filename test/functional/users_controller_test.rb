@@ -16,8 +16,10 @@ class UsersControllerTest < ActionController::TestCase
 		Factory(:user)
 	end
 
-	assert_access_with_login({ :login => :admin })
-	assert_no_access_with_login({ :logins => [:editor,:employee,:active_user] })
+	assert_access_with_login({ 
+		:login => :admin })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:editor,:employee,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -50,8 +52,10 @@ class UsersControllerTest < ActionController::TestCase
 		assert_redirected_to users_path
 	end
 
-	test "should get editor info with self login" do
-		u = editor
+%w( admin moderator employee editor active_user ).each do |u|
+
+	test "should get #{u} info with self login" do
+		u = send(u)
 		login_as u
 		get :show, :id => u.id
 		assert_response :success
@@ -59,14 +63,7 @@ class UsersControllerTest < ActionController::TestCase
 		assert_equal u, assigns(:user)
 	end
 
-	test "should get user info with self login" do
-		u = active_user
-		login_as u
-		get :show, :id => u.id
-		assert_response :success
-		assert_not_nil assigns(:user)
-		assert_equal u, assigns(:user)
-	end
+end
 
 
 

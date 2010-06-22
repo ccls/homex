@@ -16,8 +16,10 @@ class StudyEventsControllerTest < ActionController::TestCase
 		Factory(:study_event)
 	end
 
-	assert_access_with_login({ :logins => [:admin,:employee] })
-	assert_no_access_with_login({ :logins => [:editor,:active_user] })
+	assert_access_with_login({ 
+		:logins => [:admin,:employee] })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:editor,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https

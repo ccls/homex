@@ -20,10 +20,13 @@ class PagesControllerTest < ActionController::TestCase
 	assert_access_with_https :show
 	assert_no_access_with_http 
 
-	assert_access_with_login(:show,{:logins => [:admin,:editor]})
-	assert_access_with_login(:show,{:logins => [:employee,:active_user], :actions => nil})
+	assert_access_with_login(:show,{
+		:logins => [:admin,:editor]})
+	assert_access_with_login(:show,{
+		:logins => [:moderator,:employee,:active_user], :actions => nil})
 	assert_access_without_login( :show, { :actions => nil })
-	assert_no_access_with_login({ :logins => [:employee,:active_user] })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:employee,:active_user] })
 	assert_no_access_without_login
 
 	assert_no_access_with_login(
@@ -186,6 +189,14 @@ class PagesControllerTest < ActionController::TestCase
 			get :show, :id => page.id
 			assert_response :success
 			assert_template 'show'
+		end
+		%w( en es ).each do |locale|
+			test "should get show for page id #{page.id} with locale #{locale}" do
+				session[:locale] = locale
+				get :show, :id => page.id
+				assert_response :success
+				assert_template 'show'
+			end
 		end
 	end
 

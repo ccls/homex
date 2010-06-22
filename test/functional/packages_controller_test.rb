@@ -16,8 +16,10 @@ class PackagesControllerTest < ActionController::TestCase
 		Factory(:package)
 	end
 
-	assert_access_with_login({    :logins => [:admin,:employee,:editor] })
-	assert_no_access_with_login({ :login => :active_user })
+	assert_access_with_login({    
+		:logins => [:admin,:employee,:editor] })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -88,7 +90,7 @@ end
 		assert_redirected_to package_path(package)
 	end
 
-%w( active_user ).each do |cu|
+%w( active_user moderator ).each do |cu|
 
 	test "should NOT update with #{cu} login" do
 		login_as send(cu)
@@ -126,6 +128,20 @@ end
 		put :deliver, :id => package.id
 		assert_equal 'Delivered', package.reload.status
 		assert_response :redirect
+	end
+
+	test "should show tracks for package" do
+		stub_package_for_successful_delivery
+		login_as admin_user
+		package = Factory(:package)
+		package.update_status
+		assert package.tracks.length > 0
+		get :show, :id => package.id
+		assert_response :success
+		assert_template 'show'
+		assert_select 'div#tracks' do
+			assert_select 'div.track'
+		end
 	end
 
 end

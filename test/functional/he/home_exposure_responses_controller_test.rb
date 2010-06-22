@@ -59,7 +59,7 @@ class He::HomeExposureResponsesControllerTest < ActionController::TestCase
 
 end
 
-%w( editor active_user ).each do |u|
+%w( moderator editor active_user ).each do |u|
 
 	test "should NOT get new with #{u} login" do
 		login_as send(u)

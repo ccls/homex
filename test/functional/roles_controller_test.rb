@@ -99,7 +99,7 @@ end
 		assert_redirected_to user_path(assigns(:user))
 	end
 
-%w( employee editor active_user ).each do |cu|
+%w( moderator employee editor active_user ).each do |cu|
 
 	test "should NOT update with #{cu} login" do
 		login_as send(cu)

@@ -16,8 +16,10 @@ class SubjectsControllerTest < ActionController::TestCase
 		Factory(:subject)
 	end
 
-	assert_access_with_login({ :logins => [:admin,:employee,:editor] })
-	assert_no_access_with_login( :create, { :login => :active_user })
+	assert_access_with_login({ 
+		:logins => [:admin,:employee,:editor] })
+	assert_no_access_with_login( :create, { 
+		:logins => [:moderator,:active_user] })
 	assert_no_access_without_login
 
 	#	can't test create due to other requirements
@@ -89,7 +91,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user ).each do |cu|
+%w( moderator active_user ).each do |cu|
 
 	test "should NOT create with #{cu} login" do
 		login_as send(cu)
