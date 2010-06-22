@@ -1,34 +1,4 @@
 <div id='footer'>
-<div class='main_width'>
-<p>
-<%= link_to 'Home Exposure', home_exposure_path %>&nbsp;|&nbsp;
-<%= link_to 'Pages', pages_path %>&nbsp;|&nbsp;
-<%= link_to 'Calendar', calendar_path %>&nbsp;|&nbsp;
-<%= link_to 'Users', users_path %>&nbsp;|&nbsp;
-<%= link_to 'Packages', packages_path %>&nbsp;|&nbsp;
-<%= link_to 'Subjects', subjects_path %>&nbsp;|&nbsp;
-<%= link_to 'HomePagePics', home_page_pics_path %>
-<% if logged_in? %>
-	&nbsp;|&nbsp;
-	<%= link_to "My Account", user_path(current_user) %>
-	&nbsp;|&nbsp;
-	<%= link_to "Logout", logout_path %>
-<% end %>
-</p>
-</div>
-<div class='main_width'>
-<p>
-<span>Copyright &copy; UC Regents; all rights reserved.</span>
-<% Page.hidden.each do |page| %>
-&nbsp;|&nbsp;
-<%= link_to page.menu(session[:locale]), page.path %>
-<% end %>
-&nbsp;|&nbsp;
-<% if session[:locale] && session[:locale] == 'es' %>
-	<%= link_to 'English', locale_path('en') %>
-<% else %>
-	<%= link_to 'Espa&ntilde;ol', locale_path('es') %>
-<% end %>
-</p>
-</div>
+<%= footer_menu() %>
+<%= footer_sub_menu() %>
 </div><!-- footer -->

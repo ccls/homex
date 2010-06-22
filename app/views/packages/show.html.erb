@@ -32,14 +32,6 @@
 </div><!-- class='info' -->
 </div><!-- id='package' -->
 
-<div id='tracks'>&nbsp;
-<% @package.tracks.each do |event| %>
-<div class='track row'>
-<div class='name'><%= event.name %></div>
-<div class='location'><%= event.location %></div>
-<div class='time'><%= event.time %></div>
-</div><!-- class='track' -->
-<% end %>
-</div><!-- id='tracks' -->
+<%= tracks_for(@package) %>
 
 <%= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>

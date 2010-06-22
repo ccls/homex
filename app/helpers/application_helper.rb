@@ -120,4 +120,36 @@ module ApplicationHelper
 		s << "</noscript>\n"
 	end
 
+	def footer_menu
+		s = "<div class='main_width'><p>\n"
+		l = [ link_to('Home Exposure', home_exposure_path) ]
+		l.push(link_to( 'Pages', pages_path ))
+		l.push(link_to( 'Calendar', calendar_path ))
+		l.push(link_to( 'Users', users_path ))
+		l.push(link_to( 'Packages', packages_path ))
+		l.push(link_to( 'Subjects', subjects_path ))
+		l.push(link_to( 'HomePagePics', home_page_pics_path ))
+		if logged_in? 
+			l.push(link_to( "My Account", user_path(current_user) ))
+			l.push(link_to( "Logout", logout_path ))
+		end
+		s << l.join("&nbsp;|&nbsp;\n")
+		s << "</p></div>\n"
+	end
+
+	def footer_sub_menu
+		s = "<div class='main_width'><p>\n"
+		l = ["<span>Copyright &copy; UC Regents; all rights reserved.</span>"]
+		Page.hidden.each do |page|
+			l.push(link_to( page.menu(session[:locale]), page.path ))
+		end
+		if session[:locale] && session[:locale] == 'es'
+			l.push(link_to( 'English', locale_path('en') ))
+		else
+			l.push(link_to( 'Espa&ntilde;ol', locale_path('es') ))
+		end
+		s << l.join("&nbsp;|&nbsp;\n")
+		s << "</p></div>\n"
+	end
+
 end

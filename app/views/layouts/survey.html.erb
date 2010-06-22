@@ -26,15 +26,8 @@
 </div><!-- id='head' -->
 
 <div id='content'>
-<% flash.each do |key, msg| %>
- <%= content_tag :p, msg, :id => key, :class => 'flash' %>
-<% end %>
-<noscript>
-<p id='noscript' class='flash'>Javascript is required for this site to be fully functional.</p>
-</noscript>
-
+<%= flasher() %>
 <%= yield %>
-
 </div><!-- content -->
 </div><!-- container -->
 <div id='footer'>
