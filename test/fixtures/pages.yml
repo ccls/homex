@@ -25,7 +25,18 @@ pages_1:
   path: /
   parent_id: 
   hide_menu: false
-  body_en: CCLS Page Body
+  body_en: |
+    <div class='equal_height_column_wrapper'>
+    <div style='width: 33%;float:left;text-align:center;'>
+    Column 1
+    </div>
+    <div style='width: 33%;float:left;text-align:center;'>
+    Column 2
+    </div>
+    <div style='width:33%;float:left;text-align:center;'>
+    Column 3
+    </div>
+    </div>
   title_en: CCLS
 pages_2: 
   position: 2
