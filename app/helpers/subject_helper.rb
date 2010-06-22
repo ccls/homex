@@ -41,33 +41,28 @@ module SubjectHelper
 		s << "<legend>Dust Kit</legend>\n"
 		s << "<ul>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'ignore', 
-			params['dust_kit'].try(:==,'ignore') || params['dust_kit'].blank? )
+		dk = params['dust_kit'] || ''
+		s << radio_button_tag( 'dust_kit', 'ignore', ( dk == 'ignore' || dk.blank? ))
 		s << label_tag( 'dust_kit_ignore', 'Ignore Dust Kit' )
 		s << "</li>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'none', 
-			params['dust_kit'].try(:==,'none') )
+		s << radio_button_tag( 'dust_kit', 'none', ( dk == 'none') )
 		s << label_tag( 'dust_kit_none', 'No Dust Kit' )
 		s << "</li>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'shipped', 
-			params['dust_kit'].try(:==,'shipped') )
+		s << radio_button_tag( 'dust_kit', 'shipped', ( dk == 'shipped') )
 		s << label_tag( 'dust_kit_shipped', 'Dust Kit Shipped' )
 		s << "</li>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'delivered', 
-			params['dust_kit'].try(:==,'delivered') )
+		s << radio_button_tag( 'dust_kit', 'delivered', ( dk == 'delivered') )
 		s << label_tag( 'dust_kit_delivered', 'Dust Kit Delivered' )
 		s << "</li>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'returned', 
-			params['dust_kit'].try(:==,'returned') )
+		s << radio_button_tag( 'dust_kit', 'returned', ( dk == 'returned') )
 		s << label_tag( 'dust_kit_returned', 'Dust Kit Returned' )
 		s << "</li>\n"
 		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'received', 
-			params['dust_kit'].try(:==,'received') )
+		s << radio_button_tag( 'dust_kit', 'received', ( dk == 'received') )
 		s << label_tag( 'dust_kit_received', 'Dust Kit Received' )
 		s << "</li>\n"
 		s << "</ul>\n"
