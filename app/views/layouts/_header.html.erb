@@ -1,37 +1,5 @@
 <div id='header'>
-<div id='rootmenu' class='main_width'>
-<%# Page changes outside of ActionController go unnoticed %>
-<%# Due to the variability of the menu, we can't really cache it %>
-<%# cache 'page_menu' do %>
-<% 
-	roots = Page.roots
-	count = roots.length
-	count = ( count > 0 ) ? count : 1
-	width = ( 900 - count ) / count
-%>
-<% roots.each do |page| -%>
-	<%= link_to page.menu(session[:locale]), page.path, 
-		:style => "width: #{width}px",
-		:class => ((page == @page.try(:root))?'current':nil)  %>
-<% end -%>
-<%# end %>
-
-</div><!-- id='headmenu' -->
-<% if @page && !@page.root.children.empty? %>
-	<div id='submenu' class='main_width'>
-	<div id='current_root'><%= @page.root.menu(session[:locale]) %></div>
-	<div id='children'>
-	<% @page.root.children.each do |child| %>
-	<span class='child<%=(@page==child)?" current_child":""-%>'>
-	<%= link_to child.menu(session[:locale]), child.path %></span>
-	<% end %>
-</div><!-- id='children'  -->
-</div><!-- id='submenu'  -->
-<% end %>
+<%= application_root_menu() %>
+<%= application_sub_menu() %>
 </div><!-- id='head'  -->
-
-<% if @page && @page.is_home? && !@hpp.nil? %>
-<div id='home_page_pic' class='main_width'>
-<%= image_tag @hpp.image.url(:full) %>
-</div>
-<% end %>
+<%= application_home_page_pic() %>
