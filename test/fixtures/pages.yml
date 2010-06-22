@@ -2,9 +2,7 @@
 pages_15: 
   position: 1
   menu_en: Findings
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 15
@@ -16,9 +14,7 @@ pages_15:
 pages_1: 
   position: 1
   menu_en: CCLS
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 1
@@ -27,10 +23,10 @@ pages_1:
   hide_menu: false
   body_en: |
     <div class='equal_height_column_wrapper'>
-    <div style='width: 33%;float:left;text-align:center;'>
+    <div style='width:33%;float:left;text-align:center;'>
     Column 1
     </div>
-    <div style='width: 33%;float:left;text-align:center;'>
+    <div style='width:33%;float:left;text-align:center;'>
     Column 2
     </div>
     <div style='width:33%;float:left;text-align:center;'>
@@ -41,9 +37,7 @@ pages_1:
 pages_2: 
   position: 2
   menu_en: About
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 2
@@ -55,9 +49,7 @@ pages_2:
 pages_16: 
   position: 2
   menu_en: Awards
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 16
@@ -69,9 +61,7 @@ pages_16:
 pages_3: 
   position: 1
   menu_en: Goals
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 3
@@ -83,9 +73,7 @@ pages_3:
 pages_17: 
   position: 6
   menu_en: Privacy
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 17
@@ -97,9 +85,7 @@ pages_17:
 pages_4: 
   position: 2
   menu_en: Staff Bios
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 4
@@ -111,9 +97,7 @@ pages_4:
 pages_18: 
   position: 7
   menu_en: Terms
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 18
@@ -125,9 +109,7 @@ pages_18:
 pages_5: 
   position: 3
   menu_en: Partners
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 5
@@ -139,9 +121,7 @@ pages_5:
 pages_6: 
   position: 4
   menu_en: Funding
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 6
@@ -153,9 +133,7 @@ pages_6:
 pages_7: 
   position: 5
   menu_en: Contact
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 7
@@ -167,9 +145,7 @@ pages_7:
 pages_10: 
   position: 2
   menu_en: Links
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 10
@@ -181,9 +157,7 @@ pages_10:
 pages_11: 
   position: 4
   menu_en: Research
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 11
@@ -195,9 +169,7 @@ pages_11:
 pages_8: 
   position: 3
   menu_en: Families
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 8
@@ -209,9 +181,7 @@ pages_8:
 pages_12: 
   position: 1
   menu_en: Projects
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 12
@@ -223,9 +193,7 @@ pages_12:
 pages_9: 
   position: 1
   menu_en: Factsheet
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 9
@@ -237,9 +205,7 @@ pages_9:
 pages_13: 
   position: 2
   menu_en: Publications
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 13
@@ -251,9 +217,7 @@ pages_13:
 pages_14: 
   position: 5
   menu_en: News
-  created_at: 2010-06-08 17:00:32 Z
   body_es: 
-  updated_at: 2010-06-08 17:00:32 Z
   title_es: 
   menu_es: 
   id: 14
