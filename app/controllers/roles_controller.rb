@@ -12,8 +12,8 @@ class RolesController < ApplicationController
 	end
 
 	def destroy
-		flash[:notice] = 'User was successfully updated.'
 		@user.roles.delete @role
+		flash[:notice] = 'User was successfully updated.'
 		redirect_to @user
 	end
 
