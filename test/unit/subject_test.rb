@@ -118,6 +118,13 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal '123-4-4', subject.reload.studyid
 	end
 
+	test "should pad subjectid with leading zeros" do
+		subject = Factory.build(:subject)
+		assert subject.subjectid.length < 6
+		subject.save
+		assert subject.subjectid.length == 6
+	end
+
 	test "should require subjectid" do
 		assert_no_difference 'Subject.count' do
 			subject = create_subject(:subjectid => nil)
