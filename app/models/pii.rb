@@ -7,19 +7,24 @@ class Pii < ActiveRecord::Base
 	belongs_to :subject
 #	has_one :subject_type, :through => :subject
 #	either way seems to work
-	delegate :subject_type, :to => :subject
+	delegate :subject_type, :to => :subject, :allow_nil => true
+#	belongs_to :subject_type
 
 	#	because subject accepts_nested_attributes for pii 
 	#	we can't require subject_id on create
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
+#	validates_presence_of   :subject_type, :on => :update
+#	validates_uniqueness_of :subject_type_id, :allow_nil => true
 
 	validates_presence_of   :stype	#	I think this is the same as subject_type
 	validates_presence_of   :orderno
 	validates_length_of     :orderno, :is => 1
 	validates_format_of     :orderno, :with => /\d/
 	validates_presence_of   :patid
-	validates_uniqueness_of :patid, :scope => [:stype,:orderno]	#	TODO
+#	validates_uniqueness_of :patid, :scope => [:stype,:orderno]	#	TODO
+#	validates_uniqueness_of :patid, :scope => [:subject_type_id,:orderno]
+	validates_uniqueness_of :patid, :scope => [:orderno]
 #	PatID is not unique. PatID, Type and OrderNo in combination is unique. (I still haven't renamed Type to be code friendly -- that does have to be done, however.)
 
 	validates_presence_of   :ssn
