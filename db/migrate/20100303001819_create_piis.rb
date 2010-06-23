@@ -25,7 +25,7 @@ class CreatePiis < ActiveRecord::Migration
 
 			t.string :patid
 			t.string :stype
-			t.string :orderno
+			t.string :orderno	#	, :limit => 1
 
 			t.timestamps
 		end
@@ -33,6 +33,7 @@ class CreatePiis < ActiveRecord::Migration
 		add_index :piis, :state_id_no, :unique => true
 		add_index :piis, :email, :unique => true
 		add_index :piis, :subject_id, :unique => true
+#		add_index :piis, [:patid,:subject_type_id,:orderno],:unique => true,:name => 'pistio'
 	end
 
 	def self.down
