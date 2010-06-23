@@ -36,6 +36,21 @@ class DustKitTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should require a unique subject" do
+		assert_difference('DustKit.count', 2) {
+		assert_difference('Subject.count', 1) {
+			dust_kit = create_dust_kit
+			assert_nil dust_kit.subject
+			subject = Factory(:subject)
+			dust_kit.update_attributes(:subject_id => subject.id)
+			assert_not_nil dust_kit.subject
+			dust_kit = create_dust_kit
+			assert_nil dust_kit.subject
+			dust_kit.update_attributes(:subject_id => subject.id)
+			assert dust_kit.reload.errors.on(:subject_id)
+		} }
+	end
+
 	test "should belong to a subject" do
 		dust_kit = create_dust_kit
 		assert_nil dust_kit.subject
