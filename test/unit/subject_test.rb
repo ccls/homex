@@ -112,10 +112,10 @@ class SubjectTest < ActiveSupport::TestCase
 		subject = create_subject(
 			:pii_attributes => Factory.attributes_for(:pii, 
 				:patid   => '123',
-				:orderno => '456'
+				:orderno => '4'
 		))
 		subject.update_attributes(:subject_type => SubjectType.first)
-		assert_equal '123-4-456', subject.reload.studyid
+		assert_equal '123-4-4', subject.reload.studyid
 	end
 
 	test "should require subjectid" do

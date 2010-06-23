@@ -73,6 +73,20 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require 1 char orderno" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:orderno => '12')
+			assert pii.errors.on(:orderno)
+		end
+	end
+
+	test "should require 1 DIGIT orderno" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:orderno => 'A')
+			assert pii.errors.on(:orderno)
+		end
+	end
+
 	test "should require patid" do
 		assert_no_difference 'Pii.count' do
 			pii = create_pii(:patid => nil)

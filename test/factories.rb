@@ -99,7 +99,10 @@ Factory.define :pii do |f|
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:state_id_no){|n| "#{n}"}
 	f.sequence(:patid){|n| "#{n}"}
-	f.sequence(:orderno){|n| "#{n}"}
+#	f.sequence(:orderno){|n| "#{n}"}
+#	This is just one digit so looping through all.
+#	This is potentially a problem causer in testing.
+	f.sequence(:orderno){|n| '0123456789'.split('')[n%10] }
 	f.sequence(:stype){|n| "#{n}"}
 	f.sequence(:email){|n| "email#{n}@example.com"}
 end
@@ -156,7 +159,13 @@ Factory.define :subject do |f|
 end
 
 Factory.define :subject_type do |f|
-	f.sequence(:description) { |n| "Desc#{n}" }
+#	f.sequence(:description) { |n| "Desc#{n}" }
+#	This is just one character so looping through known unused chars.
+#	This is potentially a problem causer in testing.
+#	4,5,B and C are used in fixtures
+	f.sequence(:description){|n|
+		'01236789ADEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%32] }
+#		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
 end
 
 Factory.define :survey_invitation do |f|

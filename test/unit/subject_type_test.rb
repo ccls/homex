@@ -17,12 +17,12 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require 4 char description" do
-#		assert_no_difference 'SubjectType.count' do
-#			subject_type = create_subject_type(:description => 'Hey')
-#			assert subject_type.errors.on(:description)
-#		end
-#	end
+	test "should require 1 char description" do
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(:description => '12')
+			assert subject_type.errors.on(:description)
+		end
+	end
 
 	test "should require unique description" do
 		st = create_subject_type

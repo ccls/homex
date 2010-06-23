@@ -15,9 +15,11 @@ class Pii < ActiveRecord::Base
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
 	validates_presence_of   :stype	#	I think this is the same as subject_type
-	validates_presence_of   :orderno	#	I think this is just 1 digit
+	validates_presence_of   :orderno
+	validates_length_of     :orderno, :is => 1
+	validates_format_of     :orderno, :with => /\d/
 	validates_presence_of   :patid
-	validates_uniqueness_of :patid, :scope => [:stype,:orderno]
+	validates_uniqueness_of :patid, :scope => [:stype,:orderno]	#	TODO
 #	PatID is not unique. PatID, Type and OrderNo in combination is unique. (I still haven't renamed Type to be code friendly -- that does have to be done, however.)
 
 	validates_presence_of   :ssn
