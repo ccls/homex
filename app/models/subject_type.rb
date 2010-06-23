@@ -6,7 +6,7 @@ class SubjectType < ActiveRecord::Base
 
 	has_many :subjects
 
-	validates_presence_of :description
+	validates_presence_of :description	#	I think this is just 1 character
 #	validates_length_of :description, :minimum => 4
 	validates_uniqueness_of :description
 

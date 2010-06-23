@@ -5,14 +5,17 @@
 #	*	state_id_no ( unique )
 class Pii < ActiveRecord::Base
 	belongs_to :subject
+#	has_one :subject_type, :through => :subject
+#	either way seems to work
+	delegate :subject_type, :to => :subject
 
 	#	because subject accepts_nested_attributes for pii 
 	#	we can't require subject_id on create
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
-	validates_presence_of   :stype
-	validates_presence_of   :orderno
+	validates_presence_of   :stype	#	I think this is the same as subject_type
+	validates_presence_of   :orderno	#	I think this is just 1 digit
 	validates_presence_of   :patid
 	validates_uniqueness_of :patid, :scope => [:stype,:orderno]
 #	PatID is not unique. PatID, Type and OrderNo in combination is unique. (I still haven't renamed Type to be code friendly -- that does have to be done, however.)
@@ -28,6 +31,14 @@ class Pii < ActiveRecord::Base
 
 	def full_name
 		[first_name, middle_name, last_name].join(' ')
+	end
+
+	def dob	#	overwrite default dob method for formatting
+		read_attribute(:dob).try(:to_s,:dob)
+	end
+
+	def studyid
+		"#{patid}-#{subject_type}-#{orderno}"
 	end
 
 protected

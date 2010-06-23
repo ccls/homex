@@ -22,6 +22,19 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should NOT create subject with second pii" do
+		assert_difference( 'Pii.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:pii_attributes => Factory.attributes_for(:pii))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+			subject.update_attributes(
+				:pii_attributes => Factory.attributes_for(:pii))
+			assert subject.errors.on(:pii_subject_id)
+		} }
+	end
+
 	test "should NOT create subject with empty pii" do
 		assert_difference( 'Pii.count', 0) {
 		assert_difference( 'Subject.count', 0) {
@@ -38,6 +51,19 @@ class SubjectTest < ActiveSupport::TestCase
 				:patient_attributes => Factory.attributes_for(:patient))
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
+		} }
+	end
+
+	test "should NOT create subject with second patient" do
+		assert_difference( 'Patient.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:patient_attributes => Factory.attributes_for(:patient))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+			subject.update_attributes(
+				:patient_attributes => Factory.attributes_for(:patient))
+			assert subject.errors.on(:patient_subject_id)
 		} }
 	end
 
@@ -60,6 +86,19 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should NOT create subject with second child_id" do
+		assert_difference( 'ChildId.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:child_id_attributes => Factory.attributes_for(:child_id))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+			subject.update_attributes(
+				:child_id_attributes => Factory.attributes_for(:child_id))
+			assert subject.errors.on(:child_id_subject_id)
+		} }
+	end
+
 	test "should NOT create subject with empty child_id" do
 		assert_difference( 'ChildId.count', 0) {
 		assert_difference( 'Subject.count', 0) {
@@ -70,12 +109,13 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	test "studyid should be patid, subject_type and orderno" do
-		subject = create_subject( :pii_attributes => {
-			:patid => '123',
-			:orderno => '456'
-		})
-		subject.subject_type = SubjectType.first
-		assert_equal '123-4-456', subject.studyid
+		subject = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:patid   => '123',
+				:orderno => '456'
+		))
+		subject.update_attributes(:subject_type => SubjectType.first)
+		assert_equal '123-4-456', subject.reload.studyid
 	end
 
 	test "should require subjectid" do

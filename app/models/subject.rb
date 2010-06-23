@@ -31,6 +31,7 @@ class Subject < ActiveRecord::Base
 	delegate :last_name, :to => :pii, :allow_nil => true
 	delegate :first_name,:to => :pii, :allow_nil => true
 	delegate :dob,       :to => :pii, :allow_nil => true
+	delegate :studyid,   :to => :pii, :allow_nil => true
 	delegate :childid,   :to => :child_id, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
@@ -42,36 +43,13 @@ class Subject < ActiveRecord::Base
 	#	without the :id attribute, it will create, but NOT destroy
 	#	s.reload.pii  will return the first one (sorts by id)
 	#	s.pii.destroy will destroy the last one !?!?!?
+	#	Make all these require a unique subject_id
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :patient
 	accepts_nested_attributes_for :child_id
 	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
-
-	def birthdate
-#		bd = ( respond_to?(:dob) ) ? dob : pii.dob
-#		#	for some reason this can be a String and not Date???
-#		#	if it is acquired through sql joins as a virtual column
-#		if bd
-#			if bd.is_a?(String)
-#				Date.parse(bd).to_s(:dob)
-#			else
-#				bd.try(:to_s,:dob)
-#			end
-#		else
-#			nil
-#		end
-		dob.try(:to_s,:dob)
-	end
-
-	def studyid
-#		if respond_to?(:patid) && respond_to?(:orderno)
-			"#{patid}-#{subject_type}-#{orderno}"
-#		else
-#			"#{pii.patid}-#{pii.orderno}"
-#		end
-	end
 
 	def outcome_date
 		"TEST"
