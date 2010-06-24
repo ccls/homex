@@ -94,15 +94,16 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require unique patid, stype and orderno" do
+#	test "should require unique patid, stype and orderno" do
+#	still works without a subject and subject_type
+	test "should require unique studyid" do
 		p = create_pii
 		assert_no_difference 'Pii.count' do
 			pii = create_pii({
 				:patid => p.patid,
-				:stype => p.stype,
 				:orderno => p.orderno
 			})
-			assert pii.errors.on(:patid)
+			assert pii.errors.on(:studyid)
 		end
 	end
 
@@ -142,6 +143,21 @@ class PiiTest < ActiveSupport::TestCase
 		assert_no_difference 'Pii.count' do
 			pii = create_pii(:state_id_no => p.state_id_no)
 			assert pii.errors.on(:state_id_no)
+		end
+	end
+
+	test "should require unique email" do
+		p = create_pii
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:email => p.email)
+			assert pii.errors.on(:email)
+		end
+	end
+
+	test "should allow multiple blank email" do
+		p = create_pii(:email => '  ')
+		assert_difference('Pii.count',1) do
+			pii = create_pii(:email => ' ')
 		end
 	end
 
