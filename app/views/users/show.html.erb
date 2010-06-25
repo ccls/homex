@@ -4,7 +4,7 @@
 <legend><%= @user.sn %></legend>
 
 <div class='person'><dl>
-	<% %w( displayname mail ).each do |key| -%>
+	<% %w( displayname mail uid ).each do |key| -%>
 		<dt><%= key -%></dt>
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>
