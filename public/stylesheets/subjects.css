@@ -3,21 +3,29 @@ div#subjects {
 	padding-top:20px;
 */
 }
+div.row div ,
+div.header div {
+	display:inline;
+	float:left;
+}
+div.row div:last-child ,
+div.header div:last-child {
+	float:none;
+}
+/*
 div#content h2:nth-child(2) {
 	margin-top: 0;
 }
+*/
 
 div.childid {
 	width: 100px;
-	float:left;
 }
 div.race {
 	width: 100px;
-	float:left;
 }
 div.subject_type {
 	width: 100px;
-	float:left;
 }
 
 form#subject_search {
