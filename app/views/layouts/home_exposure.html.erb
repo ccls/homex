@@ -18,12 +18,7 @@
 	<a>Reports</a>&nbsp;|&nbsp;
 	<a>FAQs</a>
 </div><!-- minimenu -->
-<div id='fullsearch'>
-<% form_tag '/subjects', :method => :get do %>
-	<%= text_field_tag :q, params[:q], :id => nil %>
-	<%= submit_tag :find, :name => nil %>
-<% end %>
-</div>
+<%= render 'layouts/he_subjects_search' %>
 <%= home_exposure_main_menu() %>
 </div><!-- header -->
 <div id='columns' class='equal_height_column_wrapper'>

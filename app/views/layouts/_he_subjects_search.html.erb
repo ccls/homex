@@ -1,0 +1,8 @@
+<div id='fullsearch'>
+<% form_tag(he_subjects_path,:method => :get) do %>
+<%= hidden_field_tag :order, params[:order] %>
+<%= hidden_field_tag :dir, params[:dir] %>
+<%= text_field_tag :q, params[:q], :id => nil  %>
+<%= submit_tag 'find' %>
+<% end %>
+</div><!-- subsearch -->
