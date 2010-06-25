@@ -65,7 +65,8 @@ namespace :db do
 			puts "Processing line #{f.lineno}"
 			puts line
 
-			subject = Subject.find_by_subjectid(line[0])
+			#	due to padding it with zeros, NEED this to be an Integer
+			subject = Subject.find_by_subjectid(line[0].to_i)
 			raise ActiveRecord::RecordNotFound unless subject
 
 			address_type = AddressType.find_by_code(
@@ -97,8 +98,9 @@ namespace :db do
 			puts "Processing line #{f.lineno}"
 			puts line
 
-			subject_type = SubjectType.find_or_create_by_description(
-				line[2])
+			subject_type = SubjectType.find_or_create_by_description('TEST')
+#			subject_type = SubjectType.find_or_create_by_description(
+#				line[2])
 
 			#	TODO	(not included in csv)
 			race = Race.find_or_create_by_name('TEST')			

@@ -23,9 +23,9 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :father_last_name
 			t.string :email
 
-			t.string :patid
-			t.string :stype
-			t.string :orderno	#	, :limit => 1
+			t.integer :patid
+			t.string  :stype, :limit => 1
+			t.integer :orderno
 
 			t.timestamps
 		end
@@ -33,7 +33,7 @@ class CreatePiis < ActiveRecord::Migration
 		add_index :piis, :state_id_no, :unique => true
 		add_index :piis, :email, :unique => true
 		add_index :piis, :subject_id, :unique => true
-#		add_index :piis, [:patid,:subject_type_id,:orderno],:unique => true,:name => 'pistio'
+		add_index :piis, [:patid,:stype,:orderno],:unique => true,:name => 'pisto'
 	end
 
 	def self.down

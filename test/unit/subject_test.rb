@@ -108,14 +108,14 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "studyid should be patid, subject_type and orderno" do
+	test "studyid should be patid, stype and orderno" do
 		subject = create_subject(
 			:pii_attributes => Factory.attributes_for(:pii, 
+				:stype => 'A',
 				:patid   => '123',
 				:orderno => '4'
 		))
-		subject.update_attributes(:subject_type => SubjectType.first)
-		assert_equal '123-4-4', subject.reload.studyid
+		assert_equal "123-A-4", subject.reload.studyid
 	end
 
 	test "should pad subjectid with leading zeros" do
@@ -610,15 +610,6 @@ class SubjectTest < ActiveSupport::TestCase
 		assert subjects.include?(subject)
 	end
 
-#	test "search should include subject by subject_type" do
-#		subject1 = create_subject
-#		subject2 = create_subject
-#		subjects = Subject.search(
-#			:type => subject1.subject_type.description)
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
-
 	test "search should include subject by subject_types" do
 		s1 = create_subject
 		s2 = create_subject
@@ -629,14 +620,6 @@ class SubjectTest < ActiveSupport::TestCase
 		assert  subjects.include?(s2)
 		assert !subjects.include?(s3)
 	end
-
-#	test "search should include subject by race" do
-#		subject1 = create_subject
-#		subject2 = create_subject
-#		subjects = Subject.search(:race => subject1.race.name)
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
 
 	test "search should include subject by races" do
 		s1 = create_subject
@@ -1239,7 +1222,6 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(s2)
 	end
 
-
 	test "should return dust_kit_status of None" do
 		subject = create_subject
 		assert_equal 'None', subject.dust_kit_status
@@ -1273,4 +1255,5 @@ protected
 			:dust_package_attributes => Factory.attributes_for(:package) 
 		}.merge(options))
 	end
+
 end

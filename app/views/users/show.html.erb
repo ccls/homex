@@ -1,10 +1,10 @@
 <%= content_for :head, stylesheet_link_tag('user') %>
 
 <fieldset id='main'>
-<legend><%= @user.username %></legend>
+<legend><%= @user.sn %></legend>
 
 <div class='person'><dl>
-	<% %w( displayname mail username email ).each do |key| -%>
+	<% %w( displayname mail ).each do |key| -%>
 		<dt><%= key -%></dt>
 		<dd><%= @user.attributes[key] -%></dd>
 	<% end -%>

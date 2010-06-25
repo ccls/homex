@@ -7,9 +7,9 @@ class SubjectType < ActiveRecord::Base
 	has_many :subjects
 
 	validates_presence_of   :description
-	validates_length_of     :description, :is => 1
+#	validates_length_of     :description, :is => 1
 	validates_uniqueness_of :description
-	validates_format_of     :description, :with => /\w/
+#	validates_format_of     :description, :with => /\w/
 
 	def to_s
 		description

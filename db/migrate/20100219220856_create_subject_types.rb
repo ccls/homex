@@ -2,7 +2,7 @@ class CreateSubjectTypes < ActiveRecord::Migration
 	def self.up
 		create_table :subject_types do |t|
 			t.integer :position
-			t.string :description	#	, :limit => 1
+			t.string :description
 			t.string :related_case_control_type
 			t.timestamps
 		end

@@ -230,10 +230,10 @@ class UserTest < ActiveSupport::TestCase
 		assert  u.role_names.include?('administrator')
 	end
 
-	test "should return non-nil email" do
-		user = create_user
-		assert_not_nil user.email
-	end
+#	test "should return non-nil email" do
+#		user = create_user
+#		assert_not_nil user.email
+#	end
 
 	test "should return non-nil mail" do
 		user = create_user

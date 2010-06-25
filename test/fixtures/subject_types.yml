@@ -1,17 +1,17 @@
 
 d:
   id: 1
-  description: 4
+  description: Case
 
 e:
   id: 2
-  description: 5
+  description: Control
 
 c:
   id: 3
-  description: C
+  description: Father
 
 b:
   id: 4
-  description: B
+  description: Mother
 

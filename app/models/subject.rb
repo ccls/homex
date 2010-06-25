@@ -53,27 +53,6 @@ class Subject < ActiveRecord::Base
 
 	before_validation :pad_zeros_to_subjectid
 
-	def pad_zeros_to_subjectid
-		#>> sprintf("%06d","0001234")
-		#=> "000668"
-		#>> sprintf("%06d","0001239")
-		#ArgumentError: invalid value for Integer: "0001239"
-		#	from (irb):22:in `sprintf'
-		#	from (irb):22
-		#>> sprintf("%06d","0001238")
-		#ArgumentError: invalid value for Integer: "0001238"
-		#	from (irb):23:in `sprintf'
-		#	from (irb):23
-		#>> sprintf("%06d","0001280")
-		#ArgumentError: invalid value for Integer: "0001280"
-		#	from (irb):24:in `sprintf'
-		#	from (irb):24
-		#
-		#	CANNOT have leading 0's and include and 8 or 9 as it thinks its octal
-		#	so convert back to Integer first
-		self.subjectid = sprintf("%06d",subjectid.to_i) unless subjectid.nil?
-	end
-
 	def outcome_date
 		"TEST"
 	end
@@ -308,5 +287,28 @@ class Subject < ActiveRecord::Base
 #	some delegated stuff.  Probably put it back.  The includes
 #	were causing some grief, but may try again.
 #
+
+protected
+
+	def pad_zeros_to_subjectid
+		#>> sprintf("%06d","0001234")
+		#=> "000668"
+		#>> sprintf("%06d","0001239")
+		#ArgumentError: invalid value for Integer: "0001239"
+		#	from (irb):22:in `sprintf'
+		#	from (irb):22
+		#>> sprintf("%06d","0001238")
+		#ArgumentError: invalid value for Integer: "0001238"
+		#	from (irb):23:in `sprintf'
+		#	from (irb):23
+		#>> sprintf("%06d","0001280")
+		#ArgumentError: invalid value for Integer: "0001280"
+		#	from (irb):24:in `sprintf'
+		#	from (irb):24
+		#
+		#	CANNOT have leading 0's and include and 8 or 9 as it thinks its octal
+		#	so convert back to Integer first
+		self.subjectid = sprintf("%06d",subjectid.to_i) unless subjectid.nil?
+	end
 
 end
