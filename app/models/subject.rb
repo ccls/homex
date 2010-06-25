@@ -4,20 +4,20 @@
 class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :race
-	has_many :samples, :dependent => :destroy
-	has_many :project_subjects, :dependent => :destroy
-	has_many :operational_events, :dependent => :destroy
-	has_many :residences, :dependent => :destroy
+	has_many :samples
+	has_many :project_subjects
+	has_many :operational_events
+	has_many :residences
 	has_many :addresses, :through => :residences
-	has_many :interview_events, :dependent => :destroy
-	has_many :study_event_eligibilities, :dependent => :destroy
-	has_many :response_sets, :dependent => :destroy
-	has_one :home_exposure_response, :dependent => :destroy
-	has_one :pii,      :dependent => :destroy
-	has_one :patient,  :dependent => :destroy
-	has_one :child_id, :dependent => :destroy
-	has_one :dust_kit, :dependent => :destroy
-	has_many :survey_invitations, :dependent => :destroy
+	has_many :interview_events
+	has_many :study_event_eligibilities
+	has_many :response_sets
+	has_one :home_exposure_response
+	has_one :pii
+	has_one :patient
+	has_one :child_id
+	has_one :dust_kit
+	has_many :survey_invitations
 
 	validates_presence_of :subject_type, :race
 	validates_presence_of   :subjectid

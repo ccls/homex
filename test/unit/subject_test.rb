@@ -201,12 +201,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.survey_invitations.length
 	end
 
-	test "should destroy survey_invitations with subject" do
+	test "should NOT destroy survey_invitations with subject" do
 		subject = create_subject
 		Factory(:survey_invitation, :subject_id => subject.id)
 		Factory(:survey_invitation, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('SurveyInvitation.count',-2) {
+		assert_difference('SurveyInvitation.count',0) {
 			subject.destroy
 		} }
 	end
@@ -220,11 +220,11 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.dust_kit
 	end
 
-	test "should destroy dust_kit with subject" do
+	test "should NOT destroy dust_kit with subject" do
 		subject = create_subject
 		Factory(:dust_kit, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('DustKit.count',-1) {
+		assert_difference('DustKit.count',0) {
 			subject.destroy
 		} }
 	end
@@ -238,11 +238,11 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.child_id
 	end
 
-	test "should destroy child_id with subject" do
+	test "should NOT destroy child_id with subject" do
 		subject = create_subject
 		Factory(:child_id, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('ChildId.count',-1) {
+		assert_difference('ChildId.count',0) {
 			subject.destroy
 		} }
 	end
@@ -256,11 +256,11 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.pii
 	end
 
-	test "should destroy pii with subject" do
+	test "should NOT destroy pii with subject" do
 		subject = create_subject
 		Factory(:pii, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('Pii.count',-1) {
+		assert_difference('Pii.count',0) {
 			subject.destroy
 		} }
 	end
@@ -274,11 +274,11 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.patient
 	end
 
-	test "should destroy patient with subject" do
+	test "should NOT destroy patient with subject" do
 		subject = create_subject
 		Factory(:patient, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('Patient.count',-1) {
+		assert_difference('Patient.count',0) {
 			subject.destroy
 		} }
 	end
@@ -292,11 +292,11 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_nil subject.reload.home_exposure_response
 	end
 
-	test "should destroy home_exposure_response with subject" do
+	test "should NOT destroy home_exposure_response with subject" do
 		subject = create_subject
 		Factory(:home_exposure_response, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('HomeExposureResponse.count',-1) {
+		assert_difference('HomeExposureResponse.count',0) {
 			subject.destroy
 		} }
 	end
@@ -310,12 +310,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.operational_events.length
 	end
 
-	test "should destroy operational_events with subject" do
+	test "should NOT destroy operational_events with subject" do
 		subject = create_subject
 		Factory(:operational_event, :subject_id => subject.id)
 		Factory(:operational_event, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('OperationalEvent.count',-2) {
+		assert_difference('OperationalEvent.count',0) {
 			subject.destroy
 		} }
 	end
@@ -329,12 +329,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.project_subjects.length
 	end
 
-	test "should destroy project_subjects with subject" do
+	test "should NOT destroy project_subjects with subject" do
 		subject = create_subject
 		Factory(:project_subject, :subject_id => subject.id)
 		Factory(:project_subject, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('ProjectSubject.count',-2) {
+		assert_difference('ProjectSubject.count',0) {
 			subject.destroy
 		} }
 	end
@@ -348,12 +348,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.samples.length
 	end
 
-	test "should destroy samples with subject" do
+	test "should NOT destroy samples with subject" do
 		subject = create_subject
 		Factory(:sample, :subject_id => subject.id)
 		Factory(:sample, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('Sample.count',-2) {
+		assert_difference('Sample.count',0) {
 			subject.destroy
 		} }
 	end
@@ -367,12 +367,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.residences.length
 	end
 
-	test "should destroy residences with subject" do
+	test "should NOT destroy residences with subject" do
 		subject = create_subject
 		Factory(:residence, :subject_id => subject.id)
 		Factory(:residence, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('Residence.count',-2) {
+		assert_difference('Residence.count',0) {
 			subject.destroy
 		} }
 	end
@@ -386,12 +386,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.interview_events.length
 	end
 
-	test "should destroy interview_events with subject" do
+	test "should NOT destroy interview_events with subject" do
 		subject = create_subject
 		Factory(:interview_event, :subject_id => subject.id)
 		Factory(:interview_event, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('InterviewEvent.count',-2) {
+		assert_difference('InterviewEvent.count',0) {
 			subject.destroy
 		} }
 	end
@@ -405,12 +405,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.study_event_eligibilities.length
 	end
 
-	test "should destroy study_event_eligibilities with subject" do
+	test "should NOT destroy study_event_eligibilities with subject" do
 		subject = create_subject
 		Factory(:study_event_eligibility, :subject_id => subject.id)
 		Factory(:study_event_eligibility, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('StudyEventEligibility.count',-2) {
+		assert_difference('StudyEventEligibility.count',0) {
 			subject.destroy
 		} }
 	end
@@ -427,12 +427,12 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_equal 2, subject.reload.response_sets_count
 	end
 
-	test "should destroy response_sets with subject" do
+	test "should NOT destroy response_sets with subject" do
 		subject = create_subject
 		Factory(:response_set, :subject_id => subject.id)
 		Factory(:response_set, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('ResponseSet.count',-2) {
+		assert_difference('ResponseSet.count',0) {
 			subject.destroy
 		} }
 	end
@@ -525,53 +525,53 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 
-	test "should destroy patient on subject destroy" do
-		assert_difference( 'Patient.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			@subject = create_subject(
-				:patient_attributes => Factory.attributes_for(:patient))
-		} }
-		assert_difference( 'Patient.count', -1) {
-		assert_difference( 'Subject.count', -1) {
-			@subject.destroy
-		} }
-	end
-
-	test "should destroy dust_kit on subject destroy" do
-		assert_difference( 'DustKit.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			@subject = create_subject(
-				:dust_kit_attributes => Factory.attributes_for(:dust_kit))
-		} }
-		assert_difference( 'DustKit.count', -1) {
-		assert_difference( 'Subject.count', -1) {
-			@subject.destroy
-		} }
-	end
-
-	test "should destroy child_id on subject destroy" do
-		assert_difference( 'ChildId.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			@subject = create_subject(
-				:child_id_attributes => Factory.attributes_for(:child_id))
-		} }
-		assert_difference( 'ChildId.count', -1) {
-		assert_difference( 'Subject.count', -1) {
-			@subject.destroy
-		} }
-	end
-
-	test "should destroy pii on subject destroy" do
-		assert_difference( 'Pii.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			@subject = create_subject(
-				:pii_attributes => Factory.attributes_for(:pii))
-		} }
-		assert_difference( 'Pii.count', -1) {
-		assert_difference( 'Subject.count', -1) {
-			@subject.destroy
-		} }
-	end
+#	test "should destroy patient on subject destroy" do
+#		assert_difference( 'Patient.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+#			@subject = create_subject(
+#				:patient_attributes => Factory.attributes_for(:patient))
+#		} }
+#		assert_difference( 'Patient.count', -1) {
+#		assert_difference( 'Subject.count', -1) {
+#			@subject.destroy
+#		} }
+#	end
+#
+#	test "should destroy dust_kit on subject destroy" do
+#		assert_difference( 'DustKit.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+#			@subject = create_subject(
+#				:dust_kit_attributes => Factory.attributes_for(:dust_kit))
+#		} }
+#		assert_difference( 'DustKit.count', -1) {
+#		assert_difference( 'Subject.count', -1) {
+#			@subject.destroy
+#		} }
+#	end
+#
+#	test "should destroy child_id on subject destroy" do
+#		assert_difference( 'ChildId.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+#			@subject = create_subject(
+#				:child_id_attributes => Factory.attributes_for(:child_id))
+#		} }
+#		assert_difference( 'ChildId.count', -1) {
+#		assert_difference( 'Subject.count', -1) {
+#			@subject.destroy
+#		} }
+#	end
+#
+#	test "should destroy pii on subject destroy" do
+#		assert_difference( 'Pii.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+#			@subject = create_subject(
+#				:pii_attributes => Factory.attributes_for(:pii))
+#		} }
+#		assert_difference( 'Pii.count', -1) {
+#		assert_difference( 'Subject.count', -1) {
+#			@subject.destroy
+#		} }
+#	end
 
 	test "should require properly formated email address" do
 		pending

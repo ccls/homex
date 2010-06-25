@@ -4,7 +4,7 @@ class Address < ActiveRecord::Base
 
 	#	Residences is a rich join.  
 	#	Destroy to not destroy?
-	has_many :residences, :dependent => :destroy
+	has_many :residences
 
 #	has_many :subjects, :through => :residences
 
