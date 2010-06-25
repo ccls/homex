@@ -3,8 +3,8 @@
 <%# params.dup.delete_keys!(:q,:commit,:action,:controller).each_pair do |k,v| -%>
 	<%#= hidden_field_tag k, v %>
 <%# end -%>
-	<%= hidden_field_tag :order, params[:order] %>
-	<%= hidden_field_tag :dir, params[:dir] %>
+	<%= hidden_field_tag :order, params[:order], :id => nil %>
+	<%= hidden_field_tag :dir, params[:dir], :id => nil %>
 	<%= text_field_tag :q, params[:q], :id => nil  %>
 	<%= submit_tag 'find' %>
 	<%= submit_tag 'download' %>

@@ -1,7 +1,7 @@
 <div id='fullsearch'>
 <% form_tag(he_subjects_path,:method => :get) do %>
-<%= hidden_field_tag :order, params[:order] %>
-<%= hidden_field_tag :dir, params[:dir] %>
+<%= hidden_field_tag :order, params[:order], :id => nil %>
+<%= hidden_field_tag :dir, params[:dir], :id => nil %>
 <%= text_field_tag :q, params[:q], :id => nil  %>
 <%= submit_tag 'find' %>
 <% end %>
