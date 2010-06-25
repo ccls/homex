@@ -1222,6 +1222,24 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(s2)
 	end
 
+	test "search should include subject by q childid" do
+		s1 = create_subject(:child_id_attributes => Factory.attributes_for(:child_id,
+			:childid => 999999))
+		s2 = create_subject(:child_id_attributes => Factory.attributes_for(:child_id))
+		subjects = Subject.search(:q => s1.child_id.childid)
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
+	test "search should include subject by q patid" do
+		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii,
+			:patid => 999999))
+		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii))
+		subjects = Subject.search(:q => s1.pii.patid)
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
 	test "should return dust_kit_status of None" do
 		subject = create_subject
 		assert_equal 'None', subject.dust_kit_status

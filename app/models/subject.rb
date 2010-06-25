@@ -237,9 +237,11 @@ class Subject < ActiveRecord::Base
 		if params[:q] && !params[:q].blank?
 			c = []
 			v = {}
-			params[:q].split(/\s+/).each_with_index do |q,i|
+			params[:q].to_s.split(/\s+/).each_with_index do |q,i|
 				c.push("piis.first_name LIKE :q#{i}")
 				c.push("piis.last_name LIKE :q#{i}")
+				c.push("piis.patid LIKE :q#{i}")
+				c.push("child_ids.childid LIKE :q#{i}")
 				v["q#{i}".to_sym] = "%#{q}%"
 			end
 			sql_conditions.push("( #{c.join(' OR ')} )")
