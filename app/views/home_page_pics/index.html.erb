@@ -1,4 +1,4 @@
-<%= content_for :head, stylesheet_link_tag('home_page_pics') %>
+<% stylesheets('home_page_pics') %>
 
 <% form_tag(activate_home_page_pics_path, 
 	:method => :post, :id => 'activate_pics') do -%>

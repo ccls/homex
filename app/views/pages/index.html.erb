@@ -1,8 +1,5 @@
-<% content_for :head do %>
-<%= stylesheet_link_tag('pages') %>
-<%# dynamic js in .... app/views/javascripts/pages.js %>
-<%= javascript_include_tag('pages') %>
-<% end %>
+<% javascripts('pages') %>
+<% stylesheets('pages') %>
 
 <% form_tag(order_pages_path, :method => :post, :id => 'order_pages') do -%>
 <%= hidden_field_tag :parent_id, params[:parent_id] %>

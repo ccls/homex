@@ -152,4 +152,25 @@ module ApplicationHelper
 		s << "</p></div>\n"
 	end
 
+	#	Created to stop multiple entries of same stylesheet
+	def stylesheets(*args)
+		@stylesheets ||= []
+		args.each do |stylesheet|
+			unless @stylesheets.include?(stylesheet)
+				@stylesheets.push(stylesheet)
+				content_for(:head,stylesheet_link_tag(stylesheet))
+			end
+		end
+	end
+
+	def javascripts(*args)
+		@javascripts ||= []
+		args.each do |javascript|
+			unless @javascripts.include?(javascript)
+				@javascripts.push(javascript)
+				content_for(:head,javascript_include_tag(javascript))
+			end
+		end
+	end
+
 end

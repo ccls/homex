@@ -1,4 +1,4 @@
-<% content_for :head, stylesheet_link_tag('home_page_pic') %>
+<% stylesheets('home_page_pic') %>
 
 <% form_for(@home_page_pic,:html => { :multipart => true }) do |f| %>
 	<%= f.error_messages %>

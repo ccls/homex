@@ -1,4 +1,4 @@
-<% content_for :head, stylesheet_link_tag('dust_kit') %>
+<% stylesheets('dust_kit') %>
 
 <% form_for(@dust_kit, :url => he_subject_dust_kit_path(@subject)) do |f| %>
 	<%= f.error_messages %>
