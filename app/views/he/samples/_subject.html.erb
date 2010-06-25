@@ -11,10 +11,10 @@
 </div>
 <% if subject.dust_kit %>
 <div class='kit_sent_on'>
-<%= subject.dust_kit.try(:sent_on)||'&nbsp;' %>
+<%= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </div>
 <div class='kit_received_on'>
-<%= subject.dust_kit.try(:received_on)||'&nbsp;' %>
+<%= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </div>
 <% else %>
 <div class='send_kit'>
