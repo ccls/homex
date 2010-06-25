@@ -50,7 +50,7 @@
 </div>
 
 <div>
-<div>reference date:&nbsp;<%= @subject.reference_date %></div>
+<div>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></div>
 </div>
 
 <div>
