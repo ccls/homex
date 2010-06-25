@@ -68,3 +68,15 @@ div.pagination {
 	padding-bottom: 32767px;
 	margin-bottom: -32767px;
 }
+
+
+.columns {
+	clear:both;
+}
+.columns > div {
+	float:left;
+	display:table;
+}
+.columns > div:last-child {
+	float:none;
+}

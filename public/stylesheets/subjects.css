@@ -3,15 +3,17 @@ div#subjects {
 	padding-top:20px;
 */
 }
+/*
 div.row div ,
 div.header div {
-	display:inline;
+	display:inline;	
 	float:left;
 }
 div.row div:last-child ,
 div.header div:last-child {
 	float:none;
 }
+*/
 /*
 div#content h2:nth-child(2) {
 	margin-top: 0;

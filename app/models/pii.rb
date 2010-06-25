@@ -19,6 +19,7 @@ class Pii < ActiveRecord::Base
 	validates_presence_of   :stype
 	validates_uniqueness_of :patid, :scope => [:orderno,:stype]
 
+	validates_presence_of   :dob
 	validates_presence_of   :ssn
 	validates_uniqueness_of :ssn
 	validates_format_of     :ssn, :with => /\A\d{9}\z/
@@ -31,6 +32,14 @@ class Pii < ActiveRecord::Base
 
 	def full_name
 		[first_name, middle_name, last_name].join(' ')
+	end
+
+	def fathers_name
+		[father_first_name, father_middle_name, father_last_name].join(' ')
+	end
+
+	def mothers_name
+		[mother_first_name, mother_middle_name, mother_maiden_name, mother_last_name].join(' ')
 	end
 
 	def dob	#	overwrite default dob method for formatting

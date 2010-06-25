@@ -23,15 +23,10 @@ class Subject < ActiveRecord::Base
 	validates_presence_of   :subjectid
 	validates_uniqueness_of :subjectid
 
-	delegate :ssn,       :to => :pii, :allow_nil => true
-	delegate :full_name, :to => :pii, :allow_nil => true
-	delegate :email,     :to => :pii, :allow_nil => true
-	delegate :patid,     :to => :pii, :allow_nil => true
-	delegate :orderno,   :to => :pii, :allow_nil => true
-	delegate :last_name, :to => :pii, :allow_nil => true
-	delegate :first_name,:to => :pii, :allow_nil => true
-	delegate :dob,       :to => :pii, :allow_nil => true
-	delegate :studyid,   :to => :pii, :allow_nil => true
+	delegate :ssn, :full_name, :email, :patid, :orderno,
+		:last_name, :first_name, :dob, :studyid,
+		:fathers_name, :mothers_name,
+		:to => :pii, :allow_nil => true
 	delegate :childid,   :to => :child_id, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject

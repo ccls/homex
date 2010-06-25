@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
 	alias_method :may_view_users?,              :may_administrate?
 	alias_method :may_assign_roles?,            :may_administrate?
 	alias_method :administrator?,               :may_administrate?
+	alias_method :may_edit_subjects?,           :may_administrate?
 
 	def may_moderate?
 		(self.role_names & ['administrator','moderator']).length > 0

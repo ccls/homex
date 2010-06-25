@@ -1,16 +1,7 @@
-div.subject,
-button,
-input {
-}
-
-
-.subject {
-}
 #main .manage {
 	background-color: silver;
 	padding: 10px;
 }
-
 #main .manage .childid {
 	float:left;
 	padding-right: 10px;
@@ -31,6 +22,7 @@ input {
 	border: 1px solid gray;
 
 	/* http://gradients.glrzad.com/ */
+/*
 	background-image: -moz-linear-gradient(
 		center bottom,
 		rgb(235,235,235) 10%,
@@ -45,23 +37,11 @@ input {
 		color-stop(0.47, rgb(179,179,179)),
 		color-stop(0.74, rgb(235,235,235))
 	);
-
+*/
 }
 
-.subject .info {
-	clear: left;
-}
-.subject .info .col {
-	padding: 10px;
-}
-.subject .info .col1 {
-	float:left;
-}
-.subject .info #sex {
-	margin-top: 15px;
-}
-.subject .info .col2 {
-	float:left;
+.subject .columns {
+	padding-top:10px;
 }
 .subject .info .address {
 	margin-top: 15px;
@@ -69,5 +49,7 @@ input {
 .subject .info #phone_numbers {
 	margin-top: 15px;
 }
-.subject .info .col3 {
+
+.columns > div:first-child {
+	width: 180px;
 }

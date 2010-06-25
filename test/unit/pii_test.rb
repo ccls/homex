@@ -155,6 +155,13 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require dob" do
+		assert_no_difference 'Pii.count' do
+			pii = create_pii(:dob => nil)
+			assert pii.errors.on(:dob)
+		end
+	end
+
 	test "should allow multiple blank email" do
 		p = create_pii(:email => '  ')
 		assert_difference('Pii.count',1) do

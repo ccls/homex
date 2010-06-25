@@ -81,7 +81,9 @@ ActionController::Routing::Routes.draw do |map|
 				:send_letters  => :get,
 				:update_select => :put }
 		he.resources  :interviews
-		he.resources  :samples
+		he.resources  :samples, :only => [:index],
+			:collection => { 
+				:send_kits  => :get }
 		he.resources  :followups
 #		he.resources  :letters, :only => [:index],
 #			:collection => {
