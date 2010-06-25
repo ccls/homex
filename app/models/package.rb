@@ -28,13 +28,13 @@ class Package < ActiveRecord::Base
 
 	def sent_on
 		if self.tracks.length > 0
-			self.tracks.first.time
+			self.tracks.first.time.to_date
 		end
 	end
 
 	def received_on
 		if self.tracks.length > 0 && delivered?
-			self.tracks.last.time
+			self.tracks.last.time.to_date
 		end
 	end
 

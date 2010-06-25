@@ -9,10 +9,16 @@
 <div class='first_name'>
 <%= subject.first_name %>
 </div>
+<% if subject.dust_kit %>
 <div class='kit_sent_on'>
-<%= subject.try(:dust_kit).try(:sent_on)||'&nbsp;' %>
+<%= subject.dust_kit.try(:sent_on)||'&nbsp;' %>
 </div>
 <div class='kit_received_on'>
-<%= subject.try(:dust_kit).try(:received_on)||'&nbsp;' %>
+<%= subject.dust_kit.try(:received_on)||'&nbsp;' %>
 </div>
+<% else %>
+<div class='send_kit'>
+<%= link_to 'Send Kit', new_he_subject_dust_kit_path(subject) %>
+</div>
+<% end %>
 <% end %><%# content_tag_for %>
