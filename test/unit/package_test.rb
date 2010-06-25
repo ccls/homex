@@ -101,6 +101,44 @@ class PackageTest < ActiveSupport::TestCase
 		assert package.delivered?
 	end
 
+	test "should return null sent_on when new" do
+		package = create_package
+		assert_nil package.sent_on
+	end
+
+	test "should return null received_on when new" do
+		package = create_package
+		assert_nil package.received_on
+	end
+
+	test "should return valid date sent_on when in transit" do
+		stub_package_for_in_transit()
+		package = create_package
+		package.update_status
+		assert_not_nil package.sent_on
+	end
+
+	test "should return null received_on when in transit" do
+		stub_package_for_in_transit()
+		package = create_package
+		package.update_status
+		assert_nil package.received_on
+	end
+
+	test "should return valid date sent_on when delivered" do
+		stub_package_for_successful_delivery()
+		package = create_package
+		package.update_status
+		assert_not_nil package.sent_on
+	end
+
+	test "should return valid date received_on when delivered" do
+		stub_package_for_successful_delivery()
+		package = create_package
+		package.update_status
+		assert_not_nil package.received_on
+	end
+
 	test "should have many tracks" do
 		package = create_package
 		assert_equal 0, package.tracks.length

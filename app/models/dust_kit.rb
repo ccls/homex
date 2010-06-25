@@ -3,6 +3,9 @@ class DustKit < ActiveRecord::Base
 	belongs_to :kit_package,  :class_name => 'Package'
 	belongs_to :dust_package, :class_name => 'Package'
 
+	delegate :sent_on,     :to => :kit_package
+	delegate :received_on, :to => :dust_package
+
 #	validates_uniqueness_of :kit_package_id,  :allow_nil => true
 #	validates_uniqueness_of :dust_package_id, :allow_nil => true
 	validates_uniqueness_of :subject_id, :allow_nil => true

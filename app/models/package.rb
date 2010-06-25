@@ -26,6 +26,18 @@ class Package < ActiveRecord::Base
 
 #	before_create :update_status
 
+	def sent_on
+		if self.tracks.length > 0
+			self.tracks.first.time
+		end
+	end
+
+	def received_on
+		if self.tracks.length > 0 && delivered?
+			self.tracks.last.time
+		end
+	end
+
 	#	Contact FedEx and get all tracking info regarding
 	#	the given package's tracking_number.
 	def update_status

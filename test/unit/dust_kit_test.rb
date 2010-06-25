@@ -101,6 +101,45 @@ class DustKitTest < ActiveSupport::TestCase
 		assert_equal 'Received', dust_kit.status
 	end
 
+	test "should return null sent_on with new kit" do
+		dust_kit = create_complete_dust_kit	
+		assert_nil dust_kit.sent_on
+	end
+
+	test "should return null received_on with new kit" do
+		dust_kit = create_complete_dust_kit	
+		assert_nil dust_kit.received_on
+	end
+
+	test "should return date sent_on with kit in transit" do
+		stub_package_for_in_transit()
+		dust_kit = create_complete_dust_kit	
+		dust_kit.kit_package.update_status
+		assert_not_nil dust_kit.sent_on
+	end
+
+	test "should return null received_on with kit in transit" do
+		stub_package_for_in_transit()
+		dust_kit = create_complete_dust_kit	
+		dust_kit.kit_package.update_status
+		assert_nil dust_kit.received_on
+	end
+
+	test "should return date sent_on with kit returned" do
+		stub_package_for_successful_delivery()
+		dust_kit = create_complete_dust_kit	
+		dust_kit.kit_package.update_status
+		dust_kit.dust_package.update_status
+		assert_not_nil dust_kit.sent_on
+	end
+
+	test "should return date received_on with kit returned" do
+		stub_package_for_successful_delivery()
+		dust_kit = create_complete_dust_kit	
+		dust_kit.dust_package.update_status
+		assert_not_nil dust_kit.received_on
+	end
+
 protected
 
 	def create_complete_dust_kit(options={})

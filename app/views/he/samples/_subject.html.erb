@@ -10,9 +10,9 @@
 <%= subject.first_name %>
 </div>
 <div class='kit_sent_on'>
-<%= subject.first_name %>
+<%= subject.try(:dust_kit).try(:sent_on)||'&nbsp;' %>
 </div>
 <div class='kit_received_on'>
-<%= subject.first_name %>
+<%= subject.try(:dust_kit).try(:received_on)||'&nbsp;' %>
 </div>
 <% end %><%# content_tag_for %>
