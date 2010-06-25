@@ -79,8 +79,6 @@ class SubjectsControllerTest < ActionController::TestCase
 	
 	test "should create with #{cu} login" do
 		login_as send(cu)
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',1){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:race_id => Race.first.id,
@@ -95,8 +93,6 @@ end
 
 	test "should NOT create with #{cu} login" do
 		login_as send(cu)
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',0){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:race_id => Race.first.id,
@@ -109,8 +105,6 @@ end
 end
 
 	test "should NOT create without login" do
-		Factory(:race)
-		Factory(:subject_type)
 		post :create, :subject => Factory.attributes_for(:subject,
 			:race_id => Race.first.id,
 			:subject_type_id => SubjectType.first.id)
@@ -123,8 +117,6 @@ end
 #	subject has no validations so cannot test yet
 #
 #		login_as admin
-#		Factory(:race)
-#		Factory(:subject_type)
 #		assert_difference('Subject.count',0){
 #			post :create, :subject => {
 #				:race_id => Race.first.id,
@@ -137,8 +129,6 @@ end
 
 	test "should NOT create without subject_type" do
 		login_as admin
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',0){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:race_id => Race.first.id)
@@ -150,8 +140,6 @@ end
 
 	test "should NOT create without race" do
 		login_as admin
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',0){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:subject_type_id => SubjectType.first.id)
@@ -163,8 +151,6 @@ end
 
 	test "should NOT create without valid subject_type" do
 		login_as admin
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',0){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:subject_type_id => 0,
@@ -177,8 +163,6 @@ end
 
 	test "should NOT create without valid race" do
 		login_as admin
-		Factory(:race)
-		Factory(:subject_type)
 		assert_difference('Subject.count',0){
 			post :create, :subject => Factory.attributes_for(:subject,
 				:race_id => 0,
