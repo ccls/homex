@@ -255,3 +255,9 @@ Gradient images made with {Gradient Image Maker}[http://tools.dynamicdrive.com/g
 
 User icons from {Gravatar}[http://gravatar.com]
 
+{Demo on css rounded corners}[http://css-radius.heroku.com]
+
+{Background image gradients}[http://gradients.glrzad.com/]
+
+{Equal column height example}[http://www.positioniseverything.net/articles/onetruelayout/equalheight]
+
