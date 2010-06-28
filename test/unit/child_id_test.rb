@@ -40,6 +40,21 @@ class ChildIdTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require childid" do
+		assert_difference('ChildId.count',0) do
+			child_id = create_child_id(:childid => nil)
+			assert child_id.errors.on(:childid)
+		end
+	end
+
+	test "should require unique childid" do
+		c = create_child_id
+		assert_difference('ChildId.count',0) do
+			child_id = create_child_id(:childid => c.childid)
+			assert child_id.errors.on(:childid)
+		end
+	end
+
 	test "should belong to subject" do
 		child_id = create_child_id
 		assert_nil child_id.subject
