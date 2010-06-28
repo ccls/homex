@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
 #	#	keep user_sessions route plural or form on 'new' will fail.
 #	map.resources :user_sessions, :only => [ :new, :create, :destroy ]
 
-	map.logout 'logout', :controller => 'sessions', :action => 'destroy'  
+	map.logout 'logout', :controller => 'sessions', :action => 'destroy'
 	map.resources :sessions, :only => [ :destroy ]
 
 
@@ -69,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :home_exposure, :only => :show
 	map.namespace :he do |he|
 		he.resources :subjects, :except => [:new,:create],
+			:collection => { :general => :get },
 			:shallow => true do |subject|
 			subject.resource :dust_kit
 			subject.resource :home_exposure_response, 
@@ -76,6 +77,9 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
 		end
+#		he.namespace :subjects do |hes|
+#			hes.resources :generals, :only => :index
+#		end
 		he.resources  :enrolls, :only => [:index],
 			:collection => { 
 				:send_letters  => :get,

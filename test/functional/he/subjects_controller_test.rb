@@ -40,7 +40,16 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		:show => { :id => 0 }
 	)
 
-	test "should get index with subjects" do
+%w( admin employee editor ).each do |u|
+
+	test "should get general with #{u} login" do
+		login_as send(u)
+		get :general
+		assert_response :success
+		assert_template 'index'
+	end
+
+	test "should get index with subjects with #{u} login" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
 		rs1 = fill_out_survey(:survey => survey)
 		rs2 = fill_out_survey(:survey => survey, :subject => rs1.subject)
@@ -50,39 +59,37 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		rs5 = fill_out_survey(:survey => survey)
 		Factory(:study_event)	#	test search code in view
 		#	There should now be 4 subjects in different states.
-		login_as admin_user
+		login_as send(u)
 		get :index
 		assert_equal 1, assigns(:subjects).length
 		assert_response :success
 		assert_template 'index'
 	end
 
-	test "should get index with order and dir desc" do
-		login_as admin
+	test "should get index with order and dir desc with #{u} login" do
+		login_as send(u)
 		get :index, :order => 'last_name', :dir => 'desc'
 		assert_response :success
 		assert_template 'index'
 		assert_select "span.arrow", :count => 1
 	end
 
-	test "should get index with order and dir asc" do
-		login_as admin
+	test "should get index with order and dir asc with #{u} login" do
+		login_as send(u)
 		get :index, :order => 'last_name', :dir => 'asc'
 		assert_response :success
 		assert_template 'index'
 		assert_select "span.arrow", :count => 1
 	end
 
-	test "should get show with pii" do
+	test "should get show with pii with #{u} login" do
 		subject = Factory(:subject,
 			:pii_attributes => Factory.attributes_for(:pii))
-		login_as admin_user
+		login_as send(u)
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'
 	end
-
-%w( admin employee editor ).each do |u|
 
 	test "should download csv with #{u} login" do
 		login_as send(u)
@@ -103,9 +110,71 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to he_subject_path(assigns(:subject))
 	end
 
+	test "should NOT update without subject_type_id with #{u} login" do
+		subject = Factory(:subject)
+		login_as send(u)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => { :subject_type_id => nil }
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT update without race_id with #{u} login" do
+		subject = Factory(:subject)
+		login_as send(u)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => { :race_id => nil }
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT update without valid subject_type_id with #{u} login" do
+		subject = Factory(:subject)
+		login_as send(u)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => { :subject_type_id => 0 }
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT update without valid race_id with #{u} login" do
+		subject = Factory(:subject)
+		login_as send(u)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => { :race_id => 0 }
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
 end
 
 %w( moderator active_user ).each do |u|
+
+	test "should NOT get general with #{u} login" do
+		login_as send(u)
+		get :general
+		assert_redirected_to root_path
+	end
 
 	test "should NOT download csv with #{u} login" do
 		login_as send(u)
@@ -128,6 +197,11 @@ end
 
 end
 
+	test "should NOT get general without login" do
+		get :general
+		assert_redirected_to_login
+	end
+
 	test "should NOT download csv without login" do
 		get :index, :commit => 'download'
 		assert_redirected_to_login
@@ -144,62 +218,6 @@ end
 		assert_redirected_to_login
 	end
 
-
-	test "should NOT update without subject_type_id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => subject.id,
-				:subject => { :subject_type_id => nil }
-		} } }
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT update without race_id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => subject.id,
-				:subject => { :race_id => nil }
-		} } }
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT update without valid subject_type_id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => subject.id,
-				:subject => { :subject_type_id => 0 }
-		} } }
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT update without valid race_id" do
-		subject = Factory(:subject)
-		login_as admin
-		assert_difference('Subject.count',0){
-		assert_difference('SubjectType.count',0){
-		assert_difference('Race.count',0){
-			put :update, :id => subject.id,
-				:subject => { :race_id => 0 }
-		} } }
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
 
 protected
 

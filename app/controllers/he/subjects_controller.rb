@@ -2,18 +2,15 @@ class He::SubjectsController < ApplicationController
 
 	before_filter :may_view_subjects_required
 	before_filter :valid_id_required, :only => [:edit,:show,:update,:destroy]
+	before_filter :get_subjects, :only => [:index,:general]
 
 	layout 'home_exposure'
 
+	def general
+		render :action => 'index'
+	end
+
 	def index
-		he = StudyEvent.find_by_description('Home Exposure')
-		if params[:commit] && params[:commit] == 'download'
-			params[:paginate] = false
-		end
-#		params[:study_events] ||= {}
-#		params[:study_events][he.id] ||= {}
-#		@subjects = Subject.search(params)
-		@subjects = he.subjects.search(params)
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
@@ -51,6 +48,17 @@ protected
 		else
 			access_denied("Valid subject id required!", he_subjects_path)
 		end
+	end
+
+	def get_subjects
+		he = StudyEvent.find_by_description('Home Exposure')
+		if params[:commit] && params[:commit] == 'download'
+			params[:paginate] = false
+		end
+#		params[:study_events] ||= {}
+#		params[:study_events][he.id] ||= {}
+#		@subjects = Subject.search(params)
+		@subjects = he.subjects.search(params)
 	end
 
 end
