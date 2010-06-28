@@ -22,6 +22,8 @@ class Subject < ActiveRecord::Base
 	validates_presence_of :subject_type, :race
 	validates_presence_of   :subjectid
 	validates_uniqueness_of :subjectid
+#	validates_inclusion_of :sex, :in => %w( male female ),
+#		:message => "must be male or female"
 
 	delegate :ssn, :full_name, :email, :patid, :orderno,
 		:last_name, :first_name, :dob, :studyid,
