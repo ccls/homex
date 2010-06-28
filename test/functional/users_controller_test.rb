@@ -26,9 +26,11 @@ class UsersControllerTest < ActionController::TestCase
 	assert_no_access_with_http
 
 
-	test "should filter users index by role" do
-		some_other_user = active_user
-		login_as admin_user
+%w( admin ).each do |cu|
+
+	test "should filter users index by role with #{cu} login" do
+		some_other_user = admin	#	active_user
+		login_as send(cu)
 		get :index, :role_name => 'administrator'
 		assert assigns(:users).length > 0
 		assigns(:users).each do |u|
@@ -38,24 +40,26 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should NOT filter users index by invalid role" do
-		login_as admin_user
+	test "should NOT filter users index by invalid role with #{cu} login" do
+		login_as send(cu)
 		get :index, :role_name => 'suffocator'
 		assert_not_nil flash[:error]
 		assert_response :success
 	end
 
-	test "should NOT get user info with invalid id" do
-		login_as admin_user
+end
+
+%w( admin moderator employee editor active_user ).each do |cu|
+
+	test "should NOT get user info with invalid id with #{cu} login" do
+		login_as send(cu)
 		get :show, :id => 0
 		assert_not_nil flash[:error]
 		assert_redirected_to users_path
 	end
 
-%w( admin moderator employee editor active_user ).each do |u|
-
-	test "should get #{u} info with self login" do
-		u = send(u)
+	test "should get #{cu} info with self login" do
+		u = send(cu)
 		login_as u
 		get :show, :id => u.id
 		assert_response :success

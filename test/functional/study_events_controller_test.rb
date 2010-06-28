@@ -38,10 +38,12 @@ class StudyEventsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
+%w( admin employee ).each do |cu|
+
 #	save errors
 
-	test "should NOT create when create fails" do
-		login_as admin_user
+	test "should NOT create when create fails with #{cu} login" do
+		login_as send(cu)
 		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference('StudyEvent.count',0) {
 			post :create, :study_event => Factory.attributes_for(:study_event)
@@ -51,8 +53,8 @@ class StudyEventsControllerTest < ActionController::TestCase
 		assert_not_nil assigns(:study_event)
 	end
 
-	test "should NOT update when save fails" do
-		login_as admin_user
+	test "should NOT update when save fails with #{cu} login" do
+		login_as send(cu)
 		study_event = Factory(:study_event)
 		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
 		put :update, :id => study_event.id,
@@ -61,8 +63,8 @@ class StudyEventsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT destroy when save fails" do
-		login_as admin_user
+	test "should NOT destroy when save fails with #{cu} login" do
+		login_as send(cu)
 		study_event = Factory(:study_event)
 		StudyEvent.any_instance.stubs(:new_record?).returns(true)
 		assert_difference('StudyEvent.count',0){
@@ -74,33 +76,33 @@ class StudyEventsControllerTest < ActionController::TestCase
 
 #	NO id
 
-	test "should NOT get show without id" do
+	test "should NOT get show without id with #{cu} login" do
 		study_event = Factory(:study_event)
-		login_as admin
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :show
 		}
 	end
 
-	test "should NOT get edit without id" do
+	test "should NOT get edit without id with #{cu} login" do
 		study_event = Factory(:study_event)
-		login_as admin
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :edit
 		}
 	end
 
-	test "should NOT update without id" do
+	test "should NOT update without id with #{cu} login" do
 		study_event = Factory(:study_event)
-		login_as admin
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update, :study_event => Factory.attributes_for(:study_event)
 		}
 	end
 
-	test "should NOT destroy without id" do
+	test "should NOT destroy without id with #{cu} login" do
 		study_event = Factory(:study_event)
-		login_as admin
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 		assert_difference('StudyEvent.count',0){
 			delete :destroy
@@ -109,8 +111,8 @@ class StudyEventsControllerTest < ActionController::TestCase
 
 #	invalid study_event
 
-	test "should NOT create with invalid study_event" do
-		login_as admin
+	test "should NOT create with invalid study_event with #{cu} login" do
+		login_as send(cu)
 		assert_difference('StudyEvent.count',0) do
 			post :create, :study_event => {}
 		end
@@ -120,9 +122,9 @@ class StudyEventsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update with invalid study_event" do
+	test "should NOT update with invalid study_event with #{cu} login" do
 		study_event = Factory(:study_event)
-		login_as admin
+		login_as send(cu)
 		put :update, :id => study_event.id, 
 			:study_event => {:description => nil}
 		assert_not_nil assigns(:study_event)
@@ -130,5 +132,7 @@ class StudyEventsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'edit'
 	end
+
+end
 
 end

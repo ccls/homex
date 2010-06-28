@@ -11,10 +11,10 @@ class He::SurveyInvitationsControllerTest < ActionController::TestCase
 			:pii_attributes => Factory.attributes_for(:pii))
 	end
 
-%w( admin employee ).each do |u|
+%w( admin employee ).each do |cu|
 
-	test "should create invitation for subject with #{u} login" do
-		login_as send(u)
+	test "should create invitation for subject with #{cu} login" do
+		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',1) {
 		assert_difference('SurveyInvitation.count',1) {
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
@@ -24,12 +24,131 @@ class He::SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_nil flash[:error]
 	end
 
+	test "should NOT create invitation without subject with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+		assert_raise(ActionController::RoutingError){
+			post :create, :survey_id => @survey.id
+		} } }
+	end
+
+	test "should NOT create invitation without valid subject id with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+			post :create, :survey_id => @survey.id, :subject_id => 0
+		} }
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT create invitation without survey with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+			post :create, :subject_id => @subject.id
+		} }
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT create invitation without valid survey id with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+			post :create, :subject_id => @subject.id, :survey_id => 0
+		} }
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should create ONE invitation for subject with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',5) {
+		assert_difference('SurveyInvitation.count',1) {
+			post :create, :subject_id => @subject.id, :survey_id => @survey.id
+			post :create, :subject_id => @subject.id, :survey_id => @survey.id
+			post :create, :subject_id => @subject.id, :survey_id => @survey.id
+			post :create, :subject_id => @subject.id, :survey_id => @survey.id
+			post :create, :subject_id => @subject.id, :survey_id => @survey.id
+		} }
+		#	each create above should destroy the previous one
+		#	just creating a new one each time
+		#	But it will send an email for each one.
+		assert_redirected_to assigns(:subject)
+		assert_not_nil flash[:notice]
+		assert_nil flash[:error]
+	end
+
+	test "should create invitation with survey_code with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+		assert_difference('SurveyInvitation.count',1) {
+			post :create, :subject_id => @subject.id, 
+				:survey_code => @survey.access_code
+		} }
+		assert_redirected_to assigns(:subject)
+		assert_not_nil flash[:notice]
+		assert_nil flash[:error]
+	end
+
+	test "should create invitation with access_code with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+		assert_difference('SurveyInvitation.count',1) {
+			post :create, :subject_id => @subject.id, 
+				:access_code => @survey.access_code
+		} }
+		assert_redirected_to assigns(:subject)
+		assert_not_nil flash[:notice]
+		assert_nil flash[:error]
+	end
+
+	test "should NOT create invitation when save fails with #{cu} login" do
+		SurveyInvitation.any_instance.stubs(:save).returns(false)
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+			post :create, :subject_id => @subject.id, 
+				:access_code => @survey.access_code
+		} }
+		assert_redirected_to assigns(:subject)
+		assert_not_nil flash[:error]
+		assert_nil flash[:notice]
+	end
+
+#	update
+
+	test "should send reminder on invitation update with #{cu} login" do
+		si = Factory(:survey_invitation,{
+			:subject_id => @subject.id,
+			:survey_id  => @survey.id
+		})
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',1) {
+			put :update, :id => si.id
+		}
+		assert_redirected_to assigns(:invitation).subject
+		assert_not_nil flash[:notice]
+		assert_nil flash[:error]
+	end
+
+	test "should not update without valid invitation id with #{cu} login" do
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+			put :update, :id => 0
+		}
+		assert_redirected_to root_path
+		assert_not_nil flash[:error]
+	end
+
 end
 
-%w( moderator editor active_user ).each do |u|
+%w( moderator editor active_user ).each do |cu|
 
-	test "should NOT create invitation for subject with #{u} login" do
-		login_as send(u)
+	test "should NOT create invitation for subject with #{cu} login" do
+		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
@@ -47,125 +166,6 @@ end
 			post :create, :subject_id => @subject.id, :survey_id => @survey.id
 		} }
 		assert_redirected_to_login
-	end
-
-	test "should NOT create invitation without subject" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-		assert_raise(ActionController::RoutingError){
-			post :create, :survey_id => @survey.id
-		} } }
-	end
-
-	test "should NOT create invitation without valid subject id" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-			post :create, :survey_id => @survey.id, :subject_id => 0
-		} }
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT create invitation without survey" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-			post :create, :subject_id => @subject.id
-		} }
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT create invitation without valid survey id" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-			post :create, :subject_id => @subject.id, :survey_id => 0
-		} }
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should create ONE invitation for subject" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',5) {
-		assert_difference('SurveyInvitation.count',1) {
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-			post :create, :subject_id => @subject.id, :survey_id => @survey.id
-		} }
-		#	each create above should destroy the previous one
-		#	just creating a new one each time
-		#	But it will send an email for each one.
-		assert_redirected_to assigns(:subject)
-		assert_not_nil flash[:notice]
-		assert_nil flash[:error]
-	end
-
-	test "should create invitation with survey_code" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',1) {
-		assert_difference('SurveyInvitation.count',1) {
-			post :create, :subject_id => @subject.id, 
-				:survey_code => @survey.access_code
-		} }
-		assert_redirected_to assigns(:subject)
-		assert_not_nil flash[:notice]
-		assert_nil flash[:error]
-	end
-
-	test "should create invitation with access_code" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',1) {
-		assert_difference('SurveyInvitation.count',1) {
-			post :create, :subject_id => @subject.id, 
-				:access_code => @survey.access_code
-		} }
-		assert_redirected_to assigns(:subject)
-		assert_not_nil flash[:notice]
-		assert_nil flash[:error]
-	end
-
-	test "should NOT create invitation when save fails" do
-		SurveyInvitation.any_instance.stubs(:save).returns(false)
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-			post :create, :subject_id => @subject.id, 
-				:access_code => @survey.access_code
-		} }
-		assert_redirected_to assigns(:subject)
-		assert_not_nil flash[:error]
-		assert_nil flash[:notice]
-	end
-
-#	update
-
-	test "should send reminder on invitation update" do
-		si = Factory(:survey_invitation,{
-			:subject_id => @subject.id,
-			:survey_id  => @survey.id
-		})
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',1) {
-			put :update, :id => si.id
-		}
-		assert_redirected_to assigns(:invitation).subject
-		assert_not_nil flash[:notice]
-		assert_nil flash[:error]
-	end
-
-	test "should not update without valid invitation id" do
-		login_as admin_user
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-			put :update, :id => 0
-		}
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
 	end
 
 #	show

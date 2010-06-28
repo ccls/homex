@@ -29,38 +29,36 @@ class RolesControllerTest < ActionController::TestCase
 		assert_redirected_to user_path(assigns(:user))
 	end
 
-end
-
-	test "should NOT update without valid user_id" do
-		login_as admin_user
+	test "should NOT update without valid user_id with #{cu} login" do
+		login_as send(cu)
 		put :update, :user_id => 0, :id => 'employee'
 		assert_not_nil flash[:error]
 		assert_redirected_to users_path
 	end
 
-	test "should NOT destroy without valid user_id" do
-		login_as admin_user
+	test "should NOT destroy without valid user_id with #{cu} login" do
+		login_as send(cu)
 		delete :destroy, :user_id => 0, :id => 'employee'
 		assert_not_nil flash[:error]
 		assert_redirected_to users_path
 	end
 
-	test "should NOT update without user_id" do
-		login_as admin_user
+	test "should NOT update without user_id with #{cu} login" do
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update, :id => 'employee'
 		}
 	end
 
-	test "should NOT destroy without user_id" do
-		login_as admin_user
+	test "should NOT destroy without user_id with #{cu} login" do
+		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			delete :destroy, :id => 'employee'
 		}
 	end
 
-	test "should NOT update self" do
-		u = admin_user
+	test "should NOT update self with #{cu} login" do
+		u = send(cu)
 		login_as u
 		assert_difference("User.find(#{u.id}).roles.length",0){
 			put :update, :user_id => u.id, :id => 'employee'
@@ -69,8 +67,8 @@ end
 		assert_redirected_to root_path
 	end
 
-	test "should NOT destroy self" do
-		u = admin_user
+	test "should NOT destroy self with #{cu} login" do
+		u = send(cu)
 		login_as u
 		assert_difference("User.find(#{u.id}).roles.length",0){
 			delete :destroy, :user_id => u.id, :id => 'employee'
@@ -79,8 +77,8 @@ end
 		assert_redirected_to root_path
 	end
 
-	test "should NOT update without valid role_name" do
-		login_as admin_user
+	test "should NOT update without valid role_name with #{cu} login" do
+		login_as send(cu)
 		u = active_user
 		assert_difference("User.find(#{u.id}).roles.length",0){
 			put :update, :user_id => u.id, :id => 'bogus_role_name'
@@ -89,8 +87,8 @@ end
 		assert_redirected_to user_path(assigns(:user))
 	end
 
-	test "should NOT destroy without valid role_name" do
-		login_as admin_user
+	test "should NOT destroy without valid role_name with #{cu} login" do
+		login_as send(cu)
 		u = active_user
 		assert_difference("User.find(#{u.id}).roles.length",0){
 			delete :destroy, :user_id => u.id, :id => 'bogus_role_name'
@@ -98,6 +96,8 @@ end
 		assert_not_nil flash[:error]
 		assert_redirected_to user_path(assigns(:user))
 	end
+
+end
 
 %w( moderator employee editor active_user ).each do |cu|
 

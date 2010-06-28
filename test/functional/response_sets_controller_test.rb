@@ -94,10 +94,8 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		)
 	end
 
-end
-
-	test "should NOT begin survey when create fails" do
-		login_as admin_user
+	test "should NOT begin survey when create fails with #{cu} login" do
+		login_as send(cu)
 		ResponseSet.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference( 'ResponseSet.count', 0 ) {
 			post :create, :subject_id => Subject.first.id, 
@@ -105,13 +103,57 @@ end
 		}
 	end
 
-%w( active_user editor ).each do |cu|
+	test "should NOT begin survey with invalid subject_id with #{cu} login" do
+		survey = Survey.first
+		login_as send(cu)
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => 'bogus', 
+				:survey_code => survey.access_code
+		}
+		assert assigns(:survey)
+		assert !assigns(:response_set)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT begin survey with invalid survey access code with #{cu} login" do
+		login_as send(cu)
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => Subject.first.id, 
+				:survey_code => "bogus code"
+		}
+		assert !assigns(:survey)
+		assert !assigns(:response_set)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT begin third survey with #{cu} login" do
+		subject = Subject.first
+		survey  = Survey.first
+		ResponseSet.create( :survey => survey, :subject => subject )
+		ResponseSet.create( :survey => survey, :subject => subject )
+		login_as send(cu)
+		assert_difference( 'ResponseSet.count', 0 ) {
+			post :create, :subject_id => subject.id, 
+				:survey_code => survey.access_code
+		}
+		assert assigns(:survey)
+		assert !assigns(:response_set)
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+end
+
+%w( active_user moderator editor ).each do |cu|
 
 	test "should NOT begin survey with #{cu} login" do
 		survey = Survey.first
 		login_as send(cu)
 		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :subject_id => Subject.first.id, :survey_code => survey.access_code
+			post :create, :subject_id => Subject.first.id, 
+				:survey_code => survey.access_code
 		}
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
@@ -124,52 +166,14 @@ end
 	test "should NOT begin survey without login" do
 		survey = Survey.first
 		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :subject_id => Subject.first.id, :survey_code => survey.access_code
+			post :create, :subject_id => Subject.first.id, 
+				:survey_code => survey.access_code
 		}
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
 		assert_redirected_to_login
 	end
 
-	test "should NOT begin survey with invalid subject_id" do
-		survey = Survey.first
-		login_as admin_user
-		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :subject_id => 'bogus', 
-				:survey_code => survey.access_code
-		}
-		assert assigns(:survey)
-		assert !assigns(:response_set)
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT begin survey with invalid survey access code" do
-		login_as admin_user
-		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :subject_id => Subject.first.id, :survey_code => "bogus code"
-		}
-		assert !assigns(:survey)
-		assert !assigns(:response_set)
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT begin third survey" do
-		subject = Subject.first
-		survey  = Survey.first
-		ResponseSet.create( :survey => survey, :subject => subject )
-		ResponseSet.create( :survey => survey, :subject => subject )
-		login_as admin_user
-		assert_difference( 'ResponseSet.count', 0 ) {
-			post :create, :subject_id => subject.id, 
-				:survey_code => survey.access_code
-		}
-		assert assigns(:survey)
-		assert !assigns(:response_set)
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
 
 #	edit
 

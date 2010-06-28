@@ -42,14 +42,15 @@ class PagesControllerTest < ActionController::TestCase
 	)
 
 
+%w( admin editor ).each do |cu|
 #
 #		index/new/create/edit/update/destroy 
 #			should only be visible to admins for editing
 #	
 
-	test "should get index with admin login with pages" do
+	test "should get index with pages with #{cu} login" do
 		3.times{ Factory(:page) }
-		login_as admin_user
+		login_as send(cu)
 		get :index
 		assert_template 'index'
 		assert_response :success
@@ -57,9 +58,9 @@ class PagesControllerTest < ActionController::TestCase
 		assigns(:pages).each { |page| assert_nil page.parent }
 	end
 
-	test "should get index with admin login with blank parent" do
+	test "should get index with blank parent with #{cu} login" do
 		3.times{ Factory(:page) }
-		login_as admin_user
+		login_as send(cu)
 		get :index, :parent_id => ''
 		assert_template 'index'
 		assert_response :success
@@ -67,10 +68,10 @@ class PagesControllerTest < ActionController::TestCase
 		assigns(:pages).each { |page| assert_nil page.parent }
 	end
 
-	test "should get index with admin login with subpages" do
+	test "should get index with subpages with #{cu} login" do
 		parent = Factory(:page)
 		3.times{ Factory(:page, :parent_id => parent.id) }
-		login_as admin_user
+		login_as send(cu)
 		get :index, :parent_id => parent.id
 		assert_template 'index'
 		assert_response :success
@@ -80,10 +81,9 @@ class PagesControllerTest < ActionController::TestCase
 		end
 	end
 
-
-	test "should create page with parent" do
+	test "should create page with parent with #{cu} login" do
 		parent = Factory(:page)
-		login_as admin_user
+		login_as send(cu)
 		assert_difference('Page.count') do
 			post :create, :page => Factory.attributes_for(:page,
 				:parent_id => parent.id)
@@ -92,8 +92,8 @@ class PagesControllerTest < ActionController::TestCase
 		assert_redirected_to page_path(assigns(:page))
 	end
 
-	test "should NOT create page with invalid page" do
-		login_as admin_user
+	test "should NOT create page with invalid page with #{cu} login" do
+		login_as send(cu)
 		assert_no_difference('Page.count') do
 			post :create, :page => {}
 		end
@@ -101,9 +101,8 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-
-	test "should NOT update page with invalid page" do
-		login_as admin_user
+	test "should NOT update page with invalid page with #{cu} login" do
+		login_as send(cu)
 		put :update, :id => Factory(:page).id, 
 			:page => { :title => "a" }
 		assert_not_nil flash[:error]
@@ -111,6 +110,70 @@ class PagesControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
+	#	I don't think that this is pertinant anymore
+	test "should get index with both help and non-help pages with #{cu} login" do
+		#	test css menus
+		login_as send(cu)
+		nonhelp_page = Factory(:page, :path => "/hello" )
+		help_page = Factory(:page, :path => "/help/test" )
+		get :index
+		assert_response :success
+		assert_template 'index'
+	end
+
+#	action: order
+
+	test "should order pages with #{cu} login" do
+		login_as send(cu)
+#		pages = 3.times.collect{|i| Factory(:page) }
+#	3.times.collect doesn't work on 
+#> ruby --version
+#ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		after_page_ids = Page.all.collect(&:id)
+		assert_equal after_page_ids, before_page_ids.reverse
+		assert_redirected_to pages_path
+	end
+
+	test "should order sub pages with #{cu} login" do
+		login_as send(cu)
+		parent = Factory(:page)
+		pages = []
+		3.times{ pages.push(Factory(:page,:parent_id => parent.id)) }
+		assert_equal [1,2,3], pages.collect(&:position)
+		before_page_ids = parent.reload.children.collect(&:id)
+		post :order,:parent_id => parent.id, :pages => before_page_ids.reverse
+		after_page_ids = parent.reload.children.collect(&:id)
+		assert_equal after_page_ids, before_page_ids.reverse
+		assert_redirected_to pages_path(:parent_id => parent.id)
+	end
+
+end
+
+%w( employee moderator active_user ).each do |cu|
+
+	test "should NOT order pages with #{cu} login" do
+		login_as send(cu)
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+end
+
+	test "should NOT order pages without login" do
+		pages = []
+		3.times{ pages.push(Factory(:page)) }
+		before_page_ids = Page.all.collect(&:id)
+		post :order, :pages => before_page_ids.reverse
+		assert_redirected_to_login
+	end
 
 #
 #	/pages/:id should be visible to anyone ?
@@ -172,17 +235,6 @@ class PagesControllerTest < ActionController::TestCase
 		assert_select 'title', page.title
 	end
 
-	#	I don't think that this is pertinant anymore
-	test "should get index with both help and non-help pages" do
-		#	test css menus
-		login_as admin_user
-		nonhelp_page = Factory(:page, :path => "/hello" )
-		help_page = Factory(:page, :path => "/help/test" )
-		get :index
-		assert_response :success
-		assert_template 'index'
-	end
-
 	#	Test all page fixtures for menus
 	Page.all.each do |page|
 		test "should get show for page id #{page.id}" do
@@ -198,55 +250,6 @@ class PagesControllerTest < ActionController::TestCase
 				assert_template 'show'
 			end
 		end
-	end
-
-
-#	action: order
-
-	test "should order pages with admin login" do
-		login_as admin_user
-#		pages = 3.times.collect{|i| Factory(:page) }
-#	3.times.collect doesn't work on 
-#> ruby --version
-#ruby 1.8.6 (2008-08-11 patchlevel 287) [universal-darwin9.0]
-		pages = []
-		3.times{ pages.push(Factory(:page)) }
-		before_page_ids = Page.all.collect(&:id)
-		post :order, :pages => before_page_ids.reverse
-		after_page_ids = Page.all.collect(&:id)
-		assert_equal after_page_ids, before_page_ids.reverse
-		assert_redirected_to pages_path
-	end
-
-	test "should NOT order pages without admin login" do
-		login_as active_user
-		pages = []
-		3.times{ pages.push(Factory(:page)) }
-		before_page_ids = Page.all.collect(&:id)
-		post :order, :pages => before_page_ids.reverse
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT order pages without login" do
-		pages = []
-		3.times{ pages.push(Factory(:page)) }
-		before_page_ids = Page.all.collect(&:id)
-		post :order, :pages => before_page_ids.reverse
-		assert_redirected_to_login
-	end
-
-	test "should order sub pages with admin login" do
-		login_as admin_user
-		parent = Factory(:page)
-		pages = []
-		3.times{ pages.push(Factory(:page,:parent_id => parent.id)) }
-		assert_equal [1,2,3], pages.collect(&:position)
-		before_page_ids = parent.reload.children.collect(&:id)
-		post :order,:parent_id => parent.id, :pages => before_page_ids.reverse
-		after_page_ids = parent.reload.children.collect(&:id)
-		assert_equal after_page_ids, before_page_ids.reverse
-		assert_redirected_to pages_path(:parent_id => parent.id)
 	end
 
 end

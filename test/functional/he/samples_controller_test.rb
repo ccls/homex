@@ -16,10 +16,10 @@ class He::SamplesControllerTest < ActionController::TestCase
 	assert_no_access_with_http
 
 
-%w( admin employee editor ).each do |u|
+%w( admin employee editor ).each do |cu|
 
-	test "should download csv with #{u} login" do
-		login_as send(u)
+	test "should download csv with #{cu} login" do
+		login_as send(cu)
 		get :index, :commit => 'download'
 		assert_response :success
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
@@ -27,10 +27,10 @@ class He::SamplesControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator active_user ).each do |u|
+%w( moderator active_user ).each do |cu|
 
-	test "should NOT download csv with #{u} login" do
-		login_as send(u)
+	test "should NOT download csv with #{cu} login" do
+		login_as send(cu)
 		get :index, :commit => 'download'
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]

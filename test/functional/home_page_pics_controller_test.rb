@@ -38,8 +38,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-	test "should NOT create home_page_pic without valid HPP" do
-		login_as admin_user
+%w( admin editor ).each do |cu|
+
+	test "should NOT create home_page_pic without valid HPP with #{cu} login" do
+		login_as send(cu)
 		assert_difference('HomePagePic.count',0) do
 			post :create, :home_page_pic => { }
 		end
@@ -48,10 +50,10 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update home_page_pic when update fails" do
+	test "should NOT update home_page_pic when update fails with #{cu} login" do
 		hpp = Factory(:home_page_pic)
 		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
-		login_as admin_user
+		login_as send(cu)
 		put :update, :id => hpp.id,
 			:home_page_pic => Factory.attributes_for(:home_page_pic)
 		assert_not_nil flash[:error]
@@ -60,8 +62,6 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 #	activate
-
-%w( admin editor ).each do |cu|
 
 	test "should activate all with #{cu} login" do
 		login_as send(cu)
@@ -86,6 +86,21 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		}
 		HomePagePic.all.each { |hpp| assert !hpp.active }
 		assert_redirected_to home_page_pics_path
+	end
+
+	test "should NOT activate all when save fails with #{cu} login" do
+		login_as send(cu)
+		hpp1 = Factory(:home_page_pic, :active => false)
+		hpp2 = Factory(:home_page_pic, :active => false)
+		HomePagePic.all.each { |hpp| assert !hpp.active }
+		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
+		post :activate, :home_page_pics => {
+			hpp1.id => { 'active' => true },
+			hpp2.id => { 'active' => true }
+		}
+		HomePagePic.all.each { |hpp| assert !hpp.active }
+		assert_redirected_to home_page_pics_path
+		assert_not_nil flash[:error]
 	end
 
 end
@@ -118,21 +133,6 @@ end
 		}
 		HomePagePic.all.each { |hpp| assert !hpp.active }
 		assert_redirected_to_login
-	end
-
-	test "should NOT activate all when save fails" do
-		login_as admin_user
-		hpp1 = Factory(:home_page_pic, :active => false)
-		hpp2 = Factory(:home_page_pic, :active => false)
-		HomePagePic.all.each { |hpp| assert !hpp.active }
-		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
-		post :activate, :home_page_pics => {
-			hpp1.id => { 'active' => true },
-			hpp2.id => { 'active' => true }
-		}
-		HomePagePic.all.each { |hpp| assert !hpp.active }
-		assert_redirected_to home_page_pics_path
-		assert_not_nil flash[:error]
 	end
 
 end

@@ -38,35 +38,33 @@ class PackagesControllerTest < ActionController::TestCase
 	)
 
 
-	test "delivered packages should NOT have update status link" do
+%w( admin employee editor ).each do |cu|
+
+	test "delivered packages should NOT have update status link with #{cu} login" do
 		Factory(:package, :status => "Delivered")
-		login_as admin_user
+		login_as send(cu)
 		get :index
 		assert_select "div.update" do
 			assert_select "a", :count => 0
 		end
 	end
 
-	test "undelivered packages should have update status link" do
+	test "undelivered packages should have update status link with #{cu} login" do
 		Factory(:package)
-		login_as admin_user
+		login_as send(cu)
 		get :index
 		assert_select "div.update" do
 			assert_select "a", :count => 1
 		end
 	end
 
-	test "should NOT create with invalid package" do
-		login_as admin_user
+	test "should NOT create with invalid package with #{cu} login" do
+		login_as send(cu)
 		post :create, :package => {}
 		assert_not_nil assigns(:package)
 		assert_response :success
 		assert_template 'new'
 	end
-
-
-
-%w( admin employee editor ).each do |cu|
 
 	test "should update with #{cu} login" do
 		login_as send(cu)
@@ -77,10 +75,8 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
-end
-
-	test "should update and redirect to referer if set" do
-		login_as admin_user
+	test "should update and redirect to referer if set with #{cu} login" do
+		login_as send(cu)
 		package = Factory(:package)
 		@request.env["HTTP_REFERER"] = package_path(package)
 #	all currently result in the same redirect
@@ -89,6 +85,40 @@ end
 		put :update, :id => package.id
 		assert_redirected_to package_path(package)
 	end
+
+	test "should simulate ship with #{cu} login" do
+		login_as send(cu)
+		package = Factory(:package)
+		assert_not_equal 'Transit', package.reload.status
+		put :ship, :id => package.id
+		assert_equal 'Transit', package.reload.status
+		assert_response :redirect
+	end
+
+	test "should simulate delivery with #{cu} login" do
+		login_as send(cu)
+		package = Factory(:package)
+		assert_not_equal 'Delivered', package.reload.status
+		put :deliver, :id => package.id
+		assert_equal 'Delivered', package.reload.status
+		assert_response :redirect
+	end
+
+	test "should show tracks for package with #{cu} login" do
+		stub_package_for_successful_delivery
+		login_as send(cu)
+		package = Factory(:package)
+		package.update_status
+		assert package.tracks.length > 0
+		get :show, :id => package.id
+		assert_response :success
+		assert_template 'show'
+		assert_select 'div#tracks' do
+			assert_select 'div.track'
+		end
+	end
+
+end
 
 %w( active_user moderator ).each do |cu|
 
@@ -109,39 +139,6 @@ end
 		put :update, :id => package.id
 		assert_nil package.reload.status
 		assert_redirected_to_login
-	end
-
-
-	test "should simulate ship with admin login" do
-		login_as admin_user
-		package = Factory(:package)
-		assert_not_equal 'Transit', package.reload.status
-		put :ship, :id => package.id
-		assert_equal 'Transit', package.reload.status
-		assert_response :redirect
-	end
-
-	test "should simulate delivery with admin login" do
-		login_as admin_user
-		package = Factory(:package)
-		assert_not_equal 'Delivered', package.reload.status
-		put :deliver, :id => package.id
-		assert_equal 'Delivered', package.reload.status
-		assert_response :redirect
-	end
-
-	test "should show tracks for package" do
-		stub_package_for_successful_delivery
-		login_as admin_user
-		package = Factory(:package)
-		package.update_status
-		assert package.tracks.length > 0
-		get :show, :id => package.id
-		assert_response :success
-		assert_template 'show'
-		assert_select 'div#tracks' do
-			assert_select 'div.track'
-		end
 	end
 
 end
