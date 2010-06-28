@@ -8,10 +8,7 @@ module ResponseSetExtensions	#	:nodoc:
 			belongs_to :subject, :counter_cache => true
 			has_one :survey_invitation
 
-			#	Require childid ... coming soon
-#			validates_presence_of   :childid
-
-			validates_presence_of   :subject_id
+			validates_presence_of :subject_id
 		end
 	end
 	

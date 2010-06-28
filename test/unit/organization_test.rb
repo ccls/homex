@@ -92,6 +92,11 @@ class OrganizationTest < ActiveSupport::TestCase
 
 	end
 
+	test "should return name as to_s" do
+		organization = create_organization
+		assert_equal organization.name, "#{organization}"
+	end
+
 protected
 
 	def create_organization(options = {})

@@ -15,6 +15,11 @@ class Organization < ActiveRecord::Base
 #	has_many :samples
 #	this is not clear in my UML diagram
 
-	validates_length_of :name, :minimum => 4
+	validates_length_of     :name, :minimum => 4
 	validates_uniqueness_of :name
+
+	def to_s
+		name
+	end
+
 end

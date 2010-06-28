@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 #		:if => :password_changed?
 
 
-	validates_presence_of :uid
+	validates_presence_of   :uid
 	validates_uniqueness_of :uid
 
 	#	Find or Create a user from a given uid, and then 

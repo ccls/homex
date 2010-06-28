@@ -7,7 +7,7 @@ class Race < ActiveRecord::Base
 	has_many :subjects
 
 	validates_uniqueness_of :name
-	validates_length_of :name, :minimum => 4
+	validates_length_of     :name, :minimum => 4
 
 	def to_s
 		name

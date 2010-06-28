@@ -8,6 +8,6 @@ class Unit < ActiveRecord::Base
 	has_many :aliquots
 	has_many :samples
 
-	validates_length_of :description, :minimum => 4
+	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 end
