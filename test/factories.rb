@@ -161,6 +161,8 @@ Factory.define :subject do |f|
 	f.association :subject_type
 	f.association :race
 	f.sequence(:subjectid){|n| "#{n}"}
+	f.sequence(:sex){|n|
+		%w( male female )[n%2] }
 end
 
 Factory.define :subject_type do |f|
