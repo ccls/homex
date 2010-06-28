@@ -125,4 +125,22 @@ class User < ActiveRecord::Base
 		!user.nil? && self == user
 	end
 
+	def self.search(options={})
+		conditions = {}
+		includes = joins = []
+		if !options[:role_name].blank?
+			includes = [:roles]
+			if Role.all.collect(&:name).include?(options[:role_name])
+				joins = [:roles]
+				conditions = ["roles.name = '#{options[:role_name]}'"]
+#			else
+#				@errors = "No such role '#{options[:role_name]}'"
+			end
+		end
+		User.all( 
+			:joins => joins, 
+			:include => includes,
+			:conditions => conditions )
+	end
+
 end

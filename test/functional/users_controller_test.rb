@@ -32,7 +32,7 @@ class UsersControllerTest < ActionController::TestCase
 		some_other_user = admin	#	active_user
 		login_as send(cu)
 		get :index, :role_name => 'administrator'
-		assert assigns(:users).length > 0
+		assert assigns(:users).length >= 2
 		assigns(:users).each do |u|
 			assert u.role_names.include?('administrator')
 		end
@@ -40,10 +40,19 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
-	test "should NOT filter users index by invalid role with #{cu} login" do
+	test "should ignore empty role_name with #{cu} login" do
+		some_other_user = admin	#	active_user
+		login_as send(cu)
+		get :index, :role_name => ''
+		assert assigns(:users).length >= 2
+		assert_nil flash[:error]
+		assert_response :success
+	end
+
+	test "should ignore invalid role with #{cu} login" do
 		login_as send(cu)
 		get :index, :role_name => 'suffocator'
-		assert_not_nil flash[:error]
+#		assert_not_nil flash[:error]
 		assert_response :success
 	end
 
