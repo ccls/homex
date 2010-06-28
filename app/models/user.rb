@@ -1,4 +1,5 @@
 #	== requires
+#	*	uid (unique)
 #
 #	== accessible attributes
 #	*	sn
@@ -89,6 +90,7 @@ class User < ActiveRecord::Base
 	alias_method :may_view_users?,              :may_administrate?
 	alias_method :may_assign_roles?,            :may_administrate?
 	alias_method :administrator?,               :may_administrate?
+	alias_method :is_administrator?,            :may_administrate?
 	alias_method :may_edit_subjects?,           :may_administrate?
 
 	def may_moderate?
@@ -118,12 +120,13 @@ class User < ActiveRecord::Base
 	alias_method :may_create_survey_invitations?, :employee?
 
 	def may_view_user?(user=nil)
-		( (self.role_names & ['administrator']).length > 0 ) || ( !user.nil? && self == user )
+		self.is_user?(user) || self.is_administrator?
 	end
 
-	def may_be_user?(user=nil)
+	def is_user?(user=nil)
 		!user.nil? && self == user
 	end
+	alias_method :may_be_user?, :is_user?
 
 	def self.search(options={})
 		conditions = {}
