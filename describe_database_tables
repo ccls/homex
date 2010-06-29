@@ -1,0 +1,15 @@
+#!/bin/sh
+
+for table in `\
+	mysql \
+	--user=root \
+	--column-names=false \
+	--execute='show tables;' \
+	--database=ucb_sph_ccls_dev`
+do 
+	echo "\nTable: $table"
+	mysql \
+	--user=root \
+	--execute="describe $table;" \
+	--database=ucb_sph_ccls_dev
+done
