@@ -67,15 +67,6 @@ class ProjectTest < ActiveSupport::TestCase
 		assert_equal 2, object.reload.interview_types.length
 	end
 
-	test "should have many study_event_eligibilities" do
-		object = create_object
-		assert_equal 0, object.study_event_eligibilities.length
-		Factory(:study_event_eligibility, :project_id => object.id)
-		assert_equal 1, object.reload.study_event_eligibilities.length
-		Factory(:study_event_eligibility, :project_id => object.id)
-		assert_equal 2, object.reload.study_event_eligibilities.length
-	end
-
 	test "should have many project_subjects" do
 		object = create_object
 		assert_equal 0, object.project_subjects.length

@@ -396,25 +396,6 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should have many study_event_eligibilities" do
-		subject = create_subject
-		assert_equal 0, subject.study_event_eligibilities.length
-		Factory(:study_event_eligibility, :subject_id => subject.id)
-		assert_equal 1, subject.reload.study_event_eligibilities.length
-		Factory(:study_event_eligibility, :subject_id => subject.id)
-		assert_equal 2, subject.reload.study_event_eligibilities.length
-	end
-
-	test "should NOT destroy study_event_eligibilities with subject" do
-		subject = create_subject
-		Factory(:study_event_eligibility, :subject_id => subject.id)
-		Factory(:study_event_eligibility, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
-		assert_difference('StudyEventEligibility.count',0) {
-			subject.destroy
-		} }
-	end
-
 	test "should have many response_sets" do
 		subject = create_subject
 		assert_equal 0, subject.response_sets.length

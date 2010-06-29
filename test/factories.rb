@@ -161,11 +161,6 @@ Factory.define :project do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
-Factory.define :study_event_eligibility do |f|
-	f.association :subject
-	f.association :project
-end
-
 Factory.define :subject do |f|
 	f.association :subject_type
 	f.association :race

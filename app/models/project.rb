@@ -9,7 +9,6 @@ class Project < ActiveRecord::Base
 	has_many :interview_types
 	has_many :project_subjects
 	has_many :subjects, :through => :project_subjects
-	has_many :study_event_eligibilities
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
