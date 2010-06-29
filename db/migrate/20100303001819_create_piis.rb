@@ -6,6 +6,7 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :middle_name
 			t.string :last_name
 			t.date :dob
+			t.date :died_on
 			t.string :ssn
 			t.string :state_id_no
 #			t.string :primary_phone_number

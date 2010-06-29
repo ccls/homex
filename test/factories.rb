@@ -49,6 +49,7 @@ Factory.define :interview_event do |f|
 end
 
 Factory.define :interview_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 	f.association :study_event
 end

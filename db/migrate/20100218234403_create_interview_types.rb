@@ -3,9 +3,11 @@ class CreateInterviewTypes < ActiveRecord::Migration
 		create_table :interview_types do |t|
 			t.integer :position
 			t.references :study_event
+			t.string :code, :null => false
 			t.string :description
 			t.timestamps
 		end
+		add_index :interview_types, :code, :unique => true
 		add_index :interview_types, :description, :unique => true
 	end
 

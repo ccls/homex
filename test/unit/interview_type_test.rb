@@ -10,6 +10,22 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'InterviewType.count' do
+			interview_type = create_interview_type(:code => nil)
+			assert interview_type.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		it = create_interview_type
+		assert_no_difference 'InterviewType.count' do
+			interview_type = create_interview_type(
+				:code => it.code)
+			assert interview_type.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'InterviewType.count' do
 			interview_type = create_interview_type(:description => nil)
