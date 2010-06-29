@@ -10,6 +10,22 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'IneligibleReason.count' do
+			ineligible_reason = create_ineligible_reason(:code => nil)
+			assert ineligible_reason.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		ir = create_ineligible_reason
+		assert_no_difference 'IneligibleReason.count' do
+			ineligible_reason = create_ineligible_reason(
+				:code => ir.code)
+			assert ineligible_reason.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'IneligibleReason.count' do
 			ineligible_reason = create_ineligible_reason(:description => nil)

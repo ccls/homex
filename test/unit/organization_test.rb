@@ -10,6 +10,28 @@ class OrganizationTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'Organization.count' do
+			organization = create_organization(:code => nil)
+			assert organization.errors.on(:code)
+		end
+	end
+
+	test "should require 4 char code" do
+		assert_no_difference 'Organization.count' do
+			organization = create_organization(:code => 'Hey')
+			assert organization.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		org = create_organization
+		assert_no_difference 'Organization.count' do
+			organization = create_organization(:code => org.code)
+			assert organization.errors.on(:code)
+		end
+	end
+
 	test "should require name" do
 		assert_no_difference 'Organization.count' do
 			organization = create_organization(:name => nil)
@@ -95,6 +117,13 @@ class OrganizationTest < ActiveSupport::TestCase
 	test "should return name as to_s" do
 		organization = create_organization
 		assert_equal organization.name, "#{organization}"
+	end
+
+	test "should act as list" do
+		organization = create_organization
+		assert_equal 1, organization.position
+		organization = create_organization
+		assert_equal 2, organization.position
 	end
 
 protected

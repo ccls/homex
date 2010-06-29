@@ -10,6 +10,23 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'AliquotSampleFormat.count' do
+			aliquot_sample_format = create_aliquot_sample_format(
+				:code => nil)
+			assert aliquot_sample_format.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		asf = create_aliquot_sample_format
+		assert_no_difference 'AliquotSampleFormat.count' do
+			aliquot_sample_format = create_aliquot_sample_format(
+				:code => asf.code)
+			assert aliquot_sample_format.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'AliquotSampleFormat.count' do
 			aliquot_sample_format = create_aliquot_sample_format(

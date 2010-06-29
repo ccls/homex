@@ -13,6 +13,7 @@ Factory.define :aliquot do |f|
 end
 
 Factory.define :aliquot_sample_format do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -21,6 +22,7 @@ Factory.define :child_id do |f|
 end
 
 Factory.define :context do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -36,6 +38,7 @@ Factory.define :home_page_pic do |f|
 end
 
 Factory.define :ineligible_reason do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -57,6 +60,7 @@ Factory.define :interview_version do |f|
 end
 
 Factory.define :organization do |f|
+	f.sequence(:code) { |n| "My Org Code #{n}" }
 	f.sequence(:name) { |n| "My Org Name #{n}" }
 end
 
@@ -127,6 +131,7 @@ Factory.define :residence do |f|
 end
 
 Factory.define :refusal_reason do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -141,10 +146,12 @@ end
 
 Factory.define :sample_subtype do |f|
 	f.association :sample_type
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
 Factory.define :sample_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -166,6 +173,7 @@ Factory.define :subject do |f|
 end
 
 Factory.define :subject_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
@@ -188,6 +196,7 @@ Factory.define :transfer do |f|
 end
 
 Factory.define :unit do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 

@@ -6,6 +6,8 @@ class SampleType < ActiveRecord::Base
 
 	has_many :sample_subtypes
 
+	validates_presence_of   :code
+	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 end

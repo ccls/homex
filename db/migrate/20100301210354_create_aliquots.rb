@@ -8,11 +8,15 @@ class CreateAliquots < ActiveRecord::Migration
 			t.references :aliquot_sample_format
 			t.string :location
 			t.string :mass
-			t.string :owner
+#			t.string :owner
 			t.string :external_aliquot_id
 			t.string :external_aliquot_id_source
 			t.timestamps
 		end
+		add_index :aliquots, :owner_id
+		add_index :aliquots, :sample_id
+		add_index :aliquots, :unit_id
+		add_index :aliquots, :aliquot_sample_format_id
 	end
 
 	def self.down

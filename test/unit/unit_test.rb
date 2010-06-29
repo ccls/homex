@@ -10,6 +10,21 @@ class UnitTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'Unit.count' do
+			unit = create_unit(:code => nil)
+			assert unit.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		u = create_unit
+		assert_no_difference 'Unit.count' do
+			unit = create_unit(:code => u.code)
+			assert unit.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'Unit.count' do
 			unit = create_unit(:description => nil)

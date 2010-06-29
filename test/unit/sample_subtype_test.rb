@@ -10,6 +10,22 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'SampleSubtype.count' do
+			sample_subtype = create_sample_subtype(:code => nil)
+			assert sample_subtype.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		sst = create_sample_subtype
+		assert_no_difference 'SampleSubtype.count' do
+			sample_subtype = create_sample_subtype(
+				:code => sst.code)
+			assert sample_subtype.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'SampleSubtype.count' do
 			sample_subtype = create_sample_subtype(:description => nil)

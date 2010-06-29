@@ -10,6 +10,22 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(:code => nil)
+			assert subject_type.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		st = create_subject_type
+		assert_no_difference 'SubjectType.count' do
+			subject_type = create_subject_type(
+				:code => st.code)
+			assert subject_type.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'SubjectType.count' do
 			subject_type = create_subject_type(:description => nil)

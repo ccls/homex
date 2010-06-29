@@ -7,6 +7,8 @@ class Context < ActiveRecord::Base
 	has_many :units
 	has_many :people
 
+	validates_presence_of   :code
+	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 end

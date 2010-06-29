@@ -10,6 +10,22 @@ class SampleTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'SampleType.count' do
+			sample_type = create_sample_type(:code => nil)
+			assert sample_type.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		st = create_sample_type
+		assert_no_difference 'SampleType.count' do
+			sample_type = create_sample_type(
+				:code => st.code)
+			assert sample_type.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'SampleType.count' do
 			sample_type = create_sample_type(:description => nil)

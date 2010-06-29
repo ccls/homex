@@ -10,6 +10,22 @@ class ContextTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'Context.count' do
+			context = create_context(:code => nil)
+			assert context.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		context = create_context
+		assert_no_difference 'Context.count' do
+			context = create_context(
+				:code => context.code)
+			assert context.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'Context.count' do
 			context = create_context(:description => nil)

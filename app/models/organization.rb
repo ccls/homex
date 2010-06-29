@@ -1,6 +1,7 @@
 #	==	requires
 #	*	name ( unique and > 3 chars )
 class Organization < ActiveRecord::Base
+	acts_as_list
 
 	has_many :aliquots, :foreign_key => 'owner_id'
 
@@ -15,6 +16,8 @@ class Organization < ActiveRecord::Base
 #	has_many :samples
 #	this is not clear in my UML diagram
 
+	validates_length_of     :code, :minimum => 4
+	validates_uniqueness_of :code
 	validates_length_of     :name, :minimum => 4
 	validates_uniqueness_of :name
 

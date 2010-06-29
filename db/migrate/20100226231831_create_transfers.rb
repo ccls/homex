@@ -8,9 +8,11 @@ class CreateTransfers < ActiveRecord::Migration
 			t.decimal :amount
 			t.string :reason
 			t.boolean :is_permanent
-
 			t.timestamps
 		end
+		add_index :transfers, :aliquot_id
+		add_index :transfers, :from_organization_id
+		add_index :transfers, :to_organization_id
 	end
 
 	def self.down

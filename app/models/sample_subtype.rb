@@ -10,6 +10,8 @@ class SampleSubtype < ActiveRecord::Base
 #	sample subtype and type could be self referential
 
 	validates_presence_of :sample_type
+	validates_presence_of   :code
+	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 

@@ -10,6 +10,22 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'RefusalReason.count' do
+			refusal_reason = create_refusal_reason(:code => nil)
+			assert refusal_reason.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		rr = create_refusal_reason
+		assert_no_difference 'RefusalReason.count' do
+			refusal_reason = create_refusal_reason(
+				:code => rr.code )
+			assert refusal_reason.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'RefusalReason.count' do
 			refusal_reason = create_refusal_reason(:description => nil)
