@@ -8,6 +8,7 @@ class CreateProjectSubjects < ActiveRecord::Migration
 			t.references :refusal_reason
 			t.boolean :is_eligible
 			t.boolean :is_chosen
+			t.boolean :is_candidate
 			t.string :reason_not_chosen
 			t.string :recruitment_priority
 			t.date :completed_on
@@ -18,7 +19,7 @@ class CreateProjectSubjects < ActiveRecord::Migration
 			t.string :subject_terminated_reason
 			t.boolean :is_closed
 			t.string :reason_closed
-
+			t.text :enrollment_notes
 			t.timestamps
 		end
 	end

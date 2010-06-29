@@ -32,6 +32,10 @@ end
 Factory.define :dust_kit do |f|
 end
 
+Factory.define :home_exposure_event do |f|
+#	f.association :subject
+end
+
 Factory.define :home_exposure_response do |f|
 	f.association :subject
 end
