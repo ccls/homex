@@ -226,6 +226,11 @@ Factory.define :user_invitation do |f|
 	f.sequence(:email){|n| "invitation#{n}@example.com"}
 end
 
+Factory.define :vital_status do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
 
 #
 #		Intended for communication with SRC,

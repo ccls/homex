@@ -4,6 +4,7 @@
 class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :race
+	belongs_to :vital_status
 	has_many :samples
 	has_many :project_subjects
 	has_many :operational_events
