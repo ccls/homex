@@ -129,7 +129,6 @@ end
 
 Factory.define :residence do |f|
 	f.association :address
-	f.association :subject
 end
 
 Factory.define :refusal_reason do |f|

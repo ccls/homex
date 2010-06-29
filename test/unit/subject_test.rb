@@ -301,6 +301,25 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should have many addresses" do
+		subject = create_subject
+		assert_equal 0, subject.addresses.length
+		Factory(:address, :subject_id => subject.id)
+		assert_equal 1, subject.reload.addresses.length
+		Factory(:address, :subject_id => subject.id)
+		assert_equal 2, subject.reload.addresses.length
+	end
+
+	test "should NOT destroy addresses with subject" do
+		subject = create_subject
+		Factory(:address, :subject_id => subject.id)
+		Factory(:address, :subject_id => subject.id)
+		assert_difference('Subject.count',-1) {
+		assert_difference('Address.count',0) {
+			subject.destroy
+		} }
+	end
+
 	test "should have many operational_events" do
 		subject = create_subject
 		assert_equal 0, subject.operational_events.length
@@ -354,25 +373,6 @@ class SubjectTest < ActiveSupport::TestCase
 		Factory(:sample, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
 		assert_difference('Sample.count',0) {
-			subject.destroy
-		} }
-	end
-
-	test "should have many residences" do
-		subject = create_subject
-		assert_equal 0, subject.residences.length
-		Factory(:residence, :subject_id => subject.id)
-		assert_equal 1, subject.reload.residences.length
-		Factory(:residence, :subject_id => subject.id)
-		assert_equal 2, subject.reload.residences.length
-	end
-
-	test "should NOT destroy residences with subject" do
-		subject = create_subject
-		Factory(:residence, :subject_id => subject.id)
-		Factory(:residence, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
-		assert_difference('Residence.count',0) {
 			subject.destroy
 		} }
 	end

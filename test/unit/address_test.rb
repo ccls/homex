@@ -10,18 +10,15 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many residences" do
+	test "should have one residence" do
 		address = create_address
-		assert_equal 0, address.residences.length
+		assert_nil address.residence
 		Factory(:residence, :address_id => address.id)
-		assert_equal 1, address.reload.residences.length
-		Factory(:residence, :address_id => address.id)
-		assert_equal 2, address.reload.residences.length
+		assert_not_nil address.reload.residence
 	end
 
-	test "should NOT destroy residences on destroy" do
+	test "should NOT destroy residence on destroy" do
 		address = create_address
-		Factory(:residence, :address_id => address.id)
 		Factory(:residence, :address_id => address.id)
 		assert_difference('Residence.count',0) {
 		assert_difference('Address.count',-1) {
@@ -36,6 +33,13 @@ class AddressTest < ActiveSupport::TestCase
 		assert_equal 1, address.reload.interview_events.length
 		Factory(:interview_event, :address_id => address.id)
 		assert_equal 2, address.reload.interview_events.length
+	end
+
+	test "should belong to subject" do
+		address = create_address
+		assert_nil address.subject
+		address.subject = Factory(:subject)
+		assert_not_nil address.subject
 	end
 
 	test "should belong to address_type" do

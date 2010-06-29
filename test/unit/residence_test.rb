@@ -17,13 +17,6 @@ class ResidenceTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid subject_id" do
-		assert_no_difference 'Residence.count' do
-			residence = create_residence(:subject_id => 0)
-			assert residence.errors.on(:subject)
-		end
-	end
-
 	test "should require address_id" do
 		assert_no_difference 'Residence.count' do
 			residence = create_residence(:address_id => nil)
@@ -31,21 +24,9 @@ class ResidenceTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require subject_id" do
-		assert_no_difference 'Residence.count' do
-			residence = create_residence(:subject_id => nil)
-			assert residence.errors.on(:subject)
-		end
-	end
-
 	test "should initially belong to an address" do
 		residence = create_residence
 		assert_not_nil residence.address
-	end
-
-	test "should initially belong to a subject" do
-		residence = create_residence
-		assert_not_nil residence.subject
 	end
 
 	test "should NOT destroy address on destroy" do
