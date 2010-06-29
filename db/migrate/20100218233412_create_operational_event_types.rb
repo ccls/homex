@@ -3,7 +3,7 @@ class CreateOperationalEventTypes < ActiveRecord::Migration
 		create_table :operational_event_types do |t|
 			t.integer :position
 			t.references :project
-			t.references :interview_event
+			t.references :interview
 			t.string :code, :null => false
 			t.string :description
 			t.timestamps

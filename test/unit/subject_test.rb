@@ -377,23 +377,25 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should have many interview_events" do
-		subject = create_subject
-		assert_equal 0, subject.interview_events.length
-		Factory(:interview_event, :subject_id => subject.id)
-		assert_equal 1, subject.reload.interview_events.length
-		Factory(:interview_event, :subject_id => subject.id)
-		assert_equal 2, subject.reload.interview_events.length
+	test "should have many interviews" do
+		pending
+#		subject = create_subject
+#		assert_equal 0, subject.interviews.length
+#		Factory(:interview, :subject_id => subject.id)
+#		assert_equal 1, subject.reload.interviews.length
+#		Factory(:interview, :subject_id => subject.id)
+#		assert_equal 2, subject.reload.interviews.length
 	end
 
-	test "should NOT destroy interview_events with subject" do
-		subject = create_subject
-		Factory(:interview_event, :subject_id => subject.id)
-		Factory(:interview_event, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
-		assert_difference('InterviewEvent.count',0) {
-			subject.destroy
-		} }
+	test "should NOT destroy interviews with subject" do
+		pending
+#		subject = create_subject
+#		Factory(:interview, :subject_id => subject.id)
+#		Factory(:interview, :subject_id => subject.id)
+#		assert_difference('Subject.count',-1) {
+#		assert_difference('Interview.count',0) {
+#			subject.destroy
+#		} }
 	end
 
 	test "should have many response_sets" do

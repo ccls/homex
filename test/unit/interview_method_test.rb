@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OperationalEventTypeTest < ActiveSupport::TestCase
+class InterviewMethodTest < ActiveSupport::TestCase
 
-	test "should create operational_event_type" do
-		assert_difference 'OperationalEventType.count' do
+	test "should create interview_method" do
+		assert_difference 'InterviewMethod.count' do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -11,7 +11,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	end
 
 	test "should require code" do
-		assert_no_difference 'OperationalEventType.count' do
+		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:code => nil)
 			assert object.errors.on(:code)
@@ -20,7 +20,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 
 	test "should require unique code" do
 		oet = create_object
-		assert_no_difference 'OperationalEventType.count' do
+		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:code => oet.code)
 			assert object.errors.on(:code)
@@ -28,7 +28,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	end
 
 	test "should require description" do
-		assert_no_difference 'OperationalEventType.count' do
+		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:description => nil)
 			assert object.errors.on(:description)
@@ -36,7 +36,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char description" do
-		assert_no_difference 'OperationalEventType.count' do
+		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:description => 'Hey')
 			assert object.errors.on(:description)
@@ -45,22 +45,20 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 
 	test "should require unique description" do
 		oet = create_object
-		assert_no_difference 'OperationalEventType.count' do
+		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:description => oet.description)
 			assert object.errors.on(:description)
 		end
 	end
 
-	test "should have many operational_events" do
+	test "should have many interviews" do
 		object = create_object
-		assert_equal 0, object.operational_events.length
-		Factory(:operational_event, 
-				:operational_event_type_id => object.id)
-		assert_equal 1, object.reload.operational_events.length
-		Factory(:operational_event, 
-				:operational_event_type_id => object.id)
-		assert_equal 2, object.reload.operational_events.length
+		assert_equal 0, object.interviews.length
+		Factory(:interview, :interview_method_id => object.id)
+		assert_equal 1, object.reload.interviews.length
+		Factory(:interview, :interview_method_id => object.id)
+		assert_equal 2, object.reload.interviews.length
 	end
 
 	test "should act as list" do
@@ -73,7 +71,7 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 protected
 
 	def create_object(options = {})
-		record = Factory.build(:operational_event_type,options)
+		record = Factory.build(:interview_method,options)
 		record.save
 		record
 	end

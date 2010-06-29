@@ -1,14 +1,15 @@
-class CreateInterviewEvents < ActiveRecord::Migration
+class CreateInterviews < ActiveRecord::Migration
 	def self.up
-		create_table :interview_events do |t|
+		create_table :interviews do |t|
 			t.integer :position
-			t.references :subject
+			t.references :identifier
 			t.references :address
 			t.references :interviewer
-#			t.references :interview_version
+			t.references :interview_version
+			t.references :interview_method
+			t.references :language
 			t.date :began_on
 			t.date :ended_on
-			t.string :language
 			t.string :respondent_first_name
 			t.string :respondent_last_name
 			t.integer :respondent_relationship_id
@@ -18,6 +19,6 @@ class CreateInterviewEvents < ActiveRecord::Migration
 	end
 
 	def self.down
-		drop_table :interview_events
+		drop_table :interviews
 	end
 end

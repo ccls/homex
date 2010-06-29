@@ -1,11 +1,8 @@
-#	==	requires
-#	*	code ( unique )
-#	*	description ( unique and > 3 chars )
-class OperationalEventType < ActiveRecord::Base
+class InterviewMethod < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
 
-	has_many :operational_events
+	has_many :interviews
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code

@@ -8,7 +8,7 @@ class Subject < ActiveRecord::Base
 	has_many :project_subjects
 	has_many :operational_events
 	has_many :addresses
-	has_many :interview_events
+#	has_many :interview_events
 	has_many :response_sets
 	has_one :home_exposure_response
 	has_one :pii

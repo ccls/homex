@@ -17,13 +17,13 @@ class PersonTest < ActiveSupport::TestCase
 		assert_not_nil person.context
 	end
 
-	test "should have many interview_events" do
+	test "should have many interviews" do
 		person = create_person
-		assert_equal 0, person.interview_events.length
-		Factory(:interview_event, :interviewer_id => person.id)
-		assert_equal 1, person.reload.interview_events.length
-		Factory(:interview_event, :interviewer_id => person.id)
-		assert_equal 2, person.reload.interview_events.length
+		assert_equal 0, person.interviews.length
+		Factory(:interview, :interviewer_id => person.id)
+		assert_equal 1, person.reload.interviews.length
+		Factory(:interview, :interviewer_id => person.id)
+		assert_equal 2, person.reload.interviews.length
 	end
 
 protected

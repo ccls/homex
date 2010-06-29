@@ -26,13 +26,13 @@ class AddressTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should have many interview_events" do
+	test "should have many interviews" do
 		address = create_address
-		assert_equal 0, address.interview_events.length
-		Factory(:interview_event, :address_id => address.id)
-		assert_equal 1, address.reload.interview_events.length
-		Factory(:interview_event, :address_id => address.id)
-		assert_equal 2, address.reload.interview_events.length
+		assert_equal 0, address.interviews.length
+		Factory(:interview, :address_id => address.id)
+		assert_equal 1, address.reload.interviews.length
+		Factory(:interview, :address_id => address.id)
+		assert_equal 2, address.reload.interviews.length
 	end
 
 	test "should belong to subject" do
