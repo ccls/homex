@@ -94,6 +94,21 @@ class InterviewTest < ActiveSupport::TestCase
 		assert_not_nil object.interview_method
 	end
 
+	test "should belong to a language" do
+		object = create_object
+		assert_nil object.language
+		object.language = Factory(:language)
+		assert_not_nil object.language
+	end
+
+	test "should belong to an identifier" do
+		object = create_object
+		assert_nil object.identifier
+		pending
+#		object.identifier = Factory(:identifier)
+#		assert_not_nil object.identifier
+	end
+
 protected
 
 	def create_object(options = {})

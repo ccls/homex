@@ -70,7 +70,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_not_nil object.interview_type
 	end
 
-	test "should initially belong to a language" do
+	test "should belong to a language" do
 		object = create_object
 		assert_nil object.language
 		object.language = Factory(:language)
