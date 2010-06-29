@@ -10,6 +10,22 @@ class ProjectTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'Project.count' do
+			object = create_object(:code => nil)
+			assert object.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		se = create_object
+		assert_no_difference 'Project.count' do
+			object = create_object(
+				:code => se.code)
+			assert object.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'Project.count' do
 			object = create_object(:description => nil)

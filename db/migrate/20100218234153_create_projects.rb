@@ -4,9 +4,12 @@ class CreateProjects < ActiveRecord::Migration
 			t.integer :position
 			t.date :began_on
 			t.date :ended_on
+			t.string :code, :null => true
 			t.string :description
+			t.text :eligibility_criteria
 			t.timestamps
 		end
+		add_index :projects, :code, :unique => true
 		add_index :projects, :description, :unique => true
 	end
 

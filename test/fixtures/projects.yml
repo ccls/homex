@@ -2,4 +2,5 @@
 #	which will be large.
 home_exposure:
   id: 1
+  code: Home Exposure
   description: Home Exposure

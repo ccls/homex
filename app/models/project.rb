@@ -1,7 +1,8 @@
 #	==	requires
+#	*	code ( unique )
 #	*	description ( unique and > 3 chars )
 class Project < ActiveRecord::Base
-#	acts_as_list
+	acts_as_list
 	default_scope :order => :position
 
 	has_many :operational_event_types
@@ -10,6 +11,8 @@ class Project < ActiveRecord::Base
 	has_many :subjects, :through => :project_subjects
 	has_many :study_event_eligibilities
 
+	validates_presence_of   :code
+	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 end

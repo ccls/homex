@@ -157,6 +157,7 @@ Factory.define :sample_type do |f|
 end
 
 Factory.define :project do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
