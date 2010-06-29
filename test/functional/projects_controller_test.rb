@@ -63,16 +63,16 @@ class ProjectsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT destroy when save fails with #{cu} login" do
-		login_as send(cu)
-		project = Factory(:project)
-		Project.any_instance.stubs(:new_record?).returns(true)
-		assert_difference('Project.count',0){
-			delete :destroy, :id => project.id
-		}
-#		assert_not_nil flash[:error]
-		assert_redirected_to projects_path
-	end
+#	test "should NOT destroy when save fails with #{cu} login" do
+#		login_as send(cu)
+#		project = Factory(:project)
+#		Project.any_instance.stubs(:new_record?).returns(true)
+#		assert_difference('Project.count',0){
+#			delete :destroy, :id => project.id
+#		}
+##		assert_not_nil flash[:error]
+#		assert_redirected_to projects_path
+#	end
 
 #	NO id
 
