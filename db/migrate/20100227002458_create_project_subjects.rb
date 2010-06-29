@@ -3,7 +3,7 @@ class CreateProjectSubjects < ActiveRecord::Migration
 		create_table :project_subjects do |t|
 			t.integer :position
 			t.references :subject
-			t.references :study_event
+			t.references :project
 			t.references :ineligible_reason
 			t.references :refusal_reason
 			t.boolean :is_eligible

@@ -57,7 +57,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		rs3 = fill_out_survey(:survey => survey)
 		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 		rs5 = fill_out_survey(:survey => survey)
-		Factory(:study_event)	#	test search code in view
+		Factory(:project)	#	test search code in view
 		#	There should now be 4 subjects in different states.
 		login_as send(cu)
 		get :index
@@ -222,10 +222,10 @@ end
 protected
 
 	def create_home_exposure_subjects
-		se = StudyEvent.find_or_create_by_description('Home Exposure')
+		p = Project.find_or_create_by_description('Home Exposure')
 		3.times do
 			s  = Factory(:subject)
-			Factory(:project_subject, :subject => s, :study_event => se )
+			Factory(:project_subject, :subject => s, :project => p )
 			s
 		end
 	end

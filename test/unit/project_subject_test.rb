@@ -17,10 +17,10 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid study_event_id" do
+	test "should require valid project_id" do
 		assert_no_difference 'ProjectSubject.count' do
-			project_subject = create_project_subject(:study_event_id => 0)
-			assert project_subject.errors.on(:study_event)
+			project_subject = create_project_subject(:project_id => 0)
+			assert project_subject.errors.on(:project)
 		end
 	end
 
@@ -31,10 +31,10 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require study_event_id" do
+	test "should require project_id" do
 		assert_no_difference 'ProjectSubject.count' do
-			project_subject = create_project_subject(:study_event_id => nil)
-			assert project_subject.errors.on(:study_event)
+			project_subject = create_project_subject(:project_id => nil)
+			assert project_subject.errors.on(:project)
 		end
 	end
 
@@ -57,9 +57,9 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		assert_not_nil project_subject.refusal_reason
 	end
 
-	test "should initially belong_to study_event" do
+	test "should initially belong_to project" do
 		project_subject = create_project_subject
-		assert_not_nil project_subject.study_event
+		assert_not_nil project_subject.project
 	end
 
 protected

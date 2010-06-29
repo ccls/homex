@@ -1,0 +1,16 @@
+class CreateProjects < ActiveRecord::Migration
+	def self.up
+		create_table :projects do |t|
+			t.integer :position
+			t.date :began_on
+			t.date :ended_on
+			t.string :description
+			t.timestamps
+		end
+		add_index :projects, :description, :unique => true
+	end
+
+	def self.down
+		drop_table :projects
+	end
+end

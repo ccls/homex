@@ -1,9 +1,0 @@
-<% stylesheets('study_event') %>
-
-<% form_for(@study_event) do |f| %>
-	<%= f.error_messages %>
-
-	Study Event <%= f.label :description %><br/>
-	<%= f.text_field :description %><br/>
-	<p><%= f.submit( (@study_event.new_record?)?'Create':'Update' ) %></p>
-<% end %>

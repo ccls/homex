@@ -139,9 +139,8 @@ module FactoryTestHelper
 
 	def create_home_exposure_with_subject
 		s = Factory(:subject)
-#		se = Factory(:study_event, :description => "Home Exposure")
-		se = StudyEvent.find_or_create_by_description('Home Exposure')
-		Factory(:project_subject, :subject => s, :study_event => se )
+		p = Project.find_or_create_by_description('Home Exposure')
+		Factory(:project_subject, :subject => s, :project => p )
 	end
 
 end

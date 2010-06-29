@@ -3,6 +3,6 @@
 <% content_tag_for( :div, @subject ) do %>
 <div class='id'>Subject: <%= @subject.full_name -%></div>
 
-<%= render :partial => 'study_event', :collection => @study_events %>
+<%= render :partial => 'project', :collection => @projects %>
 
 <% end %><%# content_tag_for %>

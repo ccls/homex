@@ -19,7 +19,7 @@ class He::SubjectsController < ApplicationController
 	end
 
 	def show
-		@study_events = StudyEvent.all
+		@projects = Project.all
 		@project_subjects = @subject.project_subjects
 	end
 
@@ -51,12 +51,12 @@ protected
 	end
 
 	def get_subjects
-		he = StudyEvent.find_by_description('Home Exposure')
+		he = Project.find_by_description('Home Exposure')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-#		params[:study_events] ||= {}
-#		params[:study_events][he.id] ||= {}
+#		params[:projects] ||= {}
+#		params[:projects][he.id] ||= {}
 #		@subjects = Subject.search(params)
 		@subjects = he.subjects.search(params)
 	end

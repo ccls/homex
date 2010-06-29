@@ -51,7 +51,7 @@ end
 Factory.define :interview_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
-	f.association :study_event
+	f.association :project
 end
 
 Factory.define :interview_version do |f|
@@ -72,7 +72,7 @@ end
 
 Factory.define :operational_event_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
-	f.association :study_event
+	f.association :project
 	f.association :interview_event
 end
 
@@ -119,7 +119,7 @@ end
 
 Factory.define :project_subject do |f|
 	f.association :subject
-	f.association :study_event
+	f.association :project
 end
 
 Factory.define :race do |f|
@@ -156,13 +156,13 @@ Factory.define :sample_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
-Factory.define :study_event do |f|
+Factory.define :project do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
 Factory.define :study_event_eligibility do |f|
 	f.association :subject
-	f.association :study_event
+	f.association :project
 end
 
 Factory.define :subject do |f|

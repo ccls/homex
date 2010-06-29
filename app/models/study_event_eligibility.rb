@@ -1,10 +1,10 @@
 #	==	requires
-#	*	study_event_id
+#	*	project
 #	*	subject_id
 class StudyEventEligibility < ActiveRecord::Base
-	belongs_to :study_event
+	belongs_to :project
 	belongs_to :subject
 
-	validates_presence_of :study_event, :subject
+	validates_presence_of :project, :subject
 
 end

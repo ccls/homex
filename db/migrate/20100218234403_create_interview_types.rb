@@ -2,7 +2,7 @@ class CreateInterviewTypes < ActiveRecord::Migration
 	def self.up
 		create_table :interview_types do |t|
 			t.integer :position
-			t.references :study_event
+			t.references :project
 			t.string :code, :null => false
 			t.string :description
 			t.timestamps

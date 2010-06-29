@@ -52,7 +52,7 @@
 	</ul>
 	</fieldset><!-- dust_kit -->
 
-<% StudyEvent.all.each do |se| %>
+<% Project.all.each do |se| %>
 	<% content_tag_for :fieldset, se do %>
 		<%= "<legend>#{se.description}</legend>" %><ul>
 			<%= se_check_boxes(se,:eligible) %>

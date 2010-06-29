@@ -160,24 +160,24 @@ class Subject < ActiveRecord::Base
 			end
 		end
 
-		if params[:study_events] && !params[:study_events].blank?
+		if params[:projects] && !params[:projects].blank?
 #
-#	more than one study_event will always return nothing (for now)
+#	more than one project will always return nothing (for now)
 #	would be nice if I could do a "join as" or something to give the
 #	joined table an alias.  Should look into this. Would move the
 #	join inside this loop.
 #	This should now work with the added aliases
 #
 
-			params[:study_events].keys.each do |id|
+			params[:projects].keys.each do |id|
 				sql_scope[:joins].push(
 					"JOIN project_subjects se_#{id} ON subjects.id "<<
-						"= se_#{id}.subject_id AND se_#{id}.study_event_id = #{id}" 
+						"= se_#{id}.subject_id AND se_#{id}.project_id = #{id}" 
 				)
 #				#	No idea what'll happen with multiple se's here.
 #				selects.push("se_#{id}.recruitment_priority as priority")
-				params[:study_events][id].keys.each do |attr|
-					val = [params[:study_events][id][attr]].flatten
+				params[:projects][id].keys.each do |attr|
+					val = [params[:projects][id][attr]].flatten
 					case attr.to_s.downcase
 						when 'eligible'
 							if val.true_xor_false?
@@ -209,7 +209,7 @@ class Subject < ActiveRecord::Base
 								end
 							end
 					end
-				end if params[:study_events][id].is_a?(Hash)
+				end if params[:projects][id].is_a?(Hash)
 			end
 		end
 

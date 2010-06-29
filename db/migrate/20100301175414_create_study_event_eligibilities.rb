@@ -3,7 +3,7 @@ class CreateStudyEventEligibilities < ActiveRecord::Migration
 		create_table :study_event_eligibilities do |t|
 			t.integer :position
 			t.references :subject
-			t.references :study_event
+			t.references :project
 			t.string :eligibility_criterion
 			t.string :criterion_response
 			t.timestamps

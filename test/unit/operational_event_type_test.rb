@@ -35,11 +35,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid study_event_id" do
+	test "should require valid project_id" do
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
-				:study_event_id => 0)
-			assert operational_event_type.errors.on(:study_event)
+				:project_id => 0)
+			assert operational_event_type.errors.on(:project)
 		end
 	end
 
@@ -51,11 +51,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require study_event_id" do
+	test "should require project_id" do
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
-				:study_event_id => nil)
-			assert operational_event_type.errors.on(:study_event)
+				:project_id => nil)
+			assert operational_event_type.errors.on(:project)
 		end
 	end
 
@@ -78,9 +78,9 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert_equal 2, operational_event_type.reload.operational_events.length
 	end
 
-	test "should initially belong to a study_event" do
+	test "should initially belong to a project" do
 		operational_event_type = create_operational_event_type
-		assert_not_nil operational_event_type.study_event
+		assert_not_nil operational_event_type.project
 	end
 
 	test "should initially belong to an interview_event" do

@@ -49,23 +49,23 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require study_event_id" do
+	test "should require project_id" do
 		assert_no_difference 'InterviewType.count' do
-			interview_type = create_interview_type(:study_event_id => nil)
-			assert interview_type.errors.on(:study_event)
+			interview_type = create_interview_type(:project_id => nil)
+			assert interview_type.errors.on(:project)
 		end
 	end
 
-	test "should require valid study_event_id" do
+	test "should require valid project_id" do
 		assert_no_difference 'InterviewType.count' do
-			interview_type = create_interview_type(:study_event_id => 0)
-			assert interview_type.errors.on(:study_event)
+			interview_type = create_interview_type(:project_id => 0)
+			assert interview_type.errors.on(:project)
 		end
 	end
 
-	test "should initially belong to a study event" do
+	test "should initially belong to a project" do
 		interview_type = create_interview_type
-		assert_not_nil interview_type.study_event
+		assert_not_nil interview_type.project
 	end
 
 	test "should have many interview_versions" do

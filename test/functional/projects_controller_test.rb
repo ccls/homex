@@ -1,19 +1,19 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class StudyEventsControllerTest < ActionController::TestCase
+class ProjectsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:model => 'StudyEvent',
+		:model => 'Project',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
 
 	def factory_attributes
-		Factory.attributes_for(:study_event)
+		Factory.attributes_for(:project)
 	end
 	def factory_create
-		Factory(:study_event)
+		Factory(:project)
 	end
 
 	assert_access_with_login({ 
@@ -31,7 +31,7 @@ class StudyEventsControllerTest < ActionController::TestCase
 		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :admin,
-		:redirect => :study_events_path,
+		:redirect => :projects_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
 		:show => { :id => 0 },
@@ -44,40 +44,40 @@ class StudyEventsControllerTest < ActionController::TestCase
 
 	test "should NOT create when create fails with #{cu} login" do
 		login_as send(cu)
-		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
-		assert_difference('StudyEvent.count',0) {
-			post :create, :study_event => Factory.attributes_for(:study_event)
+		Project.any_instance.stubs(:create_or_update).returns(false)
+		assert_difference('Project.count',0) {
+			post :create, :project => Factory.attributes_for(:project)
 		}
 		assert_response :success
 		assert_template 'new'
-		assert_not_nil assigns(:study_event)
+		assert_not_nil assigns(:project)
 	end
 
 	test "should NOT update when save fails with #{cu} login" do
 		login_as send(cu)
-		study_event = Factory(:study_event)
-		StudyEvent.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :id => study_event.id,
-			:study_event => Factory.attributes_for(:study_event)
+		project = Factory(:project)
+		Project.any_instance.stubs(:create_or_update).returns(false)
+		put :update, :id => project.id,
+			:project => Factory.attributes_for(:project)
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT destroy when save fails with #{cu} login" do
 		login_as send(cu)
-		study_event = Factory(:study_event)
-		StudyEvent.any_instance.stubs(:new_record?).returns(true)
-		assert_difference('StudyEvent.count',0){
-			delete :destroy, :id => study_event.id
+		project = Factory(:project)
+		Project.any_instance.stubs(:new_record?).returns(true)
+		assert_difference('Project.count',0){
+			delete :destroy, :id => project.id
 		}
 #		assert_not_nil flash[:error]
-		assert_redirected_to study_events_path
+		assert_redirected_to projects_path
 	end
 
 #	NO id
 
 	test "should NOT get show without id with #{cu} login" do
-		study_event = Factory(:study_event)
+		project = Factory(:project)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :show
@@ -85,7 +85,7 @@ class StudyEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get edit without id with #{cu} login" do
-		study_event = Factory(:study_event)
+		project = Factory(:project)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :edit
@@ -93,41 +93,41 @@ class StudyEventsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without id with #{cu} login" do
-		study_event = Factory(:study_event)
+		project = Factory(:project)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			put :update, :study_event => Factory.attributes_for(:study_event)
+			put :update, :project => Factory.attributes_for(:project)
 		}
 	end
 
 	test "should NOT destroy without id with #{cu} login" do
-		study_event = Factory(:study_event)
+		project = Factory(:project)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-		assert_difference('StudyEvent.count',0){
+		assert_difference('Project.count',0){
 			delete :destroy
 		} }
 	end
 
-#	invalid study_event
+#	invalid project
 
-	test "should NOT create with invalid study_event with #{cu} login" do
+	test "should NOT create with invalid project with #{cu} login" do
 		login_as send(cu)
-		assert_difference('StudyEvent.count',0) do
-			post :create, :study_event => {}
+		assert_difference('Project.count',0) do
+			post :create, :project => {}
 		end
-		assert_not_nil assigns(:study_event)
+		assert_not_nil assigns(:project)
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
-	test "should NOT update with invalid study_event with #{cu} login" do
-		study_event = Factory(:study_event)
+	test "should NOT update with invalid project with #{cu} login" do
+		project = Factory(:project)
 		login_as send(cu)
-		put :update, :id => study_event.id, 
-			:study_event => {:description => nil}
-		assert_not_nil assigns(:study_event)
+		put :update, :id => project.id, 
+			:project => {:description => nil}
+		assert_not_nil assigns(:project)
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'

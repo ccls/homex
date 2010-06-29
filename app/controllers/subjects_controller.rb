@@ -8,7 +8,7 @@ class SubjectsController < ApplicationController
 	end
 
 	def show
-		@study_events = StudyEvent.all
+		@projects = Project.all
 		@project_subjects = @subject.project_subjects
 	end
 

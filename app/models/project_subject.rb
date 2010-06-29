@@ -1,12 +1,12 @@
 #	==	requires
 #	*	subject_id
-#	*	study_event_id
+#	*	project
 class ProjectSubject < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :ineligible_reason
 	belongs_to :refusal_reason
-	belongs_to :study_event
+	belongs_to :project
 
-	validates_presence_of :subject, :study_event
+	validates_presence_of :subject, :project
 
 end

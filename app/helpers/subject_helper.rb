@@ -70,10 +70,10 @@ module SubjectHelper
 	end
 
 	def study_event_stuff
-		if StudyEvent.count > 0
+		if Project.count > 0
 			s = ''
-			StudyEvent.all.each do |se|
-				s << "<fieldset class='study_event'>\n"
+			Project.all.each do |se|
+				s << "<fieldset class='project'>\n"
 				s << "<legend>#{se.description}</legend><ul>\n"
 				s << se_check_boxes(se,:eligible)
 				s << se_check_boxes(se,:chosen)
@@ -87,10 +87,10 @@ module SubjectHelper
 				s << "<li>Awaiting Interview</li>\n"
 				s << "<li>Interviewed</li>\n"
 				s << "</ul>\n"
-				s << "</fieldset><!-- study_event -->\n"
+				s << "</fieldset><!-- project -->\n"
 			end
 			s
-		end	#	if StudyEvent.count > 0
+		end	#	if Project.count > 0
 	end
 
 end

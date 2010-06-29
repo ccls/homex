@@ -1,6 +1,6 @@
 #	==	requires
 #	*	description ( unique and > 3 chars )
-class StudyEvent < ActiveRecord::Base
+class Project < ActiveRecord::Base
 #	acts_as_list
 	default_scope :order => :position
 

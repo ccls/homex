@@ -18,11 +18,11 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid study_event_id" do
+	test "should require valid project_id" do
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
-				:study_event_id => 0)
-			assert study_event_eligibility.errors.on(:study_event)
+				:project_id => 0)
+			assert study_event_eligibility.errors.on(:project)
 		end
 	end
 
@@ -34,11 +34,11 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require study_event_id" do
+	test "should require project_id" do
 		assert_no_difference 'StudyEventEligibility.count' do
 			study_event_eligibility = create_study_event_eligibility(
-				:study_event_id => nil)
-			assert study_event_eligibility.errors.on(:study_event)
+				:project_id => nil)
+			assert study_event_eligibility.errors.on(:project)
 		end
 	end
 
@@ -47,9 +47,9 @@ class StudyEventEligibilityTest < ActiveSupport::TestCase
 		assert_not_nil study_event_eligibility.subject
 	end
 
-	test "should initially belong to study_event" do
+	test "should initially belong to project" do
 		study_event_eligibility = create_study_event_eligibility
-		assert_not_nil study_event_eligibility.study_event
+		assert_not_nil study_event_eligibility.project
 	end
 
 protected
