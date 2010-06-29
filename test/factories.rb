@@ -26,6 +26,9 @@ Factory.define :context do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :data_source do |f|
+end
+
 Factory.define :dust_kit do |f|
 end
 

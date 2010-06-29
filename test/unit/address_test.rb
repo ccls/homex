@@ -52,9 +52,8 @@ class AddressTest < ActiveSupport::TestCase
 	test "should belong to data_source" do
 		object = create_object
 		assert_nil object.data_source
-		pending
-#		object.data_source = Factory(:data_source)
-#		assert_not_nil object.data_source
+		object.data_source = Factory(:data_source)
+		assert_not_nil object.data_source
 	end
 
 protected

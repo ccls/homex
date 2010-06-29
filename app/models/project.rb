@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
 
+	has_and_belongs_to_many :samples
 	has_many :operational_event_types
 	has_many :interview_types
 	has_many :project_subjects

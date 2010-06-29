@@ -4,71 +4,71 @@ class SampleTest < ActiveSupport::TestCase
 
 	test "should create sample" do
 		assert_difference 'Sample.count' do
-			sample = create_sample
-			assert !sample.new_record?, 
-				"#{sample.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should require valid subject_id" do
 		assert_no_difference 'Sample.count' do
-			sample = create_sample(:subject_id => 0)
-			assert sample.errors.on(:subject)
+			object = create_object(:subject_id => 0)
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require valid unit_id" do
 		assert_no_difference 'Sample.count' do
-			sample = create_sample(:unit_id => 0)
-			assert sample.errors.on(:unit)
+			object = create_object(:unit_id => 0)
+			assert object.errors.on(:unit)
 		end
 	end
 
 	test "should require subject_id" do
 		assert_no_difference 'Sample.count' do
-			sample = create_sample(:subject_id => nil)
-			assert sample.errors.on(:subject)
+			object = create_object(:subject_id => nil)
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require unit_id" do
 		assert_no_difference 'Sample.count' do
-			sample = create_sample(:unit_id => nil)
-			assert sample.errors.on(:unit)
+			object = create_object(:unit_id => nil)
+			assert object.errors.on(:unit)
 		end
 	end
 
 	test "should belong to aliquot_sample_format" do
-		sample = create_sample
-		assert_nil sample.aliquot_sample_format
-		sample.aliquot_sample_format = Factory(:aliquot_sample_format)
-		assert_not_nil sample.aliquot_sample_format
+		object = create_object
+		assert_nil object.aliquot_sample_format
+		object.aliquot_sample_format = Factory(:aliquot_sample_format)
+		assert_not_nil object.aliquot_sample_format
 	end
 
 	test "should belong to sample_subtype" do
-		sample = create_sample
-		assert_nil sample.sample_subtype
-		sample.sample_subtype = Factory(:sample_subtype)
-		assert_not_nil sample.sample_subtype
+		object = create_object
+		assert_nil object.sample_subtype
+		object.sample_subtype = Factory(:sample_subtype)
+		assert_not_nil object.sample_subtype
 	end
 
 	test "should initially belong to subject" do
-		sample = create_sample
-		assert_not_nil sample.subject
+		object = create_object
+		assert_not_nil object.subject
 	end
 
 	test "should initially belong to unit" do
-		sample = create_sample
-		assert_not_nil sample.unit
+		object = create_object
+		assert_not_nil object.unit
 	end
 
 #	somehow
 
 	test "should belong to organization" do
-#		sample = create_sample
-#		assert_nil sample.organization
-#		sample.organization = Factory(:organization)
-#		assert_not_nil sample.organization
+#		object = create_object
+#		assert_nil object.organization
+#		object.organization = Factory(:organization)
+#		assert_not_nil object.organization
 
 #	TODO
 
@@ -78,17 +78,25 @@ class SampleTest < ActiveSupport::TestCase
 	end
 
 	test "should have many aliquots" do
-		sample = create_sample
-		assert_equal 0, sample.aliquots.length
-		Factory(:aliquot, :sample_id => sample.id)
-		assert_equal 1, sample.reload.aliquots.length
-		Factory(:aliquot, :sample_id => sample.id)
-		assert_equal 2, sample.reload.aliquots.length
+		object = create_object
+		assert_equal 0, object.aliquots.length
+		Factory(:aliquot, :sample_id => object.id)
+		assert_equal 1, object.reload.aliquots.length
+		Factory(:aliquot, :sample_id => object.id)
+		assert_equal 2, object.reload.aliquots.length
 	end
 
+	test "should have and belong to many projects" do
+		object = create_object
+		assert_equal 0, object.projects.length
+		object.projects << Factory(:project)
+		assert_equal 1, object.reload.projects.length
+		object.projects << Factory(:project)
+		assert_equal 2, object.reload.projects.length
+	end
 protected
 
-	def create_sample(options = {})
+	def create_object(options = {})
 		record = Factory.build(:sample,options)
 		record.save
 		record
