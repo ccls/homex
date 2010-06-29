@@ -10,6 +10,8 @@ class OperationalEventType < ActiveRecord::Base
 	belongs_to :project
 	belongs_to :interview_event
 
+	validates_presence_of   :code
+	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 

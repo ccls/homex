@@ -71,6 +71,7 @@ Factory.define :operational_event do |f|
 end
 
 Factory.define :operational_event_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
 	f.association :project
 	f.association :interview_event

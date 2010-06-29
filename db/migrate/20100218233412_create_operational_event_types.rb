@@ -4,9 +4,11 @@ class CreateOperationalEventTypes < ActiveRecord::Migration
 			t.integer :position
 			t.references :project
 			t.references :interview_event
+			t.string :code, :null => false
 			t.string :description
 			t.timestamps
 		end
+		add_index :operational_event_types, :code, :unique => true
 		add_index :operational_event_types, :description, :unique => true
 	end
 

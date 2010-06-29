@@ -10,6 +10,23 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require code" do
+		assert_no_difference 'OperationalEventType.count' do
+			operational_event_type = create_operational_event_type(
+				:code => nil)
+			assert operational_event_type.errors.on(:code)
+		end
+	end
+
+	test "should require unique code" do
+		oet = create_operational_event_type
+		assert_no_difference 'OperationalEventType.count' do
+			operational_event_type = create_operational_event_type(
+				:code => oet.code)
+			assert operational_event_type.errors.on(:code)
+		end
+	end
+
 	test "should require description" do
 		assert_no_difference 'OperationalEventType.count' do
 			operational_event_type = create_operational_event_type(
