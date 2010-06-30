@@ -74,6 +74,7 @@ namespace :db do
 			raise ActiveRecord::RecordNotFound unless address_type
 
 			address = Address.create!(
+				:subject => subject,
 				:address_type => address_type,
 				:line_1 => line[2],
 				:city => line[3],
@@ -82,7 +83,6 @@ namespace :db do
 			)
 
 			Residence.create!(
-				:subject => subject,
 				:address => address
 			)
 		end
@@ -98,7 +98,9 @@ namespace :db do
 			puts "Processing line #{f.lineno}"
 			puts line
 
-			subject_type = SubjectType.find_or_create_by_description('TEST')
+			subject_type = SubjectType.find_or_create_by_code({
+				:code => 'TEST', :description => 'TEST' })
+#			subject_type = SubjectType.find_or_create_by_description('TEST')
 #			subject_type = SubjectType.find_or_create_by_description(
 #				line[2])
 
@@ -109,10 +111,15 @@ namespace :db do
 			refdate = (line[7].blank?)?'':Time.parse(line[7])
 			interview_date = (line[8].blank?)?'':Time.parse(line[8])
 			subject = Subject.create!({
-				:child_id_attributes => { :childid => line[0] },
+				:identifier_attributes => { 
+					:ssn => sprintf('%09d',line[0]),							#	TODO
+					:patid => line[1],
+					:case_control_type => line[2],
+					:orderno => line[3],
+					:childid => line[0] 
+				},
 				:patient_attributes  => { },										#	TODO (patid)
 				:pii_attributes => {
-					:ssn => sprintf('%09d',line[0]),							#	TODO
 					:state_id_no => sprintf('%09d',line[0]),			#	TODO
 					:first_name  => line[9],
 					:middle_name => line[10],
@@ -125,9 +132,6 @@ namespace :db do
 					:mother_maiden_name => line[14],
 					:mother_last_name   => line[15],
 					:dob => dob,
-					:patid => line[1],
-					:stype => line[2],
-					:orderno => line[3],
 					:phone_primary => line[19],
 					:phone_alternate => line[20],
 					:phone_alternate_2 => line[21],
@@ -140,8 +144,8 @@ namespace :db do
 				:reference_date => refdate
 			})
 
-			InterviewEvent.create!({
-				:subject_id => subject.id,
+			Interview.create!({
+				:identifier_id => subject.identifier.id,
 				:began_on   => interview_date,
 				:ended_on   => interview_date
 			})

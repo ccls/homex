@@ -13,12 +13,15 @@ namespace :app do
 		fixtures.push('pages')
 		fixtures.push('races')
 		fixtures.push('roles')
-		fixtures.push('study_events')
+		fixtures.push('projects')
 		fixtures.push('subject_types')
 		fixtures.push('units')
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
 		Rake::Task["db:fixtures:load"].invoke
+		Rake::Task["app:add_users"].invoke
+		ENV['uid'] = '859908'
+		Rake::Task["app:deputize"].invoke
 	end
 
 	desc "DEV: Add some CCLS subjects"
