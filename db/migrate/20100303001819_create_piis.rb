@@ -7,10 +7,7 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :last_name
 			t.date :dob
 			t.date :died_on
-			t.string :ssn
 			t.string :state_id_no
-#			t.string :primary_phone_number
-#			t.string :alternate_phone_number
 			t.string :phone_primary
 			t.string :phone_alternate
 			t.string :phone_alternate_2
@@ -23,18 +20,11 @@ class CreatePiis < ActiveRecord::Migration
 			t.string :father_middle_name
 			t.string :father_last_name
 			t.string :email
-
-			t.integer :patid
-			t.string  :stype, :limit => 1
-			t.integer :orderno
-
 			t.timestamps
 		end
-		add_index :piis, :ssn, :unique => true
 		add_index :piis, :state_id_no, :unique => true
 		add_index :piis, :email, :unique => true
 		add_index :piis, :subject_id, :unique => true
-		add_index :piis, [:patid,:stype,:orderno],:unique => true,:name => 'pisto'
 	end
 
 	def self.down
