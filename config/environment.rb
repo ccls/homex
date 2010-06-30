@@ -65,6 +65,7 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 	config.gem 'gravatar'
 	config.gem 'will_paginate'
+	config.gem 'fastercsv'
 
 
 	#	http://railscasts.com/episodes/160-authlogic
