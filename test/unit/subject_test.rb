@@ -5,6 +5,8 @@ class SubjectTest < ActiveSupport::TestCase
 	assert_should_have_many(:survey_invitations,:addresses,
 		:operational_events,:project_subjects, :samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
+	assert_should_have_one(:pii,:patient,:home_exposure_response,
+		:dust_kit,:identifier)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
@@ -225,15 +227,6 @@ pending
 		} }
 	end
 
-	test "should have one dust_kit" do
-		subject = create_subject
-		assert_nil subject.dust_kit
-		Factory(:dust_kit, :subject_id => subject.id)
-		assert_not_nil subject.reload.dust_kit
-		subject.dust_kit.destroy
-		assert_nil subject.reload.dust_kit
-	end
-
 	test "should NOT destroy dust_kit with subject" do
 		subject = create_subject
 		Factory(:dust_kit, :subject_id => subject.id)
@@ -241,15 +234,6 @@ pending
 		assert_difference('DustKit.count',0) {
 			subject.destroy
 		} }
-	end
-
-	test "should have one identifier" do
-		subject = create_subject
-		assert_nil subject.identifier
-		Factory(:identifier, :subject_id => subject.id)
-		assert_not_nil subject.reload.identifier
-		subject.identifier.destroy
-		assert_nil subject.reload.identifier
 	end
 
 	test "should NOT destroy identifier with subject" do
@@ -261,15 +245,6 @@ pending
 		} }
 	end
 
-	test "should have one pii" do
-		subject = create_subject
-		assert_nil subject.pii
-		Factory(:pii, :subject_id => subject.id)
-		assert_not_nil subject.reload.pii
-		subject.pii.destroy
-		assert_nil subject.reload.pii
-	end
-
 	test "should NOT destroy pii with subject" do
 		subject = create_subject
 		Factory(:pii, :subject_id => subject.id)
@@ -279,15 +254,6 @@ pending
 		} }
 	end
 
-	test "should have one patient" do
-		subject = create_subject
-		assert_nil subject.patient
-		Factory(:patient, :subject_id => subject.id)
-		assert_not_nil subject.reload.patient
-		subject.patient.destroy
-		assert_nil subject.reload.patient
-	end
-
 	test "should NOT destroy patient with subject" do
 		subject = create_subject
 		Factory(:patient, :subject_id => subject.id)
@@ -295,15 +261,6 @@ pending
 		assert_difference('Patient.count',0) {
 			subject.destroy
 		} }
-	end
-
-	test "should have one home_exposure_response" do
-		subject = create_subject
-		assert_nil subject.home_exposure_response
-		Factory(:home_exposure_response, :subject_id => subject.id)
-		assert_not_nil subject.reload.home_exposure_response
-		subject.home_exposure_response.destroy
-		assert_nil subject.reload.home_exposure_response
 	end
 
 	test "should NOT destroy home_exposure_response with subject" do

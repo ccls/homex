@@ -46,6 +46,26 @@ module ShouldAssociate
 
 		end
 
+		def assert_should_have_one(*associations)
+			user_options = associations.extract_options!
+			model = user_options[:model] || self.name.sub(/Test$/,'')
+			
+			associations.each do |assoc|
+				assoc = assoc.to_s
+
+				test "SA should have one #{assoc}" do
+					object = create_object
+					assert_nil object.send(assoc)
+					Factory(assoc, "#{model.underscore}_id".to_sym => object.id)
+					assert_not_nil object.reload.send(assoc)
+					object.send(assoc).destroy
+					assert_nil object.reload.send(assoc)
+				end
+
+			end
+
+		end
+
 		def assert_should_have_many_(*associations)
 			user_options = associations.extract_options!
 			model = user_options[:model] || self.name.sub(/Test$/,'')
