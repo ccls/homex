@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class DustKitTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:subject,:dust_package,:kit_package)
+
 	test "should create dust_kit" do
 		assert_difference 'DustKit.count' do
 			dust_kit = create_dust_kit
@@ -49,27 +51,6 @@ class DustKitTest < ActiveSupport::TestCase
 			dust_kit.update_attributes(:subject_id => subject.id)
 			assert dust_kit.reload.errors.on(:subject_id)
 		} }
-	end
-
-	test "should belong to a subject" do
-		dust_kit = create_dust_kit
-		assert_nil dust_kit.subject
-		dust_kit.subject = Factory(:subject)
-		assert_not_nil dust_kit.subject
-	end
-
-	test "should belong to a kit_package" do
-		dust_kit = create_dust_kit
-		assert_nil dust_kit.kit_package
-		dust_kit.kit_package = Factory(:package)
-		assert_not_nil dust_kit.kit_package
-	end
-
-	test "should belong to a dust_package" do
-		dust_kit = create_dust_kit
-		assert_nil dust_kit.dust_package
-		dust_kit.dust_package = Factory(:package)
-		assert_not_nil dust_kit.dust_package
 	end
 
 	test "should returned status New" do
@@ -154,5 +135,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_dust_kit
 
 end

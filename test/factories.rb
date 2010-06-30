@@ -122,6 +122,12 @@ Factory.define :package do |f|
 #	f.carrier "FedEx"
 	f.sequence(:tracking_number) { |n| "ABC123#{n}" }
 end
+Factory.define :kit_package, :parent => :package do |f|
+#	This is really just an alias of convenience for DustKit
+end	#	parent must be defined first
+Factory.define :dust_package, :parent => :package do |f|
+#	This is really just an alias of convenience for DustKit
+end	#	parent must be defined first
 
 Factory.define :page do |f|
 	f.sequence(:path) { |n| "/path#{n}" }
@@ -137,6 +143,12 @@ Factory.define :person do |f|
 end
 Factory.define :interviewer, :parent => :person do |f|
 #	This is really just an alias of convenience for Interview
+end	#	parent must be defined first
+Factory.define :analytic_file_creator, :parent => :person do |f|
+#	This is really just an alias of convenience for Analysis
+end	#	parent must be defined first
+Factory.define :analyst, :parent => :person do |f|
+#	This is really just an alias of convenience for Analysis
 end	#	parent must be defined first
 
 Factory.define :pii do |f|

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AddressTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:interviews)
+	assert_should_belong_to(:subject,:address_type,:data_source)
 
 	test "should create address" do
 		assert_difference 'Address.count' do
@@ -26,27 +27,6 @@ class AddressTest < ActiveSupport::TestCase
 		assert_nil object.residence
 		Factory(:residence, :address_id => object.id)
 		assert_not_nil object.reload.residence
-	end
-
-	test "should belong to subject" do
-		object = create_object
-		assert_nil object.subject
-		object.subject = Factory(:subject)
-		assert_not_nil object.subject
-	end
-
-	test "should belong to address_type" do
-		object = create_object
-		assert_nil object.address_type
-		object.address_type = Factory(:address_type)
-		assert_not_nil object.address_type
-	end
-
-	test "should belong to data_source" do
-		object = create_object
-		assert_nil object.data_source
-		object.data_source = Factory(:data_source)
-		assert_not_nil object.data_source
 	end
 
 protected

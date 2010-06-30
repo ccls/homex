@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IdentifierTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:subject)
+
 	test "should create identifier" do
 		assert_difference 'Identifier.count' do
 			object = create_object
@@ -54,19 +56,6 @@ class IdentifierTest < ActiveSupport::TestCase
 			assert object.errors.on(:childid)
 		end
 	end
-
-	test "should belong to subject" do
-		object = create_object
-		assert_nil object.subject
-		object.subject = Factory(:subject)
-		assert_not_nil object.subject
-	end
-
-
-
-
-
-
 
 	test "should create with all numeric ssn" do
 		assert_difference 'Identifier.count' do

@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:address,:interview_version,
+		:interview_method,:identifier,:language,:interviewer)
+
 	test "should create interview" do
 		assert_difference 'Interview.count' do
 			object = create_object
@@ -93,49 +96,6 @@ class InterviewTest < ActiveSupport::TestCase
 			object = create_object(:identifier_id => 0)
 			assert !object.errors.on(:identifier_id)
 		end
-	end
-
-	test "should belong to an address" do
-		object = create_object
-		assert_nil object.address
-		object.address = Factory(:address)
-		assert_not_nil object.address
-	end
-
-	test "should belong to an interviewer" do
-		object = create_object
-		assert_nil object.interviewer
-		object.interviewer = Factory(:person)
-		assert_not_nil object.interviewer
-		assert object.interviewer.is_a?(Person)
-	end
-
-	test "should belong to an interview_version" do
-		object = create_object
-		assert_nil object.interview_version
-		object.interview_version = Factory(:interview_version)
-		assert_not_nil object.interview_version
-	end
-
-	test "should belong to an interview_method" do
-		object = create_object
-		assert_nil object.interview_method
-		object.interview_method = Factory(:interview_method)
-		assert_not_nil object.interview_method
-	end
-
-	test "should belong to a language" do
-		object = create_object
-		assert_nil object.language
-		object.language = Factory(:language)
-		assert_not_nil object.language
-	end
-
-	test "should belong to an identifier" do
-		object = create_object
-		assert_nil object.identifier
-		object.identifier = Factory(:identifier)
-		assert_not_nil object.identifier
 	end
 
 protected

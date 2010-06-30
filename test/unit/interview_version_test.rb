@@ -4,6 +4,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:interviews)
+	assert_should_belong_to(:language)
 	assert_requires_valid_associations(:interview_type)
 
 	test "should create interview_version" do
@@ -56,13 +57,6 @@ class InterviewVersionTest < ActiveSupport::TestCase
 	test "should initially belong to a interview_type" do
 		object = create_object
 		assert_not_nil object.interview_type
-	end
-
-	test "should belong to a language" do
-		object = create_object
-		assert_nil object.language
-		object.language = Factory(:language)
-		assert_not_nil object.language
 	end
 
 protected

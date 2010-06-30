@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProjectSubjectTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:project,:subject)
+	assert_should_belong_to(:ineligible_reason,:refusal_reason)
 
 	test "should create project_subject" do
 		assert_difference 'ProjectSubject.count' do
@@ -15,20 +16,6 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 	test "should initially belong to a subject" do
 		project_subject = create_project_subject
 		assert_not_nil project_subject.subject
-	end
-
-	test "should belong_to ineligible_reason" do
-		project_subject = create_project_subject
-		assert_nil project_subject.ineligible_reason
-		project_subject.ineligible_reason = Factory(:ineligible_reason)
-		assert_not_nil project_subject.ineligible_reason
-	end
-
-	test "should belong_to refusal_reason" do
-		project_subject = create_project_subject
-		assert_nil project_subject.refusal_reason
-		project_subject.refusal_reason = Factory(:refusal_reason)
-		assert_not_nil project_subject.refusal_reason
 	end
 
 	test "should initially belong_to project" do

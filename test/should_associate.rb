@@ -7,6 +7,24 @@ module ShouldAssociate
 
 	module ClassMethods
 
+		def assert_should_belong_to(*associations)
+			user_options = associations.extract_options!
+			model = user_options[:model] || self.name.sub(/Test$/,'')
+			
+			associations.each do |assoc|
+				assoc = assoc.to_s
+
+				test "SA should belong to #{assoc}" do
+					object = create_object
+					assert_nil object.send(assoc)
+					object.send("#{assoc}=",Factory(assoc))
+					assert_not_nil object.send(assoc)
+				end
+
+			end
+
+		end
+
 		def assert_should_have_many_(*associations)
 			user_options = associations.extract_options!
 			model = user_options[:model] || self.name.sub(/Test$/,'')

@@ -4,6 +4,7 @@ class SampleTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:subject,:unit)
 	assert_should_have_many(:aliquots)
+	assert_should_belong_to(:aliquot_sample_format,:sample_subtype)
 
 	test "should create sample" do
 		assert_difference 'Sample.count' do
@@ -21,20 +22,6 @@ class SampleTest < ActiveSupport::TestCase
 	test "should default aliquot_or_sample_on_receipt to 'Sample'" do
 		object = create_object
 		assert_equal 'Sample', object.aliquot_or_sample_on_receipt
-	end
-
-	test "should belong to aliquot_sample_format" do
-		object = create_object
-		assert_nil object.aliquot_sample_format
-		object.aliquot_sample_format = Factory(:aliquot_sample_format)
-		assert_not_nil object.aliquot_sample_format
-	end
-
-	test "should belong to sample_subtype" do
-		object = create_object
-		assert_nil object.sample_subtype
-		object.sample_subtype = Factory(:sample_subtype)
-		assert_not_nil object.sample_subtype
 	end
 
 	test "should initially belong to subject" do

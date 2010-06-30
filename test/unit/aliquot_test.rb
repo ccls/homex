@@ -4,6 +4,7 @@ class AliquotTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:transfers)
 	assert_requires_valid_associations(:sample,:unit,:owner)
+	assert_should_belong_to(:aliquot_sample_format)
 
 	test "should create aliquot" do
 		assert_difference 'Aliquot.count' do
@@ -11,13 +12,6 @@ class AliquotTest < ActiveSupport::TestCase
 			assert !aliquot.new_record?, 
 				"#{aliquot.errors.full_messages.to_sentence}"
 		end
-	end
-
-	test "should belong to aliquot_sample_format" do
-		aliquot = create_aliquot
-		assert_nil aliquot.aliquot_sample_format
-		aliquot.aliquot_sample_format = Factory(:aliquot_sample_format)
-		assert_not_nil aliquot.aliquot_sample_format
 	end
 
 	test "should initially belong to sample" do
@@ -30,7 +24,7 @@ class AliquotTest < ActiveSupport::TestCase
 		assert_not_nil aliquot.unit
 	end
 
-	test "should belong to owner" do
+	test "should initially belong to owner" do
 		aliquot = create_aliquot
 		assert_not_nil aliquot.owner
 		assert aliquot.owner.is_a?(Organization)

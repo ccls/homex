@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResponseSetTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:user)
+
 	test "should create response_set" do
 		assert_difference 'ResponseSet.count' do
 			response_set = create_response_set
@@ -52,13 +54,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 	test "should initially belong to a survey" do
 		response_set = create_response_set
 		assert_not_nil response_set.survey
-	end
-
-	test "should belong to a user" do
-		response_set = create_response_set
-		assert_nil response_set.user
-		response_set.user = Factory(:user)
-		assert_not_nil response_set.user
 	end
 
 	test "should initially belong to a subject" do

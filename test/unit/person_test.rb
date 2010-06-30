@@ -2,19 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:context)
+
 	test "should create person" do
 		assert_difference 'Person.count' do
 			person = create_person
 			assert !person.new_record?, 
 				"#{person.errors.full_messages.to_sentence}"
 		end
-	end
-
-	test "should belong to a context" do
-		person = create_person
-		assert_nil person.context
-		person.context = Factory(:context)
-		assert_not_nil person.context
 	end
 
 	test "should have many interviews" do
@@ -33,5 +28,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_person
 
 end

@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PiiTest < ActiveSupport::TestCase
 
+	assert_should_belong_to(:subject)
+
 	test "should create pii" do
 		assert_difference 'Pii.count' do
 			pii = create_pii
@@ -69,13 +71,6 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should belong to subject" do
-		pii = create_pii
-		assert_nil pii.subject
-		pii.subject = Factory(:subject)
-		assert_not_nil pii.subject
-	end
-
 	test "should require properly formated email address" do
 		pending
 	end
@@ -87,5 +82,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_pii
 
 end

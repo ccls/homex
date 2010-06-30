@@ -4,6 +4,7 @@ class UnitTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:aliquots,:samples)
+	assert_should_belong_to(:context)
 
 	test "should create unit" do
 		assert_difference 'Unit.count' do
@@ -48,13 +49,6 @@ class UnitTest < ActiveSupport::TestCase
 			unit = create_unit(:description => u.description)
 			assert unit.errors.on(:description)
 		end
-	end
-
-	test "should belong to a context" do
-		unit = create_unit
-		assert_nil unit.context
-		unit.context = Factory(:context)
-		assert_not_nil unit.context
 	end
 
 protected

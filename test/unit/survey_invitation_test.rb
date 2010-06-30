@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SurveyInvitationTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:subject,:survey)
+	assert_should_belong_to(:response_set)
 
 	test "should create survey_invitation" do
 		assert_difference( 'SurveyInvitation.count', 1) do
@@ -90,13 +91,6 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 	test "should initially belong to survey" do
 		survey_invitation = create_survey_invitation
 		assert_not_nil survey_invitation.survey
-	end
-
-	test "should belong to response_set" do
-		survey_invitation = create_survey_invitation
-		assert_nil survey_invitation.response_set
-		survey_invitation.response_set = Factory(:response_set)
-		assert_not_nil survey_invitation.response_set
 	end
 
 	test "should respond to email" do
