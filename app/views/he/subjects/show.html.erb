@@ -42,7 +42,7 @@
 </div><!-- id='addresses' -->
 <div id='phone_numbers'>
 <% %w( primary alternate alternate_2 alternate_3 ).each do |p| %>
-<% if ( phone_number = @subject.pii.try("phone_#{p}") )%>
+<% unless (( phone_number = @subject.pii.try("phone_#{p}")).blank? )%>
 <%= "#{phone_number} #{p}" %><br/>
 <% end %>
 <% end %>
