@@ -10,6 +10,16 @@ class SampleTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should default order_no to 1" do
+		object = create_object
+		assert_equal 1, object.order_no
+	end
+
+	test "should default aliquot_or_sample_on_receipt to 'Sample'" do
+		object = create_object
+		assert_equal 'Sample', object.aliquot_or_sample_on_receipt
+	end
+
 	test "should require valid subject_id" do
 		assert_no_difference 'Sample.count' do
 			object = create_object(:subject_id => 0)
@@ -94,6 +104,7 @@ class SampleTest < ActiveSupport::TestCase
 		object.projects << Factory(:project)
 		assert_equal 2, object.reload.projects.length
 	end
+
 protected
 
 	def create_object(options = {})
