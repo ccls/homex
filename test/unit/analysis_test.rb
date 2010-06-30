@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AnalysisTest < ActiveSupport::TestCase
 
 	assert_should_belong_to(:analytic_file_creator,:analyst,:project)
+	assert_should_require(:code,:description)
+	assert_should_require_unique(:code,:description)
 
 	test "should create analysis" do
 		assert_difference 'Analysis.count' do
@@ -12,44 +14,10 @@ class AnalysisTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require code" do
-		assert_no_difference 'Analysis.count' do
-			object = create_object(
-				:code => nil)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require unique code" do
-		oet = create_object
-		assert_no_difference 'Analysis.count' do
-			object = create_object(
-				:code => oet.code)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require description" do
-		assert_no_difference 'Analysis.count' do
-			object = create_object(
-				:description => nil)
-			assert object.errors.on(:description)
-		end
-	end
-
 	test "should require 4 char description" do
 		assert_no_difference 'Analysis.count' do
 			object = create_object(
 				:description => 'Hey')
-			assert object.errors.on(:description)
-		end
-	end
-
-	test "should require unique description" do
-		oet = create_object
-		assert_no_difference 'Analysis.count' do
-			object = create_object(
-				:description => oet.description)
 			assert object.errors.on(:description)
 		end
 	end

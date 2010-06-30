@@ -6,28 +6,27 @@ class PersonTest < ActiveSupport::TestCase
 
 	test "should create person" do
 		assert_difference 'Person.count' do
-			person = create_person
-			assert !person.new_record?, 
-				"#{person.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should have many interviews" do
-		person = create_person
-		assert_equal 0, person.interviews.length
-		Factory(:interview, :interviewer_id => person.id)
-		assert_equal 1, person.reload.interviews.length
-		Factory(:interview, :interviewer_id => person.id)
-		assert_equal 2, person.reload.interviews.length
+		object = create_object
+		assert_equal 0, object.interviews.length
+		Factory(:interview, :interviewer_id => object.id)
+		assert_equal 1, object.reload.interviews.length
+		Factory(:interview, :interviewer_id => object.id)
+		assert_equal 2, object.reload.interviews.length
 	end
 
 protected
 
-	def create_person(options = {})
+	def create_object(options = {})
 		record = Factory.build(:person,options)
 		record.save
 		record
 	end
-	alias_method :create_object, :create_person
 
 end

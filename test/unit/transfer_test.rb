@@ -9,31 +9,30 @@ class TransferTest < ActiveSupport::TestCase
 
 	test "should create transfer" do
 		assert_difference 'Transfer.count' do
-			transfer = create_transfer
-			assert !transfer.new_record?, 
-				"#{transfer.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should belong to from_organization" do
-		transfer = create_transfer
-		assert_not_nil transfer.from_organization
-		assert transfer.from_organization.is_a?(Organization)
+		object = create_object
+		assert_not_nil object.from_organization
+		assert object.from_organization.is_a?(Organization)
 	end
 
 	test "should belong to to_organization" do
-		transfer = create_transfer
-		assert_not_nil transfer.to_organization
-		assert transfer.to_organization.is_a?(Organization)
+		object = create_object
+		assert_not_nil object.to_organization
+		assert object.to_organization.is_a?(Organization)
 	end
 
 protected
 
-	def create_transfer(options = {})
+	def create_object(options = {})
 		record = Factory.build(:transfer,options)
 		record.save
 		record
 	end
-	alias_method :create_object, :create_transfer
 
 end

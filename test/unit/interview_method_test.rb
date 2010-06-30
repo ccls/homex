@@ -4,6 +4,8 @@ class InterviewMethodTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:interviews)
+	assert_should_require(:code,:description)
+	assert_should_require_unique(:code,:description)
 
 	test "should create interview_method" do
 		assert_difference 'InterviewMethod.count' do
@@ -13,44 +15,10 @@ class InterviewMethodTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require code" do
-		assert_no_difference 'InterviewMethod.count' do
-			object = create_object(
-				:code => nil)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require unique code" do
-		oet = create_object
-		assert_no_difference 'InterviewMethod.count' do
-			object = create_object(
-				:code => oet.code)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require description" do
-		assert_no_difference 'InterviewMethod.count' do
-			object = create_object(
-				:description => nil)
-			assert object.errors.on(:description)
-		end
-	end
-
 	test "should require 4 char description" do
 		assert_no_difference 'InterviewMethod.count' do
 			object = create_object(
 				:description => 'Hey')
-			assert object.errors.on(:description)
-		end
-	end
-
-	test "should require unique description" do
-		oet = create_object
-		assert_no_difference 'InterviewMethod.count' do
-			object = create_object(
-				:description => oet.description)
 			assert object.errors.on(:description)
 		end
 	end

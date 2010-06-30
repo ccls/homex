@@ -3,12 +3,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PiiTest < ActiveSupport::TestCase
 
 	assert_should_belong_to(:subject)
+	assert_should_require(:state_id_no,:dob)
+	assert_should_require_unique(:state_id_no,:email)
 
 	test "should create pii" do
 		assert_difference 'Pii.count' do
-			pii = create_pii
-			assert !pii.new_record?, 
-				"#{pii.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
@@ -19,55 +21,25 @@ class PiiTest < ActiveSupport::TestCase
 	#
 	test "should require subject_id on update" do
 		assert_difference 'Pii.count', 1 do
-			pii = create_pii
-			pii.reload.update_attributes(:first_name => "New First Name")
-			assert pii.errors.on(:subject)
+			object = create_object
+			object.reload.update_attributes(:first_name => "New First Name")
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
-		create_pii(:subject => subject)
+		create_object(:subject => subject)
 		assert_difference( 'Pii.count', 0 ) do
-			pii = create_pii(:subject => subject)
-			assert pii.errors.on(:subject_id)
-		end
-	end
-
-	test "should require state_id_no" do
-		assert_no_difference 'Pii.count' do
-			pii = create_pii(:state_id_no => nil)
-			assert pii.errors.on(:state_id_no)
-		end
-	end
-
-	test "should require unique state_id_no" do
-		p = create_pii
-		assert_no_difference 'Pii.count' do
-			pii = create_pii(:state_id_no => p.state_id_no)
-			assert pii.errors.on(:state_id_no)
-		end
-	end
-
-	test "should require unique email" do
-		p = create_pii
-		assert_no_difference 'Pii.count' do
-			pii = create_pii(:email => p.email)
-			assert pii.errors.on(:email)
-		end
-	end
-
-	test "should require dob" do
-		assert_no_difference 'Pii.count' do
-			pii = create_pii(:dob => nil)
-			assert pii.errors.on(:dob)
+			object = create_object(:subject => subject)
+			assert object.errors.on(:subject_id)
 		end
 	end
 
 	test "should allow multiple blank email" do
-		p = create_pii(:email => '  ')
+		create_object(:email => '  ')
 		assert_difference('Pii.count',1) do
-			pii = create_pii(:email => ' ')
+			object = create_object(:email => ' ')
 		end
 	end
 
@@ -77,11 +49,10 @@ class PiiTest < ActiveSupport::TestCase
 
 protected
 
-	def create_pii(options = {})
+	def create_object(options = {})
 		record = Factory.build(:pii,options)
 		record.save
 		record
 	end
-	alias_method :create_object, :create_pii
 
 end

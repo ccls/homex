@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PackageTest < ActiveSupport::TestCase
 
+	assert_should_require(:tracking_number)
+	assert_should_require_unique(:tracking_number)
+
 	test "should create package" do
 		assert_difference 'Package.count' do
 			package = create_package
@@ -10,24 +13,9 @@ class PackageTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require tracking_number" do
-		assert_no_difference 'Package.count' do
-			package = create_package(:tracking_number => nil)
-			assert package.errors.on(:tracking_number)
-		end
-	end
-
 	test "should require 3 char tracking_number" do
 		assert_no_difference 'Package.count' do
 			package = create_package(:tracking_number => 'Hi')
-			assert package.errors.on(:tracking_number)
-		end
-	end
-
-	test "should require unique tracking_number" do
-		p = create_package
-		assert_no_difference 'Package.count' do
-			package = create_package(:tracking_number => p.tracking_number)
 			assert package.errors.on(:tracking_number)
 		end
 	end
@@ -156,5 +144,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_package
 
 end

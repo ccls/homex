@@ -3,19 +3,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SurveyTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:response_sets)
+	assert_should_require(:title)
 
 	test "should create survey" do
 		assert_difference 'Survey.count' do
 			survey = create_survey
 			assert !survey.new_record?, 
 				"#{survey.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require title" do
-		assert_no_difference 'Survey.count' do
-			survey = create_survey(:title => nil)
-			assert survey.errors.on(:title)
 		end
 	end
 

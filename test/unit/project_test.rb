@@ -4,6 +4,8 @@ class ProjectTest < ActiveSupport::TestCase
 
 	assert_should_have_many(
 		:operational_event_types,:interview_types,:project_subjects)
+	assert_should_require(:code,:description)
+	assert_should_require_unique(:code,:description)
 
 	test "should create project" do
 		assert_difference 'Project.count' do
@@ -13,41 +15,9 @@ class ProjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require code" do
-		assert_no_difference 'Project.count' do
-			object = create_object(:code => nil)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require unique code" do
-		se = create_object
-		assert_no_difference 'Project.count' do
-			object = create_object(
-				:code => se.code)
-			assert object.errors.on(:code)
-		end
-	end
-
-	test "should require description" do
-		assert_no_difference 'Project.count' do
-			object = create_object(:description => nil)
-			assert object.errors.on(:description)
-		end
-	end
-
 	test "should require 4 char description" do
 		assert_no_difference 'Project.count' do
 			object = create_object(:description => 'Hey')
-			assert object.errors.on(:description)
-		end
-	end
-
-	test "should require unique description" do
-		se = create_object
-		assert_no_difference 'Project.count' do
-			object = create_object(
-				:description => se.description)
 			assert object.errors.on(:description)
 		end
 	end

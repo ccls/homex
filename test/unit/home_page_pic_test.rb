@@ -2,25 +2,20 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomePagePicTest < ActiveSupport::TestCase
 
+	assert_should_require(:title)
+
 	test "should create home_page_pic" do
 		assert_difference 'HomePagePic.count' do
-			home_page_pic = create_home_page_pic
-			assert !home_page_pic.new_record?, 
-				"#{home_page_pic.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require title" do
-		assert_no_difference 'HomePagePic.count' do
-			home_page_pic = create_home_page_pic(:title => nil)
-			assert home_page_pic.errors.on(:title)
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should require 4 char title" do
 		assert_no_difference 'HomePagePic.count' do
-			home_page_pic = create_home_page_pic(:title => 'Hey')
-			assert home_page_pic.errors.on(:title)
+			object = create_object(:title => 'Hey')
+			assert object.errors.on(:title)
 		end
 	end
 
@@ -34,7 +29,7 @@ class HomePagePicTest < ActiveSupport::TestCase
 
 protected
 
-	def create_home_page_pic(options = {})
+	def create_object(options = {})
 		record = Factory.build(:home_page_pic,options)
 		record.save
 		record

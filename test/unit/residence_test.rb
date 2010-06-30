@@ -7,27 +7,26 @@ class ResidenceTest < ActiveSupport::TestCase
 
 	test "should create residence" do
 		assert_difference 'Residence.count' do
-			residence = create_residence
-			assert !residence.new_record?, 
-				"#{residence.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should NOT destroy address on destroy" do
-		residence = create_residence
+		object = create_object
 		assert_difference('Residence.count', -1) {
 		assert_difference('Address.count',0) {
-			residence.destroy
+			object.destroy
 		} }
 	end
 
 protected
 
-	def create_residence(options = {})
+	def create_object(options = {})
 		record = Factory.build(:residence,options)
 		record.save
 		record
 	end
-	alias_method :create_object, :create_residence
 
 end

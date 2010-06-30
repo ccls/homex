@@ -2,11 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:race,:subject_type)
 	assert_should_have_many(:survey_invitations,:addresses,
 		:operational_events,:project_subjects, :samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
 		:dust_kit,:identifier)
+	assert_should_require(:subjectid)
+	assert_should_require_unique(:subjectid)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
@@ -128,50 +131,6 @@ class SubjectTest < ActiveSupport::TestCase
 		assert subject.subjectid.length < 6
 		subject.save
 		assert subject.subjectid.length == 6
-	end
-
-	test "should require subjectid" do
-		assert_no_difference 'Subject.count' do
-			subject = create_subject(:subjectid => nil)
-			assert subject.errors.on(:subjectid)
-		end
-	end
-
-	test "should require unique subjectid" do
-		s = create_subject
-		assert_no_difference 'Subject.count' do
-			subject = create_subject(:subjectid => s.subjectid)
-			assert subject.errors.on(:subjectid)
-		end
-	end
-
-	test "should require valid race_id" do
-		assert_difference( 'Subject.count', 0) {
-			subject = create_subject(:race_id => 0)
-			assert subject.errors.on(:race)
-		}
-	end
-
-	test "should require valid race" do
-		assert_difference( 'Subject.count', 0) {
-			subject = create_subject(:race => Factory.build(:race))
-			assert subject.errors.on(:race_id)
-		}
-	end
-
-	test "should require valid subject_type_id" do
-		assert_difference( 'Subject.count', 0) {
-			subject = create_subject(:subject_type_id => 0)
-			assert subject.errors.on(:subject_type)
-		}
-	end
-
-	test "should require valid subject_type" do
-		assert_difference( 'Subject.count', 0) {
-			subject = create_subject(
-				:subject_type => Factory.build(:subject_type))
-			assert subject.errors.on(:subject_type_id)
-		}
 	end
 
 	test "should belong to vital_status" do

@@ -6,17 +6,17 @@ class PatientTest < ActiveSupport::TestCase
 
 	test "should create patient" do
 		assert_difference 'Patient.count' do
-			patient = create_patient
-			assert !patient.new_record?, 
-				"#{patient.errors.full_messages.to_sentence}"
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
 	test "should require valid subject_id on update" do
 		assert_difference 'Patient.count', 1 do
-			patient = create_patient(:subject_id => 0)
-			patient.reload.update_attributes(:hospital_no => 1)
-			assert patient.errors.on(:subject)
+			object = create_object(:subject_id => 0)
+			object.reload.update_attributes(:hospital_no => 1)
+			assert object.errors.on(:subject)
 		end
 	end
 
@@ -27,28 +27,27 @@ class PatientTest < ActiveSupport::TestCase
 	#
 	test "should require subject_id on update" do
 		assert_difference 'Patient.count', 1 do
-			patient = create_patient
-			patient.reload.update_attributes(:hospital_no => 1)
-			assert patient.errors.on(:subject)
+			object = create_object
+			object.reload.update_attributes(:hospital_no => 1)
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
-		create_patient(:subject => subject)
+		create_object(:subject => subject)
 		assert_difference( 'Patient.count', 0 ) do
-			patient = create_patient(:subject => subject)
-			assert patient.errors.on(:subject_id)
+			object = create_object(:subject => subject)
+			assert object.errors.on(:subject_id)
 		end
 	end
 
 protected
 
-	def create_patient(options = {})
+	def create_object(options = {})
 		record = Factory.build(:patient,options)
 		record.save
 		record
 	end
-	alias_method :create_object, :create_patient
 
 end

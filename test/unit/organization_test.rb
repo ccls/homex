@@ -3,19 +3,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 class OrganizationTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
+	assert_should_require(:code,:name)
+	assert_should_require_unique(:code,:name)
 
 	test "should create organization" do
 		assert_difference 'Organization.count' do
 			organization = create_organization
 			assert !organization.new_record?, 
 				"#{organization.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require code" do
-		assert_no_difference 'Organization.count' do
-			organization = create_organization(:code => nil)
-			assert organization.errors.on(:code)
 		end
 	end
 
@@ -26,32 +21,9 @@ class OrganizationTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require unique code" do
-		org = create_organization
-		assert_no_difference 'Organization.count' do
-			organization = create_organization(:code => org.code)
-			assert organization.errors.on(:code)
-		end
-	end
-
-	test "should require name" do
-		assert_no_difference 'Organization.count' do
-			organization = create_organization(:name => nil)
-			assert organization.errors.on(:name)
-		end
-	end
-
 	test "should require 4 char name" do
 		assert_no_difference 'Organization.count' do
 			organization = create_organization(:name => 'Hey')
-			assert organization.errors.on(:name)
-		end
-	end
-
-	test "should require unique name" do
-		org = create_organization
-		assert_no_difference 'Organization.count' do
-			organization = create_organization(:name => org.name)
 			assert organization.errors.on(:name)
 		end
 	end

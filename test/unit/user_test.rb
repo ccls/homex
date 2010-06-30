@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
+	assert_should_require(:uid)
+	assert_should_require_unique(:uid)
+
 	test "should create user" do
 		assert_difference 'User.count' do
 			user = create_user
@@ -54,21 +57,6 @@ class UserTest < ActiveSupport::TestCase
 			assert user.may_moderate?     #	aegis check
 			assert user.may_administrate? #	aegis check
 			assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require uid" do
-		assert_no_difference 'User.count' do
-			u = create_user(:uid => nil)
-			assert u.errors.on(:uid)
-		end
-	end
-
-	test "should require unique uid" do
-		user = create_user
-		assert_no_difference 'User.count' do
-			u = create_user(:uid => user.uid)
-			assert u.errors.on(:uid)
 		end
 	end
 
@@ -274,5 +262,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_user
 	
 end

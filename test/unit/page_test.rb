@@ -2,18 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PageTest < ActiveSupport::TestCase
 
+	assert_should_require(:path,:menu_en,:title_en,:body_en)
+	assert_should_require_unique(:path,:menu_en)
+
 	test "should create page" do
 		assert_difference 'Page.count' do
 			page = create_page
 			assert !page.new_record?, 
 				"#{page.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require path" do
-		assert_no_difference 'Page.count' do
-			page = create_page(:path => nil)
-			assert page.errors.on(:path)
 		end
 	end
 
@@ -31,60 +27,23 @@ class PageTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require unique path" do
-		p = create_page
-		assert_no_difference 'Page.count' do
-			page = create_page(:path => p.path)
-			assert page.errors.on(:path)
-		end
-	end
-
-	test "should require menu_en" do
-		assert_no_difference 'Page.count' do
-			page = create_page(:menu => nil)
-			assert page.errors.on(:menu_en)
-		end
-	end
-
-	test "should require unique menu_en" do
-		p = create_page
-		assert_no_difference 'Page.count' do
-			page = create_page(:menu => p.menu)
-			assert page.errors.on(:menu_en)
-		end
-	end
-
 	test "should require 4 char menu_en" do
 		assert_no_difference 'Page.count' do
-			page = create_page(:menu => 'Hey')
+			page = create_page(:menu_en => 'Hey')
 			assert page.errors.on(:menu_en)
-		end
-	end
-
-	test "should require title_en" do
-		assert_no_difference 'Page.count' do
-			page = create_page(:title => nil)
-			assert page.errors.on(:title_en)
 		end
 	end
 
 	test "should require 4 char title_en" do
 		assert_no_difference 'Page.count' do
-			page = create_page(:title => 'Hey')
+			page = create_page(:title_en => 'Hey')
 			assert page.errors.on(:title_en)
-		end
-	end
-
-	test "should require body_en" do
-		assert_no_difference 'Page.count' do
-			page = create_page(:body => nil)
-			assert page.errors.on(:body_en)
 		end
 	end
 
 	test "should require 4 char body_en" do
 		assert_no_difference 'Page.count' do
-			page = create_page(:body => 'Hey')
+			page = create_page(:body_en => 'Hey')
 			assert page.errors.on(:body_en)
 		end
 	end
@@ -211,5 +170,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_page
 
 end

@@ -14,21 +14,21 @@ module RequiresValidAssociations
 			associations.each do |assoc|
 				assoc = assoc.to_s
 
-				test "should require #{assoc}_id" do
+				test "RVA should require #{assoc}_id" do
 					assert_difference("#{model}.count",0) do
 						object = create_object("#{assoc}_id".to_sym => nil)
 						assert object.errors.on(assoc.to_sym)
 					end
 				end
 
-				test "should require valid #{assoc}_id" do
+				test "RVA should require valid #{assoc}_id" do
 					assert_difference("#{model}.count",0) do
 						object = create_object("#{assoc}_id".to_sym => 0)
 						assert object.errors.on(assoc.to_sym)
 					end
 				end
 
-			  test "should require valid #{assoc}" do
+			  test "RVA should require valid #{assoc}" do
 			    assert_difference("#{model}.count",0) { 
 			      object = create_object(
 							assoc.to_sym => Factory.build(assoc.to_sym))
@@ -39,6 +39,10 @@ module RequiresValidAssociations
 			end
 
 		end
+		alias_method :assert_requires_valid_association,
+			:assert_requires_valid_associations
+		alias_method :assert_requires_valid,
+			:assert_requires_valid_associations
 
 	end
 

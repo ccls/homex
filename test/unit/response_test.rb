@@ -3,33 +3,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseTest < ActiveSupport::TestCase
 
 	assert_should_initially_belong_to(:response_set)
+	assert_should_require(:response_set_id,:question_id,:answer_id)
 
 	test "should create response" do
 		assert_difference 'Response.count' do
 			response = create_response
 			assert !response.new_record?, 
 				"#{response.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require response_set_id" do
-		assert_no_difference 'Response.count' do
-			response = create_response(:response_set_id => nil)
-			assert response.errors.on(:response_set_id)
-		end
-	end
-
-	test "should require question_id" do
-		assert_no_difference 'Response.count' do
-			response = create_response(:question_id => nil)
-			assert response.errors.on(:question_id)
-		end
-	end
-
-	test "should require answer_id" do
-		assert_no_difference 'Response.count' do
-			response = create_response(:answer_id => nil)
-			assert response.errors.on(:answer_id)
 		end
 	end
 
