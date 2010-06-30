@@ -31,7 +31,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 
 	test "should require valid subject" do
 		assert_difference('ResponseSet.count',0) { 
-			object = create_object(:subject => Factory.build(assoc.to_sym))
+			object = create_object(:subject => Factory.build(:subject))
 			assert object.errors.on(:subject_id)
 		}    
 	end 
