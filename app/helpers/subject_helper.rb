@@ -76,6 +76,7 @@ module SubjectHelper
 				s << "<fieldset class='project'>\n"
 				s << "<legend>#{se.description}</legend><ul>\n"
 				s << se_check_boxes(se,:eligible)
+				s << se_check_boxes(se,:candidate)
 				s << se_check_boxes(se,:chosen)
 				s << se_check_boxes(se,:consented)
 				s << se_check_boxes(se,:closed)

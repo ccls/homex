@@ -170,6 +170,14 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_not_nil subject.vital_status
 	end
 
+	test "should belong to hispanicity" do
+		subject = create_subject
+pending
+#		assert_nil subject.vital_status
+#		subject.vital_status = Factory(:vital_status)
+#		assert_not_nil subject.vital_status
+	end
+
 	def sscount(subject_id,survey_id)
 		SurveyInvitation.count(:conditions => {
 			:subject_id => subject_id, :survey_id => survey_id })
@@ -621,6 +629,29 @@ class SubjectTest < ActiveSupport::TestCase
 		assert !subjects.include?(s3)
 	end
 
+	test "search should include subject by hispanicity" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+pending
+#		subjects = Subject.search(
+#			:races => [s1,s2].collect{|s|s.race.name})
+#		assert  subjects.include?(s1)
+#		assert  subjects.include?(s2)
+#		assert !subjects.include?(s3)
+	end
+	test "search should include subject by vital_statuses" do
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+pending
+#		subjects = Subject.search(
+#			:races => [s1,s2].collect{|s|s.race.name})
+#		assert  subjects.include?(s1)
+#		assert  subjects.include?(s2)
+#		assert !subjects.include?(s3)
+	end
+
 	test "search should include all subjects and ignore dust kits" do
 		subject1 = create_subject
 		dust_kit = create_dust_kit(:subject_id => subject1.id)
@@ -895,6 +926,52 @@ class SubjectTest < ActiveSupport::TestCase
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
+
+	test "search should include subject by project indifferent candidate" do
+		s1 = create_subject
+		s2 = create_subject
+		se = Factory(:project)
+		Factory(:project_subject, :project => se, :subject => s1,
+			:is_candidate => false)
+		Factory(:project_subject, :project => se, :subject => s2,
+			:is_candidate => true)
+		subjects = Subject.search(:projects => {se.id => {
+			:candidate => [true,false]
+		}})
+		assert subjects.include?(s1)
+		assert subjects.include?(s2)
+	end
+
+	test "search should include subject by project not candidate" do
+		s1 = create_subject
+		s2 = create_subject
+		se = Factory(:project)
+		Factory(:project_subject, :project => se, :subject => s1,
+			:is_candidate => false)
+		Factory(:project_subject, :project => se, :subject => s2,
+			:is_candidate => true)
+		subjects = Subject.search(:projects => {se.id => {
+			:candidate => false
+		}})
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
+	test "search should include subject by project is candidate" do
+		s1 = create_subject
+		s2 = create_subject
+		se = Factory(:project)
+		Factory(:project_subject, :project => se, :subject => s1,
+			:is_candidate => true)
+		Factory(:project_subject, :project => se, :subject => s2,
+			:is_candidate => false)
+		subjects = Subject.search(:projects => {se.id => {
+			:candidate => true
+		}})
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
 
 	test "search should include subject by project indifferent chosen" do
 		s1 = create_subject

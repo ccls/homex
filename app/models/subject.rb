@@ -5,6 +5,7 @@ class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :race
 	belongs_to :vital_status
+#	belongs_to :hispanicity
 	has_many :samples
 	has_many :project_subjects
 	has_many :operational_events
@@ -182,6 +183,10 @@ class Subject < ActiveRecord::Base
 						when 'eligible'
 							if val.true_xor_false?
 								conditions["se_#{id}.is_eligible"] = val.to_boolean
+							end
+						when 'candidate'
+							if val.true_xor_false?
+								conditions["se_#{id}.is_candidate"] = val.to_boolean
 							end
 						when 'chosen'
 							if val.true_xor_false?
