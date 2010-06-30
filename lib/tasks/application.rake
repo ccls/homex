@@ -22,6 +22,9 @@ namespace :app do
 		Rake::Task["app:add_users"].invoke
 		ENV['uid'] = '859908'
 		Rake::Task["app:deputize"].invoke
+		ENV['uid'] = '228181'
+		Rake::Task["app:deputize"].reenable	#	<- this is stupid!
+		Rake::Task["app:deputize"].invoke
 	end
 
 	desc "DEV: Add some CCLS subjects"
