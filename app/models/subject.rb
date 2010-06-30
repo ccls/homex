@@ -18,6 +18,7 @@ class Subject < ActiveRecord::Base
 	has_one :identifier
 	has_one :dust_kit
 	has_many :survey_invitations
+	has_and_belongs_to_many :analyses
 
 	validates_presence_of :subject_type, :race
 	validates_presence_of   :subjectid

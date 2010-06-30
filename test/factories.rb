@@ -17,6 +17,11 @@ Factory.define :aliquot_sample_format do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :analysis do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
 Factory.define :identifier do |f|
 	f.sequence(:childid) { |n| "#{n}" }
 	f.sequence(:ssn){|n| sprintf("%09d",n) }

@@ -372,6 +372,15 @@ pending
 		} }
 	end
 
+	test "should have and belong to many analyses" do
+		object = create_object
+		assert_equal 0, object.analyses.length
+		object.analyses << Factory(:analysis)
+		assert_equal 1, object.reload.analyses.length
+		object.analyses << Factory(:analysis)
+		assert_equal 2, object.reload.analyses.length
+	end
+
 	test "should have many samples" do
 		subject = create_subject
 		assert_equal 0, subject.samples.length
@@ -1341,6 +1350,7 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_subject
 
 	def create_dust_kit(options = {})
 		Factory(:dust_kit, {
