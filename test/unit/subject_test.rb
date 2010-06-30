@@ -163,8 +163,13 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_not_nil subject.subject_type
 	end
 
-	test "should belong to vital_status" do
+	test "CAN initially belong to vital_status" do
 		subject = create_subject
+		assert_not_nil subject.vital_status
+	end
+
+	test "should belong to vital_status" do
+		subject = create_subject(:vital_status => nil)
 		assert_nil subject.vital_status
 		subject.vital_status = Factory(:vital_status)
 		assert_not_nil subject.vital_status
