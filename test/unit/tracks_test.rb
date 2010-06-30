@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TrackTest < ActiveSupport::TestCase
 
+	assert_should_initially_belong_to(:trackable)
+
 	test "should create track" do
 		assert_difference 'Track.count' do
 			track = create_track
@@ -61,11 +63,6 @@ class TrackTest < ActiveSupport::TestCase
 		assert_equal track.location, "None"
 	end
 
-	test "should belong to trackable" do
-		track = create_track
-		assert_not_nil track.trackable
-	end
-
 protected
 
 	def create_track(options = {})
@@ -73,5 +70,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_track
 
 end

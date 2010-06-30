@@ -5,6 +5,7 @@ class InterviewTypeTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_have_many(:interview_versions)
 	assert_requires_valid_associations(:project)
+	assert_should_initially_belong_to(:project)
 
 	test "should create interview_type" do
 		assert_difference 'InterviewType.count' do
@@ -51,11 +52,6 @@ class InterviewTypeTest < ActiveSupport::TestCase
 				:description => it.description)
 			assert interview_type.errors.on(:description)
 		end
-	end
-
-	test "should initially belong to a project" do
-		interview_type = create_interview_type
-		assert_not_nil interview_type.project
 	end
 
 protected

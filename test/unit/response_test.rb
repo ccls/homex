@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResponseTest < ActiveSupport::TestCase
 
+	assert_should_initially_belong_to(:response_set)
+
 	test "should create response" do
 		assert_difference 'Response.count' do
 			response = create_response
@@ -29,11 +31,6 @@ class ResponseTest < ActiveSupport::TestCase
 			response = create_response(:answer_id => nil)
 			assert response.errors.on(:answer_id)
 		end
-	end
-
-	test "should initially belong to a response_set" do
-		response = create_response
-		assert_not_nil response.response_set
 	end
 
 	test "should raise error on q_and_a_codes with invalid response_class" do
@@ -134,5 +131,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_response
 
 end

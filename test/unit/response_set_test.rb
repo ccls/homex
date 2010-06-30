@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseSetTest < ActiveSupport::TestCase
 
 	assert_should_belong_to(:user)
+	assert_should_initially_belong_to(:survey,:subject)
 
 	test "should create response_set" do
 		assert_difference 'ResponseSet.count' do
@@ -49,17 +50,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 			ac2 = response_set.access_code
 			assert_not_equal ac1, ac2
 		end
-	end
-
-	test "should initially belong to a survey" do
-		response_set = create_response_set
-		assert_not_nil response_set.survey
-	end
-
-	test "should initially belong to a subject" do
-		response_set = create_response_set
-		assert_not_nil response_set.reload.subject
-		assert_equal 1, response_set.subject.response_sets_count
 	end
 
 	#	This works, but the responses' questions and answers

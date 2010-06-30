@@ -4,6 +4,8 @@ class TransferTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:from_organization,
 		:to_organization, :aliquot)
+	assert_should_initially_belong_to(:aliquot,
+		:from_organization,:to_organization)
 
 	test "should create transfer" do
 		assert_difference 'Transfer.count' do
@@ -23,11 +25,6 @@ class TransferTest < ActiveSupport::TestCase
 		transfer = create_transfer
 		assert_not_nil transfer.to_organization
 		assert transfer.to_organization.is_a?(Organization)
-	end
-
-	test "should belong to aliquot" do
-		transfer = create_transfer
-		assert_not_nil transfer.aliquot
 	end
 
 protected

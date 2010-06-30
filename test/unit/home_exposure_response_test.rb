@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomeExposureResponseTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:subject)
+	assert_should_initially_belong_to(:subject)
+
 	test "should create home_exposure_response" do
 		assert_difference 'HomeExposureResponse.count' do
 			home_exposure_response = create_home_exposure_response
@@ -9,8 +12,6 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 				"#{home_exposure_response.errors.full_messages.to_sentence}"
 		end
 	end
-
-	assert_requires_valid_associations(:subject)
 
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
@@ -20,11 +21,6 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 				:subject => subject)
 			assert home_exposure_response.errors.on(:subject_id)
 		end
-	end
-
-	test "should initially belong to subject" do
-		home_exposure_response = create_home_exposure_response
-		assert_not_nil home_exposure_response.subject
 	end
 
 protected

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResidenceTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:address)
+	assert_should_initially_belong_to(:address)
 
 	test "should create residence" do
 		assert_difference 'Residence.count' do
@@ -10,11 +11,6 @@ class ResidenceTest < ActiveSupport::TestCase
 			assert !residence.new_record?, 
 				"#{residence.errors.full_messages.to_sentence}"
 		end
-	end
-
-	test "should initially belong to an address" do
-		residence = create_residence
-		assert_not_nil residence.address
 	end
 
 	test "should NOT destroy address on destroy" do

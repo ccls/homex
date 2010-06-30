@@ -7,6 +7,27 @@ module ShouldAssociate
 
 	module ClassMethods
 
+		def assert_should_initially_belong_to(*associations)
+			user_options = associations.extract_options!
+			model = user_options[:model] || self.name.sub(/Test$/,'')
+			
+			associations.each do |assoc|
+				assoc = assoc.to_s
+
+				test "SA should initially belong to #{assoc}" do
+					object = create_object
+					assert_not_nil object.send(assoc)
+					if object.send(assoc).respond_to?(
+						"#{model.underscore.pluralize}_count")
+						assert_equal 1, object.reload.send(assoc).send(
+							"#{model.underscore.pluralize}_count")
+					end
+				end
+
+			end
+
+		end
+
 		def assert_should_belong_to(*associations)
 			user_options = associations.extract_options!
 			model = user_options[:model] || self.name.sub(/Test$/,'')

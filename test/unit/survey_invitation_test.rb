@@ -4,6 +4,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:subject,:survey)
 	assert_should_belong_to(:response_set)
+	assert_should_initially_belong_to(:subject,:survey)
 
 	test "should create survey_invitation" do
 		assert_difference( 'SurveyInvitation.count', 1) do
@@ -81,16 +82,6 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		end
 		after_id = subject.reload.survey_invitations.first.id
 		assert_not_equal before_id, after_id
-	end
-
-	test "should initially belong to subject" do
-		survey_invitation = create_survey_invitation
-		assert_not_nil survey_invitation.subject
-	end
-
-	test "should initially belong to survey" do
-		survey_invitation = create_survey_invitation
-		assert_not_nil survey_invitation.survey
 	end
 
 	test "should respond to email" do

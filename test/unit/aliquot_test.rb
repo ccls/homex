@@ -5,6 +5,7 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_should_have_many(:transfers)
 	assert_requires_valid_associations(:sample,:unit,:owner)
 	assert_should_belong_to(:aliquot_sample_format)
+	assert_should_initially_belong_to(:sample,:unit,:owner)
 
 	test "should create aliquot" do
 		assert_difference 'Aliquot.count' do
@@ -12,22 +13,6 @@ class AliquotTest < ActiveSupport::TestCase
 			assert !aliquot.new_record?, 
 				"#{aliquot.errors.full_messages.to_sentence}"
 		end
-	end
-
-	test "should initially belong to sample" do
-		aliquot = create_aliquot
-		assert_not_nil aliquot.sample
-	end
-
-	test "should initially belong to unit" do
-		aliquot = create_aliquot
-		assert_not_nil aliquot.unit
-	end
-
-	test "should initially belong to owner" do
-		aliquot = create_aliquot
-		assert_not_nil aliquot.owner
-		assert aliquot.owner.is_a?(Organization)
 	end
 
 	test "should transfer to another organization" do

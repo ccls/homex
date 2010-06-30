@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class UserInvitationTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:sender)
+	assert_should_initially_belong_to(:sender)
 
 	test "should create invitation" do
 		assert_difference 'UserInvitation.count' do

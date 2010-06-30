@@ -4,6 +4,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:survey_invitations,:addresses,
 		:operational_events,:project_subjects, :samples,:response_sets)
+	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
@@ -169,21 +170,6 @@ class SubjectTest < ActiveSupport::TestCase
 				:subject_type => Factory.build(:subject_type))
 			assert subject.errors.on(:subject_type_id)
 		}
-	end
-
-	test "should initially belong to race" do
-		subject = create_subject
-		assert_not_nil subject.race
-	end
-
-	test "should initially belong to subject_type" do
-		subject = create_subject
-		assert_not_nil subject.subject_type
-	end
-
-	test "CAN initially belong to vital_status" do
-		subject = create_subject
-		assert_not_nil subject.vital_status
 	end
 
 	test "should belong to vital_status" do

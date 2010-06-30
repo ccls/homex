@@ -4,6 +4,7 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:samples)
+	assert_should_initially_belong_to(:sample_type)
 	assert_requires_valid_associations(:sample_type)
 
 	test "should create sample_subtype" do
@@ -51,11 +52,6 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 				:description => sst.description)
 			assert sample_subtype.errors.on(:description)
 		end
-	end
-
-	test "should initially belong to sample_type" do
-		sample_subtype = create_sample_subtype
-		assert_not_nil sample_subtype.sample_type
 	end
 
 protected
