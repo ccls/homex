@@ -10,55 +10,91 @@ class InterviewTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require address_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:address_id => nil)
-#			assert object.errors.on(:address)
-#		end
+	test "should NOT require address_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:address_id => nil)
+			assert !object.errors.on(:address)
+		end
 	end
 
-	test "should require subject_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:subject_id => nil)
-#			assert object.errors.on(:subject)
-#		end
+	test "should NOT require interviewer_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interviewer_id => nil)
+			assert !object.errors.on(:interviewer)
+		end
 	end
 
-	test "should require interviewer_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:interviewer_id => nil)
-#			assert object.errors.on(:interviewer)
-#		end
+	test "should NOT require interview_version_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interview_version_id => nil)
+			assert !object.errors.on(:interview_version_id)
+		end
 	end
 
-	test "should require valid address_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:address_id => 0)
-#			assert object.errors.on(:address)
-#		end
+	test "should NOT require interview_method_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interview_method_id => nil)
+			assert !object.errors.on(:interview_method_id)
+		end
 	end
 
-	test "should require valid subject_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:subject_id => 0)
-#			assert object.errors.on(:subject)
-#		end
+	test "should NOT require language_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:language_id => nil)
+			assert !object.errors.on(:language_id)
+		end
 	end
 
-	test "should require valid interviewer_id" do
-		pending
-#		assert_no_difference 'Interview.count' do
-#			object = create_object(:interviewer_id => 0)
-#			assert object.errors.on(:interviewer)
-#		end
+	test "should NOT require identifier_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:identifier_id => nil)
+			assert !object.errors.on(:identifier_id)
+		end
 	end
 
-#	test "should initially belong to an address" do
+
+	test "should NOT require valid address_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:address_id => 0)
+			assert !object.errors.on(:address)
+		end
+	end
+
+	test "should NOT require valid interviewer_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interviewer_id => 0)
+			assert !object.errors.on(:interviewer)
+		end
+	end
+
+	test "should NOT require valid interview_version_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interview_version_id => 0)
+			assert !object.errors.on(:interview_version_id)
+		end
+	end
+
+	test "should NOT require valid interview_method_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:interview_method_id => 0)
+			assert !object.errors.on(:interview_method_id)
+		end
+	end
+
+	test "should NOT require valid language_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:language_id => 0)
+			assert !object.errors.on(:language_id)
+		end
+	end
+
+	test "should NOT require valid identifier_id" do
+		assert_difference('Interview.count',1) do
+			object = create_object(:identifier_id => 0)
+			assert !object.errors.on(:identifier_id)
+		end
+	end
+
 	test "should belong to an address" do
 		object = create_object
 		assert_nil object.address
@@ -66,12 +102,6 @@ class InterviewTest < ActiveSupport::TestCase
 		assert_not_nil object.address
 	end
 
-#	test "should initially belong to a subject" do
-#		object = create_object
-#		assert_not_nil object.subject
-#	end
-
-#	test "should initially belong to an interviewer" do
 	test "should belong to an interviewer" do
 		object = create_object
 		assert_nil object.interviewer
@@ -104,9 +134,8 @@ class InterviewTest < ActiveSupport::TestCase
 	test "should belong to an identifier" do
 		object = create_object
 		assert_nil object.identifier
-		pending
-#		object.identifier = Factory(:identifier)
-#		assert_not_nil object.identifier
+		object.identifier = Factory(:identifier)
+		assert_not_nil object.identifier
 	end
 
 protected

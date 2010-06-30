@@ -189,20 +189,17 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT create with invalid subject with #{cu} login" do
-		pending
-#
-#	subject has no validations so cannot test yet
-#
-#		login_as admin
-#		assert_difference('Subject.count',0){
-#			post :create, :subject => {
-#				:race_id => Race.first.id,
-#				:subject_type_id => SubjectType.first.id}
-#		}
-#		assert_response :success
-#		assert_template 'new'
-#		assert_not_nil flash[:error]
+	test "should NOT create without subjectid with #{cu} login" do
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+			post :create, :subject => Factory.attributes_for(:subject,
+				:subjectid => nil,
+				:race_id => Race.first.id,
+				:subject_type_id => SubjectType.first.id)
+		}
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
 	end
 
 end

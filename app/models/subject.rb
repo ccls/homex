@@ -138,6 +138,11 @@ class Subject < ActiveRecord::Base
 			conditions['races.name'] = params[:races]
 		end
 
+		if params[:vital_statuses] && !params[:vital_statuses].blank?
+			joins.push(:vital_status)
+			conditions['vital_statuses.code'] = params[:vital_statuses]
+		end
+
 		if params[:dust_kit] && !params[:dust_kit].blank?
 			if params[:dust_kit] == 'shipped'
 				#	Shipped to subject

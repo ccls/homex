@@ -50,11 +50,21 @@ class LanguageTest < ActiveSupport::TestCase
   end 
 
 	test "should have many interview_versions" do
-		pending
+		object = create_object
+		assert_equal 0, object.interview_versions.length
+		Factory(:interview_version, :language_id => object.id)
+		assert_equal 1, object.reload.interview_versions.length
+		Factory(:interview_version, :language_id => object.id)
+		assert_equal 2, object.reload.interview_versions.length
 	end
 
 	test "should have many interviews" do
-		pending
+		object = create_object
+		assert_equal 0, object.interviews.length
+		Factory(:interview, :language_id => object.id)
+		assert_equal 1, object.reload.interviews.length
+		Factory(:interview, :language_id => object.id)
+		assert_equal 2, object.reload.interviews.length
 	end
 
 	test "should act as list" do

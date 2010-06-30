@@ -400,27 +400,6 @@ pending
 		} }
 	end
 
-	test "should have many interviews" do
-		pending
-#		subject = create_subject
-#		assert_equal 0, subject.interviews.length
-#		Factory(:interview, :subject_id => subject.id)
-#		assert_equal 1, subject.reload.interviews.length
-#		Factory(:interview, :subject_id => subject.id)
-#		assert_equal 2, subject.reload.interviews.length
-	end
-
-	test "should NOT destroy interviews with subject" do
-		pending
-#		subject = create_subject
-#		Factory(:interview, :subject_id => subject.id)
-#		Factory(:interview, :subject_id => subject.id)
-#		assert_difference('Subject.count',-1) {
-#		assert_difference('Interview.count',0) {
-#			subject.destroy
-#		} }
-	end
-
 	test "should have many response_sets" do
 		subject = create_subject
 		assert_equal 0, subject.response_sets.length
@@ -649,16 +628,16 @@ pending
 #		assert  subjects.include?(s2)
 #		assert !subjects.include?(s3)
 	end
+
 	test "search should include subject by vital_statuses" do
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-pending
-#		subjects = Subject.search(
-#			:races => [s1,s2].collect{|s|s.race.name})
-#		assert  subjects.include?(s1)
-#		assert  subjects.include?(s2)
-#		assert !subjects.include?(s3)
+		subjects = Subject.search(
+			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code})
+		assert  subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert !subjects.include?(s3)
 	end
 
 	test "search should include all subjects and ignore dust kits" do

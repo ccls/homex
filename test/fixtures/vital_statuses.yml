@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-#one:
-#  code: MyString
-#  description: MyString
-#
+one:
+  code: living
+  description: living
+
 #two:
 #  code: MyString
 #  description: MyString
