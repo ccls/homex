@@ -9,13 +9,12 @@ class Subject < ActiveRecord::Base
 	has_many :project_subjects
 	has_many :operational_events
 	has_many :addresses
-#	has_many :interview_events
 	has_many :response_sets
 	has_many :home_exposure_events
 	has_one :home_exposure_response
 	has_one :pii
 	has_one :patient
-	has_one :child_id
+	has_one :identifier
 	has_one :dust_kit
 	has_many :survey_invitations
 
@@ -25,11 +24,12 @@ class Subject < ActiveRecord::Base
 #	validates_inclusion_of :sex, :in => %w( male female ),
 #		:message => "must be male or female"
 
-	delegate :ssn, :full_name, :email, :patid, :orderno,
-		:last_name, :first_name, :dob, :studyid,
+	delegate :full_name, :email,
+		:last_name, :first_name, :dob,
 		:fathers_name, :mothers_name,
 		:to => :pii, :allow_nil => true
-	delegate :childid,   :to => :child_id, :allow_nil => true
+	delegate :childid, :ssn, :patid, :orderno, :studyid,
+		:to => :identifier, :allow_nil => true
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
@@ -43,7 +43,7 @@ class Subject < ActiveRecord::Base
 	#	Make all these require a unique subject_id
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :patient
-	accepts_nested_attributes_for :child_id
+	accepts_nested_attributes_for :identifier
 	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
@@ -116,7 +116,7 @@ class Subject < ActiveRecord::Base
 		order = nil
 		conditions = { }
 		joins = []
-		includes = [:pii,:child_id]
+		includes = [:pii,:identifier]
 		sql_scope = { :joins => [] }
 #			'LEFT OUTER JOIN piis ON subjects.id = piis.subject_id',
 #			'LEFT OUTER JOIN child_ids ON subjects.id = child_ids.subject_id'
@@ -215,11 +215,11 @@ class Subject < ActiveRecord::Base
 
 		if params[:order]
 			order = case params[:order].downcase
-				when 'childid'    then 'child_ids.childid'
+				when 'childid'    then 'identifiers.childid'
 				when 'last_name'  then 'piis.last_name'
 				when 'first_name' then 'piis.first_name'
 				when 'dob'        then 'piis.dob'
-				when 'studyid'    then 'piis.patid'
+				when 'studyid'    then 'identifiers.patid'
 				when 'priority'   then 'recruitment_priority'
 #				when 'priority'   then 'project_subjects.recruitment_priority'
 #				when 'priority'   then 'priority'
@@ -242,8 +242,8 @@ class Subject < ActiveRecord::Base
 			params[:q].to_s.split(/\s+/).each_with_index do |q,i|
 				c.push("piis.first_name LIKE :q#{i}")
 				c.push("piis.last_name LIKE :q#{i}")
-				c.push("piis.patid LIKE :q#{i}")
-				c.push("child_ids.childid LIKE :q#{i}")
+				c.push("identifiers.patid LIKE :q#{i}")
+				c.push("identifiers.childid LIKE :q#{i}")
 				v["q#{i}".to_sym] = "%#{q}%"
 			end
 			sql_conditions.push("( #{c.join(' OR ')} )")

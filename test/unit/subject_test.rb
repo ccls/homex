@@ -39,7 +39,6 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_difference( 'Pii.count', 0) {
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject( :pii_attributes => {})
-			assert subject.errors.on(:pii_ssn)
 			assert subject.errors.on(:pii_state_id_no)
 		} }
 	end
@@ -76,42 +75,42 @@ class SubjectTest < ActiveSupport::TestCase
 #
 #	end
 
-	test "should create subject with child_id" do
-		assert_difference( 'ChildId.count', 1) {
+	test "should create subject with identifier" do
+		assert_difference( 'Identifier.count', 1) {
 		assert_difference( 'Subject.count', 1) {
 			subject = create_subject(
-				:child_id_attributes => Factory.attributes_for(:child_id))
+				:identifier_attributes => Factory.attributes_for(:identifier))
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
 		} }
 	end
 
-	test "should NOT create subject with second child_id" do
-		assert_difference( 'ChildId.count', 1) {
+	test "should NOT create subject with second identifier" do
+		assert_difference( 'Identifier.count', 1) {
 		assert_difference( 'Subject.count', 1) {
 			subject = create_subject(
-				:child_id_attributes => Factory.attributes_for(:child_id))
+				:identifier_attributes => Factory.attributes_for(:identifier))
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
-				:child_id_attributes => Factory.attributes_for(:child_id))
-			assert subject.errors.on(:child_id_subject_id)
+				:identifier_attributes => Factory.attributes_for(:identifier))
+			assert subject.errors.on(:identifier_subject_id)
 		} }
 	end
 
-	test "should NOT create subject with empty child_id" do
-		assert_difference( 'ChildId.count', 0) {
+	test "should NOT create subject with empty identifier" do
+		assert_difference( 'Identifier.count', 0) {
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject(
-				:child_id_attributes => {} )
-			assert subject.errors.on(:child_id_childid)
+				:identifier_attributes => {} )
+			assert subject.errors.on(:identifier_childid)
 		} }
 	end
 
-	test "studyid should be patid, stype and orderno" do
+	test "studyid should be patid, case_control_type and orderno" do
 		subject = create_subject(
-			:pii_attributes => Factory.attributes_for(:pii, 
-				:stype => 'A',
+			:identifier_attributes => Factory.attributes_for(:identifier, 
+				:case_control_type => 'A',
 				:patid   => '123',
 				:orderno => '4'
 		))
@@ -236,20 +235,20 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should have one child_id" do
+	test "should have one identifier" do
 		subject = create_subject
-		assert_nil subject.child_id
-		Factory(:child_id, :subject_id => subject.id)
-		assert_not_nil subject.reload.child_id
-		subject.child_id.destroy
-		assert_nil subject.reload.child_id
+		assert_nil subject.identifier
+		Factory(:identifier, :subject_id => subject.id)
+		assert_not_nil subject.reload.identifier
+		subject.identifier.destroy
+		assert_nil subject.reload.identifier
 	end
 
-	test "should NOT destroy child_id with subject" do
+	test "should NOT destroy identifier with subject" do
 		subject = create_subject
-		Factory(:child_id, :subject_id => subject.id)
+		Factory(:identifier, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('ChildId.count',0) {
+		assert_difference('Identifier.count',0) {
 			subject.destroy
 		} }
 	end
@@ -427,13 +426,13 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should return nil ssn without pii" do
+	test "should return nil ssn without identifier" do
 		subject = create_subject
 		assert_nil subject.ssn
 	end
 
-	test "should return ssn with pii" do
-		subject = Factory(:pii, :subject => create_subject).subject
+	test "should return ssn with identifier" do
+		subject = Factory(:identifier, :subject => create_subject).subject
 		assert_not_nil subject.ssn
 	end
 
@@ -539,13 +538,13 @@ class SubjectTest < ActiveSupport::TestCase
 #		} }
 #	end
 #
-#	test "should destroy child_id on subject destroy" do
-#		assert_difference( 'ChildId.count', 1) {
+#	test "should destroy identifier on subject destroy" do
+#		assert_difference( 'Identifier.count', 1) {
 #		assert_difference( 'Subject.count', 1) {
 #			@subject = create_subject(
-#				:child_id_attributes => Factory.attributes_for(:child_id))
+#				:identifier_attributes => Factory.attributes_for(:identifier))
 #		} }
-#		assert_difference( 'ChildId.count', -1) {
+#		assert_difference( 'Identifier.count', -1) {
 #		assert_difference( 'Subject.count', -1) {
 #			@subject.destroy
 #		} }
@@ -1069,47 +1068,56 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	test "search should order by childid asc by default" do
-		s1 = create_subject(:child_id_attributes => { :childid => '9' })
-		s2 = create_subject(:child_id_attributes => { :childid => '3' })
-		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '9'))
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '3' ))
+		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by childid asc" do
-		s1 = create_subject(:child_id_attributes => { :childid => '9' })
-		s2 = create_subject(:child_id_attributes => { :childid => '3' })
-		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '9'))
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '3' ))
+		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid', :dir => 'asc')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by childid desc" do
-		s1 = create_subject(:child_id_attributes => { :childid => '9' })
-		s2 = create_subject(:child_id_attributes => { :childid => '3' })
-		s3 = create_subject(:child_id_attributes => { :childid => '6' })
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '9'))
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '3' ))
+		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by studyid asc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '6' ))
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '9' ))
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '3' ))
+		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '6' ))
 		subjects = Subject.search(:order => 'studyid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by studyid desc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:patid => '6' ))
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '9' ))
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '3' ))
+		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
+			:identifier, :patid => '6' ))
 		subjects = Subject.search(:order => 'studyid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
@@ -1213,19 +1221,19 @@ class SubjectTest < ActiveSupport::TestCase
 	end
 
 	test "search should include subject by q childid" do
-		s1 = create_subject(:child_id_attributes => Factory.attributes_for(:child_id,
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier,
 			:childid => 999999))
-		s2 = create_subject(:child_id_attributes => Factory.attributes_for(:child_id))
-		subjects = Subject.search(:q => s1.child_id.childid)
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier))
+		subjects = Subject.search(:q => s1.identifier.childid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "search should include subject by q patid" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii,
+		s1 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier,
 			:patid => 999999))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii))
-		subjects = Subject.search(:q => s1.pii.patid)
+		s2 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier))
+		subjects = Subject.search(:q => s1.identifier.patid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end

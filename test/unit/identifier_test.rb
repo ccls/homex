@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ChildIdTest < ActiveSupport::TestCase
+class IdentifierTest < ActiveSupport::TestCase
 
-	test "should create child_id" do
-		assert_difference 'ChildId.count' do
-			child_id = create_child_id
-			assert !child_id.new_record?, 
-				"#{child_id.errors.full_messages.to_sentence}"
+	test "should create identifier" do
+		assert_difference 'Identifier.count' do
+			object = create_object
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
 
@@ -16,56 +16,162 @@ class ChildIdTest < ActiveSupport::TestCase
 	#	or this test fails.
 	#
 	test "should require subject_id on update" do
-		assert_difference 'ChildId.count', 1 do
-			child_id = create_child_id
-			child_id.reload.update_attributes(:childid => 1)
-			assert child_id.errors.on(:subject)
+		assert_difference 'Identifier.count', 1 do
+			object = create_object
+			object.reload.update_attributes(:childid => 1)
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
-		create_child_id(:subject => subject)
-		assert_difference( 'ChildId.count', 0 ) do
-			child_id = create_child_id(:subject => subject)
-			assert child_id.errors.on(:subject_id)
+		create_object(:subject => subject)
+		assert_difference( 'Identifier.count', 0 ) do
+			object = create_object(:subject => subject)
+			assert object.errors.on(:subject_id)
 		end
 	end
 
 	test "should require valid subject_id on update" do
-		assert_difference( 'ChildId.count', 1 )do
-			child_id = create_child_id(:subject_id => 0)
-			child_id.reload.update_attributes(:childid => 1)
-			assert child_id.errors.on(:subject)
+		assert_difference( 'Identifier.count', 1 )do
+			object = create_object(:subject_id => 0)
+			object.reload.update_attributes(:childid => 1)
+			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require childid" do
-		assert_difference('ChildId.count',0) do
-			child_id = create_child_id(:childid => nil)
-			assert child_id.errors.on(:childid)
+		assert_difference('Identifier.count',0) do
+			object = create_object(:childid => nil)
+			assert object.errors.on(:childid)
 		end
 	end
 
 	test "should require unique childid" do
-		c = create_child_id
-		assert_difference('ChildId.count',0) do
-			child_id = create_child_id(:childid => c.childid)
-			assert child_id.errors.on(:childid)
+		c = create_object
+		assert_difference('Identifier.count',0) do
+			object = create_object(:childid => c.childid)
+			assert object.errors.on(:childid)
 		end
 	end
 
 	test "should belong to subject" do
-		child_id = create_child_id
-		assert_nil child_id.subject
-		child_id.subject = Factory(:subject)
-		assert_not_nil child_id.subject
+		object = create_object
+		assert_nil object.subject
+		object.subject = Factory(:subject)
+		assert_not_nil object.subject
+	end
+
+
+
+
+
+
+
+	test "should create with all numeric ssn" do
+		assert_difference 'Identifier.count' do
+			object = create_object(:ssn => 987654321)
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal '987654321', object.reload.ssn
+		end
+	end
+
+	test "should create with string all numeric ssn" do
+		assert_difference 'Identifier.count' do
+			object = create_object(:ssn => '987654321')
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal '987654321', object.reload.ssn
+		end
+	end
+
+	test "should create with string standard format ssn" do
+		assert_difference 'Identifier.count' do
+			object = create_object(:ssn => '987-65-4321')
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+			assert_equal '987654321', object.reload.ssn
+		end
+	end
+
+	test "should require case_control_type" do
+		assert_no_difference 'Identifier.count' do
+			object = create_object(:case_control_type => nil)
+			assert object.errors.on(:case_control_type)
+		end
+	end
+
+	test "should require orderno" do
+		assert_no_difference 'Identifier.count' do
+			object = create_object(:orderno => nil)
+			assert object.errors.on(:orderno)
+		end
+	end
+
+#	test "should require 1 char orderno" do
+#		assert_no_difference 'Identifier.count' do
+#			object = create_object(:orderno => '12')
+#			assert object.errors.on(:orderno)
+#		end
+#	end
+
+#	test "should require 1 DIGIT orderno" do
+#		assert_no_difference 'Identifier.count' do
+#			object = create_object(:orderno => 'A')
+#			assert object.errors.on(:orderno)
+#		end
+#	end
+
+	test "should require patid" do
+		assert_no_difference 'Identifier.count' do
+			object = create_object(:patid => nil)
+			assert object.errors.on(:patid)
+		end
+	end
+
+	test "should require unique patid, case_control_type and orderno" do
+#	still works without a subject and subject_type
+#	test "should require unique studyid" do
+		p = create_object
+		assert_no_difference 'Identifier.count' do
+			object = create_object({
+				:patid => p.patid,
+				:case_control_type => p.case_control_type,
+				:orderno => p.orderno
+			})
+			assert object.errors.on(:patid)
+		end
+	end
+
+	test "should require ssn" do
+		assert_no_difference 'Identifier.count' do
+			object = create_object(:ssn => nil)
+			assert object.errors.on(:ssn)
+		end
+	end
+
+	test "should require unique ssn" do
+		p = create_object
+		assert_no_difference 'Identifier.count' do
+			object = create_object(:ssn => p.ssn)
+			assert object.errors.on(:ssn)
+		end
+	end
+
+	test "should require 9 digits in ssn" do
+		%w( 12345678X 12345678 1-34-56-789 ).each do |invalid_ssn|
+			assert_no_difference 'Identifier.count' do
+				object = create_object(:ssn => invalid_ssn)
+				assert object.errors.on(:ssn)
+			end
+		end
 	end
 
 protected
 
-	def create_child_id(options = {})
-		record = Factory.build(:child_id,options)
+	def create_object(options = {})
+		record = Factory.build(:identifier,options)
 		record.save
 		record
 	end

@@ -17,8 +17,19 @@ Factory.define :aliquot_sample_format do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
-Factory.define :child_id do |f|
+Factory.define :identifier do |f|
 	f.sequence(:childid) { |n| "#{n}" }
+	f.sequence(:ssn){|n| sprintf("%09d",n) }
+	f.sequence(:patid){|n| "#{n}"}
+#	f.sequence(:orderno){|n| "#{n}"}
+#	This is just one digit so looping through all.
+#	This is potentially a problem causer in testing.
+	f.sequence(:orderno){|n| '0123456789'.split('')[n%10] }
+#	f.sequence(:stype){|n| "#{n}"}
+#	This is just one character so looping through known unused chars.
+#	This is potentially a problem causer in testing.
+	f.sequence(:case_control_type){|n|
+		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
 end
 
 Factory.define :context do |f|
@@ -118,18 +129,7 @@ Factory.define :pii do |f|
 	f.first_name "First"
 	f.middle_name "Middle"
 	f.last_name "Last"
-	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:state_id_no){|n| "#{n}"}
-	f.sequence(:patid){|n| "#{n}"}
-#	f.sequence(:orderno){|n| "#{n}"}
-#	This is just one digit so looping through all.
-#	This is potentially a problem causer in testing.
-	f.sequence(:orderno){|n| '0123456789'.split('')[n%10] }
-#	f.sequence(:stype){|n| "#{n}"}
-#	This is just one character so looping through known unused chars.
-#	This is potentially a problem causer in testing.
-	f.sequence(:stype){|n|
-		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
 	f.sequence(:email){|n| "email#{n}@example.com"}
 	f.dob Date.jd(2440000+rand(15000))
 end
