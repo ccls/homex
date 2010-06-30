@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseSetTest < ActiveSupport::TestCase
 
 	assert_should_have_one(:survey_invitation)
+	assert_should_have_many(:responses)
 	assert_should_belong_to(:user)
 	assert_should_initially_belong_to(:survey,:subject)
 
@@ -51,17 +52,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 			ac2 = response_set.access_code
 			assert_not_equal ac1, ac2
 		end
-	end
-
-	#	This works, but the responses' questions and answers
-	#	are all pointing in different directions.
-	test "should have many responses" do
-		response_set = create_response_set
-		assert_equal 0, response_set.responses.length
-		Factory(:response, :response_set_id => response_set.id)
-		assert_equal 1, response_set.reload.responses.length
-		Factory(:response, :response_set_id => response_set.id)
-		assert_equal 2, response_set.reload.responses.length
 	end
 
 	test "should return codes for response_set" do
