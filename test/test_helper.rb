@@ -15,7 +15,7 @@ require 'access_with_login'
 require 'access_with_https'
 require 'access_with_http'
 require 'no_access_with_http'
-#require 'full_access_with_admin_login'
+require 'requires_valid_associations'
 
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins

@@ -98,6 +98,15 @@ Factory.define :organization do |f|
 	f.sequence(:code) { |n| "My Org Code #{n}" }
 	f.sequence(:name) { |n| "My Org Name #{n}" }
 end
+Factory.define :owner, :parent => :organization do |f|
+#	This is really just an alias of convenience for Aliquot
+end	#	parent must be defined first
+Factory.define :to_organization, :parent => :organization do |f|
+#	This is really just an alias of convenience for Transfer
+end	#	parent must be defined first
+Factory.define :from_organization, :parent => :organization do |f|
+#	This is really just an alias of convenience for Transfer
+end	#	parent must be defined first
 
 Factory.define :operational_event do |f|
 	f.association :subject
@@ -127,6 +136,7 @@ end
 Factory.define :person do |f|
 end
 Factory.define :interviewer, :parent => :person do |f|
+#	This is really just an alias of convenience for Interview
 end	#	parent must be defined first
 
 Factory.define :pii do |f|
@@ -229,6 +239,9 @@ Factory.define :user do |f|
 end
 Factory.define :admin_user, :parent => :user do |f|
 	f.administrator true
+end	#	parent must be defined first
+Factory.define :sender, :parent => :user do |f|
+#	This is really just an alias of convenience for UserInvitation
 end	#	parent must be defined first
 
 Factory.define :user_invitation do |f|

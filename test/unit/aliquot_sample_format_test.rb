@@ -84,5 +84,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_aliquot_sample_format
 
 end

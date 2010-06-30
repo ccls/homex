@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserInvitationTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:sender)
+
 	test "should create invitation" do
 		assert_difference 'UserInvitation.count' do
 			invitation = create_invitation
@@ -23,13 +25,6 @@ class UserInvitationTest < ActiveSupport::TestCase
 		assert_difference( 'UserInvitation.count', 0 ) do
 			invitation = create_invitation(:token => i.token)
 			assert invitation.errors.on(:token)
-		end
-	end
-
-	test "should require sender_id" do
-		assert_no_difference 'UserInvitation.count' do
-			invitation = create_invitation(:sender_id => nil)
-			assert invitation.errors.on(:sender_id)
 		end
 	end
 
@@ -92,5 +87,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_invitation
 
 end

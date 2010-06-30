@@ -10,54 +10,7 @@ class AliquotTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require sample_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:sample_id => nil)
-			assert aliquot.errors.on(:sample)
-		end
-	end
-
-	test "should require unit_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:unit_id => nil)
-			assert aliquot.errors.on(:unit)
-		end
-	end
-
-#	test "should require aliquoter_id" do
-#		assert_no_difference 'Aliquot.count' do
-#			aliquot = create_aliquot(:aliquoter_id => nil)
-#			assert aliquot.errors.on(:aliquoter_id)
-#		end
-#	end
-
-	test "should require owner_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:owner_id => nil)
-			assert aliquot.errors.on(:owner)
-		end
-	end
-
-	test "should require valid sample_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:sample_id => 0)
-			assert aliquot.errors.on(:sample)
-		end
-	end
-
-	test "should require valid unit_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:unit_id => 0)
-			assert aliquot.errors.on(:unit)
-		end
-	end
-
-	test "should require valid owner_id" do
-		assert_no_difference 'Aliquot.count' do
-			aliquot = create_aliquot(:owner_id => 0)
-			assert aliquot.errors.on(:owner)
-		end
-	end
+	assert_requires_valid_associations(:sample,:unit,:owner)
 
 	test "should belong to aliquot_sample_format" do
 		aliquot = create_aliquot
@@ -169,5 +122,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_aliquot
 
 end

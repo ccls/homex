@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewVersionTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:interview_type)
+
 	test "should create interview_version" do
 		assert_difference 'InterviewVersion.count' do
 			object = create_object
@@ -46,22 +48,6 @@ class InterviewVersionTest < ActiveSupport::TestCase
 			object = create_object(
 				:description => iv.description)
 			assert object.errors.on(:description)
-		end
-	end
-
-	test "should require valid interview_type_id" do
-		assert_no_difference 'InterviewVersion.count' do
-			object = create_object(
-				:interview_type_id => 0)
-			assert object.errors.on(:interview_type)
-		end
-	end
-
-	test "should require interview_type_id" do
-		assert_no_difference 'InterviewVersion.count' do
-			object = create_object(
-				:interview_type_id => nil)
-			assert object.errors.on(:interview_type)
 		end
 	end
 

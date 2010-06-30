@@ -9,7 +9,9 @@ class Transfer < ActiveRecord::Base
 	belongs_to :to_organization,
 		:class_name => "Organization"
 
-	validates_presence_of :aliquot, :to_organization, :from_organization
+	validates_presence_of :aliquot_id, :aliquot, 
+		:to_organization_id, :to_organization, 
+		:from_organization_id, :from_organization
 
 	before_save :update_aliquot_owner
 

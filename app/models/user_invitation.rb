@@ -2,7 +2,7 @@ class UserInvitation < ActiveRecord::Base
 	belongs_to :sender, :class_name => 'User'
 	belongs_to :recipient, :class_name => 'User'
 
-	validates_presence_of :sender_id
+	validates_presence_of :sender_id, :sender
 	validates_presence_of :email
 #	validates_format_of   :email, :with => /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 	validates_presence_of   :token

@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleSubtypeTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:sample_type)
+
 	test "should create sample_subtype" do
 		assert_difference 'SampleSubtype.count' do
 			sample_subtype = create_sample_subtype
@@ -49,20 +51,6 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid sample_type_id" do
-		assert_no_difference 'SampleSubtype.count' do
-			sample_subtype = create_sample_subtype(:sample_type_id => 0)
-			assert sample_subtype.errors.on(:sample_type)
-		end
-	end
-
-	test "should require sample_type_id" do
-		assert_no_difference 'SampleSubtype.count' do
-			sample_subtype = create_sample_subtype(:sample_type_id => nil)
-			assert sample_subtype.errors.on(:sample_type)
-		end
-	end
-
 	test "should initially belong to sample_type" do
 		sample_subtype = create_sample_subtype
 		assert_not_nil sample_subtype.sample_type
@@ -91,5 +79,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_sample_subtype
 
 end

@@ -10,21 +10,7 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require subject_id" do
-		assert_difference( 'HomeExposureResponse.count', 0 ) do
-			home_exposure_response = create_home_exposure_response(
-				:subject_id => nil)
-			assert home_exposure_response.errors.on(:subject)
-		end
-	end
-
-	test "should require valid subject_id" do
-		assert_difference( 'HomeExposureResponse.count', 0 ) do
-			home_exposure_response = create_home_exposure_response(
-				:subject_id => 0)
-			assert home_exposure_response.errors.on(:subject)
-		end
-	end
+	assert_requires_valid_associations(:subject)
 
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
@@ -35,7 +21,6 @@ class HomeExposureResponseTest < ActiveSupport::TestCase
 			assert home_exposure_response.errors.on(:subject_id)
 		end
 	end
-
 
 	test "should initially belong to subject" do
 		home_exposure_response = create_home_exposure_response
@@ -49,5 +34,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_home_exposure_response
 
 end

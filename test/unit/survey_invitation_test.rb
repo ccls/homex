@@ -2,39 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyInvitationTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:subject,:survey)
+
 	test "should create survey_invitation" do
 		assert_difference( 'SurveyInvitation.count', 1) do
 			survey_invitation = create_survey_invitation
 			assert !survey_invitation.new_record?, 
 				"#{survey_invitation.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require valid survey_id" do
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(:survey_id => 0)
-			assert survey_invitation.errors.on(:survey)
-		end
-	end
-
-	test "should require valid subject_id" do
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(:subject_id => 0)
-			assert survey_invitation.errors.on(:subject)
-		end
-	end
-
-	test "should require survey_id" do
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(:survey_id => nil)
-			assert survey_invitation.errors.on(:survey)
-		end
-	end
-
-	test "should require subject_id" do
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(:subject_id => nil)
-			assert survey_invitation.errors.on(:subject)
 		end
 	end
 
@@ -139,5 +113,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_survey_invitation
 
 end

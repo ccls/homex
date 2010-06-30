@@ -15,6 +15,6 @@ class InterviewVersion < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
-	validates_presence_of :interview_type
+	validates_presence_of :interview_type_id, :interview_type
 
 end

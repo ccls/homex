@@ -16,7 +16,8 @@ class Aliquot < ActiveRecord::Base
 		:counter_cache => :aliquots_count
 	has_many :transfers
 
-	validates_presence_of :sample, :unit, :owner
+	validates_presence_of :sample, :unit, :owner,
+		:sample_id, :unit_id, :owner_id
 
 	#	Create a #Transfer for the given #Aliquot from the 
 	#	current owner(#Organization) to the given #Organization.

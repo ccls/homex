@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:subject,:unit)
+
 	test "should create sample" do
 		assert_difference 'Sample.count' do
 			object = create_object
@@ -18,34 +20,6 @@ class SampleTest < ActiveSupport::TestCase
 	test "should default aliquot_or_sample_on_receipt to 'Sample'" do
 		object = create_object
 		assert_equal 'Sample', object.aliquot_or_sample_on_receipt
-	end
-
-	test "should require valid subject_id" do
-		assert_no_difference 'Sample.count' do
-			object = create_object(:subject_id => 0)
-			assert object.errors.on(:subject)
-		end
-	end
-
-	test "should require valid unit_id" do
-		assert_no_difference 'Sample.count' do
-			object = create_object(:unit_id => 0)
-			assert object.errors.on(:unit)
-		end
-	end
-
-	test "should require subject_id" do
-		assert_no_difference 'Sample.count' do
-			object = create_object(:subject_id => nil)
-			assert object.errors.on(:subject)
-		end
-	end
-
-	test "should require unit_id" do
-		assert_no_difference 'Sample.count' do
-			object = create_object(:unit_id => nil)
-			assert object.errors.on(:unit)
-		end
 	end
 
 	test "should belong to aliquot_sample_format" do

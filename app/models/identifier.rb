@@ -13,7 +13,6 @@ class Identifier < ActiveRecord::Base
 	validates_uniqueness_of :childid
 
 	validates_presence_of   :orderno
-#	validates_length_of     :orderno, :is => 1
 	validates_presence_of   :patid
 	validates_presence_of   :case_control_type
 	validates_uniqueness_of :patid, :scope => [:orderno,:case_control_type]

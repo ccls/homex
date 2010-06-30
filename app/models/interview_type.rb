@@ -8,7 +8,7 @@ class InterviewType < ActiveRecord::Base
 	belongs_to :project
 	has_many :interview_versions
 
-	validates_presence_of :project
+	validates_presence_of :project_id, :project
 	validates_presence_of   :code
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4

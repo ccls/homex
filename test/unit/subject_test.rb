@@ -139,17 +139,32 @@ class SubjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid race" do
+	test "should require valid race_id" do
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject(:race_id => 0)
 			assert subject.errors.on(:race)
 		}
 	end
 
-	test "should require valid subject_type" do
+	test "should require valid race" do
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject(:race => Factory.build(:race))
+			assert subject.errors.on(:race_id)
+		}
+	end
+
+	test "should require valid subject_type_id" do
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject(:subject_type_id => 0)
 			assert subject.errors.on(:subject_type)
+		}
+	end
+
+	test "should require valid subject_type" do
+		assert_difference( 'Subject.count', 0) {
+			subject = create_subject(
+				:subject_type => Factory.build(:subject_type))
+			assert subject.errors.on(:subject_type_id)
 		}
 	end
 

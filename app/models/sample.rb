@@ -13,6 +13,7 @@ class Sample < ActiveRecord::Base
 #	belongs_to :organization
 #	this is not clear in my UML diagram
 
-	validates_presence_of :subject, :unit
+	validates_presence_of :subject_id, :unit_id,
+		:subject, :unit
 
 end

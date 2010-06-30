@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewTypeTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:project)
+
 	test "should create interview_type" do
 		assert_difference 'InterviewType.count' do
 			interview_type = create_interview_type
@@ -49,20 +51,6 @@ class InterviewTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require project_id" do
-		assert_no_difference 'InterviewType.count' do
-			interview_type = create_interview_type(:project_id => nil)
-			assert interview_type.errors.on(:project)
-		end
-	end
-
-	test "should require valid project_id" do
-		assert_no_difference 'InterviewType.count' do
-			interview_type = create_interview_type(:project_id => 0)
-			assert interview_type.errors.on(:project)
-		end
-	end
-
 	test "should initially belong to a project" do
 		interview_type = create_interview_type
 		assert_not_nil interview_type.project
@@ -91,5 +79,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_interview_type
 
 end

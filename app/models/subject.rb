@@ -20,8 +20,9 @@ class Subject < ActiveRecord::Base
 	has_many :survey_invitations
 	has_and_belongs_to_many :analyses
 
-	validates_presence_of :subject_type, :race
-	validates_presence_of   :subjectid
+	validates_presence_of :subject_type, :race,
+		:subject_type_id, :race_id,
+		:subjectid
 	validates_uniqueness_of :subjectid
 #	validates_inclusion_of :sex, :in => %w( male female ),
 #		:message => "must be male or female"

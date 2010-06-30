@@ -2,41 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OperationalEventTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:operational_event_type,:subject)
+
 	test "should create operational_event" do
 		assert_difference 'OperationalEvent.count' do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require valid operational_event_type_id" do
-		assert_no_difference 'OperationalEvent.count' do
-			object = create_object(
-				:operational_event_type_id => 0)
-			assert object.errors.on(:operational_event_type)
-		end
-	end
-
-	test "should require valid subject_id" do
-		assert_no_difference 'OperationalEvent.count' do
-			object = create_object(:subject_id => 0)
-			assert object.errors.on(:subject)
-		end
-	end
-
-	test "should require operational_event_type_id" do
-		assert_no_difference 'OperationalEvent.count' do
-			object = create_object(
-				:operational_event_type_id => nil)
-			assert object.errors.on(:operational_event_type)
-		end
-	end
-
-	test "should require subject_id" do
-		assert_no_difference 'OperationalEvent.count' do
-			object = create_object(:subject_id => nil)
-			assert object.errors.on(:subject)
 		end
 	end
 

@@ -7,6 +7,7 @@ class ProjectSubject < ActiveRecord::Base
 	belongs_to :refusal_reason
 	belongs_to :project
 
-	validates_presence_of :subject, :project
+	validates_presence_of :subject_id, :project_id,
+		:subject, :project
 
 end

@@ -29,6 +29,13 @@ class ResponseSetTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require valid subject" do
+		assert_difference('ResponseSet.count',0) { 
+			object = create_object(:subject => Factory.build(assoc.to_sym))
+			assert object.errors.on(:subject_id)
+		}    
+	end 
+
 	test "should replace non unique access_code" do
 		rs = create_response_set
 		assert_difference 'ResponseSet.count', 1 do
@@ -174,5 +181,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_response_set
 
 end
