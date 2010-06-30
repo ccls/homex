@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTest < ActiveSupport::TestCase
 
+	assert_should_have_many(:interviews)
+
 	test "should create address" do
 		assert_difference 'Address.count' do
 			object = create_object
@@ -17,15 +19,6 @@ class AddressTest < ActiveSupport::TestCase
 		assert_difference('Address.count',-1) {
 			object.destroy
 		} }
-	end
-
-	test "should have many interviews" do
-		object = create_object
-		assert_equal 0, object.interviews.length
-		Factory(:interview, :address_id => object.id)
-		assert_equal 1, object.reload.interviews.length
-		Factory(:interview, :address_id => object.id)
-		assert_equal 2, object.reload.interviews.length
 	end
 
 	test "should have one residence" do

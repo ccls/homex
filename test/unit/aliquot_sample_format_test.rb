@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AliquotSampleFormatTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:aliquots,:samples)
+
 	test "should create aliquot_sample_format" do
 		assert_difference 'AliquotSampleFormat.count' do
 			aliquot_sample_format = create_aliquot_sample_format
@@ -50,31 +53,6 @@ class AliquotSampleFormatTest < ActiveSupport::TestCase
 				:description => asf.description)
 			assert aliquot_sample_format.errors.on(:description)
 		end
-	end
-
-	test "should have many aliquots" do
-		aliquot_sample_format = create_aliquot_sample_format
-		assert_equal 0, aliquot_sample_format.aliquots.length
-		aliquot_sample_format.aliquots << Factory(:aliquot)
-		assert_equal 1, aliquot_sample_format.aliquots.length
-		aliquot_sample_format.aliquots << Factory(:aliquot)
-		assert_equal 2, aliquot_sample_format.reload.aliquots.length
-	end
-
-	test "should have many samples" do
-		aliquot_sample_format = create_aliquot_sample_format
-		assert_equal 0, aliquot_sample_format.samples.length
-		aliquot_sample_format.samples << Factory(:sample)
-		assert_equal 1, aliquot_sample_format.samples.length
-		aliquot_sample_format.samples << Factory(:sample)
-		assert_equal 2, aliquot_sample_format.reload.samples.length
-	end
-
-	test "should act as list" do
-		aliquot_sample_format = create_aliquot_sample_format
-		assert_equal 1, aliquot_sample_format.position
-		aliquot_sample_format = create_aliquot_sample_format
-		assert_equal 2, aliquot_sample_format.position
 	end
 
 protected

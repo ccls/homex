@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ContextTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:units,:people)
+
 	test "should create context" do
 		assert_difference 'Context.count' do
 			context = create_context
@@ -49,31 +52,6 @@ class ContextTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many units" do
-		context = create_context
-		assert_equal 0, context.units.length
-		context.units << Factory(:unit)
-		assert_equal 1, context.units.length
-		context.units << Factory(:unit)
-		assert_equal 2, context.reload.units.length
-	end
-
-	test "should have many people" do
-		context = create_context
-		assert_equal 0, context.people.length
-		context.people << Factory(:person)
-		assert_equal 1, context.people.length
-		context.people << Factory(:person)
-		assert_equal 2, context.reload.people.length
-	end
-
-	test "should act as list" do
-		context = create_context
-		assert_equal 1, context.position
-		context = create_context
-		assert_equal 2, context.position
-	end
-
 protected
 
 	def create_context(options = {})
@@ -81,5 +59,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_context
 
 end

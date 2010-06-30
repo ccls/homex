@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IneligibleReasonTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:project_subjects)
+
 	test "should create ineligible_reason" do
 		assert_difference 'IneligibleReason.count' do
 			ineligible_reason = create_ineligible_reason
@@ -49,22 +52,6 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many project_subjects" do
-		ineligible_reason = create_ineligible_reason
-		assert_equal 0, ineligible_reason.project_subjects.length
-		ineligible_reason.project_subjects << Factory(:project_subject)
-		assert_equal 1, ineligible_reason.project_subjects.length
-		ineligible_reason.project_subjects << Factory(:project_subject)
-		assert_equal 2, ineligible_reason.reload.project_subjects.length
-	end
-
-	test "should act as list" do
-		ineligible_reason = create_ineligible_reason
-		assert_equal 1, ineligible_reason.position
-		ineligible_reason = create_ineligible_reason
-		assert_equal 2, ineligible_reason.position
-	end
-
 protected
 
 	def create_ineligible_reason(options = {})
@@ -72,5 +59,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_ineligible_reason
 
 end

@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UnitTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:aliquots,:samples)
+
 	test "should create unit" do
 		assert_difference 'Unit.count' do
 			unit = create_unit
@@ -54,31 +57,6 @@ class UnitTest < ActiveSupport::TestCase
 		assert_not_nil unit.context
 	end
 
-	test "should have many aliquots" do
-		unit = create_unit
-		assert_equal 0, unit.aliquots.length
-		Factory(:aliquot, :unit_id => unit.id)
-		assert_equal 1, unit.reload.aliquots.length
-		Factory(:aliquot, :unit_id => unit.id)
-		assert_equal 2, unit.reload.aliquots.length
-	end
-
-	test "should have many samples" do
-		unit = create_unit
-		assert_equal 0, unit.samples.length
-		Factory(:sample, :unit_id => unit.id)
-		assert_equal 1, unit.reload.samples.length
-		Factory(:sample, :unit_id => unit.id)
-		assert_equal 2, unit.reload.samples.length
-	end
-
-	test "should act as list" do
-		unit = create_unit
-		assert_equal 1, unit.position
-		unit = create_unit
-		assert_equal 2, unit.position
-	end
-
 protected
 
 	def create_unit(options = {})
@@ -86,5 +64,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_unit
 
 end

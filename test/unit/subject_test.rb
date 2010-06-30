@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectTest < ActiveSupport::TestCase
 
+	assert_should_have_many(:survey_invitations,:addresses,
+		:operational_events,:project_subjects, :samples,:response_sets)
+
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
 		assert_difference( 'SubjectType.count' ){
@@ -226,15 +229,6 @@ pending
 		assert_not_nil subject.her_invitation
 	end
 
-	test "should have many survey_invitations" do
-		subject = create_subject
-		assert_equal 0, subject.survey_invitations.length
-		Factory(:survey_invitation, :subject_id => subject.id)
-		assert_equal 1, subject.reload.survey_invitations.length
-		Factory(:survey_invitation, :subject_id => subject.id)
-		assert_equal 2, subject.reload.survey_invitations.length
-	end
-
 	test "should NOT destroy survey_invitations with subject" do
 		subject = create_subject
 		Factory(:survey_invitation, :subject_id => subject.id)
@@ -335,15 +329,6 @@ pending
 		} }
 	end
 
-	test "should have many addresses" do
-		subject = create_subject
-		assert_equal 0, subject.addresses.length
-		Factory(:address, :subject_id => subject.id)
-		assert_equal 1, subject.reload.addresses.length
-		Factory(:address, :subject_id => subject.id)
-		assert_equal 2, subject.reload.addresses.length
-	end
-
 	test "should NOT destroy addresses with subject" do
 		subject = create_subject
 		Factory(:address, :subject_id => subject.id)
@@ -354,15 +339,6 @@ pending
 		} }
 	end
 
-	test "should have many operational_events" do
-		subject = create_subject
-		assert_equal 0, subject.operational_events.length
-		Factory(:operational_event, :subject_id => subject.id)
-		assert_equal 1, subject.reload.operational_events.length
-		Factory(:operational_event, :subject_id => subject.id)
-		assert_equal 2, subject.reload.operational_events.length
-	end
-
 	test "should NOT destroy operational_events with subject" do
 		subject = create_subject
 		Factory(:operational_event, :subject_id => subject.id)
@@ -371,15 +347,6 @@ pending
 		assert_difference('OperationalEvent.count',0) {
 			subject.destroy
 		} }
-	end
-
-	test "should have many project_subjects" do
-		subject = create_subject
-		assert_equal 0, subject.project_subjects.length
-		Factory(:project_subject, :subject_id => subject.id)
-		assert_equal 1, subject.reload.project_subjects.length
-		Factory(:project_subject, :subject_id => subject.id)
-		assert_equal 2, subject.reload.project_subjects.length
 	end
 
 	test "should NOT destroy project_subjects with subject" do
@@ -401,15 +368,6 @@ pending
 		assert_equal 2, object.reload.analyses.length
 	end
 
-	test "should have many samples" do
-		subject = create_subject
-		assert_equal 0, subject.samples.length
-		Factory(:sample, :subject_id => subject.id)
-		assert_equal 1, subject.reload.samples.length
-		Factory(:sample, :subject_id => subject.id)
-		assert_equal 2, subject.reload.samples.length
-	end
-
 	test "should NOT destroy samples with subject" do
 		subject = create_subject
 		Factory(:sample, :subject_id => subject.id)
@@ -418,18 +376,6 @@ pending
 		assert_difference('Sample.count',0) {
 			subject.destroy
 		} }
-	end
-
-	test "should have many response_sets" do
-		subject = create_subject
-		assert_equal 0, subject.response_sets.length
-		assert_equal 0, subject.reload.response_sets_count
-		Factory(:response_set, :subject_id => subject.id)
-		assert_equal 1, subject.reload.response_sets.length
-		assert_equal 1, subject.reload.response_sets_count
-		Factory(:response_set, :subject_id => subject.id)
-		assert_equal 2, subject.reload.response_sets.length
-		assert_equal 2, subject.reload.response_sets_count
 	end
 
 	test "should NOT destroy response_sets with subject" do

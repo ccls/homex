@@ -16,6 +16,8 @@ require 'access_with_https'
 require 'access_with_http'
 require 'no_access_with_http'
 require 'requires_valid_associations'
+require 'should_act_as_list'
+require 'should_associate'
 
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins

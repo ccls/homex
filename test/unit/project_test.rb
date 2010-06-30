@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
 
+	assert_should_have_many(
+		:operational_event_types,:interview_types,:project_subjects)
+
 	test "should create project" do
 		assert_difference 'Project.count' do
 			object = create_object
@@ -47,33 +50,6 @@ class ProjectTest < ActiveSupport::TestCase
 				:description => se.description)
 			assert object.errors.on(:description)
 		end
-	end
-
-	test "should have many operational_event_types" do
-		object = create_object
-		assert_equal 0, object.operational_event_types.length
-		Factory(:operational_event_type, :project_id => object.id)
-		assert_equal 1, object.reload.operational_event_types.length
-		Factory(:operational_event_type, :project_id => object.id)
-		assert_equal 2, object.reload.operational_event_types.length
-	end
-
-	test "should have many interview_types" do
-		object = create_object
-		assert_equal 0, object.interview_types.length
-		Factory(:interview_type, :project_id => object.id)
-		assert_equal 1, object.reload.interview_types.length
-		Factory(:interview_type, :project_id => object.id)
-		assert_equal 2, object.reload.interview_types.length
-	end
-
-	test "should have many project_subjects" do
-		object = create_object
-		assert_equal 0, object.project_subjects.length
-		Factory(:project_subject, :project_id => object.id)
-		assert_equal 1, object.reload.project_subjects.length
-		Factory(:project_subject, :project_id => object.id)
-		assert_equal 2, object.reload.project_subjects.length
 	end
 
 	test "should have many subjects through project_subjects" do

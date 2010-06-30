@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleSubtypeTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:samples)
 	assert_requires_valid_associations(:sample_type)
 
 	test "should create sample_subtype" do
@@ -54,22 +56,6 @@ class SampleSubtypeTest < ActiveSupport::TestCase
 	test "should initially belong to sample_type" do
 		sample_subtype = create_sample_subtype
 		assert_not_nil sample_subtype.sample_type
-	end
-
-	test "should have many samples" do
-		sample_subtype = create_sample_subtype
-		assert_equal 0, sample_subtype.samples.length
-		sample_subtype.samples << Factory(:sample)
-		assert_equal 1, sample_subtype.samples.length
-		sample_subtype.samples << Factory(:sample)
-		assert_equal 2, sample_subtype.reload.samples.length
-	end
-
-	test "should act as list" do
-		sample_subtype = create_sample_subtype
-		assert_equal 1, sample_subtype.position
-		sample_subtype = create_sample_subtype
-		assert_equal 2, sample_subtype.position
 	end
 
 protected

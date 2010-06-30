@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OperationalEventTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+
 	assert_requires_valid_associations(:operational_event_type,:subject)
 
 	test "should create operational_event" do
@@ -20,13 +22,6 @@ class OperationalEventTest < ActiveSupport::TestCase
 	test "should initially belong to a subject" do
 		object = create_object
 		assert_not_nil object.subject
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

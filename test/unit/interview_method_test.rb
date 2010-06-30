@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewMethodTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:interviews)
+
 	test "should create interview_method" do
 		assert_difference 'InterviewMethod.count' do
 			object = create_object
@@ -50,22 +53,6 @@ class InterviewMethodTest < ActiveSupport::TestCase
 				:description => oet.description)
 			assert object.errors.on(:description)
 		end
-	end
-
-	test "should have many interviews" do
-		object = create_object
-		assert_equal 0, object.interviews.length
-		Factory(:interview, :interview_method_id => object.id)
-		assert_equal 1, object.reload.interviews.length
-		Factory(:interview, :interview_method_id => object.id)
-		assert_equal 2, object.reload.interviews.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

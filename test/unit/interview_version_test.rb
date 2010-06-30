@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewVersionTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:interviews)
 	assert_requires_valid_associations(:interview_type)
 
 	test "should create interview_version" do
@@ -61,22 +63,6 @@ class InterviewVersionTest < ActiveSupport::TestCase
 		assert_nil object.language
 		object.language = Factory(:language)
 		assert_not_nil object.language
-	end
-
-	test "should have many interviews" do
-		object = create_object
-		assert_equal 0, object.interviews.length
-		Factory(:interview, :interview_version_id => object.id)
-		assert_equal 1, object.reload.interviews.length
-		Factory(:interview, :interview_version_id => object.id)
-		assert_equal 2, object.reload.interviews.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

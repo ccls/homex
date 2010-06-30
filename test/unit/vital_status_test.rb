@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class VitalStatusTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:subjects)
+
 	test "should create vital_status" do
 		assert_difference 'VitalStatus.count' do
 			object = create_object
@@ -50,22 +53,6 @@ class VitalStatusTest < ActiveSupport::TestCase
 				:description => oet.description)
 			assert object.errors.on(:description)
 		end
-	end
-
-	test "should have many subjects" do
-		object = create_object
-		assert_equal 0, object.subjects.length
-		Factory(:subject, :vital_status_id => object.id)
-		assert_equal 1, object.reload.subjects.length
-		Factory(:subject, :vital_status_id => object.id)
-		assert_equal 2, object.reload.subjects.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

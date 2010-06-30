@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AliquotTest < ActiveSupport::TestCase
 
+	assert_should_have_many(:transfers)
+	assert_requires_valid_associations(:sample,:unit,:owner)
+
 	test "should create aliquot" do
 		assert_difference 'Aliquot.count' do
 			aliquot = create_aliquot
@@ -9,8 +12,6 @@ class AliquotTest < ActiveSupport::TestCase
 				"#{aliquot.errors.full_messages.to_sentence}"
 		end
 	end
-
-	assert_requires_valid_associations(:sample,:unit,:owner)
 
 	test "should belong to aliquot_sample_format" do
 		aliquot = create_aliquot
@@ -33,15 +34,6 @@ class AliquotTest < ActiveSupport::TestCase
 		aliquot = create_aliquot
 		assert_not_nil aliquot.owner
 		assert aliquot.owner.is_a?(Organization)
-	end
-
-	test "should have many transfers" do
-		aliquot = create_aliquot
-		assert_equal 0, aliquot.transfers.length
-		Factory(:transfer, :aliquot_id => aliquot.id)
-		assert_equal 1, aliquot.reload.transfers.length
-		Factory(:transfer, :aliquot_id => aliquot.id)
-		assert_equal 2, aliquot.reload.transfers.length
 	end
 
 	test "should transfer to another organization" do

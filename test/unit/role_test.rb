@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RoleTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+
 	test "should create role" do
 		assert_difference('Role.count',1) do
 			role = create_role
@@ -24,14 +26,6 @@ class RoleTest < ActiveSupport::TestCase
 		end 
 	end
 
-	test "should act as list" do
-		#	gotta be a relative test as there are already
-		#	roles (unless I destroy them)
-		assert_difference('Role.last.position',1) do
-			create_role
-		end
-	end
-
 	test "should respond to users" do
 		role = create_role
 		assert role.respond_to?(:users)
@@ -44,5 +38,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_role
 
 end

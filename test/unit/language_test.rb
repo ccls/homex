@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class LanguageTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:interviews,:interview_versions)
+
   test "should create language" do
     assert_difference 'Language.count' do
       object = create_object
@@ -48,31 +51,6 @@ class LanguageTest < ActiveSupport::TestCase
       assert object.errors.on(:description)
     end 
   end 
-
-	test "should have many interview_versions" do
-		object = create_object
-		assert_equal 0, object.interview_versions.length
-		Factory(:interview_version, :language_id => object.id)
-		assert_equal 1, object.reload.interview_versions.length
-		Factory(:interview_version, :language_id => object.id)
-		assert_equal 2, object.reload.interview_versions.length
-	end
-
-	test "should have many interviews" do
-		object = create_object
-		assert_equal 0, object.interviews.length
-		Factory(:interview, :language_id => object.id)
-		assert_equal 1, object.reload.interviews.length
-		Factory(:interview, :language_id => object.id)
-		assert_equal 2, object.reload.interviews.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
-	end
 
 protected
 

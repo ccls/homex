@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SampleTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:subject,:unit)
+	assert_should_have_many(:aliquots)
 
 	test "should create sample" do
 		assert_difference 'Sample.count' do
@@ -59,15 +60,6 @@ class SampleTest < ActiveSupport::TestCase
 		#	this is not clear in my UML diagram
 
 		pending
-	end
-
-	test "should have many aliquots" do
-		object = create_object
-		assert_equal 0, object.aliquots.length
-		Factory(:aliquot, :sample_id => object.id)
-		assert_equal 1, object.reload.aliquots.length
-		Factory(:aliquot, :sample_id => object.id)
-		assert_equal 2, object.reload.aliquots.length
 	end
 
 	test "should have and belong to many projects" do

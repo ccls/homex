@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyTest < ActiveSupport::TestCase
 
+	assert_should_have_many(:response_sets)
+
 	test "should create survey" do
 		assert_difference 'Survey.count' do
 			survey = create_survey
@@ -49,15 +51,6 @@ class SurveyTest < ActiveSupport::TestCase
 		assert_equal "my-new-title_2", survey.access_code
 	end
 
-	test "should have many response sets" do
-		survey = create_survey
-		assert_equal 0, survey.response_sets.length
-		Factory(:response_set, :survey => survey)
-		assert_equal 1, survey.reload.response_sets.length
-		Factory(:response_set, :survey => survey)
-		assert_equal 2, survey.reload.response_sets.length
-	end
-
 protected
 
 	def create_survey(options = {})
@@ -65,5 +58,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_survey
 
 end

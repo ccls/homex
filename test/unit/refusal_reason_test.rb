@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RefusalReasonTest < ActiveSupport::TestCase
 
+	assert_should_have_many(:project_subjects)
+
 	test "should create refusal_reason" do
 		assert_difference 'RefusalReason.count' do
 			refusal_reason = create_refusal_reason
@@ -49,15 +51,6 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many project_subjects" do
-		refusal_reason = create_refusal_reason
-		assert_equal 0, refusal_reason.project_subjects.length
-		refusal_reason.project_subjects << Factory(:project_subject)
-		assert_equal 1, refusal_reason.project_subjects.length
-		refusal_reason.project_subjects << Factory(:project_subject)
-		assert_equal 2, refusal_reason.reload.project_subjects.length
-	end
-
 protected
 
 	def create_refusal_reason(options = {})
@@ -65,5 +58,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_refusal_reason
 
 end

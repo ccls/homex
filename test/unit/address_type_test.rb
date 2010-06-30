@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTypeTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:addresses)
+
 	test "should create address_type" do
 		assert_difference 'AddressType.count' do
 			address_type = create_address_type
@@ -32,22 +35,6 @@ class AddressTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many addresses" do
-		address_type = create_address_type
-		assert_equal 0, address_type.addresses.length
-		Factory(:address, :address_type_id => address_type.id)
-		assert_equal 1, address_type.reload.addresses.length
-		Factory(:address, :address_type_id => address_type.id)
-		assert_equal 2, address_type.reload.addresses.length
-	end
-
-	test "should act as list" do
-		address_type = create_address_type
-		assert_equal 1, address_type.position
-		address_type = create_address_type
-		assert_equal 2, address_type.position
-	end
-
 protected
 
 	def create_address_type(options = {})
@@ -55,5 +42,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_address_type
 
 end

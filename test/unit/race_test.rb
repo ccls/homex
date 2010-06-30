@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RaceTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:subjects)
+
 	test "should create race" do
 		assert_difference 'Race.count' do
 			race = create_race
@@ -32,25 +35,9 @@ class RaceTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many subjects" do
-		race = create_race
-		assert_equal 0, race.subjects.length
-		Factory(:subject, :race_id => race.id)
-		assert_equal 1, race.reload.subjects.length
-		Factory(:subject, :race_id => race.id)
-		assert_equal 2, race.reload.subjects.length
-	end
-
 	test "should return name as to_s" do
 		race = create_race
 		assert_equal race.name, "#{race}"
-	end
-
-	test "should act as list" do
-		race = create_race
-		assert_equal 1, race.position
-		race = create_race
-		assert_equal 2, race.position
 	end
 
 protected
@@ -60,5 +47,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_race
 
 end

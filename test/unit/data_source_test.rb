@@ -2,28 +2,15 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class DataSourceTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:addresses)
+
 	test "should create data_source" do
 		assert_difference 'DataSource.count' do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		end
-	end
-
-	test "should have many addresses" do
-		object = create_object
-		assert_equal 0, object.addresses.length
-		Factory(:address,:data_source_id => object.id)
-		assert_equal 1, object.reload.addresses.length
-		Factory(:address,:data_source_id => object.id)
-		assert_equal 2, object.reload.addresses.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

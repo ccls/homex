@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectTypeTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:subjects)
+
 	test "should create subject_type" do
 		assert_difference 'SubjectType.count' do
 			subject_type = create_subject_type
@@ -42,26 +45,10 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many subjects" do
-		subject_type = create_subject_type
-		assert_equal 0, subject_type.subjects.length
-		Factory(:subject, :subject_type_id => subject_type.id)
-		assert_equal 1, subject_type.reload.subjects.length
-		Factory(:subject, :subject_type_id => subject_type.id)
-		assert_equal 2, subject_type.reload.subjects.length
-	end
-
 	test "should return description as to_s" do
 		subject_type = create_subject_type
 		assert_equal subject_type.description,
 			"#{subject_type}"
-	end
-
-	test "should act as list" do
-		subject_type = create_subject_type
-		assert_equal 1, subject_type.position
-		subject_type = create_subject_type
-		assert_equal 2, subject_type.position
 	end
 
 protected
@@ -71,5 +58,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_subject_type
 
 end

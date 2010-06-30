@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OperationalEventTypeTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:operational_events)
+
 	test "should create operational_event_type" do
 		assert_difference 'OperationalEventType.count' do
 			object = create_object
@@ -50,24 +53,6 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 				:description => oet.description)
 			assert object.errors.on(:description)
 		end
-	end
-
-	test "should have many operational_events" do
-		object = create_object
-		assert_equal 0, object.operational_events.length
-		Factory(:operational_event, 
-				:operational_event_type_id => object.id)
-		assert_equal 1, object.reload.operational_events.length
-		Factory(:operational_event, 
-				:operational_event_type_id => object.id)
-		assert_equal 2, object.reload.operational_events.length
-	end
-
-	test "should act as list" do
-		object = create_object
-		assert_equal 1, object.position
-		object = create_object
-		assert_equal 2, object.position
 	end
 
 protected

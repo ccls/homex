@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+
 	test "should create organization" do
 		assert_difference 'Organization.count' do
 			organization = create_organization
@@ -66,6 +68,9 @@ class OrganizationTest < ActiveSupport::TestCase
 		assert_equal organization.id, transfer.from_organization_id
 	end
 
+#	assert_should_have_many(:aliquots)
+#	these may be tough
+#		:incoming_transfers,:outgoing_transfers)
 	test "should have many incoming_transfers" do
 		organization = create_organization
 		assert_equal 0, organization.reload.incoming_transfers.length
@@ -119,13 +124,6 @@ class OrganizationTest < ActiveSupport::TestCase
 		assert_equal organization.name, "#{organization}"
 	end
 
-	test "should act as list" do
-		organization = create_organization
-		assert_equal 1, organization.position
-		organization = create_organization
-		assert_equal 2, organization.position
-	end
-
 protected
 
 	def create_organization(options = {})
@@ -133,5 +131,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_organization
 
 end

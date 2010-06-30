@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleTypeTest < ActiveSupport::TestCase
 
+	assert_should_act_as_list
+	assert_should_have_many(:sample_subtypes)
+
 	test "should create sample_type" do
 		assert_difference 'SampleType.count' do
 			sample_type = create_sample_type
@@ -49,22 +52,6 @@ class SampleTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many sample_subtypes" do
-		sample_type = create_sample_type
-		assert_equal 0, sample_type.sample_subtypes.length
-		Factory(:sample_subtype, :sample_type_id => sample_type.id)
-		assert_equal 1, sample_type.reload.sample_subtypes.length
-		Factory(:sample_subtype, :sample_type_id => sample_type.id)
-		assert_equal 2, sample_type.reload.sample_subtypes.length
-	end
-
-	test "should act as list" do
-		sample_type = create_sample_type
-		assert_equal 1, sample_type.position
-		sample_type = create_sample_type
-		assert_equal 2, sample_type.position
-	end
-
 protected
 
 	def create_sample_type(options = {})
@@ -72,5 +59,6 @@ protected
 		record.save
 		record
 	end
+	alias_method :create_object, :create_sample_type
 
 end
