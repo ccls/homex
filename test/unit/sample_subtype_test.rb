@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleSubtypeTest < ActiveSupport::TestCase
 
-	assert_should_act_as_list
+	assert_should_act_as_list :scope => :sample_type_id
 	assert_should_have_many(:samples)
 	assert_should_initially_belong_to(:sample_type)
 	assert_requires_valid_associations(:sample_type)

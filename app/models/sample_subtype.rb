@@ -2,7 +2,7 @@
 #	*	description ( unique and > 3 chars )
 #	*	sample_type_id
 class SampleSubtype < ActiveRecord::Base
-	acts_as_list
+	acts_as_list :scope => :sample_type_id
 	default_scope :order => :position
 
 	belongs_to :sample_type

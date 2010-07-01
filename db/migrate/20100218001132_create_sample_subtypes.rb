@@ -7,6 +7,7 @@ class CreateSampleSubtypes < ActiveRecord::Migration
 			t.string :description
 			t.timestamps
 		end
+		add_index :sample_subtypes, :sample_type_id
 		add_index :sample_subtypes, :code, :unique => true
 		add_index :sample_subtypes, :description, :unique => true
 	end
