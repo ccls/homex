@@ -10,12 +10,19 @@ namespace :app do
 	task :setup => :environment do
 		fixtures = []
 		fixtures.push('address_types')
+		fixtures.push('data_sources')
+		fixtures.push('interview_methods')
+		fixtures.push('interview_types')
+		fixtures.push('languages')
 		fixtures.push('pages')
 		fixtures.push('races')
 		fixtures.push('roles')
 		fixtures.push('projects')
+		fixtures.push('sample_subtypes')
+		fixtures.push('sample_types')
 		fixtures.push('subject_types')
 		fixtures.push('units')
+		fixtures.push('vital_statuses')
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
 		Rake::Task["db:fixtures:load"].invoke
