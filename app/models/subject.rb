@@ -136,7 +136,7 @@ class Subject < ActiveRecord::Base
 
 		if params[:races] && !params[:races].blank?
 			joins.push(:race)
-			conditions['races.name'] = params[:races]
+			conditions['races.description'] = params[:races]
 		end
 
 		if params[:vital_statuses] && !params[:vital_statuses].blank?
