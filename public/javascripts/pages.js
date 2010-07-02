@@ -15,8 +15,8 @@ jQuery(function(){
 	jQuery('form#order_pages').submit(function(){
 		if( initial_page_order == page_order() ) {
 			/*
-				Should get here as button should 
-				be disable if not different!
+				Shouldn't get here as button should 
+				be disabled if not different!
 			*/
 			alert("Page order hasn't changed. Nothing to save.");
 			return false
