@@ -190,6 +190,9 @@ As this app is being installed on a VM Java jruby tomcat thing, we need special 
 
  tail -f /var/log/tomcat5/catalina.out
 
+[Kenai]{http://kenai.com/projects/warbler/pages/Home}
+
+[Berkeley Wiki]{https://wikihub.berkeley.edu/display/istas/Getting+Started+with+JRuby}
 
 
 == Documentation
