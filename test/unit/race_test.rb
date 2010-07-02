@@ -4,8 +4,8 @@ class RaceTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:subjects)
-	assert_should_require(:name)
-	assert_should_require_unique(:name)
+	assert_should_require(:code,:description)
+	assert_should_require_unique(:code,:description)
 
 	test "should create race" do
 		assert_difference 'Race.count' do
@@ -15,10 +15,10 @@ class RaceTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require 4 char name" do
+	test "should require 4 char description" do
 		assert_no_difference 'Race.count' do
-			object = create_object(:name => 'Hey')
-			assert object.errors.on(:name)
+			object = create_object(:description => 'Hey')
+			assert object.errors.on(:description)
 		end
 	end
 

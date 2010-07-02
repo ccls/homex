@@ -1,3 +1,24 @@
-a:
+white:
   id: 1
-  name: TEST RACE
+  code: 1
+  description: white, non-hispanic
+black:
+  id: 2
+  code: 2
+  description: black/African American
+nativeamerican:
+  id: 3
+  code: 3
+  description: native American
+asian:
+  id: 4
+  code: 4
+  description: Asian/Pacific Islander
+other:
+  id: 5
+  code: 7
+  description: Other
+dk:
+  id: 6
+  code: 999
+  description: Don't Know

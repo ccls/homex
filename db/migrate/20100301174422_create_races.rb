@@ -2,10 +2,12 @@ class CreateRaces < ActiveRecord::Migration
 	def self.up
 		create_table :races do |t|
 			t.integer :position
-			t.string :name
+			t.string :code, :null => false
+			t.string :description
 			t.timestamps
 		end
-		add_index :races, :name, :unique => true
+		add_index :races, :code, :unique => true
+		add_index :races, :description, :unique => true
 	end
 
 	def self.down

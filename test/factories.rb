@@ -167,7 +167,8 @@ Factory.define :project_subject do |f|
 end
 
 Factory.define :race do |f|
-	f.sequence(:name){|n| "Race#{n}"}
+	f.sequence(:code){|n| "Race#{n}"}
+	f.sequence(:description){|n| "Desc#{n}"}
 end
 
 Factory.define :residence do |f|
