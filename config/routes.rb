@@ -106,6 +106,7 @@ ActionController::Routing::Routes.draw do |map|
 #	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
+	map.connect 'stylesheets/:action.:format', :controller => 'stylesheets'
 	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
 
 	map.resources :projects
