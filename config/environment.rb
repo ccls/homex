@@ -29,6 +29,11 @@ Rails::Initializer.run do |config|
 		#	I expected to have to change database.yml for this but didn't
 		config.gem 'activerecord-jdbcmysql-adapter',
 			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+
+		#	Additional jruby specific jars required in the war
+		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
+		config.gem 'jruby-openssl', :lib => 'openssl'
+		config.gem 'haml'
 	else
 
 		# If using mysql ...
