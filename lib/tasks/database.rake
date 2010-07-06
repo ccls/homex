@@ -105,7 +105,8 @@ namespace :db do
 #				line[2])
 
 			#	TODO	(not included in csv)
-			race = Race.find_or_create_by_name('TEST')			
+			race = Race.find_or_create_by_description({
+				:code => 'TEST', :description => 'TEST' })
 
 			dob = (line[6].blank?)?'':Time.parse(line[6])
 			refdate = (line[7].blank?)?'':Time.parse(line[7])
