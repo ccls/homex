@@ -49,30 +49,19 @@ protected	#	private #	(does it matter which or if neither?)
 		redirect_to default
 	end
 
-	#	redirections is called from the Aegis plugin.
-	#	Actually from my extension of the Aegis plugin.
 	#	This is a method that returns a hash containing
 	#	permissions used in the before_filters as keys
 	#	containing another hash with redirect_to and 
 	#	message keys for special redirection.  By default,
-	#	my plugin will redirect to root_path on failure
+	#	it will redirect to root_path on failure
 	#	and the flash error will be a humanized
 	#	version of the before_filter's name.
 	def redirections
-#			@@redirections ||= HashWithIndifferentAccess.new({
-#	#			:view_calendar => {},
-#	#			:deputize => {},
-#	#			:not_be_user => {},
-#	#			:view_packages => {},
-#	#			:maintain_pages => {},
-#	#			:view_user => {},
-#	#			:view_users => {},
-#	#			:not_be_user => {},
-#				:view_permissions => {
-#					:message => "Go away",
-#					:redirect_to => "http://cnn.com"
-#				}
-#			})
+		@@redirections ||= HashWithIndifferentAccess.new({
+			:not_be_user => {
+				:redirect_to => user_path(current_user)
+			}
+		})
 	end
 
 	def block_all_access

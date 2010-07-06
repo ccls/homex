@@ -8,15 +8,15 @@ module Authorization
 
 		module InstanceMethods
 
-#			def authorization_redirections(permission_name)
-#				if respond_to?(:redirections) && 
-#					redirections.is_a?(Hash) &&
-#					!redirections[permission_name].blank?
-#					redirections[permission_name]
-#				else
-#					HashWithIndifferentAccess.new
-#				end
-#			end
+			def auth_redirections(permission_name)
+				if respond_to?(:redirections) && 
+					redirections.is_a?(Hash) &&
+					!redirections[permission_name].blank?
+					redirections[permission_name]
+				else
+					HashWithIndifferentAccess.new
+				end
+			end
 
 			def method_missing_with_authorization(symb,*args, &block)
 				method_name = symb.to_s
@@ -49,10 +49,12 @@ module Authorization
 						#	if message is nil, negate will be true
 						message ||= "Access denied.  May #{(negate)?'not ':''}" <<
 							"#{permission_name.gsub(/_/,' ')}."
-						access_denied(message)
-#						access_denied(
-#							(authorization_redirections(full_permission_name)[:message] || message),
-#							(authorization_redirections(full_permission_name)[:redirect_to] || "/") )
+#						access_denied(message)
+						ar = auth_redirections(full_permission_name)
+						access_denied(
+							(ar[:message]||message),
+							(ar[:redirect_to]||"/")
+						)
 					end
 				else
 					method_missing_without_authorization(symb, *args, &block)
