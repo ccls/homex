@@ -1,0 +1,30 @@
+<% javascripts('hx_enrolls') %>
+<% stylesheets('hx_enrolls') %>
+<%= render 'submenu' %>
+
+<% form_tag(update_select_hx_enrolls_path, :method => :put ) do %>
+	<button type='button' id='select_all'>select all</button>
+	<button type='button' id='deselect_all'>deselect all</button>
+<div class='set_date'>
+	<span>letter sent on:</span>
+	<%= text_field_tag :date, params[:date] %>
+	<%= submit_tag 'set date' %>
+	<%= submit_tag 'download' %>
+</div>
+
+<div class='header columns'>
+<div class='checkbox'>&nbsp;</div>
+<%= sort_link('ChildID') %>
+<%= sort_link('StudyID') %>
+<%= sort_link('Priority') %>
+<%= sort_link('First Name') %>
+<%= sort_link('Last Name') %>
+<%= sort_link('Outcome') %>
+<%= sort_link('Outcome Date') %>
+</div>
+<div id='subjects'>
+<%= render :partial => 'hx/enrolls/subject', :collection => @subjects %>
+</div>
+<% end %><%# form_tag %>
+
+<%= will_paginate @subjects %>

@@ -67,8 +67,8 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :response_sets, :only => [ :create ]
 
 	map.resource :home_exposure, :only => :show
-	map.namespace :he do |he|
-		he.resources :subjects, :except => [:new,:create],
+	map.namespace :hx do |hx|
+		hx.resources :subjects, :except => [:new,:create],
 #			:member => { :general => :get },
 			:shallow => true do |subject|
 			subject.resource :dust_kit
@@ -77,19 +77,19 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
 		end
-#		he.namespace :subjects do |hes|
-#			hes.resources :generals, :only => :index
+#		hx.namespace :subjects do |hxs|
+#			hxs.resources :generals, :only => :index
 #		end
-		he.resources  :enrolls, :only => [:index],
+		hx.resources  :enrolls, :only => [:index],
 			:collection => { 
 				:send_letters  => :get,
 				:update_select => :put }
-		he.resources  :interviews
-		he.resources  :samples, :only => [:index],
+		hx.resources  :interviews
+		hx.resources  :samples, :only => [:index],
 			:collection => { 
 				:send_kits  => :get }
-		he.resources  :followups
-#		he.resources  :letters, :only => [:index],
+		hx.resources  :followups
+#		hx.resources  :letters, :only => [:index],
 #			:collection => {
 #				:bulk_create => :post,
 #				:bulk_update => :post

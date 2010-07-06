@@ -1,0 +1,64 @@
+<% form_for(@subject, :url => hx_subject_path(@subject)) do |f| %>
+	<%= f.error_messages %>
+
+	<div>
+		<% @subject.build_pii if @subject.pii.nil? %>
+		<% f.fields_for :pii do |pii_fields| %>
+			<%= pii_fields.hidden_field :id %>
+
+			<%= pii_fields.label :name %><br />
+			<%= pii_fields.text_field :first_name %>
+			<%= pii_fields.text_field :middle_name %>
+			<%= pii_fields.text_field :last_name %><br/>
+
+			<%= pii_fields.label :fathers_name %><br />
+			<%= pii_fields.text_field :father_first_name %>
+			<%= pii_fields.text_field :father_middle_name %>
+			<%= pii_fields.text_field :father_last_name %><br/>
+
+			<%= pii_fields.label :mothers_name %><br />
+			<%= pii_fields.text_field :mother_first_name %>
+			<%= pii_fields.text_field :mother_middle_name %>
+			<%= pii_fields.text_field :mother_last_name %><br/>
+
+			<%= pii_fields.label :mothers_maiden_name %><br />
+			<%= pii_fields.text_field :mother_maiden_name %><br/>
+
+			<%= pii_fields.label :state_id_no %><br />
+			<%= pii_fields.text_field :state_id_no %><br/>
+			<%= pii_fields.label :email %><br />
+			<%= pii_fields.text_field :email %><br/>
+
+			<%= pii_fields.label :phone_primary %><br />
+			<%= pii_fields.text_field :phone_primary %><br/>
+
+			<%= pii_fields.label :phone_alternate %><br />
+			<%= pii_fields.text_field :phone_alternate %><br/>
+
+			<%= pii_fields.label :phone_alternate_2 %><br />
+			<%= pii_fields.text_field :phone_alternate_2 %><br/>
+
+			<%= pii_fields.label :phone_alternate_3 %><br />
+			<%= pii_fields.text_field :phone_alternate_3 %><br/>
+
+			<%= pii_fields.label :dob %><br />
+			<%= pii_fields.text_field :dob %><br/>
+
+		<% end %>
+	</div>
+
+	<div>
+		<%= f.label :sex, 'Sex' %><br/>
+		<%= f.select :sex, ['M','F'],
+			:include_blank => true %><br/>
+		<%= f.label :race_id, 'Race' %><br/>
+		<%= f.collection_select :race_id, Race.all, 
+			:id, :name, :include_blank => true %><br/>
+		<%= f.label :subject_type_id, 'Subject Type' %><br/>
+		<%= f.collection_select :subject_type_id, SubjectType.all, 
+			:id, :description, :include_blank => true %><br/>
+	</div>
+	<p>
+		<%= f.submit( (@subject.new_record?)? "Create" : "Update" )%>
+	</p>
+<% end %>

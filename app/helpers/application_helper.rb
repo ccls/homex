@@ -4,15 +4,15 @@ module ApplicationHelper
 	def home_exposure_main_menu
 		s = "<div id='mainmenu'>\n"
 		controller_name = controller.controller_name
-		l = [link_to( "Subjects", he_subjects_path,
+		l = [link_to( "Subjects", hx_subjects_path,
 			:class => (controller_name == 'subjects')?'current':nil)]
-		l.push(link_to( "Enroll", he_enrolls_path,
+		l.push(link_to( "Enroll", hx_enrolls_path,
 			:class => (controller_name == 'enrolls')?'current':nil))
-		l.push(link_to( "Interview", he_interviews_path,  
+		l.push(link_to( "Interview", hx_interviews_path,  
 			:class => (controller_name == 'interviews')?'current':nil))
-		l.push(link_to( "Samples", he_samples_path,
+		l.push(link_to( "Samples", hx_samples_path,
 			:class => (controller_name == 'samples')?'current':nil))
-		l.push(link_to( "Follow-Up", he_followups_path,
+		l.push(link_to( "Follow-Up", hx_followups_path,
 			:class => (controller_name == 'followups')?'current':nil))
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"

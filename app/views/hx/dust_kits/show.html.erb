@@ -1,0 +1,12 @@
+<% stylesheets('package') %>
+
+Dust Kit Status for <%= link_to 'Subject', hx_subject_path(@subject) %>:
+
+<div id='packages'>
+Dust kit sent:
+<%= render( 'package', :object => @dust_kit.kit_package ) if @dust_kit.kit_package %>
+Dust kit returned:
+<%= render( 'package', :object => @dust_kit.dust_package ) if @dust_kit.dust_package %>
+
+<%= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>
+</div>
