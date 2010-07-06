@@ -1,7 +1,7 @@
 <% content_for :main do %>
 <div id='submenu'>
-<%= link_to 'general', general_he_subjects_path,
-	:class => ((controller.action_name == 'general')?'current':nil) %>
+<%= link_to 'general', he_subject_path(@subject),
+	:class => ((controller.action_name == 'show')?'current':nil) %>
 <a>hospital</a>
 <a>address/contact</a>
 <a>eligibility/enrollments</a>

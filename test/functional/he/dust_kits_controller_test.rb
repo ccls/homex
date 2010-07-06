@@ -63,6 +63,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'new'
 		assert assigns(:dust_kit)
+		assert_layout 'home_exposure'
 	end
 
 	test "should post create with #{cu} login" do
@@ -80,6 +81,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'edit'
 		assert assigns(:dust_kit)
+		assert_layout 'home_exposure'
 	end
 
 	test "should put update with #{cu} login" do
@@ -96,6 +98,7 @@ class He::DustKitsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'show'
 		assert assigns(:dust_kit)
+		assert_layout 'home_exposure'
 	end
 
 	test "should get show with #{cu} login and packages" do

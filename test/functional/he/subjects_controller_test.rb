@@ -42,12 +42,12 @@ class He::SubjectsControllerTest < ActionController::TestCase
 
 %w( admin employee editor ).each do |cu|
 
-	test "should get general with #{cu} login" do
-		login_as send(cu)
-		get :general
-		assert_response :success
-		assert_template 'index'
-	end
+#	test "should get general with #{cu} login" do
+#		login_as send(cu)
+#		get :general
+#		assert_response :success
+#		assert_template 'index'
+#	end
 
 	test "should get index with subjects with #{cu} login" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
@@ -64,6 +64,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		assert_equal 1, assigns(:subjects).length
 		assert_response :success
 		assert_template 'index'
+		assert_layout 'home_exposure'
 	end
 
 	test "should get index with order and dir desc with #{cu} login" do
@@ -89,6 +90,7 @@ class He::SubjectsControllerTest < ActionController::TestCase
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'
+		assert_layout 'home_exposure'
 	end
 
 	test "should download csv with #{cu} login" do
@@ -170,11 +172,11 @@ end
 
 %w( moderator active_user ).each do |cu|
 
-	test "should NOT get general with #{cu} login" do
-		login_as send(cu)
-		get :general
-		assert_redirected_to root_path
-	end
+#	test "should NOT get general with #{cu} login" do
+#		login_as send(cu)
+#		get :general
+#		assert_redirected_to root_path
+#	end
 
 	test "should NOT download csv with #{cu} login" do
 		login_as send(cu)
@@ -197,10 +199,10 @@ end
 
 end
 
-	test "should NOT get general without login" do
-		get :general
-		assert_redirected_to_login
-	end
+#	test "should NOT get general without login" do
+#		get :general
+#		assert_redirected_to_login
+#	end
 
 	test "should NOT download csv without login" do
 		get :index, :commit => 'download'

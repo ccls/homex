@@ -31,6 +31,7 @@ class He::EnrollsControllerTest < ActionController::TestCase
 		get :send_letters
 		assert_response :success
 		assert_template 'send_letters'
+		assert_layout 'home_exposure'
 	end
 
 	test "should update selected with #{u} login" do

@@ -69,7 +69,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :home_exposure, :only => :show
 	map.namespace :he do |he|
 		he.resources :subjects, :except => [:new,:create],
-			:collection => { :general => :get },
+#			:member => { :general => :get },
 			:shallow => true do |subject|
 			subject.resource :dust_kit
 			subject.resource :home_exposure_response, 
