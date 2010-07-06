@@ -87,6 +87,8 @@ Warbler::Config.new do |config|
 		public/columns.html 
 		public/index.html.orig 
 		public/layout1.html
+		public/system
+		public/system/**/*
 		public/doc
 		public/doc/**/*
 		public/**/versions

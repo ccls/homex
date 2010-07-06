@@ -2,14 +2,20 @@ class HomePagePic < ActiveRecord::Base
 	validates_presence_of :title
 	validates_length_of :title, :minimum => 4
 
+	url = if Rails.env == 'production'
+		'/../ucb_sph_ccls.uploads/:attachment/:id/:style/:filename'
+	else
+		'/system/:attachment/:id/:style/:filename'
+	end
+
 	has_attached_file :image, :styles => {
 		:full   => "900",
 		:large  => "800",
 		:medium => "600",
 		:small  => "150x50>"
-	}
+	}, :url => url
 
-	class MissingAdapter < StandardError; end
+#	class MissingAdapter < StandardError; end
 
 	def self.random_active
 #		#	there should be a better way.  a rails way.
