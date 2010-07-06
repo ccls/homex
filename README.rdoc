@@ -188,6 +188,7 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
  sudo su -l tomcat
  cp ~jakewendt/ucb_sph_ccls.war /var/lib/tomcat5/webapps/
  exit
+
  sudo /sbin/service tomcat5 restart
  tail -f /var/log/tomcat5/catalina.out
 
