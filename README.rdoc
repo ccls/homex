@@ -183,11 +183,11 @@ As this app is being installed on a VM Java jruby tomcat thing, we need special 
  scp ucb_sph_ccls.war ccls.berkeley.edu:
 
  [jakewendt@ccls-01]>
+ sudo /sbin/service tomcat5 stop
  sudo su -l tomcat
  cp ~jakewendt/ucb_sph_ccls.war /var/lib/tomcat5/webapps/
  exit
- sudo /sbin/service tomcat5 restart
-
+ sudo /sbin/service tomcat5 start
  tail -f /var/log/tomcat5/catalina.out
 
 {Kenai}[http://kenai.com/projects/warbler/pages/Home]
