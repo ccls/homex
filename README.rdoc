@@ -174,6 +174,8 @@ then we continue ...
 
 As this app is being installed on a VM Java jruby tomcat thing, we need special instructions.  Apparently, for Tomcat 5, we need to use jruby-rack-0.9.6.jar, which is included in lib/.
 
+Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.
+
  ( warble from a jruby environment to get the jruby specific gems )
 
  [jakewendt@dev : ucb_sph_ccls ]>
@@ -183,11 +185,10 @@ As this app is being installed on a VM Java jruby tomcat thing, we need special 
  scp ucb_sph_ccls.war ccls.berkeley.edu:
 
  [jakewendt@ccls-01]>
- sudo /sbin/service tomcat5 stop
  sudo su -l tomcat
  cp ~jakewendt/ucb_sph_ccls.war /var/lib/tomcat5/webapps/
  exit
- sudo /sbin/service tomcat5 start
+ sudo /sbin/service tomcat5 restart
  tail -f /var/log/tomcat5/catalina.out
 
 {Kenai}[http://kenai.com/projects/warbler/pages/Home]
