@@ -107,9 +107,10 @@ class User < ActiveRecord::Base
 	def may_view_calendar?(*args)
 		(self.role_names & ['administrator','editor','employee']).length > 0
 	end
-	alias_method :may_view_packages?,  :may_view_calendar?
-	alias_method :may_view_subjects?,  :may_view_calendar?
-	alias_method :may_view_dust_kits?, :may_view_calendar?
+	alias_method :may_view_packages?,       :may_view_calendar?
+	alias_method :may_view_subjects?,       :may_view_calendar?
+	alias_method :may_view_dust_kits?,      :may_view_calendar?
+	alias_method :may_view_home_exposures?, :may_view_calendar?
 
 	def employee?
 		(self.role_names & ['administrator','employee']).length > 0

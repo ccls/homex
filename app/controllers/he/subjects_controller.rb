@@ -1,14 +1,16 @@
-class He::SubjectsController < ApplicationController
+class He::SubjectsController < HeApplicationController
 
 	before_filter :may_view_subjects_required
-	before_filter :valid_id_required, :only => [:edit,:show,:update,:destroy]
-	before_filter :get_subjects, :only => [:index,:general]
+	before_filter :valid_id_for_he_subject_required, 
+		:only => [:edit,:show,:update,:destroy]
+#	before_filter :get_subjects, :only => [:index,:general]
+	before_filter :get_subjects, :only => [:index]
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
-	def general
-		render :action => 'index'
-	end
+#	def general
+#		render :action => 'index'
+#	end
 
 	def index
 		if params[:commit] && params[:commit] == 'download'
@@ -42,13 +44,13 @@ class He::SubjectsController < ApplicationController
 
 protected
 
-	def valid_id_required
-		if !params[:id].blank? and Subject.exists?(params[:id])
-			@subject = Subject.find(params[:id])
-		else
-			access_denied("Valid subject id required!", he_subjects_path)
-		end
-	end
+#	def valid_id_required
+#		if !params[:id].blank? and Subject.exists?(params[:id])
+#			@subject = Subject.find(params[:id])
+#		else
+#			access_denied("Valid subject id required!", he_subjects_path)
+#		end
+#	end
 
 	def get_subjects
 		he = Project.find_by_description('Home Exposure')

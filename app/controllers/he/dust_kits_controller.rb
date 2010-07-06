@@ -1,9 +1,9 @@
-class He::DustKitsController < ApplicationController
+class He::DustKitsController < HeApplicationController
 
 	before_filter :may_view_dust_kits_required
-	before_filter :valid_subject_id_required
+	before_filter :valid_he_subject_id_required
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 	def show
 		@last_shipping_update = Package.last_updated
@@ -42,14 +42,14 @@ class He::DustKitsController < ApplicationController
 		redirect_to he_subject_path(@subject)
 	end
 
-protected
-
-	def valid_subject_id_required
-		if !params[:subject_id].blank? and Subject.exists?(params[:subject_id])
-			@subject = Subject.find(params[:subject_id])
-		else
-			access_denied("Valid subject id required!", he_subjects_path)
-		end
-	end
+#protected
+#
+#	def valid_subject_id_required
+#		if !params[:subject_id].blank? and Subject.exists?(params[:subject_id])
+#			@subject = Subject.find(params[:subject_id])
+#		else
+#			access_denied("Valid subject id required!", he_subjects_path)
+#		end
+#	end
 
 end

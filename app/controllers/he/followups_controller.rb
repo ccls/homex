@@ -1,8 +1,8 @@
-class He::FollowupsController < ApplicationController
+class He::FollowupsController < HeApplicationController
 
 	before_filter :may_view_subjects_required
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 	def index
 

@@ -1,9 +1,9 @@
-class He::SamplesController < ApplicationController
+class He::SamplesController < HeApplicationController
 
 	before_filter :may_view_subjects_required
 	before_filter :get_subjects
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 	def index
 		if params[:commit] && params[:commit] == 'download'

@@ -1,7 +1,7 @@
-class He::HomeExposureResponsesController < ApplicationController
+class He::HomeExposureResponsesController < HeApplicationController
 
 	before_filter :may_view_responses_required
-	before_filter :valid_subject_id_required
+	before_filter :valid_he_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]
 	before_filter :her_must_exist, :only => [:show]
 	before_filter :two_response_sets_required, :only => [:new,:create]
@@ -9,7 +9,7 @@ class He::HomeExposureResponsesController < ApplicationController
 		:only => [:new,:create]
 	before_filter :her_attributes_required, :only => :create
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 	def new
 		@response_sets = @subject.response_sets
@@ -58,14 +58,14 @@ protected
 		end
 	end
 
-	def valid_subject_id_required
-		if( Subject.exists?( params[:subject_id] ) )
-			@subject = Subject.find( params[:subject_id] )
-		else
-			access_denied("Valid Subject ID required",
-				home_exposure_path)
-		end
-	end
+#	def valid_subject_id_required
+#		if( Subject.exists?( params[:subject_id] ) )
+#			@subject = Subject.find( params[:subject_id] )
+#		else
+#			access_denied("Valid Subject ID required",
+#				home_exposure_path)
+#		end
+#	end
 
 	def two_response_sets_required
 		if @subject.response_sets.count > 2 ||

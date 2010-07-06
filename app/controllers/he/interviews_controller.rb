@@ -1,8 +1,8 @@
-class He::InterviewsController < ApplicationController
+class He::InterviewsController < HeApplicationController
 
 	before_filter :may_view_subjects_required
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 	def index
 
