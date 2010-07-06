@@ -57,7 +57,7 @@ protected	#	private #	(does it matter which or if neither?)
 	#	and the flash error will be a humanized
 	#	version of the before_filter's name.
 	def redirections
-		@@redirections ||= HashWithIndifferentAccess.new({
+		@redirections ||= HashWithIndifferentAccess.new({
 			:not_be_user => {
 				:redirect_to => user_path(current_user)
 			}

@@ -64,7 +64,9 @@ class RolesControllerTest < ActionController::TestCase
 			put :update, :user_id => u.id, :id => 'employee'
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
+#		assert_redirected_to root_path
 	end
 
 	test "should NOT destroy self with #{cu} login" do
@@ -74,7 +76,9 @@ class RolesControllerTest < ActionController::TestCase
 			delete :destroy, :user_id => u.id, :id => 'employee'
 		}
 		assert_not_nil flash[:error]
-		assert_redirected_to root_path
+		assert_equal u, assigns(:user)
+		assert_redirected_to user_path(assigns(:user))
+#		assert_redirected_to root_path
 	end
 
 	test "should NOT update without valid role_name with #{cu} login" do
