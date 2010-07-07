@@ -69,8 +69,9 @@ namespace :db do
 			subject = Subject.find_by_subjectid(line[0].to_i)
 			raise ActiveRecord::RecordNotFound unless subject
 
-			address_type = AddressType.find_by_code(
-				(line[1].to_s == '1')?'Home':'Mailing')
+			address_type = AddressType.find(line[1].to_s)
+#			address_type = AddressType.find_by_code(
+#				(line[1].to_s == '1')?'Home':'Mailing')
 			raise ActiveRecord::RecordNotFound unless address_type
 
 			address = Address.create!(

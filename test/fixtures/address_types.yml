@@ -1,11 +1,20 @@
-
-home:
+residence:
   id: 1
-  code: Home
-  description: address of residence of subject
-
+  code: residence
+  description: home address
 mailing:
   id: 2
-  code: Mailing
-  description: mailing address
-
+  code: mailing
+  description: mailing address (PO Box, APO, etc.)
+business:
+  id: 3
+  code: business
+  description: business address
+other:
+  id: 4
+  code: other
+  description: some other address type
+dk:
+  id: 5
+  code: unknown
+  description: address type unknown
