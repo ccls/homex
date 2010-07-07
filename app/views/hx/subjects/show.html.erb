@@ -1,4 +1,4 @@
-<% stylesheets('hx_subject') %>
+<% stylesheets('hx_subject','hx_addresses') %>
 <%= render 'hx/subjects/submenu' %>
 
 <% content_for :main do %>
@@ -33,13 +33,8 @@
 <% end %>
 </div>
 <div id='addresses'>
-<% @subject.addresses.each do |a| %>
-<div class='address'>
-<%= "#{a.line_1}<br/>" %>
-<%= (a.line_2)?"#{a.line_2}<br/>":nil %>
-<%= "#{a.city}, #{a.state} #{a.zip}<br/>" %>
-</div><!-- class='address' -->
-<% end %>
+<%= render :partial => 'hx/addresses/address', 
+		:collection => @subject.addresses, :locals => { :noedit => true } %>
 </div><!-- id='addresses' -->
 <div id='phone_numbers'>
 <% %w( primary alternate alternate_2 alternate_3 ).each do |p| %>

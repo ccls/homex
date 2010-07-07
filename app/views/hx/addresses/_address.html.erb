@@ -4,5 +4,9 @@
 <span class='csz'><%= address.csz %></span>
 <% end %><!-- class='address' -->
 <div class='edit'>
+<% if defined?(noedit) and noedit -%>
+&nbsp;
+<% else -%>
 <%= link_to 'Edit', edit_hx_address_path(address) %>
+<% end -%>
 </div><!-- class='edit' -->
