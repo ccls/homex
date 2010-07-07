@@ -1,0 +1,11 @@
+<% stylesheets('edit_hx_address') %>
+<% render 'hx/subjects/submenu', :subject => @address.subject %>
+<%= f.error_messages %>
+<%= f.text_field :line_1, :class => 'line_1' %>
+<%= f.text_field :line_2, :class => 'line_2' %>
+<%= f.text_field :city, :class => 'city' %>
+<%= f.text_field :state, :class => 'state' %>
+<%= f.text_field :zip, :class => 'zip' %>
+<p>
+	<%= f.submit( (@address.new_record?)? "Create" : "Update" )%>
+</p>

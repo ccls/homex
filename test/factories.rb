@@ -1,4 +1,6 @@
 Factory.define :address do |f|
+	f.association :subject
+	f.sequence(:line_1) { |n| "Box #{n}" }
 end
 
 Factory.define :address_type do |f|

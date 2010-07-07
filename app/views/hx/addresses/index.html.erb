@@ -1,0 +1,9 @@
+<% stylesheets('hx_addresses') %>
+<%= render 'hx/subjects/submenu' %>
+<div id='addresses'>
+<%= render :partial => 'address', :collection => @subject.addresses %>
+</div><!-- id='addresses' -->
+
+<p id='new_address'>
+<%= link_to 'Create new address', new_hx_subject_address_path(@subject) %>
+</p>

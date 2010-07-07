@@ -76,6 +76,8 @@ ActionController::Routing::Routes.draw do |map|
 				:only => [ :new, :create, :show ]
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
+			subject.resources :addresses,
+				:only => [:new,:create,:edit,:update,:index]
 		end
 #		hx.namespace :subjects do |hxs|
 #			hxs.resources :generals, :only => :index

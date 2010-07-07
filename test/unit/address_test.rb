@@ -2,9 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTest < ActiveSupport::TestCase
 
+	assert_requires_valid_associations(:subject)
 	assert_should_have_one(:residence)
 	assert_should_have_many(:interviews)
-	assert_should_belong_to(:subject,:address_type,:data_source)
+	assert_should_belong_to(:address_type,:data_source)
+	assert_should_initially_belong_to(:subject)
 
 	test "should create address" do
 		assert_difference 'Address.count' do

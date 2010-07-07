@@ -1,0 +1,23 @@
+form input.line_1,
+form input.line_2,
+form input.zip {
+	display:block;
+}
+form input.city,
+form input.state {
+	float:left;
+}
+
+form input.line_1,
+form input.line_2 {
+	width: 40em;
+}
+form input.city {
+	width: 24em;
+}
+form input.state {
+	width: 3em;
+}
+form input.zip {
+	width: 12em;
+}

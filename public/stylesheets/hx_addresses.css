@@ -1,0 +1,17 @@
+#addresses {
+}
+.address {
+	float: left;
+	clear: both;
+}
+.address .line_1,
+.address .line_2,
+.address .csv {
+	display:block;
+}
+.edit {
+	float: right;
+}
+#new_address {
+	clear:both;
+}
