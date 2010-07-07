@@ -6,8 +6,8 @@ module ApplicationHelper
 		controller_name = controller.controller_name
 		l = [link_to( "Subjects", hx_subjects_path,
 			:class => (controller_name == 'subjects')?'current':nil)]
-		l.push(link_to( "Enroll", hx_enrolls_path,
-			:class => (controller_name == 'enrolls')?'current':nil))
+#		l.push(link_to( "Enroll", hx_enrolls_path,
+#			:class => (controller_name == 'enrolls')?'current':nil))
 		l.push(link_to( "Interview", hx_interviews_path,  
 			:class => (controller_name == 'interviews')?'current':nil))
 		l.push(link_to( "Samples", hx_samples_path,
