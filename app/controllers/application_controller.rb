@@ -26,7 +26,7 @@ protected	#	private #	(does it matter which or if neither?)
 	#	Does nothing in testing as https just causes errors.
 	#	Gotta figure this thing out.
 	def ssl_required?
-		#	Force https everywhere
+		#	Force https everywhere (that doesn't have ssl_allowed set)
 		true
 	end
 
