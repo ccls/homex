@@ -5,17 +5,32 @@
 <% content_tag_for( :div, @subject ) do %>
 <div class='info columns'>
 
-<div>
+<div><!-- column 1 -->
 <div class='full_name'><%= @subject.full_name -%></div>
-</div>
+</div><!-- end column 1 -->
 
-<div>
+<div><!-- column 2 -->
 <div>birth date:&nbsp;<%= @subject.dob -%></div>
 <div>sex:&nbsp;
 <% unless @subject.sex.blank? %>
 <%= (@subject.sex.match(/f/i))?'female':'male' -%>
 <% end %>
 </div>
+</div><!-- end column 2 -->
+
+<div><!-- column 3 -->
+<div>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></div>
+</div><!-- end column 3 -->
+
+<div><!-- column 4 -->
+<div>vital status:&nbsp;</div>
+</div><!-- end column 4 -->
+
+</div><!-- class='info' -->
+
+<div class='contact_info columns'>
+<div>&nbsp;</div><!-- placeholder -->
+<div><!-- column 2 -->
 <div id='addresses'>
 <%= render :partial => 'hx/addresses/address', 
 		:collection => @subject.addresses, :locals => { :edit => false } %>
@@ -26,28 +41,19 @@
 <%= "#{phone_number} #{p}" %><br/>
 <% end %>
 <% end %>
-</div>
-</div>
+</div><!-- id='phone_numbers' -->
+</div><!-- end column 2 -->
+</div><!-- class='contact_info columns' -->
 
-<div>
-<div>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></div>
-</div>
-
-<div>
-<div>vital status:&nbsp;</div>
-</div>
-
-</div><!-- class='info' -->
 <div class='parent_info columns'>
-
-<div>
+<div><!-- column 1 -->
 <span>Parent Info:</span>
-</div>
+</div><!-- end column 1 -->
 
-<div>
+<div><!-- column 2 -->
 <div><span>Mother:&nbsp;</span><span><%= @subject.mothers_name %></span></div>
 <div><span>Father:&nbsp;</span><span><%= @subject.fathers_name %></span></div>
-</div>
+</div><!-- end column 2 -->
 
 </div><!-- class='parent_info' -->
 

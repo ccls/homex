@@ -4,4 +4,9 @@ class AddressType < ActiveRecord::Base
 	validates_presence_of   :code
 	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
+
+	def to_s
+		self.code
+	end
+
 end

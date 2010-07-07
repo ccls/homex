@@ -25,6 +25,14 @@ class AddressTest < ActiveSupport::TestCase
 		} }
 	end
 
+	test "should order address chronologically reversed" do
+		a1 = Factory(:address, :created_at => Date.jd(2440000) ).id
+		a2 = Factory(:address, :created_at => Date.jd(2450000) ).id
+		a3 = Factory(:address, :created_at => Date.jd(2445000) ).id
+		address_ids = Address.all.collect(&:id)
+		assert_equal address_ids, [a2,a3,a1]
+	end
+
 protected
 
 	def create_object(options = {})

@@ -1,8 +1,12 @@
+<div class='address_wrapper'>
 <% div_for address do %>
 <span class='line_1'><%= address.line_1 %></span>
 <span class='line_2'><%= address.line_2 %></span>
 <span class='csz'><%= address.csz %></span>
 <% end %><!-- class='address' -->
+<div class='address_meta'>
+<span class='asdf'><%= address.address_type %></span>
+</div><!-- class='address_meta' -->
 <div class='edit'>
 <% if defined?(edit) and edit -%>
 <%= link_to 'Edit', edit_hx_address_path(address) %>
@@ -10,3 +14,4 @@
 &nbsp;
 <% end -%>
 </div><!-- class='edit' -->
+</div><!-- class='address_wrapper' -->

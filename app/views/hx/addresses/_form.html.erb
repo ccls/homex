@@ -7,5 +7,7 @@
 <%= f.text_field :state, :class => 'state' %>
 <%= f.text_field :zip, :class => 'zip' %>
 <p>
+<%= f.collection_select :address_type_id, AddressType.all, 
+			:id, :code, :include_blank => true %>
 	<%= f.submit( (@address.new_record?)? "Create" : "Update" )%>
 </p>
