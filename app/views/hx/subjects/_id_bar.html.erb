@@ -1,0 +1,17 @@
+<% stylesheets('hx_subject_id_bar') %>
+<% content_for :main do %>
+<div class='manage'>
+<div class='childid'>
+<span>ChildID:</span>
+<span><%= @subject.childid -%></span>
+</div><!-- class='childid' -->
+<div class='studyid'>
+<span>StudyID:</span>
+<span><%= @subject.studyid -%></span>
+</div><!-- class='studyid' -->
+<div class='controls'>
+<%= ( current_user.may_edit_subjects? ) ?
+	link_to( "edit", edit_hx_subject_path(@subject) ) : '&nbsp;' %>
+</div><!-- class='controls' -->
+</div><!-- class='manage' -->
+<% end %>
