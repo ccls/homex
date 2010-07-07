@@ -11,6 +11,14 @@ class CreateAddresses < ActiveRecord::Migration
 			t.string :state
 			t.string :zip
 			t.integer :external_address_id
+
+			t.boolean  :is_valid
+			t.string   :why_invalid
+			t.boolean  :is_verified
+			t.string   :how_verified
+			t.datetime :verified_on
+			t.integer  :verified_by_id
+
 			t.timestamps
 		end
 		add_index :addresses, :subject_id
