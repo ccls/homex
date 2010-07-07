@@ -77,9 +77,10 @@ module AccessWithHttp
 					args[m_key] = send(options[:attributes_for_create])
 				end
 				before = obj.updated_at if obj
+				sleep 1 if obj  # if updated too quickly, updated_at won't change
 				send(:put,:update, args)
 				after = obj.reload.updated_at if obj
-				assert_not_equal before,after if obj
+				assert_not_equal before.to_i,after.to_i if obj
 				assert_response :redirect
 				assert_nil flash[:error]
 			end if actions.include?(:update) || options.keys.include?(:update)
