@@ -8,8 +8,10 @@
 
 <p>
 <%= button_link_to 'Create New Home Page Pic', new_home_page_pic_path %>
+<% if @home_page_pics.length > 0 %>
 <%= submit_tag 'Save Home Page Pics', 
 	:name => nil, :id => 'save_page_pics' %>
+<% end %>
 </p>
 
 <% end %>
