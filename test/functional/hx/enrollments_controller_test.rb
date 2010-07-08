@@ -9,7 +9,8 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 	def factory_attributes
-		Factory.attributes_for(:project_subject)
+		Factory.attributes_for(:project_subject,
+			:project_id => Factory(:project).id)
 	end
 	def factory_create
 		Factory(:project_subject)
@@ -79,7 +80,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_difference("Subject.find(#{subject.id}).project_subjects.count",1) {
 		assert_difference('ProjectSubject.count',1) {
 			post :create, :subject_id => subject.id,
-				:project_subject => Factory.attributes_for(:project_subject)
+				:project_subject => factory_attributes
 		} }
 		assert assigns(:subject)
 		assert_redirected_to hx_subject_enrollments_path(subject)
@@ -88,7 +89,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 	test "should NOT create new enrollment without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			post :create, :project_subject => Factory.attributes_for(:project_subject)
+			post :create, :project_subject => factory_attributes
 		}
 	end
 
@@ -96,7 +97,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('ProjectSubject.count',0) do
 			post :create, :subject_id => 0, 
-				:project_subject => Factory.attributes_for(:project_subject)
+				:project_subject => factory_attributes
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to hx_subjects_path
@@ -108,7 +109,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('ProjectSubject.count',0) do
 			post :create, :subject_id => subject.id,
-				:project_subject => Factory.attributes_for(:project_subject)
+				:project_subject => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -123,7 +124,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 #		login_as send(cu)
 #		assert_difference('ProjectSubject.count',0) do
 #			post :create, :subject_id => subject.id,
-#				:project_subject => Factory.attributes_for(:project_subject)
+#				:project_subject => factory_attributes
 #		end
 #		assert assigns(:subject)
 #		assert_response :success
@@ -156,7 +157,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		project_subject = Factory(:project_subject)
 		login_as send(cu)
 		put :update, :subject_id => project_subject.subject.id, :id => project_subject.id,
-			:project_subject => Factory.attributes_for(:project_subject)
+			:project_subject => factory_attributes
 		assert assigns(:project_subject)
 		assert_redirected_to hx_subject_enrollments_path(project_subject.subject)
 	end
@@ -166,7 +167,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update, :subject_id => project_subject.subject.id,
-				:project_subject => Factory.attributes_for(:project_subject)
+				:project_subject => factory_attributes
 		}
 	end
 
@@ -177,7 +178,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		ProjectSubject.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		put :update, :subject_id => project_subject.subject.id, :id => project_subject.id,
-			:project_subject => Factory.attributes_for(:project_subject)
+			:project_subject => factory_attributes
 		after = project_subject.reload.updated_at
 		assert_equal before.to_i,after.to_i
 		assert assigns(:project_subject)
@@ -191,7 +192,7 @@ pending
 		project_subject = Factory(:project_subject)
 		login_as send(cu)
 #		put :update, :subject_id => subject.id, :id => project_subject.id,
-#			:project_subject => Factory.attributes_for(:project_subject)
+#			:project_subject => factory_attributes
 #		assert assigns(:subject)
 #		assert_response :success
 #		assert_template 'edit'
@@ -223,7 +224,7 @@ end
 		subject = Factory(:subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
-			:project_subject => Factory.attributes_for(:project_subject)
+			:project_subject => factory_attributes
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -245,7 +246,7 @@ end
 	test "should NOT create new enrollment without login" do
 		subject = Factory(:subject)
 		post :create, :subject_id => subject.id,
-			:project_subject => Factory.attributes_for(:project_subject)
+			:project_subject => factory_attributes
 		assert_redirected_to_login
 	end
 
