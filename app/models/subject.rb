@@ -319,7 +319,7 @@ protected
 		#
 		#	CANNOT have leading 0's and include and 8 or 9 as it thinks its octal
 		#	so convert back to Integer first
-		subjectid.gsub!(/\D/,'')
+		subjectid.try(:gsub!,/\D/,'')
 		self.subjectid = sprintf("%06d",subjectid.to_i) unless subjectid.blank?
 	end
 
