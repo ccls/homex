@@ -16,8 +16,10 @@ class CreateAddresses < ActiveRecord::Migration
 			t.string   :why_invalid
 			t.boolean  :is_verified
 			t.string   :how_verified
-			t.datetime :verified_on
-			t.integer  :verified_by_id
+			t.boolean  :is_current
+			t.boolean  :is_address_at_diagnosis
+			t.datetime :verified_on				#	datetime of is_verified change 
+			t.integer  :verified_by_id		#	joins users table at users_id
 
 			t.timestamps
 		end
