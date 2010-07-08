@@ -112,6 +112,7 @@ class User < ActiveRecord::Base
 	alias_method :may_view_dust_kits?,      :may_view_calendar?
 	alias_method :may_view_home_exposures?, :may_view_calendar?
 	alias_method :may_edit_addresses?,      :may_view_calendar?
+	alias_method :may_edit_enrollments?,    :may_view_calendar?
 
 	def employee?
 		(self.role_names & ['administrator','employee']).length > 0

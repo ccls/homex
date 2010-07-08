@@ -1,0 +1,13 @@
+<% stylesheets('hx_enrollments') %>
+<% render 'hx/subjects/submenu' %>
+<% render 'hx/subjects/id_bar' %>
+<div id='enrollments'>
+<%= render :partial => 'enrollment', 
+	:collection => @subject.project_subjects,
+	:locals => { :edit => current_user.may_edit_enrollments? } %>
+</div><!-- id='enrollments' -->
+<% if current_user.may_edit_enrollments? %>
+<p id='new_enrollment'>
+<%= link_to 'Create new enrollment', new_hx_subject_enrollment_path(@subject) %>
+</p>
+<% end %>

@@ -5,6 +5,8 @@
 <a>hospital</a>
 <%= link_to 'addresses', hx_subject_addresses_path(@subject||subject),
 	:class => ((controller.controller_name == 'addresses')?'current':nil) %>
-<a>eligibility/enrollments</a>
+<%= link_to 'eligibility/enrollments', 
+	hx_subject_enrollments_path(@subject||subject),
+	:class => ((controller.controller_name == 'enrollments')?'current':nil) %>
 </div><!-- submenu -->
 <% end %>
