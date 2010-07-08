@@ -26,7 +26,7 @@ namespace :db do
 	]
 
 	task :random_project_subjects_data => :environment do 
-		p = Project.find_or_create_by_description("Home Exposure")
+		p = Project.find_or_create_by_code("HomeExposures")
 		Subject.all.each do |s|
 			puts s.id
 			#	2440000 is sometime in 1968

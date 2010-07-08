@@ -139,7 +139,7 @@ module FactoryTestHelper
 
 	def create_home_exposure_with_subject
 		s = Factory(:subject)
-		p = Project.find_or_create_by_description('Home Exposure')
+		p = Project.find_or_create_by_code('HomeExposures')
 		Factory(:project_subject, :subject => s, :project => p )
 	end
 

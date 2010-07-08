@@ -53,7 +53,7 @@ protected
 #	end
 
 	def get_subjects
-		hx = Project.find_by_description('Home Exposure')
+		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end

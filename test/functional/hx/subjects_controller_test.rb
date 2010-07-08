@@ -224,7 +224,7 @@ end
 protected
 
 	def create_home_exposure_subjects
-		p = Project.find_or_create_by_description('Home Exposure')
+		p = Project.find_or_create_by_code('HomeExposures')
 		3.times do
 			s  = Factory(:subject)
 			Factory(:project_subject, :subject => s, :project => p )

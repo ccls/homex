@@ -8,7 +8,7 @@ class Hx::InterviewsController < HxApplicationController
 
 #	interview outcome != complete
 
-		hx = Project.find_by_description('Home Exposure')
+		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
