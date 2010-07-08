@@ -13,7 +13,6 @@ class Hx::EnrollmentsController < HxApplicationController
 		@enrollment = @subject.enrollments.build(
 			{:project_id => params[:project_id]})
 		@enrollment.save!
-#		redirect_to hx_subject_enrollments_path(@enrollment.subject)
 		redirect_to edit_hx_enrollment_path(@enrollment)
 	rescue ActiveRecord::RecordNotSaved
 		get_unenrolled_projects
@@ -36,10 +35,11 @@ protected
 			@enrollment = Enrollment.find(params[:id])
 		else
 			access_denied("Valid enrollment id required!", 
-				hx_subject_enrollments_path)
+				hx_subjects_path)
 		end
 	end
 
+	#	May be a good idea to move this to the model.
 	def get_unenrolled_projects
 		@projects = Project.all(
 			:joins => "LEFT JOIN enrollments ON " <<

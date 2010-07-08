@@ -15,7 +15,7 @@ div#container {
 div#header {
 	background-color: #8899AA;
 	height: 100px;
-	background-image: url('/images/berkeley-text.gif');
+	background-image: url('../images/berkeley-text.gif');
 	background-repeat: no-repeat;
 	position:relative; /* NEEDED so that mainmenu can be at bottom */
 }

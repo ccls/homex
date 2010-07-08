@@ -33,7 +33,7 @@ protected
 			@address = Address.find(params[:id])
 		else
 			access_denied("Valid address id required!", 
-				hx_subject_addresses_path)
+				hx_subjects_path)
 		end
 	end
 

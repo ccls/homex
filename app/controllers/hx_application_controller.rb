@@ -7,20 +7,10 @@ class HxApplicationController < ApplicationController
 protected
 
 	def valid_hx_subject_id_required
-#		if !params[:subject_id].blank? and Subject.exists?(params[:subject_id])
-#			@subject = Subject.find(params[:subject_id])
-#		else
-#			access_denied("Valid subject id required!", hx_subjects_path)
-#		end
 		validate_hx_subject_id(params[:subject_id])
 	end
 
 	def valid_id_for_hx_subject_required
-#		if !params[:id].blank? and Subject.exists?(params[:id])
-#			@subject = Subject.find(params[:id])
-#		else
-#			access_denied("Valid subject id required!", hx_subjects_path)
-#		end
 		validate_hx_subject_id(params[:id])
 	end
 
@@ -33,15 +23,17 @@ protected
 		end
 	end
 
-	def get_hx_subjects
-		hx = Project.find_by_code('HomeExposures')
-		if params[:commit] && params[:commit] == 'download'
-			params[:paginate] = false
-		end
-		#   params[:projects] ||= {}
-		#   params[:projects][hx.id] ||= {}
-		#   @subjects = Subject.search(params)
-		@subjects = hx.subjects.search(params)
-	end
+#	Don't know if I'll use this or not.
+#
+#	def get_hx_subjects
+#		hx = Project.find_by_code('HomeExposures')
+#		if params[:commit] && params[:commit] == 'download'
+#			params[:paginate] = false
+#		end
+#		#   params[:projects] ||= {}
+#		#   params[:projects][hx.id] ||= {}
+#		#   @subjects = Subject.search(params)
+#		@subjects = hx.subjects.search(params)
+#	end
 
 end

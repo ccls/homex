@@ -3,8 +3,6 @@ class Hx::SamplesController < HxApplicationController
 	before_filter :may_view_subjects_required
 	before_filter :get_subjects
 
-#	layout 'home_exposure'
-
 	def index
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'

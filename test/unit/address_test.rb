@@ -33,6 +33,14 @@ class AddressTest < ActiveSupport::TestCase
 		assert_equal address_ids, [a2,a3,a1]
 	end
 
+	test "should return city state and zip with csz" do
+		address = Factory(:address,
+			:city => 'City',
+			:state => 'CA',
+			:zip   => '12345')
+		assert_equal "City, CA 12345", address.csz
+	end
+
 protected
 
 	def create_object(options = {})

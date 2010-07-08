@@ -8,7 +8,7 @@ body {
 	http://tools.dynamicdrive.com/gradient/
 	It is 1x800, top: F8F8FF, bottom: F0F0FF
 */
-	background-image: url("/images/gradient.png");
+	background-image: url("../images/gradient.png");
 	background-repeat: repeat-x;
 }
 
@@ -28,7 +28,7 @@ div#header {
 /* Even darker 1629f2 */
 /* EVEN DARKER 0057AE */
 	margin: 10px auto;
-	background-image: url('/images/menu_normal.png');
+	background-image: url('../images/menu_normal.png');
 	background-repeat: repeat-x;
 	background-color: #DDD;
 	margin-bottom: 1px;
@@ -70,7 +70,7 @@ div#rootmenu a {
 	text-align: center;
 	margin:0 auto;
 	background-color: #51A9E7;
-	background-image: url('/images/menu_normal.png');
+	background-image: url('../images/menu_normal.png');
 	background-repeat: repeat-x;
 	color: #111111;
 /*	padding: 0px 24px; */
@@ -88,15 +88,15 @@ div#rootmenu a:first-child {
 }
 div#rootmenu a:hover {
 	background-color: #2A71CC;
-	background-image: url('/images/menu_hover.png');
+	background-image: url('../images/menu_hover.png');
 }
 div#rootmenu a:active {				/* mouse button down */
 	background-color: #0057AE;
-	background-image: url('/images/menu_active.png');
+	background-image: url('../images/menu_active.png');
 }
 div#rootmenu a.current {
 	background-color: #1629f2;
-	background-image: url('/images/menu_current.png');
+	background-image: url('../images/menu_current.png');
 	color: white;
 	text-shadow: #000 0 1px 2px;
 }

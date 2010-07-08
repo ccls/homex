@@ -144,6 +144,13 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert_layout 'home_exposure'
 	end
 
+	test "should NOT edit address with invalid id and #{cu} login" do
+		address = Factory(:address)
+		login_as send(cu)
+		get :edit, :subject_id => address.subject.id, :id => 0
+		assert_redirected_to hx_subjects_path
+	end
+
 	test "should NOT edit address without id and #{cu} login" do
 		address = Factory(:address)
 		login_as send(cu)
@@ -159,6 +166,14 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 			:address => Factory.attributes_for(:address)
 		assert assigns(:address)
 		assert_redirected_to hx_subject_addresses_path(address.subject)
+	end
+
+	test "should NOT update address with invalid id and #{cu} login" do
+		address = Factory(:address)
+		login_as send(cu)
+		put :update, :subject_id => address.subject.id, :id => 0,
+			:address => Factory.attributes_for(:address)
+		assert_redirected_to hx_subjects_path
 	end
 
 	test "should NOT update address without id and #{cu} login" do

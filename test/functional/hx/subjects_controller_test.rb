@@ -6,13 +6,15 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Subject',
-		:actions => [:edit,:update,:show,:destroy,:index],
+		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:before => :create_home_exposure_subjects,
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
 	def factory_attributes
-		Factory.attributes_for(:subject)
+		Factory.attributes_for(:subject,
+			:subject_type_id => Factory(:subject_type).id,
+			:race_id => Factory(:race).id)
 	end
 	def factory_create
 		Factory(:subject)
@@ -112,6 +114,64 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to hx_subject_path(assigns(:subject))
 	end
 
+
+
+	test "should NOT create without subject_type_id with #{cu} login" do
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, 
+				:subject => Factory.attributes_for(:subject, :subject_type_id => nil )
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create without race_id with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, 
+				:subject => Factory.attributes_for(:subject, :race_id => nil )
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create without valid subject_type_id with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, 
+				:subject => Factory.attributes_for(:subject, :subject_type_id => 0 )
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create without valid race_id with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, 
+				:subject => Factory.attributes_for(:subject, :race_id => 0 )
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+
 	test "should NOT update without subject_type_id with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
@@ -167,6 +227,8 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'edit'
 	end
+
+
 
 end
 

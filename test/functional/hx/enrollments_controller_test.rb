@@ -150,6 +150,13 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_layout 'home_exposure'
 	end
 
+	test "should NOT edit enrollment with invalid id and #{cu} login" do
+		enrollment = Factory(:enrollment)
+		login_as send(cu)
+		get :edit, :subject_id => enrollment.subject.id, :id => 0
+		assert_redirected_to hx_subjects_path
+	end
+
 	test "should NOT edit enrollment without id and #{cu} login" do
 		enrollment = Factory(:enrollment)
 		login_as send(cu)
@@ -165,6 +172,14 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 			:enrollment => factory_attributes
 		assert assigns(:enrollment)
 		assert_redirected_to hx_subject_enrollments_path(enrollment.subject)
+	end
+
+	test "should NOT update enrollment with invalid id and #{cu} login" do
+		enrollment = Factory(:enrollment)
+		login_as send(cu)
+		put :update, :subject_id => enrollment.subject.id, :id => 0,
+			:enrollment => factory_attributes
+		assert_redirected_to hx_subjects_path
 	end
 
 	test "should NOT update enrollment without id and #{cu} login" do

@@ -1,2 +1,4 @@
 <h3>Edit Subject</h3>
-<%= render 'form' %>
+<% form_for(@subject, :url => hx_subject_path(@subject)) do |f| %>
+<%= render 'form', :f => f %>
+<% end %>

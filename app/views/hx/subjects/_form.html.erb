@@ -1,4 +1,4 @@
-<% form_for(@subject, :url => hx_subject_path(@subject)) do |f| %>
+<%# form_for(@subject, :url => hx_subject_path(@subject)) do |f| %>
 	<%= f.error_messages %>
 
 	<div>
@@ -48,6 +48,8 @@
 	</div>
 
 	<div>
+		<%= f.label :subjectid %><br />
+		<%= f.text_field :subjectid %><br/>
 		<%= f.label :sex, 'Sex' %><br/>
 		<%= f.select :sex, ['M','F'],
 			:include_blank => true %><br/>
@@ -61,4 +63,4 @@
 	<p>
 		<%= f.submit( (@subject.new_record?)? "Create" : "Update" )%>
 	</p>
-<% end %>
+<%# end %>

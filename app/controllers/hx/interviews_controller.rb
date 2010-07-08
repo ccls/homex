@@ -2,8 +2,6 @@ class Hx::InterviewsController < HxApplicationController
 
 	before_filter :may_view_subjects_required
 
-#	layout 'home_exposure'
-
 	def index
 
 #	interview outcome != complete
