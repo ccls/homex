@@ -39,3 +39,12 @@
 	);
 */
 }
+
+#do_not_contact {
+	text-align:center;
+	color:red;
+	font-weight: bold;
+	padding: 10px;
+	background-color: #FEE;
+	border: 2px solid red;
+}

@@ -15,3 +15,8 @@
 </div><!-- class='controls' -->
 </div><!-- class='manage' -->
 <% end %>
+<% content_for :main do %>
+<div id='do_not_contact'>
+Subject requests no further contact with Study.
+</div>
+<% end if @subject.do_not_contact %>
