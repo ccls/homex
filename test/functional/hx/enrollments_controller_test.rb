@@ -75,7 +75,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_redirected_to hx_subjects_path
 	end
 
-	test "should create new enrollment with #{cu} login" do
+	test "should create enrollment with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		assert_difference("Subject.find(#{subject.id}).enrollments.count",1) {
@@ -89,7 +89,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_redirected_to edit_hx_enrollment_path(assigns(:enrollment))
 	end
 
-	test "should NOT create new enrollment without subject_id and #{cu} login" do
+	test "should NOT create enrollment without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 #			post :create, :enrollment => factory_attributes
@@ -97,7 +97,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT create new enrollment with invalid subject_id and #{cu} login" do
+	test "should NOT create enrollment with invalid subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
 			post :create, :subject_id => 0, 
@@ -107,7 +107,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_redirected_to hx_subjects_path
 	end
 
-	test "should NOT create new enrollment with #{cu} login when create fails" do
+	test "should NOT create enrollment with #{cu} login when create fails" do
 		subject = Factory(:subject)
 		Enrollment.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
@@ -123,20 +123,19 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT create new enrollment with #{cu} login and invalid enrollment" do
-#		subject = Factory(:subject)
-#		Enrollment.any_instance.stubs(:create_or_update).returns(false)
-#		login_as send(cu)
-#		assert_difference('Enrollment.count',0) do
-#			post :create, :subject_id => subject.id,
-#				:enrollment => factory_attributes
-#		end
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'new'
-#		assert_layout 'home_exposure'
-#		assert_not_nil flash[:error]
-		pending
+	test "should NOT create enrollment with #{cu} login and invalid enrollment" do
+		e = Factory(:enrollment)
+		login_as send(cu)
+		assert_difference('Enrollment.count',0) do
+			post :create, :subject_id => e.subject.id,
+				:enrollment => Factory.attributes_for(:enrollment,
+					:project_id => e.project_id)
+		end
+		assert assigns(:enrollment).errors.on(:project_id)
+		assert_response :success
+		assert_template 'new'
+		assert_layout 'home_exposure'
+		assert_not_nil flash[:error]
 	end
 
 
@@ -169,7 +168,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		enrollment = Factory(:enrollment)
 		login_as send(cu)
 		put :update, :subject_id => enrollment.subject.id, :id => enrollment.id,
-			:enrollment => factory_attributes
+			:enrollment => Factory.attributes_for(:enrollment)
 		assert assigns(:enrollment)
 		assert_redirected_to hx_subject_enrollments_path(enrollment.subject)
 	end
@@ -178,7 +177,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		enrollment = Factory(:enrollment)
 		login_as send(cu)
 		put :update, :subject_id => enrollment.subject.id, :id => 0,
-			:enrollment => factory_attributes
+			:enrollment => Factory.attributes_for(:enrollment)
 		assert_redirected_to hx_subjects_path
 	end
 
@@ -187,7 +186,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update, :subject_id => enrollment.subject.id,
-				:enrollment => factory_attributes
+				:enrollment => Factory.attributes_for(:enrollment)
 		}
 	end
 
@@ -197,8 +196,8 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		sleep 1	# if updated too quickly, updated_at won't change
 		Enrollment.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :subject_id => enrollment.subject.id, :id => enrollment.id,
-			:enrollment => factory_attributes
+		put :update, :id => enrollment.id,
+			:enrollment => Factory.attributes_for(:enrollment)
 		after = enrollment.reload.updated_at
 		assert_equal before.to_i,after.to_i
 		assert assigns(:enrollment)
@@ -208,15 +207,17 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update enrollment with #{cu} login and invalid enrollment" do
-pending
 		enrollment = Factory(:enrollment)
+		e = Factory(:enrollment,:subject_id => enrollment.subject.id)
 		login_as send(cu)
-#		put :update, :subject_id => subject.id, :id => enrollment.id,
-#			:enrollment => factory_attributes
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_layout 'home_exposure'
+		put :update, :id => enrollment.id,
+			:enrollment => Factory.attributes_for(:enrollment,
+				:project_id => e.project_id)
+		assert assigns(:enrollment).errors.on(:project_id)
+		assert_response :success
+		assert_template 'edit'
+		assert_layout 'home_exposure'
+		assert_not_nil flash[:error]
 	end
 
 end
@@ -240,7 +241,7 @@ end
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create new enrollment with #{cu} login" do
+	test "should NOT create enrollment with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
@@ -263,7 +264,7 @@ end
 		assert_redirected_to_login
 	end
 
-	test "should NOT create new enrollment without login" do
+	test "should NOT create enrollment without login" do
 		subject = Factory(:subject)
 		post :create, :subject_id => subject.id,
 			:enrollment => factory_attributes

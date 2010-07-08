@@ -14,7 +14,7 @@ class Hx::EnrollmentsController < HxApplicationController
 			{:project_id => params[:project_id]})
 		@enrollment.save!
 		redirect_to edit_hx_enrollment_path(@enrollment)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		get_unenrolled_projects
 		flash.now[:error] = "Enrollment creation failed"
 		render :action => 'new'
@@ -23,7 +23,7 @@ class Hx::EnrollmentsController < HxApplicationController
 	def update
 		@enrollment.update_attributes!(params[:enrollment])
 		redirect_to hx_subject_enrollments_path(@enrollment.subject)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Enrollment update failed"
 		render :action => 'edit'
 	end
