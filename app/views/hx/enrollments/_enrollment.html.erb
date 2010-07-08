@@ -1,1 +1,22 @@
-Enrollment details
+<% content_tag_for( :div, enrollment, :class => 'row columns' ) do %>
+<div>
+<%= link_to enrollment.project.code, 
+	edit_hx_enrollment_path(enrollment) %>
+</div>
+<div>
+<%= enrollment.is_candidate %>
+</div>
+<div>
+<%= enrollment.able_to_locate %>
+</div>
+<div>
+<%= enrollment.is_eligible %>
+</div>
+<div>
+<%= enrollment.consented_on %>
+</div>
+<div>
+<%= enrollment.completed_on %>
+</div>
+
+<% end %>

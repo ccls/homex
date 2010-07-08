@@ -14,6 +14,17 @@ class ProjectSubjectTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require unique project_id and subject_id pairing" do
+		p = create_object
+		assert_no_difference 'ProjectSubject.count' do
+			object = create_object({
+				:project_id => p.project_id,
+				:subject_id => p.subject_id
+			})
+			assert object.errors.on(:project_id)
+		end
+	end
+
 protected
 
 	def create_object(options = {})

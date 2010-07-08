@@ -20,8 +20,11 @@ class CreateProjectSubjects < ActiveRecord::Migration
 			t.boolean :is_closed
 			t.string :reason_closed
 			t.text :enrollment_notes
+			t.boolean :able_to_locate
 			t.timestamps
 		end
+		add_index :project_subjects, [:project_id, :subject_id],
+			:unique => true
 	end
 
 	def self.down

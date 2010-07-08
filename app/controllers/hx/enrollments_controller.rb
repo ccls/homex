@@ -6,14 +6,17 @@ class Hx::EnrollmentsController < HxApplicationController
 		:only => [:edit,:update]
 
 	def new
-		@project_subject = ProjectSubject.new
+		get_unenrolled_projects
 	end
 
 	def create
-		@project_subject = @subject.project_subjects.build(params[:project_subject])
+		@project_subject = @subject.project_subjects.build(
+			{:project_id => params[:project_id]})
 		@project_subject.save!
-		redirect_to hx_subject_enrollments_path(@project_subject.subject)
+#		redirect_to hx_subject_enrollments_path(@project_subject.subject)
+		redirect_to edit_hx_enrollment_path(@project_subject)
 	rescue ActiveRecord::RecordNotSaved
+		get_unenrolled_projects
 		flash.now[:error] = "ProjectSubject creation failed"
 		render :action => 'new'
 	end
@@ -35,6 +38,14 @@ protected
 			access_denied("Valid project_subject id required!", 
 				hx_subject_enrollments_path)
 		end
+	end
+
+	def get_unenrolled_projects
+		@projects = Project.all(
+			:joins => "LEFT JOIN project_subjects ON " <<
+				"projects.id = project_subjects.project_id AND " <<
+				"project_subjects.subject_id = #{@subject.id}",
+			:conditions => [ "project_subjects.subject_id IS NULL" ])
 	end
 
 end

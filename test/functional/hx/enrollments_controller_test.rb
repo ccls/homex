@@ -54,7 +54,8 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		get :new, :subject_id => subject.id
 		assert assigns(:subject)
-		assert assigns(:project_subject)
+		assert assigns(:projects)
+#		assert assigns(:project_subject)
 		assert_response :success
 		assert_template 'new'
 		assert_layout 'home_exposure'
@@ -80,16 +81,19 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert_difference("Subject.find(#{subject.id}).project_subjects.count",1) {
 		assert_difference('ProjectSubject.count',1) {
 			post :create, :subject_id => subject.id,
-				:project_subject => factory_attributes
+				:project_id => Factory(:project).id
+#				:project_subject => factory_attributes
 		} }
 		assert assigns(:subject)
-		assert_redirected_to hx_subject_enrollments_path(subject)
+#		assert_redirected_to hx_subject_enrollments_path(subject)
+		assert_redirected_to edit_hx_enrollment_path(assigns(:project_subject))
 	end
 
 	test "should NOT create new enrollment without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			post :create, :project_subject => factory_attributes
+#			post :create, :project_subject => factory_attributes
+			post :create, :project_id => Factory(:project).id
 		}
 	end
 
@@ -97,7 +101,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('ProjectSubject.count',0) do
 			post :create, :subject_id => 0, 
-				:project_subject => factory_attributes
+				:project_id => Factory(:project).id
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to hx_subjects_path
@@ -109,7 +113,8 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('ProjectSubject.count',0) do
 			post :create, :subject_id => subject.id,
-				:project_subject => factory_attributes
+				:project_id => Factory(:project).id
+#				:project_subject => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
