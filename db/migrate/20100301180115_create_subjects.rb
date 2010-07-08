@@ -15,7 +15,7 @@ class CreateSubjects < ActiveRecord::Migration
 			t.integer :response_sets_count, :default => 0
 			t.string :sex
 			t.string :subjectid, :limit => 6
-			t.boolean :do_not_contact
+			t.boolean :do_not_contact, :default => false, :null => false
 			t.timestamps
 		end
 		add_index :subjects, :subjectid, :unique => true
