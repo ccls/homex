@@ -137,7 +137,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 	test "should edit address with #{cu} login" do
 		address = Factory(:address)
 		login_as send(cu)
-		get :edit, :subject_id => address.subject.id, :id => address.id
+#		get :edit, :subject_id => address.subject.id, :id => address.id
+		get :edit, :id => address.id
 		assert assigns(:address)
 		assert_response :success
 		assert_template 'edit'
@@ -147,7 +148,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 	test "should NOT edit address with invalid id and #{cu} login" do
 		address = Factory(:address)
 		login_as send(cu)
-		get :edit, :subject_id => address.subject.id, :id => 0
+#		get :edit, :subject_id => address.subject.id, :id => 0
+		get :edit, :id => 0
 		assert_redirected_to hx_subjects_path
 	end
 
@@ -155,14 +157,16 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		address = Factory(:address)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			get :edit, :subject_id => address.subject.id
+#			get :edit, :subject_id => address.subject.id
+			get :edit	#, :subject_id => address.subject.id
 		}
 	end
 
 	test "should update address with #{cu} login" do
 		address = Factory(:address)
 		login_as send(cu)
-		put :update, :subject_id => address.subject.id, :id => address.id,
+#		put :update, :subject_id => address.subject.id, :id => address.id,
+		put :update, :id => address.id,
 			:address => Factory.attributes_for(:address)
 		assert assigns(:address)
 		assert_redirected_to hx_subject_addresses_path(address.subject)
@@ -171,7 +175,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 	test "should NOT update address with invalid id and #{cu} login" do
 		address = Factory(:address)
 		login_as send(cu)
-		put :update, :subject_id => address.subject.id, :id => 0,
+#		put :update, :subject_id => address.subject.id, :id => 0,
+		put :update, :id => 0,
 			:address => Factory.attributes_for(:address)
 		assert_redirected_to hx_subjects_path
 	end
@@ -180,7 +185,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		address = Factory(:address)
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			put :update, :subject_id => address.subject.id,
+#			put :update, :subject_id => address.subject.id,
+			put :update,
 				:address => Factory.attributes_for(:address)
 		}
 	end
@@ -191,7 +197,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		sleep 1	# if updated too quickly, updated_at won't change
 		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :subject_id => address.subject.id, :id => address.id,
+#		put :update, :subject_id => address.subject.id, :id => address.id,
+		put :update, :id => address.id,
 			:address => Factory.attributes_for(:address)
 		after = address.reload.updated_at
 		assert_equal before.to_i,after.to_i
@@ -205,7 +212,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 pending
 		address = Factory(:address)
 		login_as send(cu)
-#		put :update, :subject_id => subject.id, :id => address.id,
+#		put :update, :id => address.id,
 #			:address => Factory.attributes_for(:address)
 #		assert assigns(:subject)
 #		assert_response :success
