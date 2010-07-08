@@ -1,7 +1,7 @@
 #	==	requires
 #	*	subject_id
 #	*	project
-class ProjectSubject < ActiveRecord::Base
+class Enrollment < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :ineligible_reason
 	belongs_to :refusal_reason

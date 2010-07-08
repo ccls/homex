@@ -163,7 +163,7 @@ Factory.define :pii do |f|
 	f.dob Date.jd(2440000+rand(15000))
 end
 
-Factory.define :project_subject do |f|
+Factory.define :enrollment do |f|
 	f.association :subject
 	f.association :project
 end

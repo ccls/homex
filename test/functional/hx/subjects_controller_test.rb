@@ -227,7 +227,7 @@ protected
 		p = Project.find_or_create_by_code('HomeExposures')
 		3.times do
 			s  = Factory(:subject)
-			Factory(:project_subject, :subject => s, :project => p )
+			Factory(:enrollment, :subject => s, :project => p )
 			s
 		end
 	end

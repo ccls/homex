@@ -9,7 +9,7 @@ class SubjectsController < ApplicationController
 
 	def show
 		@projects = Project.all
-		@project_subjects = @subject.project_subjects
+		@enrollments = @subject.enrollments
 	end
 
 	def new

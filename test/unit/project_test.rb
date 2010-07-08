@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProjectTest < ActiveSupport::TestCase
 
 	assert_should_have_many(
-		:operational_event_types,:interview_types,:project_subjects)
+		:operational_event_types,:interview_types,:enrollments)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 
@@ -22,12 +22,12 @@ class ProjectTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should have many subjects through project_subjects" do
+	test "should have many subjects through enrollments" do
 		object = create_object
 		assert_equal 0, object.subjects.length
-		Factory(:project_subject, :project_id => object.id)
+		Factory(:enrollment, :project_id => object.id)
 		assert_equal 1, object.reload.subjects.length
-		Factory(:project_subject, :project_id => object.id)
+		Factory(:enrollment, :project_id => object.id)
 		assert_equal 2, object.reload.subjects.length
 	end
 

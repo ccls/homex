@@ -10,42 +10,42 @@ class Hx::EnrollmentsController < HxApplicationController
 	end
 
 	def create
-		@project_subject = @subject.project_subjects.build(
+		@enrollment = @subject.enrollments.build(
 			{:project_id => params[:project_id]})
-		@project_subject.save!
-#		redirect_to hx_subject_enrollments_path(@project_subject.subject)
-		redirect_to edit_hx_enrollment_path(@project_subject)
+		@enrollment.save!
+#		redirect_to hx_subject_enrollments_path(@enrollment.subject)
+		redirect_to edit_hx_enrollment_path(@enrollment)
 	rescue ActiveRecord::RecordNotSaved
 		get_unenrolled_projects
-		flash.now[:error] = "ProjectSubject creation failed"
+		flash.now[:error] = "Enrollment creation failed"
 		render :action => 'new'
 	end
 
 	def update
-		@project_subject.update_attributes!(params[:project_subject])
-		redirect_to hx_subject_enrollments_path(@project_subject.subject)
+		@enrollment.update_attributes!(params[:enrollment])
+		redirect_to hx_subject_enrollments_path(@enrollment.subject)
 	rescue ActiveRecord::RecordNotSaved
-		flash.now[:error] = "ProjectSubject update failed"
+		flash.now[:error] = "Enrollment update failed"
 		render :action => 'edit'
 	end
 
 protected
 
 	def valid_id_required
-		if !params[:id].blank? and ProjectSubject.exists?(params[:id])
-			@project_subject = ProjectSubject.find(params[:id])
+		if !params[:id].blank? and Enrollment.exists?(params[:id])
+			@enrollment = Enrollment.find(params[:id])
 		else
-			access_denied("Valid project_subject id required!", 
+			access_denied("Valid enrollment id required!", 
 				hx_subject_enrollments_path)
 		end
 	end
 
 	def get_unenrolled_projects
 		@projects = Project.all(
-			:joins => "LEFT JOIN project_subjects ON " <<
-				"projects.id = project_subjects.project_id AND " <<
-				"project_subjects.subject_id = #{@subject.id}",
-			:conditions => [ "project_subjects.subject_id IS NULL" ])
+			:joins => "LEFT JOIN enrollments ON " <<
+				"projects.id = enrollments.project_id AND " <<
+				"enrollments.subject_id = #{@subject.id}",
+			:conditions => [ "enrollments.subject_id IS NULL" ])
 	end
 
 end

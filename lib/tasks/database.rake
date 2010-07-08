@@ -25,20 +25,20 @@ namespace :db do
 		:import_address_data
 	]
 
-	task :random_project_subjects_data => :environment do 
+	task :random_enrollments_data => :environment do 
 		p = Project.find_or_create_by_code("HomeExposures")
 		Subject.all.each do |s|
 			puts s.id
 			#	2440000 is sometime in 1968
 			#	2455000 is sometime in 2009
 			completed_on = ( rand > 0.5 ) ? Date.jd(2440000+rand(15000)) : nil
-			ProjectSubject.create!({
+			Enrollment.create!({
 				:subject => s,
 				:project => p,
 				:is_eligible => rand > 0.5,
 				:is_chosen   => rand > 0.5,
 				:consented   => rand > 0.5,
-				:subject_terminated_participation => rand > 0.5,
+				:terminated_participation => rand > 0.5,
 				:is_closed   => rand > 0.5,
 				:completed_on => completed_on
 			})
@@ -49,7 +49,7 @@ namespace :db do
 #recruitment_priority: string, 
 #consented_on: date, 
 #other_refusal_reason: string, 
-#subject_terminated_reason: string, 
+#terminated_reason: string, 
 #reason_closed: string
 
 		end

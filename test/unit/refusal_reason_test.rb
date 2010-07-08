@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RefusalReasonTest < ActiveSupport::TestCase
 
-	assert_should_have_many(:project_subjects)
+	assert_should_have_many(:enrollments)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 

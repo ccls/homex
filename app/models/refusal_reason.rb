@@ -4,7 +4,7 @@ class RefusalReason < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
 
-	has_many :project_subjects
+	has_many :enrollments
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code

@@ -1,7 +1,7 @@
 <% stylesheets('edit_hx_enrollment') %>
-<% render 'hx/subjects/submenu', :subject => @project_subject.subject %>
+<% render 'hx/subjects/submenu', :subject => @enrollment.subject %>
 <%= f.error_messages %>
 
 <p>
-	<%= f.submit( (@project_subject.new_record?)? "Create" : "Update" )%>
+	<%= f.submit( (@enrollment.new_record?)? "Create" : "Update" )%>
 </p>

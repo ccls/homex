@@ -7,7 +7,7 @@ class Subject < ActiveRecord::Base
 	belongs_to :vital_status
 #	belongs_to :hispanicity
 	has_many :samples
-	has_many :project_subjects
+	has_many :enrollments
 	has_many :operational_events
 	has_many :addresses
 	has_many :response_sets
@@ -62,8 +62,8 @@ class Subject < ActiveRecord::Base
 	end
 
 	def priority
-#		if respond_to?('project_subjects.recruitment_priority')
-#			project_subjects.recruitment_priority
+#		if respond_to?('enrollments.recruitment_priority')
+#			enrollments.recruitment_priority
 #		elsif respond_to?('recruitment_priority')
 #			recruitment_priority
 #		else
@@ -179,7 +179,7 @@ class Subject < ActiveRecord::Base
 
 			params[:projects].keys.each do |id|
 				sql_scope[:joins].push(
-					"JOIN project_subjects se_#{id} ON subjects.id "<<
+					"JOIN enrollments se_#{id} ON subjects.id "<<
 						"= se_#{id}.subject_id AND se_#{id}.project_id = #{id}" 
 				)
 #				#	No idea what'll happen with multiple se's here.
@@ -205,7 +205,7 @@ class Subject < ActiveRecord::Base
 							end
 						when 'terminated'
 							if val.true_xor_false?
-								conditions["se_#{id}.subject_terminated_participation"] = val.to_boolean
+								conditions["se_#{id}.terminated_participation"] = val.to_boolean
 							end
 						when 'closed'
 							if val.true_xor_false?
@@ -233,7 +233,7 @@ class Subject < ActiveRecord::Base
 				when 'dob'        then 'piis.dob'
 				when 'studyid'    then 'identifiers.patid'
 				when 'priority'   then 'recruitment_priority'
-#				when 'priority'   then 'project_subjects.recruitment_priority'
+#				when 'priority'   then 'enrollments.recruitment_priority'
 #				when 'priority'   then 'priority'
 #					selects.push('recruitment_priority as priority')
 #					'recruitment_priority'

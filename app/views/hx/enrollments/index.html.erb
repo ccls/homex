@@ -3,7 +3,7 @@
 <% render 'hx/subjects/id_bar' %>
 <div id='enrollments'>
 <%= render :partial => 'enrollment', 
-	:collection => @subject.project_subjects,
+	:collection => @subject.enrollments,
 	:locals => { :edit => current_user.may_edit_enrollments? } %>
 </div><!-- id='enrollments' -->
 <% if current_user.may_edit_enrollments? %>

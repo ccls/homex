@@ -8,8 +8,8 @@ class Project < ActiveRecord::Base
 	has_and_belongs_to_many :samples
 	has_many :operational_event_types
 	has_many :interview_types
-	has_many :project_subjects
-	has_many :subjects, :through => :project_subjects
+	has_many :enrollments
+	has_many :subjects, :through => :enrollments
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code

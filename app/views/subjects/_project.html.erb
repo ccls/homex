@@ -1,6 +1,6 @@
 <hr/>
 <h3><%= project.description %></h3>
-<% if p = @project_subjects.detect{|p|p.project_id==project.id} %>
+<% if p = @enrollments.detect{|p|p.project_id==project.id} %>
 <dl>
 <% p.attributes.each_pair do |k,v| %>
 <dt><%= k %></dt>

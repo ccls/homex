@@ -4,7 +4,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:race,:subject_type)
 	assert_should_have_many(:survey_invitations,:addresses,
-		:operational_events,:project_subjects, :samples,:response_sets)
+		:operational_events,:enrollments, :samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
 		:dust_kit,:identifier)
@@ -251,12 +251,12 @@ pending
 		} }
 	end
 
-	test "should NOT destroy project_subjects with subject" do
+	test "should NOT destroy enrollments with subject" do
 		subject = create_subject
-		Factory(:project_subject, :subject_id => subject.id)
-		Factory(:project_subject, :subject_id => subject.id)
+		Factory(:enrollment, :subject_id => subject.id)
+		Factory(:enrollment, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
-		assert_difference('ProjectSubject.count',0) {
+		assert_difference('Enrollment.count',0) {
 			subject.destroy
 		} }
 	end
@@ -588,9 +588,9 @@ pending
 		s2 = create_subject
 		se1 = Factory(:project)
 		se2 = Factory(:project)
-		Factory(:project_subject, :project => se1, :subject => s1)
-		Factory(:project_subject, :project => se2, :subject => s1)
-		Factory(:project_subject, :project => se2, :subject => s2)
+		Factory(:enrollment, :project => se1, :subject => s1)
+		Factory(:enrollment, :project => se2, :subject => s1)
+		Factory(:enrollment, :project => se2, :subject => s2)
 		subjects = Subject.search(:projects => {
 			se1.id => {:eligible => [true,false]}, 
 			se2.id => {:eligible => [true,false]}})
@@ -602,9 +602,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => nil)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:completed_on => Time.now)
 		subjects = Subject.search(:projects => {se.id => {
 			:completed => [true,false]
@@ -617,9 +617,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => nil)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:completed_on => Time.now)
 		subjects = Subject.search(:projects => {se.id => {
 			:completed => false
@@ -632,9 +632,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => Time.now)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:completed_on => nil)
 		subjects = Subject.search(:projects => {se.id => {
 			:completed => true
@@ -650,9 +650,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_closed => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:closed => [true,false]
@@ -665,9 +665,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_closed => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:closed => false
@@ -680,9 +680,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => true)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_closed => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:closed => true
@@ -696,10 +696,10 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
-			:subject_terminated_participation => false)
-		Factory(:project_subject, :project => se, :subject => s2,
-			:subject_terminated_participation => true)
+		Factory(:enrollment, :project => se, :subject => s1,
+			:terminated_participation => false)
+		Factory(:enrollment, :project => se, :subject => s2,
+			:terminated_participation => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:terminated => [true,false]
 		}})
@@ -711,10 +711,10 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
-			:subject_terminated_participation => false)
-		Factory(:project_subject, :project => se, :subject => s2,
-			:subject_terminated_participation => true)
+		Factory(:enrollment, :project => se, :subject => s1,
+			:terminated_participation => false)
+		Factory(:enrollment, :project => se, :subject => s2,
+			:terminated_participation => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:terminated => false
 		}})
@@ -726,10 +726,10 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
-			:subject_terminated_participation => true)
-		Factory(:project_subject, :project => se, :subject => s2,
-			:subject_terminated_participation => false)
+		Factory(:enrollment, :project => se, :subject => s1,
+			:terminated_participation => true)
+		Factory(:enrollment, :project => se, :subject => s2,
+			:terminated_participation => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:terminated => true
 		}})
@@ -742,9 +742,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:consented => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:consented => [true,false]
@@ -757,9 +757,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:consented => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:consented => false
@@ -772,9 +772,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => true)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:consented => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:consented => true
@@ -787,9 +787,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_candidate => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:candidate => [true,false]
@@ -802,9 +802,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_candidate => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:candidate => false
@@ -817,9 +817,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => true)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_candidate => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:candidate => true
@@ -833,9 +833,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_chosen => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:chosen => [true,false]
@@ -848,9 +848,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_chosen => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:chosen => false
@@ -863,9 +863,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => true)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_chosen => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:chosen => true
@@ -879,9 +879,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_eligible => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:eligible => [true,false]
@@ -894,9 +894,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => false)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_eligible => true)
 		subjects = Subject.search(:projects => {se.id => {
 			:eligible => false
@@ -909,9 +909,9 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => true)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:is_eligible => false)
 		subjects = Subject.search(:projects => {se.id => {
 			:eligible => true
@@ -924,10 +924,10 @@ pending
 		subject1 = create_subject
 		subject2 = create_subject
 		se = Factory(:project)
-		Factory(:project_subject, :project => se,
+		Factory(:enrollment, :project => se,
 			:subject => subject1)
 		se2 = Factory(:project)
-		Factory(:project_subject, :project => se2,
+		Factory(:enrollment, :project => se2,
 			:subject => subject2)
 		subjects = Subject.search(:projects => {se.id => ''})
 		assert  subjects.include?(subject1)
@@ -971,11 +971,11 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:recruitment_priority => 9)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:recruitment_priority => 3)
-		Factory(:project_subject, :project => se, :subject => s3,
+		Factory(:enrollment, :project => se, :subject => s3,
 			:recruitment_priority => 6)
 		subjects = se.subjects.search(:order => 'priority')
 #		subjects = Subject.search(:order => 'priority',
@@ -988,11 +988,11 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-		Factory(:project_subject, :project => se, :subject => s1,
+		Factory(:enrollment, :project => se, :subject => s1,
 			:recruitment_priority => 9)
-		Factory(:project_subject, :project => se, :subject => s2,
+		Factory(:enrollment, :project => se, :subject => s2,
 			:recruitment_priority => 3)
-		Factory(:project_subject, :project => se, :subject => s3,
+		Factory(:enrollment, :project => se, :subject => s3,
 			:recruitment_priority => 6)
 		subjects = se.subjects.search(:order => 'priority',:dir => 'desc')
 #		subjects = Subject.search(:order => 'priority',:dir => 'desc',
