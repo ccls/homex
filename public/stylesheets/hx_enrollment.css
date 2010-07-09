@@ -1,0 +1,5 @@
+.field_wrapper > span.label {
+	clear:left;
+	float:left;
+	width: 200px;
+}

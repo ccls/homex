@@ -1,3 +1,45 @@
+<% stylesheets('edit_hx_enrollment') %>
+<% render 'hx/subjects/submenu', :subject => @enrollment.subject %>
+<% render 'hx/subjects/id_bar', :subject => @enrollment.subject %>
+
 <% form_for(@enrollment,:url => hx_enrollment_path(@enrollment)) do |f| %>
-<%= render 'form', :f => f %>
+<%= f.error_messages %>
+
+<p><%= @enrollment.project.description -%></p>
+
+<%= wrapped_text_field :enrollment, :recruitment_priority %>
+<%= wrapped_check_box :enrollment, :able_to_locate %>
+<%= wrapped_check_box :enrollment, :is_candidate %>
+<%= wrapped_check_box :enrollment, :is_eligible %>
+<%= wrapped_collection_select :enrollment, :ineligible_reason_id,
+	IneligibleReason.all, :id, :description, :include_blank => true %>
+
+<%= wrapped_text_field :enrollment, :ineligible_reason_specify %>
+<%= wrapped_check_box :enrollment, :consented %>
+
+<%= wrapped_text_field :enrollment, :consented_on %>
+<%= wrapped_collection_select :enrollment, :refusal_reason_id,
+	RefusalReason.all, :id, :description, :include_blank => true %>
+
+<%= wrapped_text_field :enrollment, :other_refusal_reason %>
+<%= wrapped_check_box :enrollment, :is_chosen %>
+<%= wrapped_text_field :enrollment, :reason_not_chosen %>
+<%= wrapped_check_box :enrollment, :terminated_participation %>
+<%= wrapped_text_field :enrollment, :terminated_reason %>
+<%= wrapped_check_box :enrollment, :is_complete %>
+
+<%= wrapped_text_field :enrollment, :completed_on %>
+
+<%= wrapped_check_box :enrollment, :is_closed %>
+<%= wrapped_text_field :enrollment, :reason_closed %>
+
+<div class='notes'>
+<%#= f.label :notes %>
+<%#= f.text_area :notes %>
+</div><!-- class='notes' -->
+
+
+<p>
+	<%= f.submit( "Update" )%>
+</p>
 <% end %>

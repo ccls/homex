@@ -4,7 +4,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Enrollment',
-		:actions => [:edit,:update],	#	only the shallow ones
+		:actions => [:show,:edit,:update],	#	only the shallow ones
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}

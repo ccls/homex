@@ -79,7 +79,7 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :addresses,
 				:only => [:new,:create,:edit,:update,:index]
 			subject.resources :enrollments,
-				:only => [:new,:create,:edit,:update,:index]
+				:only => [:new,:create,:show,:edit,:update,:index]
 		end
 #		hx.namespace :subjects do |hxs|
 #			hxs.resources :generals, :only => :index

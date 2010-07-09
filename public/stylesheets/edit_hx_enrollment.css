@@ -1,0 +1,8 @@
+.field_wrapper > label {
+	clear:left;
+	float:left;
+	width: 200px;
+}
+.field_wrapper > text_area {
+	clear:left;
+}

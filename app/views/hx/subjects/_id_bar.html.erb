@@ -3,15 +3,15 @@
 <div class='manage'>
 <div class='childid'>
 <span>ChildID:</span>
-<span><%= @subject.childid -%></span>
+<span><%= (@subject||subject).childid -%></span>
 </div><!-- class='childid' -->
 <div class='studyid'>
 <span>StudyID:</span>
-<span><%= @subject.studyid -%></span>
+<span><%= (@subject||subject).studyid -%></span>
 </div><!-- class='studyid' -->
 <div class='controls'>
 <%= ( current_user.may_edit_subjects? ) ?
-	link_to( "edit", edit_hx_subject_path(@subject) ) : '&nbsp;' %>
+	link_to( "edit", edit_hx_subject_path(@subject||subject) ) : '&nbsp;' %>
 </div><!-- class='controls' -->
 </div><!-- class='manage' -->
 <% end %>
@@ -19,4 +19,4 @@
 <div id='do_not_contact'>
 Subject requests no further contact with Study.
 </div>
-<% end if @subject.do_not_contact %>
+<% end if (@subject||subject).do_not_contact %>

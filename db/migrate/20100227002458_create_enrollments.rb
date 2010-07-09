@@ -22,7 +22,7 @@ class CreateEnrollments < ActiveRecord::Migration
 			t.date :completed_on
 			t.boolean :is_closed
 			t.string :reason_closed
-#			t.text :enrollment_notes
+			t.text :notes
 			t.timestamps
 		end
 		add_index :enrollments, [:project_id, :subject_id],

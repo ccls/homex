@@ -1,13 +1,31 @@
 <% stylesheets('hx_enrollments') %>
 <% render 'hx/subjects/submenu' %>
 <% render 'hx/subjects/id_bar' %>
+
+<div class='columns header'>
+<div class='project'>Project
+</div><!-- class='project' -->
+<div class='candidate'>Is Candidate?
+</div><!-- class='candidate' -->
+<div class='locate'>Able to Locate?
+</div><!-- class='locate' -->
+<div class='eligible'>Is Eligible?
+</div><!-- class='eligible' -->
+<div class='consented'>Consented On
+</div><!-- class='consented' -->
+<div class='completed'>Completed On
+</div><!-- class='completed' -->
+
+</div><!-- class='columns' -->
 <div id='enrollments'>
+
 <%= render :partial => 'enrollment', 
 	:collection => @subject.enrollments,
 	:locals => { :edit => current_user.may_edit_enrollments? } %>
 </div><!-- id='enrollments' -->
 <% if current_user.may_edit_enrollments? %>
 <p id='new_enrollment'>
-<%= link_to 'Create new enrollment', new_hx_subject_enrollment_path(@subject) %>
+<%= link_to 'Create new enrollment', 
+	new_hx_subject_enrollment_path(@subject) %>
 </p>
 <% end %>

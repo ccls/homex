@@ -1,22 +1,22 @@
 <% content_tag_for( :div, enrollment, :class => 'row columns' ) do %>
-<div>
+<div class='project'>
 <%= link_to enrollment.project.code, 
-	edit_hx_enrollment_path(enrollment) %>
+	hx_enrollment_path(enrollment) %>
 </div>
-<div>
-<%= enrollment.is_candidate %>
+<div class='candidate'>
+<%= ((x=enrollment.is_candidate).blank?)?'&nbsp;':x %>
 </div>
-<div>
-<%= enrollment.able_to_locate %>
+<div class='locate'>
+<%= ((x=enrollment.able_to_locate).blank?)?'&nbsp;':x %>
 </div>
-<div>
-<%= enrollment.is_eligible %>
+<div class='eligible'>
+<%= ((x=enrollment.is_eligible).blank?)?'&nbsp;':x %>
 </div>
-<div>
-<%= enrollment.consented_on %>
+<div class='consented'>
+<%= enrollment.consented_on||'&nbsp;' %>
 </div>
-<div>
-<%= enrollment.completed_on %>
+<div class='completed'>
+<%= enrollment.completed_on||'&nbsp;' %>
 </div>
 
 <% end %>

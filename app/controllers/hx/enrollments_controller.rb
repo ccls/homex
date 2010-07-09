@@ -3,7 +3,7 @@ class Hx::EnrollmentsController < HxApplicationController
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,
-		:only => [:edit,:update]
+		:only => [:show,:edit,:update]
 
 	def new
 		get_unenrolled_projects
