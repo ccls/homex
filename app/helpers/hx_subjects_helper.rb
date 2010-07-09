@@ -5,7 +5,7 @@ module HxSubjectsHelper
 		order = column.downcase.gsub(/\s+/,'_')
 		dir = ( params[:dir] && params[:dir] == 'asc' ) ? 'desc' : 'asc'
 		link_text = text||column
-		classes = [order]
+		classes = []	#[order]
 		arrow = ''
 		if params[:order] && params[:order] == order
 			classes.push('sorted')

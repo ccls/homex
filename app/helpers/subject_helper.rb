@@ -93,5 +93,6 @@ module SubjectHelper
 			s
 		end	#	if Project.count > 0
 	end
+	alias_method :project_stuff, :study_event_stuff
 
 end
