@@ -34,6 +34,10 @@ p > small {
 	font-size: 6pt;
 }
 
+div.header {
+	clear:both;
+	padding: 6px;
+}
 div.row {
 	clear:left;
 	border: 1px solid silver;
