@@ -23,6 +23,8 @@ Rails::Initializer.run do |config|
 
 
 
+	# This is set to /homex in environments/production.rb
+	config.action_controller.relative_url_root = ''
 	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby

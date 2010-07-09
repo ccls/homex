@@ -29,7 +29,8 @@ module ApplicationHelper
 		width = ( 900 - count ) / count
 		s = "<div id='rootmenu' class='main_width'>\n"
 		roots.each do |page|
-			s << link_to( page.menu(session[:locale]), page.path, 
+			s << link_to( page.menu(session[:locale]), 
+				ActionController::Base.relative_url_root + page.path, 
 				:style => "width: #{width}px",
 				:class => ((page == @page.try(:root))?'current':nil))
 			s << "\n"
@@ -46,7 +47,8 @@ module ApplicationHelper
 			s << "<div id='children'>\n"
 			@page.root.children.each do |child|
 				s << "<span class='child#{(@page==child)?" current_child":""}'>"
-				s << link_to( child.menu(session[:locale]), child.path )
+				s << link_to( child.menu(session[:locale]), 
+					ActionController::Base.relative_url_root + child.path )
 				s << "</span>\n"
 			end
 			s << "</div><!-- id='children'  -->\n"

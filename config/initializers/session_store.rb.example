@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random, 
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_ucb_sph_ccls_session',
+  :key         => '_ucb_sph_ccls_homex_session',
   :secret      => 'insert your secret key here'
 }
 

@@ -31,3 +31,5 @@ config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.default_url_options = { 
 	:host => "ccls.berkeley.edu" }
+
+config.action_controller.relative_url_root = '/homex'
