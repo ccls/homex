@@ -38,21 +38,29 @@ div.header {
 	clear:both;
 	padding: 6px;
 }
-div.row {
+.row {
 	clear:left;
 	border: 1px solid silver;
 	border-top: 0;
 	padding: 6px;
 	overflow: auto;
 }
-div.row div.manage {
+.row div.manage {
 	text-align:right;
 }
-div.row:nth-child(1) {
+.row:nth-child(1) {
 	border-top: 1px solid silver;
 }
-div.row:nth-child(2n)   { background-color: #EEE; }
-div.row:nth-child(2n+1) { background-color: #DDD; }
+.row:nth-child(2n)   { background-color: #EEE; }
+.row:nth-child(2n+1) { background-color: #DDD; }
+
+table {
+	border-collapse:collapse;
+	width: 100%;
+}
+tr.row td {
+	padding: 6px;
+}
 
 form.link_to {
 	padding-top: 10px;

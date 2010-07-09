@@ -12,19 +12,22 @@
 	<%= submit_tag 'download' %>
 </div>
 
-<div class='header columns'>
-<div class='checkbox'>&nbsp;</div>
-<%= sort_link('ChildID') %>
-<%= sort_link('StudyID') %>
-<%= sort_link('Priority') %>
-<%= sort_link('First Name') %>
-<%= sort_link('Last Name') %>
-<%= sort_link('Outcome') %>
-<%= sort_link('Outcome Date') %>
-</div>
-<div id='subjects'>
+<% if @subjects.length > 0 %>
+<table id='subjects'><thead><tr>
+<th class='checkbox'>&nbsp;</th>
+<th><%= sort_link('ChildID') %></th>
+<th><%= sort_link('StudyID') %></th>
+<th><%= sort_link('Priority') %></th>
+<th><%= sort_link('First Name') %></th>
+<th><%= sort_link('Last Name') %></th>
+<th><%= sort_link('Outcome') %></th>
+<th><%= sort_link('Outcome Date') %></th>
+</tr></thead><tbody>
 <%= render :partial => 'hx/enrolls/subject', :collection => @subjects %>
-</div>
+</tbody></table>
+<% else %>
+<p>There are no subjects.</p>
+<% end %>
 <% end %><%# form_tag %>
 
 <%= will_paginate @subjects %>

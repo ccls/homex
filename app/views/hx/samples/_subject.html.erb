@@ -1,24 +1,24 @@
-<% content_tag_for( :div, subject, :class => 'row columns' ) do %>
-<div class='childid'><%= link_to subject.childid, hx_subject_path(subject) -%></div>
-<div class='studyid'>
+<% content_tag_for( :tr, subject, :class => 'row' ) do %>
+<td class='childid'><%= link_to subject.childid, hx_subject_path(subject) -%></td>
+<td class='studyid'>
 <%= subject.studyid %>
-</div>
-<div class='last_name'>
+</td>
+<td class='last_name'>
 <%= subject.last_name %>
-</div>
-<div class='first_name'>
+</td>
+<td class='first_name'>
 <%= subject.first_name %>
-</div>
+</td>
 <% if subject.dust_kit %>
-<div class='kit_sent_on'>
+<td class='kit_sent_on'>
 <%= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
-</div>
-<div class='kit_received_on'>
+</td>
+<td class='kit_received_on'>
 <%= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
-</div>
+</td>
 <% else %>
-<div class='send_kit'>
+<td class='send_kit' colspan='2'>
 <%= link_to 'Send Kit', new_hx_subject_dust_kit_path(subject) %>
-</div>
+</td>
 <% end %>
 <% end %><%# content_tag_for %>
