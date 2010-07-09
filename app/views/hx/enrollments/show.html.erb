@@ -22,11 +22,7 @@
 <%= wrapped_spans :enrollment, :completed_on %>
 <%= wrapped_spans :enrollment, :is_closed %>
 <%= wrapped_spans :enrollment, :reason_closed %>
-
-<div class='notes'>
-<%#= f.label :notes %>
-<%#= f.text_area :notes %>
-</div><!-- class='notes' -->
+<%= wrapped_spans :enrollment, :notes %>
 
 <%= link_to( 'Edit', edit_hx_enrollment_path(@enrollment) 
 	) if current_user.may_edit_enrollments? %>

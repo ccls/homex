@@ -32,12 +32,7 @@
 
 <%= wrapped_check_box :enrollment, :is_closed %>
 <%= wrapped_text_field :enrollment, :reason_closed %>
-
-<div class='notes'>
-<%#= f.label :notes %>
-<%#= f.text_area :notes %>
-</div><!-- class='notes' -->
-
+<%= wrapped_text_area  :enrollment, :notes %>
 
 <p>
 	<%= f.submit( "Update" )%>
