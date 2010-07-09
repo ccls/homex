@@ -22,8 +22,8 @@ def build_full_database_structure
 		File.exists?(here + "/../db")
 	Dir.mkdir(here + "/../db/migrate/") unless
 		File.exists?(here + "/../db/migrate/")
-	require 'ftools'
-	File.copy(here + "/001_create_trackables.rb",
+#	require 'ftools'
+	FileUtils.copy(here + "/001_create_trackables.rb",
 		here + "/../db/migrate/")
 
 	Rails::Generator::Base.append_sources(
