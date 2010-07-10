@@ -144,7 +144,8 @@ module ApplicationHelper
 		s = "<div class='main_width'><p>\n"
 		l = ["<span>Copyright &copy; UC Regents; all rights reserved.</span>"]
 		Page.hidden.each do |page|
-			l.push(link_to( page.menu(session[:locale]), page.path ))
+			l.push(link_to( page.menu(session[:locale]), 
+				ActionController::Base.relative_url_root + page.path ))
 		end
 		if session[:locale] && session[:locale] == 'es'
 			l.push(link_to( 'English', locale_path('en') ))
