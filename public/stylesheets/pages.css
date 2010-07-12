@@ -1,52 +1,23 @@
-div#pages {
-/*
-	padding-top:20px;
-*/
-}
-div.page{
-}
 img.handle {
 	padding: 6px 0;
-	float:left;
 }
-div.position {
-	float:left;
+.position {
 	font-weight:bold;
 	border: 1px solid black;
-	margin-left: 10px;
-	padding: 0 5px;
 }
-div.path {
-	margin-left:13px;
-	float:left;
-	width: 130px;
-/*
-	clear:left;
-*/
-}
-div.menu {
-	float:left;
+.path {
 	width: 150px;
 }
-div.title {
-	float:left;
-	width: 220px;
+.menu {
+	width: 150px;
 }
-div.controller {
-	float:left;
-	width: 100px;
+.title {
+	width: 150px;
 }
-div.manage {
+.page .manage {
+	text-align: right;
 }
 
-div.page.row.ui-sortable-helper {
+.page.row.ui-sortable-helper {
 	border: 1px dashed #E7C254;
-}
-
-div.children {
-	margin-left:59px;
-	clear:left;
-}
-div.children .children{
-	margin-left: 10px;
 }

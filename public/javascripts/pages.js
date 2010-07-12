@@ -5,7 +5,7 @@ jQuery(function(){
 		dropOnEmpty:false, 
 		handle:'img.handle', 
 		update:function(event,ui){compare_page_order()},
-		items:'div.page.row'
+		items:'tr.page.row'
 	});
 
 	jQuery('#save_order').disable();
