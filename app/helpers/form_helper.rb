@@ -54,7 +54,7 @@ ActionView::Helpers::FormBuilder.class_eval do
 		@template.wrapped_collection_select(
 			@object_name, method, collection,value_method,text_method,
 				objectify_options(options),
-				objectify_options(html_options))
+				html_options)
 	end
 	def wrapped_check_box(method, options = {})
 		@template.wrapped_check_box(
