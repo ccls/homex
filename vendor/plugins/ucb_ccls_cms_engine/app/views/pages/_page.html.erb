@@ -1,0 +1,25 @@
+<% content_tag_for( :div, page, :class => 'row' ) do %>
+<%= hidden_field_tag( 'pages[]', page.id, :id => nil ) %>
+<%= image_tag 'drag.gif', :class => 'handle' %>
+<div class='position'><%= page.position -%></div>
+<div class='path'>
+<%= link_to page.path, page.path -%>
+</div>
+<div class='menu'>
+<%= link_to page.menu(session[:locale]), page -%>
+</div>
+<div class='title'>
+<%= link_to page.title(session[:locale]), page -%>
+</div>
+<div class='manage'>
+<% if page.children.length > 1 %>
+<%= link_to "Order", pages_path(:parent_id => page.id) -%>&nbsp;
+<% end %>
+<%= link_to "Edit", edit_page_path(page) -%>&nbsp;
+<%= link_to "Destroy", page_path(page), :confirm => "Delete '#{page.title(session[:locale])}'?\nAre you sure?", :method => :delete -%>
+</div>
+
+<div class='children'>
+<%= render :partial => 'child', :collection => page.children %>
+</div>
+<% end %><!-- class='page' -->
