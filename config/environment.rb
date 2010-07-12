@@ -59,31 +59,9 @@ Rails::Initializer.run do |config|
 		:lib => 'acts_as_list', 
 		:source => 'http://gems.github.com'
 
-	#	For user model permissions
-#	config.gem 'aegis', :source => 'http://gemcutter.org'
-
-	#	For CAS / CalNet Authentication
-	config.gem "rubycas-client"
-
-	#	probably will come from http://gemcutter.org/gems/ucb_ldap
-	#	version 1.3.2 as of Jan 25, 2010
-	config.gem "ucb_ldap", :source => "http://gemcutter.org"
-
 	config.gem 'active_shipping'
-	config.gem 'gravatar'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
-
-
-	#	http://railscasts.com/episodes/160-authlogic
-	#	http://asciicasts.com/episodes/160-authlogic
-	#	version 2.1.4 includes patches for Rails 3 that
-	#	are not compatible with Rails 2.3.4
-	#	acts_as_authentic/password.rb line 185
-	#	session/callbacks.rb line 69
-	#		change singleton_class back to metaclass
-#	config.gem 'authlogic', :version => '>= 2.1.5'
-	
 
 
 	# Only load the plugins named here, in the order given (default is alphabetical).

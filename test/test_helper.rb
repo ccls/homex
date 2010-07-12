@@ -23,9 +23,6 @@ require 'should_require'
 #	Using default validation settings from within the 
 #	html_test and html_test_extension plugins
 
-#require 'authlogic_test_helper'
-require 'ucb_cas_test_helper'
-
 class ActiveSupport::TestCase
 
 	self.use_transactional_fixtures = true

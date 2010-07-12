@@ -39,31 +39,14 @@ ActionController::Routing::Routes.draw do |map|
 
 
 
-
 	map.root :controller => "pages", :action => "show", :path => [""]
 
-
-
-#	map.login  'login',  :controller => 'user_sessions', :action => 'new'  
-#	map.logout 'logout', :controller => 'user_sessions', :action => 'destroy'  
-#	#	keep user_sessions route plural or form on 'new' will fail.
-#	map.resources :user_sessions, :only => [ :new, :create, :destroy ]
-
-	map.logout 'logout', :controller => 'sessions', :action => 'destroy'
-	map.resources :sessions, :only => [ :destroy ]
-
-
 	map.resource  :calendar,   :only => [ :show ]
-
-	map.resources :users, :only => [:show, :index] do |user|
-		user.resources :roles, :only => [:update,:destroy]
-	end
 
 	map.resources :pages, :collection => { :order => :post }
 	map.resources :home_page_pics, :collection => { :activate => :post }
 	map.resources :packages, :except => :edit, 
 		:member => { :ship => :put, :deliver => :put }
-#	map.resources :permissions, :only => :index
 	map.resources :response_sets, :only => [ :create ]
 
 	map.resource :home_exposure, :only => :show
@@ -118,7 +101,6 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :locales, :only => :show
 
 
-#	map.resources :user_invitations, :only => [:new,:create,:show]
 
 
 
