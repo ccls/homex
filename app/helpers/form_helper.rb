@@ -47,3 +47,25 @@ module FormHelper
 	end
 
 end
+
+ActionView::Helpers::FormBuilder.class_eval do
+	def wrapped_collection_select(method, 
+		collection,value_method,text_method,options={},html_options={})
+		@template.wrapped_collection_select(
+			@object_name, method, collection,value_method,text_method,
+				objectify_options(options),
+				objectify_options(html_options))
+	end
+	def wrapped_check_box(method, options = {})
+		@template.wrapped_check_box(
+			@object_name, method, objectify_options(options))
+	end
+	def wrapped_text_area(method, options = {})
+		@template.wrapped_text_area(
+			@object_name, method, objectify_options(options))
+	end
+	def wrapped_text_field(method, options = {})
+		@template.wrapped_text_field(
+			@object_name, method, objectify_options(options))
+	end
+end

@@ -7,32 +7,32 @@
 
 <p><%= @enrollment.project.description -%></p>
 
-<%= wrapped_text_field :enrollment, :recruitment_priority %>
-<%= wrapped_check_box :enrollment, :able_to_locate %>
-<%= wrapped_check_box :enrollment, :is_candidate %>
-<%= wrapped_check_box :enrollment, :is_eligible %>
-<%= wrapped_collection_select :enrollment, :ineligible_reason_id,
+<%= f.wrapped_text_field :recruitment_priority %>
+<%= f.wrapped_check_box :able_to_locate %>
+<%= f.wrapped_check_box :is_candidate %>
+<%= f.wrapped_check_box :is_eligible %>
+<%= f.wrapped_collection_select :ineligible_reason_id,
 	IneligibleReason.all, :id, :description, :include_blank => true %>
 
-<%= wrapped_text_field :enrollment, :ineligible_reason_specify %>
-<%= wrapped_check_box :enrollment, :consented %>
+<%= f.wrapped_text_field :ineligible_reason_specify %>
+<%= f.wrapped_check_box :consented %>
 
-<%= wrapped_text_field :enrollment, :consented_on %>
-<%= wrapped_collection_select :enrollment, :refusal_reason_id,
+<%= f.wrapped_text_field :consented_on %>
+<%= f.wrapped_collection_select :refusal_reason_id,
 	RefusalReason.all, :id, :description, :include_blank => true %>
 
-<%= wrapped_text_field :enrollment, :other_refusal_reason %>
-<%= wrapped_check_box :enrollment, :is_chosen %>
-<%= wrapped_text_field :enrollment, :reason_not_chosen %>
-<%= wrapped_check_box :enrollment, :terminated_participation %>
-<%= wrapped_text_field :enrollment, :terminated_reason %>
-<%= wrapped_check_box :enrollment, :is_complete %>
+<%= f.wrapped_text_field :other_refusal_reason %>
+<%= f.wrapped_check_box :is_chosen %>
+<%= f.wrapped_text_field :reason_not_chosen %>
+<%= f.wrapped_check_box :terminated_participation %>
+<%= f.wrapped_text_field :terminated_reason %>
+<%= f.wrapped_check_box :is_complete %>
 
-<%= wrapped_text_field :enrollment, :completed_on %>
+<%= f.wrapped_text_field :completed_on %>
 
-<%= wrapped_check_box :enrollment, :is_closed %>
-<%= wrapped_text_field :enrollment, :reason_closed %>
-<%= wrapped_text_area  :enrollment, :notes %>
+<%= f.wrapped_check_box :is_closed %>
+<%= f.wrapped_text_field :reason_closed %>
+<%= f.wrapped_text_area  :notes %>
 
 <p>
 	<%= f.submit( "Update" )%>
