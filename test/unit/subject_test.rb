@@ -40,7 +40,7 @@ class SubjectTest < ActiveSupport::TestCase
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
 				:pii_attributes => Factory.attributes_for(:pii))
-			assert subject.errors.on(:pii_subject_id)
+			assert subject.errors.on('pii.subject_id')
 		} }
 	end
 
@@ -48,7 +48,7 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_difference( 'Pii.count', 0) {
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject( :pii_attributes => {})
-			assert subject.errors.on(:pii_state_id_no)
+			assert subject.errors.on('pii.state_id_no')
 		} }
 	end
 
@@ -71,7 +71,7 @@ class SubjectTest < ActiveSupport::TestCase
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
 				:patient_attributes => Factory.attributes_for(:patient))
-			assert subject.errors.on(:patient_subject_id)
+			assert subject.errors.on('patient.subject_id')
 		} }
 	end
 
@@ -103,7 +103,7 @@ class SubjectTest < ActiveSupport::TestCase
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
 				:identifier_attributes => Factory.attributes_for(:identifier))
-			assert subject.errors.on(:identifier_subject_id)
+			assert subject.errors.on('identifier.subject_id')
 		} }
 	end
 
@@ -112,7 +112,7 @@ class SubjectTest < ActiveSupport::TestCase
 		assert_difference( 'Subject.count', 0) {
 			subject = create_subject(
 				:identifier_attributes => {} )
-			assert subject.errors.on(:identifier_childid)
+			assert subject.errors.on('identifier.childid')
 		} }
 	end
 
