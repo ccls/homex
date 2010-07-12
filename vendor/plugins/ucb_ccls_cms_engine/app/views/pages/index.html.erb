@@ -3,9 +3,9 @@
 
 <% form_tag(order_pages_path, :method => :post, :id => 'order_pages') do -%>
 <%= hidden_field_tag :parent_id, params[:parent_id] %>
-<div id='pages'>
+<table id='pages'><tbody>
 <%= render :partial => 'page', :collection => @pages %>
-</div><!-- id='pages' -->
+</tbody></table><!-- id='pages' -->
 
 <p>
 <%= button_link_to "Create new page", 

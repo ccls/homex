@@ -1,20 +1,20 @@
-<% content_tag_for( :div, child ) do %>
-<div class='path'>
+<% content_tag_for( :tr, child ) do %>
+<td class='path'>
 <%= link_to child.path, child.path -%>
-</div>
-<div class='menu'>
+</td>
+<td class='menu'>
 <%= link_to child.menu(session[:locale]), child -%>
-</div>
-<div class='title'>
+</td>
+<td class='title'>
 <%= link_to child.title(session[:locale]), child -%>
-</div>
-<div class='manage'>
+</td>
+<td class='manage'>
 <%= link_to "Edit", edit_page_path(child) -%>
 &nbsp;
 <%= link_to "Destroy", page_path(child), :confirm => "Delete '#{child.title(session[:locale])}'?\nAre you sure?", :method => :delete -%>
-</div>
+</td>
 
-<div class='children'>
+<td class='children'>
 <%= render :partial => 'child', :collection => child.children %>
-</div>
+</td>
 <% end %><!-- class='child' -->
