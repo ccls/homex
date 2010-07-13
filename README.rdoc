@@ -42,8 +42,7 @@
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
-* {ucb_ccls_auth_plugin}[http://github.com/jakewendt/ucb_ccls_auth_plugin] - contains all of the user authentication code used in several apps
-* {ucb_ccls_cms_plugin}[http://github.com/jakewendt/ucb_ccls_cms_plugin] - contains all of the page cms code used in several apps
+* {ucb_ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 
 
 
