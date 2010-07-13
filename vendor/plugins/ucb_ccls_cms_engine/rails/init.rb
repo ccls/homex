@@ -1,5 +1,7 @@
 require 'ucb_ccls_cms_plugin'
+require 'ucb_ccls_cms_helper'
 
+ActionView::Base.send(:include, UcbCclsCmsHelper)
 
 config.load_paths << File.join(File.dirname(__FILE__),'..','/app/sweepers')
 
