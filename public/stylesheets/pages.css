@@ -1,7 +1,11 @@
+table#pages {
+	width: 100%;
+}
 .page img.handle {
 }
 .page .position {
 	font-weight:bold;
+	text-align:center;
 }
 .page .path {
 	width: 150px;
@@ -13,7 +17,7 @@
 	width: 150px;
 }
 .page .manage {
-	text-align: right;
+	text-align:right;
 }
 
 .page.row.ui-sortable-helper {
