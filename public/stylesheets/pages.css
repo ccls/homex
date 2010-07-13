@@ -1,17 +1,15 @@
-img.handle {
-	padding: 6px 0;
+.page img.handle {
 }
-.position {
+.page .position {
 	font-weight:bold;
-	border: 1px solid black;
 }
-.path {
+.page .path {
 	width: 150px;
 }
-.menu {
+.page .menu {
 	width: 150px;
 }
-.title {
+.page .title {
 	width: 150px;
 }
 .page .manage {
