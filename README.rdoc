@@ -28,6 +28,7 @@
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {rubycas-client}[http://code.google.com/p/rubycas-client/] - user authentication
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
+* {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 
 
 == Required and included plugins
@@ -41,7 +42,6 @@
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {ucb_ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
 
 
