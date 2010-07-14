@@ -47,6 +47,9 @@ end
 Factory.define :data_source do |f|
 end
 
+Factory.define :document do |f|
+end
+
 Factory.define :dust_kit do |f|
 end
 
@@ -60,6 +63,9 @@ end
 
 Factory.define :home_page_pic do |f|
 	f.sequence(:title){ |n| "Title #{n}" }
+end
+
+Factory.define :image do |f|
 end
 
 Factory.define :ineligible_reason do |f|
