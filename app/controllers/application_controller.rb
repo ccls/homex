@@ -1,7 +1,7 @@
 require 'authorization'
 class ApplicationController < ActionController::Base
 
-	include SslRequirement
+#	include SslRequirement
 
 	helper :all # include all helpers, all the time
 
@@ -10,10 +10,10 @@ class ApplicationController < ActionController::Base
 
 protected	#	private #	(does it matter which or if neither?)
 
-	def ssl_required?
-		#	Force https everywhere (that doesn't have ssl_allowed set)
-		true
-	end
+#	def ssl_required?
+#		#	Force https everywhere (that doesn't have ssl_allowed set)
+#		true
+#	end
 
 	def redirect_to_referer_or_default(default)
 		redirect_to( session[:refer_to] || 
