@@ -133,6 +133,8 @@ Warbler::Config.new do |config|
 	# that you fix these values when running a production server!
 	# config.webxml.jruby.min.runtimes = 2
 	# config.webxml.jruby.max.runtimes = 4
+	config.webxml.jruby.min.runtimes = 1
+	config.webxml.jruby.max.runtimes = 1
 
 	# JNDI data source name
 	# config.webxml.jndi = 'jdbc/rails'
