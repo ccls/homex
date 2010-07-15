@@ -64,28 +64,6 @@ module ApplicationHelper
 		end
 	end
 
-	#	This creates a button that looks like a submit button
-	#	but is just a javascript controlled link.
-	#	I don't like it.
-	def button_link_to( title, url, options={} )
-#		id = "id='#{options[:id]}'" unless options[:id].blank?
-#		klass = if options[:class].blank?
-#			"class='link'"
-#		else
-#			"class='#{options[:class]}'"
-#		end
-#		s =  "<button #{id} #{klass} type='button'>"
-		classes = ['link']
-		classes << options[:class]
-		s =  "<button class='#{classes.flatten.join(' ')}' type='button'>"
-		s << "<span class='href' style='display:none;'>"
-		s << url_for(url)
-		s << "</span>"
-		s << title
-		s << "</button>"
-		s
-	end
-
 	#	Created this to create form styled buttons to use
 	#	for the common 'cancel' feature. Unfortunately, it is
 	#	invalid HTML to have a form inside of a form.  So
@@ -154,27 +132,6 @@ module ApplicationHelper
 		end
 		s << l.join("&nbsp;|&nbsp;\n")
 		s << "</p></div>\n"
-	end
-
-	#	Created to stop multiple entries of same stylesheet
-	def stylesheets(*args)
-		@stylesheets ||= []
-		args.each do |stylesheet|
-			unless @stylesheets.include?(stylesheet)
-				@stylesheets.push(stylesheet)
-				content_for(:head,stylesheet_link_tag(stylesheet))
-			end
-		end
-	end
-
-	def javascripts(*args)
-		@javascripts ||= []
-		args.each do |javascript|
-			unless @javascripts.include?(javascript)
-				@javascripts.push(javascript)
-				content_for(:head,javascript_include_tag(javascript))
-			end
-		end
 	end
 
 end
