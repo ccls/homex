@@ -2,8 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-#	assert_should_require(:uid)
-#	assert_should_require_unique(:uid)
+	assert_should_require(:uid)
+	assert_should_require_unique(:uid)
+	assert_should_habtm(:roles)
 
 	test "should create user" do
 		assert_difference 'User.count' do
