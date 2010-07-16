@@ -97,7 +97,7 @@ class SampleKitTest < ActiveSupport::TestCase
 		stub_package_for_in_transit()
 		object = create_complete_sample_kit	
 		object.kit_package.update_status
-		assert_not_nil object.sent_on
+		assert_not_nil object.reload.sent_on
 	end
 
 	test "should return null received_on with kit in transit" do
@@ -120,6 +120,32 @@ class SampleKitTest < ActiveSupport::TestCase
 		object = create_complete_sample_kit	
 		object.sample_package.update_status
 		assert_not_nil object.received_on
+	end
+
+
+
+	test "should set sample sent_to_subject_on" do
+		stub_package_for_in_transit()
+		object = create_complete_sample_kit	
+		sample = Factory(:sample)
+		sample.sample_kit = object
+		object.kit_package.update_status
+		assert_not_nil object.kit_package.tracks.first
+		assert_not_nil sample.reload.sent_to_subject_on
+		assert_equal object.kit_package.tracks.first.time.to_date,
+			sample.reload.sent_to_subject_on
+	end
+
+	test "should set sample received_by_ccls_on" do
+		stub_package_for_successful_delivery()
+		object = create_complete_sample_kit	
+		sample = Factory(:sample)
+		sample.sample_kit = object
+		object.sample_package.update_status
+		assert_not_nil object.sample_package.tracks.last
+		assert_not_nil sample.reload.received_by_ccls_on
+		assert_equal object.sample_package.tracks.last.time.to_date,
+			sample.reload.received_by_ccls_on
 	end
 
 protected

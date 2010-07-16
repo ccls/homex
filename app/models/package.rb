@@ -5,6 +5,10 @@ require 'active_shipping'
 #	*	delivered
 #	*	undelivered
 class Package < ActiveRecord::Base
+	has_one :o_sample_kit, :foreign_key => 'kit_package_id',
+		:class_name => 'SampleKit'
+	has_one :i_sample_kit, :foreign_key => 'sample_package_id',
+		:class_name => 'SampleKit'
 	include ActiveMerchant::Shipping
 	acts_as_trackable
 
@@ -25,6 +29,8 @@ class Package < ActiveRecord::Base
 	]
 
 #	before_create :update_status
+
+	after_save :update_kit_dates
 
 	def sent_on
 		if self.tracks.length > 0
@@ -129,6 +135,20 @@ class Package < ActiveRecord::Base
 	#	used by both the app and the background process.
 	def self.packages_updated
 		@@packages_updated
+	end
+
+protected
+
+	def update_kit_dates
+		if tracks.length > 0
+			if    i_sample_kit && i_sample_kit.sample && received_on
+				i_sample_kit.sample.update_attribute(
+					:received_by_ccls_on,received_on)
+			elsif o_sample_kit && o_sample_kit.sample && sent_on
+				o_sample_kit.sample.update_attribute(
+					:sent_to_subject_on,sent_on)
+			end
+		end
 	end
 
 end
