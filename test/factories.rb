@@ -130,6 +130,9 @@ end	#	parent must be defined first
 Factory.define :dust_package, :parent => :package do |f|
 #	This is really just an alias of convenience for DustKit
 end	#	parent must be defined first
+Factory.define :sample_package, :parent => :package do |f|
+#	This is really just an alias of convenience for SampleKit
+end	#	parent must be defined first
 
 Factory.define :patient do |f|
 end
@@ -178,6 +181,9 @@ end
 Factory.define :sample do |f|
 	f.association :subject
 	f.association :unit
+end
+
+Factory.define :sample_kit do |f|
 end
 
 Factory.define :sample_subtype do |f|
