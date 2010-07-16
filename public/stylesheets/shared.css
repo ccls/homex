@@ -4,22 +4,22 @@
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
-  padding: 0.7em;
-  text-align: center;
-  font-weight: bold;
-  font-size: 12pt;
+	padding: 0.7em;
+	text-align: center;
+	font-weight: bold;
+	font-size: 12pt;
 }
 .flash#error {
-  border: 2px solid #F44;
-  background-color: #FCC;
+	border: 2px solid #F44;
+	background-color: #FCC;
 }
 .flash#notice {
-  border: 2px solid #4F4;
-  background-color: #CFC;
+	border: 2px solid #4F4;
+	background-color: #CFC;
 }
 .flash#noscript {
-  border: 2px solid #FF8C00;
-  background-color: #FFC5AF;
+	border: 2px solid #FF8C00;
+	background-color: #FFC5AF;
 }
 
 fieldset {
@@ -60,6 +60,9 @@ table {
 }
 tr.row td {
 	padding: 6px;
+}
+td.manage {
+	text-align:right;
 }
 
 form.link_to {
