@@ -71,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
 		hx.resources  :interviews
 		hx.resources  :samples, :only => [:index],
 			:collection => { 
-				:send_kits  => :get }
+				:send_to_lab  => :get }
 		hx.resources  :followups
 #		hx.resources  :letters, :only => [:index],
 #			:collection => {

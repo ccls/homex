@@ -12,7 +12,7 @@ class Hx::SamplesController < HxApplicationController
 		end
 	end
 
-	def send_kits
+	def send_to_lab
 	end
 
 protected
