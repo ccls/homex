@@ -9,6 +9,12 @@
 <td class='first_name'>
 <%= subject.first_name %>
 </td>
+<td class='dust_outcome'>
+dust outcome
+</td>
+<td class='interview_completion_date'>
+inteview completion date
+</td>
 <% if subject.dust_kit %>
 <td class='kit_sent_on'>
 <%= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
