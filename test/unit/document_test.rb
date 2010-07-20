@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class DocumentTest < ActiveSupport::TestCase
 
 	assert_should_require(:title)
-#	factory conflict
-#	assert_should_belong_to(:owner)
+	assert_should_belong_to(:owner, :class_name => 'User')
 
 	test "should create document" do
 		assert_difference 'Document.count' do

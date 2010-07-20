@@ -7,6 +7,7 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_have_many(:aliquots)
 	assert_should_belong_to(:aliquot_sample_format,:sample_subtype)
 	assert_should_initially_belong_to(:subject,:unit)
+	assert_should_habtm(:projects)
 
 	test "should create sample" do
 		assert_difference 'Sample.count' do
@@ -39,15 +40,6 @@ class SampleTest < ActiveSupport::TestCase
 		#	this is not clear in my UML diagram
 
 		pending
-	end
-
-	test "should have and belong to many projects" do
-		object = create_object
-		assert_equal 0, object.projects.length
-		object.projects << Factory(:project)
-		assert_equal 1, object.reload.projects.length
-		object.projects << Factory(:project)
-		assert_equal 2, object.reload.projects.length
 	end
 
 protected

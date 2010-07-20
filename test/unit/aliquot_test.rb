@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AliquotTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:transfers)
-	assert_requires_valid_associations(:sample,:unit,:owner)
+	assert_requires_valid_associations(:sample,:unit)
+	assert_requires_valid_associations(:organization, :as => :owner)
 	assert_should_belong_to(:aliquot_sample_format)
 	assert_should_initially_belong_to(:sample,:unit,:owner)
 

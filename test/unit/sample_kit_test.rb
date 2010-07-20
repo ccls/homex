@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SampleKitTest < ActiveSupport::TestCase
 
 	assert_should_initially_belong_to(:sample)
-	assert_should_belong_to(:sample_package,:kit_package)
+	assert_should_belong_to(:sample_package,:class_name => 'Package')
+	assert_should_belong_to(:kit_package,:class_name => 'Package')
 
 	test "should create sample kit" do
 		assert_difference 'SampleKit.count' do

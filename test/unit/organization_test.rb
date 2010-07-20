@@ -5,6 +5,14 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_require(:code,:name)
 	assert_should_require_unique(:code,:name)
+	assert_should_have_many(:aliquots, 
+		:foreign_key => :owner_id)
+	assert_should_have_many(:incoming_transfers, 
+		:class_name => 'Transfer',
+		:foreign_key => :to_organization_id)
+	assert_should_have_many(:outgoing_transfers, 
+		:class_name => 'Transfer',
+		:foreign_key => :from_organization_id)
 
 	test "should create organization" do
 		assert_difference 'Organization.count' do
@@ -38,45 +46,6 @@ class OrganizationTest < ActiveSupport::TestCase
 		organization = create_organization
 		transfer = organization.outgoing_transfers.build
 		assert_equal organization.id, transfer.from_organization_id
-	end
-
-#	assert_should_have_many(:aliquots)
-#	these may be tough
-#		:incoming_transfers,:outgoing_transfers)
-	test "should have many incoming_transfers" do
-		organization = create_organization
-		assert_equal 0, organization.reload.incoming_transfers.length
-		organization.incoming_transfers << Factory(:transfer, 
-			:to_organization_id => organization.id )
-		assert_equal 1, organization.reload.incoming_transfers.length
-		organization.incoming_transfers << Factory(:transfer, 
-			:to_organization_id => organization.id )
-		assert_equal 2, organization.reload.incoming_transfers.length
-	end
-
-	test "should have many outgoing_transfers" do
-		organization = create_organization
-		assert_equal 0, organization.reload.outgoing_transfers.length
-		organization.outgoing_transfers << Factory(:transfer, 
-			:from_organization_id => organization.id )
-		assert_equal 1, organization.reload.outgoing_transfers.length
-		organization.outgoing_transfers << Factory(:transfer, 
-			:from_organization_id => organization.id )
-		assert_equal 2, organization.reload.outgoing_transfers.length
-	end
-
-	test "should have many aliquots" do
-		organization = create_organization
-		assert_equal 0, organization.reload.aliquots.length
-		assert_equal 0, organization.reload.aliquots_count
-		organization.aliquots << Factory(:aliquot, 
-			:owner_id => organization.id )
-		assert_equal 1, organization.reload.aliquots.length
-		assert_equal 1, organization.reload.aliquots_count
-		organization.aliquots << Factory(:aliquot, 
-			:owner_id => organization.id )
-		assert_equal 2, organization.reload.aliquots.length
-		assert_equal 2, organization.reload.aliquots_count
 	end
 
 	test "should have many samples" do

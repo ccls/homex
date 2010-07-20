@@ -6,6 +6,8 @@ class ProjectTest < ActiveSupport::TestCase
 		:operational_event_types,:interview_types,:enrollments)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
+	assert_should_habtm(:samples)
+#	assert_should_have_many(:subjects,:through => :enrollments)
 
 	test "should create project" do
 		assert_difference 'Project.count' do
@@ -29,15 +31,6 @@ class ProjectTest < ActiveSupport::TestCase
 		assert_equal 1, object.reload.subjects.length
 		Factory(:enrollment, :project_id => object.id)
 		assert_equal 2, object.reload.subjects.length
-	end
-
-	test "should have and belong to many samples" do
-		object = create_object
-		assert_equal 0, object.samples.length
-		object.samples << Factory(:sample)
-		assert_equal 1, object.reload.samples.length
-		object.samples << Factory(:sample)
-		assert_equal 2, object.reload.samples.length
 	end
 
 protected
