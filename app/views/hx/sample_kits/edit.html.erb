@@ -1,1 +1,5 @@
-<%= render 'form' %>
+<p>Edit</p>
+<% form_for(@sample_kit,
+	:url => hx_sample_kit_path(@sample_kit)) do |f| %>
+<%= render 'form', :f => f %>
+<% end %>

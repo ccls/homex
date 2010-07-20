@@ -2,11 +2,48 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class Hx::SampleKitsControllerTest < ActionController::TestCase
 
-	setup :create_home_exposure_with_subject
-	setup :build_sample
-	def build_sample	#setup
-		@sample = Factory(:sample)
+	setup :build_sample_kit
+	def build_sample_kit
+		@sample_kit = Factory(:sample_kit)
+		@sample = @sample_kit.sample
 	end
+
+	ASSERT_ACCESS_OPTIONS = {
+		:model => 'SampleKit',
+		:actions => [:show,:edit,:update,:destroy],	#	the shallow routes
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
+	}
+
+	def factory_attributes
+		#	No attributes from Factory yet
+		Factory.attributes_for(:sample_kit, :updated_at => Time.now)
+	end
+	def factory_create
+		Factory(:sample_kit)
+	end
+
+	assert_access_with_login({ 
+		:login => :admin })
+	assert_no_access_with_login({ 
+		:logins => [:moderator,:editor,:employee,:active_user] })
+	assert_no_access_without_login
+
+	assert_access_with_https
+	assert_no_access_with_http
+
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:actions => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :hx_subjects_path,
+		:edit => { :id => 0 },
+		:update => { :id => 0 },
+		:show => { :id => 0 },
+		:destroy => { :id => 0 }
+	) 
 
 #	no route as is has_one
 
@@ -15,7 +52,6 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 			get :index, :sample_id => @sample.id
 		}
 	end
-
 
 #	not logged in
 
@@ -32,30 +68,30 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-	test "should NOT get edit without login" do
-		get :edit, :sample_id => @sample.id
-		assert_redirected_to_login
-	end
+#	test "should NOT get edit without login" do
+#		get :edit, :id => @sample_kit.id
+#		assert_redirected_to_login
+#	end
+#
+#	test "should NOT put update without login" do
+#		put :update, :id => @sample_kit.id,
+#			:sample_kit => Factory.attributes_for(:sample_kit)
+#		assert_redirected_to_login
+#	end
+#
+#	test "should NOT get show without login" do
+#		get :show, :id => @sample_kit.id
+#		assert_redirected_to_login
+#	end
+#
+#	test "should NOT delete destroy without login" do
+#		assert_difference('SampleKit.count',0) {
+#			delete :destroy, :id => @sample_kit.id
+#		}
+#		assert_redirected_to_login
+#	end
 
-	test "should NOT put update without login" do
-		put :update, :sample_id => @sample.id,
-			:sample_kit => Factory.attributes_for(:sample_kit)
-		assert_redirected_to_login
-	end
-
-	test "should NOT get show without login" do
-		get :show, :sample_id => @sample.id
-		assert_redirected_to_login
-	end
-
-	test "should NOT delete destroy without login" do
-		assert_difference('SampleKit.count',0) {
-			delete :destroy, :sample_id => @sample.id
-		}
-		assert_redirected_to_login
-	end
-
-%w( admin employee editor ).each do |cu|
+%w( admin ).each do |cu|
 
 	test "should get new with #{cu} login" do
 		login_as send(cu)
@@ -72,55 +108,55 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 			post :create, :sample_id => @sample.id,
 				:sample_kit => Factory.attributes_for(:sample_kit)
 		}
-		assert_redirected_to hx_subject_path(assigns(:subject))
+		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
 	end
 
-	test "should get edit with #{cu} login" do
-		login_as send(cu)
-		get :edit, :sample_id => @sample.id
-		assert_response :success
-		assert_template 'edit'
-		assert assigns(:sample_kit)
-		assert_layout 'home_exposure'
-	end
+#	test "should get edit with #{cu} login" do
+#		login_as send(cu)
+#		get :edit, :id => @sample_kit.id
+#		assert_response :success
+#		assert_template 'edit'
+#		assert assigns(:sample_kit)
+#		assert_layout 'home_exposure'
+#	end
 
-	test "should put update with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		put :update, :sample_id => @sample.id,
-			:sample_kit => Factory.attributes_for(:sample_kit)
-		assert_redirected_to hx_subject_path(assigns(:subject))
-	end
-
-	test "should get show with #{cu} login" do
-		login_as send(cu)
-		get :show, :sample_id => @sample.id
-		assert_response :success
-		assert_template 'show'
-		assert assigns(:sample_kit)
-		assert_layout 'home_exposure'
-	end
+#	test "should put update with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		put :update, :id => @sample_kit.id,
+#			:sample_kit => Factory.attributes_for(:sample_kit)
+#		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
+#	end
+#
+#	test "should get show with #{cu} login" do
+#		login_as send(cu)
+#		get :show, :id => @sample_kit.id
+#		assert_response :success
+#		assert_template 'show'
+#		assert assigns(:sample_kit)
+#		assert_layout 'home_exposure'
+#	end
 
 	test "should get show with #{cu} login and packages" do
-		Factory(:sample_kit, 
+		sk = Factory(:sample_kit, 
 			:kit_package_attributes  => Factory.attributes_for(:package),
-			:dust_package_attributes => Factory.attributes_for(:package)
+			:sample_package_attributes => Factory.attributes_for(:package)
 		)
 		login_as send(cu)
-		get :show, :sample_id => @sample.id
+		get :show, :id => sk.id
 		assert_response :success
 		assert_template 'show'
 		assert assigns(:sample_kit)
 	end
 
-	test "should delete destroy with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		assert_difference('SampleKit.count',-1){
-			delete :destroy, :sample_id => @sample.id
-		}
-		assert_redirected_to hx_subject_path(assigns(:subject))
-	end
+#	test "should delete destroy with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		assert_difference('SampleKit.count',-1){
+#			delete :destroy, :id => @sample_kit.id
+#		}
+#		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
+#	end
 
 #	no sample_id
 
@@ -140,14 +176,16 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		} }
 	end
 
-	test "should get edit without sample_id with #{cu} login" do
+#	no id
+
+	test "should get edit without id with #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :edit
 		}
 	end
 
-	test "should put update without sample_id with #{cu} login" do
+	test "should put update without id with #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update,
@@ -155,16 +193,16 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should get show without sample_id with #{cu} login" do
+	test "should get show without id with #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :show
 		}
 	end
 
-	test "should delete destroy without sample_id with #{cu} login" do
+	test "should delete destroy without id with #{cu} login" do
 		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
+#		Factory(:sample_kit,:sample_id => @sample.id)
 		assert_raise(ActionController::RoutingError){
 		assert_difference('SampleKit.count',0){
 			delete :destroy
@@ -179,7 +217,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 			post :create, :sample_id => @sample.id,
 				:sample_kit => {
 					:kit_package_attributes  => {},
-					:dust_package_attributes => {} 
+					:sample_package_attributes => {} 
 				}
 		}
 		assert_response :success
@@ -199,11 +237,11 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should NOT put update with empty packages with #{cu} login" do
 		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		put :update, :sample_id => @sample.id,
+#		Factory(:sample_kit,:sample_id => @sample.id)
+		put :update, :id => @sample_kit.id,
 			:sample_kit => {
 				:kit_package_attributes  => {},
-				:dust_package_attributes => {} 
+				:sample_package_attributes => {} 
 			}
 		assert_response :success
 		assert_template 'edit'
@@ -211,9 +249,9 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should NOT put update with save failure with #{cu} login" do
 		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
+#		Factory(:sample_kit,:sample_id => @sample.id)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :sample_id => @sample.id,
+		put :update, :id => @sample_kit.id,
 			:sample_kit => Factory.attributes_for(:sample_kit)
 		assert_response :success
 		assert_template 'edit'
@@ -221,61 +259,13 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should NOT delete destroy with destruction failure with #{cu} login" do
 		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
+#		Factory(:sample_kit,:sample_id => @sample.id)
 		SampleKit.any_instance.stubs(:new_record?).returns(true)
 		assert_difference('SampleKit.count',0){
-			delete :destroy, :sample_id => @sample.id
+			delete :destroy, :id => @sample_kit.id
 		}
 #		assert_not_nil flash[:error]
-		assert_redirected_to hx_subject_path(assigns(:subject))
-	end
-
-#	NO sample_id
-
-	test "should NOT get new without sample_id  with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
-	end
-
-	test "should NOT post create without sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-		assert_difference('SampleKit.count',0) {
-			post :create, :sample_kit => Factory.attributes_for(:sample_kit)
-		} }
-	end
-
-	test "should NOT get edit without sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
-	test "should NOT put update without sample_id with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		assert_raise(ActionController::RoutingError){
-			put :update, :sample_kit => Factory.attributes_for(:sample_kit)
-		}
-	end
-
-	test "should NOT get show without sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :show
-		}
-	end
-
-	test "should NOT delete destroy without sample_id with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		assert_raise(ActionController::RoutingError){
-		assert_difference('SampleKit.count',0){
-			delete :destroy
-		} }
+		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
 	end
 
 #	INVALID sample_id
@@ -297,46 +287,48 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT get edit with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		get :edit, :sample_id => 0
-		assert_redirected_to hx_subjects_path
-		assert_not_nil flash[:error]
-	end
+#	INVALID id
+#
+#	test "should NOT get edit with invalid id with #{cu} login" do
+#		login_as send(cu)
+#		get :edit, :id => 0
+#		assert_redirected_to hx_subjects_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should NOT put update with invalid id with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		put :update, :id => 0,
+#			:sample_kit => Factory.attributes_for(:sample_kit)
+#		assert_redirected_to hx_subjects_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should NOT get show with invalid id with #{cu} login" do
+#		login_as send(cu)
+#		get :show, :id => 0
+#		assert_redirected_to hx_subjects_path
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should NOT delete destroy with invalid id with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		assert_difference('SampleKit.count',0){
+#			delete :destroy, :id => 0
+#		}
+#		assert_redirected_to hx_subjects_path
+#		assert_not_nil flash[:error]
+#	end
 
-	test "should NOT put update with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		put :update, :sample_id => 0,
-			:sample_kit => Factory.attributes_for(:sample_kit)
-		assert_redirected_to hx_subjects_path
-		assert_not_nil flash[:error]
-	end
 
-	test "should NOT get show with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		get :show, :sample_id => 0
-		assert_redirected_to hx_subjects_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT delete destroy with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		assert_difference('SampleKit.count',0){
-			delete :destroy, :sample_id => 0
-		}
-		assert_redirected_to hx_subjects_path
-		assert_not_nil flash[:error]
-	end
-
-
-#	invalid dust kit
+#	invalid sample kit
 #	(no validations yet so no tests yet)
 
 end
 
-%w( moderator active_user ).each do |cu|
+%w( editor employee moderator active_user ).each do |cu|
 
 	test "should NOT get new with #{cu} login" do
 		login_as send(cu)
@@ -353,34 +345,34 @@ end
 		assert_redirected_to root_path
 	end
 
-	test "should NOT get edit with #{cu} login" do
-		login_as send(cu)
-		get :edit, :sample_id => @sample.id
-		assert_redirected_to root_path
-	end
-
-	test "should NOT put update with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		put :update, :sample_id => @sample.id,
-			:sample_kit => Factory.attributes_for(:sample_kit)
-		assert_redirected_to root_path
-	end
-
-	test "should NOT get show with #{cu} login" do
-		login_as send(cu)
-		get :show, :sample_id => @sample.id
-		assert_redirected_to root_path
-	end
-
-	test "should NOT delete destroy with #{cu} login" do
-		login_as send(cu)
-		Factory(:sample_kit,:sample_id => @sample.id)
-		assert_difference('SampleKit.count',0){
-			delete :destroy, :sample_id => @sample.id
-		}
-		assert_redirected_to root_path
-	end
+#	test "should NOT get edit with #{cu} login" do
+#		login_as send(cu)
+#		get :edit, :id => @sample_kit.id
+#		assert_redirected_to root_path
+#	end
+#
+#	test "should NOT put update with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		put :update, :id => @sample_kit.id,
+#			:sample_kit => Factory.attributes_for(:sample_kit)
+#		assert_redirected_to root_path
+#	end
+#
+#	test "should NOT get show with #{cu} login" do
+#		login_as send(cu)
+#		get :show, :id => @sample_kit.id
+#		assert_redirected_to root_path
+#	end
+#
+#	test "should NOT delete destroy with #{cu} login" do
+#		login_as send(cu)
+##		Factory(:sample_kit,:sample_id => @sample.id)
+#		assert_difference('SampleKit.count',0){
+#			delete :destroy, :id => @sample_kit.id
+#		}
+#		assert_redirected_to root_path
+#	end
 
 end
 

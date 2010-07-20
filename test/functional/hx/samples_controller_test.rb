@@ -15,6 +15,7 @@ class Hx::SamplesControllerTest < ActionController::TestCase
 #	NESTED ROUTE
 
 	def factory_attributes
+		# No attributes from Factory yet
 		Factory.attributes_for(:sample,:updated_at => Time.now)
 	end
 	def factory_create

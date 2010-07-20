@@ -10,7 +10,7 @@
 	compares the first argument and the current time.
 -%>
 
-<div id='package'>
+<% div_for package do %>
 <div class='carrier'>
 <%= link_to image_tag('carriers/fedex.jpg'), "http://www.fedex.com/Tracking?tracknumbers=#{package.tracking_number}", :target => 'new' -%>
 </div>
@@ -38,9 +38,9 @@
 <%= package.status || '&nbsp;' -%>
 </div>
 </div><!-- class='info' -->
-</div><!-- id='package' -->
+<% end %><!-- class='package' -->
 
-<div id='tracks'>&nbsp;
+<div class='tracks'>&nbsp;
 <% package.tracks.each do |event| %>
 <div class='track row'>
 <div class='name'><%= event.name %></div>
@@ -48,6 +48,6 @@
 <div class='time'><%= event.time %></div>
 </div><!-- class='track' -->
 <% end %>
-</div><!-- id='tracks' -->
+</div><!-- class='tracks' -->
 
 <%#= "<p id='status_updated'>Last bulk shipping status update: #{time_ago_in_words(@last_shipping_update)} ago</p>" unless(@last_shipping_update.blank?) %>

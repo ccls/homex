@@ -52,7 +52,9 @@ ActionController::Routing::Routes.draw do |map|
 			:shallow => true do |subject|
 			subject.resource :dust_kit
 			subject.resources :samples do |sample|
-				sample.resources :sample_kits
+				#	one kit per sample
+#				sample.resource :sample_kit
+				sample.resources :sample_kits, :except => [:index]
 			end
 			subject.resource :home_exposure_response, 
 				:only => [ :new, :create, :show ]

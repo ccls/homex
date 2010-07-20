@@ -10,7 +10,7 @@ class Hx::SampleKitsController < HxApplicationController
 
 	def show
 		@last_shipping_update = Package.last_updated
-		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
+#		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
 	end
 
 	def new
@@ -21,28 +21,29 @@ class Hx::SampleKitsController < HxApplicationController
 		@sample_kit = @sample.build_sample_kit(params[:sample_kit])
 		@sample_kit.save!
 		flash[:notice] = 'Success!'
-		redirect_to hx_subject_path(@subject)
+		redirect_to hx_subject_path(@sample_kit.sample.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the sample kit"
 		render :action => "new"
 	end
 
 	def edit
-		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
+#		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
 	end
 
 	def update
-		@sample_kit = @sample.sample_kit
+#		@sample_kit = @sample.sample_kit
 		@sample_kit.update_attributes!(params[:sample_kit])
-		redirect_to hx_subject_path(@subject)
+		redirect_to hx_subject_path(@sample_kit.sample.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the sample kit"
 		render :action => "edit"
 	end
 
 	def destroy
-		@sample.sample_kit.destroy
-		redirect_to hx_subject_path(@subject)
+#		@sample.sample_kit.destroy
+		@sample_kit.destroy
+		redirect_to hx_subject_path(@sample_kit.sample.subject)
 	end
 
 protected
@@ -52,7 +53,7 @@ protected
 			@sample = Sample.find(params[:sample_id])
 		else
 			access_denied("Valid sample id required!", 
-				redirect || hx_subjects_path)
+				hx_subjects_path)
 		end
 	end
 
