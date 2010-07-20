@@ -7,7 +7,7 @@ class SubjectTest < ActiveSupport::TestCase
 		:operational_events,:enrollments, :samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
-		:dust_kit,:identifier)
+		:identifier)
 	assert_should_require(:subjectid)
 	assert_should_require_unique(:subjectid)
 
@@ -186,14 +186,14 @@ pending
 		} }
 	end
 
-	test "should NOT destroy dust_kit with subject" do
-		subject = create_subject
-		Factory(:dust_kit, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
-		assert_difference('DustKit.count',0) {
-			subject.destroy
-		} }
-	end
+#	test "should NOT destroy dust_kit with subject" do
+#		subject = create_subject
+#		Factory(:dust_kit, :subject_id => subject.id)
+#		assert_difference('Subject.count',-1) {
+#		assert_difference('DustKit.count',0) {
+#			subject.destroy
+#		} }
+#	end
 
 	test "should NOT destroy identifier with subject" do
 		subject = create_subject
@@ -508,79 +508,79 @@ pending
 		assert !subjects.include?(s3)
 	end
 
-	test "search should include all subjects and ignore dust kits" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => 'ignore')
-		assert subjects.include?(subject1)
-		assert subjects.include?(subject2)
-	end
+#	test "search should include all subjects and ignore dust kits" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		subject2 = create_subject
+#		subjects = Subject.search(:dust_kit => 'ignore')
+#		assert subjects.include?(subject1)
+#		assert subjects.include?(subject2)
+#	end
 
-	test "search should include subjects with no dust kits" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => 'none')
-		assert  subjects.include?(subject2)
-		assert !subjects.include?(subject1)
-	end
+#	test "search should include subjects with no dust kits" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		subject2 = create_subject
+#		subjects = Subject.search(:dust_kit => 'none')
+#		assert  subjects.include?(subject2)
+#		assert !subjects.include?(subject1)
+#	end
 
-	test "search should include subject with dust kit" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => 'shipped')
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject with dust kit" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		subject2 = create_subject
+#		subjects = Subject.search(:dust_kit => 'shipped')
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
-	test "search should include subject with dust kit delivered to subject" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		dust_kit.kit_package.update_attributes(:status => 'Delivered')
-		subject2 = create_subject
-		create_dust_kit(:subject_id => subject2.id)
-		subjects = Subject.search(:dust_kit => 'delivered')
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject with dust kit delivered to subject" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit.kit_package.update_attributes(:status => 'Delivered')
+#		subject2 = create_subject
+#		create_dust_kit(:subject_id => subject2.id)
+#		subjects = Subject.search(:dust_kit => 'delivered')
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
-	test "search should include subject with dust kit returned to us" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		dust_kit.dust_package.update_attributes(:status => 'Transit')
-		subject2 = create_subject
-		create_dust_kit(:subject_id => subject2.id)
-		subjects = Subject.search(:dust_kit => 'returned')
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject with dust kit returned to us" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit.dust_package.update_attributes(:status => 'Transit')
+#		subject2 = create_subject
+#		create_dust_kit(:subject_id => subject2.id)
+#		subjects = Subject.search(:dust_kit => 'returned')
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
-	test "search should include subject with dust kit received by us" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		dust_kit.dust_package.update_attributes(:status => 'Delivered')
-		subject2 = create_subject
-		create_dust_kit(:subject_id => subject2.id)
-		subjects = Subject.search(:dust_kit => 'received')
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
+#	test "search should include subject with dust kit received by us" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit.dust_package.update_attributes(:status => 'Delivered')
+#		subject2 = create_subject
+#		create_dust_kit(:subject_id => subject2.id)
+#		subjects = Subject.search(:dust_kit => 'received')
+#		assert  subjects.include?(subject1)
+#		assert !subjects.include?(subject2)
+#	end
 
-	#	There was a problem doing finds which included joins
-	#	which included both named joins and sql fragment strings.
-	#	It should work, but didn't and required some manual
-	#	tweaking.
-	test "search should work with both dust_kit string and race symbol" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => 'none', 
-			:races => [subject2.race.name] )
-		assert  subjects.include?(subject2)
-		assert !subjects.include?(subject1)
-	end
+#	#	There was a problem doing finds which included joins
+#	#	which included both named joins and sql fragment strings.
+#	#	It should work, but didn't and required some manual
+#	#	tweaking.
+#	test "search should work with both dust_kit string and race symbol" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		subject2 = create_subject
+#		subjects = Subject.search(:dust_kit => 'none', 
+#			:races => [subject2.race.name] )
+#		assert  subjects.include?(subject2)
+#		assert !subjects.include?(subject1)
+#	end
 
 
 	test "search should include subject by multiple projects" do
@@ -1121,17 +1121,17 @@ pending
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	#	There was a problem doing finds which included joins
-	#	which included both sql join fragment strings and an order.
-	test "search should work with both dust_kit string and order" do
-		subject1 = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject1.id)
-		subject2 = create_subject
-		subjects = Subject.search(:dust_kit => 'none', 
-			:order => 'childid')
-		assert  subjects.include?(subject2)
-		assert !subjects.include?(subject1)
-	end
+#	#	There was a problem doing finds which included joins
+#	#	which included both sql join fragment strings and an order.
+#	test "search should work with both dust_kit string and order" do
+#		subject1 = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		subject2 = create_subject
+#		subjects = Subject.search(:dust_kit => 'none', 
+#			:order => 'childid')
+#		assert  subjects.include?(subject2)
+#		assert !subjects.include?(subject1)
+#	end
 
 	test "search should include subject by q first_name" do
 		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
@@ -1171,16 +1171,16 @@ pending
 		assert !subjects.include?(s2)
 	end
 
-	test "should return dust_kit_status of None" do
-		subject = create_subject
-		assert_equal 'None', subject.dust_kit_status
-	end
+#	test "should return dust_kit_status of None" do
+#		subject = create_subject
+#		assert_equal 'None', subject.dust_kit_status
+#	end
 
-	test "should return dust_kit_status of New" do
-		subject = create_subject
-		dust_kit = create_dust_kit(:subject_id => subject.id)
-		assert_equal 'New', subject.dust_kit_status
-	end
+#	test "should return dust_kit_status of New" do
+#		subject = create_subject
+#		dust_kit = create_dust_kit(:subject_id => subject.id)
+#		assert_equal 'New', subject.dust_kit_status
+#	end
 
 protected
 
@@ -1199,11 +1199,11 @@ protected
 	end
 	alias_method :create_object, :create_subject
 
-	def create_dust_kit(options = {})
-		Factory(:dust_kit, {
-			:kit_package_attributes  => Factory.attributes_for(:package),
-			:dust_package_attributes => Factory.attributes_for(:package) 
-		}.merge(options))
-	end
+#	def create_dust_kit(options = {})
+#		Factory(:dust_kit, {
+#			:kit_package_attributes  => Factory.attributes_for(:package),
+#			:dust_package_attributes => Factory.attributes_for(:package) 
+#		}.merge(options))
+#	end
 
 end

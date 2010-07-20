@@ -3,6 +3,7 @@ class SampleKit < ActiveRecord::Base
 	belongs_to :kit_package,  :class_name => 'Package'
 	belongs_to :sample_package, :class_name => 'Package'
 
+	delegate :subject,     :to => :sample
 	delegate :sent_on,     :to => :kit_package
 	delegate :received_on, :to => :sample_package
 

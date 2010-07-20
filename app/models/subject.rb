@@ -16,7 +16,6 @@ class Subject < ActiveRecord::Base
 	has_one :pii
 	has_one :patient
 	has_one :identifier
-	has_one :dust_kit
 	has_many :survey_invitations
 	has_and_belongs_to_many :analyses
 
@@ -47,7 +46,7 @@ class Subject < ActiveRecord::Base
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :patient
 	accepts_nested_attributes_for :identifier
-	accepts_nested_attributes_for :dust_kit
+#	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
 
@@ -111,9 +110,9 @@ class Subject < ActiveRecord::Base
 		end
 	end
 
-	def dust_kit_status
-		dust_kit.try(:status) || 'None'
-	end
+#	def dust_kit_status
+#		dust_kit.try(:status) || 'None'
+#	end
 
 	def self.search(params={})
 		order = nil
@@ -144,29 +143,29 @@ class Subject < ActiveRecord::Base
 			conditions['vital_statuses.code'] = params[:vital_statuses]
 		end
 
-		if params[:dust_kit] && !params[:dust_kit].blank?
-			if params[:dust_kit] == 'shipped'
-				#	Shipped to subject
-				joins.push(:dust_kit => [:kit_package])
-			elsif params[:dust_kit] == 'delivered'
-				#	Delivered to subject
-				joins.push(:dust_kit => [:kit_package])
-				conditions['packages.status'] = 'Delivered'
-			elsif params[:dust_kit] == 'returned'
-				#	Subject has returned
-				joins.push(:dust_kit => [:dust_package])
-				conditions['packages.status'] = 'Transit'
-			elsif params[:dust_kit] == 'received'
-				#	WE have received it
-				joins.push(:dust_kit => [:dust_package])
-				conditions['packages.status'] = 'Delivered'
-			elsif params[:dust_kit] == 'none'
-#	ActiveRecord::ConfigurationError: Association named 'LEFT JOIN dust_kits dk1 ON dust_kits.subject_id = subjects.id' was not found; perhaps you misspelled it?
-				sql_scope[:joins].push(
-					'LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
-				conditions['dust_kits.id'] = nil
-			end
-		end
+#		if params[:dust_kit] && !params[:dust_kit].blank?
+#			if params[:dust_kit] == 'shipped'
+#				#	Shipped to subject
+#				joins.push(:dust_kit => [:kit_package])
+#			elsif params[:dust_kit] == 'delivered'
+#				#	Delivered to subject
+#				joins.push(:dust_kit => [:kit_package])
+#				conditions['packages.status'] = 'Delivered'
+#			elsif params[:dust_kit] == 'returned'
+#				#	Subject has returned
+#				joins.push(:dust_kit => [:dust_package])
+#				conditions['packages.status'] = 'Transit'
+#			elsif params[:dust_kit] == 'received'
+#				#	WE have received it
+#				joins.push(:dust_kit => [:dust_package])
+#				conditions['packages.status'] = 'Delivered'
+#			elsif params[:dust_kit] == 'none'
+##	ActiveRecord::ConfigurationError: Association named 'LEFT JOIN dust_kits dk1 ON dust_kits.subject_id = subjects.id' was not found; perhaps you misspelled it?
+#				sql_scope[:joins].push(
+#					'LEFT JOIN dust_kits ON dust_kits.subject_id = subjects.id')
+#				conditions['dust_kits.id'] = nil
+#			end
+#		end
 
 		if params[:projects] && !params[:projects].blank?
 #

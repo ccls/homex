@@ -15,16 +15,22 @@ dust outcome
 <td class='interview_completion_date'>
 inteview completion date
 </td>
-<% if subject.dust_kit %>
+
+
+<%# if subject.dust_kit %>
 <td class='kit_sent_on'>
 <%#= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </td>
 <td class='kit_received_on'>
 <%#= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </td>
-<% else %>
+<!--
+<%# else %>
 <td class='send_kit' colspan='2'>
-<%= link_to 'Send Kit', new_hx_subject_dust_kit_path(subject) %>
+<%#= link_to 'Send Kit', new_hx_subject_dust_kit_path(subject) %>
 </td>
-<% end %>
+<%# end %>
+-->
+
+
 <% end %><%# content_tag_for %>

@@ -36,38 +36,38 @@ module SubjectHelper
 		end # if SubjectType.count > 0
 	end
 
-	def dust_kit_radio_buttons
-		s = "<fieldset id='dust_kit'>\n"
-		s << "<legend>Dust Kit</legend>\n"
-		s << "<ul>\n"
-		s << "<li>"
-		dk = params['dust_kit'] || ''
-		s << radio_button_tag( 'dust_kit', 'ignore', ( dk == 'ignore' || dk.blank? ))
-		s << label_tag( 'dust_kit_ignore', 'Ignore Dust Kit' )
-		s << "</li>\n"
-		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'none', ( dk == 'none') )
-		s << label_tag( 'dust_kit_none', 'No Dust Kit' )
-		s << "</li>\n"
-		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'shipped', ( dk == 'shipped') )
-		s << label_tag( 'dust_kit_shipped', 'Dust Kit Shipped' )
-		s << "</li>\n"
-		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'delivered', ( dk == 'delivered') )
-		s << label_tag( 'dust_kit_delivered', 'Dust Kit Delivered' )
-		s << "</li>\n"
-		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'returned', ( dk == 'returned') )
-		s << label_tag( 'dust_kit_returned', 'Dust Kit Returned' )
-		s << "</li>\n"
-		s << "<li>"
-		s << radio_button_tag( 'dust_kit', 'received', ( dk == 'received') )
-		s << label_tag( 'dust_kit_received', 'Dust Kit Received' )
-		s << "</li>\n"
-		s << "</ul>\n"
-		s << "</fieldset><!-- dust_kit -->\n"
-	end
+#	def dust_kit_radio_buttons
+#		s = "<fieldset id='dust_kit'>\n"
+#		s << "<legend>Dust Kit</legend>\n"
+#		s << "<ul>\n"
+#		s << "<li>"
+#		dk = params['dust_kit'] || ''
+#		s << radio_button_tag( 'dust_kit', 'ignore', ( dk == 'ignore' || dk.blank? ))
+#		s << label_tag( 'dust_kit_ignore', 'Ignore Dust Kit' )
+#		s << "</li>\n"
+#		s << "<li>"
+#		s << radio_button_tag( 'dust_kit', 'none', ( dk == 'none') )
+#		s << label_tag( 'dust_kit_none', 'No Dust Kit' )
+#		s << "</li>\n"
+#		s << "<li>"
+#		s << radio_button_tag( 'dust_kit', 'shipped', ( dk == 'shipped') )
+#		s << label_tag( 'dust_kit_shipped', 'Dust Kit Shipped' )
+#		s << "</li>\n"
+#		s << "<li>"
+#		s << radio_button_tag( 'dust_kit', 'delivered', ( dk == 'delivered') )
+#		s << label_tag( 'dust_kit_delivered', 'Dust Kit Delivered' )
+#		s << "</li>\n"
+#		s << "<li>"
+#		s << radio_button_tag( 'dust_kit', 'returned', ( dk == 'returned') )
+#		s << label_tag( 'dust_kit_returned', 'Dust Kit Returned' )
+#		s << "</li>\n"
+#		s << "<li>"
+#		s << radio_button_tag( 'dust_kit', 'received', ( dk == 'received') )
+#		s << label_tag( 'dust_kit_received', 'Dust Kit Received' )
+#		s << "</li>\n"
+#		s << "</ul>\n"
+#		s << "</fieldset><!-- dust_kit -->\n"
+#	end
 
 	def study_event_stuff
 		if Project.count > 0
