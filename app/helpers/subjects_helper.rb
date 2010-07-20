@@ -1,4 +1,18 @@
-module SubjectHelper
+#	Convention over configuration ...
+#	Calling this SubjectHelper rather than SubjectsHelper
+#	eventually (meaning didn't initially, but now does)
+#	caused the following error.  Pluralizing it fixed it.???
+#	Why does it matter?  All helpers are loaded for all controllers.
+#	I have other helpers that work.  Why just this one?
+#ActionView::TemplateError (A copy of SubjectHelper has been removed from the module tree but is still active!) on line #4 of app/views/subjects/_search.html.erb:
+#1: <% form_tag(subjects_path, :id => 'subject_search',:method => :get) do %>
+#2: 	<%= races_check_boxes() %>
+#3: 	<%= subject_types_check_boxes() %>
+#4: 	<%= study_event_stuff() %>
+#5: 	<div id='something'>
+#6: 	<%= text_field_tag :q, params[:q] %>
+#7: 	<%= submit_tag 'Search Subjects', :name => nil %>
+module SubjectsHelper
 
 	def races_check_boxes
 		if Race.count > 0
