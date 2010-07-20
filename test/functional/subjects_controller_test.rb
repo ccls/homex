@@ -9,11 +9,11 @@ class SubjectsControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 
-	def factory_attributes
-		Factory.attributes_for(:subject)
+	def factory_attributes(options={})
+		Factory.attributes_for(:subject,options)
 	end
-	def factory_create
-		Factory(:subject)
+	def factory_create(options={})
+		Factory(:subject,options)
 	end
 
 	assert_access_with_login({ 
@@ -51,7 +51,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		rs3 = fill_out_survey(:survey => survey)
 		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 		rs5 = fill_out_survey(:survey => survey)
-		Factory(:subject)
+		factory_create
 		Factory(:project)	#	test search code in view
 		#	There should now be 4 subjects in different states.
 		login_as send(cu)
@@ -61,7 +61,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with pii with #{cu} login" do
-		subject = Factory(:subject,
+		subject = factory_create(
 			:pii_attributes => Factory.attributes_for(:pii))
 		login_as send(cu)
 		get :show, :id => subject
@@ -79,7 +79,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should create with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',1){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:race_id => Race.first.id,
 				:subject_type_id => SubjectType.first.id)
 		}
@@ -89,7 +89,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT create without subject_type with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:race_id => Race.first.id)
 		}
 		assert_response :success
@@ -100,7 +100,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT create without race with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:subject_type_id => SubjectType.first.id)
 		}
 		assert_response :success
@@ -111,7 +111,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT create without valid subject_type with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:subject_type_id => 0,
 				:race_id => Race.first.id)
 		}
@@ -123,7 +123,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT create without valid race with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:race_id => 0,
 				:subject_type_id => SubjectType.first.id)
 		}
@@ -134,7 +134,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 
 	test "should NOT update without subject_type_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -148,7 +148,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -162,7 +162,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without valid subject_type_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -176,7 +176,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without valid race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -192,7 +192,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	test "should NOT create without subjectid with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:subjectid => nil,
 				:race_id => Race.first.id,
 				:subject_type_id => SubjectType.first.id)
@@ -209,7 +209,7 @@ end
 	test "should NOT create with #{cu} login" do
 		login_as send(cu)
 		assert_difference('Subject.count',0){
-			post :create, :subject => Factory.attributes_for(:subject,
+			post :create, :subject => factory_attributes(
 				:race_id => Race.first.id,
 				:subject_type_id => SubjectType.first.id)
 		}
@@ -220,7 +220,7 @@ end
 end
 
 	test "should NOT create without login" do
-		post :create, :subject => Factory.attributes_for(:subject,
+		post :create, :subject => factory_attributes(
 			:race_id => Race.first.id,
 			:subject_type_id => SubjectType.first.id)
 		assert_redirected_to_login

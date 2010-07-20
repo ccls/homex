@@ -8,14 +8,14 @@ class Hx::SamplesControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-	def factory_attributes
+	def factory_attributes(options={})
 		# No attributes from Factory yet
-		Factory.attributes_for(:sample,
+		Factory.attributes_for(:sample,{
 			:updated_at => Time.now,
-			:unit_id => Factory(:unit).id )
+			:unit_id => Factory(:unit).id }.merge(options))
 	end
-	def factory_create
-		Factory(:sample)
+	def factory_create(options={})
+		Factory(:sample,options)
 	end
 
 	assert_access_with_login({ 
@@ -85,7 +85,7 @@ class Hx::SamplesControllerTest < ActionController::TestCase
 
 	test "should NOT update with invalid sample and #{cu} login" do
 		login_as send(cu)
-		sample = Factory(:sample)
+		sample = factory_create
 		put :update, :id => sample.id,
 			:sample => { :unit_id => nil }
 		assert_not_nil flash[:error]

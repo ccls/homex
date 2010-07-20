@@ -8,11 +8,11 @@ class Hx::Sample::SubjectsControllerTest < ActionController::TestCase
  		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-	def factory_attributes
-		Factory.attributes_for(:subject)
+	def factory_attributes(options={})
+		Factory.attributes_for(:subject,options)
 	end
-	def factory_create
-		Factory(:subject)
+	def factory_create(options={})
+		Factory(:subject,options)
 	end
 
 	assert_access_with_login({ 

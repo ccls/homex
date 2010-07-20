@@ -9,11 +9,11 @@ class ProjectsControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 
-	def factory_attributes
-		Factory.attributes_for(:project)
+	def factory_attributes(options={})
+		Factory.attributes_for(:project,options)
 	end
-	def factory_create
-		Factory(:project)
+	def factory_create(options={})
+		Factory(:project,options)
 	end
 
 	assert_access_with_login({ 
@@ -46,7 +46,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		Project.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference('Project.count',0) {
-			post :create, :project => Factory.attributes_for(:project)
+			post :create, :project => factory_attributes
 		}
 		assert_response :success
 		assert_template 'new'
@@ -55,17 +55,17 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT update when save fails with #{cu} login" do
 		login_as send(cu)
-		project = Factory(:project)
+		project = factory_create
 		Project.any_instance.stubs(:create_or_update).returns(false)
 		put :update, :id => project.id,
-			:project => Factory.attributes_for(:project)
+			:project => factory_attributes
 		assert_response :success
 		assert_template 'edit'
 	end
 
 #	test "should NOT destroy when save fails with #{cu} login" do
 #		login_as send(cu)
-#		project = Factory(:project)
+#		project = factory_create
 #		Project.any_instance.stubs(:new_record?).returns(true)
 #		assert_difference('Project.count',0){
 #			delete :destroy, :id => project.id
@@ -77,7 +77,7 @@ class ProjectsControllerTest < ActionController::TestCase
 #	NO id
 
 	test "should NOT get show without id with #{cu} login" do
-		project = Factory(:project)
+		project = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :show
@@ -85,7 +85,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT get edit without id with #{cu} login" do
-		project = Factory(:project)
+		project = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :edit
@@ -93,15 +93,15 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without id with #{cu} login" do
-		project = Factory(:project)
+		project = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			put :update, :project => Factory.attributes_for(:project)
+			put :update, :project => factory_attributes
 		}
 	end
 
 	test "should NOT destroy without id with #{cu} login" do
-		project = Factory(:project)
+		project = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 		assert_difference('Project.count',0){
@@ -123,7 +123,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update with invalid project with #{cu} login" do
-		project = Factory(:project)
+		project = factory_create
 		login_as send(cu)
 		put :update, :id => project.id, 
 			:project => {:description => nil}

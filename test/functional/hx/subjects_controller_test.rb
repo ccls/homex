@@ -11,13 +11,13 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-	def factory_attributes
-		Factory.attributes_for(:subject,
+	def factory_attributes(options={})
+		Factory.attributes_for(:subject,{
 			:subject_type_id => Factory(:subject_type).id,
-			:race_id => Factory(:race).id)
+			:race_id => Factory(:race).id}.merge(options))
 	end
-	def factory_create
-		Factory(:subject)
+	def factory_create(options={})
+		Factory(:subject,options)
 	end
 
 	assert_access_with_login({ 
@@ -43,13 +43,6 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	)
 
 %w( admin employee editor ).each do |cu|
-
-#	test "should get general with #{cu} login" do
-#		login_as send(cu)
-#		get :general
-#		assert_response :success
-#		assert_template 'index'
-#	end
 
 	test "should get index with subjects with #{cu} login" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
@@ -86,7 +79,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with pii with #{cu} login" do
-		subject = Factory(:subject,
+		subject = factory_create(
 			:pii_attributes => Factory.attributes_for(:pii))
 		login_as send(cu)
 		get :show, :id => subject
@@ -103,7 +96,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should update with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -122,7 +115,8 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
 			post :create, 
-				:subject => Factory.attributes_for(:subject, :subject_type_id => nil )
+				:subject => Factory.attributes_for(:subject,
+					:subject_type_id => nil )
 		} } }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -130,13 +124,14 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
 			post :create, 
-				:subject => Factory.attributes_for(:subject, :race_id => nil )
+				:subject => Factory.attributes_for(:subject,
+					:race_id => nil )
 		} } }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -144,13 +139,14 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without valid subject_type_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
 			post :create, 
-				:subject => Factory.attributes_for(:subject, :subject_type_id => 0 )
+				:subject => Factory.attributes_for(:subject,
+					:subject_type_id => 0 )
 		} } }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -158,13 +154,14 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without valid race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
 			post :create, 
-				:subject => Factory.attributes_for(:subject, :race_id => 0 )
+				:subject => Factory.attributes_for(:subject,
+					:race_id => 0 )
 		} } }
 		assert_not_nil flash[:error]
 		assert_response :success
@@ -173,7 +170,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 
 
 	test "should NOT update without subject_type_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -187,7 +184,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -201,7 +198,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without valid subject_type_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -215,7 +212,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update without valid race_id with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -234,12 +231,6 @@ end
 
 %w( moderator active_user ).each do |cu|
 
-#	test "should NOT get general with #{cu} login" do
-#		login_as send(cu)
-#		get :general
-#		assert_redirected_to root_path
-#	end
-
 	test "should NOT download csv with #{cu} login" do
 		login_as send(cu)
 		get :index, :commit => 'download'
@@ -247,7 +238,7 @@ end
 	end
 
 	test "should NOT update with #{cu} login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -261,18 +252,13 @@ end
 
 end
 
-#	test "should NOT get general without login" do
-#		get :general
-#		assert_redirected_to_login
-#	end
-
 	test "should NOT download csv without login" do
 		get :index, :commit => 'download'
 		assert_redirected_to_login
 	end
 
 	test "should NOT update without login" do
-		subject = Factory(:subject)
+		subject = factory_create
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
@@ -288,7 +274,7 @@ protected
 	def create_home_exposure_subjects
 		p = Project.find_or_create_by_code('HomeExposures')
 		3.times do
-			s  = Factory(:subject)
+			s  = factory_create
 			Factory(:enrollment, :subject => s, :project => p )
 			s
 		end

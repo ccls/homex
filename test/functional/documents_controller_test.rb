@@ -9,11 +9,11 @@ class DocumentsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create
-		Factory(:document)
+	def factory_create(options={})
+		Factory(:document,options)
 	end
-	def factory_attributes
-		Factory.attributes_for(:document)
+	def factory_attributes(options={})
+		Factory.attributes_for(:document,options)
 	end
 
 	assert_access_with_https
@@ -63,6 +63,7 @@ class DocumentsControllerTest < ActionController::TestCase
 		get :show, :id => document.id
 		assert_nil flash[:error]
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*pdf/)
+		document.destroy
 	end
 
 	test "should NOT create invalid document with #{cu} login" do

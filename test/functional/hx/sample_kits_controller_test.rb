@@ -4,7 +4,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	setup :build_sample_kit
 	def build_sample_kit
-		@sample_kit = Factory(:sample_kit)
+		@sample_kit = factory_create
 		@sample = @sample_kit.sample
 	end
 
@@ -15,12 +15,13 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 
-	def factory_attributes
+	def factory_attributes(options={})
 		#	No attributes from Factory yet
-		Factory.attributes_for(:sample_kit, :updated_at => Time.now)
+		Factory.attributes_for(:sample_kit,{
+			:updated_at => Time.now}.merge(options))
 	end
-	def factory_create
-		Factory(:sample_kit)
+	def factory_create(options={})
+		Factory(:sample_kit,options)
 	end
 
 	assert_access_with_login({ 
@@ -63,33 +64,10 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 	test "should NOT post create without login" do
 		assert_difference('SampleKit.count',0){
 			post :create, :sample_id => @sample.id, 
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 		assert_redirected_to_login
 	end
-
-#	test "should NOT get edit without login" do
-#		get :edit, :id => @sample_kit.id
-#		assert_redirected_to_login
-#	end
-#
-#	test "should NOT put update without login" do
-#		put :update, :id => @sample_kit.id,
-#			:sample_kit => Factory.attributes_for(:sample_kit)
-#		assert_redirected_to_login
-#	end
-#
-#	test "should NOT get show without login" do
-#		get :show, :id => @sample_kit.id
-#		assert_redirected_to_login
-#	end
-#
-#	test "should NOT delete destroy without login" do
-#		assert_difference('SampleKit.count',0) {
-#			delete :destroy, :id => @sample_kit.id
-#		}
-#		assert_redirected_to_login
-#	end
 
 %w( admin ).each do |cu|
 
@@ -106,39 +84,13 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('SampleKit.count',1) {
 			post :create, :sample_id => @sample.id,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
 	end
 
-#	test "should get edit with #{cu} login" do
-#		login_as send(cu)
-#		get :edit, :id => @sample_kit.id
-#		assert_response :success
-#		assert_template 'edit'
-#		assert assigns(:sample_kit)
-#		assert_layout 'home_exposure'
-#	end
-
-#	test "should put update with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		put :update, :id => @sample_kit.id,
-#			:sample_kit => Factory.attributes_for(:sample_kit)
-#		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
-#	end
-#
-#	test "should get show with #{cu} login" do
-#		login_as send(cu)
-#		get :show, :id => @sample_kit.id
-#		assert_response :success
-#		assert_template 'show'
-#		assert assigns(:sample_kit)
-#		assert_layout 'home_exposure'
-#	end
-
 	test "should get show with #{cu} login and packages" do
-		sk = Factory(:sample_kit, 
+		sk = factory_create(
 			:kit_package_attributes  => Factory.attributes_for(:package),
 			:sample_package_attributes => Factory.attributes_for(:package)
 		)
@@ -148,15 +100,6 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'show'
 		assert assigns(:sample_kit)
 	end
-
-#	test "should delete destroy with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		assert_difference('SampleKit.count',-1){
-#			delete :destroy, :id => @sample_kit.id
-#		}
-#		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
-#	end
 
 #	no sample_id
 
@@ -172,7 +115,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		assert_raise(ActionController::RoutingError){
 		assert_difference('SampleKit.count',0) {
 			post :create,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		} }
 	end
 
@@ -189,7 +132,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 	end
 
@@ -202,7 +145,6 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should delete destroy without id with #{cu} login" do
 		login_as send(cu)
-#		Factory(:sample_kit,:sample_id => @sample.id)
 		assert_raise(ActionController::RoutingError){
 		assert_difference('SampleKit.count',0){
 			delete :destroy
@@ -229,7 +171,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference('SampleKit.count',0) {
 			post :create, :sample_id => @sample.id,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 		assert_response :success
 		assert_template 'new'
@@ -237,7 +179,6 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should NOT put update with empty packages with #{cu} login" do
 		login_as send(cu)
-#		Factory(:sample_kit,:sample_id => @sample.id)
 		put :update, :id => @sample_kit.id,
 			:sample_kit => {
 				:kit_package_attributes  => {},
@@ -249,22 +190,19 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 
 	test "should NOT put update with save failure with #{cu} login" do
 		login_as send(cu)
-#		Factory(:sample_kit,:sample_id => @sample.id)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
 		put :update, :id => @sample_kit.id,
-			:sample_kit => Factory.attributes_for(:sample_kit)
+			:sample_kit => factory_attributes
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT delete destroy with destruction failure with #{cu} login" do
 		login_as send(cu)
-#		Factory(:sample_kit,:sample_id => @sample.id)
 		SampleKit.any_instance.stubs(:new_record?).returns(true)
 		assert_difference('SampleKit.count',0){
 			delete :destroy, :id => @sample_kit.id
 		}
-#		assert_not_nil flash[:error]
 		assert_redirected_to hx_subject_path(assigns(:sample_kit).sample.subject)
 	end
 
@@ -281,46 +219,11 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('SampleKit.count',0) {
 			post :create, :sample_id => 0,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 		assert_redirected_to hx_subjects_path
 		assert_not_nil flash[:error]
 	end
-
-#	INVALID id
-#
-#	test "should NOT get edit with invalid id with #{cu} login" do
-#		login_as send(cu)
-#		get :edit, :id => 0
-#		assert_redirected_to hx_subjects_path
-#		assert_not_nil flash[:error]
-#	end
-#
-#	test "should NOT put update with invalid id with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		put :update, :id => 0,
-#			:sample_kit => Factory.attributes_for(:sample_kit)
-#		assert_redirected_to hx_subjects_path
-#		assert_not_nil flash[:error]
-#	end
-#
-#	test "should NOT get show with invalid id with #{cu} login" do
-#		login_as send(cu)
-#		get :show, :id => 0
-#		assert_redirected_to hx_subjects_path
-#		assert_not_nil flash[:error]
-#	end
-#
-#	test "should NOT delete destroy with invalid id with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		assert_difference('SampleKit.count',0){
-#			delete :destroy, :id => 0
-#		}
-#		assert_redirected_to hx_subjects_path
-#		assert_not_nil flash[:error]
-#	end
 
 
 #	invalid sample kit
@@ -340,39 +243,10 @@ end
 		login_as send(cu)
 		assert_difference('SampleKit.count',0) {
 			post :create, :sample_id => @sample.id,
-				:sample_kit => Factory.attributes_for(:sample_kit)
+				:sample_kit => factory_attributes
 		}
 		assert_redirected_to root_path
 	end
-
-#	test "should NOT get edit with #{cu} login" do
-#		login_as send(cu)
-#		get :edit, :id => @sample_kit.id
-#		assert_redirected_to root_path
-#	end
-#
-#	test "should NOT put update with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		put :update, :id => @sample_kit.id,
-#			:sample_kit => Factory.attributes_for(:sample_kit)
-#		assert_redirected_to root_path
-#	end
-#
-#	test "should NOT get show with #{cu} login" do
-#		login_as send(cu)
-#		get :show, :id => @sample_kit.id
-#		assert_redirected_to root_path
-#	end
-#
-#	test "should NOT delete destroy with #{cu} login" do
-#		login_as send(cu)
-##		Factory(:sample_kit,:sample_id => @sample.id)
-#		assert_difference('SampleKit.count',0){
-#			delete :destroy, :id => @sample_kit.id
-#		}
-#		assert_redirected_to root_path
-#	end
 
 end
 

@@ -8,11 +8,11 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-	def factory_attributes
-		Factory.attributes_for(:address)
+	def factory_attributes(options={})
+		Factory.attributes_for(:address,options)
 	end
-	def factory_create
-		Factory(:address)
+	def factory_create(options={})
+		Factory(:address,options)
 	end
 
 	assert_access_with_login({ 
@@ -79,7 +79,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert_difference("Subject.find(#{subject.id}).addresses.count",1) {
 		assert_difference('Address.count',1) {
 			post :create, :subject_id => subject.id,
-				:address => Factory.attributes_for(:address)
+				:address => factory_attributes
 		} }
 		assert assigns(:subject)
 		assert_redirected_to hx_subject_addresses_path(subject)
@@ -88,7 +88,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 	test "should NOT create new address without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			post :create, :address => Factory.attributes_for(:address)
+			post :create, :address => factory_attributes
 		}
 	end
 
@@ -96,7 +96,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('Address.count',0) do
 			post :create, :subject_id => 0, 
-				:address => Factory.attributes_for(:address)
+				:address => factory_attributes
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to hx_subjects_path
@@ -108,7 +108,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_difference('Address.count',0) do
 			post :create, :subject_id => subject.id,
-				:address => Factory.attributes_for(:address)
+				:address => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -123,7 +123,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 #		login_as send(cu)
 #		assert_difference('Address.count',0) do
 #			post :create, :subject_id => subject.id,
-#				:address => Factory.attributes_for(:address)
+#				:address => factory_attributes
 #		end
 #		assert assigns(:subject)
 #		assert_response :success
@@ -135,9 +135,8 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 
 
 	test "should edit address with #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
-#		get :edit, :subject_id => address.subject.id, :id => address.id
 		get :edit, :id => address.id
 		assert assigns(:address)
 		assert_response :success
@@ -146,60 +145,54 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT edit address with invalid id and #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
-#		get :edit, :subject_id => address.subject.id, :id => 0
 		get :edit, :id => 0
 		assert_redirected_to hx_subjects_path
 	end
 
 	test "should NOT edit address without id and #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-#			get :edit, :subject_id => address.subject.id
-			get :edit	#, :subject_id => address.subject.id
+			get :edit
 		}
 	end
 
 	test "should update address with #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
-#		put :update, :subject_id => address.subject.id, :id => address.id,
 		put :update, :id => address.id,
-			:address => Factory.attributes_for(:address)
+			:address => factory_attributes
 		assert assigns(:address)
 		assert_redirected_to hx_subject_addresses_path(address.subject)
 	end
 
 	test "should NOT update address with invalid id and #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
-#		put :update, :subject_id => address.subject.id, :id => 0,
 		put :update, :id => 0,
-			:address => Factory.attributes_for(:address)
+			:address => factory_attributes
 		assert_redirected_to hx_subjects_path
 	end
 
 	test "should NOT update address without id and #{cu} login" do
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-#			put :update, :subject_id => address.subject.id,
 			put :update,
-				:address => Factory.attributes_for(:address)
+				:address => factory_attributes
 		}
 	end
 
 	test "should NOT update address with #{cu} login when update fails" do
-		address = Factory(:address)
+		address = factory_create
 		before = address.updated_at
 		sleep 1	# if updated too quickly, updated_at won't change
 		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-#		put :update, :subject_id => address.subject.id, :id => address.id,
 		put :update, :id => address.id,
-			:address => Factory.attributes_for(:address)
+			:address => factory_attributes
 		after = address.reload.updated_at
 		assert_equal before.to_i,after.to_i
 		assert assigns(:address)
@@ -210,10 +203,10 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 
 	test "should NOT update address with #{cu} login and invalid address" do
 pending
-		address = Factory(:address)
+		address = factory_create
 		login_as send(cu)
 #		put :update, :id => address.id,
-#			:address => Factory.attributes_for(:address)
+#			:address => factory_attributes
 #		assert assigns(:subject)
 #		assert_response :success
 #		assert_template 'edit'
@@ -245,7 +238,7 @@ end
 		subject = Factory(:subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
-			:address => Factory.attributes_for(:address)
+			:address => factory_attributes
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -267,7 +260,7 @@ end
 	test "should NOT create new address without login" do
 		subject = Factory(:subject)
 		post :create, :subject_id => subject.id,
-			:address => Factory.attributes_for(:address)
+			:address => factory_attributes
 		assert_redirected_to_login
 	end
 
