@@ -50,7 +50,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.namespace :hx do |hx|
 		hx.resources :subjects,
 			:shallow => true do |subject|
-			subject.resource :dust_kit
+#			subject.resource :dust_kit
 			subject.resources :samples do |sample|
 				#	one kit per sample
 #				sample.resource :sample_kit

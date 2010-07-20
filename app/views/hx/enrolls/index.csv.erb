@@ -1,4 +1,0 @@
-<% require 'fastercsv' -%>
-<% @subjects.each do |s| -%>
-<%=	[ s.childid, s.studyid, s.priority, s.last_name, s.first_name, s.outcome, s.outcome_date ].to_csv -%>
-<% end -%>

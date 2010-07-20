@@ -1,8 +1,6 @@
 class Hx::SampleKitsController < HxApplicationController
 
 	before_filter :may_view_sample_kits_required
-#	before_filter :valid_hx_subject_id_required,
-#		:only => [ :index, :new, :create ]
 	before_filter :valid_sample_id_required,
 		:only => [ :index, :new, :create ]
 	before_filter :valid_id_required, 
@@ -10,7 +8,6 @@ class Hx::SampleKitsController < HxApplicationController
 
 	def show
 		@last_shipping_update = Package.last_updated
-#		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
 	end
 
 	def new
@@ -27,12 +24,7 @@ class Hx::SampleKitsController < HxApplicationController
 		render :action => "new"
 	end
 
-	def edit
-#		@sample_kit = @sample.sample_kit || @sample.build_sample_kit
-	end
-
 	def update
-#		@sample_kit = @sample.sample_kit
 		@sample_kit.update_attributes!(params[:sample_kit])
 		redirect_to hx_subject_path(@sample_kit.sample.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -41,7 +33,6 @@ class Hx::SampleKitsController < HxApplicationController
 	end
 
 	def destroy
-#		@sample.sample_kit.destroy
 		@sample_kit.destroy
 		redirect_to hx_subject_path(@sample_kit.sample.subject)
 	end
@@ -64,7 +55,6 @@ protected
 			access_denied("Valid sample kit id required!", 
 				hx_subjects_path)
 		end
-
 	end
 
 end

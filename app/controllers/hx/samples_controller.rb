@@ -1,7 +1,7 @@
 class Hx::SamplesController < HxApplicationController
 
 	before_filter :may_view_samples_required
-	before_filter :valid_id_for_hx_subject_required,
+	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,
 		:only => [:show,:edit,:update,:destroy]
@@ -11,17 +11,20 @@ class Hx::SamplesController < HxApplicationController
 	end
 
 	def create
-		redirect_to hx_subjects_path
-
-
-
+		@sample = @subject.samples.new(params[:sample])
+		@sample.save!
+		redirect_to hx_sample_path(@sample)
+	rescue ActiveRecord::RecordInvalid
+		flash.now[:error] = "Sample creation failed."
+		render :action => 'new'
 	end
 
 	def update
 		@sample.update_attributes!(params[:sample])
 		redirect_to hx_subjects_path
-
-
+	rescue ActiveRecord::RecordInvalid
+		flash.now[:error] = "Sample update failed."
+		render :action => 'edit'
 	end
 
 	def index

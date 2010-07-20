@@ -2,21 +2,17 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class Hx::SamplesControllerTest < ActionController::TestCase
 
-#	TODO
-
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Sample',
-#		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:actions => [:edit,:update,:show,:destroy],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
-
-#	NESTED ROUTE
-
 	def factory_attributes
 		# No attributes from Factory yet
-		Factory.attributes_for(:sample,:updated_at => Time.now)
+		Factory.attributes_for(:sample,
+			:updated_at => Time.now,
+			:unit_id => Factory(:unit).id )
 	end
 	def factory_create
 		Factory(:sample)
@@ -43,5 +39,108 @@ class Hx::SamplesControllerTest < ActionController::TestCase
 		:show => { :id => 0 },
 		:destroy => { :id => 0 }
 	) 
+
+%w( admin ).each do |cu|
+
+	test "should get sample index with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		get :index, :subject_id => subject.id
+		assert_nil flash[:error]
+		assert_response :success
+		assert_template 'index'
+	end
+
+	test "should get new sample with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		get :new, :subject_id => subject.id
+		assert_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should create new sample with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		assert_difference('Sample.count',1) do
+			post :create, :subject_id => subject.id,
+				:sample => factory_attributes
+		end
+		assert_nil flash[:error]
+		assert_redirected_to hx_sample_path(assigns(:sample))
+	end
+
+	test "should NOT create with invalid sample and #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		assert_difference('Sample.count',0) do
+			post :create, :subject_id => subject.id,
+				:sample => {}
+		end
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT update with invalid sample and #{cu} login" do
+		login_as send(cu)
+		sample = Factory(:sample)
+		put :update, :id => sample.id,
+			:sample => { :unit_id => nil }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+end
+
+%w( moderator editor employee active_user ).each do |cu|
+
+	test "should NOT get sample index with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		get :index, :subject_id => subject.id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT get new sample with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		get :new, :subject_id => subject.id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+	test "should NOT create new sample with #{cu} login" do
+		login_as send(cu)
+		subject = Factory(:subject)
+		post :create, :subject_id => subject.id,
+			:sample => factory_attributes
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
+end
+
+	test "should NOT get sample index without login" do
+		subject = Factory(:subject)
+		get :index, :subject_id => subject.id
+		assert_redirected_to_login
+	end
+
+	test "should NOT get new sample without login" do
+		subject = Factory(:subject)
+		get :new, :subject_id => subject.id
+		assert_redirected_to_login
+	end
+
+	test "should NOT create new sample without login" do
+		subject = Factory(:subject)
+		post :create, :subject_id => subject.id,
+			:sample => factory_attributes
+		assert_redirected_to_login
+	end
 
 end
