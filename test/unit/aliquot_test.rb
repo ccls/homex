@@ -6,7 +6,8 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:sample,:unit)
 	assert_requires_valid_associations(:organization, :as => :owner)
 	assert_should_belong_to(:aliquot_sample_format)
-	assert_should_initially_belong_to(:sample,:unit,:owner)
+	assert_should_initially_belong_to(:sample,:unit)
+	assert_should_initially_belong_to(:owner,:class_name => 'Organization')
 
 	test "should create aliquot" do
 		assert_difference 'Aliquot.count' do
