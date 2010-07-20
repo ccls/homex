@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleKitTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:sample,:sample_package,:kit_package)
+	assert_should_initially_belong_to(:sample)
+	assert_should_belong_to(:sample_package,:kit_package)
 
 	test "should create sample kit" do
 		assert_difference 'SampleKit.count' do
@@ -39,18 +40,13 @@ class SampleKitTest < ActiveSupport::TestCase
 	end
 
 	test "should require a unique sample" do
-		assert_difference('SampleKit.count', 2) {
+		assert_difference('SampleKit.count', 1) {
 #		assert_difference('Subject.count', 1) {
 		assert_difference('Sample.count', 1) {
 			object = create_object
-			assert_nil object.sample
-			sample = Factory(:sample)
-			object.update_attributes(:sample_id => sample.id)
 			assert_not_nil object.sample
-			object = create_object
-			assert_nil object.sample
-			object.update_attributes(:sample_id => sample.id)
-			assert object.reload.errors.on(:sample_id)
+			object = create_object(:sample_id => object.sample_id)
+			assert object.errors.on(:sample_id)
 		} }
 	end
 
@@ -127,8 +123,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	test "should set sample sent_to_subject_on" do
 		stub_package_for_in_transit()
 		object = create_complete_sample_kit	
-		sample = Factory(:sample)
-		sample.sample_kit = object
+		sample = object.sample
 		object.kit_package.update_status
 		assert_not_nil object.kit_package.tracks.first
 		assert_not_nil sample.reload.sent_to_subject_on
@@ -139,8 +134,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	test "should set sample received_by_ccls_on" do
 		stub_package_for_successful_delivery()
 		object = create_complete_sample_kit	
-		sample = Factory(:sample)
-		sample.sample_kit = object
+		sample = object.sample
 		object.sample_package.update_status
 		assert_not_nil object.sample_package.tracks.last
 		assert_not_nil sample.reload.received_by_ccls_on

@@ -1,4 +1,4 @@
-class Hx::FollowupsController < HxApplicationController
+class Hx::Followup::SubjectsController < HxApplicationController
 
 	before_filter :may_view_subjects_required
 

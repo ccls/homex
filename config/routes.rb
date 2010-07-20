@@ -48,10 +48,12 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resource :home_exposure, :only => :show
 	map.namespace :hx do |hx|
-		hx.resources :subjects, #:except => [:new,:create],
-#			:member => { :general => :get },
+		hx.resources :subjects,
 			:shallow => true do |subject|
 			subject.resource :dust_kit
+			subject.resources :samples do |sample|
+				sample.resources :sample_kits
+			end
 			subject.resource :home_exposure_response, 
 				:only => [ :new, :create, :show ]
 			subject.resources :survey_invitations, 
@@ -61,23 +63,27 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :enrollments,
 				:only => [:new,:create,:show,:edit,:update,:index]
 		end
-#		hx.namespace :subjects do |hxs|
-#			hxs.resources :generals, :only => :index
-#		end
-		hx.resources  :enrolls, :only => [:index],
-			:collection => { 
-				:send_letters  => :get,
-				:update_select => :put }
-		hx.resources  :interviews
-		hx.resources  :samples, :only => [:index],
-			:collection => { 
-				:send_to_lab  => :get }
-		hx.resources  :followups
-#		hx.resources  :letters, :only => [:index],
-#			:collection => {
-#				:bulk_create => :post,
-#				:bulk_update => :post
-#			}
+
+#		hx.resources  :enrolls, :only => [:index],
+#			:collection => { 
+#				:send_letters  => :get,
+#				:update_select => :put }
+
+		hx.namespace :interview do |interview|
+			interview.resources  :subjects
+		end
+
+		#	CANNOT HAVE A NAMESPACE AND A RESOURCE WITH THE SAME NAME
+		#	(APPARENTLY)
+		hx.namespace :sample do |sample|
+			sample.resources  :subjects, :only => [:index,:show],
+				:collection => { 
+					:send_to_lab  => :get }
+		end
+
+		hx.namespace :followup do |followup|
+			followup.resources  :subjects
+		end
 	end
 
 	map.resources :subjects, :shallow => true do |subject|
@@ -90,12 +96,12 @@ ActionController::Routing::Routes.draw do |map|
 #	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
-	map.connect 'stylesheets/:action.:format', :controller => 'stylesheets'
-	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
+#	map.connect 'stylesheets/:action.:format', :controller => 'stylesheets'
+#	map.connect 'javascripts/:action.:format', :controller => 'javascripts'
 
 	map.resources :projects
 
-	map.resources :locales, :only => :show
+#	map.resources :locales, :only => :show
 
 
 

@@ -35,16 +35,16 @@ class SampleKit < ActiveRecord::Base
 #and Sample_Subtypes tables so you can populate the 
 #subtype_ID with the correct value for dust samples.
 
-	def update_sample_dates
-#		sample.update_attributes({
-#			:sent_to_subject_on  => sent_on,
-#			:received_by_ccls_on => received_on
-#		}) if sample
-		if sample
-			sample.sent_to_subject_on  = sent_on
-			sample.received_by_ccls_on = received_on
-			sample.save
-		end
-	end
+#		def update_sample_dates
+#	#		sample.update_attributes({
+#	#			:sent_to_subject_on  => sent_on,
+#	#			:received_by_ccls_on => received_on
+#	#		}) if sample
+#			if sample
+#				sample.sent_to_subject_on  = sent_on
+#				sample.received_by_ccls_on = received_on
+#				sample.save
+#			end
+#		end
 
 end

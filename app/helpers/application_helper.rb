@@ -4,17 +4,19 @@ module ApplicationHelper
 	def home_exposure_main_menu
 		s = "<div id='mainmenu'>\n"
 		controller_name = controller.controller_name
+		names = controller.class.name.split('::')
+
+		#	TODO : subjects is always current with namespace changes
+
 		l = [link_to( "Subjects", hx_subjects_path,
-			:class => (%w(subjects addresses enrollments).include?(controller_name) )?'current':nil)]
-#			:class => (controller_name == 'subjects')?'current':nil)]
-#		l.push(link_to( "Enroll", hx_enrolls_path,
-#			:class => (controller_name == 'enrolls')?'current':nil))
-		l.push(link_to( "Interview", hx_interviews_path,  
-			:class => (controller_name == 'interviews')?'current':nil))
-		l.push(link_to( "Samples", hx_samples_path,
-			:class => (controller_name == 'samples')?'current':nil))
-		l.push(link_to( "Follow-Up", hx_followups_path,
-			:class => (controller_name == 'followups')?'current':nil))
+			:class => (%w(subjects addresses enrollments).include?(controller_name)  && names.length < 3 )?'current':nil)]
+
+		l.push(link_to( "Interview", hx_interview_subjects_path,  
+			:class => (names.include?('Interview'))?'current':nil))
+		l.push(link_to( "Samples", hx_sample_subjects_path,
+			:class => (names.include?('Sample'))?'current':nil))
+		l.push(link_to( "Follow-Up", hx_followup_subjects_path,
+			:class => (names.include?('Followup'))?'current':nil))
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
 	end

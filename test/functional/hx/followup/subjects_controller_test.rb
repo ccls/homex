@@ -1,12 +1,12 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require File.dirname(__FILE__) + '/../../../test_helper'
 
-class Hx::InterviewsControllerTest < ActionController::TestCase
+class Hx::Followup::SubjectsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
-
 	ASSERT_ACCESS_OPTIONS = {
 		:actions => [:index]
 	}
+
 	assert_access_with_login({ 
 		:logins => [:admin,:employee,:editor] })
 	assert_no_access_with_login({ 
@@ -17,10 +17,10 @@ class Hx::InterviewsControllerTest < ActionController::TestCase
 	assert_no_access_with_http
 
 
-%w( admin employee editor ).each do |cu|
+%w( admin employee editor ).each do |u|
 
-	test "should download csv with #{cu} login" do
-		login_as send(cu)
+	test "should download csv with #{u} login" do
+		login_as send(u)
 		get :index, :commit => 'download'
 		assert_response :success
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
@@ -28,10 +28,10 @@ class Hx::InterviewsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator active_user ).each do |cu|
+%w( moderator active_user ).each do |u|
 
-	test "should NOT download csv with #{cu} login" do
-		login_as send(cu)
+	test "should NOT download csv with #{u} login" do
+		login_as send(u)
 		get :index, :commit => 'download'
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]

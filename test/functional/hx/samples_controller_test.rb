@@ -2,45 +2,45 @@ require File.dirname(__FILE__) + '/../../test_helper'
 
 class Hx::SamplesControllerTest < ActionController::TestCase
 
-	setup :create_home_exposure_with_subject
+#	TODO
+
 	ASSERT_ACCESS_OPTIONS = {
-		:actions => [:index]
+		:model => 'Sample',
+#		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
+		:actions => [:edit,:update,:show,:destroy],
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+
+#	NESTED ROUTE
+
+	def factory_attributes
+		Factory.attributes_for(:sample,:updated_at => Time.now)
+	end
+	def factory_create
+		Factory(:sample)
+	end
+
 	assert_access_with_login({ 
-		:logins => [:admin,:employee,:editor] })
-	assert_no_access_with_login({ 
-		:logins => [:moderator,:active_user] })
+		:logins => [:admin] })
+	assert_no_access_with_login({
+		:logins => [:employee,:editor,:moderator,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
 
-
-%w( admin employee editor ).each do |cu|
-
-	test "should download csv with #{cu} login" do
-		login_as send(cu)
-		get :index, :commit => 'download'
-		assert_response :success
-		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
-	end
-
-end
-
-%w( moderator active_user ).each do |cu|
-
-	test "should NOT download csv with #{cu} login" do
-		login_as send(cu)
-		get :index, :commit => 'download'
-		assert_redirected_to root_path
-		assert_not_nil flash[:error]
-	end
-
-end
-
-	test "should NOT download csv without login" do
-		get :index, :commit => 'download'
-		assert_redirected_to_login
-	end
+	assert_no_access_with_login(
+		:attributes_for_create => nil,
+		:method_for_create => nil,
+		:actions => nil,
+		:suffix => " and invalid id",
+		:login => :admin,
+		:redirect => :hx_subjects_path,
+		:edit => { :id => 0 },
+		:update => { :id => 0 },
+		:show => { :id => 0 },
+		:destroy => { :id => 0 }
+	) 
 
 end

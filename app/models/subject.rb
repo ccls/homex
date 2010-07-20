@@ -53,23 +53,23 @@ class Subject < ActiveRecord::Base
 
 	before_validation :pad_zeros_to_subjectid
 
-	def outcome_date
-		"TEST"
-	end
-
-	def outcome
-		"TEST"
-	end
-
-	def priority
-#		if respond_to?('enrollments.recruitment_priority')
-#			enrollments.recruitment_priority
-#		elsif respond_to?('recruitment_priority')
-#			recruitment_priority
-#		else
-			'TEST'
+#		def outcome_date
+#			"TEST"
 #		end
-	end
+#	
+#		def outcome
+#			"TEST"
+#		end
+#	
+#		def priority
+#	#		if respond_to?('enrollments.recruitment_priority')
+#	#			enrollments.recruitment_priority
+#	#		elsif respond_to?('recruitment_priority')
+#	#			recruitment_priority
+#	#		else
+#				'TEST'
+#	#		end
+#		end
 
 	def response_sets_the_same?
 		if response_sets.length == 2

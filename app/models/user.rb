@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
 	ucb_authenticated
 
+	alias_method :may_view_samples?,     :may_administrate?
 	alias_method :may_view_sample_kits?, :may_administrate?
 
 #	def may_administrate?(*args)

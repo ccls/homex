@@ -184,6 +184,7 @@ Factory.define :sample do |f|
 end
 
 Factory.define :sample_kit do |f|
+	f.association :sample
 end
 
 Factory.define :sample_subtype do |f|

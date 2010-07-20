@@ -1,5 +1,5 @@
 <% content_tag_for( :tr, subject, :class => 'row' ) do %>
-<td class='childid'><%= link_to subject.childid, hx_subject_path(subject) -%></td>
+<td class='childid'><%= link_to subject.childid, hx_sample_subject_path(subject) -%></td>
 <td class='studyid'>
 <%= subject.studyid %>
 </td>
@@ -17,10 +17,10 @@ inteview completion date
 </td>
 <% if subject.dust_kit %>
 <td class='kit_sent_on'>
-<%= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </td>
 <td class='kit_received_on'>
-<%= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
 </td>
 <% else %>
 <td class='send_kit' colspan='2'>

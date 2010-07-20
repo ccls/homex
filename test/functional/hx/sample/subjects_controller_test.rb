@@ -1,11 +1,19 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require File.dirname(__FILE__) + '/../../../test_helper'
 
-class Hx::FollowupsControllerTest < ActionController::TestCase
+class Hx::Sample::SubjectsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
 	ASSERT_ACCESS_OPTIONS = {
-		:actions => [:index]
+		:actions => [:index,:show],
+ 		:attributes_for_create => :factory_attributes,
+		:method_for_create => :factory_create
 	}
+	def factory_attributes
+		Factory.attributes_for(:subject)
+	end
+	def factory_create
+		Factory(:subject)
+	end
 
 	assert_access_with_login({ 
 		:logins => [:admin,:employee,:editor] })
@@ -17,10 +25,10 @@ class Hx::FollowupsControllerTest < ActionController::TestCase
 	assert_no_access_with_http
 
 
-%w( admin employee editor ).each do |u|
+%w( admin employee editor ).each do |cu|
 
-	test "should download csv with #{u} login" do
-		login_as send(u)
+	test "should download csv with #{cu} login" do
+		login_as send(cu)
 		get :index, :commit => 'download'
 		assert_response :success
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
@@ -28,10 +36,10 @@ class Hx::FollowupsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator active_user ).each do |u|
+%w( moderator active_user ).each do |cu|
 
-	test "should NOT download csv with #{u} login" do
-		login_as send(u)
+	test "should NOT download csv with #{cu} login" do
+		login_as send(cu)
 		get :index, :commit => 'download'
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
