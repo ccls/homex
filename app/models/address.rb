@@ -18,10 +18,11 @@ class Address < ActiveRecord::Base
 protected
 
 	def address_type_matches_line_1
+		#	It is inevitable that this will match too much
 		if(( line_1 =~ /p.*o.*box/i ) &&
 			( address_type_id.to_s == '1' ))	#	1 is 'residence'
 			errors.add(:address_type_id,
-				"must not be residence") 
+				"must not be residence with PO Box") 
 		end
 	end
 
