@@ -1,5 +1,11 @@
 ActionController::Routing::Routes.draw do |map|
 
+#	It appears that the plugin routes are loaded after
+#	the app's (or they aren't overridable) as this 'root'
+#	is not the 'root'.  The 'root' from the engine is.
+#	Plugin routes are loaded FIRST and aren't overridable.
+	map.root :controller => :home_exposures, :action => :show
+
 	map.resource  :calendar,   :only => [ :show ]
 
 	map.resources :home_page_pics, :collection => { :activate => :post }
