@@ -2,11 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTest < ActiveSupport::TestCase
 
-	assert_requires_valid_associations(:subject)
+	assert_requires_valid_associations(:subject,:address_type)
 	assert_should_have_one(:residence)
 	assert_should_have_many(:interviews)
-	assert_should_belong_to(:address_type,:data_source)
-	assert_should_initially_belong_to(:subject)
+	assert_should_belong_to(:data_source)
+	assert_should_initially_belong_to(:subject,:address_type)
 
 	test "should create address" do
 		assert_difference 'Address.count' do
@@ -39,6 +39,16 @@ class AddressTest < ActiveSupport::TestCase
 			:state => 'CA',
 			:zip   => '12345')
 		assert_equal "City, CA 12345", address.csz
+	end
+
+	test "should require non-residence address type with pobox in line" do
+		assert_difference('Address.count',0) do
+			object = create_object({
+				:line_1 => "P.O. Box 123",
+				:address_type_id => AddressType.find_by_code('residence').id
+			})
+			assert object.errors.on(:address_type_id)
+		end
 	end
 
 protected

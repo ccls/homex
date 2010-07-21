@@ -9,7 +9,9 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		:method_for_create => :factory_create
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:address,options)
+		Factory.attributes_for(:address,{
+			:address_type_id => Factory(:address_type).id
+		}.merge(options))
 	end
 	def factory_create(options={})
 		Factory(:address,options)
