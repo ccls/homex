@@ -6,7 +6,7 @@ jQuery(function(){
 
 	jQuery('p.flash').click(function(){$(this).remove();});
 
-	jQuery.getScript('/javascripts/cache_helper.js', function() {
-	});
+	jQuery.getScript('/javascripts/cache_helper.js');
+	jQuery.getScript('/homex/javascripts/cache_helper.js');
 
 });
