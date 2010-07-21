@@ -18,6 +18,12 @@ class Hx::AddressesController < HxApplicationController
 		render :action => 'new'
 	end
 
+#Editors can modify the current address and designated it as being an invalid address. If they designated the address as invalid, the why_invalid text field is mandatory.
+#
+#By default, there is no value for whether an address is valid.
+#
+#As part of subject tracing, we will have the ability to designated whether an address we have has been verified by some means. When an address is verified, the user will set is_verified to true. They will then be required to provide a value for the how_verified field and the system will capture both their user_id in verified_by and the current date in verified_on fields.
+
 	def update
 		@address.update_attributes!(params[:address])
 		redirect_to hx_subject_addresses_path(@address.subject)
