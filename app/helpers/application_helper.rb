@@ -22,6 +22,11 @@ module ApplicationHelper
 	end
 
 	def application_root_menu
+#	To stop ...
+#ActionView::TemplateError (A copy of ApplicationHelper has been removed from the module tree but is still active!) on line #2 of app/views/layouts/_header.html.erb:
+#	... added ...
+#		require 'page' if RAILS_ENV == 'development'
+#	... which is stupid (but just for development)
 		#<%# Page changes outside of ActionController go unnoticed %>
 		#<%# Due to the variability of the menu, we can't really cache it %>
 		#<%# cache 'page_menu' do %>
