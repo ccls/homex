@@ -117,11 +117,12 @@ module ApplicationHelper
 		l.push(link_to( 'Packages', packages_path ))
 		l.push(link_to( 'Subjects', subjects_path ))
 		l.push(link_to( 'HomePagePics', home_page_pics_path ))
-		if logged_in? 
-			l.push(link_to( "My Account", user_path(current_user) ))
-			l.push(link_to( "Logout", logout_path ))
-		end
+#		if logged_in? 
+#			l.push(link_to( "My Account", user_path(current_user) ))
+#			l.push(link_to( "Logout", logout_path ))
+#		end
 		s << l.join("&nbsp;|&nbsp;\n")
+		s << "<a id='user_links'></a>"
 		s << "</p></div>\n"
 	end
 
@@ -133,9 +134,11 @@ module ApplicationHelper
 				ActionController::Base.relative_url_root + page.path ))
 		end
 		if session[:locale] && session[:locale] == 'es'
-			l.push(link_to( 'English', locale_path('en') ))
+			l.push(link_to( 'English', locale_path('en'),
+				:id => 'session_locale' ))
 		else
-			l.push(link_to( 'Espa&ntilde;ol', locale_path('es') ))
+			l.push(link_to( 'Espa&ntilde;ol', locale_path('es'),
+				:id => 'session_locale' ))
 		end
 		s << l.join("&nbsp;|&nbsp;\n")
 		s << "</p></div>\n"
