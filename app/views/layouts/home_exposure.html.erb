@@ -14,9 +14,11 @@
 <div id='container'>
 <div id='header'>
 <div id='minimenu'>
-	<%= link_to "Home", home_exposure_path %>&nbsp;|&nbsp;
-	<a>Reports</a>&nbsp;|&nbsp;
-	<a>FAQs</a>
+	<%= link_to "Home", root_path %>&nbsp;|&nbsp;
+	<%= link_to 'Reports', 
+		ActionController::Base.relative_url_root + '/reports' %>&nbsp;|&nbsp;
+	<%= link_to 'FAQs', 
+		ActionController::Base.relative_url_root + '/faqs' %>
 </div><!-- minimenu -->
 <%= render 'layouts/hx_subjects_search' %>
 <%= home_exposure_main_menu() %>

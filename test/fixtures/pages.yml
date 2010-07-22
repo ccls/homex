@@ -33,6 +33,7 @@ pages_1:
     Column 3
     </div>
     </div>
+
   title_en: CCLS
 pages_2: 
   position: 2
@@ -118,6 +119,30 @@ pages_5:
   hide_menu: false
   body_en: Partners Page Body
   title_en: Partners
+pages_20: 
+  position: 9
+  menu_en: FAQs
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 20
+  path: /faqs
+  parent_id: 
+  hide_menu: true
+  body_en: FAQs
+  title_en: FAQs
+pages_19: 
+  position: 8
+  menu_en: Reports
+  body_es: ""
+  title_es: ""
+  menu_es: ""
+  id: 19
+  path: /reports
+  parent_id: 
+  hide_menu: true
+  body_en: Reports
+  title_en: Reports
 pages_6: 
   position: 4
   menu_en: Funding
