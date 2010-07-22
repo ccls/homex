@@ -5,7 +5,7 @@ class SampleTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:subject,:unit)
 	assert_should_have_one(:sample_kit)
 	assert_should_have_many(:aliquots)
-	assert_should_belong_to(:aliquot_sample_format,:sample_subtype)
+	assert_should_belong_to(:aliquot_sample_format,:sample_type)
 	assert_should_initially_belong_to(:subject,:unit)
 	assert_should_habtm(:projects)
 

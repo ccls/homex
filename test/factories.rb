@@ -161,12 +161,6 @@ Factory.define :sample_kit do |f|
 	f.association :sample
 end
 
-Factory.define :sample_subtype do |f|
-	f.association :sample_type
-	f.sequence(:code) { |n| "Code#{n}" }
-	f.sequence(:description) { |n| "Desc#{n}" }
-end
-
 Factory.define :sample_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }

@@ -30,3 +30,100 @@ dk:
   id: 8
   code: 999
   description: unspecified (don't know)
+
+unspecifieddust:
+  id: 9
+  parent_id: 1
+  code: 9
+  description: unspecified dust
+vacuumbag:
+  id: 10
+  parent_id: 1
+  code: 10
+  description: vacuum bag
+loose:
+  id: 11
+  parent_id: 1
+  code: 11
+  description: loose dust
+otherdust:
+  id: 12
+  parent_id: 1
+  code: 12
+  description: other type of dust sample
+unspecifiedblood:
+  id: 13
+  parent_id: 2
+  code: 13
+  description: unspecified blood
+ANB:
+  id: 14
+  parent_id: 2
+  code: 14
+  description: archive newborn blood
+guthrie:
+  id: 15
+  parent_id: 2
+  code: 15
+  description: guthrie cards
+otherblood:
+  id: 16
+  parent_id: 2
+  code: 16
+  description: other type of blood sample
+
+unspecifiedsaliva:
+  id: 17
+  parent_id: 3
+  code: 17
+  description: unspecified saliva
+kit:
+  id: 18
+  parent_id: 3
+  code: 18
+  description: unspecified saliva kit
+kitwithBrushes:
+  id: 19
+  parent_id: 3
+  code: 19
+  description: unspecified saliva kit with brushes
+othersaliva:
+  id: 20
+  parent_id: 3
+  code: 20
+  description: other type of saliva
+unspecifiedbuccal:
+  id: 21
+  parent_id: 4
+  code: 21
+  description: unspecified buccal
+cytobrush:
+  id: 22
+  parent_id: 4
+  code: 22
+  description: cytobrush
+otherbuccal:
+  id: 23
+  parent_id: 4
+  code: 23
+  description: other type of buccal
+unspecifiedurine:
+  id: 24
+  parent_id: 5
+  code: 24
+  description: unspecified urine
+otherurine:
+  id: 25
+  parent_id: 5
+  code: 25
+  description: other type of urine
+unspecifiedair:
+  id: 26
+  parent_id: 6
+  code: 26
+  description: unspecified air
+otherair:
+  id: 27
+  parent_id: 6
+  code: 27
+  description: other type of air

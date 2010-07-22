@@ -3,7 +3,7 @@ class CreateSamples < ActiveRecord::Migration
 		create_table :samples do |t|
 			t.integer :position
 			t.references :aliquot_sample_format
-			t.references :sample_subtype
+			t.references :sample_type
 			t.references :subject
 			t.references :unit
 			t.integer :order_no, :default => 1

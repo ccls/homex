@@ -18,7 +18,7 @@ namespace :app do
 		fixtures.push('races')
 		fixtures.push('roles')
 		fixtures.push('projects')
-		fixtures.push('sample_subtypes')
+#		fixtures.push('sample_subtypes')
 		fixtures.push('sample_types')
 		fixtures.push('subject_types')
 		fixtures.push('units')

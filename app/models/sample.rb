@@ -3,7 +3,7 @@
 #	*	unit_id
 class Sample < ActiveRecord::Base
 	belongs_to :aliquot_sample_format
-	belongs_to :sample_subtype
+	belongs_to :sample_type
 	belongs_to :subject
 	belongs_to :unit
 	has_many :aliquots

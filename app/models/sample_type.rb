@@ -1,10 +1,17 @@
 #	==	requires
 #	*	description ( unique and > 3 chars )
 class SampleType < ActiveRecord::Base
-	acts_as_list
+	acts_as_list :scope => :parent_id
 	default_scope :order => :position
 
-	has_many :sample_subtypes
+	has_many :samples
+	belongs_to :parent, :class_name => 'SampleType'
+	has_many :children, :class_name => 'SampleType', 
+		:foreign_key => 'parent_id',
+		:dependent => :nullify
+	
+	named_scope :roots, :conditions => { 
+		:parent_id => nil }
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
