@@ -15,6 +15,6 @@ class Sample < ActiveRecord::Base
 #	this is not clear in my UML diagram
 
 	validates_presence_of :subject_id, :unit_id,
-		:subject, :unit
+		:subject, :unit, :sample_type_id, :sample_type
 
 end
