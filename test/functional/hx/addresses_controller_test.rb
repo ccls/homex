@@ -33,7 +33,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'index'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get addresses without subject_id and #{cu} login" do
@@ -58,7 +58,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert assigns(:address)
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get new address without subject_id and #{cu} login" do
@@ -115,7 +115,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
@@ -143,7 +143,7 @@ class Hx::AddressesControllerTest < ActionController::TestCase
 		assert assigns(:address)
 		assert_response :success
 		assert_template 'edit'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT edit address with invalid id and #{cu} login" do

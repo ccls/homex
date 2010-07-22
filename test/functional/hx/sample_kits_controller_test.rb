@@ -77,7 +77,7 @@ class Hx::SampleKitsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'new'
 		assert assigns(:sample_kit)
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should post create with #{cu} login" do

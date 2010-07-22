@@ -32,7 +32,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'index'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get enrollments without subject_id and #{cu} login" do
@@ -58,7 +58,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 #		assert assigns(:enrollment)
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get new enrollment without subject_id and #{cu} login" do
@@ -119,7 +119,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
@@ -134,7 +134,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment).errors.on(:project_id)
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
@@ -146,7 +146,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment)
 		assert_response :success
 		assert_template 'edit'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT edit enrollment with invalid id and #{cu} login" do
@@ -216,7 +216,7 @@ class Hx::EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment).errors.on(:project_id)
 		assert_response :success
 		assert_template 'edit'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 

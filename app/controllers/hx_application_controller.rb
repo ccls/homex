@@ -2,7 +2,7 @@ class HxApplicationController < ApplicationController
 
 	before_filter :may_view_home_exposures_required
 
-	layout 'home_exposure'
+#	layout 'home_exposure'
 
 protected
 
@@ -14,6 +14,8 @@ protected
 		validate_hx_subject_id(params[:id])
 	end
 
+	#	I intended to check that the subject is actually
+	#	enrolled in HomeExposures, but haven't yet.
 	def validate_hx_subject_id(id,redirect=nil)
 		if !id.blank? and Subject.exists?(id)
 			@subject = Subject.find(id)

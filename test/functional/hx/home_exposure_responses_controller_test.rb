@@ -37,7 +37,7 @@ class Hx::HomeExposureResponsesControllerTest < ActionController::TestCase
 		get :new, :subject_id => @rs1.subject_id
 		assert_response :success
 		assert_template 'new'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should create HER with #{cu} login" do
@@ -56,7 +56,7 @@ class Hx::HomeExposureResponsesControllerTest < ActionController::TestCase
 		get :show, :subject_id => @rs1.subject_id
 		assert_response :success
 		assert_template 'show'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	

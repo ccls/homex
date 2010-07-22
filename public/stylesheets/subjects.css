@@ -13,15 +13,9 @@ div.subject_type {
 
 form#subject_search {
 }
-form#subject_search #races {
-	float:left;
-	margin: auto 10px;
-}
+form#subject_search .project,
+form#subject_search #races,
 form#subject_search #types {
-	float:left;
-	margin: auto 10px;
-}
-form#subject_search #dust_kit {
 	float:left;
 	margin: auto 10px;
 }

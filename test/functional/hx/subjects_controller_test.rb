@@ -59,7 +59,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		assert_equal 1, assigns(:subjects).length
 		assert_response :success
 		assert_template 'index'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should get index with order and dir desc with #{cu} login" do
@@ -85,7 +85,7 @@ class Hx::SubjectsControllerTest < ActionController::TestCase
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'
-		assert_layout 'home_exposure'
+#		assert_layout 'home_exposure'
 	end
 
 	test "should download csv with #{cu} login" do
