@@ -12,6 +12,7 @@ class Hx::SamplesControllerTest < ActionController::TestCase
 		# No attributes from Factory yet
 		Factory.attributes_for(:sample,{
 			:updated_at => Time.now,
+			:sample_type_id => Factory(:sample_type).id,
 			:unit_id => Factory(:unit).id }.merge(options))
 	end
 	def factory_create(options={})
