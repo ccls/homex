@@ -112,7 +112,8 @@ Everybody join hands together now to install some gems ...
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install rake rdoc packet haml
- sudo gem install rails -v 2.3.4
+ sudo gem install paperclip rubycas-client ssl_requirement
+ sudo gem install rails -v 2.3.8
  #
  # The rest should actually install with ...
  #
