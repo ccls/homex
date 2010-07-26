@@ -9,11 +9,11 @@ class DocumentsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes
 	}
 
-	def factory_create(options={})
-		Factory(:document,options)
+	def factory_create
+		Factory(:document)
 	end
-	def factory_attributes(options={})
-		Factory.attributes_for(:document,options)
+	def factory_attributes
+		Factory.attributes_for(:document)
 	end
 
 	assert_access_with_https
@@ -39,11 +39,21 @@ class DocumentsControllerTest < ActionController::TestCase
 
 %w( admin editor ).each do |cu|
 
-	test "should NOT download document with no document and #{cu} login" do
-		document = Factory(:document)
+	test "should NOT download document with nil document and #{cu} login" do
+		document = Factory(:document,:document_file_name => nil)
+		assert document.document.path.blank?
 		login_as send(cu)
 		get :show, :id => document.id
-		assert_redirected_to document
+		assert_redirected_to preview_document_path(document)
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT download document with no document and #{cu} login" do
+		document = Factory(:document)
+		assert !File.exists?(document.document.path)
+		login_as send(cu)
+		get :show, :id => document.id
+		assert_redirected_to preview_document_path(document)
 		assert_not_nil flash[:error]
 	end
 
@@ -72,7 +82,8 @@ class DocumentsControllerTest < ActionController::TestCase
 			:document => File.open(File.dirname(__FILE__) + 
 				'/../assets/edit_save_wireframe.pdf')))
 		login_as send(cu)
-		get :show, :id => 'edit_save_wireframe', :format => 'pdf'
+		get :show, :id => 'edit_save_wireframe',
+			:format => 'pdf'
 		assert_nil flash[:error]
 		assert_not_nil @response.headers['Content-disposition'].match(
 			/attachment;.*pdf/)
