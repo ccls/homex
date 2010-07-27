@@ -40,3 +40,4 @@ test/unit/helpers/
 test_transactions.rb
 db/*.sqlite3-journal
 *.war
+*/documents
