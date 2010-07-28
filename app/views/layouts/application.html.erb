@@ -11,7 +11,7 @@
 <%= yield :head %>
 <script type="text/javascript">
 	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-17648061-8']);
+	_gaq.push(['_setAccount', <%="'UA-17648061-#{(Rails.env=='production')?'11':'8'}'"-%>]);
 	_gaq.push(['_trackPageview']);
 
 	(function(){
