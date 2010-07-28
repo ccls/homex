@@ -1,5 +1,7 @@
 Dir.glob(
-	File.join(RAILS_ROOT,'vendor/plugins/*/rails/preinitializer.rb')
+	File.join(RAILS_ROOT,'lib/plugins/*/preinitializer.rb')
+) + Dir.glob(
+	File.join(RAILS_ROOT,'{lib,vendor}/plugins/*/rails/preinitializer.rb')
 ).each do |preinitializer|
-	load(preinitializer)
+	require(preinitializer)
 end
