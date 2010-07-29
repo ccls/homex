@@ -41,7 +41,6 @@ Rails::Initializer.run do |config|
 		#	Additional jruby specific jars required in the war
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
-		config.gem 'haml'
 	else
 
 		# If using mysql ...
@@ -57,8 +56,9 @@ Rails::Initializer.run do |config|
 		config.gem 'mysql'
 	end
 
+	config.gem 'haml'      # Needed for Surveyor
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
-	config.gem "packet"    #		http://packet.rubyforge.org/
+#	config.gem "packet"    #		http://packet.rubyforge.org/
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
