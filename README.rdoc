@@ -6,6 +6,7 @@
 == Requirements
 
 * ruby >= 1.8.7 - primarily due to the liberal use of #inject
+* ruby <= 1.8.7 - primarily due to ruby 1.9.1 differences
 * rubygems
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
@@ -37,7 +38,7 @@
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 * {html_test}[http://github.com/peter/html_test] - html testing and validation
 * {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
-* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler
+* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
 * {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
@@ -76,7 +77,7 @@ rvm / jruby installation ( {Installing RVM}[http://rvm.beginrescueend.com/rvm/in
  vi .bashrc
  bash
  rvm install jruby
- rvm use jruby-1.4.0
+ rvm use jruby
 
 
 
@@ -111,8 +112,7 @@ Everybody join hands together now to install some gems ...
  #
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
- sudo gem install rake rdoc packet haml
- sudo gem install paperclip rubycas-client ssl_requirement
+ sudo gem install rake rdoc
  sudo gem install rails -v 2.3.8
  #
  # The rest should actually install with ...
@@ -181,7 +181,7 @@ Tomcat will unarchive the war file and DESTROY the existing unarchived version! 
 
  ( warble from a jruby environment to get the jruby specific gems )
 
- [jakewendt@dev : ucb_sph_ccls_homex ]>
+ [jakewendt@dev : ucb_ccls_homex ]>
  bash
  rvm use jruby
  warble
