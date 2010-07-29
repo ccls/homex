@@ -9,6 +9,7 @@ log/*
 tmp/**/*
 coverage
 coverage.data
+config/s3.yml
 config/fed_ex.yml
 config/database.yml
 config/initializers/session_store.rb
