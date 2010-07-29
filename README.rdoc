@@ -125,6 +125,11 @@ Everybody join hands together now to install some gems ...
  #	Specify -J-Xmx####m to increase it (#### = cap size in MB).
  #	Specify -w for full OutOfMemoryError stack trace
  #
+ #    or
+ #
+ #  /Users/jake/.rvm/rubies/jruby-1.5.0.RC1/bin/gem:13:in `require': 
+ #  load error: rubygems -- java.lang.OutOfMemoryError: Java heap space (LoadError)
+ #
  # ... but a rerun continued and completed.
  #
  sudo rake gems:install
