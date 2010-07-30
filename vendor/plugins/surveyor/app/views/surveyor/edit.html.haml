@@ -21,6 +21,11 @@
       .questions
         - group_questions ||= []
         - @questions.each_with_index do |question, index|
+          - if question.is_a?(Array) && index.nil?
+            -#
+            -#  jruby-1.5.0 does each_with_index WRONG
+            -#
+            = question, index = *question
           - unless question.part_of_group?
             = render(:partial => question.custom_renderer || "/partials/question", :locals => {:question => question, :response_set => @response_set})
           - else # gather up the group questions
