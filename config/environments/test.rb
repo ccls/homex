@@ -29,24 +29,22 @@ config.action_mailer.delivery_method = :test
 
 
 
+if RUBY_PLATFORM =~ /java/
+	config.gem 'activerecord-jdbcsqlite3-adapter',
+		:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
+	config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
+else
+	config.gem "sqlite3-ruby", :lib => "sqlite3"
+end
+
 config.gem "rcov"
 
 #	Without the :lib => false, the 'rake test' actually fails?
 config.gem "mocha", :lib => false
 
+config.gem "autotest-rails", :lib => 'autotest/rails'
 
-if RUBY_PLATFORM =~ /java/
-	config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
-else
-	config.gem "sqlite3-ruby", :lib => "sqlite3"
-	config.gem "autotest-rails", :lib => 'autotest/rails'
-# testing fails in rvm/jruby with ...
-# /Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.3.1/lib/zentest.rb
-# :3:in `each_object': ObjectSpace is disabled; each_object will only work
-# with Class, pass -X+O to enable (RuntimeError)
-#	if ZenTest is added
-	config.gem "ZenTest"
-end
+config.gem "ZenTest"
 
 config.gem "thoughtbot-factory_girl",
 	:lib    => "factory_girl",
