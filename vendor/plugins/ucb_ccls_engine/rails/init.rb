@@ -112,6 +112,10 @@ config.after_initialize do
 		require 'file_utils_extension'
 	end
 
+	ActionView::Helpers::AssetTagHelper.register_javascript_include_default(
+		'ucb_ccls_engine.js')
+	ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion( 
+		:defaults => ['scaffold','application'] )
 end	#	config.after_initialize
 
 require 'date_and_time_formats'
