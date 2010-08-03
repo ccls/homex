@@ -1,17 +1,16 @@
 = UCB CCLS Engine
 
-Introduction goes here.
+This is both a plugin engine and a basic rails app.
 
+== Expectations
 
-== Example
+* ../../aaronchi/jrails or ../jrails plugin
 
-Example goes here.
+== Testing
 
-
-
-== Notes
-
-In order for plugin routes to load, there must be an app dir in the plugin.
-
+ rake db:migrate
+ rake db:fixtures:load
+ rake test
+ script/server
 
 Copyright (c) 2010 [Jake Wendt], released under the MIT license
