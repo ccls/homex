@@ -7,8 +7,10 @@ jQuery(function(){
 	jQuery('p.flash').click(function(){$(this).remove();});
 
 	var root = (location.host == 'ccls.berkeley.edu')?'/homex':''
-	jQuery.getScript(root + 
+	jQuery.getScript(root + '/pages/translate.js');
+/*
 		'/javascripts/cache_helper.js?caller=' +
 		location.pathname.replace(new RegExp('^' + root),'') );
+*/
 
 });
