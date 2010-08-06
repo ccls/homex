@@ -4,16 +4,16 @@ class UsersControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'User',
-		:actions => [:index,:show],
+		:actions => [:destroy,:index,:show],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
 
-	def factory_attributes(options={})
-		Factory.attributes_for(:user,options)
+	def factory_attributes
+		Factory.attributes_for(:user)
 	end
-	def factory_create(options={})
-		Factory(:user,options)
+	def factory_create
+		Factory(:user)
 	end
 
 	assert_access_with_login({ 
@@ -56,6 +56,14 @@ class UsersControllerTest < ActionController::TestCase
 		assert_response :success
 	end
 
+	test "should get private users menu via js with #{cu} login" do
+		login_as send(cu)
+		@request.accept = "text/javascript"
+		get :menu
+		assert_response :success
+		assert_match /jQuery/, @response.body
+	end
+
 end
 
 %w( admin moderator employee editor active_user ).each do |cu|
@@ -77,6 +85,21 @@ end
 	end
 
 end
+
+	test "should get empty private users menu via js without login" do
+		@request.accept = "text/javascript"
+		get :menu
+		assert_response :success
+		assert_match /\A\s*\z/, @response.body
+	end
+
+
+
+
+
+
+
+
 
 
 
