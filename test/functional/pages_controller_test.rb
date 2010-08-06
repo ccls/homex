@@ -235,6 +235,23 @@ end
 		assert_select 'title', page.title
 	end
 
+#	test "ENGINE layout should include aws image" do
+#		page = Factory(:page)
+#		get :show, :id => page.id
+#		assert_select 'img'	#	can't get more specific with assert_select
+##<img alt=\"three_bears.jpg\" src=\"https://s3.amazonaws.com/ccls/images/three_bears.jpg\" />
+#		assert_not_nil @response.body.match(/alt="three_bears.jpg/)
+#		assert_not_nil @response.body.match(
+#			/src="https?:\/\/s3.amazonaws.com\/ccls\/images\/three_bears.jpg/)
+#	end
+
+	test "should get translate via js without login" do
+		@request.accept = "text/javascript"
+		get :translate
+		assert_response :success
+		assert_match /jQuery/, @response.body
+	end
+
 	#	Test all page fixtures for menus
 	Page.all.each do |page|
 		test "should get show for page id #{page.id}" do
