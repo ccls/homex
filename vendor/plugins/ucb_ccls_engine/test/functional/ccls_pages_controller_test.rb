@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+module Ccls
 class PagesControllerTest < ActionController::TestCase
+	tests PagesController
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Page',
@@ -215,17 +217,6 @@ end
 		assert_select 'title', page.title
 	end
 
-#	test "should show HOME page with HPP" do
-#		hpp = Factory(:home_page_pic,
-#			:image_file_name => 'some_fake_file_name')
-#		page = Page.by_path('/')
-#		get :show, :id => page.id
-#		assert_not_nil assigns(:hpp)
-#		assert_template 'show'
-#		assert_response :success
-#		assert_select 'title', page.title
-#	end
-
 	test "should show HOME page without HPP" do
 		page = Page.by_path('/')
 		get :show, :id => page.id
@@ -233,16 +224,6 @@ end
 		assert_template 'show'
 		assert_response :success
 		assert_select 'title', page.title
-	end
-
-	test "ENGINE layout should include aws image" do
-		page = Factory(:page)
-		get :show, :id => page.id
-		assert_select 'img'	#	can't get more specific with assert_select
-#<img alt=\"three_bears.jpg\" src=\"https://s3.amazonaws.com/ccls/images/three_bears.jpg\" />
-		assert_not_nil @response.body.match(/alt="three_bears.jpg/)
-		assert_not_nil @response.body.match(
-			/src="https?:\/\/s3.amazonaws.com\/ccls\/images\/three_bears.jpg/)
 	end
 
 	test "should get translate via js without login" do
@@ -269,4 +250,5 @@ end
 		end
 	end
 
+end
 end
