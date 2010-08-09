@@ -1,7 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-module Ccls
-class UserInvitationMailerTest < ActionMailer::TestCase
+class Ccls::UserInvitationMailerTest < ActionMailer::TestCase
+
+#	This probably requires something like
+#		tests UserInvitationMailer
+#	if it actually ever is used.
 
 #	We are using UCB CAS for authentication so this is unused.
 #	If Authlogic or other is reused, uncomment all this.
@@ -36,5 +39,4 @@ class UserInvitationMailerTest < ActionMailer::TestCase
 #		assert_nil @invitation.sent_at
 #	end
 
-end
 end
