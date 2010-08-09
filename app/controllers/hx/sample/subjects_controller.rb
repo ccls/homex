@@ -20,10 +20,6 @@ class Hx::Sample::SubjectsController < HxApplicationController
 protected
 
 	def get_subjects
-
-#	interview outcome == 'complete'
-#	sample outcome != 'complete'
-
 		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
@@ -31,7 +27,12 @@ protected
 #		params[:projects] ||= {}
 #		params[:projects][hx.id] ||= {}
 #		@subjects = Subject.search(params)
-		@subjects = hx.subjects.search(params)
+		@subjects = hx.subjects.search(params.merge(
+			#	interview outcome == 'complete'
+			#	sample outcome != 'complete'
+			:interview_outcome => 'complete',
+			:sample_outcome => 'incomplete'
+		))
 	end
 
 end

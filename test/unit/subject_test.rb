@@ -7,7 +7,7 @@ class SubjectTest < ActiveSupport::TestCase
 		:operational_events,:enrollments, :samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
-		:identifier)
+		:identifier,:homex_outcome)
 	assert_should_require(:subjectid)
 	assert_should_require_unique(:subjectid)
 
@@ -1001,122 +1001,155 @@ pending
 	end
 
 	test "search should order by childid asc by default" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '9'))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '3' ))
-		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '6' ))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '9'))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '3' ))
+		s3 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by childid asc" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '9'))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '3' ))
-		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '6' ))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '9'))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '3' ))
+		s3 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid', :dir => 'asc')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by childid desc" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '9'))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '3' ))
-		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :childid => '6' ))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '9'))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '3' ))
+		s3 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :childid => '6' ))
 		subjects = Subject.search(:order => 'childid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by studyid asc" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '9' ))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '3' ))
-		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '6' ))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '9' ))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '3' ))
+		s3 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '6' ))
 		subjects = Subject.search(:order => 'studyid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by studyid desc" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '9' ))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '3' ))
-		s3 = create_subject(:identifier_attributes => Factory.attributes_for(
-			:identifier, :patid => '6' ))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '9' ))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '3' ))
+		s3 = create_subject(
+			:identifier_attributes => Factory.attributes_for(
+				:identifier, :patid => '6' ))
 		subjects = Subject.search(:order => 'studyid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by last_name asc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '6' ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '9' ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '3' ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '6' ))
 		subjects = Subject.search(:order => 'last_name')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by last_name desc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => '6' ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '9' ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '3' ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => '6' ))
 		subjects = Subject.search(:order => 'last_name', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by first_name asc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '6' ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '9' ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '3' ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '6' ))
 		subjects = Subject.search(:order => 'first_name')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by first_name desc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '9' ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '3' ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => '6' ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '9' ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '3' ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => '6' ))
 		subjects = Subject.search(:order => 'first_name', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "search should order by dob asc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2005') ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2001') ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2003') ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2005') ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2001') ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2003') ))
 		subjects = Subject.search(:order => 'dob')
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "search should order by dob desc" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2005') ))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2001') ))
-		s3 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:dob => Time.parse('12/31/2003') ))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2005') ))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2001') ))
+		s3 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse('12/31/2003') ))
 		subjects = Subject.search(:order => 'dob', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
@@ -1134,38 +1167,46 @@ pending
 #	end
 
 	test "search should include subject by q first_name" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => 'Michael'))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:first_name => 'Bob'))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => 'Michael'))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => 'Bob'))
 		subjects = Subject.search(:q => 'mi ch ha')
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "search should include subject by q last_name" do
-		s1 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => 'Michael'))
-		s2 = create_subject(:pii_attributes => Factory.attributes_for(:pii, 
-			:last_name => 'Bob'))
+		s1 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => 'Michael'))
+		s2 = create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => 'Bob'))
 		subjects = Subject.search(:q => 'cha ael')
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "search should include subject by q childid" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier,
-			:childid => 999999))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(:identifier,
+				:childid => 999999))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(:identifier))
 		subjects = Subject.search(:q => s1.identifier.childid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "search should include subject by q patid" do
-		s1 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier,
-			:patid => 999999))
-		s2 = create_subject(:identifier_attributes => Factory.attributes_for(:identifier))
+		s1 = create_subject(
+			:identifier_attributes => Factory.attributes_for(:identifier,
+				:patid => 999999))
+		s2 = create_subject(
+			:identifier_attributes => Factory.attributes_for(:identifier))
 		subjects = Subject.search(:q => s1.identifier.patid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
@@ -1181,6 +1222,81 @@ pending
 #		dust_kit = create_dust_kit(:subject_id => subject.id)
 #		assert_equal 'New', subject.dust_kit_status
 #	end
+
+
+
+
+
+	test "should search for subjects with complete sample" do
+		s1 = create_subject
+		s1.create_homex_outcome(
+			:sample_outcome_id => 
+				SampleOutcome.find_by_code('Complete').id)
+		s2 = create_subject
+		s2.create_homex_outcome(
+			:sample_outcome_id => 
+				SampleOutcome.find_by_code('Incomplete').id)
+		s3 = create_subject
+		subjects = Subject.search(:sample_outcome => 'Complete')
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+		assert !subjects.include?(s3)
+	end
+
+	test "should search for subjects with incomplete sample" do
+		s1 = create_subject
+		s1.create_homex_outcome(
+			:sample_outcome_id => 
+				SampleOutcome.find_by_code('Complete').id)
+		s2 = create_subject
+		s2.create_homex_outcome(
+			:sample_outcome_id => 
+				SampleOutcome.find_by_code('Incomplete').id)
+		s3 = create_subject
+		subjects = Subject.search(:sample_outcome => 'Incomplete')
+		assert !subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert  subjects.include?(s3)
+	end
+
+	test "should search for subjects with complete interview" do
+		s1 = create_subject
+		s1.create_homex_outcome(
+			:interview_outcome_id => 
+				InterviewOutcome.find_by_code('Complete').id)
+		s2 = create_subject
+		s2.create_homex_outcome(
+			:interview_outcome_id => 
+				InterviewOutcome.find_by_code('Incomplete').id)
+		s3 = create_subject
+		subjects = Subject.search(:interview_outcome => 'Complete')
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+		assert !subjects.include?(s3)
+	end
+
+	test "should search for subjects with incomplete interview" do
+		s1 = create_subject
+		s1.create_homex_outcome(
+			:interview_outcome_id => 
+				InterviewOutcome.find_by_code('Complete').id)
+		s2 = create_subject
+		s2.create_homex_outcome(
+			:interview_outcome_id => 
+				InterviewOutcome.find_by_code('Incomplete').id)
+		s3 = create_subject
+		subjects = Subject.search(:interview_outcome => 'Incomplete')
+		assert !subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert  subjects.include?(s3)
+	end
+
+
+
+
+
+
+
 
 protected
 

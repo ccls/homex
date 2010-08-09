@@ -51,6 +51,10 @@ end
 Factory.define :dust_kit do |f|
 end
 
+Factory.define :homex_outcome do |f|
+	f.association :subject
+end
+
 Factory.define :home_exposure_event do |f|
 #	f.association :subject
 end
@@ -77,6 +81,10 @@ end
 Factory.define :interview_method do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
+Factory.define :interview_outcome do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 end
 
 Factory.define :interview_type do |f|
@@ -160,6 +168,10 @@ end
 
 Factory.define :sample_kit do |f|
 	f.association :sample
+end
+
+Factory.define :sample_outcome do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
 end
 
 Factory.define :sample_type do |f|

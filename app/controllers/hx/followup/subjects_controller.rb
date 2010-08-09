@@ -3,10 +3,6 @@ class Hx::Followup::SubjectsController < HxApplicationController
 	before_filter :may_view_subjects_required
 
 	def index
-
-#	interview outcome == 'complete'
-#	sample outcome == 'complete'
-
 		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
@@ -14,7 +10,12 @@ class Hx::Followup::SubjectsController < HxApplicationController
 #		params[:projects] ||= {}
 #		params[:projects][hx.id] ||= {}
 #		@subjects = Subject.search(params)
-		@subjects = hx.subjects.search(params)
+		@subjects = hx.subjects.search(params.merge(
+			#	interview outcome == 'complete'
+			#	sample outcome == 'complete'
+			:interview_outcome => 'complete',
+			:sample_outcome => 'complete'
+		))
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
