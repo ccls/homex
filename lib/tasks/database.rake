@@ -47,7 +47,8 @@ namespace :db do
 			puts line
 
 			#	due to padding it with zeros, NEED this to be an Integer
-			subject = Subject.find_by_subjectid(line[0].to_i)
+			#	doesn't work correctly in sqlite so just pad it before search
+			subject = Subject.find_by_subjectid(sprintf("%06d",line[0].to_i))
 			raise ActiveRecord::RecordNotFound unless subject
 
 			address_type = AddressType.find(line[1].to_s)
