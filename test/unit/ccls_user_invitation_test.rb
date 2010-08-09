@@ -1,10 +1,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+module Ccls
 class UserInvitationTest < ActiveSupport::TestCase
 
-	assert_requires_valid_associations(:sender)
-	assert_should_initially_belong_to(:sender,:class_name => 'User')
-	assert_should_require(:email)
+	assert_requires_valid_associations(:sender,
+		:model => 'UserInvitation')
+	assert_should_initially_belong_to(:sender,:class_name => 'User',
+		:model => 'UserInvitation')
+	assert_should_require(:email,
+		:model => 'UserInvitation')
 
 	test "should create invitation" do
 		assert_difference 'UserInvitation.count' do
@@ -29,12 +33,6 @@ class UserInvitationTest < ActiveSupport::TestCase
 			assert object.errors.on(:token)
 		end
 	end
-
-#	test "should belong to a sender" do
-#		object = create_object
-#		assert_not_nil object.sender
-#		assert object.sender.is_a?(User)
-#	end
 
 	test "should be findable by token" do
 		ui = UserInvitation.find_by_token('blah blah blah')
@@ -83,4 +81,5 @@ protected
 		record
 	end
 
+end
 end

@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
+module Ccls
 class RolesControllerTest < ActionController::TestCase
+	tests RolesController
 
 %w( admin ).each do |cu|
 
@@ -66,6 +68,7 @@ class RolesControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_equal u, assigns(:user)
 		assert_redirected_to user_path(assigns(:user))
+#		assert_redirected_to root_path
 	end
 
 	test "should NOT destroy self with #{cu} login" do
@@ -77,6 +80,7 @@ class RolesControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 		assert_equal u, assigns(:user)
 		assert_redirected_to user_path(assigns(:user))
+#		assert_redirected_to root_path
 	end
 
 	test "should NOT update without valid role_name with #{cu} login" do
@@ -146,4 +150,5 @@ end
 		assert_redirected_to_login
 	end
 
+end
 end
