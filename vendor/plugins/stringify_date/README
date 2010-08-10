@@ -1,7 +1,8 @@
 StringifyDate
 =============
 
-Introduction goes here.
+Based on tutorial from 
+{Ryan Bates}[http://railscasts.com/episodes/33-making-a-plugin]
 
 
 Example
@@ -10,4 +11,4 @@ Example
 Example goes here.
 
 
-Copyright (c) 2008 [name of plugin creator], released under the MIT license
+Copyright (c) 2008 [Jake Wendt & Ryan Bates], released under the MIT license

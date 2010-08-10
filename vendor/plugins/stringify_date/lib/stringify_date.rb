@@ -33,4 +33,4 @@ module StringifyDate
     end
   end
 end
-
+ActiveRecord::Base.send(:extend, StringifyDate)
