@@ -81,15 +81,17 @@ namespace :db do
 			puts "Processing line #{f.lineno}"
 			puts line
 
-			subject_type = SubjectType.find_or_create_by_code({
-				:code => 'TEST', :description => 'TEST' })
+			subject_type = SubjectType.find_by_code('Case')
+#			subject_type = SubjectType.find_or_create_by_code({
+#				:code => 'TEST', :description => 'TEST' })
 #			subject_type = SubjectType.find_or_create_by_description('TEST')
 #			subject_type = SubjectType.find_or_create_by_description(
 #				line[2])
 
 			#	TODO	(not included in csv)
-			race = Race.find_or_create_by_description({
-				:code => 'TEST', :description => 'TEST' })
+			race = Race.find_by_code(1)
+#			race = Race.find_or_create_by_description({
+#				:code => 'TEST', :description => 'TEST' })
 
 			dob = (line[6].blank?)?'':Time.parse(line[6])
 			refdate = (line[7].blank?)?'':Time.parse(line[7])
