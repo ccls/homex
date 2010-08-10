@@ -18,6 +18,7 @@ Warbler::Config.new do |config|
 	# Additional files/directories to exclude
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
+		db/*sqlite3
 		versions
 		versions/**/*
 		.DS_Store
