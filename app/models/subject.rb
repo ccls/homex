@@ -34,7 +34,9 @@ class Subject < ActiveRecord::Base
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
 		:to => :identifier, :allow_nil => true
 
-	attr_protected :subjectid
+#	Can't do this as WE NEED to set this.
+#	Would be nice if there was an update_attributes filter or something
+#	attr_protected :subjectid
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly

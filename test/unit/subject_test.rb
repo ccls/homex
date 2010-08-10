@@ -10,6 +10,7 @@ class SubjectTest < ActiveSupport::TestCase
 		:identifier,:homex_outcome)
 	assert_should_require(:subjectid)
 	assert_should_require_unique(:subjectid)
+#	assert_should_protect_attributes(:subjectid)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
