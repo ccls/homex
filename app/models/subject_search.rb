@@ -1,8 +1,10 @@
 class SubjectSearch < Search
 
 	@@searchable_attributes = [
-		:race, :type, :races, :types
+		:race, :type, :races, :types, :vital_statuses
 	]
+
+	includes= [:pii,:identifier]
 
 	def subjects
 		@subjects ||= Subject.send(
@@ -24,21 +26,33 @@ private	#	THIS IS REQUIRED
 
 	#	we should probably keep this more MySQL than Rails
 
+	def vital_statuses_joins
+		"INNER JOIN vital_statuses ON vital_statuses.id " <<
+			"= subjects.vital_status_id" unless vital_statuses.blank?
+	end
+
+	def vital_statuses_conditions
+		['vital_statuses.code IN (?)', *vital_statuses
+			] unless vital_statuses.blank?
+	end
+
 	def races_joins
-		#	INNER JOIN `races` ON `races`.id = `subjects`.race_id
-		:race unless races.blank?
+		"INNER JOIN races ON races.id = subjects.race_id" unless races.blank?
 	end
 
 	def races_conditions
-		['races.description IN (?)', *races] unless races.blank?
+		['races.description IN (?)', *races
+			] unless races.blank?
 	end
 
 	def types_joins
-		:subject_type unless types.blank?
+		"INNER JOIN subject_types ON subject_types.id " <<
+			"= subjects.subject_type_id" unless types.blank?
 	end
 
 	def types_conditions
-		['subject_types.description IN (?)', *types] unless types.blank?
+		['subject_types.description IN (?)', *types
+			] unless types.blank?
 	end
 
 end

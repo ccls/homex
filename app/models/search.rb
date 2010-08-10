@@ -4,7 +4,6 @@
 class Search
 
 	@@searchable_attributes = []
-
 	@@attr_accessors = [ :order, :includes, 
 		:paginate, :per_page, :page ]
 	attr_accessor *@@attr_accessors
