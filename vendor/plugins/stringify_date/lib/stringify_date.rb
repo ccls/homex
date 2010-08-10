@@ -12,7 +12,8 @@ module StringifyDate
 	def stringify_date(*names)
 		names.each do |name|
 			define_method "#{name}_string" do
-				read_attribute(name).to_s(:db) unless read_attribute(name).nil?
+#				read_attribute(name).to_s(:db) unless read_attribute(name).nil?
+				read_attribute(name).to_date.to_s(:db) unless read_attribute(name).nil?
 			end
 			
 			define_method "#{name}_string=" do |date_str|
