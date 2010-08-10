@@ -1235,7 +1235,7 @@ pending
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Incomplete').id)
+				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
 		subjects = Subject.search(:sample_outcome => 'Complete')
 		assert  subjects.include?(s1)
@@ -1251,7 +1251,7 @@ pending
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Incomplete').id)
+				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
 		subjects = Subject.search(:sample_outcome => 'Incomplete')
 		assert !subjects.include?(s1)
