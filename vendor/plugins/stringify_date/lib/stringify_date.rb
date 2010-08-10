@@ -22,9 +22,10 @@ module StringifyDate
 					begin
 #						write_attribute(name, Date.parse(date_str)) 
 #				Chronic.parse will not raise an error to rescue from
-						date = Chronic.parse(date_str)
+#	chronic actually returns a time
+						date = Chronic.parse(date_str)	
 						raise ArgumentError if date.nil?
-						write_attribute(name, date)
+						write_attribute(name, date.to_date)
 					rescue ArgumentError
 						instance_variable_set("@#{name}_invalid", true)
 					end
