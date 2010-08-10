@@ -36,7 +36,9 @@ class Pii < ActiveRecord::Base
 	end
 
 	def dob	#	overwrite default dob method for formatting
-		read_attribute(:dob).try(:to_s,:dob)
+		#	added to_date to fix sqlite3 quirk which doesn't
+		#	differentiate between times and dates.
+		read_attribute(:dob).try(:to_s,:dob).try(:to_date)
 	end
 
 protected

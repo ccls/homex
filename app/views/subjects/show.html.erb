@@ -10,8 +10,7 @@
 </div><!-- end column 1 -->
 
 <div><!-- column 2 -->
-<%# to_date to fix sqlite3 quirk %>
-<div>birth date:&nbsp;<%= @subject.dob.to_date -%></div>
+<div>birth date:&nbsp;<%= @subject.dob -%></div>
 <div>sex:&nbsp;
 <% unless @subject.sex.blank? %>
 <%= (@subject.sex.match(/f/i))?'female':'male' -%>
