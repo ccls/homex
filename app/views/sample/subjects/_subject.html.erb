@@ -1,0 +1,36 @@
+<% content_tag_for( :tr, subject, :class => 'row' ) do %>
+<td class='childid'><%= link_to subject.childid, sample_subject_path(subject) -%></td>
+<td class='studyid'>
+<%= subject.studyid %>
+</td>
+<td class='last_name'>
+<%= subject.last_name %>
+</td>
+<td class='first_name'>
+<%= subject.first_name %>
+</td>
+<td class='dust_outcome'>
+dust outcome
+</td>
+<td class='interview_completion_date'>
+inteview completion date
+</td>
+
+
+<%# if subject.dust_kit %>
+<td class='kit_sent_on'>
+<%#= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+</td>
+<td class='kit_received_on'>
+<%#= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+</td>
+<!--
+<%# else %>
+<td class='send_kit' colspan='2'>
+<%#= link_to 'Send Kit', new_subject_dust_kit_path(subject) %>
+</td>
+<%# end %>
+-->
+
+
+<% end %><%# content_tag_for %>

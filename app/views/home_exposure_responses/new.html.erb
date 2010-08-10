@@ -1,0 +1,59 @@
+<% stylesheets('home_exposure_responses') %>
+<h1>Merge Survey Data</h1>
+
+<p>Subject id: <%=@subject.id%></p>
+
+<%
+	q_and_a_codes = [
+		@response_sets[0].q_and_a_codes_as_attributes,
+		@response_sets[1].q_and_a_codes_as_attributes
+	]
+	c_and_t = [
+		@response_sets[0].codes_and_text,
+		@response_sets[1].codes_and_text
+	]
+%>
+
+<% form_for HomeExposureResponse.new, 
+	:url => subject_home_exposure_response_path(@subject) do |f| %>
+<table>
+<tbody>
+<% HomeExposureResponse.q_column_names.each do |column| %>
+	<% content_tag( :tr, :class => ((@diffs[column])?'diff':'') ) do %>
+		<td><%=column-%></td>
+		<td>
+<% if @diffs[column] %>
+
+
+<!--
+	<%#= f.radio_button( column, q_and_a_codes[0][column]||'' ) %>
+	<%#= f.label( column, Answer.find_by_data_export_identifier(q_and_a_codes[0][column]).try(:text)||'(no answer)' ) %>
+<br/>
+	<%#= f.radio_button( column, q_and_a_codes[1][column]||'',
+		:checked => true ) %>
+	<%#= f.label( column, Answer.find_by_data_export_identifier(q_and_a_codes[1][column]).try(:text)||'(no answer)' ) %>
+<%# else %>
+	<%#= f.text_field column, :value => q_and_a_codes[0][column],
+		:readonly => true %>
+-->
+
+	<%= f.radio_button( column, c_and_t[0][column][:a_code] ) %>
+	<%= f.label( column, c_and_t[0][column][:a_text] ) %>
+<br/>
+	<%= f.radio_button( column, c_and_t[1][column][:a_code],
+		:checked => true ) %>
+	<%= f.label( column, c_and_t[1][column][:a_text]) %>
+<% else %>
+	<%= f.text_field column, :value => c_and_t[0][column][:a_code],
+		:readonly => true %>
+
+
+
+
+<% end %>
+		</td>
+	<% end %><%# content_tag %>
+<% end %><%# HomeExposureResponse.q_column_names.each %>
+</tbody></table>
+<p><%= f.submit "Create HER from selections", :name => nil, :id => nil %></p>
+<% end %><%# form_for %>

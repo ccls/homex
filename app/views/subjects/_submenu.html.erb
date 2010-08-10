@@ -1,0 +1,12 @@
+<% content_for :main do %>
+<div id='submenu'>
+<%= link_to 'general', subject_path(@subject||subject),
+	:class => ((controller.controller_name == 'subjects' && controller.action_name == 'show')?'current':nil) %>
+<a>hospital</a>
+<%= link_to 'addresses', subject_addresses_path(@subject||subject),
+	:class => ((controller.controller_name == 'addresses')?'current':nil) %>
+<%= link_to 'eligibility/enrollments', 
+	subject_enrollments_path(@subject||subject),
+	:class => ((controller.controller_name == 'enrollments')?'current':nil) %>
+</div><!-- submenu -->
+<% end %>

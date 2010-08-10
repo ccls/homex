@@ -1,5 +1,19 @@
-div.subject,
-button,
-input {
-	font-size: 18pt;
+.subject .columns {
+	padding-top:10px;
+}
+/*
+.subject .info .address {
+	margin-top: 15px;
+}
+*/
+.subject #phone_numbers {
+	clear:both;
+	margin-top: 15px;
+}
+
+.columns > div {
+	padding-right: 10px;
+}
+.columns > div:first-child {
+	width: 180px;
 }

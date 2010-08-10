@@ -1,0 +1,9 @@
+<% stylesheets('edit_enrollment') %>
+<% render 'subjects/submenu', :subject => @subject %>
+<% form_tag(subject_enrollments_path(@subject)) do %>
+
+<%= select_tag 'project_id', options_for_select(
+	@projects.collect{ |u| [u.description, u.id] }) %>
+
+<p><%= submit_tag("Create")%></p>
+<% end %>

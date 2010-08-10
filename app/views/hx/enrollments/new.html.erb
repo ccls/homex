@@ -1,9 +1,0 @@
-<% stylesheets('edit_hx_enrollment') %>
-<% render 'hx/subjects/submenu', :subject => @subject %>
-<% form_tag(hx_subject_enrollments_path(@subject)) do %>
-
-<%= select_tag 'project_id', options_for_select(
-	@projects.collect{ |u| [u.description, u.id] }) %>
-
-<p><%= submit_tag("Create")%></p>
-<% end %>

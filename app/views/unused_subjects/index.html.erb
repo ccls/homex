@@ -1,0 +1,15 @@
+<% stylesheets('unused_subjects') %>
+
+<h2>This is all still bogus development data.  Please feel free to click away and give me some feedback.</h2>
+
+<%= will_paginate @subjects %>
+
+<div id='subjects'>
+<%= render :partial => 'subject', :collection => @subjects %>
+</div>
+
+<%= will_paginate @subjects %>
+
+<%= button_link_to "Create New Subject", new_subject_path %>
+
+<%= render 'search' %>

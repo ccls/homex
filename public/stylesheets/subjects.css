@@ -1,34 +1,20 @@
-div#subjects {
-}
-
+@import url('subjects.css');
+/*
 div.childid {
+	width: 90px;
+	text-align:center;
+}
+div.studyid {
 	width: 100px;
+	text-align:center;
 }
-div.race {
-	width: 100px;
+div.last_name {
+	width: 200px;
 }
-div.subject_type {
-	width: 100px;
+div.first_name {
+	width: 200px;
 }
-
-form#subject_search {
-}
-form#subject_search .project,
-form#subject_search #races,
-form#subject_search #types {
-	float:left;
-	margin: auto 10px;
-}
-form#subject_search ul {
-	padding-left: 5px;
-}
-form#subject_search ul li {
-	list-style-type: none;
-}
-form#subject_search div#something {
-	clear:both;
-}
-
-form#subject_search input[type='submit']{
-	font-size:12pt;
+*/
+span.arrow {
+	padding-left:0.5ex;
 }

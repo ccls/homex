@@ -1,8 +1,76 @@
-<% stylesheets('subject') %>
+<% stylesheets('subject','addresses') %>
+<% render 'subjects/submenu' %>
+<% render 'subjects/id_bar' %>
 
 <% content_tag_for( :div, @subject ) do %>
-<div class='id'>Subject: <%= @subject.full_name -%></div>
+<div class='info columns'>
 
-<%= render :partial => 'project', :collection => @projects %>
+<div><!-- column 1 -->
+<div class='full_name'><%= @subject.full_name -%></div>
+</div><!-- end column 1 -->
+
+<div><!-- column 2 -->
+<div>birth date:&nbsp;<%= @subject.dob -%></div>
+<div>sex:&nbsp;
+<% unless @subject.sex.blank? %>
+<%= (@subject.sex.match(/f/i))?'female':'male' -%>
+<% end %>
+</div>
+</div><!-- end column 2 -->
+
+<div><!-- column 3 -->
+<div>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></div>
+</div><!-- end column 3 -->
+
+<div><!-- column 4 -->
+<div>vital status:&nbsp;</div>
+</div><!-- end column 4 -->
+
+</div><!-- class='info' -->
+
+<div class='contact_info columns'>
+<div>&nbsp;</div><!-- placeholder -->
+<div><!-- column 2 -->
+<div id='addresses'>
+<%= render :partial => 'addresses/address', 
+		:collection => @subject.addresses, :locals => { :edit => false } %>
+</div><!-- id='addresses' -->
+<div id='phone_numbers'>
+<% %w( primary alternate alternate_2 alternate_3 ).each do |p| %>
+<% unless (( phone_number = @subject.pii.try("phone_#{p}")).blank? )%>
+<%= "#{phone_number} #{p}" %><br/>
+<% end %>
+<% end %>
+</div><!-- id='phone_numbers' -->
+</div><!-- end column 2 -->
+</div><!-- class='contact_info columns' -->
+
+<div class='parent_info columns'>
+<div><!-- column 1 -->
+<span>Parent Info:</span>
+</div><!-- end column 1 -->
+
+<div><!-- column 2 -->
+<div><span>Mother:&nbsp;</span><span><%= @subject.mothers_name %></span></div>
+<div><span>Father:&nbsp;</span><span><%= @subject.fathers_name %></span></div>
+</div><!-- end column 2 -->
+
+</div><!-- class='parent_info' -->
+
+
+<div class='temporary columns'>
+
+<div>
+<span>Temporary:</span>
+</div>
+
+<div>
+<%# if @subject.dust_kit %>
+<%#= link_to 'Dust Kit Tracks', subject_dust_kit_path(@subject) %>
+<%# end %>
+</div>
+
+</div><!-- class='temporary' -->
+
 
 <% end %><%# content_tag_for %>

@@ -8,14 +8,15 @@ module ApplicationHelper
 
 		#	TODO : subjects is always current with namespace changes
 
-		l = [link_to( "Subjects", hx_subjects_path,
-			:class => (%w(subjects addresses enrollments).include?(controller_name)  && names.length < 3 )?'current':nil)]
+		l = [link_to( "Subjects", subjects_path,
+			:class => (%w(subjects addresses enrollments).include?(controller_name)  && names.length < 2 )?'current':nil)]
+		#	2 is the namespace depth
 
-		l.push(link_to( "Interview", hx_interview_subjects_path,  
+		l.push(link_to( "Interview", interview_subjects_path,  
 			:class => (names.include?('Interview'))?'current':nil))
-		l.push(link_to( "Samples", hx_sample_subjects_path,
+		l.push(link_to( "Samples", sample_subjects_path,
 			:class => (names.include?('Sample'))?'current':nil))
-		l.push(link_to( "Follow-Up", hx_followup_subjects_path,
+		l.push(link_to( "Follow-Up", followup_subjects_path,
 			:class => (names.include?('Followup'))?'current':nil))
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"

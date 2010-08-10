@@ -1,0 +1,26 @@
+<% content_tag_for( :tr, enrollment, :class => 'row' ) do %>
+<td class='project'>
+<%= link_to enrollment.project.code, 
+	enrollment_path(enrollment) %>
+</td>
+<td class='candidate'>
+<%#= ((x=enrollment.is_candidate).blank?)?'&nbsp;':x %>
+<%= enrollment.is_candidate %>
+</td>
+<td class='locate'>
+<%#= ((x=enrollment.able_to_locate).blank?)?'&nbsp;':x %>
+<%= enrollment.able_to_locate %>
+</td>
+<td class='eligible'>
+<%#= ((x=enrollment.is_eligible).blank?)?'&nbsp;':x %>
+<%= enrollment.is_eligible %>
+</td>
+<td class='consented'>
+<%#= enrollment.consented_on||'&nbsp;' %>
+<%= enrollment.consented_on %>
+</td>
+<td class='completed'>
+<%#= enrollment.completed_on||'&nbsp;' %>
+<%= enrollment.completed_on %>
+</td>
+<% end %>

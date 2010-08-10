@@ -21,7 +21,7 @@ protected
 			@subject = Subject.find(id)
 		else
 			access_denied("Valid subject id required!", 
-				redirect || hx_subjects_path)
+				redirect || subjects_path)
 		end
 	end
 

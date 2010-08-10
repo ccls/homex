@@ -1,0 +1,8 @@
+<% stylesheets('unused_subject') %>
+
+<% content_tag_for( :div, @subject ) do %>
+<div class='id'>Subject: <%= @subject.full_name -%></div>
+
+<%= render :partial => 'project', :collection => @projects %>
+
+<% end %><%# content_tag_for %>

@@ -1,0 +1,22 @@
+<% stylesheets('subject_id_bar') %>
+<% content_for :main do %>
+<div class='manage'>
+<div class='childid'>
+<span>ChildID:</span>
+<span><%= (@subject||subject).childid -%></span>
+</div><!-- class='childid' -->
+<div class='studyid'>
+<span>StudyID:</span>
+<span><%= (@subject||subject).studyid -%></span>
+</div><!-- class='studyid' -->
+<div class='controls'>
+<%= ( current_user.may_edit_subjects? ) ?
+	link_to( "edit", edit_subject_path(@subject||subject) ) : '&nbsp;' %>
+</div><!-- class='controls' -->
+</div><!-- class='manage' -->
+<% end %>
+<% content_for :main do %>
+<div id='do_not_contact'>
+Subject requests no further contact with Study.
+</div>
+<% end if (@subject||subject).do_not_contact %>
