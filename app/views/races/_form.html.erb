@@ -1,0 +1,13 @@
+<% stylesheets('race') %>
+
+<% form_for(@race) do |f| %>
+	<%= f.error_messages %>
+
+	Race:
+	<%= f.label :code %><br/>
+	<%= f.text_field :code %><br/>
+
+	<%= f.label :description %><br/>
+	<%= f.text_field :description %><br/>
+	<p><%= f.submit( (@race.new_record?)?'Create':'Update' ) %></p>
+<% end %>

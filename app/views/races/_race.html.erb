@@ -1,0 +1,12 @@
+<% content_tag_for :tr, race, :class => 'row' do %>
+	<td class='code'>
+		<%= race.code %>
+	</td>
+	<td class='description'>
+		<%= race.description %>
+	</td>
+	<td class='manage'>
+		<%= link_to 'Edit', edit_race_path(race), :style => 'float:left;' %>
+		<%= destroy_link_to 'Destroy', race_path(race) %>
+	</td>
+<% end %>

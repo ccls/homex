@@ -64,6 +64,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :survey_finished, :only => :show
 
 	map.resources :projects
+	map.resources :races
 
 
 	#	MUST BE LAST OR WILL BLOCK ALL OTHER ROUTES!
