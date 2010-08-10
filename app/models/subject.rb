@@ -34,6 +34,8 @@ class Subject < ActiveRecord::Base
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
 		:to => :identifier, :allow_nil => true
 
+	attr_protected :subjectid
+
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
 	#	s.update_attributes({"pii_attributes" => { "ssn" => "123456789", 'state_id_no' => 'x'}})
