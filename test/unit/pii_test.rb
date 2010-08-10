@@ -44,7 +44,33 @@ class PiiTest < ActiveSupport::TestCase
 	end
 
 	test "should require properly formated email address" do
-		pending
+		assert_difference( 'Pii.count', 0 ) do
+			%w( asdf me@some@where.com ).each do |bad_email|
+				object = create_object(:email => bad_email)
+				assert object.errors.on(:email)
+			end
+		end
+		assert_difference( 'Pii.count', 1 ) do
+			%w( me@some.where.com ).each do |god_email|
+				object = create_object(:email => god_email)
+				assert !object.errors.on(:email)
+			end
+		end
+	end
+
+	test "should require properly formated phone numbers" do
+		%w( asdf me@some@where.com ).each do |bad_phone|
+			assert_difference( 'Pii.count', 0 ) do
+				object = create_object(:phone_primary => bad_phone)
+				assert object.errors.on(:phone_primary)
+			end
+		end
+		[ "(123)456-7890", "1234567890" ].each do |good_phone|
+			assert_difference( 'Pii.count', 1 ) do
+				object = create_object(:phone_primary => good_phone)
+				assert !object.errors.on(:phone_primary)
+			end
+		end
 	end
 
 protected
