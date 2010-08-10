@@ -5,14 +5,17 @@ class Search
 
 	@@searchable_attributes = []
 
-#	attr_accessor :joins, :includes, :order
+	@@attr_accessors = [ :order, :includes, 
+		:paginate, :per_page, :page ]
+	attr_accessor *@@attr_accessors
 
 private
 
 	def initialize(options={})
 		self.class.send('attr_accessor', *@@searchable_attributes)
 		options.each do |attr,value|
-			if @@searchable_attributes.include?(attr.to_sym)
+			if @@attr_accessors.include?(attr.to_sym) ||
+				@@searchable_attributes.include?(attr.to_sym)
 				self.send("#{attr}=",value)
 			end
 		end
@@ -40,7 +43,6 @@ private
 	def conditions_parts
 		private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
 	end
-
 
 	def joins
 		private_methods(false).grep(/_joins$/).map { |m| send(m) }.compact

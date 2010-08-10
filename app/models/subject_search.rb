@@ -5,14 +5,27 @@ class SubjectSearch < Search
 	]
 
 	def subjects
-		@subjects = Subject.find(:all, 
-			:joins => joins,
-			:conditions => conditions)
+		@subjects ||= Subject.send(
+			(paginate)?'paginate':'all',{
+				:include => includes,
+				:order => order,
+				:joins => joins,
+				:conditions => conditions
+			}.merge(
+				(paginate)?{
+					:per_page => per_page||25,
+					:page     => page||1
+				}:{}
+			)
+		)
 	end
 
 private	#	THIS IS REQUIRED
 
+	#	we should probably keep this more MySQL than Rails
+
 	def races_joins
+		#	INNER JOIN `races` ON `races`.id = `subjects`.race_id
 		:race unless races.blank?
 	end
 
@@ -20,11 +33,11 @@ private	#	THIS IS REQUIRED
 		['races.description IN (?)', *races] unless races.blank?
 	end
 
-	def type_joins
+	def types_joins
 		:subject_type unless types.blank?
 	end
 
-	def type_conditions
+	def types_conditions
 		['subject_types.description IN (?)', *types] unless types.blank?
 	end
 
