@@ -13,6 +13,7 @@ module StringifyDate
 		names.each do |name|
 			define_method "#{name}_string" do
 #				read_attribute(name).to_s(:db) unless read_attribute(name).nil?
+#	to_date added to fix sqlite3 quirk
 				read_attribute(name).to_date.to_s(:db) unless read_attribute(name).nil?
 			end
 			
