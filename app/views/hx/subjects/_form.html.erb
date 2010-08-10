@@ -41,8 +41,11 @@
 			<%= pii_fields.label :phone_alternate_3 %><br />
 			<%= pii_fields.text_field :phone_alternate_3 %><br/>
 
-			<%= pii_fields.label :dob %><br />
-			<%= pii_fields.text_field :dob %><br/>
+			<%= pii_fields.label :dob %>
+			(<%= link_to 'Chronic', 
+				'http://chronic.rubyforge.org',
+				:target => 'new' %> parsed field)<br />
+			<%= pii_fields.text_field :dob_string %><br/>
 
 		<% end %>
 	</div>

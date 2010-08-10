@@ -28,7 +28,7 @@ class Subject < ActiveRecord::Base
 #		:message => "must be male or female"
 
 	delegate :full_name, :email,
-		:last_name, :first_name, :dob,
+		:last_name, :first_name, :dob, :dob_string,
 		:fathers_name, :mothers_name,
 		:to => :pii, :allow_nil => true
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
