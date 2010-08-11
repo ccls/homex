@@ -203,7 +203,7 @@ class AddressesControllerTest < ActionController::TestCase
 		login_as send(cu)
 		put :update, :id => address.id,
 			:address => { :line_1 => nil }
-		assert assigns(:subject)
+		assert assigns(:address)
 		assert_response :success
 		assert_template 'edit'
 		assert_not_nil flash[:error]
