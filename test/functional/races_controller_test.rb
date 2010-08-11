@@ -16,9 +16,9 @@ class RacesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:admin] })
+		:logins => [:superuser,:admin] })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:employee,:moderator,:active_user] })
+		:logins => [:editor,:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -29,7 +29,7 @@ class RacesControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :races_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },

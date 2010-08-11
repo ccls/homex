@@ -8,16 +8,16 @@ class Followup::SubjectsControllerTest < ActionController::TestCase
 	}
 
 	assert_access_with_login({ 
-		:logins => [:admin,:employee,:editor] })
+		:logins => [:superuser,:admin,:reader,:editor] })
 	assert_no_access_with_login({ 
-		:logins => [:moderator,:active_user] })
+		:logins => [:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
 
 
-%w( admin employee editor ).each do |u|
+%w( superuser admin reader editor ).each do |u|
 
 	test "should download csv with #{u} login" do
 		login_as send(u)
@@ -28,7 +28,7 @@ class Followup::SubjectsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator active_user ).each do |u|
+%w( active_user ).each do |u|
 
 	test "should NOT download csv with #{u} login" do
 		login_as send(u)

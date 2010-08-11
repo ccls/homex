@@ -17,12 +17,12 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	assert_no_access_with_login [],{
 		:suffix => " and invalid subject_id",
 		:redirect => :home_exposure_path,
-		:login => :admin,
+		:login => :superuser,
 		:new => { :subject_id => 0 },
 		:show => { :subject_id => 0 }
 	}
 
-%w( admin employee ).each do |cu|
+%w( superuser admin reader ).each do |cu|
 
 	test "should show new with very different response sets with #{cu} login" do
 		@rs2.responses.destroy_all
@@ -181,7 +181,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator editor active_user ).each do |u|
+%w( editor active_user ).each do |u|
 
 	test "should NOT get new with #{u} login" do
 		login_as send(u)

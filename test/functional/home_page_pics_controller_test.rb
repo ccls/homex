@@ -17,9 +17,9 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login(    { 
-		:logins => [:admin,:editor] } )
+		:logins => [:superuser,:admin,:editor] } )
 	assert_no_access_with_login( { 
-		:logins => [:moderator,:employee,:active_user] } )
+		:logins => [:reader,:active_user] } )
 	assert_no_access_without_login
 
 	assert_access_with_https 
@@ -38,7 +38,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-%w( admin editor ).each do |cu|
+%w( superuser admin editor ).each do |cu|
 
 	test "should NOT create home_page_pic without valid HPP with #{cu} login" do
 		login_as send(cu)
@@ -105,7 +105,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator employee active_user ).each do |cu|
+%w( reader active_user ).each do |cu|
 
 	test "should NOT activate all with #{cu} login" do
 		login_as send(cu)

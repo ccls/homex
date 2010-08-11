@@ -17,9 +17,9 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:admin,:employee] })
+		:logins => [:superuser,:admin,:reader] })
 	assert_no_access_with_login({ 
-		:logins => [:moderator,:editor,:active_user] })
+		:logins => [:editor,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -30,7 +30,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :projects_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
@@ -38,7 +38,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-%w( admin employee ).each do |cu|
+%w( superuser admin reader ).each do |cu|
 
 #	save errors
 

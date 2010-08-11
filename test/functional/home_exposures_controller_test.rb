@@ -5,9 +5,9 @@ class HomeExposuresControllerTest < ActionController::TestCase
 	ASSERT_ACCESS_OPTIONS = { :actions => [:show] }
 
 	assert_access_with_login({
-		:logins => [:admin,:employee,:editor] })
+		:logins => [:superuser,:admin,:reader,:editor] })
 	assert_no_access_with_login({
-		:logins => [:moderator,:active_user] })
+		:logins => [:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https

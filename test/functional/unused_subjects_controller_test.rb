@@ -18,9 +18,9 @@ class UnusedSubjectsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:admin,:employee,:editor] })
+		:logins => [:superuser,:admin,:reader,:editor] })
 	assert_no_access_with_login( :create, { 
-		:logins => [:moderator,:active_user] })
+		:logins => [:active_user] })
 	assert_no_access_without_login
 
 	#	can't test create due to other requirements
@@ -32,7 +32,7 @@ class UnusedSubjectsControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :subjects_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
@@ -42,7 +42,7 @@ class UnusedSubjectsControllerTest < ActionController::TestCase
 
 
 
-%w( admin employee editor ).each do |cu|
+%w( superuser admin reader editor ).each do |cu|
 
 	test "should get index with subjects with #{cu} login" do
 		survey = Survey.find_by_access_code("home_exposure_survey")
@@ -205,7 +205,7 @@ class UnusedSubjectsControllerTest < ActionController::TestCase
 
 end
 
-%w( moderator active_user ).each do |cu|
+%w( active_user ).each do |cu|
 
 	test "should NOT create with #{cu} login" do
 		login_as send(cu)

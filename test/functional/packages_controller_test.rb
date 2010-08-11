@@ -17,9 +17,9 @@ class PackagesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({    
-		:logins => [:admin,:employee,:editor] })
+		:logins => [:superuser,:admin,:reader,:editor] })
 	assert_no_access_with_login({ 
-		:logins => [:moderator,:active_user] })
+		:logins => [:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -30,7 +30,7 @@ class PackagesControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :packages_path,
 		:update => { :id => 0 },
 		:show => { :id => 0 }, 
@@ -38,7 +38,7 @@ class PackagesControllerTest < ActionController::TestCase
 	)
 
 
-%w( admin employee editor ).each do |cu|
+%w( superuser admin reader editor ).each do |cu|
 
 	test "delivered packages should NOT have update status link with #{cu} login" do
 		factory_create(:status => "Delivered")
@@ -120,7 +120,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user moderator ).each do |cu|
+%w( active_user ).each do |cu|
 
 	test "should NOT update with #{cu} login" do
 		login_as send(cu)

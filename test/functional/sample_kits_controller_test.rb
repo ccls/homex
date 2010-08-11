@@ -25,9 +25,9 @@ class SampleKitsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:login => :admin })
+		:logins => [:superuser,:admin] })
 	assert_no_access_with_login({ 
-		:logins => [:moderator,:editor,:employee,:active_user] })
+		:logins => [:editor,:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -38,7 +38,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		:method_for_create => nil,
 		:actions => nil,
 		:suffix => " and invalid id",
-		:login => :admin,
+		:login => :superuser,
 		:redirect => :subjects_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
@@ -69,7 +69,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-%w( admin ).each do |cu|
+%w( superuser admin ).each do |cu|
 
 	test "should get new with #{cu} login" do
 		login_as send(cu)
@@ -231,7 +231,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 end
 
-%w( editor employee moderator active_user ).each do |cu|
+%w( editor reader active_user ).each do |cu|
 
 	test "should NOT get new with #{cu} login" do
 		login_as send(cu)
