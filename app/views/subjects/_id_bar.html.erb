@@ -9,8 +9,12 @@
 <span>StudyID:</span>
 <span><%= (@subject||subject).studyid -%></span>
 </div><!-- class='studyid' -->
+<div class='full_name'>
+<span><%= (@subject||subject).full_name -%></span>
+</div><!-- class='full_name' -->
 <div class='controls'>
-<%= ( current_user.may_edit_subjects? ) ?
+<%= ( current_user.may_edit_subjects? && 
+		controller.controller_name == 'subjects' ) ?
 	link_to( "edit", edit_subject_path(@subject||subject) ) : '&nbsp;' %>
 </div><!-- class='controls' -->
 </div><!-- class='manage' -->

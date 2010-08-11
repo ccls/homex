@@ -13,7 +13,7 @@ class AddressesController < HxApplicationController
 		@address = @subject.addresses.build(params[:address])
 		@address.save!
 		redirect_to subject_addresses_path(@address.subject)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address creation failed"
 		render :action => 'new'
 	end
@@ -27,7 +27,7 @@ class AddressesController < HxApplicationController
 	def update
 		@address.update_attributes!(params[:address])
 		redirect_to subject_addresses_path(@address.subject)
-	rescue ActiveRecord::RecordNotSaved
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address update failed"
 		render :action => 'edit'
 	end

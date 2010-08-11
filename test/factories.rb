@@ -2,6 +2,9 @@ Factory.define :address do |f|
 	f.association :subject
 	f.association :address_type
 	f.sequence(:line_1) { |n| "Box #{n}" }
+	f.city "Berkeley"
+	f.state "CA"
+	f.zip "12345"
 end
 
 Factory.define :address_type do |f|

@@ -11,6 +11,8 @@ class Address < ActiveRecord::Base
 	validates_presence_of :address_type_id, :address_type
 	validate :address_type_matches_line_1
 
+	validates_presence_of :line_1, :city, :state, :zip
+
 	def csz
 		"#{self.city}, #{self.state} #{self.zip}"
 	end

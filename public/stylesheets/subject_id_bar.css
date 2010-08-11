@@ -8,6 +8,11 @@
 }
 #main .manage .studyid {
 	float:left;
+	padding-right: 10px;
+}
+#main .manage .full_name {
+	float:left;
+	font-weight: bold;
 }
 #main .manage .controls {
 	text-align: right;
