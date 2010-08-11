@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PatientTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:subject)
+	assert_should_belong_to(:subject,:organization)
 
 	test "should create patient" do
 		assert_difference 'Patient.count' do

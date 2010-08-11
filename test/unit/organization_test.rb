@@ -5,7 +5,7 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_require(:code,:name)
 	assert_should_require_unique(:code,:name)
-	assert_should_have_many(:hospitals)
+	assert_should_have_many(:hospitals,:patients)
 	assert_should_have_many(:aliquots, 
 		:foreign_key => :owner_id)
 	assert_should_have_many(:incoming_transfers, 

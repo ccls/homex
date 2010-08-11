@@ -13,6 +13,7 @@ class Organization < ActiveRecord::Base
 		:class_name => 'Transfer'
 
 	has_many :hospitals
+	has_many :patients
 
 #	how
 #	has_many :samples
