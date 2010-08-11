@@ -2,7 +2,9 @@ class SurveyInvitationsController < ApplicationController
 
 	skip_before_filter :login_required, :only => :show
 
-	before_filter :may_create_survey_invitations_required, :only => :create
+#	before_filter :may_create_survey_invitations_required, :only => :create
+	before_filter :may_administrate_required, :only => :create
+
 	before_filter :valid_subject_id_required, :only => :create
 	before_filter :valid_survey_required, :only => :create
 	before_filter :valid_invitation_token_required, :only => :show

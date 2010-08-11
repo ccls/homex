@@ -15,6 +15,12 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return description as name" do
+		object = create_object
+		assert_equal object.description,
+			object.name
+	end
+
 	test "should return description as to_s" do
 		object = create_object
 		assert_equal object.description,

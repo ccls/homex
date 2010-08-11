@@ -16,6 +16,34 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require line_1" do
+		assert_difference('Address.count',0) do
+			object = create_object( :line_1 => nil )
+			assert object.errors.on(:line_1)
+		end
+	end
+
+	test "should require city" do
+		assert_difference('Address.count',0) do
+			object = create_object( :city => nil )
+			assert object.errors.on(:city)
+		end
+	end
+
+	test "should require state" do
+		assert_difference('Address.count',0) do
+			object = create_object( :state => nil )
+			assert object.errors.on(:state)
+		end
+	end
+
+	test "should require zip" do
+		assert_difference('Address.count',0) do
+			object = create_object( :zip => nil )
+			assert object.errors.on(:zip)
+		end
+	end
+
 	test "should NOT destroy residence on destroy" do
 		object = create_object
 		Factory(:residence, :address_id => object.id)

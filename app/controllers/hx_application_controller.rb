@@ -1,6 +1,7 @@
 class HxApplicationController < ApplicationController
 
-	before_filter :may_view_home_exposures_required
+#	before_filter :may_view_home_exposures_required
+	before_filter :may_view_required
 
 #	layout 'home_exposure'
 

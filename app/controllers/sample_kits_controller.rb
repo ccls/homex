@@ -1,6 +1,8 @@
 class SampleKitsController < HxApplicationController
 
-	before_filter :may_view_sample_kits_required
+#	before_filter :may_view_sample_kits_required
+	before_filter :may_administrate_required
+
 	before_filter :valid_sample_id_required,
 		:only => [ :index, :new, :create ]
 	before_filter :valid_id_required, 

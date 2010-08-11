@@ -1,6 +1,8 @@
 class PackagesController < ApplicationController
 
-	before_filter :may_view_packages_required
+#	before_filter :may_view_packages_required
+	before_filter :may_view_required
+
 	before_filter :valid_package_id_required, 
 		:except => [:new,:create,:index]
 

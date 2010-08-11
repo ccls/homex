@@ -22,7 +22,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		:show => { :subject_id => 0 }
 	}
 
-%w( superuser admin reader ).each do |cu|
+%w( superuser admin editor reader ).each do |cu|
 
 	test "should show new with very different response sets with #{cu} login" do
 		@rs2.responses.destroy_all
@@ -181,7 +181,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 end
 
-%w( editor active_user ).each do |u|
+%w( active_user ).each do |u|
 
 	test "should NOT get new with #{u} login" do
 		login_as send(u)

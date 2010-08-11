@@ -37,4 +37,58 @@ class RacesControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
+%w( superuser admin ).each do |cu|
+
+	test "should NOT create new race with #{cu} login when create fails" do
+		Race.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		assert_difference('Race.count',0) do
+			post :create, :race => factory_attributes
+		end
+		assert assigns(:race)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT create new race with #{cu} login and invalid race" do
+		login_as send(cu)
+		assert_difference('Race.count',0) do
+			post :create, :race => { }
+		end
+		assert assigns(:race)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update race with #{cu} login when update fails" do
+		race = factory_create
+		before = race.updated_at
+		sleep 1	# if updated too quickly, updated_at won't change
+		Race.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		put :update, :id => race.id,
+			:race => factory_attributes
+		after = race.reload.updated_at
+		assert_equal before.to_i,after.to_i
+		assert assigns(:race)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update race with #{cu} login and invalid race" do
+		race = factory_create
+		login_as send(cu)
+		put :update, :id => race.id,
+			:race => { :code => nil }
+		assert assigns(:race)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
+
+end
+
 end

@@ -17,9 +17,9 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:reader] })
+		:logins => [:superuser,:admin,:editor,:reader] })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:active_user] })
+		:logins => [:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -38,7 +38,7 @@ class ProjectsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-%w( superuser admin reader ).each do |cu|
+%w( superuser admin ).each do |cu|
 
 #	save errors
 

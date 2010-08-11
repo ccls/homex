@@ -1,5 +1,7 @@
 class AddressesController < HxApplicationController
 
+	before_filter :may_edit_required
+
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,

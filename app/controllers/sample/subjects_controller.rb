@@ -1,6 +1,8 @@
 class Sample::SubjectsController < HxApplicationController
 
-	before_filter :may_view_subjects_required
+#	before_filter :may_view_subjects_required
+	before_filter :may_view_required
+
 	before_filter :get_subjects, :except => :show
 	before_filter :valid_id_for_hx_subject_required,
 		:only => [:show]

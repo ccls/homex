@@ -1,6 +1,8 @@
 class RacesController < ApplicationController
 
-	before_filter :may_maintain_races_required
+#	before_filter :may_maintain_races_required
+	before_filter :may_administrate_required
+
 	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
 
 	def index

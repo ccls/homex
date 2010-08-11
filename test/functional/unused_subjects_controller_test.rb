@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UnusedSubjectsControllerTest < ActionController::TestCase
-	tests SubjectsController
+#	tests SubjectsController
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Subject',

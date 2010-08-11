@@ -1,6 +1,8 @@
 class SamplesController < HxApplicationController
 
-	before_filter :may_view_samples_required
+#	before_filter :may_view_samples_required
+	before_filter :may_administrate_required
+
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,

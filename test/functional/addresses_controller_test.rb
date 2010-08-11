@@ -18,13 +18,13 @@ class AddressesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:reader,:editor] })
+		:logins => [:superuser,:admin,:editor] })
 	assert_no_access_with_login({ 
-		:logins => [:active_user] })
+		:logins => [:reader,:active_user] })
 	assert_no_access_without_login
 
 
-%w( superuser admin editor reader ).each do |cu|
+%w( superuser admin editor ).each do |cu|
 
 	test "should get addresses with #{cu} login" do
 		subject = Factory(:subject)
@@ -115,24 +115,20 @@ class AddressesControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'new'
-#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
 	test "should NOT create new address with #{cu} login and invalid address" do
-#		subject = Factory(:subject)
-#		Address.any_instance.stubs(:create_or_update).returns(false)
-#		login_as send(cu)
-#		assert_difference('Address.count',0) do
-#			post :create, :subject_id => subject.id,
-#				:address => factory_attributes
-#		end
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'new'
-#		assert_layout 'home_exposure'
-#		assert_not_nil flash[:error]
-		pending
+		subject = Factory(:subject)
+		login_as send(cu)
+		assert_difference('Address.count',0) do
+			post :create, :subject_id => subject.id,
+				:address => { }
+		end
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
 	end
 
 
@@ -143,7 +139,6 @@ class AddressesControllerTest < ActionController::TestCase
 		assert assigns(:address)
 		assert_response :success
 		assert_template 'edit'
-#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT edit address with invalid id and #{cu} login" do
@@ -204,21 +199,20 @@ class AddressesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update address with #{cu} login and invalid address" do
-pending
 		address = factory_create
 		login_as send(cu)
-#		put :update, :id => address.id,
-#			:address => factory_attributes
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_layout 'home_exposure'
+		put :update, :id => address.id,
+			:address => { :line_1 => nil }
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 end
 
 
-%w( active_user ).each do |cu|
+%w( reader active_user ).each do |cu|
 
 	test "should NOT get addresses with #{cu} login" do
 		subject = Factory(:subject)

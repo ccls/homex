@@ -1,6 +1,7 @@
 class ResponseSetsController < ApplicationController
 
-	before_filter :may_take_surveys_required
+#	before_filter :may_take_surveys_required
+	before_filter :may_administrate_required
 
 	before_filter :valid_survey_required,     :only => :create
 	before_filter :valid_subject_id_required, :only => :create

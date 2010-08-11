@@ -1,7 +1,10 @@
 class ProjectsController < ApplicationController
 
-	before_filter :may_view_study_events_required
-	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
+#	before_filter :may_view_projects_required
+	before_filter :may_view_required
+
+	before_filter :valid_id_required, 
+		:only => [:show,:edit,:update,:destroy]
 
 	def index
 		@projects = Project.all

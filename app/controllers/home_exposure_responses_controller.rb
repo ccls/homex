@@ -1,6 +1,8 @@
 class HomeExposureResponsesController < HxApplicationController
 
-	before_filter :may_view_responses_required
+#	before_filter :may_view_responses_required
+	before_filter :may_view_required
+
 	before_filter :valid_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]
 	before_filter :her_must_exist, :only => [:show]

@@ -1,6 +1,7 @@
 class Interview::SubjectsController < HxApplicationController
 
-	before_filter :may_view_subjects_required
+#	before_filter :may_view_subjects_required
+	before_filter :may_view_required
 
 	def index
 		hx = Project.find_by_code('HomeExposures')

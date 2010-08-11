@@ -15,7 +15,7 @@ class SurveyControllerTest < ActionController::TestCase
 		@controller = SurveyorController.new
 	end
 
-%w( superuser admin reader ).each do |cu|
+%w( superuser admin ).each do |cu|
 
 	test "should NOT show surveys with #{cu} login" do
 		login_as send(cu)
@@ -95,7 +95,7 @@ class SurveyControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user editor ).each do |cu|
+%w( active_user editor reader ).each do |cu|
 
 	test "should NOT continue incomplete survey with #{cu} login" do
 		rs = Factory(:response_set, :survey => Survey.first)
