@@ -44,6 +44,21 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require 5 or 9 digit zip" do
+		%w( asdf 1234 123456 1234Q ).each do |bad_zip|
+			assert_difference('Address.count',0) do
+				object = create_object( :zip => bad_zip )
+				assert object.errors.on(:zip)
+			end
+		end
+		%w( 12345 12345-6789 123456789 ).each do |good_zip|
+			assert_difference('Address.count',1) do
+				object = create_object( :zip => good_zip )
+				assert !object.errors.on(:zip)
+			end
+		end
+	end
+
 	test "should NOT destroy residence on destroy" do
 		object = create_object
 		Factory(:residence, :address_id => object.id)
