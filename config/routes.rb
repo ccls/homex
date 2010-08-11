@@ -54,12 +54,12 @@ ActionController::Routing::Routes.draw do |map|
 #	end
 
 #	map.resources :subjects, :shallow => true do |subject|
-	map.resources :unused_subjects, :shallow => true do |subject|
+#	map.resources :unused_subjects, :shallow => true do |subject|
 #		subject.resource :home_exposure_response, 
 #			:only => [ :new, :create, :show ]
 #		subject.resources :survey_invitations, 
 #			:only => [:create,:update,:destroy,:show]
-	end
+#	end
 #	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
