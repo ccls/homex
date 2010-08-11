@@ -73,6 +73,16 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return dob as a date NOT time" do
+		object = create_object(:dob => nil,
+			:dob_string => "tomorrow at noon")
+		assert !object.new_record?
+		assert_not_nil object.dob
+		assert object.dob.is_a?(Date)
+		assert_equal object.dob, object.dob.to_date
+		assert_equal object.dob.to_s, object.dob_string
+	end
+
 protected
 
 	def create_object(options = {})
