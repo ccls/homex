@@ -12,6 +12,8 @@ class Organization < ActiveRecord::Base
 		:foreign_key => 'from_organization_id',
 		:class_name => 'Transfer'
 
+	has_many :hospitals
+
 #	how
 #	has_many :samples
 #	this is not clear in my UML diagram

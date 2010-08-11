@@ -54,6 +54,9 @@ end
 Factory.define :dust_kit do |f|
 end
 
+Factory.define :hospital do |f|
+end
+
 Factory.define :homex_outcome do |f|
 	f.association :subject
 end

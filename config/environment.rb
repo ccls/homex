@@ -47,6 +47,8 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
+#	&apos; does not get converted correctly
+#	config.gem 'sanitize'
 
 	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
