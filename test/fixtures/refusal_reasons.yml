@@ -6,7 +6,7 @@ busy:
 problems:
   id: 2
   position: 2 
-  code: 3
+  code: 2
   description: problems with the study
 moving:
   id: 3
