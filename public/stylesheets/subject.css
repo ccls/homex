@@ -1,19 +1,20 @@
 .subject .columns {
 	padding-top:10px;
 }
-/*
-.subject .info .address {
-	margin-top: 15px;
-}
-*/
 .subject #phone_numbers {
 	clear:both;
 	margin-top: 15px;
 }
 
-.columns > div {
+.columns > .column {
 	padding-right: 10px;
 }
-.columns > div:first-child {
+
+.columns .column:nth-child(1) {
 	width: 180px;
+}
+.columns .column:nth-child(2) {
+	width: 300px;
+}
+.columns .column:nth-child(3) {
 }

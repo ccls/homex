@@ -1,0 +1,33 @@
+<div class='personal columns'>
+<div class='column'>
+<p class='full_name'><%= @subject.full_name -%></p>
+</div><!-- class='column' -->
+<div class='column'>
+
+<p>birth date:&nbsp;<%= @subject.dob -%></p>
+<p>sex:&nbsp;
+<% unless @subject.sex.blank? %>
+<%= (@subject.sex.match(/f/i))?'female':'male' -%> 
+<% end %>
+</p>
+
+<div id='addresses'>
+<%= render :partial => 'addresses/address',
+    :collection => @subject.addresses, :locals => { :edit => false } %>
+</div><!-- id='addresses' -->
+<div id='phone_numbers'>
+<% %w( primary alternate alternate_2 alternate_3 ).each do |p| %>
+<% unless (( phone_number = @subject.pii.try("phone_#{p}")).blank? )%>
+<%= "#{phone_number} #{p}" %><br/>
+<% end %>
+<% end %>
+</div><!-- id='phone_numbers' -->
+
+
+
+</div><!-- class='column' -->
+<div class='column'>
+<p>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></p>
+<p>vital status: NOT CODED YET</p>
+</div><!-- class='column' -->
+</div><!-- class='personal' -->
