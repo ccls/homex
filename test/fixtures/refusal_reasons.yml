@@ -1,0 +1,35 @@
+busy:
+  id: 1
+  position: 1
+  code: 1
+  description: too busy
+problems:
+  id: 2
+  position: 2 
+  code: 3
+  description: problems with the study
+moving:
+  id: 3
+  position: 3
+  code: 3
+  description: subject is moving
+enough:
+  id: 4
+  position: 4
+  code: 4
+  description: tier i/ii was enough
+personal:
+  id: 5
+  position: 5
+  code: 5
+  description: personal issues
+deceased:
+  id: 6
+  position: 6
+  code: 6
+  description: subject child has died
+other:
+  id: 7
+  position: 7
+  code: 7
+  description: other reason for refusal
