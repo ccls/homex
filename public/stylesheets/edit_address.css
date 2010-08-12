@@ -4,7 +4,7 @@ form input.zip {
 	display:block;
 }
 form input.city,
-form input.state {
+form .state {
 	float:left;
 }
 
@@ -29,7 +29,7 @@ form span.label {
 form div.controls {
 	padding-top: 10px;
 }
-form select {
+form div.controls select {
 	clear:left;
 	float:left;
 	margin-right: 20px;
