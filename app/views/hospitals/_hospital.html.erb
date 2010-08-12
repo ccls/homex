@@ -1,0 +1,21 @@
+<div class='hospital_wrapper'>
+<% div_for hospital do %>
+
+
+
+<% end %><!-- class='hospital' -->
+<div class='edit'>
+<%#
+
+'edit' is a boolean variable sometimes passed
+to this partial to flag whether or not to show 
+the edit link.
+
+%>
+<% if defined?(edit) and edit -%>
+<%= link_to 'Edit', edit_hospital_path(hospital) %>
+<% else -%>
+&nbsp;
+<% end -%>
+</div><!-- class='edit' -->
+</div><!-- class='hospital_wrapper' -->

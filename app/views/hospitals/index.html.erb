@@ -1,0 +1,25 @@
+<% stylesheets('hospitals') %>
+<% render 'subjects/submenu' %>
+<% render 'subjects/id_bar' %>
+<div id='hospitals'>
+
+
+<%#= render :partial => 'hospital', :collection => @subject.hospitals,
+	:locals => { :edit => current_user.may_edit? } %>
+
+
+<dl>
+	<% @subject.patient.try(:attributes).each do |key| -%>
+		<dt><%= key -%></dt>
+		<dd><%= @subject.patient.attributes[key] -%></dd>
+	<% end -%>
+</dl>
+
+
+
+</div><!-- id='hospitals' -->
+<% if current_user.may_edit? %>
+<p id='new_hospital'>
+<%= link_to 'Create new hospital', new_subject_hospital_path(@subject) %>
+</p>
+<% end %>

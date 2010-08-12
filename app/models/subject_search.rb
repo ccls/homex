@@ -56,3 +56,9 @@ private	#	THIS IS REQUIRED
 	end
 
 end
+#
+#	This works for factory girl, but not for me??
+#
+#	def SubjectSearch(options={})
+#		SubjectSearch.new(options)
+#	end

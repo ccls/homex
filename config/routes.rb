@@ -27,6 +27,8 @@ ActionController::Routing::Routes.draw do |map|
 				:only => [ :new, :create, :show ]
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
+			subject.resources :hospitals,
+				:only => [:new,:create,:edit,:update,:index]
 			subject.resources :addresses,
 				:only => [:new,:create,:edit,:update,:index]
 			subject.resources :enrollments,
