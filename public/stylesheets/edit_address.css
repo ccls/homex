@@ -21,3 +21,16 @@ form input.state {
 form input.zip {
 	width: 12em;
 }
+
+form span.label {
+	clear:left;
+	display:block;
+}
+form div.controls {
+	padding-top: 10px;
+}
+form select {
+	clear:left;
+	float:left;
+	margin-right: 20px;
+}
