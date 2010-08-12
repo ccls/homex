@@ -5,6 +5,7 @@ namespace :app do
 		fixtures = []
 		fixtures.push('address_types')
 		fixtures.push('data_sources')
+		fixtures.push('ineligible_reasons')
 		fixtures.push('interview_methods')
 		fixtures.push('interview_outcomes')
 		fixtures.push('interview_types')
