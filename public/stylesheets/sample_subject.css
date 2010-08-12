@@ -1,0 +1,13 @@
+@import url('subject.css');
+
+th {
+	text-align: left;
+}
+
+table {
+	margin-top: 30px;
+}
+
+table#general td {
+	text-align: left;
+}

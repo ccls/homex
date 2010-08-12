@@ -1,3 +1,51 @@
-<%= link_to @subject.studyid, subject_path(@subject) %>
+<% stylesheets('sample_subject') %>
+<%# render 'subjects/submenu' %>
+<% render 'subjects/id_bar' %>
 
-Each record links to a details screen that will allow the user to enter information about dust kits, delivery dates, and an outcome, etc.
+<table id='general'><tbody><tr>
+<th>Interview Complete?</th>
+<td><%= @subject.try(
+	:homex_outcome).try(
+	:interview_outcome).try(:code) %></td>
+<td>&nbsp;</td>
+<th>Date Interview Completed:</th>
+<td><%= @subject.try(
+	:homex_outcome).try(
+	:interview_outcome_on)||'Unknown' %></td>
+</tr>
+</tbody></table><!-- id='general' -->
+
+<table id='pending'><tbody><tr>
+<th>Pending Specimens:</th>
+<th>sample type</th>
+<th>kit sent on</th>
+<th>kit tracking no</th>
+<th>sample tracking no</th>
+</tr>
+<% @subject.samples.each do |sample| %>
+	<tr><td>&nbsp;</td>
+		<td><%= sample.sample_type.code -%></td>
+		<td><%= sample.sent_to_subject_on -%></td>
+		<td>Insert Tracking No Here</td>
+		<td>Insert Tracking No Here</td>
+	</tr>
+<% end %>
+<tr>
+<td>&nbsp;</td>
+<td><%= ( current_user.may_edit? ) ?
+	link_to( "add new ...", new_subject_sample_path(@subject) ) :
+	'&nbsp;'
+%></td>
+</tr>
+</tbody></table><!-- id='pending' -->
+
+<table id='collected'><tbody><tr>
+<th>Collected Specimens:</th>
+<th>sample id</th>
+<th>sample type</th>
+<th>sample collected</th>
+<th>sample received</th>
+<th>sample location</th>
+</tr>
+
+</tbody></table><!-- id='collected' -->

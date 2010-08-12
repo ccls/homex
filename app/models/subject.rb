@@ -275,39 +275,33 @@ class Subject < ActiveRecord::Base
 			sql_scope[:joins].push(
 				"LEFT JOIN homex_outcomes ON " <<
 					"homex_outcomes.subject_id = subjects.id " )
-		end
 
-		if params[:sample_outcome] && !params[:sample_outcome].blank?
-			sql_scope[:joins].push(
-#				"LEFT JOIN homex_outcomes ON " <<
-#					"homex_outcomes.subject_id = subjects.id " <<
-				"LEFT JOIN sample_outcomes ON " <<
-					"sample_outcomes.id = homex_outcomes.sample_outcome_id"
-			)
-			if params[:sample_outcome] =~ /^Complete$/i
-				conditions['sample_outcomes.code'] = params[:sample_outcome]
-			else
-				sql_conditions.push( "(sample_outcomes.code != 'Complete' " <<
-					"OR sample_outcomes.code IS NULL)")
+			if params[:sample_outcome] && !params[:sample_outcome].blank?
+				sql_scope[:joins].push(
+					"LEFT JOIN sample_outcomes ON " <<
+						"sample_outcomes.id = homex_outcomes.sample_outcome_id"
+				)
+				if params[:sample_outcome] =~ /^Complete$/i
+					conditions['sample_outcomes.code'] = params[:sample_outcome]
+				else
+					sql_conditions.push( "(sample_outcomes.code != 'Complete' " <<
+						"OR sample_outcomes.code IS NULL)")
+				end
+			end
+
+			if params[:interview_outcome] && !params[:interview_outcome].blank?
+				sql_scope[:joins].push(
+					"LEFT JOIN interview_outcomes ON " <<
+						"interview_outcomes.id = homex_outcomes.interview_outcome_id"
+				)
+				if params[:interview_outcome] =~ /^Complete$/i
+					conditions['interview_outcomes.code'] = params[:interview_outcome]
+				else
+					sql_conditions.push( "(interview_outcomes.code != 'Complete'" <<
+						"OR interview_outcomes.code IS NULL)")
+				end
 			end
 		end
-
-		if params[:interview_outcome] && !params[:interview_outcome].blank?
-#			joins.push(:homex_outcome => [:interview_outcome])
-			sql_scope[:joins].push(
-#				"LEFT JOIN homex_outcomes ON " <<
-#					"homex_outcomes.subject_id = subjects.id " <<
-				"LEFT JOIN interview_outcomes ON " <<
-					"interview_outcomes.id = homex_outcomes.interview_outcome_id"
-			)
-			if params[:interview_outcome] =~ /^Complete$/i
-				conditions['interview_outcomes.code'] = params[:interview_outcome]
-			else
-				sql_conditions.push( "(interview_outcomes.code != 'Complete'" <<
-					"OR interview_outcomes.code IS NULL)")
-			end
-		end
-
 
 		sql_scope[:conditions] = [sql_conditions.join(" AND "), 
 			sql_values].flatten
