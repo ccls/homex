@@ -55,6 +55,7 @@ class AddressTest < ActiveSupport::TestCase
 			assert_difference('Address.count',1) do
 				object = create_object( :zip => good_zip )
 				assert !object.errors.on(:zip)
+				assert object.zip =~ /\A\d{5}(-?\d{4})?\z/
 			end
 		end
 	end

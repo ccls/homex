@@ -14,7 +14,7 @@ class Address < ActiveRecord::Base
 	validates_presence_of :line_1, :city, :state, :zip
 
 	validates_format_of :zip,
-		:with => /\A\s*\d{5}-?(\d{4})?\s*\z/,
+		:with => /\A\s*\d{5}(-?\d{4})?\s*\z/,
 		:message => "should be 12345 or 12345-1234"
 
 	before_save :format_zip
@@ -36,6 +36,7 @@ protected
 
 	def format_zip
 #		self.zip.to_s.gsub!(/\D/,'')
+#	force some common format here .....
 		self.zip.squish!
 	end
 
