@@ -1,5 +1,9 @@
-class States
+#	This data was copied from ...
 #	http://www.yourdictionary.com/dictionary-articles/state-abbrev.html
+class States
+
+	#	Returns an array of arrays of state 
+	#	names and state abbreviations.
 	def self.all
 		@@all ||= [
 			['Alabama', 'AL'],
@@ -55,6 +59,7 @@ class States
 		]
 	end
 
+	#	Returns an array of state abbreviations.
 	def self.abbreviations
 		@@abbreviations ||= all.collect{|state| state[1] }
 	end
