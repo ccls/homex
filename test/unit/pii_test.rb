@@ -51,8 +51,8 @@ class PiiTest < ActiveSupport::TestCase
 			end
 		end
 		assert_difference( 'Pii.count', 1 ) do
-			%w( me@some.where.com ).each do |god_email|
-				object = create_object(:email => god_email)
+			%w( me@some.where.com ).each do |good_email|
+				object = create_object(:email => good_email)
 				assert !object.errors.on(:email)
 			end
 		end
