@@ -1,0 +1,15 @@
+moved:
+  id: 1
+  position: 
+  code: 1
+  description: subject moved
+bacuum:
+  id: 2
+  position: 2 
+  code: 2
+  description: no vacuum cleaner used
+other:
+  id: 3
+  position: 3
+  code: 3
+  description: other
