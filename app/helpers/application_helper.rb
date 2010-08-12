@@ -22,18 +22,18 @@ module ApplicationHelper
 		s << "\n</div><!-- mainmenu -->\n"
 	end
 
-	def se_check_boxes(se,attr)
-		s = "<li>#{attr.to_s.capitalize}?<ul><li>\n"
-		s << check_box_tag( "projects[#{se.id}][#{attr}][]", 'true',
-				params.dig('projects',se.id.to_s,attr.to_s).true?,
-				:id => "projects_#{se.id}_#{attr}_true" )
-		s << label_tag( "projects_#{se.id}_#{attr}_true", "True" )
-		s << "</li><li>\n"
-		s << check_box_tag( "projects[#{se.id}][#{attr}][]", 'false',
-				params.dig('projects',se.id.to_s,attr.to_s).false?,
-				:id => "projects_#{se.id}_#{attr}_false" )
-		s << label_tag( "projects_#{se.id}_#{attr}_false", "False" )
-		s << "</li></ul></li>\n"
-	end
+#	def se_check_boxes(se,attr)
+#		s = "<li>#{attr.to_s.capitalize}?<ul><li>\n"
+#		s << check_box_tag( "projects[#{se.id}][#{attr}][]", 'true',
+#				params.dig('projects',se.id.to_s,attr.to_s).true?,
+#				:id => "projects_#{se.id}_#{attr}_true" )
+#		s << label_tag( "projects_#{se.id}_#{attr}_true", "True" )
+#		s << "</li><li>\n"
+#		s << check_box_tag( "projects[#{se.id}][#{attr}][]", 'false',
+#				params.dig('projects',se.id.to_s,attr.to_s).false?,
+#				:id => "projects_#{se.id}_#{attr}_false" )
+#		s << label_tag( "projects_#{se.id}_#{attr}_false", "False" )
+#		s << "</li></ul></li>\n"
+#	end
 
 end

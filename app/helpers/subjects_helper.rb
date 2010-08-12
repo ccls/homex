@@ -14,41 +14,41 @@
 #7: 	<%= submit_tag 'Search Subjects', :name => nil %>
 module SubjectsHelper
 
-	def races_check_boxes
-		if Race.count > 0
-			s = "<fieldset id='races'>\n"
-			s << "<legend>Races</legend>\n"
-			s << "<ul>\n"
-			Race.all.each do |race|
-				s << "<li>"
-				s << check_box_tag( 'races[]', race.name, 
-						params['races'].try(:include?,race.name), 
-						:id => dom_id(race))
-				s << label_tag( dom_id(race), race.name )
-				s << "</li>\n"
-			end
-			s << "</ul>\n"
-			s << "</fieldset><!-- races -->\n"
-		end # if Race.count > 0
-	end
+#	def races_check_boxes
+#		if Race.count > 0
+#			s = "<fieldset id='races'>\n"
+#			s << "<legend>Races</legend>\n"
+#			s << "<ul>\n"
+#			Race.all.each do |race|
+#				s << "<li>"
+#				s << check_box_tag( 'races[]', race.name, 
+#						params['races'].try(:include?,race.name), 
+#						:id => dom_id(race))
+#				s << label_tag( dom_id(race), race.name )
+#				s << "</li>\n"
+#			end
+#			s << "</ul>\n"
+#			s << "</fieldset><!-- races -->\n"
+#		end # if Race.count > 0
+#	end
 
-	def subject_types_check_boxes
-		if SubjectType.count > 0
-			s = "<fieldset id='types'>\n"
-			s << "<legend>SubjectTypes</legend>\n"
-			s << "<ul>\n"
-			SubjectType.all.each do |type|
-				s << "<li>"
-				s << check_box_tag( 'types[]', type.name, 
-					params['types'].try(:include?,type.name), 
-					:id => dom_id(type))
-				s << label_tag( dom_id(type), type.name )
-				s << "</li>\n"
-			end
-			s << "</ul>\n"
-			s << "</fieldset><!-- types -->\n"
-		end # if SubjectType.count > 0
-	end
+#	def subject_types_check_boxes
+#		if SubjectType.count > 0
+#			s = "<fieldset id='types'>\n"
+#			s << "<legend>SubjectTypes</legend>\n"
+#			s << "<ul>\n"
+#			SubjectType.all.each do |type|
+#				s << "<li>"
+#				s << check_box_tag( 'types[]', type.name, 
+#					params['types'].try(:include?,type.name), 
+#					:id => dom_id(type))
+#				s << label_tag( dom_id(type), type.name )
+#				s << "</li>\n"
+#			end
+#			s << "</ul>\n"
+#			s << "</fieldset><!-- types -->\n"
+#		end # if SubjectType.count > 0
+#	end
 
 #	def dust_kit_radio_buttons
 #		s = "<fieldset id='dust_kit'>\n"
@@ -83,31 +83,31 @@ module SubjectsHelper
 #		s << "</fieldset><!-- dust_kit -->\n"
 #	end
 
-	def study_event_stuff
-		if Project.count > 0
-			s = ''
-			Project.all.each do |se|
-				s << "<fieldset class='project'>\n"
-				s << "<legend>#{se.description}</legend><ul>\n"
-				s << se_check_boxes(se,:eligible)
-				s << se_check_boxes(se,:candidate)
-				s << se_check_boxes(se,:chosen)
-				s << se_check_boxes(se,:consented)
-				s << se_check_boxes(se,:closed)
-				s << se_check_boxes(se,:terminated)
-				s << se_check_boxes(se,:completed)
-				s << "<li>Refused</li>\n"
-				s << "<li>Awaiting Letter</li>\n"
-				s << "<li>Sent Letter</li>\n"
-				s << "<li>Awaiting Interview</li>\n"
-				s << "<li>Interviewed</li>\n"
-				s << "</ul>\n"
-				s << "</fieldset><!-- project -->\n"
-			end
-			s
-		end	#	if Project.count > 0
-	end
-	alias_method :project_stuff, :study_event_stuff
+#	def study_event_stuff
+#		if Project.count > 0
+#			s = ''
+#			Project.all.each do |se|
+#				s << "<fieldset class='project'>\n"
+#				s << "<legend>#{se.description}</legend><ul>\n"
+#				s << se_check_boxes(se,:eligible)
+#				s << se_check_boxes(se,:candidate)
+#				s << se_check_boxes(se,:chosen)
+#				s << se_check_boxes(se,:consented)
+#				s << se_check_boxes(se,:closed)
+#				s << se_check_boxes(se,:terminated)
+#				s << se_check_boxes(se,:completed)
+#				s << "<li>Refused</li>\n"
+#				s << "<li>Awaiting Letter</li>\n"
+#				s << "<li>Sent Letter</li>\n"
+#				s << "<li>Awaiting Interview</li>\n"
+#				s << "<li>Interviewed</li>\n"
+#				s << "</ul>\n"
+#				s << "</fieldset><!-- project -->\n"
+#			end
+#			s
+#		end	#	if Project.count > 0
+#	end
+#	alias_method :project_stuff, :study_event_stuff
 
 
 	#	&uarr; and &darr;
