@@ -1,11 +1,13 @@
 class AddressesController < HxApplicationController
 
 	before_filter :may_edit_required
+	before_filter :may_destroy_required,
+		:only => :destroy
 
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,
-		:only => [:edit,:update]
+		:only => [:edit,:update,:destroy]
 
 	def new
 		@address = Address.new
@@ -32,6 +34,14 @@ class AddressesController < HxApplicationController
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address update failed"
 		render :action => 'edit'
+	end
+
+
+
+	#	TEMP ADD FOR DEV ONLY!  UNTESTED!
+	def destroy
+		@address.destroy
+		redirect_to subject_addresses_path(@address.subject)
 	end
 
 protected

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 	ucb_authenticated
 
 	#	['superuser','administrator']
+	alias_method :may_destroy?,          :may_administrate?
 #	alias_method :may_view_samples?,     :may_administrate?
 #	alias_method :may_view_sample_kits?, :may_administrate?
 #	alias_method :may_maintain_races?,   :may_administrate?

@@ -13,5 +13,8 @@
 <div class='controls'>
 <%= f.collection_select :address_type_id, AddressType.all, 
 			:id, :code, :include_blank => true %>
-	<%= f.submit( (@address.new_record?)? "Create" : "Update" )%>
+<%= f.submit( (@address.new_record?)? "Create" : "Update" )%>
+<%#= (@address.new_record?)? "&nbsp" : 
+	destroy_link_to( "Destroy", address_path(@address) )
+%>
 </div>

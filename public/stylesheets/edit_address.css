@@ -34,3 +34,10 @@ form select {
 	float:left;
 	margin-right: 20px;
 }
+
+.dev_only {
+	margin-top: 30px;
+}
+.dev_only span {
+	float:left;
+}
