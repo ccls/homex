@@ -7,6 +7,8 @@ class Address < ActiveRecord::Base
 	belongs_to :address_type
 	belongs_to :data_source
 
+#	belongs_to :verified_by, :class_name => 'User'
+
 	validates_presence_of :subject_id, :subject
 	validates_presence_of :address_type_id, :address_type
 	validate :address_type_matches_line_1
@@ -14,7 +16,7 @@ class Address < ActiveRecord::Base
 	validates_presence_of :line_1, :city, :state, :zip
 
 	validates_format_of :zip,
-		:with => /\A\s*\d{5}(-?\d{4})?\s*\z/,
+		:with => /\A\s*\d{5}(-\d{4})?\s*\z/,
 		:message => "should be 12345 or 12345-1234"
 
 	before_save :format_zip

@@ -46,9 +46,20 @@ module FormHelper
 		s << "\n</div><!-- class='#{method}' -->"
 	end
 
+	def y_n_dk_select(object_name, method, options, html_options)
+		select(object_name, method,
+			[['Yes',1],['No',2],["Don't Know",999]],
+			options, html_options)
+	end
 end
 
 ActionView::Helpers::FormBuilder.class_eval do
+	def y_n_dk_select(method,options={},html_options={})
+		@template.y_n_dk_select(
+			@object_name, method, 
+				objectify_options(options),
+				html_options)
+	end
 	def wrapped_collection_select(method, 
 		collection,value_method,text_method,options={},html_options={})
 		@template.wrapped_collection_select(

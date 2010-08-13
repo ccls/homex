@@ -22,6 +22,7 @@
 <%= f.text_field :why_invalid, :class => :why_invalid %>
 <span>should add some js to show/hide</span>
 </div><!-- class='valid' -->
+
 <div class='verified'>
 <%= f.label :is_verified, 'Verified?' %>
 <%= f.check_box :is_verified %>
@@ -30,14 +31,15 @@
 <span>should add some js to show/hide</span>
 </div><!-- class='verified' -->
 
-<!--
-			t.boolean  :is_current
-			t.boolean  :is_address_at_diagnosis
-			t.datetime :verified_on				#	datetime of is_verified change 
-			t.integer  :verified_by_id		#	joins users table at users_id
--->
+<div class='current_address'>
+<%= f.label :current_address %>
+<%= f.y_n_dk_select :current_address, { :include_blank => true } %>
+</div><!-- class='current_address' -->
 
-
+<div class='address_at_diagnosis'>
+<%= f.label :address_at_diagnosis %>
+<%= f.y_n_dk_select :address_at_diagnosis, { :include_blank => true } %>
+</div><!-- class='address_at_diagnosis' -->
 
 <div class='controls'>
 <%= f.collection_select :address_type_id, AddressType.all, 
