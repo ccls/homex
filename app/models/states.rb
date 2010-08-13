@@ -1,5 +1,10 @@
 #	This data was copied from ...
 #	http://www.yourdictionary.com/dictionary-articles/state-abbrev.html
+#
+#	This will probably not be used.
+#
+#	FYI.  Missing DC!
+#
 class States
 
 	#	Returns an array of arrays of state 

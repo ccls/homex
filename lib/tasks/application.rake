@@ -18,6 +18,7 @@ namespace :app do
 #		fixtures.push('sample_subtypes')
 		fixtures.push('sample_outcomes')
 		fixtures.push('sample_types')
+		fixtures.push('states')
 		fixtures.push('subject_types')
 		fixtures.push('units')
 		fixtures.push('vital_statuses')
