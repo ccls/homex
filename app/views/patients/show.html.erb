@@ -1,0 +1,16 @@
+<% stylesheets('patient') %>
+<% render 'subjects/submenu' %>
+<% render 'subjects/id_bar' %>
+<div id='patient'>
+
+<dl>
+	<% @patient.try(:attributes).each do |key| -%>
+		<dt><%= key -%></dt>
+		<dd><%= @patient.attributes[key] -%></dd>
+	<% end -%>
+</dl>
+
+</div><!-- id='patient' -->
+<% if current_user.may_edit_patient? %>
+<%= link_to 'Edit', edit_subject_patient_path(@subject) %>
+<% end %>

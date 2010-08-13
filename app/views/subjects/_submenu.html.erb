@@ -3,9 +3,9 @@
 <%= link_to 'general', subject_path(@subject||subject),
 	:class => ((controller.controller_name == 'subjects')?'current':nil) %>
 <%#	:class => ((controller.controller_name == 'subjects' && controller.action_name == 'show')?'current':nil) %>
-<%= link_to 'hospitals', 
-	subject_hospitals_path(@subject||subject),
-	:class => ((controller.controller_name == 'hospitals')?'current':nil) %>
+<%= link_to 'hospital', 
+	subject_patient_path(@subject||subject),
+	:class => ((controller.controller_name == 'patients')?'current':nil) %>
 <%= link_to 'addresses', 
 	subject_addresses_path(@subject||subject),
 	:class => ((controller.controller_name == 'addresses')?'current':nil) %>

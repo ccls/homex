@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 	#	['superuser','administrator','editor']
 	alias_method :may_edit_addresses?,      :may_edit?
 	alias_method :may_edit_enrollments?,    :may_edit?
+	alias_method :may_edit_patient?,        :may_edit?
 #	alias_method :may_edit_home_page_pics?, :may_edit?
 
 #	#	['superuser','administrator','editor','reader']

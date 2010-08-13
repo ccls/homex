@@ -1,18 +1,18 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class HospitalsControllerTest < ActionController::TestCase
+class PatientsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:model => 'Hospital',
+		:model => 'Patient',
 		:actions => [:edit,:update],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:hospital,options)
+		Factory.attributes_for(:patient,options)
 	end
 	def factory_create(options={})
-		Factory(:hospital,options)
+		Factory(:patient,options)
 	end
 
 #	assert_access_with_login({ 

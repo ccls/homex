@@ -1,8 +1,0 @@
-<% stylesheets('edit_hospital') %>
-<% render 'subjects/submenu', :subject => @hospital.subject %>
-<%= f.error_messages %>
-
-<br/>
-<p>
-	<%= f.submit( (@hospital.new_record?)? "Create" : "Update" )%>
-</p>
