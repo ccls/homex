@@ -41,3 +41,8 @@ form div.controls select {
 .dev_only span {
 	float:left;
 }
+
+div.verified,
+div.valid {
+	clear:left;
+}

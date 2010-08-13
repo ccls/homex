@@ -6,10 +6,38 @@
 <span class='label'>Line 2</span>
 <%= f.text_field :line_2, :class => 'line_2' %>
 <span class='label'>City, State Zip</span>
-<%= f.text_field :city, :class => 'city' %>
+<%= f.text_field :city, :class => :city %>
 <%#= f.text_field :state, :class => 'state' %>
 <%= f.select :state,States.abbreviations, {}, :class => 'state' %>
-<%= f.text_field :zip, :class => 'zip' %>
+<%= f.text_field :zip, :class => :zip %>
+
+<div class='valid'>
+<%= f.label :is_valid, 'Valid?' %>
+<%= f.check_box :is_valid %>
+<%# 
+	Note that these are opposite
+	is_valid and why_INvalid
+%>
+<%= f.label :why_invalid, 'Why?' %>
+<%= f.text_field :why_invalid, :class => :why_invalid %>
+<span>should add some js to show/hide</span>
+</div><!-- class='valid' -->
+<div class='verified'>
+<%= f.label :is_verified, 'Verified?' %>
+<%= f.check_box :is_verified %>
+<%= f.label :how_verified, 'How?' %>
+<%= f.text_field :how_verified, :class => :how_verified %>
+<span>should add some js to show/hide</span>
+</div><!-- class='verified' -->
+
+<!--
+			t.boolean  :is_current
+			t.boolean  :is_address_at_diagnosis
+			t.datetime :verified_on				#	datetime of is_verified change 
+			t.integer  :verified_by_id		#	joins users table at users_id
+-->
+
+
 
 <div class='controls'>
 <%= f.collection_select :address_type_id, AddressType.all, 
