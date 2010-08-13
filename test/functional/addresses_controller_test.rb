@@ -24,6 +24,13 @@ class AddressesControllerTest < ActionController::TestCase
 	assert_no_access_without_login
 
 
+	#	destroy is TEMPORARY
+	assert_access_with_login(
+		:actions => [:destroy],
+		:login => :superuser
+	)
+
+
 %w( superuser admin editor ).each do |cu|
 
 	test "should get addresses with #{cu} login" do

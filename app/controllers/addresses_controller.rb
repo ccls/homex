@@ -38,11 +38,12 @@ class AddressesController < HxApplicationController
 
 
 
-	#	TEMP ADD FOR DEV ONLY!  UNTESTED!
+	#	TEMP ADD FOR DEV ONLY!
 	def destroy
 		@address.destroy
 		redirect_to subject_addresses_path(@address.subject)
 	end
+
 
 protected
 
