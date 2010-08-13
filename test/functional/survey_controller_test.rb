@@ -95,7 +95,7 @@ class SurveyControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user editor reader ).each do |cu|
+%w( editor interviewer reader active_user ).each do |cu|
 
 	test "should NOT continue incomplete survey with #{cu} login" do
 		rs = Factory(:response_set, :survey => Survey.first)

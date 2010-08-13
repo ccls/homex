@@ -18,7 +18,7 @@ class RacesControllerTest < ActionController::TestCase
 	assert_access_with_login({ 
 		:logins => [:superuser,:admin] })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:reader,:active_user] })
+		:logins => [:editor,:interviewer,:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https

@@ -145,7 +145,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 
 end
 
-%w( editor reader active_user ).each do |cu|
+%w( editor interviewer reader active_user ).each do |cu|
 
 	test "should NOT create invitation for subject with #{cu} login" do
 		login_as send(cu)

@@ -19,7 +19,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 	assert_access_with_login(    { 
 		:logins => [:superuser,:admin,:editor] } )
 	assert_no_access_with_login( { 
-		:logins => [:reader,:active_user] } )
+		:logins => [:interviewer,:reader,:active_user] } )
 	assert_no_access_without_login
 
 	assert_access_with_https 
@@ -105,7 +105,7 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 end
 
-%w( reader active_user ).each do |cu|
+%w( interviewer reader active_user ).each do |cu|
 
 	test "should NOT activate all with #{cu} login" do
 		login_as send(cu)

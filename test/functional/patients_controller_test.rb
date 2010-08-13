@@ -18,7 +18,7 @@ class PatientsControllerTest < ActionController::TestCase
 #	assert_access_with_login({ 
 #		:logins => [:superuser,:admin,:editor] })
 #	assert_no_access_with_login({ 
-#		:logins => [:reader,:active_user] })
+#		:logins => [:interviewer,:reader,:active_user] })
 #	assert_no_access_without_login
 #
 #
@@ -209,7 +209,7 @@ class PatientsControllerTest < ActionController::TestCase
 #end
 #
 #
-#%w( reader active_user ).each do |cu|
+#%w( interviewer reader active_user ).each do |cu|
 #
 #	test "should NOT get hospitals with #{cu} login" do
 #		subject = Factory(:subject)

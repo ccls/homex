@@ -22,7 +22,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		:show => { :subject_id => 0 }
 	}
 
-%w( superuser admin editor reader ).each do |cu|
+%w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "should show new with very different response sets with #{cu} login" do
 		@rs2.responses.destroy_all

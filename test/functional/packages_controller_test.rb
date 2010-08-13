@@ -17,7 +17,7 @@ class PackagesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({    
-		:logins => [:superuser,:admin,:reader,:editor] })
+		:logins => [:superuser,:admin,:editor,:interviewer,:reader] })
 	assert_no_access_with_login({ 
 		:logins => [:active_user] })
 	assert_no_access_without_login
@@ -38,7 +38,7 @@ class PackagesControllerTest < ActionController::TestCase
 	)
 
 
-%w( superuser admin reader editor ).each do |cu|
+%w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "delivered packages should NOT have update status link with #{cu} login" do
 		factory_create(:status => "Delivered")

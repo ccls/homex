@@ -17,7 +17,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor,:reader] })
+		:logins => [:superuser,:admin,:editor,:interviewer,:reader] })
 	assert_no_access_with_login({ 
 		:logins => [:active_user] })
 	assert_no_access_without_login

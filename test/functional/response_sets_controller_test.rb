@@ -83,7 +83,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user reader editor ).each do |cu|
+%w( active_user editor interviewer reader ).each do |cu|
 
 	test "should NOT begin survey with #{cu} login" do
 		survey = Survey.first

@@ -17,13 +17,13 @@ class EnrollmentsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:reader,:editor] })
+		:logins => [:superuser,:admin,:editor,:interviewer,:reader] })
 	assert_no_access_with_login({ 
 		:logins => [:active_user] })
 	assert_no_access_without_login
 
 
-%w( superuser admin editor reader ).each do |cu|
+%w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "should get enrollments with #{cu} login" do
 		subject = Factory(:subject)
