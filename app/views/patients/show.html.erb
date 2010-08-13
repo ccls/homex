@@ -13,4 +13,5 @@
 </div><!-- id='patient' -->
 <% if current_user.may_edit_patient? %>
 <%= link_to 'Edit', edit_subject_patient_path(@subject) %>
+<%= destroy_link_to 'Destroy', subject_patient_path(@subject) %>
 <% end %>
