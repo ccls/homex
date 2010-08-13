@@ -190,6 +190,20 @@ Factory.define :project do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :state do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:name) { |n| "Name#{n}" }
+#	This is just one character so looping through known unused chars.
+#	This is potentially a problem causer in testing.
+#	fips_state_code is actually 2 chars so could add something
+#	36 squared is pretty big so  ....
+	f.sequence(:fips_state_code){|n|
+		n += 56	#	56 appears to be the highest code used
+		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n/36] <<
+		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
+	f.fips_country_code 'US'
+end
+
 Factory.define :subject do |f|
 	f.association :subject_type
 	f.association :race
