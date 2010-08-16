@@ -13,6 +13,7 @@ namespace :app do
 		fixtures.push('pages')
 		fixtures.push('races')
 		fixtures.push('roles')
+		fixtures.push('phone_types')
 		fixtures.push('projects')
 		fixtures.push('refusal_reasons')
 #		fixtures.push('sample_subtypes')

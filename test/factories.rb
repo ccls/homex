@@ -185,6 +185,11 @@ Factory.define :sample_type do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :phone_type do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+#	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
 Factory.define :project do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
