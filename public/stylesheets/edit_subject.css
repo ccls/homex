@@ -1,0 +1,17 @@
+label[for=subject_sex],
+label[for=subject_race_id],
+label[for=subject_subject_type_id] {
+	clear:left;
+	float:left;
+	width: 50px;
+}
+select#subject_sex,
+select#subject_race_id,
+select#subject_subject_type_id {
+	float:left;
+	width: 170px;
+}
+input#subject_submit {
+	clear:left;
+	float:left;
+}
