@@ -89,6 +89,9 @@ div#content_wrapper {
 div#content {
 	padding: 5px 25px;
 	font-size: 10pt;
+
+	/* don't know why */
+	overflow:hidden;
 }
 
 div#preview {
