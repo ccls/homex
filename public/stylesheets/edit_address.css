@@ -1,31 +1,47 @@
-form input.line_1,
-form input.line_2,
-form input.zip {
-	display:block;
-}
-form input.city,
-form .state {
+#address_line_1,
+#address_line_2,
+#address_city,
+#address_state,
+#address_zip {
 	float:left;
 }
 
-form input.line_1,
-form input.line_2 {
-	width: 40em;
+#address_line_1,
+#address_line_2 {
+	width: 30em;
 }
-form input.city {
-	width: 24em;
+#address_city {
+	width: 18em;
 }
-form input.state {
-	width: 3em;
-}
-form input.zip {
-	width: 12em;
+#address_zip {
+	width: 7em;
 }
 
-form span.label {
+form label {
+	float:left;
 	clear:left;
-	display:block;
 }
+
+label[for=address_line_1],
+label[for=address_line_2],
+label[for=address_city] {
+	width: 105px;
+}
+#address_line_1,
+#address_line_2,
+#address_city,
+#address_state,
+#address_zip,
+label[for=address_line_1],
+label[for=address_line_2],
+label[for=address_city] {
+	margin-top:15px;
+}
+
+
+
+
+
 form div.controls {
 	padding-top: 10px;
 }
