@@ -126,17 +126,12 @@ namespace :db do
 				:reference_date => refdate
 			})
 
-
-
-
-#					:phone_primary => line[19],
-#					:phone_alternate => line[20],
-#					:phone_alternate_2 => line[21],
-#					:phone_alternate_3 => line[22]
-
-
-
-
+			(19..22).each do |i|
+				PhoneNumber.create!({
+					:subject_id   => subject.id,
+					:phone_number => line[i]
+				}) unless line[i].blank?
+			end
 
 			Interview.create!({
 				:identifier_id => subject.identifier.id,
