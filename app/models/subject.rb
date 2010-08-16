@@ -13,6 +13,7 @@ class Subject < ActiveRecord::Base
 	has_many :addresses
 	has_many :response_sets
 	has_many :home_exposure_events
+	has_many :phone_numbers
 	has_one :home_exposure_response
 	has_one :pii
 	has_one :patient

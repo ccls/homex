@@ -117,11 +117,7 @@ namespace :db do
 					:mother_middle_name => line[13],
 					:mother_maiden_name => line[14],
 					:mother_last_name   => line[15],
-					:dob => dob,
-					:phone_primary => line[19],
-					:phone_alternate => line[20],
-					:phone_alternate_2 => line[21],
-					:phone_alternate_3 => line[22]
+					:dob => dob
 				},
 				:subject_type => subject_type,
 				:race => race,
@@ -129,6 +125,18 @@ namespace :db do
 				:sex => line[5],
 				:reference_date => refdate
 			})
+
+
+
+
+#					:phone_primary => line[19],
+#					:phone_alternate => line[20],
+#					:phone_alternate_2 => line[21],
+#					:phone_alternate_3 => line[22]
+
+
+
+
 
 			Interview.create!({
 				:identifier_id => subject.identifier.id,

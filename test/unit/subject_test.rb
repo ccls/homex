@@ -4,7 +4,8 @@ class SubjectTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:race,:subject_type)
 	assert_should_have_many(:survey_invitations,:addresses,
-		:operational_events,:enrollments, :samples,:response_sets)
+		:operational_events,:enrollments,:phone_numbers,
+		:samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
 		:identifier,:homex_outcome)
