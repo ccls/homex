@@ -128,8 +128,9 @@ namespace :db do
 
 			(19..22).each do |i|
 				PhoneNumber.create!({
-					:subject_id   => subject.id,
-					:phone_number => line[i]
+					:subject_id    => subject.id,
+					:phone_type_id => 1,
+					:phone_number  => line[i]
 				}) unless line[i].blank?
 			end
 
