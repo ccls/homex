@@ -40,15 +40,18 @@
 	<% end %>
 </div>
 
-<%= f.label :sex, 'Sex' %>
+<div><%= f.label :sex, 'Sex' %>
 <%= f.select :sex, ['M','F'],
 	:include_blank => true %>
-<%= f.label :race_id, 'Race' %>
+</div>
+<div><%= f.label :race_id, 'Race' %>
 <%= f.collection_select :race_id, Race.all, 
 	:id, :name, :include_blank => true %>
-<%= f.label :subject_type_id, 'Type' %>
+</div>
+<div><%= f.label :subject_type_id, 'Type' %>
 <%= f.collection_select :subject_type_id, SubjectType.all, 
 	:id, :description, :include_blank => true %>
+</div>
 
 <p>
 	<%= f.submit( (@subject.new_record?)? "Create" : "Update" )%>

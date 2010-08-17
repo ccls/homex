@@ -41,12 +41,14 @@
 <div id='columns' class='equal_height_column_wrapper'>
 <div id='main' class='equal_height_column'>
 <%= yield :main %>
-<div id='content_wrapper' >
-<%# 
-	add equal_height_column_wrapper for overflow:hidden 
-	attribute for some reason fixes Chrome.
+<%#
+
+For some reason, still need this equal_height_column
+I thought that it was just evil floats, but it may be more.
+
 %>
-<div id='content' class='equal_height_column_wrapper'>
+<div id='content_wrapper' class='equal_height_column'>
+<div id='content'>
 <%= flasher() %>
 <%= yield %>
 </div><!-- content -->

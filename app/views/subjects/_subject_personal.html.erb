@@ -4,7 +4,7 @@
 </div><!-- class='column' -->
 <div class='column'>
 
-<p>birth date:&nbsp;<%= @subject.dob -%></p>
+<p>birth date:&nbsp;<%= @subject.dob.to_s(:dob) -%></p>
 <p>sex:&nbsp;
 <% unless @subject.sex.blank? %>
 <%= (@subject.sex.match(/f/i))?'female':'male' -%> 
