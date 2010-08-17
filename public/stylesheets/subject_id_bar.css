@@ -53,3 +53,25 @@
 	background-color: #FEE;
 	border: 2px solid red;
 }
+
+
+.id_bar_button {
+	position:absolute;
+	text-align:center;
+	left: 710px;
+	font-size:12pt;
+	width: 90px;
+	background-color: white;
+	padding: 2px 15px;
+	/* http://css-radius.heroku.com */
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+.with_submenu {
+	top: 138px;
+}
+.without_submenu {
+	top: 108px;
+}

@@ -10,3 +10,12 @@ select#subject_race_id,
 select#subject_subject_type_id {
 	width: 170px;
 }
+
+/* Move the submit button up to the id bar */
+input#subject_submit {
+	position:absolute;
+	top: 108px;
+	left: 730px;
+	font-size:12pt;
+	width: 100px;
+}

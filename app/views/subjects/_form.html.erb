@@ -1,4 +1,5 @@
 <% stylesheets('edit_subject') %>
+<% render 'subjects/id_bar' %>
 
 <%= f.error_messages %>
 
@@ -53,6 +54,4 @@
 	:id, :description, :include_blank => true %>
 </div>
 
-<p>
-	<%= f.submit( (@subject.new_record?)? "Create" : "Update" )%>
-</p>
+<%= f.submit( (@subject.new_record?)? "Create" : "Save" )%>

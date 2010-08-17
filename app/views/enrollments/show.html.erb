@@ -24,5 +24,6 @@
 <%= wrapped_spans :enrollment, :reason_closed %>
 <%= wrapped_spans :enrollment, :notes %>
 
-<%= link_to( 'Edit', edit_enrollment_path(@enrollment) 
+<%= link_to( 'Edit', edit_enrollment_path(@enrollment),
+	:class => 'id_bar_button with_submenu'
 	) if current_user.may_edit_enrollments? %>

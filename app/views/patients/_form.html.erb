@@ -1,10 +1,10 @@
 <%# stylesheets('edit_patient') %>
 <% render 'subjects/submenu', :subject => @subject %>
+<% render 'subjects/id_bar', :subject => @subject %>
 <%= f.error_messages %>
 
 This is where the new/edit form goes.
 
-<br/>
-<p>
-<%= f.submit( (@patient.new_record?)? "Create" : "Update" )%>
-</p>
+<%= f.submit( (@patient.new_record?)? "Create" : "Save",{
+	:class => 'id_bar_button with_submenu'
+	})%>

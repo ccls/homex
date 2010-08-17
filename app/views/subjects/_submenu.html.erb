@@ -8,7 +8,7 @@
 	:class => ((controller.controller_name == 'patients')?'current':nil) %>
 <%= link_to 'address/contact', 
 	subject_contacts_path(@subject||subject),
-	:class => ((controller.controller_name == 'contacts')?'current':nil) %>
+	:class => (%w(addresses contacts phone_numbers).include?(controller.controller_name)?'current':nil) %>
 <%= link_to 'eligibility/enrollments', 
 	subject_enrollments_path(@subject||subject),
 	:class => ((controller.controller_name == 'enrollments')?'current':nil) %>

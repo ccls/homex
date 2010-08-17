@@ -14,6 +14,7 @@
 </div><!-- class='full_name' -->
 <div class='controls'>
 <%= ( current_user.may_edit_subjects? && 
+		controller.action_name == 'show' &&
 		controller.controller_name == 'subjects' ) ?
 	link_to( "edit", edit_subject_path(@subject||subject) ) : '&nbsp;' %>
 </div><!-- class='controls' -->
@@ -23,4 +24,4 @@
 <div id='do_not_contact'>
 Subject requests no further contact with Study.
 </div>
-<% end if (@subject||subject).do_not_contact %>
+<% end if (@subject||subject).do_not_contact? %>

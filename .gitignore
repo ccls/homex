@@ -28,6 +28,7 @@ db/pages.yml
 dummy_addresses.csv
 dummy_subject_pii_etc.csv
 public/bottom.html
+public/labels.html
 public/columns.html
 public/doc/
 public/images/BufflerBanner1.jpg
