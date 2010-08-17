@@ -54,7 +54,13 @@
 	border: 2px solid red;
 }
 
+/*
 
+	This needs some fine tuning.  
+	Sometimes its an 'a' tag.
+	Sometimes its a 'input[type=submit]' tag.
+
+*/
 .id_bar_button {
 	position:absolute;
 	text-align:center;
@@ -68,6 +74,8 @@
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid gray;
+	color: black;
+	text-decoration:none;
 }
 .with_submenu {
 	top: 138px;
