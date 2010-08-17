@@ -12,6 +12,7 @@ select#subject_subject_type_id {
 }
 
 /* Move the submit button up to the id bar */
+/*
 input#subject_submit {
 	position:absolute;
 	top: 108px;
@@ -19,3 +20,5 @@ input#subject_submit {
 	font-size:12pt;
 	width: 100px;
 }
+*/
+/* Using .id_bar_button.without_submenu in subject_id_bar.css */
