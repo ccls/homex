@@ -42,6 +42,11 @@ Rails::Initializer.run do |config|
 		config.gem 'mysql'
 	end
 
+
+	config.gem 'jakewendt-stringify_date',
+		:lib => 'stringify_date',
+		:source => 'http://rubygems.org'
+
 	config.gem 'haml'      # Needed for Surveyor
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'active_shipping'

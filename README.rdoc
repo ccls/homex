@@ -33,6 +33,7 @@
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
+* {stringify_date}[http://github.com/jakewendt/stringify_date]
 
 
 == Required and included plugins
