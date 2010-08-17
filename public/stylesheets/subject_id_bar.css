@@ -83,3 +83,6 @@
 .without_submenu {
 	top: 108px;
 }
+.id_bar_button:hover {
+	background-color:#EEE;
+}
