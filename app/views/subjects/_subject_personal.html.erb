@@ -12,15 +12,15 @@
 </p>
 
 <div id='addresses'>
-<%= render :partial => 'addresses/address',
-    :collection => @subject.addresses, :locals => { :edit => false } %>
+<%= render :partial => 'contacts/address',
+    :collection => @subject.addresses, 
+		:locals => { :dates => false, :details => false, :edit => false } %>
 </div><!-- id='addresses' -->
 
 <div id='phone_numbers'>
-<%# %w( primary alternate alternate_2 alternate_3 ).each do |p| %>
-<% @subject.phone_numbers.each do |p| %>
-<%= p %><br/>
-<% end %>
+<%= render :partial => 'contacts/phone_number',
+    :collection => @subject.phone_numbers, 
+		:locals => { :dates => false, :details => false, :edit => false } %>
 </div><!-- id='phone_numbers' -->
 
 </div><!-- class='column' -->

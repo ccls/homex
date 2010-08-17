@@ -1,20 +1,20 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AddressesControllerTest < ActionController::TestCase
+class PhoneNumbersControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
-		:model => 'Address',
+		:model => 'PhoneNumber',
 		:actions => [:edit,:update],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
 	def factory_attributes(options={})
-		Factory.attributes_for(:address,{
-			:address_type_id => Factory(:address_type).id
+		Factory.attributes_for(:phone_number,{
+			:phone_type_id => Factory(:phone_type).id
 		}.merge(options))
 	end
 	def factory_create(options={})
-		Factory(:address,options)
+		Factory(:phone_number,options)
 	end
 
 	assert_access_with_login({ 
@@ -33,7 +33,7 @@ class AddressesControllerTest < ActionController::TestCase
 
 %w( superuser admin editor ).each do |cu|
 
-#	test "should get addresses with #{cu} login" do
+#	test "should get phone_numbers with #{cu} login" do
 #		subject = Factory(:subject)
 #		login_as send(cu)
 #		get :index, :subject_id => subject.id
@@ -43,82 +43,81 @@ class AddressesControllerTest < ActionController::TestCase
 ##		assert_layout 'home_exposure'
 #	end
 
-#	test "should NOT get addresses without subject_id and #{cu} login" do
+#	test "should NOT get phone_numbers without subject_id and #{cu} login" do
 #		login_as send(cu)
 #		assert_raise(ActionController::RoutingError){
 #			get :index
 #		}
 #	end
 
-#	test "should NOT get addresses with invalid subject_id and #{cu} login" do
+#	test "should NOT get phone_numbers with invalid subject_id and #{cu} login" do
 #		login_as send(cu)
 #		get :index, :subject_id => 0
 #		assert_not_nil flash[:error]
 #		assert_redirected_to subjects_path
 #	end
 
-	test "should get new address with #{cu} login" do
+	test "should get new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
 		assert assigns(:subject)
-		assert assigns(:address)
+		assert assigns(:phone_number)
 		assert_response :success
 		assert_template 'new'
 #		assert_layout 'home_exposure'
 	end
 
-	test "should NOT get new address without subject_id and #{cu} login" do
+	test "should NOT get new phone_number without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :new
 		}
 	end
 
-	test "should NOT get new address with invalid subject_id and #{cu} login" do
+	test "should NOT get new phone_number with invalid subject_id and #{cu} login" do
 		login_as send(cu)
 		get :new, :subject_id => 0
 		assert_not_nil flash[:error]
 		assert_redirected_to subjects_path
 	end
 
-	test "should create new address with #{cu} login" do
+	test "should create new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
-		assert_difference("Subject.find(#{subject.id}).addresses.count",1) {
-		assert_difference('Address.count',1) {
+		assert_difference("Subject.find(#{subject.id}).phone_numbers.count",1) {
+		assert_difference('PhoneNumber.count',1) {
 			post :create, :subject_id => subject.id,
-				:address => factory_attributes
+				:phone_number => factory_attributes
 		} }
 		assert assigns(:subject)
-#		assert_redirected_to subject_addresses_path(subject)
 		assert_redirected_to subject_contacts_path(subject)
 	end
 
-	test "should NOT create new address without subject_id and #{cu} login" do
+	test "should NOT create new phone_number without subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-			post :create, :address => factory_attributes
+			post :create, :phone_number => factory_attributes
 		}
 	end
 
-	test "should NOT create new address with invalid subject_id and #{cu} login" do
+	test "should NOT create new phone_number with invalid subject_id and #{cu} login" do
 		login_as send(cu)
-		assert_difference('Address.count',0) do
+		assert_difference('PhoneNumber.count',0) do
 			post :create, :subject_id => 0, 
-				:address => factory_attributes
+				:phone_number => factory_attributes
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT create new address with #{cu} login when create fails" do
+	test "should NOT create new phone_number with #{cu} login when create fails" do
 		subject = Factory(:subject)
-		Address.any_instance.stubs(:create_or_update).returns(false)
+		PhoneNumber.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		assert_difference('Address.count',0) do
+		assert_difference('PhoneNumber.count',0) do
 			post :create, :subject_id => subject.id,
-				:address => factory_attributes
+				:phone_number => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -126,12 +125,12 @@ class AddressesControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT create new address with #{cu} login and invalid address" do
+	test "should NOT create new phone_number with #{cu} login and invalid phone_number" do
 		subject = Factory(:subject)
 		login_as send(cu)
-		assert_difference('Address.count',0) do
+		assert_difference('PhoneNumber.count',0) do
 			post :create, :subject_id => subject.id,
-				:address => { }
+				:phone_number => { }
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -140,79 +139,78 @@ class AddressesControllerTest < ActionController::TestCase
 	end
 
 
-	test "should edit address with #{cu} login" do
-		address = factory_create
+	test "should edit phone_number with #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
-		get :edit, :id => address.id
-		assert assigns(:address)
+		get :edit, :id => phone_number.id
+		assert assigns(:phone_number)
 		assert_response :success
 		assert_template 'edit'
 	end
 
-	test "should NOT edit address with invalid id and #{cu} login" do
-		address = factory_create
+	test "should NOT edit phone_number with invalid id and #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
 		get :edit, :id => 0
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT edit address without id and #{cu} login" do
-		address = factory_create
+	test "should NOT edit phone_number without id and #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :edit
 		}
 	end
 
-	test "should update address with #{cu} login" do
-		address = factory_create
+	test "should update phone_number with #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
-		put :update, :id => address.id,
-			:address => factory_attributes
-		assert assigns(:address)
-#		assert_redirected_to subject_addresses_path(address.subject)
-		assert_redirected_to subject_contacts_path(address.subject)
+		put :update, :id => phone_number.id,
+			:phone_number => factory_attributes
+		assert assigns(:phone_number)
+		assert_redirected_to subject_contacts_path(phone_number.subject)
 	end
 
-	test "should NOT update address with invalid id and #{cu} login" do
-		address = factory_create
+	test "should NOT update phone_number with invalid id and #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
 		put :update, :id => 0,
-			:address => factory_attributes
+			:phone_number => factory_attributes
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT update address without id and #{cu} login" do
-		address = factory_create
+	test "should NOT update phone_number without id and #{cu} login" do
+		phone_number = factory_create
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			put :update,
-				:address => factory_attributes
+				:phone_number => factory_attributes
 		}
 	end
 
-	test "should NOT update address with #{cu} login when update fails" do
-		address = factory_create
-		before = address.updated_at
+	test "should NOT update phone_number with #{cu} login when update fails" do
+		phone_number = factory_create
+		before = phone_number.updated_at
 		sleep 1	# if updated too quickly, updated_at won't change
-		Address.any_instance.stubs(:create_or_update).returns(false)
+		PhoneNumber.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => address.id,
-			:address => factory_attributes
-		after = address.reload.updated_at
+		put :update, :id => phone_number.id,
+			:phone_number => factory_attributes
+		after = phone_number.reload.updated_at
 		assert_equal before.to_i,after.to_i
-		assert assigns(:address)
+		assert assigns(:phone_number)
 		assert_response :success
 		assert_template 'edit'
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT update address with #{cu} login and invalid address" do
-		address = factory_create
+	test "should NOT update phone_number with #{cu} login and invalid phone_number" do
+		phone_number = factory_create
 		login_as send(cu)
-		put :update, :id => address.id,
-			:address => { :line_1 => nil }
-		assert assigns(:address)
+		put :update, :id => phone_number.id,
+			:phone_number => { :phone_number => nil }
+		assert assigns(:phone_number)
 		assert_response :success
 		assert_template 'edit'
 		assert_not_nil flash[:error]
@@ -223,7 +221,7 @@ end
 
 %w( interviewer reader active_user ).each do |cu|
 
-#	test "should NOT get addresses with #{cu} login" do
+#	test "should NOT get phone_numbers with #{cu} login" do
 #		subject = Factory(:subject)
 #		login_as send(cu)
 #		get :index, :subject_id => subject.id
@@ -231,7 +229,7 @@ end
 #		assert_redirected_to root_path
 #	end
 
-	test "should NOT get new address with #{cu} login" do
+	test "should NOT get new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
@@ -239,33 +237,33 @@ end
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create new address with #{cu} login" do
+	test "should NOT create new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
-			:address => factory_attributes
+			:phone_number => factory_attributes
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
 
 end
 
-#	test "should NOT get addresses without login" do
+#	test "should NOT get phone_numbers without login" do
 #		subject = Factory(:subject)
 #		get :index, :subject_id => subject.id
 #		assert_redirected_to_login
 #	end
 
-	test "should NOT get new address without login" do
+	test "should NOT get new phone_number without login" do
 		subject = Factory(:subject)
 		get :new, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
-	test "should NOT create new address without login" do
+	test "should NOT create new phone_number without login" do
 		subject = Factory(:subject)
 		post :create, :subject_id => subject.id,
-			:address => factory_attributes
+			:phone_number => factory_attributes
 		assert_redirected_to_login
 	end
 

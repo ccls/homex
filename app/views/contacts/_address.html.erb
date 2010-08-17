@@ -1,0 +1,57 @@
+<div class='address_wrapper contact_wrapper'>
+
+<% if defined?(dates) and dates -%>
+<div class='when'>
+DATES NOT CODED YET
+</div><!-- class='when' -->
+<% end -%><%# if defined?(details) and details -%>
+
+<% div_for address do %>
+<span class='line_1'><%= address.line_1 %></span>
+<span class='line_2'><%= address.line_2 %></span>
+<span class='csz'><%= address.csz %></span>
+<% end %><!-- class='address' -->
+
+<div class='address_meta contact_meta'>
+<span class='type'>type:&nbsp;<%= address.address_type %></span>
+</div><!-- class='address_meta' -->
+
+<% if defined?(details) and details -%>
+<div class='address_valid contact_valid'>
+<div class='brief'>
+<span class='valid'>
+valid:&nbsp;<%= (address.is_valid?)?'yes':'no' %>
+</span>
+<span class='verified'>
+verified:&nbsp;<%= (address.is_verified?)?'yes':'no' %>
+</span>
+</div><!-- class='brief' -->
+<div class='details'>
+<span class='why'>
+<%= (!address.is_valid?)?"why:&nbsp;#{address.why_invalid}":"&nbsp;" %>
+</span>
+<span class='how'>
+<%= (address.is_verified?)?"how:&nbsp;#{address.how_verified}":"&nbsp;" %>
+</span>
+</div><!-- class='details' -->
+</div><!-- class='address_valid contact_valid' -->
+
+
+<div class='edit'>
+<%#
+
+What is 'edit' ?
+
+	'edit' is a boolean variable sometimes passed
+	to this partial to flag whether or not to show 
+	the edit link.
+
+%>
+<% if defined?(edit) and edit -%>
+<%= link_to 'Edit', edit_address_path(address) %>
+<% else -%>
+&nbsp;
+<% end -%><%# if defined?(edit) and edit -%>
+</div><!-- class='edit' -->
+<% end -%><%# if defined?(details) and details -%>
+</div><!-- class='address_wrapper contact_wrapper' -->

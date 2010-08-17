@@ -1,0 +1,62 @@
+#current {
+	border-bottom: 1px solid gray;
+}
+
+.phone_numbers,
+.addresses {
+	margin-left: 100px;
+}
+#current .addresses {
+	border-bottom: 1px solid black;
+}
+
+.contact_wrapper {
+	padding-bottom:50px;
+}
+
+.when {
+	float:left;
+	width: 200px;
+}
+.phone_number,
+.address {
+	float: left;
+/*
+	clear: both;
+*/
+	width: 15em;
+}
+.contact_meta {
+	float: left;
+	width: 120px;
+}
+
+.contact_valid {
+	float: left;
+}
+.contact_valid span {
+	display:block;
+}
+
+.contact_valid .brief,
+.contact_valid .details {
+	float:left;
+}
+.contact_valid .brief {
+	width: 100px;
+}
+
+
+
+.address .line_1,
+.address .line_2,
+.address .csv {
+	display:block;
+}
+.edit {
+	float: right;
+}
+.new {
+	clear:both;
+	margin-top:0;
+}

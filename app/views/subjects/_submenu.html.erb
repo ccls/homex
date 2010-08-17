@@ -6,9 +6,9 @@
 <%= link_to 'hospital', 
 	subject_patient_path(@subject||subject),
 	:class => ((controller.controller_name == 'patients')?'current':nil) %>
-<%= link_to 'addresses', 
-	subject_addresses_path(@subject||subject),
-	:class => ((controller.controller_name == 'addresses')?'current':nil) %>
+<%= link_to 'address/contact', 
+	subject_contacts_path(@subject||subject),
+	:class => ((controller.controller_name == 'contacts')?'current':nil) %>
 <%= link_to 'eligibility/enrollments', 
 	subject_enrollments_path(@subject||subject),
 	:class => ((controller.controller_name == 'enrollments')?'current':nil) %>

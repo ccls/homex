@@ -25,6 +25,16 @@ class Address < ActiveRecord::Base
 		"#{self.city}, #{self.state} #{self.zip}"
 	end
 
+#	may be built in?
+#
+#	def is_valid?
+#		is_valid
+#	end
+#
+#	def is_verified?
+#		is_verified
+#	end
+
 protected
 
 	def address_type_matches_line_1

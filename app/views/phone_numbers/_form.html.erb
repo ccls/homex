@@ -1,0 +1,47 @@
+<% stylesheets('edit_phone_number') %>
+<% render 'subjects/submenu', :subject => @phone_number.subject %>
+
+<%#
+			t.references :phone_type
+			t.string     :phone_number
+			t.boolean    :is_primary
+			t.boolean    :is_valid
+			t.string     :why_invalid
+			t.boolean    :is_verified
+			t.string     :how_verified
+%>
+
+
+<%= f.error_messages %>
+
+<%= f.label :phone_number %>
+<%= f.text_field :phone_number %>
+<%= f.label :is_primary, 'Primary Phone?' %>
+<%= f.check_box :is_primary %>
+
+<div class='valid'>
+<%= f.label :is_valid, 'Valid?' %>
+<%= f.check_box :is_valid %>
+<%# 
+	Note that these are opposite
+	is_valid and why_INvalid
+%>
+<%= f.label :why_invalid, 'Why?' %>
+<%= f.text_field :why_invalid, :class => :why_invalid %>
+<span>should add some js to show/hide</span>
+</div><!-- class='valid' -->
+
+<div class='verified'>
+<%= f.label :is_verified, 'Verified?' %>
+<%= f.check_box :is_verified %>
+<%= f.label :how_verified, 'How?' %>
+<%= f.text_field :how_verified, :class => :how_verified %>
+<span>should add some js to show/hide</span>
+</div><!-- class='verified' -->
+
+<div class='controls'>
+<%= f.collection_select :phone_type_id, PhoneType.all, 
+			:id, :code, :include_blank => true %>
+<%= f.submit( (@phone_number.new_record?)? "Create" : "Update" )%>
+</div>
+

@@ -11,10 +11,10 @@
 }
 
 .columns .column:nth-child(1) {
-	width: 180px;
+	width: 150px;
 }
 .columns .column:nth-child(2) {
-	width: 300px;
+	width: 320px;
 }
 .columns .column:nth-child(3) {
 }

@@ -28,8 +28,11 @@ ActionController::Routing::Routes.draw do |map|
 			subject.resources :survey_invitations, 
 				:only => [:create,:update,:destroy,:show]
 			subject.resource :patient
+			subject.resources :contacts, :only => :index
+			subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
+				:only => [:new,:create,:edit,:update,   :destroy   ]
 			subject.resources :addresses,		#	TEMP ADD DESTROY FOR DEV ONLY!
-				:only => [:new,:create,:edit,:update,:index,    :destroy   ]
+				:only => [:new,:create,:edit,:update,   :destroy   ]
 			subject.resources :enrollments,
 				:only => [:new,:create,:show,:edit,:update,:index]
 		end
