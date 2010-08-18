@@ -1,0 +1,12 @@
+.phone_number,
+.is_valid,
+.is_verified {
+	float:left;
+}
+.is_primary {
+	clear:left;
+}
+.is_valid,
+.is_verified {
+	width: 100px;
+}
