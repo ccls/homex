@@ -5,6 +5,8 @@ class PatientsController < HxApplicationController
 	before_filter :valid_hx_subject_id_required
 	before_filter :valid_patient_required,
 		:only => [:show,:edit,:update,:destroy]
+	before_filter :no_patient_required,
+		:only => [:new,:create]
 	
 	def new
 		@patient = @subject.build_patient
@@ -38,11 +40,18 @@ class PatientsController < HxApplicationController
 
 	def destroy
 		@patient.destroy
-#		redirect_to subject_path(@subject)
-		redirect_to subject_patient_path(@subject)
+		redirect_to subject_path(@subject)
+#		redirect_to subject_patient_path(@subject)
 	end
 	
 protected
+
+	def no_patient_required
+		unless( @subject.patient.nil? )
+			access_denied("Patient already exists!",
+				subject_patient_path(@subject))
+		end
+	end
 
 	def valid_patient_required
 		if( ( @patient = @subject.patient ).nil? )

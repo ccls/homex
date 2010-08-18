@@ -2,7 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PatientTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:subject,:organization)
+	assert_should_initially_belong_to(:subject)
+	assert_should_belong_to(:organization)
 
 	test "should create patient" do
 		assert_difference 'Patient.count' do
@@ -27,15 +28,14 @@ class PatientTest < ActiveSupport::TestCase
 	#
 	test "should require subject_id on update" do
 		assert_difference 'Patient.count', 1 do
-			object = create_object
+			object = create_object(:subject_id => nil)
 			object.reload.update_attributes(:hospital_no => 1)
 			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should require unique subject_id" do
-		subject = Factory(:subject)
-		create_object(:subject => subject)
+		subject = create_object.subject
 		assert_difference( 'Patient.count', 0 ) do
 			object = create_object(:subject => subject)
 			assert object.errors.on(:subject_id)

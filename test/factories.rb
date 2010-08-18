@@ -132,12 +132,16 @@ Factory.define :package do |f|
 end
 
 Factory.define :patient do |f|
+	#	really don't see the point of a patient w/o a subject
+	f.association :subject
 end
 
 Factory.define :person do |f|
 end
 
 Factory.define :pii do |f|
+	#	really don't see the point of a PII w/o a subject
+	#	but ...
 #	f.association :subject
 	f.first_name "First"
 	f.middle_name "Middle"
