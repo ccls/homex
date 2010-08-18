@@ -12,21 +12,22 @@ module FormHelper
 
 	def wrapped_text_area(object_name,method,options={})
 		field_wrapper(method) do
-			s =  label( object_name, method )
+			s =  label( object_name, method, options.delete(:label_text) )
 			s << text_area( object_name, method, options )
 		end
 	end
 
 	def wrapped_text_field(object_name,method,options={})
 		field_wrapper(method) do
-			s =  label( object_name, method )
+			s =  label( object_name, method, options.delete(:label_text) )
 			s << text_field( object_name, method, options )
 		end
 	end
 
 	def wrapped_check_box(object_name,method,options={})
 		field_wrapper(method) do
-			s =  label( object_name, method, "#{method.to_s.titleize}?" )
+			s =  label( object_name, method, 
+				options.delete(:label_text) || "#{method.to_s.titleize}?" )
 			s << check_box( object_name, method, options )
 		end
 	end
@@ -34,7 +35,7 @@ module FormHelper
 	def wrapped_collection_select(object_name,method,
 		collection,value_method,text_method,options={},html_options={})
 		field_wrapper(method) do
-			s =  label( object_name, method )
+			s =  label( object_name, method, options.delete(:label_text) )
 			s << collection_select( object_name, method, 
 				collection,value_method,text_method,options,html_options )
 		end
