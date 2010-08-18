@@ -1,6 +1,7 @@
 <% stylesheets('subject_id_bar') %>
+
 <% content_for :main do %>
-<div class='manage'>
+<div id='id_bar'>
 <div class='childid'>
 <span>ChildID:</span>
 <span><%= (@subject||subject).childid -%></span>
@@ -13,13 +14,11 @@
 <span><%= (@subject||subject).full_name -%></span>
 </div><!-- class='full_name' -->
 <div class='controls'>
-<%= ( current_user.may_edit_subjects? && 
-		controller.action_name == 'show' &&
-		controller.controller_name == 'subjects' ) ?
-	link_to( "edit", edit_subject_path(@subject||subject) ) : '&nbsp;' %>
+<%= yield :id_bar %>
 </div><!-- class='controls' -->
-</div><!-- class='manage' -->
+</div><!-- id='id_bar' -->
 <% end %>
+
 <% content_for :main do %>
 <div id='do_not_contact'>
 Subject requests no further contact with Study.

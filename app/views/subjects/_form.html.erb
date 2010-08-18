@@ -53,7 +53,3 @@
 <%= f.collection_select :subject_type_id, SubjectType.all, 
 	:id, :description, :include_blank => true %>
 </div>
-
-<%= f.submit( (@subject.new_record?)? "Create" : "Save",{
-	:class => 'id_bar_button without_submenu'
-	})%>

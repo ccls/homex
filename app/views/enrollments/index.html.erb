@@ -1,5 +1,10 @@
 <% stylesheets('enrollments') %>
 <% render 'subjects/submenu' %>
+
+<% content_for :id_bar do %>
+<%= link_to 'New', 
+	new_subject_enrollment_path(@subject) %>
+<% end if current_user.may_edit_enrollments? %>
 <% render 'subjects/id_bar' %>
 
 <% if @subject.enrollments.length > 0 %>
@@ -23,11 +28,4 @@
 </tbody></table><!-- id='enrollments' -->
 <% else %>
 <p>This subject has no enrollments</p>
-<% end %>
-
-<% if current_user.may_edit_enrollments? %>
-<p id='new_enrollment'>
-<%= link_to 'Create new enrollment', 
-	new_subject_enrollment_path(@subject) %>
-</p>
 <% end %>

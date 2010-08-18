@@ -29,7 +29,8 @@ class PatientsController < HxApplicationController
 	def update
 		@patient.update_attributes!(params[:patient])
 		flash[:notice] = "Patient updated"
-		redirect_to subject_path(@subject)
+#		redirect_to subject_path(@subject)
+		redirect_to subject_patient_path(@subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Patient update failed"
 		render :action => 'edit'
@@ -37,7 +38,8 @@ class PatientsController < HxApplicationController
 
 	def destroy
 		@patient.destroy
-		redirect_to subject_path(@subject)
+#		redirect_to subject_path(@subject)
+		redirect_to subject_patient_path(@subject)
 	end
 	
 protected

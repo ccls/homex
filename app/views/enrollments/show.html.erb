@@ -1,6 +1,12 @@
 <% stylesheets('enrollment') %>
-<% render 'subjects/submenu', :subject => @enrollment.subject %>
-<% render 'subjects/id_bar', :subject => @enrollment.subject %>
+<% render 'subjects/submenu', 
+	:subject => @enrollment.subject %>
+
+<% content_for :id_bar do %>
+<%= link_to 'Edit', edit_enrollment_path(@enrollment) %>
+<% end if current_user.may_edit_enrollments? %>
+<% render 'subjects/id_bar', 
+	:subject => @enrollment.subject %>
 
 <p><%= @enrollment.project.description -%></p>
 
@@ -23,7 +29,3 @@
 <%= wrapped_spans :enrollment, :is_closed %>
 <%= wrapped_spans :enrollment, :reason_closed %>
 <%= wrapped_spans :enrollment, :notes %>
-
-<%= link_to( 'Edit', edit_enrollment_path(@enrollment),
-	:class => 'id_bar_button with_submenu'
-	) if current_user.may_edit_enrollments? %>

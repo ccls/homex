@@ -1,6 +1,8 @@
 <% stylesheets('edit_address') %>
-<% render 'subjects/submenu', :subject => @address.subject %>
-<% render 'subjects/id_bar', :subject => @address.subject %>
+<% render 'subjects/submenu', 
+	:subject => @address.subject %>
+<% render 'subjects/id_bar', 
+	:subject => @address.subject %>
 
 <%= f.error_messages %>
 
@@ -47,9 +49,6 @@
 <div class='controls'>
 <%= f.collection_select :address_type_id, AddressType.all, 
 			:id, :code, :include_blank => true %>
-<%= f.submit( (@address.new_record?)? "Create" : "Save",{
-	:class => 'id_bar_button with_submenu'
-	})%>
 <%#= (@address.new_record?)? "&nbsp" : 
 	destroy_link_to( "Destroy", address_path(@address) )
 %>

@@ -1,6 +1,8 @@
 <%# stylesheets('edit_phone_number') %>
-<% render 'subjects/submenu', :subject => @phone_number.subject %>
-<% render 'subjects/id_bar', :subject => @phone_number.subject %>
+<% render 'subjects/submenu', 
+	:subject => @phone_number.subject %>
+<% render 'subjects/id_bar', 
+	:subject => @phone_number.subject %>
 
 <%= f.error_messages %>
 
@@ -32,8 +34,5 @@
 <div class='controls'>
 <%= f.collection_select :phone_type_id, PhoneType.all, 
 			:id, :code, :include_blank => true %>
-<%= f.submit( (@phone_number.new_record?)? "Create" : "Save", {
-	:class => 'id_bar_button with_submenu'
-	})%>
 </div>
 

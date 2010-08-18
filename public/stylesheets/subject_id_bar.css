@@ -1,31 +1,47 @@
-#main .manage {
+#main #id_bar {
 	background-color: silver;
 	padding: 10px;
+
+/* 
+	overflow:hidden;
+*/
 }
-#main .manage .childid {
+#main #id_bar .childid {
+/*
 	float:left;
+*/
+	display:inline;
 	padding-right: 10px;
 }
-#main .manage .studyid {
+#main #id_bar .studyid {
+/*
 	float:left;
+*/
+	display:inline;
 	padding-right: 10px;
 }
-#main .manage .full_name {
+#main #id_bar .full_name {
+/*
 	float:left;
+*/
+	display:inline;
 	font-weight: bold;
 }
-#main .manage .controls {
+#main #id_bar .controls {
 	text-align: right;
+	float: right;
 }
-#main .manage .controls a {
+	/* http://css-radius.heroku.com */
+/*
+#main #id_bar .controls a {
 	background-color: white;
 	padding: 2px 15px;
-	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid gray;
-
+}
+*/
 	/* http://gradients.glrzad.com/ */
 /*
 	background-image: -moz-linear-gradient(
@@ -43,7 +59,6 @@
 		color-stop(0.74, rgb(235,235,235))
 	);
 */
-}
 
 #do_not_contact {
 	text-align:center;
@@ -54,35 +69,21 @@
 	border: 2px solid red;
 }
 
-/*
-
-	This needs some fine tuning.  
-	Sometimes its an 'a' tag.
-	Sometimes its a 'input[type=submit]' tag.
-
-*/
-.id_bar_button {
-	position:absolute;
+#id_bar .controls a {
 	text-align:center;
-	left: 710px;
 	font-size:12pt;
 	width: 90px;
 	background-color: white;
 	padding: 2px 15px;
+	border: 1px solid gray;
+	color: black;
+	text-decoration:none;
+
 	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	border: 1px solid gray;
-	color: black;
-	text-decoration:none;
 }
-.with_submenu {
-	top: 138px;
-}
-.without_submenu {
-	top: 108px;
-}
-.id_bar_button:hover {
+#id_bar .controls a:hover {
 	background-color:#EEE;
 }

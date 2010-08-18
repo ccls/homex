@@ -1,9 +1,23 @@
-<% stylesheets('edit_enrollment') %>
-<% render 'subjects/submenu', :subject => @subject %>
-<% form_tag(subject_enrollments_path(@subject)) do %>
+<% stylesheets(:edit_enrollment) %>
 
-<%= select_tag 'project_id', options_for_select(
+<% render 'subjects/submenu', 
+	:subject => @subject %>
+
+<% content_for :id_bar do %>
+<%= link_to( 'Create', nil, {
+	:id => "for_new_enrollment",
+	:class => :submitter
+}) %>
+<% end %>
+<% render 'subjects/id_bar',
+	:subject => @subject %>
+
+<% form_for(@enrollment,
+	:url => subject_enrollments_path(@subject) ) do |f| %>
+<%# form_tag(subject_enrollments_path(@subject),
+	:id => :new_enrollment ) do %>
+<%#= select_tag 'project_id', options_for_select(
 	@projects.collect{ |u| [u.description, u.id] }) %>
-
-<p><%= submit_tag("Create")%></p>
+<%= f.select :project_id, options_for_select(
+	@projects.collect{ |u| [u.description, u.id] }) %>
 <% end %>

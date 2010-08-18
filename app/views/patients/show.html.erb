@@ -1,6 +1,11 @@
 <%# stylesheets('patient') %>
 <% render 'subjects/submenu' %>
+
+<% content_for :id_bar do %>
+<%= link_to 'Edit', edit_subject_patient_path(@subject) %>
+<% end if current_user.may_edit_patient? %>
 <% render 'subjects/id_bar' %>
+
 <div id='patient'>
 
 <dl>
@@ -11,8 +16,6 @@
 </dl>
 
 </div><!-- id='patient' -->
-<% if current_user.may_edit_patient? %>
-<%= link_to 'Edit', edit_subject_patient_path(@subject),
-	:class => 'id_bar_button with_submenu' %>
+
+Development:
 <%= destroy_link_to 'Destroy', subject_patient_path(@subject) %>
-<% end %>

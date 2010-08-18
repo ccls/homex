@@ -81,7 +81,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_difference("Subject.find(#{subject.id}).enrollments.count",1) {
 		assert_difference('Enrollment.count',1) {
 			post :create, :subject_id => subject.id,
-				:project_id => Factory(:project).id
+				:enrollment => { :project_id => Factory(:project).id }
+#				:project_id => Factory(:project).id
 #				:enrollment => factory_attributes
 		} }
 		assert assigns(:subject)
@@ -93,15 +94,18 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 #			post :create, :enrollment => factory_attributes
-			post :create, :project_id => Factory(:project).id
+#			post :create, :project_id => Factory(:project).id
+			post :create, :enrollment => { 
+				:project_id => Factory(:project).id }
 		}
 	end
 
 	test "should NOT create enrollment with invalid subject_id and #{cu} login" do
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
-			post :create, :subject_id => 0, 
-				:project_id => Factory(:project).id
+#			post :create, :subject_id => 0, 
+			post :create, :subject_id => 0, :enrollment => {
+				:project_id => Factory(:project).id }
 		end
 		assert_not_nil flash[:error]
 		assert_redirected_to subjects_path
@@ -112,8 +116,9 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		Enrollment.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
-			post :create, :subject_id => subject.id,
-				:project_id => Factory(:project).id
+			post :create, :subject_id => subject.id, :enrollment => {
+				:project_id => Factory(:project).id }
+#				:project_id => Factory(:project).id
 #				:enrollment => factory_attributes
 		end
 		assert assigns(:subject)

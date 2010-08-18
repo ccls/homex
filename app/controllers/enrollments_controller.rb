@@ -7,11 +7,13 @@ class EnrollmentsController < HxApplicationController
 
 	def new
 		get_unenrolled_projects
+		@enrollment = @subject.enrollments.build
 	end
 
 	def create
-		@enrollment = @subject.enrollments.build(
-			{:project_id => params[:project_id]})
+		@enrollment = @subject.enrollments.build(params[:enrollment])
+#		@enrollment = @subject.enrollments.build(
+#			{:project_id => params[:project_id]})
 		@enrollment.save!
 		redirect_to edit_enrollment_path(@enrollment)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
