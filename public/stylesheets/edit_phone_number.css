@@ -1,12 +1,25 @@
 .phone_number,
+.phone_type_id,
 .is_valid,
 .is_verified {
+	display:inline;
 	float:left;
 }
+.valid,
+.verified,
 .is_primary {
 	clear:left;
 }
+.why_invalid,
+.how_verified {
+	margin-left: 100px;
+}
+
 .is_valid,
 .is_verified {
 	width: 100px;
+}
+
+.field_wrapper {
+	padding:10px;
 }
