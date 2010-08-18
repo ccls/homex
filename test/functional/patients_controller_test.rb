@@ -249,7 +249,7 @@ pending
 		assert_difference('Patient.count', -1) do
 			delete :destroy, :subject_id => subject.id
 		end
-		assert_nil subject.patient
+		assert_nil subject.reload.patient
 		assert_redirected_to subject_path(subject)
 	end
 
