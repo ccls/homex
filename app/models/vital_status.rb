@@ -1,3 +1,4 @@
+#	don't know exactly
 class VitalStatus < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position

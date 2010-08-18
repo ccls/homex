@@ -14,7 +14,14 @@ class Package < ActiveRecord::Base
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(
 		IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
-	@@packages_updated = "#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
+	cattr_accessor :fedex
+
+	#	Returns the name of the file used to store the
+	#	time that the package statuses were last updated 
+	#	used by both the app and the background process.
+	def self.packages_updated
+		"#{RAILS_ROOT}/packages_updated.#{RAILS_ENV}"
+	end
 
 #	named_scope :delivered, :conditions => [
 #		'status LIKE ?', 'Delivered%'
@@ -53,8 +60,8 @@ class Package < ActiveRecord::Base
 			#	I'm pretty sure that I'll need a "production" key
 			#	to remove the :test => true.  I don't know if
 			#	the results will be any different.  I doubt it.
-			tracking_info = @@fedex.find_tracking_info(tracking_number, 
-				:test => true)
+			tracking_info = self.class.fedex.find_tracking_info(
+				tracking_number, :test => true)
 
 			tracking_info.shipment_events.each do |event|
 				#	Added .utc to search as it was not converting
@@ -117,8 +124,8 @@ class Package < ActiveRecord::Base
 	#	Read the time contained in the packages_updated file
 	#	used by both the app and the background process.
 	def self.last_updated
-		if File.exists?(@@packages_updated)
-			Time.parse(File.open(@@packages_updated,'r'){|f| f.read })
+		if File.exists?(packages_updated)
+			Time.parse(File.open(packages_updated,'r'){|file| file.read })
 		else
 			nil
 		end
@@ -127,14 +134,7 @@ class Package < ActiveRecord::Base
 	#	Write the current time to the packages_updated file
 	#	used by both the app and the background process.
 	def self.just_updated
-		File.open(@@packages_updated,'w'){|f| f.printf Time.now.to_s }
-	end
-
-	#	Returns the name of the file used to store the
-	#	time that the package statuses were last updated 
-	#	used by both the app and the background process.
-	def self.packages_updated
-		@@packages_updated
+		File.open(packages_updated,'w'){|file| file.printf Time.now.to_s }
 	end
 
 protected

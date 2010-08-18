@@ -1,3 +1,4 @@
+# A kit is 2 packages used for retrieving samples.
 class SampleKit < ActiveRecord::Base
 	belongs_to :sample
 	belongs_to :kit_package,  :class_name => 'Package'

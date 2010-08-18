@@ -1,3 +1,4 @@
+#	The type of address (home,work,residence,pobox,etc.)
 class AddressType < ActiveRecord::Base
 	acts_as_list
 	has_many :addresses

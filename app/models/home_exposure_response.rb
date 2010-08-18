@@ -1,3 +1,4 @@
+# Extraction of answers from the survey
 class HomeExposureResponse < ActiveRecord::Base
 	belongs_to :subject
 

@@ -1,3 +1,4 @@
+# don't know exactly
 class SurveyInvitationMailer < ActionMailer::Base
 
 #

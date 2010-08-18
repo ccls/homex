@@ -1,3 +1,4 @@
+# don't know exactly
 class SurveyInvitation < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :response_set

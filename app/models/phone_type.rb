@@ -1,3 +1,4 @@
+# The type of phone number (home,work,mobile,etc.)
 class PhoneType < ActiveRecord::Base
 	has_many :phone_numbers
 	acts_as_list

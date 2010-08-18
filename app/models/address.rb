@@ -1,3 +1,4 @@
+#	Address for a subject
 class Address < ActiveRecord::Base
 	default_scope :order => 'created_at DESC'
 
@@ -11,7 +12,7 @@ class Address < ActiveRecord::Base
 
 	validates_presence_of :subject_id, :subject
 	validates_presence_of :address_type_id, :address_type
-	validate :address_type_matches_line_1
+	validate :address_type_matches_line
 
 	validates_presence_of :line_1, :city, :state, :zip
 
@@ -32,7 +33,7 @@ class Address < ActiveRecord::Base
 
 protected
 
-	def address_type_matches_line_1
+	def address_type_matches_line
 		#	It is inevitable that this will match too much
 		if(( line_1 =~ /p.*o.*box/i ) &&
 			( address_type_id.to_s == '1' ))	#	1 is 'residence'

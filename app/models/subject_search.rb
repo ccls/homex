@@ -1,3 +1,4 @@
+# don't know exactly
 class SubjectSearch < Search
 
 	@@searchable_attributes = [

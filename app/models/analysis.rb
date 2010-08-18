@@ -1,3 +1,4 @@
+# don't know exactly
 class Analysis < ActiveRecord::Base
 	has_and_belongs_to_many :subjects
 

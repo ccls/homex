@@ -1,26 +1,7 @@
+# A picture used soley on the home page
 class HomePagePic < ActiveRecord::Base
 	validates_presence_of :title
 	validates_length_of :title, :minimum => 4
-
-#	path = if Rails.env == 'production'
-#		':rails_root.uploads/system/:attachment/:id/:style/:filename'
-#	else
-#		':rails_root/public/system/:attachment/:id/:style/:filename'
-#	end
-#
-#	url = if Rails.env == 'production'
-##		'http://ccls.berkeley.edu/ucb_sph_ccls.uploads/:attachment/:id/:style/:filename'
-#		'/../ucb_sph_ccls.uploads/system/:attachment/:id/:style/:filename'
-#	else
-#		'/system/:attachment/:id/:style/:filename'
-#	end
-#
-#	has_attached_file :image, :styles => {
-#		:full   => "900",
-#		:large  => "800",
-#		:medium => "600",
-#		:small  => "150x50>"
-#	}, :url => url, :path => path
 
 	has_attached_file :image,
 		YAML::load(ERB.new(IO.read(File.expand_path(
@@ -39,9 +20,9 @@ class HomePagePic < ActiveRecord::Base
 #		end
 #		first( :order => random, :conditions => { :active => true } )
 		conditions = [ 'active = ? AND image_file_name IS NOT NULL', true ]
-		c = HomePagePic.count(:conditions => conditions )
-		if c > 0
-			first(:offset => rand(c), :conditions => conditions )
+		count = HomePagePic.count(:conditions => conditions )
+		if count > 0
+			first(:offset => rand(count), :conditions => conditions )
 		else
 			nil
 		end

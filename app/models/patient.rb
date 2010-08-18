@@ -1,3 +1,4 @@
+# Patient related subject info.
 class Patient < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :organization
