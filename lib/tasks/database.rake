@@ -59,10 +59,10 @@ namespace :db do
 			address = Address.create!(
 				:subject => subject,
 				:address_type => address_type,
-				:line_1 => line[2],
-				:city => line[3],
-				:state => line[4],
-				:zip => line[5]
+				:line_1 => line[2]||"FAKE LINE 1",
+				:city => line[3]||"FAKE CITY",
+				:state => line[4]||"FAKE STATE",
+				:zip => line[5]||"12345-6789"
 			)
 
 			Residence.create!(

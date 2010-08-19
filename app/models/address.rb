@@ -17,12 +17,7 @@ class Address < ActiveRecord::Base
 
 	validates_presence_of :line_1, :city, :state, :zip
 
-#	The dummy data loaded with the rake task has some
-#	broken and invalid addresses so must relax the
-#	validations when loading them.
-
 	validates_format_of :zip,
-#		:allow_blank => true,
 		:with => /\A\s*\d{5}(-\d{4})?\s*\z/,
 		:message => "should be 12345 or 12345-1234"
 
@@ -46,7 +41,7 @@ protected
 	def format_zip
 #		self.zip.to_s.gsub!(/\D/,'')
 #	force some common format here .....
-		self.zip.squish! unless zip.blank?
+		self.zip.squish! #	unless zip.blank?
 	end
 
 end
