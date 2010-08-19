@@ -54,7 +54,7 @@
 	display:block;
 }
 .edit {
-	float: right;
+	text-align: right;
 }
 .new {
 	clear:both;
