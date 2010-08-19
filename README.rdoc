@@ -187,9 +187,12 @@ As this app is being installed on a VM Java jruby tomcat thing, we need special 
 
 Tomcat will unarchive the war file and DESTROY the existing unarchived version!  Any file uploads will need to be kept elsewhere.
 
+Before (or after) I recommend migrating the database from somewhere else using the production_prep 'environment'.
+
  ( warble from a jruby environment to get the jruby specific gems )
 
  [jakewendt@dev : ucb_ccls_homex ]>
+ rake db:migrate RAILS_ENV=production_prep
  bash
  rvm use jruby
  warble

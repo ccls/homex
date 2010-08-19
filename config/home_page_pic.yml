@@ -17,7 +17,7 @@ test:
   :path: <%= "#{Rails.root}/public" << url %>
   <<: *DEFAULTS
 
-production:
+production: &PRODEFAULTS
   #	Set the storage class to RRS which is cheaper than 
   #	the default of STANDARD
   :s3_headers:
@@ -32,3 +32,6 @@ production:
   # S3 must have a defined path or will generate
   # "Stack level too deep" errors
   <<: *DEFAULTS
+
+production_prep: 
+  <<: *PRODEFAULTS
