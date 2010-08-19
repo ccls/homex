@@ -24,6 +24,7 @@ Rails::Initializer.run do |config|
 		config.gem 'activerecord-jdbcmysql-adapter',
 			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
 
+		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
 		#	Additional jruby specific jars required in the war
 		config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
 		config.gem 'jruby-openssl', :lib => 'openssl'
@@ -52,8 +53,6 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
-#	&apos; does not get converted correctly
-#	config.gem 'sanitize'
 
 	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
