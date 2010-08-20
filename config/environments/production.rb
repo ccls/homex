@@ -32,4 +32,8 @@ config.action_mailer.delivery_method = :smtp
 config.action_mailer.default_url_options = { 
 	:host => "ccls.berkeley.edu" }
 
-config.action_controller.relative_url_root = '/homex'
+#
+#	It appears that the application is smart enough to set
+#	this correctly, so this isn't really needed.
+#
+#	config.action_controller.relative_url_root = '/homex'
