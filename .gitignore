@@ -24,7 +24,7 @@ DUMMY_ManipulatedData.csv
 HomeExposuresMetadata.csv
 SurveyRelatedMetadata.csv
 address_types.csv
-db/pages.yml
+db/*.yml
 dummy_addresses.csv
 dummy_subject_pii_etc.csv
 public/bottom.html
@@ -43,3 +43,4 @@ test_transactions.rb
 db/*.sqlite3-journal
 *.war
 */documents
+database_description_*
