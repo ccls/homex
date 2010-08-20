@@ -1,4 +1,4 @@
-<%# stylesheets('patient') %>
+<% stylesheets('patient') %>
 <% render 'subjects/submenu' %>
 
 <% content_for :id_bar do %>
@@ -7,15 +7,15 @@
 <% render 'subjects/id_bar' %>
 
 <div id='patient'>
-
-<dl>
-	<% @patient.try(:attributes).each do |key| -%>
-		<dt><%= key -%></dt>
-		<dd><%= @patient.attributes[key] -%></dd>
-	<% end -%>
-</dl>
-
+<%= wrapped_spans(:patient,:diagnosis_date,
+	:label_text => 'diagnosis (reference) date:') %>
+<%= wrapped_spans(:patient,:diagnosis_id,
+	:label_text => 'NO DIAGNOSIS MODEL YET' ) %>
+<%= wrapped_spans(:patient,:organization,
+	:label_text => 'diagnosing hospital:') %>
+<%= wrapped_spans(:patient,:hospital_no,
+	:label_text => 'hospital number:') %>
 </div><!-- id='patient' -->
 
-Development:
+<p>Development:</p>
 <%= destroy_link_to 'Destroy', subject_patient_path(@subject) %>

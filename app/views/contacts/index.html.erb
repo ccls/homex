@@ -5,13 +5,16 @@
 <div id='current'>
 <span>Current Info:</span>
 <div class='addresses'>
+<%#
+	This probably should just be the current address ?
+%>
 <%= render :partial => 'address', 
 	:collection => @subject.addresses,
 	:locals => { :details => true,
 		:edit => current_user.may_edit_addresses? } %>
 <% if current_user.may_edit_addresses? %>
 <p id='new_address' class='new'>
-<%= link_to 'add new ...', new_subject_address_path(@subject) %>
+<%= link_to 'add new address ...', new_subject_address_path(@subject) %>
 </p>
 <% end %>
 </div><!-- class='addresses' -->
@@ -23,7 +26,7 @@
 		:edit => current_user.may_edit_phone_numbers? } %>
 <% if current_user.may_edit_phone_numbers? %>
 <p id='new_phone_number' class='new'>
-<%= link_to 'add new ...', new_subject_phone_number_path(@subject) %>
+<%= link_to 'add new phone number ...', new_subject_phone_number_path(@subject) %>
 </p>
 <% end %>
 </div><!-- class='phone_numbers' -->
@@ -32,6 +35,9 @@
 <div id='history'>
 <span>Address History:</span>
 <div class='addresses'>
+<%#
+	This probably should be all except the current address ?
+%>
 <%= render :partial => 'address', 
 	:collection => @subject.addresses,
 	:locals => { :dates => true } %>

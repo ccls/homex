@@ -8,4 +8,6 @@ class Patient < ActiveRecord::Base
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
+	stringify_date :diagnosis_date
+
 end
