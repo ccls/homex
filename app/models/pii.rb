@@ -18,13 +18,7 @@ class Pii < ActiveRecord::Base
 	  :with => /\A([-a-z0-9!\#$%&'*+\/=?^_`{|}~]+\.)*[-a-z0-9!\#$%&'*+\/=?^_`{|}~]+@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, 
 		:allow_blank => true
 
-#	validates_format_of :phone_primary, :phone_alternate, 
-#		:phone_alternate_2, :phone_alternate_3,
-#	  :with => /\A\s*\(?\d{3}\)?\s*\d{3}-?\d{4}\s*\z/,
-#		:allow_blank => true
-
 	before_validation :nullify_blank_email
-#	before_save :format_phones
 
 	stringify_date :dob
 
@@ -56,22 +50,5 @@ protected
 		#	An empty form field is not NULL to MySQL so ...
 		self.email = nil if email.blank?
 	end
-
-#	STUPID.  .gsub!
-#	or returning nil if no substitutions were performed.
-#	so to correctly use gsub! you must first check the string
-#	to ensure that something needs substituted or you
-#	get nil for you efforts.
-
-#	def format_phones
-#		[:phone_primary, :phone_alternate, :phone_alternate_2, 
-#			:phone_alternate_3].each do |phone_field|
-#			unless self.send(phone_field).nil?
-#				old = self.send(phone_field).gsub(/\D/,'')
-#				new_phone = "(#{old[0..2]}) #{old[3..5]}-#{old[6..9]}"
-#				self.send("#{phone_field}=",new_phone)
-#			end
-#		end
-#	end
 
 end

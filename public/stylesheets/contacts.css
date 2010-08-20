@@ -3,10 +3,10 @@
 }
 
 .phone_numbers,
-.addresses {
+.addressings {
 	margin-left: 100px;
 }
-#current .addresses {
+#current .addressings {
 	border-bottom: 1px solid black;
 }
 
@@ -15,7 +15,7 @@
 	clear:left;	
 
 	/* using this to hack the floats */
-	overflow:auto;
+	overflow:hidden;
 }
 
 .when {
@@ -23,7 +23,7 @@
 	width: 200px;
 }
 .phone_number,
-.address {
+.addressing {
 	float: left;
 /*
 	clear: both;
@@ -52,9 +52,9 @@
 
 
 
-.address .line_1,
-.address .line_2,
-.address .csv {
+.addressing .line_1,
+.addressing .line_2,
+.addressing .csv {
 	display:block;
 }
 .edit {

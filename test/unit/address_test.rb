@@ -2,11 +2,14 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTest < ActiveSupport::TestCase
 
-	assert_requires_valid_associations(:subject,:address_type)
-	assert_should_have_one(:residence)
+	assert_requires_valid_associations(:address_type)
+#	assert_requires_valid_associations(:subject,:address_type)
+#	assert_should_have_one(:residence)
+	assert_should_have_one(:addressing)
 	assert_should_have_many(:interviews)
 	assert_should_belong_to(:data_source)
-	assert_should_initially_belong_to(:subject,:address_type)
+# assert_should_initially_belong_to(:subject,:address_type)
+	assert_should_initially_belong_to(:address_type)
 
 	test "should create address" do
 		assert_difference 'Address.count' do
@@ -60,14 +63,14 @@ class AddressTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT destroy residence on destroy" do
-		object = create_object
-		Factory(:residence, :address_id => object.id)
-		assert_difference('Residence.count',0) {
-		assert_difference('Address.count',-1) {
-			object.destroy
-		} }
-	end
+#	test "should NOT destroy residence on destroy" do
+#		object = create_object
+#		Factory(:residence, :address_id => object.id)
+#		assert_difference('Residence.count',0) {
+#		assert_difference('Address.count',-1) {
+#			object.destroy
+#		} }
+#	end
 
 	test "should order address chronologically reversed" do
 		a1 = Factory(:address, :created_at => Date.jd(2440000) ).id

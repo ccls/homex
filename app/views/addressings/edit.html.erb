@@ -1,19 +1,19 @@
 <% content_for :id_bar do %>
 <%= link_to( 'Save', nil, {
-	:id => "for_#{dom_id(@address,:edit)}",
+	:id => "for_#{dom_id(@addressing,:edit)}",
 	:class => :submitter
 }) %>
 <% end %>
 
-<% form_for(@address,
-	:url => address_path(@address)) do |f| %>
+<% form_for(@addressing,
+	:url => addressing_path(@addressing)) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>
 
 <% if current_user.may_destroy? %>
 <div class='dev_only'><span>Development only:</span>
-<%= (@address.new_record?)? "&nbsp" : 
-destroy_link_to( "Destroy", address_path(@address) )
+<%= (@addressing.new_record?)? "&nbsp" : 
+destroy_link_to( "Destroy", addressing_path(@addressing) )
 %>
 </div>
 <% end %>

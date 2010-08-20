@@ -1,10 +1,16 @@
 Factory.define :address do |f|
-	f.association :subject
+#	f.association :subject
+#	f.association :addressing
 	f.association :address_type
 	f.sequence(:line_1) { |n| "Box #{n}" }
 	f.city "Berkeley"
 	f.state "CA"
 	f.zip "12345"
+end
+
+Factory.define :addressing do |f|
+	f.association :address
+	f.association :subject
 end
 
 Factory.define :address_type do |f|
@@ -161,9 +167,9 @@ Factory.define :race do |f|
 	f.sequence(:description){|n| "Desc#{n}"}
 end
 
-Factory.define :residence do |f|
-	f.association :address
-end
+#Factory.define :residence do |f|
+#	f.association :address
+#end
 
 Factory.define :refusal_reason do |f|
 	f.sequence(:code) { |n| "Code#{n}" }

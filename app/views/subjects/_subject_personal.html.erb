@@ -11,11 +11,11 @@
 <% end %>
 </p>
 
-<div id='addresses'>
-<%= render :partial => 'contacts/address',
-    :collection => @subject.addresses, 
+<div id='addressings'>
+<%= render :partial => 'contacts/addressing',
+    :collection => @subject.addressings, 
 		:locals => { :dates => false, :details => false, :edit => false } %>
-</div><!-- id='addresses' -->
+</div><!-- id='addressings' -->
 
 <div id='phone_numbers'>
 <%= render :partial => 'contacts/phone_number',

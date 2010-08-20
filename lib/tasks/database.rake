@@ -57,7 +57,6 @@ namespace :db do
 			raise ActiveRecord::RecordNotFound unless address_type
 
 			address = Address.create!(
-				:subject => subject,
 				:address_type => address_type,
 				:line_1 => line[2]||"FAKE LINE 1",
 				:city => line[3]||"FAKE CITY",
@@ -65,9 +64,11 @@ namespace :db do
 				:zip => line[5]||"12345-6789"
 			)
 
-			Residence.create!(
-				:address => address
-			)
+			subject.addresses << address
+
+#			Residence.create!(
+#				:address => address
+#			)
 		end
 	end
 

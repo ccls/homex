@@ -1,4 +1,5 @@
-class AddressesController < HxApplicationController
+#class AddressesController < HxApplicationController
+class AddressingsController < HxApplicationController
 
 	before_filter :may_edit_required
 	before_filter :may_destroy_required,
@@ -10,13 +11,17 @@ class AddressesController < HxApplicationController
 		:only => [:edit,:update,:destroy]
 
 	def new
-		@address = Address.new
+#		@address = Address.new
+		@addressing = Addressing.new
 	end
 
 	def create
-		@address = @subject.addresses.build(params[:address])
-		@address.save!
-		redirect_to subject_contacts_path(@address.subject)
+#		@address = @subject.addresses.build(params[:address])
+#		@address.save!
+#		redirect_to subject_contacts_path(@address.subject)
+		@addressing = @subject.addressings.build(params[:addressing])
+		@addressing.save!
+		redirect_to subject_contacts_path(@addressing.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address creation failed"
 		render :action => 'new'
@@ -29,8 +34,10 @@ class AddressesController < HxApplicationController
 #As part of subject tracing, we will have the ability to designated whether an address we have has been verified by some means. When an address is verified, the user will set is_verified to true. They will then be required to provide a value for the how_verified field and the system will capture both their user_id in verified_by and the current date in verified_on fields.
 
 	def update
-		@address.update_attributes!(params[:address])
-		redirect_to subject_contacts_path(@address.subject)
+#		@address.update_attributes!(params[:address])
+#		redirect_to subject_contacts_path(@address.subject)
+		@addressing.update_attributes!(params[:addressing])
+		redirect_to subject_contacts_path(@addressing.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address update failed"
 		render :action => 'edit'
@@ -40,16 +47,20 @@ class AddressesController < HxApplicationController
 
 	#	TEMP ADD FOR DEV ONLY!
 	def destroy
-		@address.destroy
-		redirect_to subject_contacts_path(@address.subject)
+#		@address.destroy
+#		redirect_to subject_contacts_path(@address.subject)
+		@addressing.destroy
+		redirect_to subject_contacts_path(@addressing.subject)
 	end
 
 
 protected
 
 	def valid_id_required
-		if !params[:id].blank? and Address.exists?(params[:id])
-			@address = Address.find(params[:id])
+#		if !params[:id].blank? and Address.exists?(params[:id])
+#			@address = Address.find(params[:id])
+		if !params[:id].blank? and Addressing.exists?(params[:id])
+			@addressing = Addressing.find(params[:id])
 		else
 			access_denied("Valid address id required!", 
 				subjects_path)
