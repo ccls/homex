@@ -17,6 +17,9 @@
 <%= address_field.select :state,State.abbreviations, {}, :class => 'state' %>
 <%= address_field.text_field :zip, :class => :zip %>
 </div>
+  <%= address_field.wrapped_collection_select :address_type_id, 
+	AddressType.all, 
+    :id, :code, :include_blank => true %>
 <% end %>
 </div>
 
@@ -41,9 +44,3 @@
 <%= f.label :address_at_diagnosis %>
 <%= f.y_n_dk_select :address_at_diagnosis, { :include_blank => true } %>
 </div><!-- class='address_at_diagnosis' -->
-
-<% f.fields_for :address do |address_field| %>
-  <%= address_field.wrapped_collection_select :address_type_id, 
-	AddressType.all, 
-    :id, :code, :include_blank => true %>
-<% end %>
