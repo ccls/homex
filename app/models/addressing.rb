@@ -34,7 +34,7 @@ protected
 
 	def set_verifier
 		self.verified_on = Time.now
-		self.verified_by_id = 0
+		self.verified_by_id = 0	#	tough one.  Gotta get current_user
 	end
 
 	def nullify_verifier
