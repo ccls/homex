@@ -64,7 +64,14 @@ namespace :db do
 				:zip => line[5]||"12345-6789"
 			)
 
-			subject.addresses << address
+#			subject.addresses << address
+			Addressing.create!(
+				:subject_id  => subject.id,
+				:address_id  => address.id,
+				:is_valid    => true,
+				:is_verified => false
+			)
+			
 
 #			Residence.create!(
 #				:address => address
