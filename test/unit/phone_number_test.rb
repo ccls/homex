@@ -72,10 +72,21 @@ class PhoneNumberTest < ActiveSupport::TestCase
 		assert_nil object.verified_by_id
 	end
 
-	test "should set verified_by_id if is_verified changed to true" do
+	test "should set verified_by_id to 0 if is_verified changed to true" do
 		object = create_object(:is_verified => true,
 			:how_verified => "not a clue")
 		assert_not_nil object.verified_by_id
+		assert_equal object.verified_by_id, 0
+	end
+
+	test "should set verified_by_id to current_user.id if is_verified " <<
+		"changed to true if current_user passed" do
+		cu = admin_user
+		object = create_object(:is_verified => true,
+			:current_user => cu,
+			:how_verified => "not a clue")
+		assert_not_nil object.verified_by_id
+		assert_equal object.verified_by_id, cu.id
 	end
 
 	test "should set verified_by_id to NIL if is_verified changed to false" do

@@ -22,11 +22,13 @@ class PhoneNumber < ActiveRecord::Base
 #	before_save :nullify_how_verified, :unless => :is_verified?
 #	before_save :nullify_why_invalid, :if => :is_valid?
 
+	attr_accessor :current_user
+
 protected
 
 	def set_verifier
 		self.verified_on = Time.now
-		self.verified_by_id = 0	#	tough one.  Gotta get current_user
+		self.verified_by_id = current_user.try(:id)||0
 	end
 
 	def nullify_verifier

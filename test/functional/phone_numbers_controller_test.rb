@@ -68,14 +68,16 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 #		assert_layout 'home_exposure'
 	end
 
-	test "should NOT get new phone_number without subject_id and #{cu} login" do
+	test "should NOT get new phone_number without subject_id " <<
+			"and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			get :new
 		}
 	end
 
-	test "should NOT get new phone_number with invalid subject_id and #{cu} login" do
+	test "should NOT get new phone_number with invalid subject_id " <<
+			"and #{cu} login" do
 		login_as send(cu)
 		get :new, :subject_id => 0
 		assert_not_nil flash[:error]
@@ -94,14 +96,43 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_redirected_to subject_contacts_path(subject)
 	end
 
-	test "should NOT create new phone_number without subject_id and #{cu} login" do
+	test "should set verified_on on create if is_verified " <<
+			"with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		post :create, :subject_id => subject.id,
+			:phone_number => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'no idea'
+			)
+		assert assigns(:phone_number)
+		assert_not_nil assigns(:phone_number).verified_on
+	end
+
+	test "should set verified_by on create if is_verified " <<
+			"with #{cu} login" do
+		subject = Factory(:subject)
+		login_as u = send(cu)
+		post :create, :subject_id => subject.id,
+			:phone_number => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'no idea'
+			)
+		assert assigns(:phone_number)
+		assert_not_nil assigns(:phone_number).verified_by_id
+		assert_equal assigns(:phone_number).verified_by_id, u.id
+	end
+
+	test "should NOT create new phone_number without subject_id " <<
+			"and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
 			post :create, :phone_number => factory_attributes
 		}
 	end
 
-	test "should NOT create new phone_number with invalid subject_id and #{cu} login" do
+	test "should NOT create new phone_number with invalid subject_id " <<
+			"and #{cu} login" do
 		login_as send(cu)
 		assert_difference('PhoneNumber.count',0) do
 			post :create, :subject_id => 0, 
@@ -111,7 +142,8 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT create new phone_number with #{cu} login when create fails" do
+	test "should NOT create new phone_number with #{cu} login when " <<
+			"create fails" do
 		subject = Factory(:subject)
 		PhoneNumber.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
@@ -125,7 +157,8 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT create new phone_number with #{cu} login and invalid phone_number" do
+	test "should NOT create new phone_number with #{cu} login " <<
+			"and invalid phone_number" do
 		subject = Factory(:subject)
 		login_as send(cu)
 		assert_difference('PhoneNumber.count',0) do
@@ -172,6 +205,33 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_redirected_to subject_contacts_path(phone_number.subject)
 	end
 
+	test "should set verified_on on update if is_verified " <<
+			"with #{cu} login" do
+		phone_number = factory_create
+		login_as send(cu)
+		put :update, :id => phone_number.id,
+			:phone_number => factory_attributes(
+				:is_verified  => true,
+				:how_verified => 'not a clue'
+			)
+		assert assigns(:phone_number)
+		assert_not_nil assigns(:phone_number).verified_on
+	end
+
+	test "should set verified_by on update if is_verified " <<
+			"with #{cu} login" do
+		phone_number = factory_create
+		login_as u = send(cu)
+		put :update, :id => phone_number.id,
+			:phone_number => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'not a clue'
+			)
+		assert assigns(:phone_number)
+		assert_not_nil assigns(:phone_number).verified_by_id
+		assert_equal assigns(:phone_number).verified_by_id, u.id
+	end
+
 	test "should NOT update phone_number with invalid id and #{cu} login" do
 		phone_number = factory_create
 		login_as send(cu)
@@ -189,7 +249,8 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT update phone_number with #{cu} login when update fails" do
+	test "should NOT update phone_number with #{cu} login " <<
+			"when update fails" do
 		phone_number = factory_create
 		before = phone_number.updated_at
 		sleep 1	# if updated too quickly, updated_at won't change
@@ -205,7 +266,8 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT update phone_number with #{cu} login and invalid phone_number" do
+	test "should NOT update phone_number with #{cu} login " <<
+			"and invalid phone_number" do
 		phone_number = factory_create
 		login_as send(cu)
 		put :update, :id => phone_number.id,
