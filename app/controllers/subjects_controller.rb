@@ -55,6 +55,7 @@ class SubjectsController < HxApplicationController
 protected
 
 	def get_subjects
+		remember_or_recall_sort_order
 		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false

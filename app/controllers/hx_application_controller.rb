@@ -1,5 +1,7 @@
 class HxApplicationController < ApplicationController
 
+#	before_filter :remember_or_recall_sort_order
+
 #	before_filter :may_view_home_exposures_required
 	before_filter :may_view_required
 
@@ -38,5 +40,15 @@ protected
 #		#   @subjects = Subject.search(params)
 #		@subjects = hx.subjects.search(params)
 #	end
+
+	def remember_or_recall_sort_order
+		%w( dir order ).map(&:to_sym).each do |param|
+			if params[param].blank? && !session[param].blank?
+				params[param] = session[param]	#	recall
+			elsif !params[param].blank?
+				session[param] = params[param]	#	remember
+			end
+		end
+	end
 
 end
