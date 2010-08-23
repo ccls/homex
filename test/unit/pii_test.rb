@@ -94,6 +94,18 @@ class PiiTest < ActiveSupport::TestCase
 		assert_equal object.dob.to_s, object.dob_string
 	end
 
+	test "should parse a properly formatted date" do
+		#	Chronic won't parse this correctly,
+		#	but Date.parse will. ???
+		assert_difference( 'Pii.count', 1 ) do
+			object = create_object(
+				:dob => nil, 
+				:dob_string =>  "January 1, 2001")
+			assert !object.new_record?, 
+				"#{object.errors.full_messages.to_sentence}"
+		end
+	end
+
 protected
 
 	def create_object(options = {})
