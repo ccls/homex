@@ -11,6 +11,8 @@ end
 Factory.define :addressing do |f|
 	f.association :address
 	f.association :subject
+	f.is_valid    true
+	f.is_verified false
 end
 
 Factory.define :address_type do |f|
