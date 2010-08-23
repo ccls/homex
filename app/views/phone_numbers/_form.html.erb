@@ -1,4 +1,15 @@
 <% stylesheets('edit_phone_number') %>
+<% javascripts('edit_phone_number') %>
+
+<% content_for :head do -%>
+<% javascript_tag do -%>
+jQuery(function(){
+  toggle_why_invalid(<%=@phone_number.is_valid?-%>);
+  toggle_how_verified(<%=@phone_number.is_verified?-%>);
+});
+<% end ; end -%>
+
+
 <% render 'subjects/submenu', 
 	:subject => @phone_number.subject %>
 <% render 'subjects/id_bar', 
@@ -24,7 +35,6 @@
 %>
 <%= f.wrapped_text_field :why_invalid, 
 	:label_text => 'why?' %>
-<span>should add some js to show/hide</span>
 </div><!-- class='valid' -->
 
 <div class='verified'>
@@ -32,6 +42,5 @@
 	:label_text => 'verified?' %>
 <%= f.wrapped_text_field :how_verified, 
 	:label_text => 'how?' %>
-<span>should add some js to show/hide</span>
 </div><!-- class='verified' -->
 

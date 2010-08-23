@@ -201,6 +201,8 @@ Factory.define :phone_number do |f|
 	f.association :subject
 	f.association :phone_type
 	f.sequence(:phone_number){|n| sprintf("%010d",n) }
+	f.is_valid    true
+	f.is_verified false
 end
 
 Factory.define :phone_type do |f|

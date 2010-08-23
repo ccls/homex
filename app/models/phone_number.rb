@@ -8,9 +8,31 @@ class PhoneNumber < ActiveRecord::Base
 	validates_format_of :phone_number,
 	  :with => /\A\s*\(?\d{3}\)?\s*\d{3}-?\d{4}\s*\z/
 
+	validates_presence_of :why_invalid,  :unless => :is_valid?
+	validates_presence_of :how_verified, :if => :is_verified?
+
 	before_save :format_phone_number
 
+	before_save :set_verifier, 
+		:if => :is_verified?, 
+		:unless => :is_verified_was
+	before_save :nullify_verifier, 
+		:unless => :is_verified?,
+		:if => :is_verified_was
+#	before_save :nullify_how_verified, :unless => :is_verified?
+#	before_save :nullify_why_invalid, :if => :is_valid?
+
 protected
+
+	def set_verifier
+		self.verified_on = Time.now
+		self.verified_by_id = 0	#	tough one.  Gotta get current_user
+	end
+
+	def nullify_verifier
+		self.verified_on = nil
+		self.verified_by_id = nil
+	end
 
 	def format_phone_number
 #		unless self.phone_number.nil?
