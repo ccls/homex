@@ -13,7 +13,7 @@
 
 <div id='addressings'>
 <%= render :partial => 'contacts/addressing',
-    :collection => @subject.addressings, 
+    :collection => @subject.addressings.current, 
 		:locals => { :dates => false, :details => false, :edit => false } %>
 </div><!-- id='addressings' -->
 

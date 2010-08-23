@@ -68,10 +68,10 @@ namespace :db do
 			Addressing.create!(
 				:subject_id  => subject.id,
 				:address_id  => address.id,
+				:current_address => 1,		#	Yes
 				:is_valid    => true,
 				:is_verified => false
 			)
-			
 
 #			Residence.create!(
 #				:address => address

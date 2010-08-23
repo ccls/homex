@@ -21,6 +21,14 @@ class Addressing < ActiveRecord::Base
 	validates_presence_of :why_invalid,  :unless => :is_valid?
 	validates_presence_of :how_verified, :if => :is_verified?
 
+	named_scope :current, :conditions => {
+		:current_address => 1
+	}
+
+	named_scope :historic, :conditions => [
+		'current_address IS NULL OR current_address != 1'
+	]
+
 	before_save :set_verifier, 
 		:if => :is_verified?, 
 		:unless => :is_verified_was

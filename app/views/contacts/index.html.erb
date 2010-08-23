@@ -9,7 +9,7 @@
 	This probably should just be the current address ?
 %>
 <%= render :partial => 'addressing', 
-	:collection => @subject.addressings,
+	:collection => @subject.addressings.current,
 	:locals => { :details => true,
 		:edit => current_user.may_edit_addresses? } %>
 <% if current_user.may_edit_addresses? %>
@@ -39,7 +39,7 @@
 	This probably should be all except the current address ?
 %>
 <%= render :partial => 'addressing', 
-	:collection => @subject.addressings,
+	:collection => @subject.addressings.historic,
 	:locals => { :dates => true } %>
 </div><!-- class='addressings' -->
 </div><!-- id='history' -->
