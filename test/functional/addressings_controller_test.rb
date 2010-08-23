@@ -77,6 +77,33 @@ class AddressingsControllerTest < ActionController::TestCase
 		assert_redirected_to subject_contacts_path(subject)
 	end
 
+	test "should set verified_on on create if is_verified " <<
+			"with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		post :create, :subject_id => subject.id,
+			:addressing => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'no idea'
+			)
+		assert assigns(:addressing)
+		assert_not_nil assigns(:addressing).verified_on
+	end
+
+	test "should set verified_by on create if is_verified " <<
+			"with #{cu} login" do
+		subject = Factory(:subject)
+		login_as u = send(cu)
+		post :create, :subject_id => subject.id,
+			:addressing => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'no idea'
+			)
+		assert assigns(:addressing)
+		assert_not_nil assigns(:addressing).verified_by_id
+		assert_equal assigns(:addressing).verified_by_id, u.id
+	end
+
 	test "should NOT create new addressing without subject_id " <<
 			"and #{cu} login" do
 		login_as send(cu)
@@ -176,6 +203,33 @@ pending
 			:addressing => factory_attributes
 		assert assigns(:addressing)
 		assert_redirected_to subject_contacts_path(addressing.subject)
+	end
+
+	test "should set verified_on on update if is_verified " <<
+			"with #{cu} login" do
+		addressing = factory_create
+		login_as send(cu)
+		put :update, :id => addressing.id,
+			:addressing => factory_attributes(
+				:is_verified  => true,
+				:how_verified => 'not a clue'
+			)
+		assert assigns(:addressing)
+		assert_not_nil assigns(:addressing).verified_on
+	end
+
+	test "should set verified_by on update if is_verified " <<
+			"with #{cu} login" do
+		addressing = factory_create
+		login_as u = send(cu)
+		put :update, :id => addressing.id,
+			:addressing => factory_attributes(
+				:is_verified => true,
+				:how_verified => 'not a clue'
+			)
+		assert assigns(:addressing)
+		assert_not_nil assigns(:addressing).verified_by_id
+		assert_equal assigns(:addressing).verified_by_id, u.id
 	end
 
 	test "should NOT update addressing with invalid id and #{cu} login" do

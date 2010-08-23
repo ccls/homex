@@ -14,7 +14,9 @@ class AddressingsController < HxApplicationController
 	end
 
 	def create
-		@addressing = @subject.addressings.build(params[:addressing])
+		@addressing = @subject.addressings.build(
+			params[:addressing].merge( :current_user => current_user ) )
+#		@addressing = @subject.addressings.build( params[:addressing] )
 		@addressing.save!
 		redirect_to subject_contacts_path(@addressing.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
@@ -29,7 +31,9 @@ class AddressingsController < HxApplicationController
 #As part of subject tracing, we will have the ability to designated whether an address we have has been verified by some means. When an address is verified, the user will set is_verified to true. They will then be required to provide a value for the how_verified field and the system will capture both their user_id in verified_by and the current date in verified_on fields.
 
 	def update
-		@addressing.update_attributes!(params[:addressing])
+		@addressing.update_attributes!(
+			params[:addressing].merge( :current_user => current_user ) )
+#		@addressing.update_attributes!( params[:addressing] )
 		redirect_to subject_contacts_path(@addressing.subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Address update failed"
