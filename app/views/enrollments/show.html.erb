@@ -8,24 +8,59 @@
 <% render 'subjects/id_bar', 
 	:subject => @enrollment.subject %>
 
-<p><%= @enrollment.project.description -%></p>
+<p>Study name: <%= @enrollment.project.code.titleize -%></p>
 
-<%= wrapped_spans :enrollment, :recruitment_priority %>
-<%= wrapped_spans :enrollment, :able_to_locate %>
-<%= wrapped_spans :enrollment, :is_candidate %>
-<%= wrapped_spans :enrollment, :is_eligible %>
-<%= wrapped_spans :enrollment, :ineligible_reason %>
-<%= wrapped_spans :enrollment, :ineligible_reason_specify %>
-<%= wrapped_spans :enrollment, :consented %>
-<%= wrapped_spans :enrollment, :consented_on %>
-<%= wrapped_spans :enrollment, :refusal_reason %>
-<%= wrapped_spans :enrollment, :other_refusal_reason %>
-<%= wrapped_spans :enrollment, :is_chosen %>
-<%= wrapped_spans :enrollment, :reason_not_chosen %>
-<%= wrapped_spans :enrollment, :terminated_participation %>
-<%= wrapped_spans :enrollment, :terminated_reason %>
-<%= wrapped_spans :enrollment, :is_complete %>
-<%= wrapped_spans :enrollment, :completed_on %>
-<%= wrapped_spans :enrollment, :is_closed %>
-<%= wrapped_spans :enrollment, :reason_closed %>
-<%= wrapped_spans :enrollment, :notes %>
+
+<%= wrapped_yes_or_no_spans :enrollment, :is_candidate,
+	:label_text => 'is candidate?' %>
+<%# if @enrollment.is_candidate? %>
+	<%= wrapped_yes_or_no_spans :enrollment, :able_to_locate,
+		:label_text => 'able to locate?' %>
+	<%# if @enrollment.able_to_locate? %>
+		<%= wrapped_yes_or_no_spans :enrollment, :is_eligible,
+			:label_text => 'is eligible?' %>
+		<%# unless @enrollment.is_eligible? %>
+			<%= wrapped_spans :enrollment, :ineligible_reason,
+				:label_text => 'reason ineligible:' %>
+			<%= wrapped_spans :enrollment, :ineligible_reason_specify,
+				:label_text => 'specify:' %>
+		<%# else %>
+			<%= wrapped_yes_or_no_spans :enrollment, :is_chosen,
+				:label_text => 'chosen to participate?' %>
+			<%# unless @enrollment.is_chosen? %>
+				<%= wrapped_spans :enrollment, :reason_not_chosen,
+					:label_text => 'reason not chosen:' %>
+			<%# else %>
+				<%= wrapped_yes_or_no_spans :enrollment, :consented,
+					:label_text => 'consented?' %>
+				<%= wrapped_spans :enrollment, :consented_on,
+					:label_text => 'date:' %>
+				<%# unless @enrollment.consented? %>
+					<%= wrapped_spans :enrollment, :refusal_reason,
+						:label_text => 'reason refused:' %>
+					<%= wrapped_spans :enrollment, :other_refusal_reason,
+						:label_text => 'specify:' %>
+				<%# else %>
+					<%= wrapped_yes_or_no_spans :enrollment, 
+						:terminated_participation,
+						:label_text => 'terminated participation?' %>
+					<%# unless @enrollment.terminated_participation? %>
+						<%= wrapped_spans :enrollment, :terminated_reason,
+							:label_text => 'reason:' %>
+					<%# else %>
+						<%= wrapped_yes_or_no_spans :enrollment, :is_complete,
+							:label_text => 'completed?' %>
+						<%# if @enrollment.is_complete? %>
+							<%= wrapped_spans :enrollment, :completed_on,
+								:label_text => 'date:' %>
+						<%# end %><%# @enrollment.is_complete? %>
+					<%# end %><%# @enrollment.terminated_participation? %>
+				<%# end %><%# @enrollment.consented? %>
+			<%# end %><%# @enrollment.is_chosen? %>
+		<%# end %><%# @enrollment.is_eligible? %>
+	<%# end %><%# @enrollment.able_to_locate? %>
+<%# end %><%# @enrollment.is_candidate? %>
+
+<%= wrapped_spans :enrollment, :notes,
+	:label_text => 'notes:' %>
+

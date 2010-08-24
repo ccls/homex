@@ -4,16 +4,13 @@
 	enrollment_path(enrollment) %>
 </td>
 <td class='candidate'>
-<%#= ((x=enrollment.is_candidate).blank?)?'&nbsp;':x %>
-<%= enrollment.is_candidate %>
+<%= (enrollment.is_candidate?)?'yes':'no' %>
 </td>
 <td class='locate'>
-<%#= ((x=enrollment.able_to_locate).blank?)?'&nbsp;':x %>
-<%= enrollment.able_to_locate %>
+<%= (enrollment.able_to_locate?)?'yes':'no' %>
 </td>
 <td class='eligible'>
-<%#= ((x=enrollment.is_eligible).blank?)?'&nbsp;':x %>
-<%= enrollment.is_eligible %>
+<%= (enrollment.is_eligible?)?'yes':'no' %>
 </td>
 <td class='consented'>
 <%#= enrollment.consented_on||'&nbsp;' %>

@@ -1,5 +1,30 @@
+.field_wrapper {
+	padding: 5px;
+	padding-left: 15px;
+}
 .field_wrapper > span.label {
+/*
 	clear:left;
+*/
 	float:left;
-	width: 200px;
+	width: 190px;
+}
+
+.field_wrapper.terminated_reason,
+.field_wrapper.refusal_reason,
+.field_wrapper.ineligible_reason,
+.field_wrapper.reason_not_chosen {
+	margin-left:50px;
+	margin-right:50px;
+}
+.field_wrapper.is_complete,
+.field_wrapper.consented,
+.field_wrapper.refusal_reason,
+.field_wrapper.ineligible_reason {
+	float:left;
+}
+
+.field_wrapper.consented,
+.field_wrapper.is_complete {
+	width: 300px;
 }

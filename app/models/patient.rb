@@ -9,5 +9,12 @@ class Patient < ActiveRecord::Base
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
 	stringify_date :diagnosis_date
+	validate :diagnosis_date_is_valid
+
+protected
+
+	def diagnosis_date_is_valid
+		errors.add(:diagnosis_date, "is invalid") if diagnosis_date_invalid?
+	end
 
 end

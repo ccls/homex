@@ -1,8 +1,36 @@
-.field_wrapper > label {
-	clear:left;
-	float:left;
-	width: 200px;
+.field_wrapper {
+	padding: 5px;
+	padding-left: 15px;
 }
-.field_wrapper > text_area {
-	clear:left;
+.field_wrapper > label {
+	float:left;
+}
+
+.field_wrapper.terminated_reason,
+.field_wrapper.refusal_reason_id,
+.field_wrapper.ineligible_reason_id,
+.field_wrapper.reason_not_chosen {
+	margin-left:50px;
+	margin-right:50px;
+}
+.field_wrapper.is_chosen,
+.field_wrapper.is_complete,
+.field_wrapper.consented,
+.field_wrapper.refusal_reason_id,
+.field_wrapper.ineligible_reason_id {
+	float:left;
+}
+
+.field_wrapper.is_candidate label,
+.field_wrapper.able_to_locate label,
+.field_wrapper.is_eligible label,
+.field_wrapper.consented label,
+.field_wrapper.is_complete label {
+	width: 100px;
+}
+
+.field_wrapper.ineligible_reason_specify ,
+.field_wrapper.reason_not_chosen ,
+.field_wrapper.other_refusal_reason {
+	margin-left: 310px;
 }
