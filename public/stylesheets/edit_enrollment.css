@@ -11,7 +11,6 @@
 .field_wrapper.ineligible_reason_id,
 .field_wrapper.reason_not_chosen {
 	margin-left:50px;
-	margin-right:50px;
 }
 .field_wrapper.is_chosen,
 .field_wrapper.is_complete,
@@ -32,5 +31,11 @@
 .field_wrapper.ineligible_reason_specify ,
 .field_wrapper.reason_not_chosen ,
 .field_wrapper.other_refusal_reason {
-	margin-left: 310px;
+	text-align:right;
+}
+
+.field_wrapper.ineligible_reason_specify label,
+.field_wrapper.reason_not_chosen label,
+.field_wrapper.other_refusal_reason label{
+	float:none;
 }
