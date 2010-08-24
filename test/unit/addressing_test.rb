@@ -96,6 +96,27 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_nil object.verified_by_id
 	end
 
+
+	test "should only return current addressings" do
+		create_object(:current_address => 1)
+		create_object(:current_address => 2)
+		create_object(:current_address => 999)
+		objects = Addressing.current
+		objects.each do |object|
+			assert_equal 1, object.current_address
+		end
+	end
+
+	test "should only return historic addressings" do
+		create_object(:current_address => 1)
+		create_object(:current_address => 2)
+		create_object(:current_address => 999)
+		objects = Addressing.historic
+		objects.each do |object|
+			assert_not_equal 1, object.current_address
+		end
+	end
+
 protected
 
 	def create_object(options={})
