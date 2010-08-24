@@ -13,6 +13,10 @@ div#container {
 	width: 1000px;
 	margin: 0 auto;
 	background-color: #ECE9DF;	/* guidance background color */
+	/* box-shadow: <horizontal> <vertical> <blur> <color> */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 div#header {
@@ -91,7 +95,9 @@ div#submenu a.current {
 div#content_wrapper {
 	background-color:white;
 	border-right: 1px solid silver;
+/*
 	border-left: 1px solid silver;
+*/
 }
 div#content {
 	padding: 5px 25px;
@@ -146,4 +152,14 @@ div#guidance {
 	line-height:8pt;
 	background-color: #EEE;
 	color: gray;
+}
+
+#container, #footer {
+	/* http://css-radius.heroku.com */
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
 }
