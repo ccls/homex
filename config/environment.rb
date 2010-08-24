@@ -54,6 +54,7 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
+	config.gem 'jrails'
 
 	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
