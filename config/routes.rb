@@ -14,57 +14,43 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :response_sets, :only => [ :create ]
 
 	map.resource :home_exposure, :only => :show
-#	map.namespace :hx do |hx|
-#		hx.resources :subjects,
-		map.resources :subjects,
-			:shallow => true do |subject|
-			subject.resources :samples do |sample|
-				#	one kit per sample
-#				sample.resource :sample_kit
-				sample.resources :sample_kits, :except => [:index]
-			end
-			subject.resource :home_exposure_response, 
-				:only => [ :new, :create, :show ]
-			subject.resources :survey_invitations, 
-				:only => [:create,:update,:destroy,:show]
-			subject.resource :patient
-			subject.resources :contacts, :only => :index
-			subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
-				:only => [:new,:create,:edit,:update,   :destroy   ]
-#			subject.resources :addresses,		#	TEMP ADD DESTROY FOR DEV ONLY!
-			subject.resources :addressings,		#	TEMP ADD DESTROY FOR DEV ONLY!
-				:only => [:new,:create,:edit,:update,   :destroy   ]
-			subject.resources :enrollments,
-				:only => [:new,:create,:show,:edit,:update,:index]
-		end
 
-#		hx.namespace :interview do |interview|
-		map.namespace :interview do |interview|
-			interview.resources  :subjects
+	map.resources :subjects,
+		:shallow => true do |subject|
+		subject.resources :samples do |sample|
+			#	one kit per sample
+			sample.resources :sample_kits, :except => [:index]
 		end
+		subject.resource :home_exposure_response, 
+			:only => [ :new, :create, :show ]
+		subject.resources :survey_invitations, 
+			:only => [:create,:update,:destroy,:show]
+		subject.resource :patient
+		subject.resources :contacts, :only => :index
+		subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
+			:only => [:new,:create,:edit,:update,   :destroy   ]
+		subject.resources :addressings,		#	TEMP ADD DESTROY FOR DEV ONLY!
+			:only => [:new,:create,:edit,:update,   :destroy   ]
+		subject.resources :enrollments,
+			:only => [:new,:create,:show,:edit,:update,:index]
+	end
 
-		#	CANNOT HAVE A NAMESPACE AND A RESOURCE WITH THE SAME NAME
-		#	(APPARENTLY)
-#		hx.namespace :sample do |sample|
-		map.namespace :sample do |sample|
-			sample.resources  :subjects, :only => [:index,:show],
-				:collection => { 
-					:send_to_lab  => :get }
-		end
+	map.namespace :interview do |interview|
+		interview.resources  :subjects
+	end
 
-#		hx.namespace :followup do |followup|
-		map.namespace :followup do |followup|
-			followup.resources  :subjects
-		end
-#	end
+	#	CANNOT HAVE A NAMESPACE AND A RESOURCE WITH THE SAME NAME
+	#	(APPARENTLY)
+	map.namespace :sample do |sample|
+		sample.resources  :subjects, :only => [:index,:show],
+			:collection => { 
+				:send_to_lab  => :get }
+	end
 
-#	map.resources :subjects, :shallow => true do |subject|
-#	map.resources :unused_subjects, :shallow => true do |subject|
-#		subject.resource :home_exposure_response, 
-#			:only => [ :new, :create, :show ]
-#		subject.resources :survey_invitations, 
-#			:only => [:create,:update,:destroy,:show]
-#	end
+	map.namespace :followup do |followup|
+		followup.resources  :subjects
+	end
+
 #	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
