@@ -1,9 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
+living:
+  id: 1
+  position: 1
   code: living
   description: living
-
-#two:
-#  code: MyString
-#  description: MyString
+deceased:
+  id: 2
+  position: 2 
+  code: deceased
+  description: deceased
+dk:
+  id: 3
+  position: 3
+  code: unknown
+  description: don't know
