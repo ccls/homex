@@ -42,8 +42,7 @@
 </div>
 
 <div><%= f.label :sex, 'Sex' %>
-<%= f.select :sex, ['M','F'],
-	:include_blank => true %>
+<%= f.sex_select :sex, :include_blank => true %>
 </div>
 <div><%= f.label :race_id, 'Race' %>
 <%= f.collection_select :race_id, Race.all, 

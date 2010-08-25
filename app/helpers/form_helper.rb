@@ -61,9 +61,21 @@ module FormHelper
 			[['Yes',1],['No',2],["Don't Know",999]],
 			options, html_options)
 	end
+
+	def sex_select(object_name, method, options, html_options)
+		select(object_name, method,
+			[['male','M'],['female','F']],
+			options, html_options)
+	end
 end
 
 ActionView::Helpers::FormBuilder.class_eval do
+	def sex_select(method,options={},html_options={})
+		@template.sex_select(
+			@object_name, method, 
+				objectify_options(options),
+				html_options)
+	end
 	def y_n_dk_select(method,options={},html_options={})
 		@template.y_n_dk_select(
 			@object_name, method, 
