@@ -3,7 +3,7 @@ label[for=subject_race_id],
 label[for=subject_subject_type_id] {
 	/* float is OK as label and select are in div */
 	float:left;
-	width: 50px;
+	width: 100px;
 }
 select#subject_sex,
 select#subject_race_id,

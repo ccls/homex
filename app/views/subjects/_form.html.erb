@@ -48,7 +48,7 @@
 <%= f.collection_select :race_id, Race.all, 
 	:id, :name, :include_blank => true %>
 </div>
-<div><%= f.label :subject_type_id, 'Type' %>
+<div><%= f.label :subject_type_id, 'Subject Type' %>
 <%= f.collection_select :subject_type_id, SubjectType.all, 
 	:id, :description, :include_blank => true %>
 </div>
