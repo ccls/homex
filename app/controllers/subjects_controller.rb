@@ -16,8 +16,9 @@ class SubjectsController < HxApplicationController
 	end
 
 	def show
-		@projects = Project.all
-		@enrollments = @subject.enrollments
+#		@projects = Project.all
+#		@enrollments = @subject.enrollments
+		@hx_enrollment = @subject.hx_enrollment
 	end
 
 	def new

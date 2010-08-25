@@ -78,6 +78,12 @@ class Subject < ActiveRecord::Base
 #	#		end
 #		end
 
+	def hx_enrollment
+		enrollments.find(:first,
+			:conditions => "projects.code = 'HomeExposures'",
+			:joins => :project)
+	end
+
 	def response_sets_the_same?
 		if response_sets.length == 2
 			#	response_sets.inject(:is_the_same_as?) was nice

@@ -1,3 +1,4 @@
+label[for=subject_vital_status_id],
 label[for=subject_sex],
 label[for=subject_race_id],
 label[for=subject_subject_type_id] {
@@ -5,6 +6,7 @@ label[for=subject_subject_type_id] {
 	float:left;
 	width: 100px;
 }
+select#subject_vital_status_id,
 select#subject_sex,
 select#subject_race_id,
 select#subject_subject_type_id {

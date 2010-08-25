@@ -3,11 +3,15 @@
 <p>Consent:</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>status: NOT CODED YET</p>
-<p>refusal reason:  NOT CODED YET</p>
+<p>status:&nbsp;
+<%= @hx_enrollment.try(:consented?) %></p>
+<p>refusal reason:&nbsp;
+<%= "#{@hx_enrollment.try(:refusal_reason)}" %></p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>date:  NOT CODED YET</p>
-<p>specify:  NOT CODED YET</p>
+<p>date:&nbsp;
+<%= @hx_enrollment.try(:consented_on) %></p>
+<p>specify:&nbsp;
+<%= "#{@hx_enrollment.try(:other_refusal_reason)}" %></p>
 </div><!-- class='column' -->
 </div><!-- class='consent' -->

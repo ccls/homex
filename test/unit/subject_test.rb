@@ -445,6 +445,19 @@ pending
 			"#{subject.subject_type}"
 	end
 
+	test "should return nil hx_enrollment if not enrolled" do
+		subject = create_subject
+		assert_nil subject.hx_enrollment
+	end
+
+	test "should return valid hx_enrollment if enrolled" do
+		subject = create_subject
+		hx_enrollment = Factory(:enrollment,
+			:subject_id => subject.id,
+			:project_id => Project.find_by_code('HomeExposures').id
+		)
+		assert_not_nil subject.hx_enrollment
+	end
 
 protected
 

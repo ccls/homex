@@ -44,11 +44,11 @@
 <div><%= f.label :sex, 'Sex' %>
 <%= f.sex_select :sex, :include_blank => true %>
 </div>
-<div><%= f.label :race_id, 'Race' %>
-<%= f.collection_select :race_id, Race.all, 
-	:id, :name, :include_blank => true %>
-</div>
-<div><%= f.label :subject_type_id, 'Subject Type' %>
-<%= f.collection_select :subject_type_id, SubjectType.all, 
-	:id, :description, :include_blank => true %>
-</div>
+<%= f.wrapped_collection_select :race_id, Race.all, 
+	:id, :name, :include_blank => true,
+	:label_text => 'Race' %>
+<%= f.wrapped_collection_select :subject_type_id, SubjectType.all, 
+	:id, :description, :include_blank => true,
+	:label_text => "Subject Type" %>
+<%= f.wrapped_collection_select :vital_status_id,
+	VitalStatus.all, :id, :description, :include_blank => true %>
