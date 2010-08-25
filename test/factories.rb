@@ -162,6 +162,12 @@ end
 Factory.define :enrollment do |f|
 	f.association :subject
 	f.association :project
+	f.is_eligible true
+	f.is_chosen   true
+	f.consented   true
+	f.consented_on Chronic.parse('yesterday')
+	f.terminated_participation false
+	f.is_complete false
 end
 
 Factory.define :race do |f|
