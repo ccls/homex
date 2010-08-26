@@ -59,6 +59,8 @@ private	#	THIS IS REQUIRED
 end
 #
 #	This works for factory girl, but not for me??
+#	This really should work.  Just make sure that the call includes ()
+#	otherwise ruby will treat it like an undefined Constant.
 #
 #	def SubjectSearch(options={})
 #		SubjectSearch.new(options)
