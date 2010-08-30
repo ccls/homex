@@ -130,7 +130,7 @@ Factory.define :organization do |f|
 end
 
 Factory.define :operational_event do |f|
-	f.association :subject
+#	f.association :subject
 	f.association :operational_event_type
 end
 

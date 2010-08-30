@@ -5,7 +5,7 @@ class SubjectTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:race,:subject_type)
 	assert_should_have_many(:survey_invitations,
 		:addressings,
-		:operational_events,:enrollments,:phone_numbers,
+		:enrollments,:phone_numbers,
 		:samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
 	assert_should_have_one(:pii,:patient,:home_exposure_response,
@@ -244,15 +244,15 @@ pending
 #		} }
 #	end
 
-	test "should NOT destroy operational_events with subject" do
-		subject = create_subject
-		Factory(:operational_event, :subject_id => subject.id)
-		Factory(:operational_event, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
-		assert_difference('OperationalEvent.count',0) {
-			subject.destroy
-		} }
-	end
+#	test "should NOT destroy operational_events with subject" do
+#		subject = create_subject
+#		Factory(:operational_event, :subject_id => subject.id)
+#		Factory(:operational_event, :subject_id => subject.id)
+#		assert_difference('Subject.count',-1) {
+#		assert_difference('OperationalEvent.count',0) {
+#			subject.destroy
+#		} }
+#	end
 
 	test "should NOT destroy enrollments with subject" do
 		subject = create_subject
