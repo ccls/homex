@@ -6,7 +6,8 @@ class PhoneNumber < ActiveRecord::Base
 
 	validates_presence_of :phone_number
 	validates_format_of :phone_number,
-	  :with => /\A\s*\(?\d{3}\)?\s*\d{3}-?\d{4}\s*\z/
+	  :with => /\A(\D*\d\D*){10}\z/
+#	  :with => /\A\s*\(?\d{3}\)?\s*\d{3}-?\d{4}\s*\z/
 
 	validates_presence_of :why_invalid,  :unless => :is_valid?
 	validates_presence_of :how_verified, :if => :is_verified?

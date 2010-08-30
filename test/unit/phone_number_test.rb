@@ -13,7 +13,8 @@ class PhoneNumberTest < ActiveSupport::TestCase
 				assert object.errors.on(:phone_number)
 			end
 		end
-		[ "(123)456-7890", "1234567890" ].each do |good_phone|
+		[ "(123)456-7890", "1234567890", 
+			"  1 asdf23,4()5\+67   8 9   0asdf" ].each do |good_phone|
 			assert_difference( 'PhoneNumber.count', 1 ) do
 				object = create_object(:phone_number => good_phone)
 				assert !object.errors.on(:phone_number)
