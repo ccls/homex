@@ -125,8 +125,8 @@ Factory.define :language do |f|
 end
 
 Factory.define :organization do |f|
-	f.sequence(:code) { |n| "My Org Code #{n}" }
-	f.sequence(:name) { |n| "My Org Name #{n}" }
+	f.sequence(:code) { |n| "Code #{n}" }
+	f.sequence(:name) { |n| "Name #{n}" }
 end
 
 Factory.define :operational_event do |f|
