@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ContextTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
-	assert_should_have_many(:units,:people)
+#	assert_should_have_many(:units,:people)
+	assert_should_have_many(:units)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 

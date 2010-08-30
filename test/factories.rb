@@ -150,6 +150,8 @@ Factory.define :patient do |f|
 end
 
 Factory.define :person do |f|
+	#	use sequence so will actually update
+	f.sequence(:last_name){|n| "LastName#{n}"}	
 end
 
 Factory.define :pii do |f|

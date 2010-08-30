@@ -5,7 +5,7 @@ class Context < ActiveRecord::Base
 	default_scope :order => :position
 
 	has_many :units
-	has_many :people
+#	has_many :people
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
