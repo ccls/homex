@@ -12,8 +12,9 @@ class Aliquot < ActiveRecord::Base
 	#	column name rather than true seems to fix.
 	#	( I am working on the plugin to fix this. )
 	belongs_to :owner, 
-		:class_name => "Organization",
-		:counter_cache => :aliquots_count
+		:class_name => "Organization"
+#		:counter_cache => :aliquots_count
+
 	has_many :transfers
 
 	validates_presence_of :sample, :unit, :owner,
