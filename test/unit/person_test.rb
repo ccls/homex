@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:context)
+#	assert_should_belong_to(:context)
 	assert_should_have_many(:interviews,
 		:foreign_key => :interviewer_id )
 
