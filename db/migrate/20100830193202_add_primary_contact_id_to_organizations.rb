@@ -1,4 +1,5 @@
 class AddPrimaryContactIdToOrganizations < ActiveRecord::Migration
+
 	def self.up
 		add_column :organizations, :primary_contact_id, :integer
 	end
@@ -6,4 +7,5 @@ class AddPrimaryContactIdToOrganizations < ActiveRecord::Migration
 	def self.down
 		remove_column :organizations, :primary_contact_id
 	end
+
 end
