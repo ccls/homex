@@ -3,7 +3,7 @@ class CreateOrganizations < ActiveRecord::Migration
 		create_table :organizations do |t|
 			t.integer :position
 			t.integer :aliquots_count, :default => 0
-			t.string :code
+			t.string :code, :null => false
 			t.string :name
 			t.timestamps
 		end
