@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100830205526) do
+ActiveRecord::Schema.define(:version => 20100831220859) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -622,11 +622,11 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
 
   create_table "organizations", :force => true do |t|
     t.integer  "position"
-    t.string   "code",               :limit => 15
+    t.string   "code",       :limit => 15
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "primary_contact_id"
+    t.integer  "person_id"
   end
 
   add_index "organizations", ["code"], :name => "index_organizations_on_code", :unique => true
