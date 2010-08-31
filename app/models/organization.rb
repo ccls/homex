@@ -3,6 +3,8 @@
 class Organization < ActiveRecord::Base
 	acts_as_list
 
+	belongs_to :person
+
 	has_many :aliquots, :foreign_key => 'owner_id'
 
 	has_many :incoming_transfers, 

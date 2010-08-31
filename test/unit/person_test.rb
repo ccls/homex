@@ -4,6 +4,7 @@ class PersonTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 #	assert_should_belong_to(:context)
+	assert_should_have_many(:organizations)
 	assert_should_have_many(:interviews,
 		:foreign_key => :interviewer_id )
 
