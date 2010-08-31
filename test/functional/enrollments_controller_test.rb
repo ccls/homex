@@ -81,7 +81,9 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_difference("Subject.find(#{subject.id}).enrollments.count",1) {
 		assert_difference('Enrollment.count',1) {
 			post :create, :subject_id => subject.id,
-				:enrollment => { :project_id => Factory(:project).id }
+				:enrollment => Factory.attributes_for(:enrollment,
+					:project_id => Factory(:project).id )
+#				:enrollment => { :project_id => Factory(:project).id }
 #				:project_id => Factory(:project).id
 #				:enrollment => factory_attributes
 		} }

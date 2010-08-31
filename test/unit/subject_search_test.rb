@@ -259,7 +259,8 @@ pending
 		Factory(:enrollment, :project => se, :subject => s1,
 			:terminated_participation => false)
 		Factory(:enrollment, :project => se, :subject => s2,
-			:terminated_participation => true)
+			:terminated_participation => true,
+			:terminated_reason => 'unknown')
 		subjects = Subject.search(:projects => {se.id => {
 			:terminated => [true,false]
 		}})
@@ -274,7 +275,8 @@ pending
 		Factory(:enrollment, :project => se, :subject => s1,
 			:terminated_participation => false)
 		Factory(:enrollment, :project => se, :subject => s2,
-			:terminated_participation => true)
+			:terminated_participation => true,
+			:terminated_reason => 'unknown')
 		subjects = Subject.search(:projects => {se.id => {
 			:terminated => false
 		}})
@@ -287,7 +289,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:terminated_participation => true)
+			:terminated_participation => true,
+			:terminated_reason => 'unknown')
 		Factory(:enrollment, :project => se, :subject => s2,
 			:terminated_participation => false)
 		subjects = Subject.search(:projects => {se.id => {
@@ -303,7 +306,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:consented => false)
+			:consented => false,
+			:refusal_reason_id => RefusalReason.first.id)
 		Factory(:enrollment, :project => se, :subject => s2,
 			:consented => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -318,7 +322,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:consented => false)
+			:consented => false,
+			:refusal_reason_id => RefusalReason.first.id)
 		Factory(:enrollment, :project => se, :subject => s2,
 			:consented => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -335,7 +340,8 @@ pending
 		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => true)
 		Factory(:enrollment, :project => se, :subject => s2,
-			:consented => false)
+			:consented => false,
+			:refusal_reason_id => RefusalReason.first.id)
 		subjects = Subject.search(:projects => {se.id => {
 			:consented => true
 		}})
@@ -394,7 +400,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:is_chosen => false)
+			:is_chosen => false,
+			:reason_not_chosen => 'unknown')
 		Factory(:enrollment, :project => se, :subject => s2,
 			:is_chosen => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -409,7 +416,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:is_chosen => false)
+			:is_chosen => false,
+			:reason_not_chosen => 'unknown')
 		Factory(:enrollment, :project => se, :subject => s2,
 			:is_chosen => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -426,7 +434,8 @@ pending
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => true)
 		Factory(:enrollment, :project => se, :subject => s2,
-			:is_chosen => false)
+			:is_chosen => false,
+			:reason_not_chosen => 'unknown')
 		subjects = Subject.search(:projects => {se.id => {
 			:chosen => true
 		}})
@@ -440,7 +449,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:is_eligible => false)
+			:is_eligible => false,
+			:ineligible_reason_id => IneligibleReason.first.id)
 		Factory(:enrollment, :project => se, :subject => s2,
 			:is_eligible => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -455,7 +465,8 @@ pending
 		s2 = create_subject
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
-			:is_eligible => false)
+			:is_eligible => false,
+			:ineligible_reason_id => IneligibleReason.first.id)
 		Factory(:enrollment, :project => se, :subject => s2,
 			:is_eligible => true)
 		subjects = Subject.search(:projects => {se.id => {
@@ -472,7 +483,8 @@ pending
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => true)
 		Factory(:enrollment, :project => se, :subject => s2,
-			:is_eligible => false)
+			:is_eligible => false,
+			:ineligible_reason_id => IneligibleReason.first.id)
 		subjects = Subject.search(:projects => {se.id => {
 			:eligible => true
 		}})

@@ -4,7 +4,7 @@ class CreateProjects < ActiveRecord::Migration
 			t.integer :position
 			t.date :began_on
 			t.date :ended_on
-			t.string :code, :null => true
+			t.string :code, :null => false
 			t.string :description
 			t.text :eligibility_criteria
 			t.timestamps

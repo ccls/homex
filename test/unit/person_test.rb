@@ -2,9 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:context)
+	assert_should_act_as_list
+#	assert_should_belong_to(:context)
 	assert_should_have_many(:interviews,
 		:foreign_key => :interviewer_id )
+
+	assert_should_require_attribute(:last_name)
 
 	test "should create person" do
 		assert_difference 'Person.count' do

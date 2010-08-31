@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100820193951) do
+ActiveRecord::Schema.define(:version => 20100830205526) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -202,6 +202,17 @@ ActiveRecord::Schema.define(:version => 20100820193951) do
 
   add_index "dependency_conditions", ["dependency_id"], :name => "index_dependency_conditions_on_dependency_id"
   add_index "dependency_conditions", ["question_id"], :name => "index_dependency_conditions_on_question_id"
+
+  create_table "diagnoses", :force => true do |t|
+    t.integer  "position"
+    t.integer  "code",        :null => false
+    t.string   "description", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "diagnoses", ["code"], :name => "index_diagnoses_on_code", :unique => true
+  add_index "diagnoses", ["description"], :name => "index_diagnoses_on_description", :unique => true
 
   create_table "documents", :force => true do |t|
     t.integer  "owner_id"
@@ -601,23 +612,21 @@ ActiveRecord::Schema.define(:version => 20100820193951) do
 
   create_table "operational_events", :force => true do |t|
     t.integer  "position"
-    t.integer  "subject_id"
     t.integer  "operational_event_type_id"
-    t.date     "began_on"
-    t.date     "completed_on"
-    t.date     "sent_on"
-    t.date     "received_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "occurred_on"
+    t.integer  "enrollment_id"
+    t.string   "description"
   end
 
   create_table "organizations", :force => true do |t|
     t.integer  "position"
-    t.integer  "aliquots_count", :default => 0
-    t.string   "code"
+    t.string   "code",               :limit => 15
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "primary_contact_id"
   end
 
   add_index "organizations", ["code"], :name => "index_organizations_on_code", :unique => true
@@ -668,11 +677,12 @@ ActiveRecord::Schema.define(:version => 20100820193951) do
 
   create_table "people", :force => true do |t|
     t.integer  "position"
-    t.integer  "context_id"
     t.string   "first_name"
     t.string   "last_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "honorific",      :limit => 20
+    t.integer  "person_type_id"
   end
 
   create_table "phone_numbers", :force => true do |t|

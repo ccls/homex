@@ -59,6 +59,11 @@ end
 Factory.define :data_source do |f|
 end
 
+Factory.define :diagnosis do |f|
+	f.sequence(:code) { |n| n+4 }	#	1, 2 and 3 are in the fixtures
+	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
 Factory.define :dust_kit do |f|
 end
 
@@ -120,12 +125,12 @@ Factory.define :language do |f|
 end
 
 Factory.define :organization do |f|
-	f.sequence(:code) { |n| "My Org Code #{n}" }
-	f.sequence(:name) { |n| "My Org Name #{n}" }
+	f.sequence(:code) { |n| "Code #{n}" }
+	f.sequence(:name) { |n| "Name #{n}" }
 end
 
 Factory.define :operational_event do |f|
-	f.association :subject
+#	f.association :subject
 	f.association :operational_event_type
 end
 
@@ -145,6 +150,8 @@ Factory.define :patient do |f|
 end
 
 Factory.define :person do |f|
+	#	use sequence so will actually update
+	f.sequence(:last_name){|n| "LastName#{n}"}	
 end
 
 Factory.define :pii do |f|

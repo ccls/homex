@@ -8,7 +8,7 @@ class Subject < ActiveRecord::Base
 #	belongs_to :hispanicity
 	has_many :samples
 	has_many :enrollments
-	has_many :operational_events
+#	has_many :operational_events
 #	has_many :hospitals
 	has_many :addressings
 	has_many :addresses, :through => :addressings

@@ -1,0 +1,5 @@
+<%# stylesheets('people') %>
+<table id='people'><tbody>
+<%= render :partial => 'person', :collection => @people %>
+</tbody></table>
+<%= link_to 'Create new person', new_person_path %>
