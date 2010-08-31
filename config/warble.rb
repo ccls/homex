@@ -1,6 +1,27 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
+gem 'activesupport', '=2.3.8'
+require 'active_support'	#	note the name disparity
+Warbler::War.class_eval do
+
+	def apply_with_removal(config)
+		apply_without_removal(config)
+		puts "BEFORE:#{@files.keys.length}"
+		@files.delete_if {|k,v|
+			k =~ %r{WEB-INF/gems/gems/(#{config.remove_gem_files.join('|')})}
+		}
+		puts "AFTER:#{@files.keys.length}"
+	end
+	alias_method_chain :apply, :removal
+	
+end
+
+Warbler::Config.class_eval do
+	attr_accessor :remove_gem_files
+end
+
+
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
 	# Features: additional options controlling how the jar is built.
@@ -13,7 +34,6 @@ Warbler::Config.new do |config|
 	#	db contains the migrations
 	#	script contains the obvious
 	#	test contains the fixtures
-
 
 	# Additional files/directories to include, above those in config.dirs
 	# config.includes = FileList["db"]
@@ -68,21 +88,65 @@ Warbler::Config.new do |config|
 	# config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
 	# config.gems << "tzinfo"
 
+#
+#	Rails 3 generates a lot of headaches just by existing!
+#	If it is installed locally, it will end up in the .war
+#	despite my efforts to stop it.
+#
+
 	# Uncomment this if you don't want to package rails gem.
+#	BULLSHIT
 	# config.gems -= ["rails"]
+#	config.gems -= %w( i18n rails activerecord activesupport activeresource actionpack actionmailer activemodel arel railties bundler erubis mail polyglot thor treetop tzinfo )
+#	ALL THAT AND THEY STILL END UP IN THE WAR FILE
 
 	# The most recent versions of gems are used.
 	# You can specify versions of gems by using a hash assignment:
 	# config.gems["rails"] = "2.0.2"
+#	config.gems["rails"] = "2.3.8"
+#	config.gems["activerecord"] = "2.3.8"
+#	config.gems["activeresource"] = "2.3.8"
+#	config.gems["activesupport"] = "2.3.8"
+#	config.gems["actionpack"] = "2.3.8"
+#	config.gems["actionmailer"] = "2.3.8"
+
+	#	just before creating the war file, files matching
+	#	these will be removed from the list. 
+	#	  WEB-INF/gems/gems/REGEX
+	config.remove_gem_files = %w(
+		activesupport-3
+		activerecord-3
+		activeresource-3
+		actionpack-3
+		actionmailer-3
+		i18n-0.4 
+		rails-3 
+		activemodel-3 
+		arel 
+		railties 
+		bundler 
+		erubis 
+		mail 
+		polyglot 
+		thor 
+		treetop 
+		tzinfo 
+	)
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
 	# fine-grained control.
 	# config.gems << /^merb-/
 	# config.gems << Gem::Dependency.new("merb-core", "= 0.9.3")
+	config.gems << Gem::Dependency.new("rails", "= 2.3.8")
 
 	# Include gem dependencies not mentioned specifically. Default is true, uncomment
 	# to turn off.
 	# config.gem_dependencies = false
+
+	# Array of regular expressions matching relative paths in gems to be
+	# excluded from the war. Defaults to empty, but you can set it like
+	# below, which excludes test files.
+	# config.gem_excludes = [/^(test|spec)\//]
 
 	# Files to be included in the root of the webapp.	Note that files in public
 	# will have the leading 'public/' part of the path stripped during staging.
