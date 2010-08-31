@@ -24,6 +24,8 @@ Warbler::Config.class_eval do
 	attr_accessor :remove_gem_files
 end
 
+#	Always includes the latest version of a gem
+#	despite being told not to.  Bad dog!
 
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
