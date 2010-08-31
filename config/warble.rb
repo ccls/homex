@@ -12,7 +12,7 @@ Warbler::War.class_eval do
 			#	MUST REMOVE SPECIFICATION TOO!
 			#	Wasn't removing 3.0 specs and then rails
 			#	complained that rails 2.3.8 wasn't installed??
-			k =~ %r{WEB-INF/gems/.*/(#{config.remove_gem_files.join('|')})}
+			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
 		}
 		puts "AFTER:#{@files.keys.length}"
 	end
@@ -46,10 +46,10 @@ Warbler::Config.new do |config|
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
 		db/*sqlite3
-		versions
+		**/versions/
 		versions/**/*
 		.DS_Store
-	)]
+	)]	#	be VERY specific here
 
 	# Additional Java .jar files to include.	Note that if .jar files are placed
 	# in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -125,16 +125,20 @@ Warbler::Config.new do |config|
 		actionmailer-3
 		activemodel-3
 		railties-3
-		i18n-0.4 
 		rails-3
-		arel 
-		bundler 
-		erubis 
-		mail 
-		polyglot 
-		thor 
-		treetop 
-		tzinfo 
+		rack-1.2.1
+		rack-mount-
+		rack-test-
+		i18n-0.4 
+		abstract-
+		arel-
+		bundler-
+		erubis-
+		mail-
+		polyglot-
+		thor-
+		treetop-
+		tzinfo-
 	)
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
@@ -142,6 +146,7 @@ Warbler::Config.new do |config|
 	# config.gems << /^merb-/
 	# config.gems << Gem::Dependency.new("merb-core", "= 0.9.3")
 	config.gems << Gem::Dependency.new("rails", "= 2.3.8")
+	config.gems << Gem::Dependency.new("rack", "= 1.1.0")
 
 	# Include gem dependencies not mentioned specifically. Default is true, uncomment
 	# to turn off.
