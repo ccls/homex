@@ -9,7 +9,10 @@ Warbler::War.class_eval do
 		apply_without_removal(config)
 		puts "BEFORE:#{@files.keys.length}"
 		@files.delete_if {|k,v|
-			k =~ %r{WEB-INF/gems/gems/(#{config.remove_gem_files.join('|')})}
+			#	MUST REMOVE SPECIFICATION TOO!
+			#	Wasn't removing 3.0 specs and then rails
+			#	complained that rails 2.3.8 wasn't installed??
+			k =~ %r{WEB-INF/gems/.*/(#{config.remove_gem_files.join('|')})}
 		}
 		puts "AFTER:#{@files.keys.length}"
 	end
@@ -97,6 +100,7 @@ Warbler::Config.new do |config|
 	# Uncomment this if you don't want to package rails gem.
 #	BULLSHIT
 	# config.gems -= ["rails"]
+#	config.gems -= ["rails"]
 #	config.gems -= %w( i18n rails activerecord activesupport activeresource actionpack actionmailer activemodel arel railties bundler erubis mail polyglot thor treetop tzinfo )
 #	ALL THAT AND THEY STILL END UP IN THE WAR FILE
 
@@ -119,11 +123,11 @@ Warbler::Config.new do |config|
 		activeresource-3
 		actionpack-3
 		actionmailer-3
+		activemodel-3
+		railties-3
 		i18n-0.4 
-		rails-3 
-		activemodel-3 
+		rails-3
 		arel 
-		railties 
 		bundler 
 		erubis 
 		mail 
