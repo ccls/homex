@@ -37,6 +37,7 @@ Factory.define :analysis do |f|
 end
 
 Factory.define :identifier do |f|
+	f.association :subject
 	f.sequence(:childid) { |n| "#{n}" }
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:patid){|n| "#{n}"}
@@ -155,7 +156,7 @@ end
 
 Factory.define :patient do |f|
 	#	really don't see the point of a patient w/o a subject
-	f.association :subject
+	f.association :subject, :factory => :case_subject
 end
 
 Factory.define :person do |f|
@@ -258,6 +259,11 @@ Factory.define :subject do |f|
 	f.sequence(:subjectid){|n| "#{n}"}
 	f.sequence(:sex){|n|
 		%w( male female )[n%2] }
+end
+Factory.define :case_subject, :parent => :subject do |f|
+	f.subject_type { SubjectType.find(:first,:conditions => {
+			:code => 'Case'
+		}) }
 end
 
 Factory.define :subject_type do |f|

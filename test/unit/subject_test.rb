@@ -8,7 +8,8 @@ class SubjectTest < ActiveSupport::TestCase
 		:enrollments,:phone_numbers,
 		:samples,:response_sets)
 	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
-	assert_should_have_one(:pii,:patient,:home_exposure_response,
+#	assert_should_have_one(:pii,:patient,:home_exposure_response,
+	assert_should_have_one(:pii,:home_exposure_response,
 		:identifier,:homex_outcome)
 	assert_should_require(:subjectid)
 	assert_should_require_unique(:subjectid)
@@ -55,26 +56,32 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
-	test "should create subject with patient" do
-		assert_difference( 'Patient.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			subject = create_subject(
-				:patient_attributes => Factory.attributes_for(:patient))
-			assert !subject.new_record?, 
-				"#{subject.errors.full_messages.to_sentence}"
-		} }
-	end
+#	test "should create subject with patient" do
+#		assert_difference( 'Patient.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+##			subject = Factory(:case_subject,
+#			subject = create_subject(
+#				:patient_attributes => Factory.attributes_for(:patient))
+#			assert !subject.new_record?, 
+#				"#{subject.errors.full_messages.to_sentence}"
+#		} }
+#	end
 
 	test "should NOT create subject with second patient" do
 		assert_difference( 'Patient.count', 1) {
 		assert_difference( 'Subject.count', 1) {
-			subject = create_subject(
-				:patient_attributes => Factory.attributes_for(:patient))
-			assert !subject.new_record?, 
-				"#{subject.errors.full_messages.to_sentence}"
-			subject.update_attributes(
-				:patient_attributes => Factory.attributes_for(:patient))
-			assert subject.errors.on('patient.subject_id')
+#			subject = create_subject(
+#				:patient_attributes => Factory.attributes_for(:patient))
+#			assert !subject.new_record?, 
+#				"#{subject.errors.full_messages.to_sentence}"
+#			subject.update_attributes(
+#				:patient_attributes => Factory.attributes_for(:patient))
+#			assert subject.errors.on('patient.subject_id')
+			subject = Factory(:case_subject)
+			patient1 = Factory(:patient,:subject_id => subject.id)
+			patient2 = Factory.build(:patient,:subject_id => subject.id)
+			patient2.save
+			assert patient2.errors.on(:subject_id)
 		} }
 	end
 
@@ -87,45 +94,56 @@ class SubjectTest < ActiveSupport::TestCase
 #
 #	end
 
-	test "should create subject with identifier" do
-		assert_difference( 'Identifier.count', 1) {
-		assert_difference( 'Subject.count', 1) {
-			subject = create_subject(
-				:identifier_attributes => Factory.attributes_for(:identifier))
-			assert !subject.new_record?, 
-				"#{subject.errors.full_messages.to_sentence}"
-		} }
-	end
+#	test "should create subject with identifier" do
+#		assert_difference( 'Identifier.count', 1) {
+#		assert_difference( 'Subject.count', 1) {
+#			subject = create_subject(
+#				:identifier_attributes => Factory.attributes_for(:identifier))
+#			assert !subject.new_record?, 
+#				"#{subject.errors.full_messages.to_sentence}"
+#		} }
+#	end
 
 	test "should NOT create subject with second identifier" do
 		assert_difference( 'Identifier.count', 1) {
 		assert_difference( 'Subject.count', 1) {
-			subject = create_subject(
-				:identifier_attributes => Factory.attributes_for(:identifier))
-			assert !subject.new_record?, 
-				"#{subject.errors.full_messages.to_sentence}"
-			subject.update_attributes(
-				:identifier_attributes => Factory.attributes_for(:identifier))
-			assert subject.errors.on('identifier.subject_id')
+#			subject = create_subject(
+#				:identifier_attributes => Factory.attributes_for(:identifier))
+#			assert !subject.new_record?, 
+#				"#{subject.errors.full_messages.to_sentence}"
+#			subject.update_attributes(
+#				:identifier_attributes => Factory.attributes_for(:identifier))
+			subject = create_subject
+			identifier1 = Factory(:identifier,:subject_id => subject.id)
+			identifier2 = Factory.build(:identifier,:subject_id => subject.id)
+			identifier2.save
+			assert identifier2.errors.on(:subject_id)
 		} }
 	end
 
-	test "should NOT create subject with empty identifier" do
-		assert_difference( 'Identifier.count', 0) {
-		assert_difference( 'Subject.count', 0) {
-			subject = create_subject(
-				:identifier_attributes => {} )
-			assert subject.errors.on('identifier.childid')
-		} }
-	end
+#	test "should NOT create subject with empty identifier" do
+#		assert_difference( 'Identifier.count', 0) {
+#		assert_difference( 'Subject.count', 0) {
+#			subject = create_subject(
+#				:identifier_attributes => {} )
+#			assert subject.errors.on('identifier.childid')
+#		} }
+#	end
 
 	test "studyid should be patid, case_control_type and orderno" do
-		subject = create_subject(
-			:identifier_attributes => Factory.attributes_for(:identifier, 
-				:case_control_type => 'A',
-				:patid   => '123',
-				:orderno => '4'
-		))
+#		subject = create_subject(
+#			:identifier_attributes => Factory.attributes_for(:identifier, 
+#				:case_control_type => 'A',
+#				:patid   => '123',
+#				:orderno => '4'
+#		))
+		subject = create_subject
+		Factory(:identifier, 
+			:subject_id => subject.id,
+			:case_control_type => 'A',
+			:patid   => '123',
+			:orderno => '4'
+		)
 		assert_equal "123-A-4", subject.reload.studyid
 	end
 
@@ -217,7 +235,8 @@ pending
 	end
 
 	test "should NOT destroy patient with subject" do
-		subject = create_subject
+#		subject = create_subject
+		subject = Factory(:case_subject)
 		Factory(:patient, :subject_id => subject.id)
 		assert_difference('Subject.count',-1) {
 		assert_difference('Patient.count',0) {
@@ -457,6 +476,16 @@ pending
 			:project_id => Project.find_by_code('HomeExposures').id
 		)
 		assert_not_nil subject.hx_enrollment
+	end
+
+	test "should not be case unless explicitly told" do
+		subject = create_subject
+		assert !subject.is_case?
+	end
+
+	test "should case if explicitly told" do
+		subject = Factory(:case_subject)
+		assert subject.is_case?
 	end
 
 protected

@@ -5,9 +5,15 @@ class PatientsController < HxApplicationController
 	before_filter :valid_hx_subject_id_required
 	before_filter :valid_patient_required,
 		:only => [:show,:edit,:update,:destroy]
+	before_filter :case_subject_required,
+		:only => [:new,:create]
 	before_filter :no_patient_required,
 		:only => [:new,:create]
 	
+	def show
+		render :action => 'not_case' unless @subject.is_case?
+	end
+
 	def new
 		@patient = @subject.build_patient
 	end
@@ -45,6 +51,13 @@ class PatientsController < HxApplicationController
 	end
 	
 protected
+
+	def case_subject_required
+		unless( @subject.is_case? )
+			access_denied("Subject must be Case to have patient data!",
+				@subject)
+		end
+	end
 
 	def no_patient_required
 		unless( @subject.patient.nil? )

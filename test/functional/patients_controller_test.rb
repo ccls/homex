@@ -51,7 +51,8 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT show patient for patientless subject " <<
 			"and #{cu} login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		assert_nil subject.patient
 		login_as send(cu)
 		get :show, :subject_id => subject.id
@@ -72,7 +73,8 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should get new patient with #{cu} login " <<
 			"for subject without patient" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
 		assert assigns(:subject)
@@ -98,7 +100,8 @@ class PatientsControllerTest < ActionController::TestCase
 	end
 
 	test "should create new patient with #{cu} login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 		assert_difference('Patient.count',1) do
 			post :create, :subject_id => subject.id,
@@ -106,6 +109,21 @@ class PatientsControllerTest < ActionController::TestCase
 		end
 		assert assigns(:subject)
 		assert_redirected_to subject_patient_path(subject)
+	end
+
+	test "should NOT create new patient with #{cu} login " <<
+			"for non-case subject" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		assert_difference('Patient.count',0) do
+			post :create, :subject_id => subject.id,
+				:patient => factory_attributes
+		end
+		assert_not_nil flash[:error]
+		assert assigns(:subject)
+#		assert_template 'new'
+#		assert_redirected_to subject_patient_path(subject)
+		assert_redirected_to subject_path(subject)
 	end
 
 	test "should NOT create new patient without subject_id " <<
@@ -129,7 +147,8 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT create new patient with #{cu} " <<
 			"login when create fails" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		Patient.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		assert_difference('Patient.count',0) do
@@ -144,7 +163,8 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT create new patient with #{cu} " <<
 			"login and invalid patient" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 #		assert_difference('Patient.count',0) do
 			post :create, :subject_id => subject.id,
@@ -259,7 +279,8 @@ end
 %w( interviewer reader active_user ).each do |cu|
 
 	test "should NOT show patient with #{cu} login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :show, :subject_id => subject.id
 		assert_not_nil flash[:error]
@@ -267,7 +288,8 @@ end
 	end
 
 	test "should NOT get new patient with #{cu} login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
 		assert_not_nil flash[:error]
@@ -275,7 +297,8 @@ end
 	end
 
 	test "should NOT create new patient with #{cu} login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
 			:patient => factory_attributes
@@ -297,19 +320,22 @@ end
 end
 
 	test "should NOT show patient without login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		get :show, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT get new patient without login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		get :new, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT create new patient without login" do
-		subject = Factory(:subject)
+#		subject = Factory(:subject)
+		subject = Factory(:case_subject)
 		post :create, :subject_id => subject.id,
 			:patient => factory_attributes
 		assert_redirected_to_login
