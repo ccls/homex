@@ -5,7 +5,7 @@ class VitalStatusTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_have_many(:subjects)
 	assert_should_require(:code,:description)
-	assert_should_require_unique(:code,:description)
+	assert_should_require_unique(:code)	#,:description)
 
 	test "should create vital_status" do
 		assert_difference 'VitalStatus.count' do
