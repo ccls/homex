@@ -67,6 +67,9 @@ end
 Factory.define :document_type do |f|
 end
 
+Factory.define :document_version do |f|
+end
+
 Factory.define :dust_kit do |f|
 end
 

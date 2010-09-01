@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901171745) do
+ActiveRecord::Schema.define(:version => 20100901172603) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -218,6 +218,16 @@ ActiveRecord::Schema.define(:version => 20100901171745) do
     t.integer  "position"
     t.string   "title"
     t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_versions", :force => true do |t|
+    t.integer  "position"
+    t.integer  "document_type_id", :null => false
+    t.string   "title"
+    t.string   "description"
+    t.string   "indicator"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
