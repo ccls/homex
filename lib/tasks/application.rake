@@ -6,6 +6,7 @@ namespace :app do
 		fixtures.push('address_types')
 		fixtures.push('data_sources')
 		fixtures.push('diagnoses')
+		fixtures.push('document_types')
 		fixtures.push('hospitals')
 		fixtures.push('ineligible_reasons')
 		fixtures.push('interview_methods')

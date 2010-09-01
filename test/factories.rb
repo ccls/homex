@@ -64,6 +64,9 @@ Factory.define :diagnosis do |f|
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
+Factory.define :document_type do |f|
+end
+
 Factory.define :dust_kit do |f|
 end
 
