@@ -7,4 +7,8 @@ class DocumentVersion < ActiveRecord::Base
 	validates_presence_of :document_type_id,
 		:document_type
 
+	def to_s
+		description
+	end
+
 end
