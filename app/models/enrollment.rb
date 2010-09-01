@@ -5,6 +5,7 @@ class Enrollment < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :ineligible_reason
 	belongs_to :refusal_reason
+	belongs_to :document_version
 	belongs_to :project
 
 	validates_uniqueness_of :project_id, :scope => [:subject_id]

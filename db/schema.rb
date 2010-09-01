@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901172603) do
+ActiveRecord::Schema.define(:version => 20100901181447) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(:version => 20100901172603) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "document_version_id"
   end
 
   add_index "enrollments", ["project_id", "subject_id"], :name => "index_enrollments_on_project_id_and_subject_id", :unique => true
