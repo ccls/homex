@@ -22,9 +22,9 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should return code as to_s" do
+	test "should return description as to_s" do
 		object = create_object
-		assert_equal object.code, "#{object}"
+		assert_equal object.description, "#{object}"
 	end
 
 protected
