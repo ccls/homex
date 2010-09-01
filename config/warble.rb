@@ -3,11 +3,24 @@
 
 gem 'activesupport', '=2.3.8'
 require 'active_support'	#	note the name disparity
-Warbler::War.class_eval do
+#Warbler::War.class_eval do
+module WarblerWar
+
+	def self.included(base)
+		base.class_eval do
+			alias_method_chain :apply, :removal
+		end
+	end
 
 	def apply_with_removal(config,&block)
 		apply_without_removal(config,&block)
 		puts "BEFORE:#{@files.keys.length}"
+#		@files.each_pair {|k,v|
+#puts "K:#{k}"
+#puts "V:#{v}"
+#K:WEB-INF/gems/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#V:/Users/jakewendt/.rvm/gems/jruby-1.5.1/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#		}
 		@files.delete_if {|k,v|
 			#	MUST REMOVE SPECIFICATION TOO!
 			#	Wasn't removing 3.0 specs and then rails
@@ -15,46 +28,25 @@ Warbler::War.class_eval do
 			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
 		} unless config.remove_gem_files.empty?
 		puts "AFTER:#{@files.keys.length}"
-#		puts "AFTER:#{@files.keys}"
 	end
-	alias_method_chain :apply, :removal
-
-#	def find_single_gem_files_with_skip(config, gem_pattern, version = nil)
-#puts "----"
-#puts gem_pattern.inspect
-#puts config.skip_gems.keys.first
-#		if gem_pattern.is_a?(Gem::Dependency) &&
-#				config.skip_gems.keys.include?(gem_pattern.name) &&
-#				gem_pattern.satisfied_by?(config.skip_gems[gem_pattern.name]) 
-#			puts "skipping #{gem_pattern}"
-#			return 
-#		end
-#		find_single_gem_files_without_skip(config, gem_pattern, version)
-#	end
-#	alias_method_chain :find_single_gem_files, :skip
 
 end
+Warbler::War.send(:include,WarblerWar)
 
 module WarblerConfig
 
 	def self.included(base)
 		base.class_eval do
 			attr_accessor :remove_gem_files
-#			attr_accessor :skip_gems
-#			alias_method_chain :initialize, :skip
+			alias_method_chain :initialize, :removal
 		end
 	end
 
-#	#	ALWAYS RECEIVE AND PASS A BLOCK!
-#	def initialize_with_skip(warbler_home = WARBLER_HOME,&block)
-#		@remove_gem_files = []
-#		@skip_gems = Warbler::Gems.new
-#		initialize_without_skip(warbler_home,&block)
-#	end
-
-#	def skip_gems=(value)
-#		@skip_gems = Warbler::Gems.new(value)
-#	end
+	#	ALWAYS RECEIVE AND PASS A BLOCK!
+	def initialize_with_removal(warbler_home = WARBLER_HOME,&block)
+		@remove_gem_files = []
+		initialize_without_removal(warbler_home,&block)
+	end
 
 end
 Warbler::Config.send(:include,WarblerConfig)
@@ -143,34 +135,6 @@ Warbler::Config.new do |config|
 	# The most recent versions of gems are used.
 	# You can specify versions of gems by using a hash assignment:
 	# config.gems["rails"] = "2.0.2"
-#	config.gems["rails"] = "2.3.8"
-#	config.gems["activerecord"] = "2.3.8"
-#	config.gems["activeresource"] = "2.3.8"
-#	config.gems["activesupport"] = "2.3.8"
-#	config.gems["actionpack"] = "2.3.8"
-#	config.gems["actionmailer"] = "2.3.8"
-
-#	config.skip_gems['activesupport'] = '>=3.0.0'
-#	config.skip_gems['activerecord'] = '>=3.0.0'
-#	config.skip_gems['activeresource'] = '>=3.0.0'
-#	config.skip_gems['actionpack'] = '>=3.0.0'
-#	config.skip_gems['actionmailer'] = '>=3.0.0'
-#	config.skip_gems['activemodel'] = '>=3.0.0'
-#	config.skip_gems['railties'] = '>=3.0.0'
-#	config.skip_gems['rails'] = '>=3.0.0'
-#	config.skip_gems['rack'] = '>=1.2.1'
-#	config.skip_gems['rack-mount'] = nil
-#	config.skip_gems['rack-test'] = nil
-#	config.skip_gems['i18n'] = '>=0.4'
-#	config.skip_gems['abstract'] = nil
-#	config.skip_gems['arel'] = nil
-#	config.skip_gems['bundler'] = nil
-#	config.skip_gems['erubis'] = nil
-#	config.skip_gems['mail'] = nil
-#	config.skip_gems['polyglot'] = nil
-#	config.skip_gems['thor'] = nil
-#	config.skip_gems['treetop'] = nil
-#	config.skip_gems['tzinfo'] = nil
 
 	#	just before creating the war file, files matching
 	#	these will be removed from the list. 
