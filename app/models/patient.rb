@@ -2,6 +2,7 @@
 class Patient < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :organization
+	belongs_to :diagnosis
 
 	# because subject accepts_nested_attributes for patient
 	# we can't require subject_id on create
