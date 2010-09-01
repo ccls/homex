@@ -8,7 +8,10 @@ class DocumentVersion < ActiveRecord::Base
 		:document_type
 
 	def to_s
-		description
+		title	#	description
 	end
+
+	named_scope :type1, :conditions => {
+		:document_type_id => 1 }
 
 end

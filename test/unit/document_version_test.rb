@@ -26,6 +26,14 @@ class DocumentVersionTest < ActiveSupport::TestCase
 #		end
 #	end
 
+	test "should only return document type id == 1 for type1" do
+		objects = DocumentVersion.type1
+		assert_not_nil objects
+		objects.each do |o|
+			assert_equal 1, o.document_type_id
+		end
+	end
+
 protected
 
 	def create_object(options = {})
