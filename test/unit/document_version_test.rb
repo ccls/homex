@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class DocumentVersionTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
-	assert_should_belong_to(:document_type)
+#	assert_should_belong_to(:document_type)
+	assert_should_initially_belong_to(:document_type)
 #	assert_should_have_many(:subjects)
+	assert_should_require(:document_type_id)
 #	assert_should_require(:code,:description)
 #	assert_should_require_unique(:code)	#,:description)
 

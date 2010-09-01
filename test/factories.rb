@@ -65,9 +65,12 @@ Factory.define :diagnosis do |f|
 end
 
 Factory.define :document_type do |f|
+	f.sequence(:title) { |n| "Title#{n}" }
 end
 
 Factory.define :document_version do |f|
+	f.sequence(:title) { |n| "Title#{n}" }
+	f.association :document_type
 end
 
 Factory.define :dust_kit do |f|
@@ -286,7 +289,8 @@ Factory.define :unit do |f|
 end
 
 Factory.define :vital_status do |f|
-	f.sequence(:code) { |n| "Code#{n}" }
+#	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:code) { |n| n+3 }									#	3 in fixtures
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
