@@ -9,13 +9,15 @@ class Interview::SubjectsController < HxApplicationController
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-#		params[:projects] ||= {}
-#		params[:projects][hx.id] ||= {}
-#		@subjects = Subject.search(params)
-		@subjects = hx.subjects.search(params.merge(
-			#	interview outcome != complete
-			:interview_outcome => 'incomplete'
-		))
+		params[:projects] ||= {}
+		params[:projects][hx.id] ||= {}
+		params[:projects][hx.id][:chosen] = true 
+		@subjects = Subject.search(params)
+#		@subjects = hx.subjects.search(params.merge(
+#			#	interview outcome != complete
+#			:interview_outcome => 'incomplete'
+##			:is_chosen => true
+#		))
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
