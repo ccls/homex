@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
 	# See ActionController::RequestForgeryProtection for details
 	protect_from_forgery 
 
+	#	from ucb_ccls_engine_controller.rb 
+	skip_before_filter :build_menu_js
+
 protected	#	private #	(does it matter which or if neither?)
 
 	#	This is a method that returns a hash containing

@@ -5,6 +5,11 @@ class HxApplicationController < ApplicationController
 #	before_filter :may_view_home_exposures_required
 	before_filter :may_view_required
 
+	# from ucb_ccls_engine_controller.rb 
+	#	Its interesting that the skip needs to be here
+	#	and not in the ApplicationController
+	skip_before_filter :build_menu_js
+
 #	layout 'home_exposure'
 
 protected
