@@ -610,11 +610,11 @@ pending
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:sample_outcome => 'Complete')
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
-#			assert !subjects.include?(s3)
+		subjects = SubjectSearch.new(
+			:sample_outcome => 'Complete').subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+		assert !subjects.include?(s3)
 	end
 
 	test "should include subjects with incomplete sample" do
@@ -627,11 +627,11 @@ pending
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:sample_outcome => 'Incomplete')
-#			assert !subjects.include?(s1)
-#			assert  subjects.include?(s2)
-#			assert  subjects.include?(s3)
+		subjects = SubjectSearch.new(
+			:sample_outcome => 'Incomplete').subjects
+		assert !subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert  subjects.include?(s3)
 	end
 
 	test "should include subjects with complete interview" do
@@ -644,11 +644,11 @@ pending
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:interview_outcome => 'Complete')
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
-#			assert !subjects.include?(s3)
+		subjects = SubjectSearch.new(
+			:interview_outcome => 'Complete').subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+		assert !subjects.include?(s3)
 	end
 
 	test "should include subjects with incomplete interview" do
@@ -661,11 +661,11 @@ pending
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:interview_outcome => 'Incomplete')
-#			assert !subjects.include?(s1)
-#			assert  subjects.include?(s2)
-#			assert  subjects.include?(s3)
+		subjects = SubjectSearch.new(
+			:interview_outcome => 'Incomplete').subjects
+		assert !subjects.include?(s1)
+		assert  subjects.include?(s2)
+		assert  subjects.include?(s3)
 	end
 
 protected

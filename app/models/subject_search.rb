@@ -3,7 +3,8 @@ class SubjectSearch < Search
 
 	@@searchable_attributes = [
 #		:race, :type, :races, :types, :vital_statuses
-		:races, :types, :vital_statuses, :q
+		:races, :types, :vital_statuses, :q,
+		:sample_outcome, :interview_outcome
 	]
 
 #	includes= [:pii,:identifier]
@@ -58,7 +59,6 @@ private	#	THIS IS REQUIRED
 	end
 
 	def vital_statuses_conditions
-#		['vital_statuses.code IN (?)', *vital_statuses
 		['vital_statuses.code IN (?)', vital_statuses
 			] unless vital_statuses.blank?
 	end
@@ -68,7 +68,6 @@ private	#	THIS IS REQUIRED
 	end
 
 	def races_conditions
-#		['races.description IN (?)', *races
 		['races.description IN (?)', races
 			] unless races.blank?
 	end
@@ -79,7 +78,6 @@ private	#	THIS IS REQUIRED
 	end
 
 	def types_conditions
-#		['subject_types.description IN (?)', *types
 		['subject_types.description IN (?)', types
 			] unless types.blank?
 	end
@@ -96,6 +94,49 @@ private	#	THIS IS REQUIRED
 				v["t#{i}".to_sym] = "%#{t}%"
 			end
 			[ "( #{c.join(' OR ')} )", v ]
+		end
+	end
+
+	#	join order matters and this MUST come before
+	#	those that join on home_outcomes!  Hmm?
+	#	How?  Added a sort to joins and an "a_" to this
+	def a_homex_outcome_joins
+		"LEFT JOIN homex_outcomes ON homex_outcomes.subject_id " <<
+			"= subjects.id" unless 
+				sample_outcome.blank? && interview_outcome.blank?
+	end
+
+	def sample_outcome_joins
+		"LEFT JOIN sample_outcomes ON sample_outcomes.id = " <<
+			"homex_outcomes.sample_outcome_id" unless
+				sample_outcome.blank?
+	end
+
+	def sample_outcome_conditions
+		unless sample_outcome.blank?
+			if sample_outcome =~ /^Complete$/i
+				['sample_outcomes.code = ?',sample_outcome]
+			else
+				["(sample_outcomes.code != 'Complete' " <<
+						"OR sample_outcomes.code IS NULL)"]
+			end
+		end
+	end
+
+	def interview_outcome_joins
+		"LEFT JOIN interview_outcomes ON interview_outcomes.id = " <<
+			"homex_outcomes.interview_outcome_id" unless
+				interview_outcome.blank?
+	end
+
+	def interview_outcome_conditions
+		unless interview_outcome.blank?
+			if interview_outcome =~ /^Complete$/i
+				['interview_outcomes.code = ?', interview_outcome]
+			else
+				["(interview_outcomes.code != 'Complete'" <<
+					"OR interview_outcomes.code IS NULL)"]
+			end
 		end
 	end
 

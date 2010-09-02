@@ -66,8 +66,11 @@ private
 		private_methods(false).grep(/_conditions$/).map { |m| send(m) }.compact
 	end
 
+	#	Join order can be important if joining on other joins
+	#	so added a sort.  Added a "a_" to those joins which must go first.
+	#	Crude solution, but a solution nonetheless.
 	def joins
-		private_methods(false).grep(/_joins$/).map { |m| send(m) }.compact
+		private_methods(false).grep(/_joins$/).sort.map { |m| send(m) }.compact
 	end
 
 end
