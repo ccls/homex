@@ -12,8 +12,12 @@
 .field_wrapper.reason_not_chosen {
 	margin-left:50px;
 }
+.field_wrapper.refusal_reason_id {
+	clear:left;
+}
 .field_wrapper.is_chosen,
 .field_wrapper.is_complete,
+.field_wrapper.consented_on_string,
 .field_wrapper.consented,
 .field_wrapper.refusal_reason_id,
 .field_wrapper.ineligible_reason_id {
@@ -28,12 +32,14 @@
 	width: 100px;
 }
 
+.field_wrapper.document_version_id ,
 .field_wrapper.ineligible_reason_specify ,
 .field_wrapper.reason_not_chosen ,
 .field_wrapper.other_refusal_reason {
 	text-align:right;
 }
 
+.field_wrapper.document_version_id label,
 .field_wrapper.ineligible_reason_specify label,
 .field_wrapper.reason_not_chosen label,
 .field_wrapper.other_refusal_reason label{

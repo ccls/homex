@@ -1,15 +1,15 @@
 living:
   id: 1
   position: 1
-  code: living
+  code: 1
   description: living
 deceased:
   id: 2
   position: 2 
-  code: deceased
+  code: 2
   description: deceased
 dk:
-  id: 999
+  id: 3
   position: 3
-  code: unknown
+  code: 3
   description: don't know

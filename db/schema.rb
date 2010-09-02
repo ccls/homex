@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100830205526) do
+ActiveRecord::Schema.define(:version => 20100901181447) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -214,6 +214,24 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
   add_index "diagnoses", ["code"], :name => "index_diagnoses_on_code", :unique => true
   add_index "diagnoses", ["description"], :name => "index_diagnoses_on_description", :unique => true
 
+  create_table "document_types", :force => true do |t|
+    t.integer  "position"
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_versions", :force => true do |t|
+    t.integer  "position"
+    t.integer  "document_type_id", :null => false
+    t.string   "title"
+    t.string   "description"
+    t.string   "indicator"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "documents", :force => true do |t|
     t.integer  "owner_id"
     t.string   "title",                                    :null => false
@@ -256,6 +274,7 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "document_version_id"
   end
 
   add_index "enrollments", ["project_id", "subject_id"], :name => "index_enrollments_on_project_id_and_subject_id", :unique => true
@@ -622,11 +641,11 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
 
   create_table "organizations", :force => true do |t|
     t.integer  "position"
-    t.string   "code",               :limit => 15
+    t.string   "code",       :limit => 15
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "primary_contact_id"
+    t.integer  "person_id"
   end
 
   add_index "organizations", ["code"], :name => "index_organizations_on_code", :unique => true
@@ -975,8 +994,12 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
     t.boolean  "do_not_contact",                   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "matchingid",          :limit => 6
+    t.string   "familyid",            :limit => 6
   end
 
+  add_index "subjects", ["familyid"], :name => "index_subjects_on_familyid", :unique => true
+  add_index "subjects", ["matchingid"], :name => "index_subjects_on_matchingid", :unique => true
   add_index "subjects", ["subjectid"], :name => "index_subjects_on_subjectid", :unique => true
 
   create_table "survey_invitations", :force => true do |t|
@@ -1129,8 +1152,8 @@ ActiveRecord::Schema.define(:version => 20100830205526) do
 
   create_table "vital_statuses", :force => true do |t|
     t.integer  "position"
-    t.string   "code",        :null => false
-    t.string   "description"
+    t.integer  "code",        :null => false
+    t.string   "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

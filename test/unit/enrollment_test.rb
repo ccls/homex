@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnrollmentTest < ActiveSupport::TestCase
 
 	assert_requires_valid_associations(:project,:subject)
-	assert_should_belong_to(:ineligible_reason,:refusal_reason)
+	assert_should_belong_to(:ineligible_reason,:refusal_reason,
+		:document_version)
 	assert_should_initially_belong_to(:project,:subject)
 
 	test "should create enrollment" do

@@ -2,9 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IdentifierTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:subject)
-	assert_should_require(:childid,:orderno,:patid,:ssn,:case_control_type)
-	assert_should_require_unique(:childid,:ssn)
+#	assert_should_belong_to(:subject)
+	assert_should_initially_belong_to(:subject)
+	assert_should_require(:childid,:orderno,:patid,:ssn,
+		:case_control_type, :subject_id)
+	assert_should_require_unique(:childid,:ssn,:subject_id)
 
 	test "should create identifier" do
 		assert_difference 'Identifier.count' do
@@ -14,32 +16,9 @@ class IdentifierTest < ActiveSupport::TestCase
 		end
 	end
 
-	#
-	#	subject uses accepts_attributes_for :child_id
-	#	so the child_id can't require subject_id on create
-	#	or this test fails.
-	#
-	test "should require subject_id on update" do
-		assert_difference 'Identifier.count', 1 do
-			object = create_object
-			object.reload.update_attributes(:childid => 1)
-			assert object.errors.on(:subject)
-		end
-	end
-
-	test "should require unique subject_id" do
-		subject = Factory(:subject)
-		create_object(:subject => subject)
-		assert_difference( 'Identifier.count', 0 ) do
-			object = create_object(:subject => subject)
-			assert object.errors.on(:subject_id)
-		end
-	end
-
-	test "should require valid subject_id on update" do
-		assert_difference( 'Identifier.count', 1 )do
+	test "should require valid subject_id" do
+		assert_difference( 'Identifier.count', 0 )do
 			object = create_object(:subject_id => 0)
-			object.reload.update_attributes(:childid => 1)
 			assert object.errors.on(:subject)
 		end
 	end

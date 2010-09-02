@@ -2,26 +2,30 @@
 #	*	subject_type_id
 #	*	race_id
 class Subject < ActiveRecord::Base
-	belongs_to :subject_type
-	belongs_to :race
-	belongs_to :vital_status
+
 #	belongs_to :hispanicity
-	has_many :samples
-	has_many :enrollments
-#	has_many :operational_events
-#	has_many :hospitals
+	belongs_to :race
+	belongs_to :subject_type
+	belongs_to :vital_status
+
+	has_and_belongs_to_many :analyses
+
 	has_many :addressings
 	has_many :addresses, :through => :addressings
-	has_many :response_sets
+	has_many :enrollments
 	has_many :home_exposure_events
+#	has_many :hospitals
+#	has_many :operational_events
 	has_many :phone_numbers
-	has_one :home_exposure_response
-	has_one :pii
-	has_one :patient
-	has_one :identifier
-	has_one :homex_outcome
+	has_many :response_sets
+	has_many :samples
 	has_many :survey_invitations
-	has_and_belongs_to_many :analyses
+
+	has_one :identifier
+	has_one :home_exposure_response
+	has_one :homex_outcome
+	has_one :patient
+	has_one :pii
 
 	validates_presence_of :subject_type, :race,
 		:subject_type_id, :race_id,
@@ -34,6 +38,7 @@ class Subject < ActiveRecord::Base
 		:last_name, :first_name, :dob, :dob_string,
 		:fathers_name, :mothers_name,
 		:to => :pii, :allow_nil => true
+
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
 		:to => :identifier, :allow_nil => true
 
@@ -52,9 +57,12 @@ class Subject < ActiveRecord::Base
 	#	s.pii.destroy will destroy the last one !?!?!?
 	#	Make all these require a unique subject_id
 	accepts_nested_attributes_for :pii
-	accepts_nested_attributes_for :patient
-	accepts_nested_attributes_for :identifier
-#	accepts_nested_attributes_for :dust_kit
+
+#	Where do I use patient_attributes?
+#	accepts_nested_attributes_for :patient
+#	Where do I use identifier_attributes?
+#	accepts_nested_attributes_for :identifier
+##	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
 
@@ -77,6 +85,10 @@ class Subject < ActiveRecord::Base
 #				'TEST'
 #	#		end
 #		end
+
+	def is_case?
+		subject_type.try(:code) == 'Case'
+	end
 
 	def hx_enrollment
 		enrollments.find(:first,

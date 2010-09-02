@@ -3,15 +3,18 @@
 <p>Consent:</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>status:&nbsp;
-<%= @hx_enrollment.try(:consented?) %></p>
+<%= wrapped_yes_or_no_spans :hx_enrollment, :consented,
+	:label_text => 'consented?' %>
 <p>refusal reason:&nbsp;
-<%= "#{@hx_enrollment.try(:refusal_reason)}" %></p>
+<%#= "#{@hx_enrollment.try(:refusal_reason)}" %>
+<%= @hx_enrollment.refusal_reason %></p>
 </div><!-- class='column' -->
 <div class='column'>
 <p>date:&nbsp;
-<%= @hx_enrollment.try(:consented_on) %></p>
+<%#= @hx_enrollment.try(:consented_on) %>
+<%= @hx_enrollment.consented_on %></p>
 <p>specify:&nbsp;
-<%= "#{@hx_enrollment.try(:other_refusal_reason)}" %></p>
+<%#= "#{@hx_enrollment.try(:other_refusal_reason)}" %>
+<%= @hx_enrollment.other_refusal_reason %></p>
 </div><!-- class='column' -->
 </div><!-- class='consent' -->

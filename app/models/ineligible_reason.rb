@@ -12,7 +12,7 @@ class IneligibleReason < ActiveRecord::Base
 	validates_uniqueness_of :description
 
 	def to_s
-		code
+		description
 	end
 
 end

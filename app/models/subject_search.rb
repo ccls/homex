@@ -59,9 +59,13 @@ private	#	THIS IS REQUIRED
 end
 #
 #	This works for factory girl, but not for me??
+#<<<<<<< HEAD:app/models/subject_search.rb
 #	This really should work.  Just make sure that the call includes ()
 #	otherwise ruby will treat it like an undefined Constant.
+#=======
+#	It does.  What was the problem?
+#>>>>>>> 19164a2064275553c4868c0d389e286852c7333a:app/models/subject_search.rb
 #
-#	def SubjectSearch(options={})
-#		SubjectSearch.new(options)
-#	end
+def SubjectSearch(options={})
+	SubjectSearch.new(options)
+end

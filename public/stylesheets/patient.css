@@ -1,3 +1,7 @@
 #patient .field_wrapper {
 	padding: 10px;
 }
+#patient .field_wrapper .label {
+	width: 200px;
+	float:left;
+}

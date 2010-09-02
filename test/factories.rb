@@ -37,6 +37,7 @@ Factory.define :analysis do |f|
 end
 
 Factory.define :identifier do |f|
+	f.association :subject
 	f.sequence(:childid) { |n| "#{n}" }
 	f.sequence(:ssn){|n| sprintf("%09d",n) }
 	f.sequence(:patid){|n| "#{n}"}
@@ -62,6 +63,15 @@ end
 Factory.define :diagnosis do |f|
 	f.sequence(:code) { |n| n+4 }	#	1, 2 and 3 are in the fixtures
 	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
+Factory.define :document_type do |f|
+	f.sequence(:title) { |n| "Title#{n}" }
+end
+
+Factory.define :document_version do |f|
+	f.sequence(:title) { |n| "Title#{n}" }
+	f.association :document_type
 end
 
 Factory.define :dust_kit do |f|
@@ -146,7 +156,7 @@ end
 
 Factory.define :patient do |f|
 	#	really don't see the point of a patient w/o a subject
-	f.association :subject
+	f.association :subject, :factory => :case_subject
 end
 
 Factory.define :person do |f|
@@ -250,6 +260,11 @@ Factory.define :subject do |f|
 	f.sequence(:sex){|n|
 		%w( male female )[n%2] }
 end
+Factory.define :case_subject, :parent => :subject do |f|
+	f.subject_type { SubjectType.find(:first,:conditions => {
+			:code => 'Case'
+		}) }
+end
 
 Factory.define :subject_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
@@ -280,7 +295,8 @@ Factory.define :unit do |f|
 end
 
 Factory.define :vital_status do |f|
-	f.sequence(:code) { |n| "Code#{n}" }
+#	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:code) { |n| n+3 }									#	3 in fixtures
 	f.sequence(:description) { |n| "Desc#{n}" }
 end
 

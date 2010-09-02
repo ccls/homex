@@ -1,6 +1,59 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
+gem 'activesupport', '=2.3.8'
+require 'active_support'	#	note the name disparity
+#Warbler::War.class_eval do
+module WarblerWar
+
+	def self.included(base)
+		base.class_eval do
+			alias_method_chain :apply, :removal
+		end
+	end
+
+	def apply_with_removal(config,&block)
+		apply_without_removal(config,&block)
+		puts "BEFORE:#{@files.keys.length}"
+#		@files.each_pair {|k,v|
+#puts "K:#{k}"
+#puts "V:#{v}"
+#K:WEB-INF/gems/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#V:/Users/jakewendt/.rvm/gems/jruby-1.5.1/gems/RedCloth-4.2.3-universal-java/lib/redcloth.rb
+#		}
+		@files.delete_if {|k,v|
+			#	MUST REMOVE SPECIFICATION TOO!
+			#	Wasn't removing 3.0 specs and then rails
+			#	complained that rails 2.3.8 wasn't installed??
+			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
+		} unless config.remove_gem_files.empty?
+		puts "AFTER:#{@files.keys.length}"
+	end
+
+end
+Warbler::War.send(:include,WarblerWar)
+
+module WarblerConfig
+
+	def self.included(base)
+		base.class_eval do
+			attr_accessor :remove_gem_files
+			alias_method_chain :initialize, :removal
+		end
+	end
+
+	#	ALWAYS RECEIVE AND PASS A BLOCK!
+	def initialize_with_removal(warbler_home = WARBLER_HOME,&block)
+		@remove_gem_files = []
+		initialize_without_removal(warbler_home,&block)
+	end
+
+end
+Warbler::Config.send(:include,WarblerConfig)
+
+#	Always includes the latest version of a gem
+#	despite being told not to.  Bad dog!
+
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
 	# Features: additional options controlling how the jar is built.
@@ -14,7 +67,6 @@ Warbler::Config.new do |config|
 	#	script contains the obvious
 	#	test contains the fixtures
 
-
 	# Additional files/directories to include, above those in config.dirs
 	# config.includes = FileList["db"]
 	config.includes = FileList["Rakefile"]
@@ -23,10 +75,10 @@ Warbler::Config.new do |config|
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
 		db/*sqlite3
-		versions
+		**/versions/
 		versions/**/*
 		.DS_Store
-	)]
+	)]	#	be VERY specific here
 
 	# Additional Java .jar files to include.	Note that if .jar files are placed
 	# in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -68,21 +120,64 @@ Warbler::Config.new do |config|
 	# config.gems += ["activerecord-jdbcmysql-adapter", "jruby-openssl"]
 	# config.gems << "tzinfo"
 
+#
+#	Rails 3 generates a lot of headaches just by existing!
+#	If it is installed locally, it will end up in the .war
+#	despite my efforts to stop it.
+#
+
 	# Uncomment this if you don't want to package rails gem.
+#	BULLSHIT
 	# config.gems -= ["rails"]
+#	config.gems -= %w( i18n rails activerecord activesupport activeresource actionpack actionmailer activemodel arel railties bundler erubis mail polyglot thor treetop tzinfo )
+#	ALL THAT AND THEY STILL END UP IN THE WAR FILE
 
 	# The most recent versions of gems are used.
 	# You can specify versions of gems by using a hash assignment:
 	# config.gems["rails"] = "2.0.2"
 
+	#	just before creating the war file, files matching
+	#	these will be removed from the list. 
+	#	  WEB-INF/gems/gems/REGEX
+	config.remove_gem_files = %w(
+		activesupport-3
+		activerecord-3
+		activeresource-3
+		actionpack-3
+		actionmailer-3
+		activemodel-3
+		railties-3
+		rails-3
+		rack-1.2.1
+		rack-mount-
+		rack-test-
+		i18n-0.4 
+		abstract-
+		arel-
+		bundler-
+		erubis-
+		mail-
+		polyglot-
+		thor-
+		treetop-
+		tzinfo-
+	)
+
 	# You can also use regexps or Gem::Dependency objects for flexibility or
 	# fine-grained control.
 	# config.gems << /^merb-/
 	# config.gems << Gem::Dependency.new("merb-core", "= 0.9.3")
+#	config.gems << Gem::Dependency.new("rails", "= 2.3.8")
+#	config.gems << Gem::Dependency.new("rack", "= 1.1.0")
 
 	# Include gem dependencies not mentioned specifically. Default is true, uncomment
 	# to turn off.
-	# config.gem_dependencies = false
+	# config.gem_dependencies = false		#	too much
+
+	# Array of regular expressions matching relative paths in gems to be
+	# excluded from the war. Defaults to empty, but you can set it like
+	# below, which excludes test files.
+	# config.gem_excludes = [/^(test|spec)\//]
 
 	# Files to be included in the root of the webapp.	Note that files in public
 	# will have the leading 'public/' part of the path stripped during staging.
@@ -146,4 +241,5 @@ Warbler::Config.new do |config|
 
 	# JNDI data source name
 	# config.webxml.jndi = 'jdbc/rails'
+
 end

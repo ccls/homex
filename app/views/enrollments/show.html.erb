@@ -35,6 +35,9 @@
 					:label_text => 'consented?' %>
 				<%= wrapped_spans :enrollment, :consented_on,
 					:label_text => 'date:' %>
+				<%= wrapped_spans :enrollment, :document_version,
+					:label_text => 'version:' %>
+
 				<%# unless @enrollment.consented? %>
 					<%= wrapped_spans :enrollment, :refusal_reason,
 						:label_text => 'reason refused:' %>

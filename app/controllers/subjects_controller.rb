@@ -18,7 +18,11 @@ class SubjectsController < HxApplicationController
 	def show
 #		@projects = Project.all
 #		@enrollments = @subject.enrollments
-		@hx_enrollment = @subject.hx_enrollment
+		#	always return an enrollment so its not nil
+		#	although it may be misleading
+		#	Of course, if the subject isn't enrolled, 
+		#	they wouldn't be here.
+		@hx_enrollment = @subject.hx_enrollment || @subject.enrollments.new
 	end
 
 	def new
