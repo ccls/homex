@@ -84,9 +84,9 @@ Factory.define :homex_outcome do |f|
 	f.association :subject
 end
 
-Factory.define :home_exposure_event do |f|
-#	f.association :subject
-end
+#Factory.define :home_exposure_event do |f|
+##	f.association :subject
+#end
 
 Factory.define :home_exposure_response do |f|
 	f.association :subject

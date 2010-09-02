@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100901181447) do
+ActiveRecord::Schema.define(:version => 20100902190201) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -305,19 +305,6 @@ ActiveRecord::Schema.define(:version => 20100901181447) do
 
   add_index "exports", ["childid"], :name => "index_exports_on_childid", :unique => true
   add_index "exports", ["patid"], :name => "index_exports_on_patid", :unique => true
-
-  create_table "home_exposure_events", :force => true do |t|
-    t.integer  "subject_id"
-    t.date     "initial_letter_sent_on"
-    t.integer  "interview_outcome_id"
-    t.date     "interview_outcome_date"
-    t.integer  "dust_sample_outcome_id"
-    t.date     "dust_sample_outcome_date"
-    t.integer  "home_exposure_outcome_id"
-    t.date     "home_exposure_outcome_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "home_exposure_responses", :force => true do |t|
     t.integer  "subject_id"
