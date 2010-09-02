@@ -4,11 +4,15 @@
 class Search
 
 	@@searchable_attributes = []
-	@@attr_accessors = [ :order, :includes, 
+	@@attr_accessors = [ :order, :dir, :includes, 
 		:paginate, :per_page, :page ]
 	attr_accessor *@@attr_accessors
 
 private
+
+	def valid_orders
+		[]
+	end
 
 	def initialize(options={})
 		self.class.send('attr_accessor', *@@searchable_attributes)
@@ -16,6 +20,17 @@ private
 			if @@attr_accessors.include?(attr.to_sym) ||
 				@@searchable_attributes.include?(attr.to_sym)
 				self.send("#{attr}=",value)
+			end
+		end
+	end
+
+	def self.inherited(subclass)
+#		puts "Subclassed by #{subclass}"
+		#	Create 'shortcut'
+		#	SubjectSearch(options) -> SubjectSearch.new(options)
+		Object.class_eval do
+			define_method subclass.to_s do |*args|
+				subclass.send(:new,*args)
 			end
 		end
 	end
@@ -32,11 +47,19 @@ private
 	end
 
 	def conditions_options
-#		conditions_parts.map { |condition| condition[1..-1] }.flatten
-#
-#	the above flatten breaks the "IN (?)" style search
-#
-		conditions_parts.map { |condition| condition[1..-1] }
+		#	conditions_parts.map { |condition| condition[1..-1] }.flatten
+		#
+		#	the above flatten breaks the "IN (?)" style search
+		#
+		#	conditions_parts.map { |condition| condition[1..-1] }
+		#	This fixes it, but is kinda bulky
+#		opts = []
+#		conditions_parts.each do |condition|
+#			condition[1..-1].each{|cp| opts << cp}
+#		end
+#		opts 
+		#	That's better!
+		conditions_parts.map { |condition| condition[1..-1] }.flatten(1)
 	end
 
 	def conditions_parts

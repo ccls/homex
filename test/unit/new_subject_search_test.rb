@@ -2,27 +2,24 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class NewSubjectSearchTest < ActiveSupport::TestCase
 
-#		test "should respond to search" do
-#			assert Subject.respond_to?(:search)
-#		end
+	test "should return SubjectSearch" do
+		assert SubjectSearch().is_a?(SubjectSearch)
+	end
 	
 	test "should return Array" do
-#		subjects = Subject.search()
 		subjects = SubjectSearch.new().subjects
 		assert subjects.is_a?(Array)
 	end
 	
 	test "should include subject" do
 		subject = create_subject
-#		subjects = Subject.search()
 		subjects = SubjectSearch.new().subjects
 		assert subjects.include?(subject)
 	end
 	
 	test "should include subject without pagination" do
 		subject = create_subject
-#		subjects = Subject.search(:paginate => false)
-		subjects = SubjectSearch.new(:paginate => false).subjects
+		subjects = SubjectSearch(:paginate => false).subjects
 		assert subjects.include?(subject)
 	end
 	
@@ -30,8 +27,6 @@ class NewSubjectSearchTest < ActiveSupport::TestCase
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-#		subjects = Subject.search(
-#			:types => [s1,s2].collect{|s|s.subject_type.description})
 		subjects = SubjectSearch.new(
 			:types => [s1,s2].collect{|s|s.subject_type.description}).subjects
 		assert  subjects.include?(s1)
@@ -43,8 +38,6 @@ class NewSubjectSearchTest < ActiveSupport::TestCase
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-#		subjects = Subject.search(
-#			:races => [s1,s2].collect{|s|s.race.name})
 		subjects = SubjectSearch.new(
 			:races => [s1,s2].collect{|s|s.race.name}).subjects
 		assert  subjects.include?(s1)
@@ -68,8 +61,6 @@ pending
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-#		subjects = Subject.search(
-#			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code})
 		subjects = SubjectSearch.new(
 			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code}).subjects
 		assert  subjects.include?(s1)
@@ -77,81 +68,6 @@ pending
 		assert !subjects.include?(s3)
 	end
 	
-#	test "should include all subjects and ignore dust kits" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		subject2 = create_subject
-#		subjects = Subject.search(:dust_kit => 'ignore')
-#		assert subjects.include?(subject1)
-#		assert subjects.include?(subject2)
-#	end
-
-#	test "should include subjects with no dust kits" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		subject2 = create_subject
-#		subjects = Subject.search(:dust_kit => 'none')
-#		assert  subjects.include?(subject2)
-#		assert !subjects.include?(subject1)
-#	end
-
-#	test "should include subject with dust kit" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		subject2 = create_subject
-#		subjects = Subject.search(:dust_kit => 'shipped')
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
-
-#	test "should include subject with dust kit delivered to subject" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		dust_kit.kit_package.update_attributes(:status => 'Delivered')
-#		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
-#		subjects = Subject.search(:dust_kit => 'delivered')
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
-
-#	test "should include subject with dust kit returned to us" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		dust_kit.dust_package.update_attributes(:status => 'Transit')
-#		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
-#		subjects = Subject.search(:dust_kit => 'returned')
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
-
-#	test "should include subject with dust kit received by us" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		dust_kit.dust_package.update_attributes(:status => 'Delivered')
-#		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
-#		subjects = Subject.search(:dust_kit => 'received')
-#		assert  subjects.include?(subject1)
-#		assert !subjects.include?(subject2)
-#	end
-
-#	#	There was a problem doing finds which included joins
-#	#	which included both named joins and sql fragment strings.
-#	#	It should work, but didn't and required some manual
-#	#	tweaking.
-#	test "should work with both dust_kit string and race symbol" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		subject2 = create_subject
-#		subjects = Subject.search(:dust_kit => 'none', 
-#			:races => [subject2.race.name] )
-#		assert  subjects.include?(subject2)
-#		assert !subjects.include?(subject1)
-#	end
-
-
 	test "should include subject by multiple projects" do
 		s1 = create_subject
 		s2 = create_subject
@@ -215,9 +131,6 @@ pending
 #		assert  subjects.include?(s1)
 #		assert !subjects.include?(s2)
 	end
-
-
-
 
 	test "should include subject by project indifferent closed" do
 		s1 = create_subject
@@ -318,7 +231,6 @@ pending
 #		assert  subjects.include?(s1)
 #		assert !subjects.include?(s2)
 	end
-
 
 	test "should include subject by project indifferent consented" do
 		s1 = create_subject
@@ -421,7 +333,6 @@ pending
 #			assert  subjects.include?(s1)
 #			assert !subjects.include?(s2)
 	end
-
 
 	test "should include subject by project indifferent chosen" do
 		s1 = create_subject
@@ -541,39 +452,22 @@ pending
 #			assert !subjects.include?(subject2)
 	end
 
-	test "should NOT order by other stuff with dir" do
+	test "should NOT order by bogus column with dir" do
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:order => 'whatever', :dir => 'asc')
-#			assert_equal [s1,s2,s3], subjects
+		subjects = SubjectSearch.new(
+			:order => 'whatever', :dir => 'asc').subjects
+		assert_equal [s1,s2,s3], subjects
 	end
 
-	test "should NOT order by other stuff" do
+	test "should NOT order by bogus column" do
 		s1 = create_subject
 		s2 = create_subject
 		s3 = create_subject
-		pending
-#			subjects = Subject.search(:order => 'whatever')
-#			assert_equal [s1,s2,s3], subjects
+		subjects = SubjectSearch.new(:order => 'whatever').subjects
+		assert_equal [s1,s2,s3], subjects
 	end
-
-#		test "should order by outcome_date asc by default" do
-#			pending
-#		end
-#	
-#		test "should order by outcome_date desc" do
-#			pending
-#		end
-#	
-#		test "should order by outcome asc by default" do
-#			pending
-#		end
-#	
-#		test "should order by outcome desc" do
-#			pending
-#		end
 
 	test "should order by priority asc by default" do
 		se,s1,s2,s3 = three_subjects_with_recruitment_priority
@@ -595,143 +489,116 @@ pending
 
 	test "should order by childid asc by default" do
 		s1,s2,s3 = three_subjects_with_childid
-		pending
-#			subjects = Subject.search(:order => 'childid')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'childid').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by childid asc" do
 		s1,s2,s3 = three_subjects_with_childid
-		pending
-#			subjects = Subject.search(:order => 'childid', :dir => 'asc')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'childid', :dir => 'asc').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by childid desc" do
 		s1,s2,s3 = three_subjects_with_childid
-		pending
-#			subjects = Subject.search(:order => 'childid', :dir => 'desc')
-#			assert_equal [s1,s3,s2], subjects
+		subjects = SubjectSearch.new(
+			:order => 'childid', :dir => 'desc').subjects
+		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "should order by studyid asc" do
 		s1,s2,s3 = three_subjects_with_patid
-		pending
-#			subjects = Subject.search(:order => 'studyid')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'studyid').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by studyid desc" do
 		s1,s2,s3 = three_subjects_with_patid
-		pending
-#			subjects = Subject.search(:order => 'studyid', :dir => 'desc')
-#			assert_equal [s1,s3,s2], subjects
+		subjects = SubjectSearch.new(
+			:order => 'studyid', :dir => 'desc').subjects
+		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "should order by last_name asc" do
 		s1,s2,s3 = three_subjects_with_last_name
-		pending
-#			subjects = Subject.search(:order => 'last_name')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'last_name').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by last_name desc" do
 		s1,s2,s3 = three_subjects_with_last_name
-		pending
-#			subjects = Subject.search(:order => 'last_name', :dir => 'desc')
-#			assert_equal [s1,s3,s2], subjects
+		subjects = SubjectSearch.new(
+			:order => 'last_name', :dir => 'desc').subjects
+		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "should order by first_name asc" do
 		s1,s2,s3 = three_subjects_with_first_name
-		pending
-#			subjects = Subject.search(:order => 'first_name')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'first_name').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by first_name desc" do
 		s1,s2,s3 = three_subjects_with_first_name
-		pending
-#			subjects = Subject.search(:order => 'first_name', :dir => 'desc')
-#			assert_equal [s1,s3,s2], subjects
+		subjects = SubjectSearch.new(
+			:order => 'first_name', :dir => 'desc').subjects
+		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "should order by dob asc" do
 		s1,s2,s3 = three_subjects_with_dob
-		pending
-#			subjects = Subject.search(:order => 'dob')
-#			assert_equal [s2,s3,s1], subjects
+		subjects = SubjectSearch.new(
+			:order => 'dob').subjects
+		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by dob desc" do
 		s1,s2,s3 = three_subjects_with_dob
-		pending
-#			subjects = Subject.search(:order => 'dob', :dir => 'desc')
-#			assert_equal [s1,s3,s2], subjects
+		subjects = SubjectSearch.new(
+			:order => 'dob', :dir => 'desc').subjects
+		assert_equal [s1,s3,s2], subjects
 	end
-
-#	#	There was a problem doing finds which included joins
-#	#	which included both sql join fragment strings and an order.
-#	test "should work with both dust_kit string and order" do
-#		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
-#		subject2 = create_subject
-#		subjects = Subject.search(:dust_kit => 'none', 
-#			:order => 'childid')
-#		assert  subjects.include?(subject2)
-#		assert !subjects.include?(subject1)
-#	end
 
 	test "should include subject by q first_name" do
 		s1 = create_subject_with_first_name('Michael')
 		s2 = create_subject_with_first_name('Bob')
-		pending
-#			subjects = Subject.search(:q => 'mi ch ha')
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
+		subjects = SubjectSearch.new(
+			:q => 'mi ch ha').subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q last_name" do
 		s1 = create_subject_with_last_name('Michael')
 		s2 = create_subject_with_last_name('Bob')
-		pending
-#			subjects = Subject.search(:q => 'cha ael')
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
+		subjects = SubjectSearch.new(
+			:q => 'cha ael').subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q childid" do
 		s1 = create_subject_with_childid(999999)
 		s2 = create_subject_with_childid('1')
-		pending
-#			subjects = Subject.search(:q => s1.identifier.childid)
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
+		subjects = SubjectSearch.new(
+			:q => s1.identifier.childid).subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q patid" do
 		s1 = create_subject_with_patid(999999)
 		s2 = create_subject_with_patid('1')
-		pending
-#			subjects = Subject.search(:q => s1.identifier.patid)
-#			assert  subjects.include?(s1)
-#			assert !subjects.include?(s2)
+		subjects = SubjectSearch.new(
+			:q => s1.identifier.patid).subjects
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
 	end
-
-#	test "should return dust_kit_status of None" do
-#		subject = create_subject
-#		assert_equal 'None', subject.dust_kit_status
-#	end
-
-#	test "should return dust_kit_status of New" do
-#		subject = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject.id)
-#		assert_equal 'New', subject.dust_kit_status
-#	end
-
-
-
-
 
 	test "should include subjects with complete sample" do
 		s1 = create_subject
@@ -801,13 +668,6 @@ pending
 #			assert  subjects.include?(s3)
 	end
 
-
-
-
-
-
-
-
 protected
 
 	def create_survey_response_sets
@@ -817,12 +677,5 @@ protected
 			:subject => rs1.subject)
 		[rs1.reload,rs2.reload]
 	end
-
-#	def create_subject(options = {})
-#		record = Factory.build(:subject,options)
-#		record.save
-#		record
-#	end
-#	alias_method :create_object, :create_subject
 
 end

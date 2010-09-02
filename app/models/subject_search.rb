@@ -2,15 +2,16 @@
 class SubjectSearch < Search
 
 	@@searchable_attributes = [
-		:race, :type, :races, :types, :vital_statuses
+#		:race, :type, :races, :types, :vital_statuses
+		:races, :types, :vital_statuses, :q
 	]
 
-	includes= [:pii,:identifier]
+#	includes= [:pii,:identifier]
 
 	def subjects
 		@subjects ||= Subject.send(
 			(paginate)?'paginate':'all',{
-				:include => includes,
+				:include => [:pii,:identifier],
 				:order => order,
 				:joins => joins,
 				:conditions => conditions
@@ -23,9 +24,33 @@ class SubjectSearch < Search
 		)
 	end
 
+	def valid_orders
+		%w( childid last_name first_name dob studyid )
+	end
+
 private	#	THIS IS REQUIRED
 
 	#	we should probably keep this more MySQL than Rails
+
+	def order
+		if valid_orders.include?(@order)
+			order_string = case @order
+				when 'childid'    then 'identifiers.childid'
+				when 'last_name'  then 'piis.last_name'
+				when 'first_name' then 'piis.first_name'
+				when 'dob'        then 'piis.dob'
+				when 'studyid'    then 'identifiers.patid'
+				else @order
+			end
+			dir = case @dir.try(:downcase)
+				when 'desc' then 'desc'
+				else 'asc'
+			end
+			[order_string,dir].join(' ')
+		else
+			nil
+		end
+	end
 
 	def vital_statuses_joins
 		"INNER JOIN vital_statuses ON vital_statuses.id " <<
@@ -33,7 +58,8 @@ private	#	THIS IS REQUIRED
 	end
 
 	def vital_statuses_conditions
-		['vital_statuses.code IN (?)', *vital_statuses
+#		['vital_statuses.code IN (?)', *vital_statuses
+		['vital_statuses.code IN (?)', vital_statuses
 			] unless vital_statuses.blank?
 	end
 
@@ -42,7 +68,8 @@ private	#	THIS IS REQUIRED
 	end
 
 	def races_conditions
-		['races.description IN (?)', *races
+#		['races.description IN (?)', *races
+		['races.description IN (?)', races
 			] unless races.blank?
 	end
 
@@ -52,20 +79,24 @@ private	#	THIS IS REQUIRED
 	end
 
 	def types_conditions
-		['subject_types.description IN (?)', *types
+#		['subject_types.description IN (?)', *types
+		['subject_types.description IN (?)', types
 			] unless types.blank?
 	end
 
-end
-#
-#	This works for factory girl, but not for me??
-#<<<<<<< HEAD:app/models/subject_search.rb
-#	This really should work.  Just make sure that the call includes ()
-#	otherwise ruby will treat it like an undefined Constant.
-#=======
-#	It does.  What was the problem?
-#>>>>>>> 19164a2064275553c4868c0d389e286852c7333a:app/models/subject_search.rb
-#
-def SubjectSearch(options={})
-	SubjectSearch.new(options)
+	def q_conditions
+		unless q.blank?
+			c = []
+			v = {}
+			q.to_s.split(/\s+/).each_with_index do |t,i|
+				c.push("piis.first_name LIKE :t#{i}")
+				c.push("piis.last_name LIKE :t#{i}")
+				c.push("identifiers.patid LIKE :t#{i}")
+				c.push("identifiers.childid LIKE :t#{i}")
+				v["t#{i}".to_sym] = "%#{t}%"
+			end
+			[ "( #{c.join(' OR ')} )", v ]
+		end
+	end
+
 end
