@@ -498,11 +498,6 @@ protected
 		[rs1.reload,rs2.reload]
 	end
 
-	def create_subject(options = {})
-		record = Factory.build(:subject,options)
-		record.save
-		record
-	end
 	alias_method :create_object, :create_subject
 
 #	def create_dust_kit(options = {})

@@ -108,4 +108,94 @@ module FactoryTestHelper
 		Factory(:enrollment, :subject => s, :project => p )
 	end
 
+
+	def create_subject(options = {})
+		record = Factory.build(:subject,options)
+		record.save
+		record
+	end
+
+	def three_subjects_with_recruitment_priority
+		project = Factory(:project)
+		s1 = create_subject
+		s2 = create_subject
+		s3 = create_subject
+		Factory(:enrollment, :project => project, :subject => s1,
+			:recruitment_priority => 9)
+		Factory(:enrollment, :project => project, :subject => s2,
+			:recruitment_priority => 3)
+		Factory(:enrollment, :project => project, :subject => s3,
+			:recruitment_priority => 6)
+		return [project,s1,s2,s3]
+	end
+
+	def create_subject_with_childid(childid)
+		subject = create_subject
+		Factory(:identifier, 
+			:subject_id => subject.id, 
+			:childid => childid )
+		subject
+	end
+	
+	def three_subjects_with_childid
+		s1 = create_subject_with_childid('9')
+		s2 = create_subject_with_childid('3')
+		s3 = create_subject_with_childid('6')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_patid(patid)
+		subject = create_subject
+		Factory(:identifier, 
+			:subject_id => subject.id, 
+			:patid => patid )
+		subject
+	end
+	
+	def three_subjects_with_patid
+		s1 = create_subject_with_patid('9')
+		s2 = create_subject_with_patid('3')
+		s3 = create_subject_with_patid('6')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_last_name(last_name)
+		create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:last_name => last_name ))
+	end
+	
+	def three_subjects_with_last_name
+		s1 = create_subject_with_last_name('9')
+		s2 = create_subject_with_last_name('3')
+		s3 = create_subject_with_last_name('6')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_first_name(first_name)
+		create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:first_name => first_name ))
+	end
+	
+	def three_subjects_with_first_name
+		s1 = create_subject_with_first_name('9')
+		s2 = create_subject_with_first_name('3')
+		s3 = create_subject_with_first_name('6')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_dob(dob)
+		create_subject(
+			:pii_attributes => Factory.attributes_for(:pii, 
+				:dob => Time.parse(dob) ))
+	end
+	
+	def three_subjects_with_dob
+		s1 = create_subject_with_dob('12/31/2005')
+		s2 = create_subject_with_dob('12/31/2001')
+		s3 = create_subject_with_dob('12/31/2003')
+		return [s1,s2,s3]
+	end
+
 end
