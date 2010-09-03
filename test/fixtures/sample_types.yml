@@ -1,23 +1,23 @@
 dust:
   id: 1
   code: 1
-  description: dust
+  description: dust sample
 blood:
   id: 2
   code: 2
-  description: blood
+  description: blood sample
 saliva:
   id: 3
   code: 3
-  description: saliva
+  description: saliva sample
 buccal:
   id: 4
   code: 4
-  description: buccal cells
+  description: buccal cell sample
 urine:
   id: 5
   code: 5
-  description: urine samples
+  description: urine sample
 air:
   id: 6
   code: 6
@@ -25,17 +25,16 @@ air:
 other:
   id: 7
   code: 7
-  description: other type of sample
+  description: other type of air sample
 dk:
   id: 8
   code: 999
-  description: unspecified (don't know)
-
+  description: unspecified sample type (don't know)
 unspecifieddust:
   id: 9
   parent_id: 1
   code: 9
-  description: unspecified dust
+  description: unspecified dust sample type
 vacuumbag:
   id: 10
   parent_id: 1
@@ -55,7 +54,7 @@ unspecifiedblood:
   id: 13
   parent_id: 2
   code: 13
-  description: unspecified blood
+  description: unspecified blood sample type
 ANB:
   id: 14
   parent_id: 2
@@ -71,32 +70,31 @@ otherblood:
   parent_id: 2
   code: 16
   description: other type of blood sample
-
 unspecifiedsaliva:
   id: 17
   parent_id: 3
   code: 17
-  description: unspecified saliva
+  description: unspecified saliva sample type
 kit:
   id: 18
   parent_id: 3
   code: 18
-  description: unspecified saliva kit
+  description: saliva kit (no brushes)
 kitwithBrushes:
   id: 19
   parent_id: 3
   code: 19
-  description: unspecified saliva kit with brushes
+  description: saliva kit (with brushes)
 othersaliva:
   id: 20
   parent_id: 3
   code: 20
-  description: other type of saliva
+  description: other type of saliva sample
 unspecifiedbuccal:
   id: 21
   parent_id: 4
   code: 21
-  description: unspecified buccal
+  description: unspecified buccal sample type
 cytobrush:
   id: 22
   parent_id: 4
@@ -106,24 +104,24 @@ otherbuccal:
   id: 23
   parent_id: 4
   code: 23
-  description: other type of buccal
+  description: other type of buccal sample
 unspecifiedurine:
   id: 24
   parent_id: 5
   code: 24
-  description: unspecified urine
+  description: unspecified urine sample type
 otherurine:
   id: 25
   parent_id: 5
   code: 25
-  description: other type of urine
+  description: other type of urine sample
 unspecifiedair:
   id: 26
   parent_id: 6
   code: 26
-  description: unspecified air
+  description: unspecified air sample type
 otherair:
   id: 27
   parent_id: 6
-  code: 27
-  description: other type of air
+  code: 8
+  description: other type of air sample 2
