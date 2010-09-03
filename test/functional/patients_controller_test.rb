@@ -51,7 +51,6 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT show patient for patientless subject " <<
 			"and #{cu} login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		assert_nil subject.patient
 		login_as send(cu)
@@ -73,7 +72,6 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should get new patient with #{cu} login " <<
 			"for subject without patient" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
@@ -100,7 +98,6 @@ class PatientsControllerTest < ActionController::TestCase
 	end
 
 	test "should create new patient with #{cu} login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
 		assert_difference('Patient.count',1) do
@@ -147,7 +144,6 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT create new patient with #{cu} " <<
 			"login when create fails" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		Patient.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
@@ -163,24 +159,22 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT create new patient with #{cu} " <<
 			"login and invalid patient" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
-#		assert_difference('Patient.count',0) do
+		assert_difference('Patient.count',0) do
 			post :create, :subject_id => subject.id,
-				:patient => { }
-#		end
-		pending #	"no patient validations yet"
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'new'
-#		assert_not_nil flash[:error]
+				:patient => factory_attributes(
+					:diagnosis_date_string => 'bogus invalid date string' )
+		end
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
 	end
 
 	test "should edit patient with #{cu} login" do
 		patient = factory_create
 		login_as send(cu)
-#		get :edit, :id => patient.id
 		get :edit, :subject_id => patient.subject.id
 		assert assigns(:patient)
 		assert_response :success
@@ -254,12 +248,12 @@ class PatientsControllerTest < ActionController::TestCase
 		patient = factory_create
 		login_as send(cu)
 		put :update, :subject_id => patient.subject.id,
-			:patient => { }
-pending
-#		assert assigns(:patient)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_not_nil flash[:error]
+			:patient => factory_attributes(
+				:diagnosis_date_string => 'bogus invalid date string' )
+		assert assigns(:patient)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 	test "should destroy patient with #{cu} login" do
@@ -279,7 +273,6 @@ end
 %w( interviewer reader active_user ).each do |cu|
 
 	test "should NOT show patient with #{cu} login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :show, :subject_id => subject.id
@@ -288,7 +281,6 @@ end
 	end
 
 	test "should NOT get new patient with #{cu} login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
 		get :new, :subject_id => subject.id
@@ -297,7 +289,6 @@ end
 	end
 
 	test "should NOT create new patient with #{cu} login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		login_as send(cu)
 		post :create, :subject_id => subject.id,
@@ -320,21 +311,18 @@ end
 end
 
 	test "should NOT show patient without login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		get :show, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT get new patient without login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		get :new, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT create new patient without login" do
-#		subject = Factory(:subject)
 		subject = Factory(:case_subject)
 		post :create, :subject_id => subject.id,
 			:patient => factory_attributes

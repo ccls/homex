@@ -9,15 +9,23 @@ class AddressingsControllerTest < ActionController::TestCase
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
+
 	def factory_attributes(options={})
 		Factory.attributes_for(:addressing,options)
 	end
+
 	def factory_create(options={})
 		Factory(:addressing,options)
 	end
-	def address_attributes
-		{ :address_attributes => Factory.attributes_for(:address,
-			:address_type_id => Factory(:address_type).id ) }
+
+	def address_attributes(options={})
+		{ 
+			:address_attributes => Factory.attributes_for(
+				:address, {
+					:address_type_id => Factory(:address_type).id
+				}.merge(options) 
+			) 
+		}
 	end
 
 	assert_access_with_login({ 
@@ -142,34 +150,37 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT create new addressing with #{cu} login " <<
 			"and invalid addressing" do
-pending
 		subject = Factory(:subject)
 		login_as send(cu)
-#		assert_difference('Addressing.count',0) {
-#		assert_difference('Address.count',0) {
+		assert_difference('Addressing.count',0) {
+		assert_difference('Address.count',0) {
 			post :create, :subject_id => subject.id,
-				:addressing => { }
-#		} }
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'new'
-#		assert_not_nil flash[:error]
+				:addressing => factory_attributes(
+					:is_verified  => true,
+					:how_verified => nil
+				)
+		} }
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
 	end
 
 	test "should NOT create new addressing with #{cu} login " <<
 			"and invalid address" do
-pending
 		subject = Factory(:subject)
 		login_as send(cu)
-#		assert_difference('Addressing.count',0) {
-#		assert_difference('Address.count',0) {
+		assert_difference('Addressing.count',0) {
+		assert_difference('Address.count',0) {
 			post :create, :subject_id => subject.id,
-				:addressing => { }
-#		} }
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'new'
-#		assert_not_nil flash[:error]
+				:addressing => factory_attributes(address_attributes(
+					:line_1 => nil
+				))
+		} }
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'new'
+		assert_not_nil flash[:error]
 	end
 
 	test "should edit addressing with #{cu} login" do
@@ -268,46 +279,48 @@ pending
 
 	test "should NOT update addressing with #{cu} login " <<
 			"when address update fails" do
-pending
 		addressing = factory_create
 		before = addressing.updated_at
 		sleep 1	# if updated too quickly, updated_at won't change
 		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		put :update, :id => addressing.id,
-			:addressing => factory_attributes
-#		after = addressing.reload.updated_at
-#		assert_equal before.to_i,after.to_i
-#		assert assigns(:addressing)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_not_nil flash[:error]
+			:addressing => factory_attributes(address_attributes)
+		after = addressing.reload.updated_at
+		assert_equal before.to_i,after.to_i
+		assert assigns(:addressing)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid addressing" do
 		addressing = factory_create
 		login_as send(cu)
-pending
-#		put :update, :id => addressing.id,
-#			:addressing => { }
-#		assert assigns(:addressing)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_not_nil flash[:error]
+		put :update, :id => addressing.id,
+			:addressing => factory_attributes(
+				:is_verified  => true,
+				:how_verified => nil
+			)
+		assert assigns(:addressing)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid address" do
-pending
 		addressing = factory_create
 		login_as send(cu)
 		put :update, :id => addressing.id,
-			:addressing => { }
-#		assert assigns(:addressing)
-#		assert_response :success
-#		assert_template 'edit'
-#		assert_not_nil flash[:error]
+			:addressing => factory_attributes(address_attributes(
+				:line_1 => nil
+			))
+		assert assigns(:addressing)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
 	end
 
 end
