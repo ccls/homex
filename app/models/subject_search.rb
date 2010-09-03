@@ -159,71 +159,34 @@ private	#	THIS IS REQUIRED
 			projects.each do |id,attributes|
 				attributes.each do |attr,val|
 					val = [val].flatten
-					case attr.to_s.downcase
-						when 'eligible'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.is_eligible = 1")
-								else
-									conditions.push("proj_#{id}.is_eligible != 1")
-								end
-							end
-						when 'candidate'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.is_candidate = 1")
-								else
-									conditions.push("proj_#{id}.is_candidate != 1")
-								end
-							end
-						when 'chosen'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.is_chosen = 1")
-								else
-									conditions.push("proj_#{id}.is_chosen != 1")
-								end
-							end
-						when 'consented'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.consented = 1")
-								else
-									conditions.push("proj_#{id}.consented != 1")
-								end
-							end
-						when 'terminated'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.terminated_participation = 1")
-								else
-									conditions.push("proj_#{id}.terminated_participation != 1")
-								end
-							end
-						when 'closed'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.is_closed = 1")
-								else
-									conditions.push("proj_#{id}.is_closed != 1")
-								end
-							end
-						when 'completed'
-							if val.true_xor_false?
-								if val.true?
-									conditions.push("proj_#{id}.completed_on IS NOT NULL")
-#									conditions.push("proj_#{id}.is_complete = 1")
-								else
-#									conditions.push("proj_#{id}.is_complete != 1")
-#									conditions.push("proj_#{id}.completed_on = ?")
-									conditions.push("proj_#{id}.completed_on IS NULL")
-#									values.push(nil)
-								end
-							end
-					end	#	case attr.to_s.downcase
+					if val.true_xor_false?
+						conditions << case attr.to_s.downcase
+							when 'eligible'
+								"proj_#{id}.is_eligible " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'candidate'
+								"proj_#{id}.is_candidate " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'chosen'
+								"proj_#{id}.is_chosen " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'consented'
+								"proj_#{id}.consented " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'terminated'
+								"proj_#{id}.terminated_participation " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'closed'
+								"proj_#{id}.is_closed " <<
+									((val.true?)?'= 1':'!= 1')
+							when 'completed'
+								"proj_#{id}.completed_on IS " <<
+									((val.true?)?'NOT NULL':'NULL')
+						end	#	case attr.to_s.downcase
+					end	#	if val.true_xor_false?
 				end	#	attributes.each
 			end #	projects.each
-			[conditions,values].flatten(1)
+			[conditions.compact,values].flatten(1)
 		end #	unless projects.blank?
 	end	#	def projects_conditions
 
