@@ -32,6 +32,12 @@ class SubjectSearch < Search
 
 private	#	THIS IS REQUIRED
 
+#	def initialize_with_return(options={},&block)
+#		initialize_without_return(options,&block)
+#		subjects
+#	end
+#	alias_method_chain :initialize, :return
+
 	#	we should probably keep this more MySQL than Rails
 
 	def order
@@ -186,7 +192,9 @@ private	#	THIS IS REQUIRED
 					end	#	if val.true_xor_false?
 				end	#	attributes.each
 			end #	projects.each
+unless conditions.empty?
 			[conditions.compact,values].flatten(1)
+end
 		end #	unless projects.blank?
 	end	#	def projects_conditions
 

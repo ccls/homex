@@ -64,10 +64,11 @@ protected
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-#		params[:projects] ||= {}
-#		params[:projects][hx.id] ||= {}
+		params[:projects] ||= {}
+		params[:projects][hx.id] ||= {}
+		@subjects = SubjectSearch.new(params).subjects
 #		@subjects = Subject.search(params)
-		@subjects = hx.subjects.search(params)
+#		@subjects = hx.subjects.search(params)
 	end
 
 end

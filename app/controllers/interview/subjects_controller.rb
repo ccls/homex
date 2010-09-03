@@ -12,7 +12,8 @@ class Interview::SubjectsController < HxApplicationController
 		params[:projects] ||= {}
 		params[:projects][hx.id] ||= {}
 		params[:projects][hx.id][:chosen] = true 
-		@subjects = Subject.search(params)
+#		@subjects = Subject.search(params)
+		@subjects = SubjectSearch.new(params).subjects
 #		@subjects = hx.subjects.search(params.merge(
 #			#	interview outcome != complete
 #			:interview_outcome => 'incomplete'
