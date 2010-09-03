@@ -25,7 +25,7 @@ air:
 other:
   id: 7
   code: 7
-  description: other type of air sample
+  description: other type of sample
 dk:
   id: 8
   code: 999
@@ -124,4 +124,4 @@ otherair:
   id: 27
   parent_id: 6
   code: 8
-  description: other type of air sample 2
+  description: other type of air sample
