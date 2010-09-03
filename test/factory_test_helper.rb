@@ -115,6 +115,12 @@ module FactoryTestHelper
 		record
 	end
 
+	def create_subjects(count=0,options={})
+		subjects = []
+		count.times{ subjects.push(create_subject(options)) }
+		return subjects
+	end
+
 	def three_subjects_with_recruitment_priority
 		project = Factory(:project)
 		s1 = create_subject

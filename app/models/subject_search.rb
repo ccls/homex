@@ -26,7 +26,7 @@ class SubjectSearch < Search
 	end
 
 	def valid_orders
-		%w( childid last_name first_name dob studyid )
+		%w( id childid last_name first_name dob studyid )
 	end
 
 private	#	THIS IS REQUIRED

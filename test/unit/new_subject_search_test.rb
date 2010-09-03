@@ -24,20 +24,17 @@ class NewSubjectSearchTest < ActiveSupport::TestCase
 	end
 	
 	test "should include subject by subject_types" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		subjects = SubjectSearch.new(
-			:types => [s1,s2].collect{|s|s.subject_type.description}).subjects
+			:types => [s1,s2].collect{|s|s.subject_type.description}
+		).subjects
 		assert  subjects.include?(s1)
 		assert  subjects.include?(s2)
 		assert !subjects.include?(s3)
 	end
 	
 	test "should include subject by races" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		subjects = SubjectSearch.new(
 			:races => [s1,s2].collect{|s|s.race.name}).subjects
 		assert  subjects.include?(s1)
@@ -46,9 +43,7 @@ class NewSubjectSearchTest < ActiveSupport::TestCase
 	end
 
 	test "should include subject by hispanicity" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 pending
 #		subjects = Subject.search(
 #			:races => [s1,s2].collect{|s|s.race.name})
@@ -58,19 +53,17 @@ pending
 	end
 
 	test "should include subject by vital_statuses" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		subjects = SubjectSearch.new(
-			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code}).subjects
+			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code}
+		).subjects
 		assert  subjects.include?(s1)
 		assert  subjects.include?(s2)
 		assert !subjects.include?(s3)
 	end
 	
 	test "should include subject by multiple projects" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se1 = Factory(:project)
 		se2 = Factory(:project)
 		Factory(:enrollment, :project => se1, :subject => s1)
@@ -85,8 +78,7 @@ pending
 	end
 
 	test "should include subject by project indifferent completed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => nil)
@@ -101,8 +93,7 @@ pending
 	end
 
 	test "should include subject by project not completed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => nil)
@@ -117,8 +108,7 @@ pending
 	end
 
 	test "should include subject by project is completed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:completed_on => Time.now)
@@ -133,8 +123,7 @@ pending
 	end
 
 	test "should include subject by project indifferent closed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => false)
@@ -149,8 +138,7 @@ pending
 	end
 
 	test "should include subject by project not closed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => false)
@@ -165,8 +153,7 @@ pending
 	end
 
 	test "should include subject by project is closed" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_closed => true)
@@ -182,8 +169,7 @@ pending
 
 
 	test "should include subject by project indifferent terminated" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:terminated_participation => false)
@@ -199,8 +185,7 @@ pending
 	end
 
 	test "should include subject by project not terminated" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:terminated_participation => false)
@@ -216,8 +201,7 @@ pending
 	end
 
 	test "should include subject by project is terminated" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:terminated_participation => true,
@@ -233,8 +217,7 @@ pending
 	end
 
 	test "should include subject by project indifferent consented" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => false,
@@ -250,8 +233,7 @@ pending
 	end
 
 	test "should include subject by project not consented" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => false,
@@ -267,8 +249,7 @@ pending
 	end
 
 	test "should include subject by project is consented" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:consented => true)
@@ -284,8 +265,7 @@ pending
 	end
 
 	test "should include subject by project indifferent candidate" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => false,
@@ -301,8 +281,7 @@ pending
 	end
 
 	test "should include subject by project not candidate" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => false,
@@ -318,8 +297,7 @@ pending
 	end
 
 	test "should include subject by project is candidate" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_candidate => true)
@@ -335,8 +313,7 @@ pending
 	end
 
 	test "should include subject by project indifferent chosen" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => false,
@@ -352,8 +329,7 @@ pending
 	end
 
 	test "should include subject by project not chosen" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => false,
@@ -369,8 +345,7 @@ pending
 	end
 
 	test "should include subject by project is chosen" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_chosen => true)
@@ -387,8 +362,7 @@ pending
 
 
 	test "should include subject by project indifferent eligible" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => false,
@@ -404,8 +378,7 @@ pending
 	end
 
 	test "should include subject by project not eligible" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => false,
@@ -421,8 +394,7 @@ pending
 	end
 
 	test "should include subject by project is eligible" do
-		s1 = create_subject
-		s2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se, :subject => s1,
 			:is_eligible => true)
@@ -438,14 +410,13 @@ pending
 	end
 
 	test "should include subject by having project" do
-		subject1 = create_subject
-		subject2 = create_subject
+		s1,s2 = create_subjects(2)
 		se = Factory(:project)
 		Factory(:enrollment, :project => se,
-			:subject => subject1)
+			:subject => s1)
 		se2 = Factory(:project)
 		Factory(:enrollment, :project => se2,
-			:subject => subject2)
+			:subject => s2)
 		pending
 #			subjects = Subject.search(:projects => {se.id => ''})
 #			assert  subjects.include?(subject1)
@@ -453,18 +424,14 @@ pending
 	end
 
 	test "should NOT order by bogus column with dir" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		subjects = SubjectSearch.new(
 			:order => 'whatever', :dir => 'asc').subjects
 		assert_equal [s1,s2,s3], subjects
 	end
 
 	test "should NOT order by bogus column" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		subjects = SubjectSearch.new(:order => 'whatever').subjects
 		assert_equal [s1,s2,s3], subjects
 	end
@@ -485,6 +452,27 @@ pending
 #	#		subjects = Subject.search(:order => 'priority',:dir => 'desc',
 #	#			:projects => { se.id => {} })
 #			assert_equal [s1,s3,s2], subjects
+	end
+
+	test "should order by id asc by default" do
+		s1,s2,s3 = three_subjects_with_childid
+		subjects = SubjectSearch.new(
+			:order => 'id').subjects
+		assert_equal [s1,s2,s3], subjects
+	end
+
+	test "should order by id asc" do
+		s1,s2,s3 = three_subjects_with_childid
+		subjects = SubjectSearch.new(
+			:order => 'id', :dir => 'asc').subjects
+		assert_equal [s1,s2,s3], subjects
+	end
+
+	test "should order by id desc" do
+		s1,s2,s3 = three_subjects_with_childid
+		subjects = SubjectSearch.new(
+			:order => 'id', :dir => 'desc').subjects
+		assert_equal [s3,s2,s1], subjects
 	end
 
 	test "should order by childid asc by default" do
@@ -508,10 +496,17 @@ pending
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "should order by studyid asc" do
+	test "should order by studyid asc by default" do
 		s1,s2,s3 = three_subjects_with_patid
 		subjects = SubjectSearch.new(
 			:order => 'studyid').subjects
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "should order by studyid asc" do
+		s1,s2,s3 = three_subjects_with_patid
+		subjects = SubjectSearch.new(
+			:order => 'studyid', :dir => 'asc').subjects
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -522,10 +517,17 @@ pending
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "should order by last_name asc" do
+	test "should order by last_name asc by default" do
 		s1,s2,s3 = three_subjects_with_last_name
 		subjects = SubjectSearch.new(
 			:order => 'last_name').subjects
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "should order by last_name asc" do
+		s1,s2,s3 = three_subjects_with_last_name
+		subjects = SubjectSearch.new(
+			:order => 'last_name', :dir => 'asc').subjects
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -536,10 +538,17 @@ pending
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "should order by first_name asc" do
+	test "should order by first_name asc by default" do
 		s1,s2,s3 = three_subjects_with_first_name
 		subjects = SubjectSearch.new(
 			:order => 'first_name').subjects
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "should order by first_name asc" do
+		s1,s2,s3 = three_subjects_with_first_name
+		subjects = SubjectSearch.new(
+			:order => 'first_name', :dir => 'asc').subjects
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -550,10 +559,17 @@ pending
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "should order by dob asc" do
+	test "should order by dob asc by default" do
 		s1,s2,s3 = three_subjects_with_dob
 		subjects = SubjectSearch.new(
 			:order => 'dob').subjects
+		assert_equal [s2,s3,s1], subjects
+	end
+
+	test "should order by dob asc" do
+		s1,s2,s3 = three_subjects_with_dob
+		subjects = SubjectSearch.new(
+			:order => 'dob', :dir => 'asc').subjects
 		assert_equal [s2,s3,s1], subjects
 	end
 
@@ -601,15 +617,13 @@ pending
 	end
 
 	test "should include subjects with complete sample" do
-		s1 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		s1.create_homex_outcome(
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Complete').id)
-		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
-		s3 = create_subject
 		subjects = SubjectSearch.new(
 			:sample_outcome => 'Complete').subjects
 		assert  subjects.include?(s1)
@@ -618,15 +632,13 @@ pending
 	end
 
 	test "should include subjects with incomplete sample" do
-		s1 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		s1.create_homex_outcome(
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Complete').id)
-		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
-		s3 = create_subject
 		subjects = SubjectSearch.new(
 			:sample_outcome => 'Incomplete').subjects
 		assert !subjects.include?(s1)
@@ -635,15 +647,13 @@ pending
 	end
 
 	test "should include subjects with complete interview" do
-		s1 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		s1.create_homex_outcome(
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Complete').id)
-		s2 = create_subject
 		s2.create_homex_outcome(
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
-		s3 = create_subject
 		subjects = SubjectSearch.new(
 			:interview_outcome => 'Complete').subjects
 		assert  subjects.include?(s1)
@@ -652,15 +662,13 @@ pending
 	end
 
 	test "should include subjects with incomplete interview" do
-		s1 = create_subject
+		s1,s2,s3 = create_subjects(3)
 		s1.create_homex_outcome(
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Complete').id)
-		s2 = create_subject
 		s2.create_homex_outcome(
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
-		s3 = create_subject
 		subjects = SubjectSearch.new(
 			:interview_outcome => 'Incomplete').subjects
 		assert !subjects.include?(s1)
