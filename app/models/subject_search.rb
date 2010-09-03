@@ -4,7 +4,8 @@ class SubjectSearch < Search
 	@@searchable_attributes = [
 #		:race, :type, :races, :types, :vital_statuses
 		:races, :types, :vital_statuses, :q,
-		:sample_outcome, :interview_outcome
+		:sample_outcome, :interview_outcome,
+		:projects
 	]
 
 #	includes= [:pii,:identifier]
@@ -139,5 +140,91 @@ private	#	THIS IS REQUIRED
 			end
 		end
 	end
+
+	def projects_joins
+		unless projects.blank?
+			s = ''
+			projects.keys.each do |id|
+				s << "JOIN enrollments proj_#{id} ON subjects.id "<<
+						"= proj_#{id}.subject_id AND proj_#{id}.project_id = #{id} " 
+			end
+			s
+		end
+	end
+
+	def projects_conditions
+		unless projects.blank?
+			conditions = []
+			values = []
+			projects.each do |id,attributes|
+				attributes.each do |attr,val|
+					val = [val].flatten
+					case attr.to_s.downcase
+						when 'eligible'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.is_eligible = 1")
+								else
+									conditions.push("proj_#{id}.is_eligible != 1")
+								end
+							end
+						when 'candidate'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.is_candidate = 1")
+								else
+									conditions.push("proj_#{id}.is_candidate != 1")
+								end
+							end
+						when 'chosen'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.is_chosen = 1")
+								else
+									conditions.push("proj_#{id}.is_chosen != 1")
+								end
+							end
+						when 'consented'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.consented = 1")
+								else
+									conditions.push("proj_#{id}.consented != 1")
+								end
+							end
+						when 'terminated'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.terminated_participation = 1")
+								else
+									conditions.push("proj_#{id}.terminated_participation != 1")
+								end
+							end
+						when 'closed'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.is_closed = 1")
+								else
+									conditions.push("proj_#{id}.is_closed != 1")
+								end
+							end
+						when 'completed'
+							if val.true_xor_false?
+								if val.true?
+									conditions.push("proj_#{id}.completed_on IS NOT NULL")
+#									conditions.push("proj_#{id}.is_complete = 1")
+								else
+#									conditions.push("proj_#{id}.is_complete != 1")
+#									conditions.push("proj_#{id}.completed_on = ?")
+									conditions.push("proj_#{id}.completed_on IS NULL")
+#									values.push(nil)
+								end
+							end
+					end	#	case attr.to_s.downcase
+				end	#	attributes.each
+			end #	projects.each
+			[conditions,values].flatten(1)
+		end #	unless projects.blank?
+	end	#	def projects_conditions
 
 end
