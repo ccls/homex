@@ -1,7 +1,7 @@
 namespace :app do
 
 	desc "Load some fixtures to database for application"
-	task :setup => :environment do
+	task :update => :environment do
 		fixtures = []
 		fixtures.push('address_types')
 		fixtures.push('data_sources')
@@ -32,6 +32,10 @@ namespace :app do
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
 		Rake::Task["db:fixtures:load"].invoke
+	end
+
+	desc "Load some fixtures and users to database for application"
+	task :setup => :update do
 		Rake::Task["app:add_users"].invoke
 		ENV['uid'] = '859908'
 		Rake::Task["app:deputize"].invoke
