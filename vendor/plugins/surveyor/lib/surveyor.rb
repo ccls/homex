@@ -32,6 +32,7 @@ end
   path = File.expand_path(File.join(File.dirname(__FILE__), '../app', dir))
   # $LOAD_PATH << path # already here
   # ActiveSupport::Dependencies.load_paths << path # already here too
-  ActiveSupport::Dependencies.load_once_paths.delete(path)
+#  ActiveSupport::Dependencies.load_once_paths.delete(path)
+  ActiveSupport::Dependencies.autoload_once_paths.delete(path)
   # [$LOAD_PATH, ActiveSupport::Dependencies.load_paths, ActiveSupport::Dependencies.load_once_paths].each{|x| Rails.logger.info x}
 end
