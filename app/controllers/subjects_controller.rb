@@ -1,4 +1,4 @@
-class SubjectsController < HxApplicationController
+class SubjectsController < ApplicationController
 
 #	before_filter :may_view_subjects_required
 	before_filter :may_view_required
@@ -7,7 +7,11 @@ class SubjectsController < HxApplicationController
 		:only => [:edit,:show,:update,:destroy]
 
 	def index
-		get_subjects
+		remember_or_recall_sort_order
+		if params[:commit] && params[:commit] == 'download'
+			params[:paginate] = false
+		end
+		@subjects = Subject.for_hx(params)
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<
@@ -54,21 +58,6 @@ class SubjectsController < HxApplicationController
 	def destroy
 		@subject.destroy
 		redirect_to(subjects_path)
-	end
-
-protected
-
-	def get_subjects
-		remember_or_recall_sort_order
-		hx = Project.find_by_code('HomeExposures')
-		if params[:commit] && params[:commit] == 'download'
-			params[:paginate] = false
-		end
-		params[:projects] ||= {}
-		params[:projects][hx.id] ||= {}
-		@subjects = SubjectSearch.new(params).subjects
-#		@subjects = Subject.search(params)
-#		@subjects = hx.subjects.search(params)
 	end
 
 end

@@ -1,4 +1,4 @@
-class SamplesController < HxApplicationController
+class SamplesController < ApplicationController
 
 #	before_filter :may_view_samples_required
 	before_filter :may_administrate_required

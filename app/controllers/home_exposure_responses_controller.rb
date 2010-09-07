@@ -1,4 +1,4 @@
-class HomeExposureResponsesController < HxApplicationController
+class HomeExposureResponsesController < ApplicationController
 
 #	before_filter :may_view_responses_required
 	before_filter :may_view_required

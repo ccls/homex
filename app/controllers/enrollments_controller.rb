@@ -1,4 +1,6 @@
-class EnrollmentsController < HxApplicationController
+class EnrollmentsController < ApplicationController
+
+	before_filter :may_view_required
 
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
@@ -6,18 +8,16 @@ class EnrollmentsController < HxApplicationController
 		:only => [:show,:edit,:update]
 
 	def new
-		get_unenrolled_projects
+		@projects = Project.unenrolled_projects(@subject)
 		@enrollment = @subject.enrollments.build
 	end
 
 	def create
 		@enrollment = @subject.enrollments.build(params[:enrollment])
-#		@enrollment = @subject.enrollments.build(
-#			{:project_id => params[:project_id]})
 		@enrollment.save!
 		redirect_to edit_enrollment_path(@enrollment)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		get_unenrolled_projects
+		@projects = Project.unenrolled_projects(@subject)
 		flash.now[:error] = "Enrollment creation failed"
 		render :action => 'new'
 	end
@@ -39,15 +39,6 @@ protected
 			access_denied("Valid enrollment id required!", 
 				subjects_path)
 		end
-	end
-
-	#	May be a good idea to move this to the model.
-	def get_unenrolled_projects
-		@projects = Project.all(
-			:joins => "LEFT JOIN enrollments ON " <<
-				"projects.id = enrollments.project_id AND " <<
-				"enrollments.subject_id = #{@subject.id}",
-			:conditions => [ "enrollments.subject_id IS NULL" ])
 	end
 
 end

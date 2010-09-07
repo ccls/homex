@@ -1,4 +1,4 @@
-class Interview::SubjectsController < HxApplicationController
+class Interview::SubjectsController < ApplicationController
 
 #	before_filter :may_view_subjects_required
 	before_filter :may_view_required

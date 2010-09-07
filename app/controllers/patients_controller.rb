@@ -1,4 +1,4 @@
-class PatientsController < HxApplicationController
+class PatientsController < ApplicationController
 
 	before_filter :may_edit_required
 

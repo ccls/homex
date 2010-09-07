@@ -1,4 +1,4 @@
-class Sample::SubjectsController < HxApplicationController
+class Sample::SubjectsController < ApplicationController
 
 #	before_filter :may_view_subjects_required
 	before_filter :may_view_required

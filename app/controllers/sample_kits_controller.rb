@@ -1,4 +1,4 @@
-class SampleKitsController < HxApplicationController
+class SampleKitsController < ApplicationController
 
 #	before_filter :may_view_sample_kits_required
 	before_filter :may_administrate_required

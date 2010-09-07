@@ -1,4 +1,4 @@
-class PhoneNumbersController < HxApplicationController
+class PhoneNumbersController < ApplicationController
 
 	before_filter :may_edit_required
 	before_filter :may_destroy_required,
