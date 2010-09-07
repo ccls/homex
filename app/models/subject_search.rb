@@ -193,9 +193,7 @@ private	#	THIS IS REQUIRED
 					end	#	if val.true_xor_false?
 				end	#	attributes.each
 			end #	projects.each
-unless conditions.empty?
-			[conditions.compact,values].flatten(1)
-end
+			[conditions.compact,values].flatten(1) unless conditions.empty?
 		end #	unless projects.blank?
 	end	#	def projects_conditions
 
