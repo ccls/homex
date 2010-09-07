@@ -27,7 +27,7 @@ class SubjectSearch < Search
 	end
 
 	def valid_orders
-		%w( id childid last_name first_name dob studyid )
+		%w( id childid last_name first_name dob studyid priority )
 	end
 
 private	#	THIS IS REQUIRED
@@ -48,6 +48,7 @@ private	#	THIS IS REQUIRED
 				when 'first_name' then 'piis.first_name'
 				when 'dob'        then 'piis.dob'
 				when 'studyid'    then 'identifiers.patid'
+				when 'priority'   then 'recruitment_priority'
 				else @order
 			end
 			dir = case @dir.try(:downcase)

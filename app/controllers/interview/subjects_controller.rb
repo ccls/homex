@@ -5,20 +5,10 @@ class Interview::SubjectsController < HxApplicationController
 
 	def index
 		remember_or_recall_sort_order
-		hx = Project.find_by_code('HomeExposures')
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-		params[:projects] ||= {}
-		params[:projects][hx.id] ||= {}
-		params[:projects][hx.id][:chosen] = true 
-#		@subjects = Subject.search(params)
-		@subjects = SubjectSearch.new(params).subjects
-#		@subjects = hx.subjects.search(params.merge(
-#			#	interview outcome != complete
-#			:interview_outcome => 'incomplete'
-##			:is_chosen => true
-#		))
+		@subjects = Subject.for_hx_interview(params)
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<

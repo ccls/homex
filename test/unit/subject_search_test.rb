@@ -2,31 +2,33 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectSearchTest < ActiveSupport::TestCase
 
+  test "should return SubjectSearch" do
+    assert SubjectSearch().is_a?(SubjectSearch)
+  end 
+
 	test "should respond to search" do
 		assert Subject.respond_to?(:search)
 	end
 
-	test "search should return Array" do
+	test "should return Array" do
 		subjects = Subject.search()
 		assert subjects.is_a?(Array)
 	end
 
-	test "search should include subject" do
+	test "should include subject" do
 		subject = create_subject
 		subjects = Subject.search()
 		assert subjects.include?(subject)
 	end
 
-	test "search should include subject without pagination" do
+	test "should include subject without pagination" do
 		subject = create_subject
 		subjects = Subject.search(:paginate => false)
 		assert subjects.include?(subject)
 	end
 
-	test "search should include subject by subject_types" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+	test "should include subject by subject_types" do
+		s1,s2,s3 = create_subjects(3)
 		subjects = Subject.search(
 			:types => [s1,s2].collect{|s|s.subject_type.description})
 		assert  subjects.include?(s1)
@@ -34,10 +36,8 @@ class SubjectSearchTest < ActiveSupport::TestCase
 		assert !subjects.include?(s3)
 	end
 
-	test "search should include subject by races" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+	test "should include subject by races" do
+		s1,s2,s3 = create_subjects(3)
 		subjects = Subject.search(
 			:races => [s1,s2].collect{|s|s.race.name})
 		assert  subjects.include?(s1)
@@ -45,10 +45,8 @@ class SubjectSearchTest < ActiveSupport::TestCase
 		assert !subjects.include?(s3)
 	end
 
-	test "search should include subject by hispanicity" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+	test "should include subject by hispanicity" do
+		s1,s2,s3 = create_subjects(3)
 pending
 #		subjects = Subject.search(
 #			:races => [s1,s2].collect{|s|s.race.name})
@@ -57,10 +55,8 @@ pending
 #		assert !subjects.include?(s3)
 	end
 
-	test "search should include subject by vital_statuses" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
+	test "should include subject by vital_statuses" do
+		s1,s2,s3 = create_subjects(3)
 		subjects = Subject.search(
 			:vital_statuses => [s1,s2].collect{|s|s.vital_status.code})
 		assert  subjects.include?(s1)
@@ -68,7 +64,7 @@ pending
 		assert !subjects.include?(s3)
 	end
 
-#	test "search should include all subjects and ignore dust kits" do
+#	test "should include all subjects and ignore dust kits" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		subject2 = create_subject
@@ -77,7 +73,7 @@ pending
 #		assert subjects.include?(subject2)
 #	end
 
-#	test "search should include subjects with no dust kits" do
+#	test "should include subjects with no dust kits" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		subject2 = create_subject
@@ -86,7 +82,7 @@ pending
 #		assert !subjects.include?(subject1)
 #	end
 
-#	test "search should include subject with dust kit" do
+#	test "should include subject with dust kit" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		subject2 = create_subject
@@ -95,7 +91,7 @@ pending
 #		assert !subjects.include?(subject2)
 #	end
 
-#	test "search should include subject with dust kit delivered to subject" do
+#	test "should include subject with dust kit delivered to subject" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		dust_kit.kit_package.update_attributes(:status => 'Delivered')
@@ -106,7 +102,7 @@ pending
 #		assert !subjects.include?(subject2)
 #	end
 
-#	test "search should include subject with dust kit returned to us" do
+#	test "should include subject with dust kit returned to us" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		dust_kit.dust_package.update_attributes(:status => 'Transit')
@@ -117,7 +113,7 @@ pending
 #		assert !subjects.include?(subject2)
 #	end
 
-#	test "search should include subject with dust kit received by us" do
+#	test "should include subject with dust kit received by us" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		dust_kit.dust_package.update_attributes(:status => 'Delivered')
@@ -132,7 +128,7 @@ pending
 #	#	which included both named joins and sql fragment strings.
 #	#	It should work, but didn't and required some manual
 #	#	tweaking.
-#	test "search should work with both dust_kit string and race symbol" do
+#	test "should work with both dust_kit string and race symbol" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		subject2 = create_subject
@@ -142,463 +138,413 @@ pending
 #		assert !subjects.include?(subject1)
 #	end
 
+  test "should include subject by having project" do
+    e1 = Factory(:enrollment)
+    e2 = Factory(:enrollment)
+    subjects = Subject.search(
+      :projects => {e1.project.id => ''})
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end 
 
-	test "search should include subject by multiple projects" do
-		s1 = create_subject
-		s2 = create_subject
-		se1 = Factory(:project)
-		se2 = Factory(:project)
-		Factory(:enrollment, :project => se1, :subject => s1)
-		Factory(:enrollment, :project => se2, :subject => s1)
-		Factory(:enrollment, :project => se2, :subject => s2)
-		subjects = Subject.search(:projects => {
-			se1.id => {:eligible => [true,false]}, 
-			se2.id => {:eligible => [true,false]}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
+	test "should include subject by multiple projects" do
+    e1 = Factory(:enrollment)
+    e2 = Factory(:enrollment,:subject => e1.subject)
+    e3 = Factory(:enrollment,:project => e2.project)
+    subjects = Subject.search(:projects => {
+      e1.project.id => '', 
+      e2.project.id => ''
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e3.subject)
 	end
 
-	test "search should include subject by project indifferent completed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:completed_on => nil)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:completed_on => Time.now)
-		subjects = Subject.search(:projects => {se.id => {
-			:completed => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should include subject by project indifferent completed" do
+    e1 = Factory(:enrollment, :completed_on => nil,
+      :is_complete => false)
+    e2 = Factory(:enrollment, :completed_on => Time.now,
+      :is_complete => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :completed => [true,false] }
+    })
+    assert subjects.include?(e1.subject)
+    assert subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project not completed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:completed_on => nil)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:completed_on => Time.now)
-		subjects = Subject.search(:projects => {se.id => {
-			:completed => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project not completed" do
+    e1 = Factory(:enrollment, :completed_on => nil,
+      :is_complete => false)
+    e2 = Factory(:enrollment, :completed_on => Time.now,
+      :is_complete => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :completed => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project is completed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:completed_on => Time.now)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:completed_on => nil)
-		subjects = Subject.search(:projects => {se.id => {
-			:completed => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project is completed" do
+    e1 = Factory(:enrollment, :completed_on => nil,
+      :is_complete => false)
+    e2 = Factory(:enrollment, :completed_on => Time.now,
+      :is_complete => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :completed => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project indifferent closed" do
+    e1 = Factory(:enrollment, :is_closed => false)
+    e2 = Factory(:enrollment, :is_closed => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :closed => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project not closed" do
+    e1 = Factory(:enrollment, :is_closed => false)
+    e2 = Factory(:enrollment, :is_closed => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :closed => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project is closed" do
+    e1 = Factory(:enrollment, :is_closed => false)
+    e2 = Factory(:enrollment, :is_closed => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :closed => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project indifferent closed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_closed => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_closed => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:closed => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should include subject by project indifferent terminated" do
+    e1 = Factory(:enrollment, :terminated_participation => false)
+    e2 = Factory(:enrollment, :terminated_participation => true,
+      :terminated_reason => 'unknown',
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :terminated => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project not closed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_closed => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_closed => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:closed => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project not terminated" do
+    e1 = Factory(:enrollment, :terminated_participation => false)
+    e2 = Factory(:enrollment, :terminated_participation => true,
+      :terminated_reason => 'unknown',
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :terminated => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project is closed" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_closed => true)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_closed => false)
-		subjects = Subject.search(:projects => {se.id => {
-			:closed => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project is terminated" do
+    e1 = Factory(:enrollment, :terminated_participation => false)
+    e2 = Factory(:enrollment, :terminated_participation => true,
+      :terminated_reason => 'unknown',
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :terminated => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project indifferent consented" do
+    e1 = Factory(:enrollment, :consented => false,
+      :refusal_reason_id => RefusalReason.first.id)
+    e2 = Factory(:enrollment, :consented => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :consented => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project indifferent terminated" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:terminated_participation => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:terminated_participation => true,
-			:terminated_reason => 'unknown')
-		subjects = Subject.search(:projects => {se.id => {
-			:terminated => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should include subject by project not consented" do
+    e1 = Factory(:enrollment, :consented => false,
+      :refusal_reason_id => RefusalReason.first.id)
+    e2 = Factory(:enrollment, :consented => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :consented => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project not terminated" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:terminated_participation => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:terminated_participation => true,
-			:terminated_reason => 'unknown')
-		subjects = Subject.search(:projects => {se.id => {
-			:terminated => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project is consented" do
+    e1 = Factory(:enrollment, :consented => false,
+      :refusal_reason_id => RefusalReason.first.id)
+    e2 = Factory(:enrollment, :consented => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :consented => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project is terminated" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:terminated_participation => true,
-			:terminated_reason => 'unknown')
-		Factory(:enrollment, :project => se, :subject => s2,
-			:terminated_participation => false)
-		subjects = Subject.search(:projects => {se.id => {
-			:terminated => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project indifferent candidate" do
+    e1 = Factory(:enrollment, :is_candidate => false)
+    e2 = Factory(:enrollment, :is_candidate => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :candidate => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project not candidate" do
+    e1 = Factory(:enrollment, :is_candidate => false)
+    e2 = Factory(:enrollment, :is_candidate => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :candidate => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project indifferent consented" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:consented => false,
-			:refusal_reason_id => RefusalReason.first.id)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:consented => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:consented => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should include subject by project is candidate" do
+    e1 = Factory(:enrollment, :is_candidate => false)
+    e2 = Factory(:enrollment, :is_candidate => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :candidate => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project not consented" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:consented => false,
-			:refusal_reason_id => RefusalReason.first.id)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:consented => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:consented => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project indifferent chosen" do
+    e1 = Factory(:enrollment, :is_chosen => false,
+      :reason_not_chosen => 'unknown')
+    e2 = Factory(:enrollment, :is_chosen => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :chosen => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project is consented" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:consented => true)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:consented => false,
-			:refusal_reason_id => RefusalReason.first.id)
-		subjects = Subject.search(:projects => {se.id => {
-			:consented => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project not chosen" do
+    e1 = Factory(:enrollment, :is_chosen => false,
+      :reason_not_chosen => 'unknown')
+    e2 = Factory(:enrollment, :is_chosen => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :chosen => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project indifferent candidate" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_candidate => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_candidate => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:candidate => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should include subject by project is chosen" do
+    e1 = Factory(:enrollment, :is_chosen => false,
+      :reason_not_chosen => 'unknown')
+    e2 = Factory(:enrollment, :is_chosen => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :chosen => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project not candidate" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_candidate => false)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_candidate => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:candidate => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project indifferent eligible" do
+    e1 = Factory(:enrollment, :is_eligible => false,
+      :ineligible_reason_id => IneligibleReason.first.id)
+    e2 = Factory(:enrollment, :is_eligible => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :eligible => [true,false] }
+    })
+    assert  subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project is candidate" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_candidate => true)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_candidate => false)
-		subjects = Subject.search(:projects => {se.id => {
-			:candidate => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should include subject by project not eligible" do
+    e1 = Factory(:enrollment, :is_eligible => false,
+      :ineligible_reason_id => IneligibleReason.first.id)
+    e2 = Factory(:enrollment, :is_eligible => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :eligible => false }
+    })
+    assert  subjects.include?(e1.subject)
+    assert !subjects.include?(e2.subject)
+  end
 
+  test "should include subject by project is eligible" do
+    e1 = Factory(:enrollment, :is_eligible => false,
+      :ineligible_reason_id => IneligibleReason.first.id)
+    e2 = Factory(:enrollment, :is_eligible => true,
+      :project => e1.project )
+    subjects = Subject.search(:projects => {
+      e1.project.id => { :eligible => true }
+    })
+    assert !subjects.include?(e1.subject)
+    assert  subjects.include?(e2.subject)
+  end
 
-	test "search should include subject by project indifferent chosen" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_chosen => false,
-			:reason_not_chosen => 'unknown')
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_chosen => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:chosen => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
+  test "should NOT order by bogus column with dir" do
+    s1,s2,s3 = create_subjects(3)
+    subjects = Subject.search(
+      :order => 'whatever', :dir => 'asc')
+    assert_equal [s1,s2,s3], subjects
+  end
 
-	test "search should include subject by project not chosen" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_chosen => false,
-			:reason_not_chosen => 'unknown')
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_chosen => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:chosen => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
+  test "should NOT order by bogus column" do
+    s1,s2,s3 = create_subjects(3)
+    subjects = Subject.search(:order => 'whatever')
+    assert_equal [s1,s2,s3], subjects
+  end
 
-	test "search should include subject by project is chosen" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_chosen => true)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_chosen => false,
-			:reason_not_chosen => 'unknown')
-		subjects = Subject.search(:projects => {se.id => {
-			:chosen => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
-
-
-	test "search should include subject by project indifferent eligible" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_eligible => false,
-			:ineligible_reason_id => IneligibleReason.first.id)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_eligible => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:eligible => [true,false]
-		}})
-		assert subjects.include?(s1)
-		assert subjects.include?(s2)
-	end
-
-	test "search should include subject by project not eligible" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_eligible => false,
-			:ineligible_reason_id => IneligibleReason.first.id)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_eligible => true)
-		subjects = Subject.search(:projects => {se.id => {
-			:eligible => false
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
-
-	test "search should include subject by project is eligible" do
-		s1 = create_subject
-		s2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se, :subject => s1,
-			:is_eligible => true)
-		Factory(:enrollment, :project => se, :subject => s2,
-			:is_eligible => false,
-			:ineligible_reason_id => IneligibleReason.first.id)
-		subjects = Subject.search(:projects => {se.id => {
-			:eligible => true
-		}})
-		assert  subjects.include?(s1)
-		assert !subjects.include?(s2)
-	end
-
-	test "search should include subject by having project" do
-		subject1 = create_subject
-		subject2 = create_subject
-		se = Factory(:project)
-		Factory(:enrollment, :project => se,
-			:subject => subject1)
-		se2 = Factory(:project)
-		Factory(:enrollment, :project => se2,
-			:subject => subject2)
-		subjects = Subject.search(:projects => {se.id => ''})
-		assert  subjects.include?(subject1)
-		assert !subjects.include?(subject2)
-	end
-
-	test "search should NOT order by other stuff with dir" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
-		subjects = Subject.search(:order => 'whatever', :dir => 'asc')
-		assert_equal [s1,s2,s3], subjects
-	end
-
-	test "search should NOT order by other stuff" do
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
-		subjects = Subject.search(:order => 'whatever')
-		assert_equal [s1,s2,s3], subjects
-	end
-
-	test "search should order by priority asc by default" do
+	test "should order by priority asc by default" do
 		project,s1,s2,s3 = three_subjects_with_recruitment_priority
-		subjects = project.subjects.search(:order => 'priority')
-#		subjects = Subject.search(:order => 'priority',
-#			:projects => { se.id => {} })
+		subjects = Subject.search(:order => 'priority',
+			:projects=>{ project.id => {} })
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by priority desc" do
+	test "should order by priority desc" do
 		project,s1,s2,s3 = three_subjects_with_recruitment_priority
-		subjects = project.subjects.search(:order => 'priority',:dir => 'desc')
-#		subjects = Subject.search(:order => 'priority',:dir => 'desc',
-#			:projects => { se.id => {} })
+		subjects = Subject.search(:order => 'priority',:dir => 'desc',
+			:projects=>{ project.id => {} })
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "search should order by childid asc by default" do
+  test "should order by id asc by default" do
+    s1,s2,s3 = three_subjects_with_childid
+    subjects = Subject.search(
+      :order => 'id')
+    assert_equal [s1,s2,s3], subjects
+  end
+
+  test "should order by id asc" do
+    s1,s2,s3 = three_subjects_with_childid
+    subjects = Subject.search(
+      :order => 'id', :dir => 'asc')
+    assert_equal [s1,s2,s3], subjects
+  end
+
+  test "should order by id desc" do
+    s1,s2,s3 = three_subjects_with_childid
+    subjects = Subject.search(
+      :order => 'id', :dir => 'desc')
+    assert_equal [s3,s2,s1], subjects
+  end
+
+	test "should order by childid asc by default" do
 		s1,s2,s3 = three_subjects_with_childid
 		subjects = Subject.search(:order => 'childid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by childid asc" do
+	test "should order by childid asc" do
 		s1,s2,s3 = three_subjects_with_childid
 		subjects = Subject.search(:order => 'childid', :dir => 'asc')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by childid desc" do
+	test "should order by childid desc" do
 		s1,s2,s3 = three_subjects_with_childid
 		subjects = Subject.search(:order => 'childid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "search should order by studyid asc" do
+  test "should order by studyid asc by default" do
+    s1,s2,s3 = three_subjects_with_patid
+    subjects = Subject.search(
+      :order => 'studyid')
+    assert_equal [s2,s3,s1], subjects
+  end
+
+	test "should order by studyid asc" do
 		s1,s2,s3 = three_subjects_with_patid
 		subjects = Subject.search(:order => 'studyid')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by studyid desc" do
+	test "should order by studyid desc" do
 		s1,s2,s3 = three_subjects_with_patid
 		subjects = Subject.search(:order => 'studyid', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "search should order by last_name asc" do
+  test "should order by last_name asc by default" do
+    s1,s2,s3 = three_subjects_with_last_name
+    subjects = Subject.search(
+      :order => 'last_name')
+    assert_equal [s2,s3,s1], subjects
+  end
+
+	test "should order by last_name asc" do
 		s1,s2,s3 = three_subjects_with_last_name
 		subjects = Subject.search(:order => 'last_name')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by last_name desc" do
+	test "should order by last_name desc" do
 		s1,s2,s3 = three_subjects_with_last_name
 		subjects = Subject.search(:order => 'last_name', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "search should order by first_name asc" do
+  test "should order by first_name asc by default" do
+    s1,s2,s3 = three_subjects_with_first_name
+    subjects = Subject.search(
+      :order => 'first_name')
+    assert_equal [s2,s3,s1], subjects
+  end
+
+	test "should order by first_name asc" do
 		s1,s2,s3 = three_subjects_with_first_name
 		subjects = Subject.search(:order => 'first_name')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by first_name desc" do
+	test "should order by first_name desc" do
 		s1,s2,s3 = three_subjects_with_first_name
 		subjects = Subject.search(:order => 'first_name', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
 	end
 
-	test "search should order by dob asc" do
+  test "should order by dob asc by default" do
+    s1,s2,s3 = three_subjects_with_dob
+    subjects = Subject.search(
+      :order => 'dob')
+    assert_equal [s2,s3,s1], subjects
+  end
+
+	test "should order by dob asc" do
 		s1,s2,s3 = three_subjects_with_dob
 		subjects = Subject.search(:order => 'dob')
 		assert_equal [s2,s3,s1], subjects
 	end
 
-	test "search should order by dob desc" do
+	test "should order by dob desc" do
 		s1,s2,s3 = three_subjects_with_dob
 		subjects = Subject.search(:order => 'dob', :dir => 'desc')
 		assert_equal [s1,s3,s2], subjects
@@ -606,7 +552,7 @@ pending
 
 #	#	There was a problem doing finds which included joins
 #	#	which included both sql join fragment strings and an order.
-#	test "search should work with both dust_kit string and order" do
+#	test "should work with both dust_kit string and order" do
 #		subject1 = create_subject
 #		dust_kit = create_dust_kit(:subject_id => subject1.id)
 #		subject2 = create_subject
@@ -616,7 +562,7 @@ pending
 #		assert !subjects.include?(subject1)
 #	end
 
-	test "search should include subject by q first_name" do
+	test "should include subject by q first_name" do
 		s1 = create_subject_with_first_name('Michael')
 		s2 = create_subject_with_first_name('Bob')
 		subjects = Subject.search(:q => 'mi ch ha')
@@ -624,7 +570,7 @@ pending
 		assert !subjects.include?(s2)
 	end
 
-	test "search should include subject by q last_name" do
+	test "should include subject by q last_name" do
 		s1 = create_subject_with_last_name('Michael')
 		s2 = create_subject_with_last_name('Bob')
 		subjects = Subject.search(:q => 'cha ael')
@@ -632,7 +578,7 @@ pending
 		assert !subjects.include?(s2)
 	end
 
-	test "search should include subject by q childid" do
+	test "should include subject by q childid" do
 		s1 = create_subject_with_childid(999999)
 		s2 = create_subject_with_childid('1')
 		subjects = Subject.search(:q => s1.identifier.childid)
@@ -640,7 +586,7 @@ pending
 		assert !subjects.include?(s2)
 	end
 
-	test "search should include subject by q patid" do
+	test "should include subject by q patid" do
 		s1 = create_subject_with_patid(999999)
 		s2 = create_subject_with_patid('1')
 		subjects = Subject.search(:q => s1.identifier.patid)
@@ -659,11 +605,7 @@ pending
 #		assert_equal 'New', subject.dust_kit_status
 #	end
 
-
-
-
-
-	test "should search for subjects with complete sample" do
+	test "should include subjects with complete sample" do
 		s1 = create_subject
 		s1.create_homex_outcome(
 			:sample_outcome_id => 
@@ -679,7 +621,7 @@ pending
 		assert !subjects.include?(s3)
 	end
 
-	test "should search for subjects with incomplete sample" do
+	test "should include subjects with incomplete sample" do
 		s1 = create_subject
 		s1.create_homex_outcome(
 			:sample_outcome_id => 
@@ -695,7 +637,7 @@ pending
 		assert  subjects.include?(s3)
 	end
 
-	test "should search for subjects with complete interview" do
+	test "should include subjects with complete interview" do
 		s1 = create_subject
 		s1.create_homex_outcome(
 			:interview_outcome_id => 
@@ -711,7 +653,7 @@ pending
 		assert !subjects.include?(s3)
 	end
 
-	test "should search for subjects with incomplete interview" do
+	test "should include subjects with incomplete interview" do
 		s1 = create_subject
 		s1.create_homex_outcome(
 			:interview_outcome_id => 
