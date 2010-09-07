@@ -15,4 +15,13 @@ class Project < ActiveRecord::Base
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
+
+	def self.unenrolled_projects(subject)
+		Project.all(
+			:joins => "LEFT JOIN enrollments ON " <<
+				"projects.id = enrollments.project_id AND " <<
+				"enrollments.subject_id = #{subject.id}",
+			:conditions => [ "enrollments.subject_id IS NULL" ])
+	end
+
 end
