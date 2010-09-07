@@ -122,6 +122,12 @@ class Subject < ActiveRecord::Base
 #		dust_kit.try(:status) || 'None'
 #	end
 
+	def self.for_hx(params={})
+		@subjects = Subject.search(params.deep_merge(
+			:projects=>{hx_id=>{}}
+		))
+	end
+
 	def self.for_hx_interview(params={})
 		@subjects = Subject.search(params.deep_merge(
 			:projects=>{hx_id=>{:chosen=>true}}
