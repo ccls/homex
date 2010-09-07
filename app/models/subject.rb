@@ -123,8 +123,9 @@ class Subject < ActiveRecord::Base
 #	end
 
 	def self.for_hx_interview(params={})
-		params.deep_merge!({:projects=>{hx_id=>{:chosen=>true}}})
-		@subjects = Subject.search(params)
+		@subjects = Subject.search(params.deep_merge(
+			:projects=>{hx_id=>{:chosen=>true}}
+		))
 #		@subjects = SubjectSearch.new(params).subjects
 #	eventually
 #		@subjects = hx.subjects.search(params.merge(
@@ -133,23 +134,21 @@ class Subject < ActiveRecord::Base
 	end
 
 	def self.for_hx_followup(params={})
-		params.deep_merge!({:projects=>{hx_id=>{}}})
-#		@subjects = SubjectSearch.new(params.merge(
-		@subjects = Subject.search(params.merge(
+		@subjects = Subject.search(params.deep_merge(
+			:projects=>{hx_id=>{}}
+		).merge(
 			:interview_outcome => 'complete',
 			:sample_outcome => 'complete'
 		))
-#		)).subjects
 	end
 
 	def self.for_hx_sample(params={})
-		params.deep_merge!({:projects=>{hx_id=>{}}})
-#		@subjects = SubjectSearch.new(params.merge(
-		@subjects = Subject.search(params.merge(
+		@subjects = Subject.search(params.deep_merge(
+			:projects=>{hx_id=>{}}
+		).merge(
 			:interview_outcome => 'complete',
 			:sample_outcome => 'incomplete'
 		))
-#		)).subjects
 	end
 
 	def self.search(params={})

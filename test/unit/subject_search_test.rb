@@ -428,6 +428,14 @@ pending
 		assert_equal [s2,s3,s1], subjects
 	end
 
+	test "should order by priority asc" do
+		project,s1,s2,s3 = three_subjects_with_recruitment_priority
+		subjects = Subject.search(:order => 'priority',
+			:dir => 'asc',
+			:projects=>{ project.id => {} })
+		assert_equal [s2,s3,s1], subjects
+	end
+
 	test "should order by priority desc" do
 		project,s1,s2,s3 = three_subjects_with_recruitment_priority
 		subjects = Subject.search(:order => 'priority',:dir => 'desc',
