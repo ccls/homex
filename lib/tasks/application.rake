@@ -15,7 +15,7 @@ namespace :app do
 		fixtures.push('interview_types')
 		fixtures.push('languages')
 		fixtures.push('organizations')
-		fixtures.push('pages')
+#		fixtures.push('pages')
 		fixtures.push('people')
 		fixtures.push('phone_types')
 		fixtures.push('projects')
