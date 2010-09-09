@@ -8,7 +8,8 @@
 <th><%= sort_link('Last Name') %></th>
 <th><%= sort_link('First Name') %></th>
 </tr></thead><tbody>
-<%= render :partial => 'subjects/subject', :collection => @subjects %>
+<%#= render :partial => 'subjects/subject', :collection => @subjects %>
+<%= render :partial => 'subject', :collection => @subjects %>
 </tbody></table>
 <% else %>
 <p>There are no subjects.</p>

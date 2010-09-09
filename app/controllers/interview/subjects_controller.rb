@@ -3,6 +3,9 @@ class Interview::SubjectsController < ApplicationController
 #	before_filter :may_view_subjects_required
 	before_filter :may_view_required
 
+	before_filter :valid_id_for_hx_subject_required,
+		:only => [:show]
+
 	def index
 		remember_or_recall_sort_order
 		if params[:commit] && params[:commit] == 'download'
