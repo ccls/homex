@@ -10,4 +10,8 @@ class VitalStatus < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 #	validates_uniqueness_of :description
 
+	def to_s
+		description
+	end
+
 end
