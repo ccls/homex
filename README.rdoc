@@ -34,15 +34,15 @@
 * {assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {stringify_date}[http://github.com/jakewendt/stringify_date]
+* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 
 
 == Required and included plugins
 
-* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
+* {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
+* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
 * {html_test}[http://github.com/peter/html_test] - html testing and validation
 * {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
-* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
-* {acts_as_trackable}[http://github.com/jakewendt/acts_as_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
 * {ucb_ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the user authentication and other code used in several apps
@@ -116,7 +116,7 @@ Everybody join hands together now to install some gems ...
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install rake rdoc
- sudo gem install rails -v 2.3.8
+ sudo gem install rails -v 2.3.9
  #
  # The rest should actually install with ...
  #
@@ -153,7 +153,7 @@ then we continue ...
  rake db:migrate
 
  #	add some expected items (loads fixtures OVERWRITING some db data)
- rake app:setup
+ rake app:update
 
  script/server
  script/backgroundrb start
@@ -193,6 +193,7 @@ Before (or after) I recommend migrating the database from somewhere else using t
 
  [jakewendt@dev : ucb_ccls_homex ]>
  rake db:migrate RAILS_ENV=production_prep
+ # rake app:update RAILS_ENV=production_prep	#	load fixtures?
  bash
  rvm use jruby
  warble
