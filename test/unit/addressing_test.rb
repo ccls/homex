@@ -19,15 +19,27 @@ class AddressingTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is true" do
+	test "should NOT require why_invalid if is_valid is nil" do
 		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => true)
+			object = create_object(:is_valid => nil)
 		end
 	end
 
-	test "should require why_invalid if is_valid is false" do
+	test "should NOT require why_invalid if is_valid is 1" do
+		assert_difference 'Addressing.count', 1 do
+			object = create_object(:is_valid => 1)
+		end
+	end
+
+	test "should NOT require why_invalid if is_valid is 999" do
+		assert_difference 'Addressing.count', 1 do
+			object = create_object(:is_valid => 999)
+		end
+	end
+
+	test "should require why_invalid if is_valid is 2" do
 		assert_difference 'Addressing.count', 0 do
-			object = create_object(:is_valid => false)
+			object = create_object(:is_valid => 2)
 			assert object.errors.on(:why_invalid)
 		end
 	end

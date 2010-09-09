@@ -11,8 +11,8 @@ end
 Factory.define :addressing do |f|
 	f.association :address
 	f.association :subject
-	f.is_valid    true
-	f.is_verified false
+	f.is_valid    1
+	f.is_verified 2
 end
 
 Factory.define :address_type do |f|
@@ -224,8 +224,8 @@ Factory.define :phone_number do |f|
 	f.association :subject
 	f.association :phone_type
 	f.sequence(:phone_number){|n| sprintf("%010d",n) }
-	f.is_valid    true
-	f.is_verified false
+	f.is_valid    1
+	f.is_verified 2
 end
 
 Factory.define :phone_type do |f|

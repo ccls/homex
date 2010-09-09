@@ -18,8 +18,10 @@ class Addressing < ActiveRecord::Base
 		:line_1,:line_2,:city,:state,:zip,:csz,
 		:to => :address, :allow_nil => true
 
-	validates_presence_of :why_invalid,  :unless => :is_valid?
-	validates_presence_of :how_verified, :if => :is_verified?
+	validates_presence_of :why_invalid,
+		:if => :is_not_valid?
+	validates_presence_of :how_verified,
+		:if => :is_verified?
 
 	named_scope :current, :conditions => {
 		:current_address => 1
@@ -32,13 +34,16 @@ class Addressing < ActiveRecord::Base
 	before_save :set_verifier, 
 		:if => :is_verified?, 
 		:unless => :is_verified_was
+
 	before_save :nullify_verifier, 
 		:unless => :is_verified?,
 		:if => :is_verified_was
-#	before_save :nullify_how_verified, :unless => :is_verified?
-#	before_save :nullify_why_invalid, :if => :is_valid?
 
 	attr_accessor :current_user
+
+	def is_not_valid?
+		is_valid == 2
+	end
 
 protected
 

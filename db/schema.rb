@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100902190201) do
+ActiveRecord::Schema.define(:version => 20100909220846) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20100902190201) do
     t.integer  "address_at_diagnosis"
     t.date     "valid_from"
     t.date     "valid_to"
-    t.boolean  "is_valid"
+    t.integer  "is_valid"
     t.string   "why_invalid"
     t.boolean  "is_verified"
     t.string   "how_verified"
@@ -698,7 +698,7 @@ ActiveRecord::Schema.define(:version => 20100902190201) do
     t.integer  "data_source_id"
     t.string   "phone_number"
     t.boolean  "is_primary"
-    t.boolean  "is_valid"
+    t.integer  "is_valid"
     t.string   "why_invalid"
     t.boolean  "is_verified"
     t.string   "how_verified"

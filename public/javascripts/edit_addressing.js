@@ -1,7 +1,7 @@
 jQuery(function(){
 
 	jQuery('.valid .is_valid #addressing_is_valid').change(function(){
-		toggle_why_invalid($(this).attr('checked'));
+		toggle_why_invalid($(this).val()!=2);
 	});
 
 	jQuery('.verified .is_verified #addressing_is_verified').change(function(){

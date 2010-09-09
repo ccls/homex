@@ -78,16 +78,17 @@ form div.controls select {
 }
 .why_invalid,
 .how_verified {
-/*
-	margin-left: 100px;
-*/
+	margin-left: 150px;
 }
 
 .is_valid,
 .is_verified {
-	width: 100px;
+	width: 150px;
 }
 
 .field_wrapper {
 	padding:10px;
+}
+.field_wrapper .fieldWithErrors:first-child {
+	float:left;
 }
