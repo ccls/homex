@@ -4,7 +4,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Package',
-		:actions => [:new,:create,:show,:destroy,:index],
+		:actions => [:new,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -37,6 +37,9 @@ class PackagesControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
+#	create and update both call update_status which will 
+#	contact FedEx and can slow things down.  To speed things
+#	up, I stub.
 
 %w( superuser admin editor interviewer reader ).each do |cu|
 
@@ -58,15 +61,28 @@ class PackagesControllerTest < ActionController::TestCase
 		end
 	end
 
+	test "should create package with #{cu} login" do
+		stub_package_for_in_transit	#	remove external dependency
+		login_as send(cu)
+		assert_difference('Package.count',1) do
+			post :create, :package => factory_attributes
+		end
+		assert_not_nil assigns(:package)
+		assert_redirected_to packages_path
+	end
+
 	test "should NOT create with invalid package with #{cu} login" do
 		login_as send(cu)
-		post :create, :package => {}
+		assert_difference('Package.count',0) do
+			post :create, :package => {}
+		end
 		assert_not_nil assigns(:package)
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should update with #{cu} login" do
+		stub_package_for_successful_delivery	#	remove external dependency
 		login_as send(cu)
 		package = factory_create(:tracking_number => '077973360403984')
 		assert_nil package.status
@@ -76,6 +92,7 @@ class PackagesControllerTest < ActionController::TestCase
 	end
 
 	test "should update and redirect to referer if set with #{cu} login" do
+		stub_package_for_successful_delivery	#	remove external dependency
 		login_as send(cu)
 		package = factory_create
 		@request.env["HTTP_REFERER"] = package_path(package)
