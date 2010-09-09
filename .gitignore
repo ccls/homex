@@ -2,10 +2,8 @@
 .DS_Store
 .svn/
 versions/
+/misc/
 
-/DUMMY_ManipulatedData.csv
-/HomeExposuresMetadata.csv
-/SurveyRelatedMetadata.csv
 /address_types.csv
 /config/database.yml
 /config/fed_ex.yml
@@ -14,13 +12,10 @@ versions/
 /config/s3.yml
 /coverage.data
 /coverage/
-/database_description_*
 /db/*.yml
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /doc/
-/dummy_addresses.csv
-/dummy_subject_pii_etc.csv
 /*.war
 /log/
 /packages_updated.*
@@ -34,11 +29,7 @@ versions/
 /script/server_secure
 /script/webrick
 /surveys/fixtures/
-/target_command
-/target_output
-/test_transactions.rb
 /test/unit/helpers/
 /tmp/
-
 
 #*/documents
