@@ -7,6 +7,9 @@ class EnrollmentTest < ActiveSupport::TestCase
 		:document_version)
 	assert_should_initially_belong_to(:project,:subject)
 
+	assert_should_require_unique(:project_id, 
+		:scope => :subject_id)
+
 	test "should create enrollment" do
 		assert_difference 'Enrollment.count' do
 			object = create_object
@@ -46,17 +49,6 @@ class EnrollmentTest < ActiveSupport::TestCase
 			assert object.errors.on(:completed_on)
 			assert_match(/future/,
 				object.errors.on(:completed_on))
-		end
-	end
-
-	test "should require unique project_id and subject_id pairing" do
-		p = create_object
-		assert_no_difference 'Enrollment.count' do
-			object = create_object({
-				:project_id => p.project_id,
-				:subject_id => p.subject_id
-			})
-			assert object.errors.on(:project_id)
 		end
 	end
 

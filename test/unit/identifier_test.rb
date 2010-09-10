@@ -8,6 +8,9 @@ class IdentifierTest < ActiveSupport::TestCase
 		:case_control_type, :subject_id)
 	assert_should_require_unique(:childid,:ssn,:subject_id)
 
+	assert_should_require_unique :patid, 
+		:scope => [:orderno,:case_control_type]
+
 	test "should create identifier" do
 		assert_difference 'Identifier.count' do
 			object = create_object
@@ -63,20 +66,6 @@ class IdentifierTest < ActiveSupport::TestCase
 #			assert object.errors.on(:orderno)
 #		end
 #	end
-
-	test "should require unique patid, case_control_type and orderno" do
-#	still works without a subject and subject_type
-#	test "should require unique studyid" do
-		p = create_object
-		assert_no_difference 'Identifier.count' do
-			object = create_object({
-				:patid => p.patid,
-				:case_control_type => p.case_control_type,
-				:orderno => p.orderno
-			})
-			assert object.errors.on(:patid)
-		end
-	end
 
 	test "should require 9 digits in ssn" do
 		%w( 12345678X 12345678 1-34-56-789 ).each do |invalid_ssn|

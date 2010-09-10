@@ -6,23 +6,14 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 	assert_should_belong_to(:response_set)
 	assert_should_initially_belong_to(:subject,:survey)
 
+	assert_should_require_unique(:subject_id, 
+		:scope => :survey_id)
+
 	test "should create survey_invitation" do
 		assert_difference( 'SurveyInvitation.count', 1) do
 			survey_invitation = create_survey_invitation
 			assert !survey_invitation.new_record?, 
 				"#{survey_invitation.errors.full_messages.to_sentence}"
-		end
-	end
-
-	test "should require unique survey_id / subject_id" do
-		si = create_survey_invitation
-		assert_no_difference 'SurveyInvitation.count' do
-			survey_invitation = create_survey_invitation(
-				:subject_id => si.subject_id,
-				:survey_id  => si.survey_id)
-			#	because of the wording of the validation
-			#	the error is on subject_id
-			assert survey_invitation.errors.on(:subject_id)
 		end
 	end
 
