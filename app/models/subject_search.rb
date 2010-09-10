@@ -167,7 +167,7 @@ private	#	THIS IS REQUIRED
 				attributes.each do |attr,val|
 					val = [val].flatten
 					if val.true_xor_false?
-						conditions << case attr.to_s.downcase
+						new_condition = case attr.to_s.downcase
 							when 'eligible'
 								"proj_#{id}.is_eligible " <<
 									((val.true?)?'= 1':'!= 1')
@@ -190,6 +190,7 @@ private	#	THIS IS REQUIRED
 								"proj_#{id}.completed_on IS " <<
 									((val.true?)?'NOT NULL':'NULL')
 						end	#	case attr.to_s.downcase
+						conditions << new_condition unless new_condition.blank?
 					end	#	if val.true_xor_false?
 				end	#	attributes.each
 			end #	projects.each
