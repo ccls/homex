@@ -8,6 +8,7 @@ namespace :app do
 		fixtures.push('diagnoses')
 		fixtures.push('document_types')
 		fixtures.push('document_versions')
+#		fixtures.push('guides')
 		fixtures.push('hospitals')
 		fixtures.push('ineligible_reasons')
 		fixtures.push('interview_methods')
