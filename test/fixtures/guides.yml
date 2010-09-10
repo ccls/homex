@@ -1,0 +1,11 @@
+--- 
+guides_1: 
+  body: This is the subjects / index guidance
+  action: index
+  id: 1
+  controller: subjects
+guides_2: 
+  body: This is the interview subjects / index
+  action: index
+  id: 2
+  controller: interview/subjects
