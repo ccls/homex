@@ -9,3 +9,8 @@ guides_2:
   action: index
   id: 2
   controller: interview/subjects
+guides_3: 
+  body: This is the guides / index
+  action: index
+  id: 3
+  controller: guides
