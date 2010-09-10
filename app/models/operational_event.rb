@@ -1,7 +1,6 @@
 #	==	requires
 #	*	operational_event_type_id
 class OperationalEvent < ActiveRecord::Base
-	acts_as_list
 	belongs_to :enrollment
 
 #	belongs_to :subject
