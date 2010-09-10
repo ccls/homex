@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100909220846) do
+ActiveRecord::Schema.define(:version => 20100910175723) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -305,6 +305,16 @@ ActiveRecord::Schema.define(:version => 20100909220846) do
 
   add_index "exports", ["childid"], :name => "index_exports_on_childid", :unique => true
   add_index "exports", ["patid"], :name => "index_exports_on_patid", :unique => true
+
+  create_table "guides", :force => true do |t|
+    t.string   "controller"
+    t.string   "action"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "guides", ["controller", "action"], :name => "index_guides_on_controller_and_action", :unique => true
 
   create_table "home_exposure_responses", :force => true do |t|
     t.integer  "subject_id"

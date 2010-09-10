@@ -77,6 +77,23 @@ end
 Factory.define :dust_kit do |f|
 end
 
+Factory.define :enrollment do |f|
+	f.association :subject
+	f.association :project
+	f.is_eligible true
+	f.is_chosen   true
+	f.consented   true
+	f.consented_on Chronic.parse('yesterday')
+	f.terminated_participation false
+	f.is_complete false
+end
+
+Factory.define :guide do |f|
+	f.sequence(:controller){ |n| "controller#{n}" }
+	f.sequence(:action){ |n| "action#{n}" }
+	f.sequence(:body){ |n| "Body #{n}" }
+end
+
 Factory.define :hospital do |f|
 end
 
@@ -174,17 +191,6 @@ Factory.define :pii do |f|
 	f.sequence(:state_id_no){|n| "#{n}"}
 	f.sequence(:email){|n| "email#{n}@example.com"}
 	f.dob Date.jd(2440000+rand(15000))
-end
-
-Factory.define :enrollment do |f|
-	f.association :subject
-	f.association :project
-	f.is_eligible true
-	f.is_chosen   true
-	f.consented   true
-	f.consented_on Chronic.parse('yesterday')
-	f.terminated_participation false
-	f.is_complete false
 end
 
 Factory.define :race do |f|

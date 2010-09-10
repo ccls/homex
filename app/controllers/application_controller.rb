@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
 	def build_menu_js
 	end
 
+	before_filter :get_guidance
+
 protected	#	private #	(does it matter which or if neither?)
 
 	#	This is a method that returns a hash containing
@@ -72,6 +74,14 @@ protected	#	private #	(does it matter which or if neither?)
 				session[param] = params[param]	#	remember
 			end
 		end
+	end
+
+	def get_guidance
+		@guidance = Guide.find(:first, :conditions => {
+				:controller => self.class.name.underscore.sub(/_controller/,''),
+				:action => params[:action] }) ||
+			Guide.find(:first, :conditions => {
+				:controller => self.class.name.underscore })
 	end
 
 end

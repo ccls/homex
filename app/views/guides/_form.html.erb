@@ -1,0 +1,11 @@
+<% form_for(@guide) do |f| %>
+	<%= f.error_messages %>
+
+	<%= f.wrapped_text_field :controller %>
+	<%= f.wrapped_text_field :action %>
+	<%= f.wrapped_text_area :body %>
+
+	<%= f.submit( (@guide.new_record?)? "Create" : "Update" )%>
+<% end %>
+
+<%= link_to 'Back', guides_path %>

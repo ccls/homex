@@ -1,0 +1,13 @@
+<% stylesheets('guides') %>
+
+<% unless @guides.empty? %>
+<table id='guides'><tbody>
+<%= render :partial => 'guide', :collection => @guides %>
+</tbody></table><!-- id='guides' -->
+<% else %>
+Sorry, no guides yet.
+<% end %>
+
+<p>
+<%= button_link_to "Create new guide", new_guide_path %>
+</p>

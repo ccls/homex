@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :people
+	map.resources :guides
 
+	map.resources :people
 
 #	It appears that the plugin routes are loaded after
 #	the app's (or they aren't overridable) as this 'root'
