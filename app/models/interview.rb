@@ -10,7 +10,7 @@ class Interview < ActiveRecord::Base
 	belongs_to :interview_method
 	belongs_to :language
 
-	has_many :operational_event_types
+#	has_many :operational_event_types
 
 #	validates_presence_of :identifier
 
