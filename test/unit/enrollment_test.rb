@@ -29,8 +29,20 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require completed_on be in the past" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
-				:completed_on => nil,
+#				:completed_on => nil,
 				:completed_on_string => 'tomorrow')
+			#	I don't quite understand why this doesn't
+			#	do what I expect.  I think that setting both
+			#	at the same time is part of the problem.
+			#	completed_on_string gets set first, and then
+			#	completed_on gets set to nil, undoing it.
+			#		update_attribute (singular) does NOT
+			#		do validations
+			#	completed_on is not set in the factory
+			#	definition so leave it alone.
+#			object.update_attributes(:completed_on_string => 'tomorrow')
+
+			#	sometimes this fails during test:coverage?
 			assert object.errors.on(:completed_on)
 			assert_match(/future/,
 				object.errors.on(:completed_on))
