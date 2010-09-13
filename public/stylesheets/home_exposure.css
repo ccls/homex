@@ -130,7 +130,6 @@ div.section table {
 div#guidance {
 	width: 180px;
 	float:right;
-	text-align:justify;
 
 	/* NOT PADDING-BOTTOM */
 	padding:9px;
