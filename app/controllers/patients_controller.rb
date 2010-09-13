@@ -21,7 +21,7 @@ class PatientsController < ApplicationController
 	def create
 		@patient = @subject.build_patient(params[:patient])
 		@patient.save!
-		flash[:notice] = "Patient created"
+#		flash[:notice] = "Patient created"
 		redirect_to subject_patient_path(@subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Patient creation failed"
