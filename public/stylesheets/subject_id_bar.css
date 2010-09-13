@@ -15,10 +15,6 @@
 	display:inline;
 	font-weight: bold;
 }
-#id_bar .do_not_contact {
-	display:inline;
-	color:red;
-}
 #id_bar .controls {
 /*
 	this would randomly and intermittantly fall out of line?
