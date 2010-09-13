@@ -14,9 +14,27 @@ class Patient < ActiveRecord::Base
 
 	stringify_date :diagnosis_date
 	validate :diagnosis_date_is_valid
+	validate :diagnosis_date_is_in_the_past
+	validate :diagnosis_date_is_after_dob
 	validate :subject_is_case
 
 protected
+
+	def diagnosis_date_is_in_the_past
+		if !diagnosis_date.blank? && Time.now < diagnosis_date
+			errors.add(:diagnosis_date, 
+				"is in the future and must be in the past.") 
+		end
+	end
+
+	def diagnosis_date_is_after_dob
+		if !diagnosis_date.blank? && 
+			!subject.blank? && 
+			!subject.dob.blank? && 
+			diagnosis_date < subject.dob
+			errors.add(:diagnosis_date, "is before subject's dob.") 
+		end
+	end
 
 	def diagnosis_date_is_valid
 		errors.add(:diagnosis_date, "is invalid") if diagnosis_date_invalid?
