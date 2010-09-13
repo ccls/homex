@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100910221415) do
+ActiveRecord::Schema.define(:version => 20100913212725) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -762,6 +762,15 @@ ActiveRecord::Schema.define(:version => 20100910221415) do
   add_index "piis", ["email"], :name => "index_piis_on_email", :unique => true
   add_index "piis", ["state_id_no"], :name => "index_piis_on_state_id_no", :unique => true
   add_index "piis", ["subject_id"], :name => "index_piis_on_subject_id", :unique => true
+
+  create_table "project_outcomes", :force => true do |t|
+    t.integer  "position"
+    t.integer  "project_id"
+    t.string   "code"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.integer  "position"

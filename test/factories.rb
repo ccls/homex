@@ -193,6 +193,10 @@ Factory.define :pii do |f|
 	f.dob Date.jd(2440000+rand(15000))
 end
 
+Factory.define :project_outcome do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+end
+
 Factory.define :race do |f|
 	f.sequence(:code){|n| "Race#{n}"}
 	f.sequence(:description){|n| "Desc#{n}"}
