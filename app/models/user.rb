@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
 #	alias_method :may_view_samples?,     :may_administrate?
 #	alias_method :may_view_sample_kits?, :may_administrate?
 #	alias_method :may_maintain_races?,   :may_administrate?
-	alias_method :may_edit_subjects?,    :may_administrate?
 #	alias_method :may_create_survey_invitations?, :may_administrate?
 	alias_method :may_take_surveys?,              :may_administrate?
 
 	#	['superuser','administrator','editor']
+	alias_method :may_edit_subjects?,       :may_edit?
 	alias_method :may_edit_addresses?,      :may_edit?
 	alias_method :may_edit_phone_numbers?,  :may_edit?
 	alias_method :may_edit_enrollments?,    :may_edit?
