@@ -17,6 +17,7 @@
 
 <table id='pending'><tbody><tr>
 <th>Pending Specimens:</th>
+<th>id</th>
 <th>sample type</th>
 <th>kit sent on</th>
 <th>kit tracking no</th>
@@ -24,6 +25,7 @@
 </tr>
 <% @subject.samples.each do |sample| %>
 	<tr><td>&nbsp;</td>
+		<td><%= sample.id -%></td>
 		<td><%= sample.sample_type.code -%></td>
 		<td><%= sample.sent_to_subject_on -%></td>
 		<td>Insert Tracking No Here</td>
