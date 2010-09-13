@@ -143,10 +143,10 @@ class Subject < ActiveRecord::Base
 		options = params.deep_merge(
 			:projects=>{hx_id=>{}}
 		)
-		options.merge!(
-			:interview_outcome => 'complete',
-			:sample_outcome => 'complete'
-		)
+#		options.merge!(
+#			:interview_outcome => 'complete',
+#			:sample_outcome => 'complete'
+#		)
 		Subject.search(options)
 	end
 
@@ -154,10 +154,10 @@ class Subject < ActiveRecord::Base
 		options = params.deep_merge(
 			:projects=>{hx_id=>{}}
 		)
-		options.merge!(
-			:interview_outcome => 'complete',
-			:sample_outcome => 'incomplete'
-		)
+#		options.merge!(
+#			:interview_outcome => 'complete',
+#			:sample_outcome => 'incomplete'
+#		)
 		Subject.search(options)
 	end
 
