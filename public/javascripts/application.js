@@ -1,10 +1,8 @@
 jQuery(function(){
 
-	jQuery('a.submitter').click(function(){
-		form_id = this.id.replace(/^for_/,'')
-		jQuery('form#'+form_id).submit();
-		return false;
-	});
+	jQuery('a.submitter').click(submit_form);
+
+	jQuery('form.confirm').submit(confirm_submission);
 
 	jQuery('button.link').click(function(){
 		window.location.href = $(this).find('span.href').text();
@@ -12,16 +10,16 @@ jQuery(function(){
 
 	jQuery('p.flash').click(function(){$(this).remove();});
 
-/*	Pointless as nothing is translatable on homex
-	
-	var root = (location.host == 'ccls.berkeley.edu')?'/homex':''
-	jQuery.getScript(root + '/pages/translate.js');
-*/
-
-/*	Old
-
-		'/javascripts/cache_helper.js?caller=' +
-		location.pathname.replace(new RegExp('^' + root),'') );
-*/
-
 });
+
+var submit_form = function() {
+	form_id = this.id.replace(/^for_/,'');
+	jQuery('form#'+form_id).submit();
+	return false;
+}
+
+var confirm_submission = function(){
+	if( !confirm("Please confirm that you want to save all changes. Otherwise, press 'cancel' and navigate to another page without saving.") ){
+		return false;
+	}
+}

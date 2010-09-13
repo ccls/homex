@@ -6,7 +6,8 @@
 <% end %>
 
 <% form_for(@addressing,
-	:url => addressing_path(@addressing)) do |f| %>
+	:url => addressing_path(@addressing),
+	:html => { :class => 'confirm' }) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>
 
