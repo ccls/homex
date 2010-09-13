@@ -36,6 +36,8 @@ ActionController::Routing::Routes.draw do |map|
 			:only => [:new,:create,:edit,:update,   :destroy   ]
 		subject.resources :enrollments,
 			:only => [:new,:create,:show,:edit,:update,:index]
+		subject.resources :interviews,
+			:only => [:edit,:update,:destroy]
 	end
 
 	map.namespace :interview do |interview|

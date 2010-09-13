@@ -3,6 +3,7 @@
 #	*	subject_id (unique)
 class Identifier < ActiveRecord::Base
 	belongs_to :subject
+	has_many :interviews
 
 #	# because subject accepts_nested_attributes for child_id
 #	# we can't require subject_id on create

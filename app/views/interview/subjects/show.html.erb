@@ -1,9 +1,6 @@
 <% stylesheets('subject') %>
 <% render 'submenu' %>
 
-<% content_for :id_bar do %>
-<%= link_to "edit", edit_subject_path(@subject) %>
-<% end if current_user.may_edit_subjects? %>
 <% render 'subjects/id_bar' %>
 
 <% content_tag_for( :div, @subject ) do %>
@@ -21,3 +18,7 @@
 <p>  Relationship: mother       specify:</p>
 
 <% end %><%# content_tag_for %>
+
+<% @subject.identifier.try(:interviews) do |interview| %>
+
+<% end %>

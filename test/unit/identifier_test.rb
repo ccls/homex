@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class IdentifierTest < ActiveSupport::TestCase
 
 #	assert_should_belong_to(:subject)
+	assert_should_have_many(:interviews)
 	assert_should_initially_belong_to(:subject)
 	assert_should_require(:childid,:orderno,:patid,:ssn,
 		:case_control_type, :subject_id)
