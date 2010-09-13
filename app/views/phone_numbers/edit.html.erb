@@ -6,8 +6,8 @@
 <% end %>
 
 <% form_for(@phone_number,
-	:url => phone_number_path(@phone_number,
-	:html => { :class => 'confirm' })) do |f| %>
+	:url => phone_number_path(@phone_number),
+	:html => { :class => 'confirm' }) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>
 

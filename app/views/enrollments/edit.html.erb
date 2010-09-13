@@ -14,8 +14,8 @@
 
 
 <% form_for(@enrollment,
-	:url => enrollment_path(@enrollment,
-	:html => { :class => 'confirm' })) do |f| %>
+	:url => enrollment_path(@enrollment),
+	:html => { :class => 'confirm' }) do |f| %>
 <%= f.error_messages %>
 
 <p>Study name: <%= @enrollment.project.code.titleize -%></p>
