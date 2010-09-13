@@ -1,34 +1,25 @@
-#main #id_bar {
+#id_bar {
 	background-color: #E5DBC1;
 	padding: 10px;
 	position:relative;
-
-/* 
-	overflow:hidden;
-*/
 }
-#main #id_bar .childid {
-/*
-	float:left;
-*/
+#id_bar .childid {
 	display:inline;
 	padding-right: 10px;
 }
-#main #id_bar .studyid {
-/*
-	float:left;
-*/
+#id_bar .studyid {
 	display:inline;
 	padding-right: 10px;
 }
-#main #id_bar .full_name {
-/*
-	float:left;
-*/
+#id_bar .full_name {
 	display:inline;
 	font-weight: bold;
 }
-#main #id_bar .controls {
+#id_bar .do_not_contact {
+	display:inline;
+	color:red;
+}
+#id_bar .controls {
 /*
 	this would randomly and intermittantly fall out of line?
 	so added position:relative to id_bar and 

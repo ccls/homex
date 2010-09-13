@@ -4,6 +4,12 @@
 <%= f.error_messages %>
 
 <div>
+<div class='do_not_contact field_wrapper'>
+<%= f.label :do_not_contact, "Contact Status:" %>
+<%= f.check_box :do_not_contact %>
+<%= f.label :do_not_contact, "do not contact subject?" %>
+</div><!-- class='do_not_contact' -->
+
 	<% @subject.build_pii if @subject.pii.nil? %>
 	<% f.fields_for :pii do |pii_fields| %>
 		<%= pii_fields.hidden_field :id %>

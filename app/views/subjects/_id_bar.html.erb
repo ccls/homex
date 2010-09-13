@@ -13,6 +13,13 @@
 <div class='full_name'>
 <span><%= (@subject||subject).full_name -%></span>
 </div><!-- class='full_name' -->
+
+<div class='do_not_contact'>
+<span>
+<%= ((@subject||subject).do_not_contact?)?"Do Not Contact Subject":"&nbsp;" -%>
+</span>
+</div><!-- class='do_not_contact' -->
+
 <%# 
 	Occassionally and intermittently and irritattingly,
 	this button would drop down 1 line (about 10px)

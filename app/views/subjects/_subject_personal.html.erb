@@ -1,3 +1,14 @@
+<div class='contact_status columns'>
+<div class='column'>
+<p>Contact Status:</p>
+</div><!-- class='column' -->
+<div class='column'>
+<p class='do_not_contact'>
+<%= (@subject.do_not_contact?)? "Do Not Contact Subject" : "OK to Contact" -%>
+</p>
+</div><!-- class='column' -->
+</div><!-- class='contact_status columns' -->
+
 <div class='personal columns'>
 <div class='column'>
 <p class='full_name'><%= @subject.full_name -%></p>
