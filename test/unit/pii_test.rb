@@ -91,7 +91,7 @@ class PiiTest < ActiveSupport::TestCase
 		assert_not_nil object.dob
 		assert object.dob.is_a?(Date)
 		assert_equal object.dob, object.dob.to_date
-		assert_equal object.dob.to_s, object.dob_string
+		assert_equal object.dob.strftime("%m/%d/%Y"), object.dob_string
 	end
 
 	test "should parse a properly formatted date" do
