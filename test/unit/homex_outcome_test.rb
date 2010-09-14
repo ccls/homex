@@ -38,6 +38,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 	test "should require interview_outcome_on if interview_outcome_id?" do
 		assert_difference('HomexOutcome.count',0) do
 			object = create_object(
+				:interview_outcome_on => nil,
 				:interview_outcome_id => InterviewOutcome.first.id)
 			assert object.errors.on(:interview_outcome_on)
 		end
@@ -46,6 +47,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 	test "should require sample_outcome_on if sample_outcome_id?" do
 		assert_difference('HomexOutcome.count',0) do
 			object = create_object(
+				:sample_outcome_on => nil,
 				:sample_outcome_id => SampleOutcome.first.id)
 			assert object.errors.on(:sample_outcome_on)
 		end
