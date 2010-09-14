@@ -99,7 +99,7 @@ Factory.define :hospital do |f|
 end
 
 Factory.define :homex_outcome do |f|
-	f.association :subject
+#	f.association :subject
 end
 
 #Factory.define :home_exposure_event do |f|

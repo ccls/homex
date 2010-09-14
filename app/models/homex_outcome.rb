@@ -7,20 +7,25 @@ class HomexOutcome < ActiveRecord::Base
 	belongs_to :sample_outcome
 	belongs_to :interview_outcome
 
-	validates_uniqueness_of :subject_id
-	validates_presence_of :subject_id, :subject
+#	validates_uniqueness_of :subject_id
+#	validates_presence_of :subject_id, :subject
 
-#	validates_presence_of   :code
-#	validates_uniqueness_of :code
-#	validates_length_of     :description, :minimum => 4
-#	validates_uniqueness_of :description
-#
-#	def to_s
-#		description
-#	end
-#
-#	def name
-#		description
-#	end
+	# because subject accepts_nested_attributes for homex_outcome
+	# we can't require subject_id on create
+	validates_presence_of   :subject, :on => :update
+	validates_uniqueness_of :subject_id, :allow_nil => true
+
+	stringify_date :sample_outcome_on
+	stringify_date :interview_outcome_on
+
+	validates_presence_of :sample_outcome_on,
+		:if => :sample_outcome_id?
+
+	validates_presence_of :interview_outcome_on,
+		:if => :interview_outcome_id?
+
+	def to_s
+		description
+	end
 
 end

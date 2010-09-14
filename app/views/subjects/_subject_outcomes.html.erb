@@ -3,12 +3,12 @@
 <p>Study Outcomes:</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>interview: NOT CODED YET</p>
-<p>sample status: NOT CODED YET</p>
+<p>interview: <%= @subject.homex_outcome.try(:interview_outcome) %></p>
+<p>sample status: <%= @subject.homex_outcome.try(:sample_outcome) %></p>
 <p>final outcome: NOT CODED YET</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>date: NOT CODED YET</p>
-<p>date: NOT CODED YET</p>
+<p>date: <%= @subject.homex_outcome.try(:interview_outcome_on) %></p>
+<p>date: <%= @subject.homex_outcome.try(:sample_outcome_on) %></p>
 </div><!-- class='column' -->
 </div><!-- class='outcomes' -->

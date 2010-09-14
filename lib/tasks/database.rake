@@ -48,7 +48,7 @@ namespace :db do
 
 			#	due to padding it with zeros, NEED this to be an Integer
 			#	doesn't work correctly in sqlite so just pad it before search
-			subject = Subject.find_by_subjectid(sprintf("%06d",line[0].to_i))
+			subject = Identifier.find_by_subjectid(sprintf("%06d",line[0].to_i)).subject
 			raise ActiveRecord::RecordNotFound unless subject
 
 			address_type = AddressType.find(line[1].to_s)
@@ -106,6 +106,7 @@ namespace :db do
 			interview_date = (line[8].blank?)?'':Time.parse(line[8])
 			subject = Subject.create!({
 				:identifier_attributes => { 
+					:subjectid => line[4],
 					:ssn => sprintf('%09d',line[0]),							#	TODO
 					:patid => line[1],
 					:case_control_type => line[2],
@@ -129,7 +130,6 @@ namespace :db do
 				},
 				:subject_type => subject_type,
 				:race => race,
-				:subjectid => line[4],
 				:sex => line[5],
 				:reference_date => refdate
 			})

@@ -67,6 +67,41 @@ class SubjectTest < ActiveSupport::TestCase
 		} }
 	end
 
+
+
+	test "should create subject with homex_outcome" do
+		assert_difference( 'HomexOutcome.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+		} }
+	end
+
+	test "should NOT create subject with second homex_outcome" do
+		assert_difference( 'HomexOutcome.count', 1) {
+		assert_difference( 'Subject.count', 1) {
+			subject = create_subject(
+				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
+			assert !subject.new_record?, 
+				"#{subject.errors.full_messages.to_sentence}"
+			subject.update_attributes(
+				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
+			assert subject.errors.on('homex_outcome.subject_id')
+		} }
+	end
+
+	test "should NOT create subject with empty homex_outcome" do
+pending
+#		assert_difference( 'HomexOutcome.count', 0) {
+#		assert_difference( 'Subject.count', 0) {
+#			subject = create_subject( :homex_outcome_attributes => {})
+##			assert subject.errors.on('homex_outcome.state_id_no')	
+#			puts subject.errors.inspect
+#		} }
+	end
+
 #	test "should create subject with patient" do
 #		assert_difference( 'Patient.count', 1) {
 #		assert_difference( 'Subject.count', 1) {

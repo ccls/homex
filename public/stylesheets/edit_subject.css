@@ -13,14 +13,9 @@ select#subject_subject_type_id {
 	width: 170px;
 }
 
-/* Move the submit button up to the id bar */
-/*
-input#subject_submit {
-	position:absolute;
-	top: 108px;
-	left: 730px;
-	font-size:12pt;
-	width: 100px;
+.field_wrapper.interview_outcome_on_string label,
+.field_wrapper.sample_outcome_on_string label,
+.field_wrapper.state_id_no label,
+.field_wrapper.email label {
+	display:block;
 }
-*/
-/* Using .id_bar_button.without_submenu in subject_id_bar.css */

@@ -51,6 +51,7 @@ class Subject < ActiveRecord::Base
 	#	s.pii.destroy will destroy the last one !?!?!?
 	#	Make all these require a unique subject_id
 	accepts_nested_attributes_for :pii
+	accepts_nested_attributes_for :homex_outcome
 
 #	Where do I use patient_attributes?
 #	accepts_nested_attributes_for :patient
