@@ -20,7 +20,7 @@ class Pii < ActiveRecord::Base
 
 	before_validation :nullify_blank_email
 
-	stringify_date :dob
+	stringify_date :dob, :format => '%m/%d/%Y'
 	validate :dob_is_valid
 
 	def full_name

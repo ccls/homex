@@ -12,7 +12,7 @@ class Patient < ActiveRecord::Base
 	validates_presence_of :subject_id, :subject
 	validates_uniqueness_of :subject_id
 
-	stringify_date :diagnosis_date
+	stringify_date :diagnosis_date, :format => '%m/%d/%Y'
 	validate :diagnosis_date_is_valid
 	validate :diagnosis_date_is_in_the_past
 	validate :diagnosis_date_is_after_dob

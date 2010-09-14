@@ -15,8 +15,8 @@ class HomexOutcome < ActiveRecord::Base
 	validates_presence_of   :subject, :on => :update
 	validates_uniqueness_of :subject_id, :allow_nil => true
 
-	stringify_date :sample_outcome_on
-	stringify_date :interview_outcome_on
+	stringify_date :sample_outcome_on, :format => '%m/%d/%Y'
+	stringify_date :interview_outcome_on, :format => '%m/%d/%Y'
 
 	validates_presence_of :sample_outcome_on,
 		:if => :sample_outcome_id?

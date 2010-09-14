@@ -41,7 +41,7 @@ class Enrollment < ActiveRecord::Base
 	validate :completed_on_is_in_the_past
 	validate :consented_on_is_in_the_past
 
-	stringify_date :completed_on, :consented_on
+	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
 protected
 
