@@ -14,10 +14,6 @@
 
 <% form_for(@enrollment,
 	:url => subject_enrollments_path(@subject) ) do |f| %>
-<%# form_tag(subject_enrollments_path(@subject),
-	:id => :new_enrollment ) do %>
-<%#= select_tag 'project_id', options_for_select(
-	@projects.collect{ |u| [u.description, u.id] }) %>
 <%= f.select :project_id, options_for_select(
 	@projects.collect{ |u| [u.description, u.id] }) %>
 <% end %>

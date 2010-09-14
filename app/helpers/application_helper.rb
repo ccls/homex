@@ -36,4 +36,8 @@ module ApplicationHelper
 #		s << "</li></ul></li>\n"
 #	end
 
+	def mdy(date)
+		( date.nil? )?'&nbsp;':date.strftime("%m/%d/%Y")
+	end
+
 end

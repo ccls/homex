@@ -8,7 +8,7 @@
 <p>final outcome: NOT CODED YET</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>date: <%= @subject.homex_outcome.try(:interview_outcome_on) %></p>
-<p>date: <%= @subject.homex_outcome.try(:sample_outcome_on) %></p>
+<p>date: <%=mdy @subject.homex_outcome.try(:interview_outcome_on) %></p>
+<p>date: <%=mdy @subject.homex_outcome.try(:sample_outcome_on) %></p>
 </div><!-- class='column' -->
 </div><!-- class='outcomes' -->

@@ -13,11 +13,9 @@
 <%= (enrollment.is_eligible?)?'yes':'no' %>
 </td>
 <td class='consented'>
-<%#= enrollment.consented_on||'&nbsp;' %>
-<%= enrollment.consented_on %>
+<%=mdy enrollment.consented_on %>
 </td>
 <td class='completed'>
-<%#= enrollment.completed_on||'&nbsp;' %>
-<%= enrollment.completed_on %>
+<%=mdy enrollment.completed_on %>
 </td>
 <% end %>

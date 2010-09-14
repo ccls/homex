@@ -33,8 +33,12 @@
 			<%# else %>
 				<%= wrapped_yes_or_no_spans :enrollment, :consented,
 					:label_text => 'consented?' %>
-				<%= wrapped_spans :enrollment, :consented_on,
-					:label_text => 'date:' %>
+
+<div class='consented_on field_wrapper'>
+<span class='label'>date:</span>
+<span class='value'><%=mdy @enrollment.consented_on %></span>
+</div><!-- class='consented_on' -->
+
 				<%= wrapped_spans :enrollment, :document_version,
 					:label_text => 'version:' %>
 
@@ -54,8 +58,12 @@
 						<%= wrapped_yes_or_no_spans :enrollment, :is_complete,
 							:label_text => 'completed?' %>
 						<%# if @enrollment.is_complete? %>
-							<%= wrapped_spans :enrollment, :completed_on,
-								:label_text => 'date:' %>
+
+<div class='completed_on field_wrapper'>
+<span class='label'>date:</span>
+<span class='value'><%=mdy @enrollment.completed_on %></span>
+</div><!-- class='completed_on' -->
+
 						<%# end %><%# @enrollment.is_complete? %>
 					<%# end %><%# @enrollment.terminated_participation? %>
 				<%# end %><%# @enrollment.consented? %>

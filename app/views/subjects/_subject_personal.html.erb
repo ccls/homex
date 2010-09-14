@@ -15,7 +15,7 @@
 </div><!-- class='column' -->
 <div class='column'>
 
-<p>birth date:&nbsp;<%= @subject.dob.try(:to_s,:dob) -%></p>
+<p>birth date:&nbsp;<%=mdy @subject.dob -%></p>
 <p>sex:&nbsp;
 <% unless @subject.sex.blank? %>
 <%= (@subject.sex.match(/f/i))?'female':'male' -%> 
@@ -36,7 +36,7 @@
 
 </div><!-- class='column' -->
 <div class='column'>
-<p>reference date:&nbsp;<%= @subject.reference_date.try(:to_s,:dob) %></p>
+<p>reference date:&nbsp;<%=mdy @subject.reference_date %></p>
 <p>vital status:&nbsp;<%= @subject.vital_status.try(:code) %></p>
 </div><!-- class='column' -->
 </div><!-- class='personal' -->

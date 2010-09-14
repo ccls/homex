@@ -11,8 +11,7 @@
 </div><!-- class='column' -->
 <div class='column'>
 <p>date:&nbsp;
-<%#= @hx_enrollment.try(:consented_on) %>
-<%= @hx_enrollment.consented_on %></p>
+<%=mdy @hx_enrollment.consented_on %></p>
 <p>specify:&nbsp;
 <%#= "#{@hx_enrollment.try(:other_refusal_reason)}" %>
 <%= @hx_enrollment.other_refusal_reason %></p>

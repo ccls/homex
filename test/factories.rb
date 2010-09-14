@@ -100,6 +100,8 @@ end
 
 Factory.define :homex_outcome do |f|
 #	f.association :subject
+	f.sample_outcome_on Date.today
+	f.interview_outcome_on Date.today
 end
 
 #Factory.define :home_exposure_event do |f|

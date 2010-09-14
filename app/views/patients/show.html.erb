@@ -7,8 +7,10 @@
 <% render 'subjects/id_bar' %>
 
 <div id='patient'>
-<%= wrapped_spans(:patient,:diagnosis_date,
-	:label_text => 'diagnosis (reference) date:') %>
+<div class='diagnosis_date field_wrapper'>
+<span class='label'>diagnosis (reference) date:</span>
+<span class='value'><%=mdy @patient.diagnosis_date %></span>
+</div><!-- class='diagnosis_date' -->
 <%= wrapped_spans(:patient,:diagnosis,
 	:label_text => 'diagnosis:' ) %>
 <%= wrapped_spans(:patient,:organization,

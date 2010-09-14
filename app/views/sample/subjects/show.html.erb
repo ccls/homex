@@ -9,9 +9,9 @@
 	:interview_outcome).try(:code) %></td>
 <td>&nbsp;</td>
 <th>Date Interview Completed:</th>
-<td><%= @subject.try(
+<td><%=mdy @subject.try(
 	:homex_outcome).try(
-	:interview_outcome_on)||'Unknown' %></td>
+	:interview_outcome_on) %></td>
 </tr>
 </tbody></table><!-- id='general' -->
 
@@ -27,7 +27,7 @@
 	<tr><td>&nbsp;</td>
 		<td><%= link_to sample.id, sample_path(sample) -%></td>
 		<td><%= sample.sample_type.code -%></td>
-		<td><%= sample.sent_to_subject_on -%></td>
+		<td><%=mdy sample.sent_to_subject_on -%></td>
 		<td>Insert Tracking No Here</td>
 		<td>Insert Tracking No Here</td>
 	</tr>

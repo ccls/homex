@@ -378,6 +378,19 @@ class Subject < ActiveRecord::Base
 #	#	were causing some grief, but may try again.
 #	#
 
+
+#	def interview_outcome_on
+#		if homex_outcome && homex_outcome.interview_outcome_on
+#			homex_outcome.interview_outcome_on.to_s(:dob)
+#		end
+#	end
+#
+#	def sample_outcome_on
+#		if homex_outcome && homex_outcome.sample_outcome_on
+#			homex_outcome.sample_outcome_on.to_s(:dob)
+#		end
+#	end
+
 protected
 
 	def self.hx_id

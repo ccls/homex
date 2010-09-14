@@ -616,10 +616,12 @@ pending
 	test "should include subjects with complete sample" do
 		s1 = create_subject
 		s1.create_homex_outcome(
+			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Complete').id)
 		s2 = create_subject
 		s2.create_homex_outcome(
+			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
@@ -632,10 +634,12 @@ pending
 	test "should include subjects with incomplete sample" do
 		s1 = create_subject
 		s1.create_homex_outcome(
+			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Complete').id)
 		s2 = create_subject
 		s2.create_homex_outcome(
+			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
 				SampleOutcome.find_by_code('Pending').id)
 		s3 = create_subject
@@ -648,10 +652,12 @@ pending
 	test "should include subjects with complete interview" do
 		s1 = create_subject
 		s1.create_homex_outcome(
+			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Complete').id)
 		s2 = create_subject
 		s2.create_homex_outcome(
+			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
 		s3 = create_subject
@@ -664,10 +670,12 @@ pending
 	test "should include subjects with incomplete interview" do
 		s1 = create_subject
 		s1.create_homex_outcome(
+			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Complete').id)
 		s2 = create_subject
 		s2.create_homex_outcome(
+			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 
 				InterviewOutcome.find_by_code('Incomplete').id)
 		s3 = create_subject
