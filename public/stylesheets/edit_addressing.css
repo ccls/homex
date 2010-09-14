@@ -91,4 +91,5 @@ form div.controls select {
 }
 .field_wrapper .fieldWithErrors:first-child {
 	float:left;
+	clear:left;
 }
