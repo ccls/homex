@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100913212725) do
+ActiveRecord::Schema.define(:version => 20100914161712) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -491,11 +491,13 @@ ActiveRecord::Schema.define(:version => 20100913212725) do
     t.string   "ssn"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "subjectid",            :limit => 6
   end
 
   add_index "identifiers", ["patid", "case_control_type", "orderno"], :name => "piccton", :unique => true
   add_index "identifiers", ["ssn"], :name => "index_identifiers_on_ssn", :unique => true
   add_index "identifiers", ["subject_id"], :name => "index_identifiers_on_subject_id", :unique => true
+  add_index "identifiers", ["subjectid"], :name => "index_identifiers_on_subjectid", :unique => true
 
   create_table "imports", :force => true do |t|
     t.date     "dob"
@@ -994,7 +996,6 @@ ActiveRecord::Schema.define(:version => 20100913212725) do
     t.date     "reference_date"
     t.integer  "response_sets_count",              :default => 0
     t.string   "sex"
-    t.string   "subjectid",           :limit => 6
     t.boolean  "do_not_contact",                   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -1004,7 +1005,6 @@ ActiveRecord::Schema.define(:version => 20100913212725) do
 
   add_index "subjects", ["familyid"], :name => "index_subjects_on_familyid", :unique => true
   add_index "subjects", ["matchingid"], :name => "index_subjects_on_matchingid", :unique => true
-  add_index "subjects", ["subjectid"], :name => "index_subjects_on_subjectid", :unique => true
 
   create_table "survey_invitations", :force => true do |t|
     t.integer  "subject_id",      :null => false

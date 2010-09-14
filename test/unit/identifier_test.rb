@@ -2,15 +2,27 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IdentifierTest < ActiveSupport::TestCase
 
-#	assert_should_belong_to(:subject)
 	assert_should_have_many(:interviews)
 	assert_should_initially_belong_to(:subject)
-	assert_should_require(:childid,:orderno,:patid,:ssn,
-		:case_control_type, :subject_id)
-	assert_should_require_unique(:childid,:ssn,:subject_id)
-
+	assert_should_require(
+		:case_control_type,
+		:childid,
+		:orderno,
+		:patid,
+		:ssn,
+		:subjectid,
+		:subject_id
+	)
+	assert_should_require_unique(
+		:childid,
+		:ssn,
+		:subject_id,
+		:subjectid
+	)
 	assert_should_require_unique :patid, 
 		:scope => [:orderno,:case_control_type]
+
+#	assert_should_protect_attributes(:subjectid)
 
 	test "should create identifier" do
 		assert_difference 'Identifier.count' do
@@ -19,6 +31,13 @@ class IdentifierTest < ActiveSupport::TestCase
 				"#{object.errors.full_messages.to_sentence}"
 		end
 	end
+
+	test "should pad subjectid with leading zeros" do
+		identifier = Factory.build(:identifier)
+		assert identifier.subjectid.length < 6 
+		identifier.save
+		assert identifier.subjectid.length == 6
+	end 
 
 	test "should require valid subject_id" do
 		assert_difference( 'Identifier.count', 0 )do

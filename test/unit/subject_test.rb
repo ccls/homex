@@ -2,18 +2,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectTest < ActiveSupport::TestCase
 
-	assert_requires_valid_associations(:race,:subject_type)
-	assert_should_have_many(:survey_invitations,
+	assert_requires_valid_associations(
+		:race,
+		:subject_type
+	)
+	assert_should_have_many(
 		:addressings,
-		:enrollments,:phone_numbers,
-		:samples,:response_sets)
-	assert_should_initially_belong_to(:race,:subject_type,:vital_status)
-#	assert_should_have_one(:pii,:patient,:home_exposure_response,
-	assert_should_have_one(:pii,:home_exposure_response,
-		:identifier,:homex_outcome)
-	assert_should_require(:subjectid)
-	assert_should_require_unique(:subjectid)
-#	assert_should_protect_attributes(:subjectid)
+		:enrollments,
+		:phone_numbers,
+		:response_sets,
+		:samples,
+		:survey_invitations
+	)
+	assert_should_initially_belong_to(
+		:race,
+		:subject_type,
+		:vital_status
+	)
+	assert_should_have_one(
+		:home_exposure_response,
+		:homex_outcome,
+		:identifier,
+		:pii
+	)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
@@ -145,13 +156,6 @@ class SubjectTest < ActiveSupport::TestCase
 			:orderno => '4'
 		)
 		assert_equal "123-A-4", subject.reload.studyid
-	end
-
-	test "should pad subjectid with leading zeros" do
-		subject = Factory.build(:subject)
-		assert subject.subjectid.length < 6
-		subject.save
-		assert subject.subjectid.length == 6
 	end
 
 	test "should belong to vital_status" do

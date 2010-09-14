@@ -28,9 +28,7 @@ class Subject < ActiveRecord::Base
 	has_one :pii
 
 	validates_presence_of :subject_type, :race,
-		:subject_type_id, :race_id,
-		:subjectid
-	validates_uniqueness_of :subjectid
+		:subject_type_id, :race_id
 #	validates_inclusion_of :sex, :in => %w( male female ),
 #		:message => "must be male or female"
 
@@ -41,10 +39,6 @@ class Subject < ActiveRecord::Base
 
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
 		:to => :identifier, :allow_nil => true
-
-#	Can't do this as WE NEED to set this.
-#	Would be nice if there was an update_attributes filter or something
-#	attr_protected :subjectid
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
@@ -65,8 +59,6 @@ class Subject < ActiveRecord::Base
 ##	accepts_nested_attributes_for :dust_kit
 
 	class NotTwoResponseSets < StandardError; end
-
-	before_validation :pad_zeros_to_subjectid
 
 	def is_case?
 		subject_type.try(:code) == 'Case'
@@ -386,28 +378,6 @@ class Subject < ActiveRecord::Base
 #	#
 
 protected
-
-	def pad_zeros_to_subjectid
-		#>> sprintf("%06d","0001234")
-		#=> "000668"
-		#>> sprintf("%06d","0001239")
-		#ArgumentError: invalid value for Integer: "0001239"
-		#	from (irb):22:in `sprintf'
-		#	from (irb):22
-		#>> sprintf("%06d","0001238")
-		#ArgumentError: invalid value for Integer: "0001238"
-		#	from (irb):23:in `sprintf'
-		#	from (irb):23
-		#>> sprintf("%06d","0001280")
-		#ArgumentError: invalid value for Integer: "0001280"
-		#	from (irb):24:in `sprintf'
-		#	from (irb):24
-		#
-		#	CANNOT have leading 0's and include and 8 or 9 as it thinks its octal
-		#	so convert back to Integer first
-		subjectid.try(:gsub!,/\D/,'')
-		self.subjectid = sprintf("%06d",subjectid.to_i) unless subjectid.blank?
-	end
 
 	def self.hx_id
 		Project.find_by_code('HomeExposures').id

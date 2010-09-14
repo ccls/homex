@@ -50,6 +50,7 @@ Factory.define :identifier do |f|
 #	This is potentially a problem causer in testing.
 	f.sequence(:case_control_type){|n|
 		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
+	f.sequence(:subjectid){|n| "#{n}"}
 end
 
 Factory.define :context do |f|
@@ -266,7 +267,7 @@ Factory.define :subject do |f|
 	f.association :subject_type
 	f.association :race
 	f.association :vital_status
-	f.sequence(:subjectid){|n| "#{n}"}
+#	f.sequence(:subjectid){|n| "#{n}"}
 	f.sequence(:sex){|n|
 		%w( male female )[n%2] }
 end

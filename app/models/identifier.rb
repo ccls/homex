@@ -25,6 +25,10 @@ class Identifier < ActiveRecord::Base
 	validates_uniqueness_of :ssn
 	validates_format_of     :ssn, :with => /\A\d{9}\z/
 
+	validates_presence_of   :subjectid
+	validates_uniqueness_of :subjectid
+
+	before_validation :pad_zeros_to_subjectid
 	before_validation :format_ssn
 
 	def studyid
@@ -36,5 +40,27 @@ protected
 	def format_ssn
 		self.ssn.to_s.gsub!(/\D/,'')
 	end
+
+	def pad_zeros_to_subjectid
+		#>> sprintf("%06d","0001234")
+		#=> "000668"
+		#>> sprintf("%06d","0001239")
+		#ArgumentError: invalid value for Integer: "0001239"
+		# from (irb):22:in `sprintf'
+		# from (irb):22
+		#>> sprintf("%06d","0001238")
+		#ArgumentError: invalid value for Integer: "0001238"
+		# from (irb):23:in `sprintf'
+		# from (irb):23
+		#>> sprintf("%06d","0001280")
+		#ArgumentError: invalid value for Integer: "0001280"
+		# from (irb):24:in `sprintf'
+		# from (irb):24
+		#	 
+		# CANNOT have leading 0's and include and 8 or 9 as it thinks its octal
+		# so convert back to Integer first
+		subjectid.try(:gsub!,/\D/,'')
+		self.subjectid = sprintf("%06d",subjectid.to_i) unless subjectid.blank?
+	end 
 
 end
