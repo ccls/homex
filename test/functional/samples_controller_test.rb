@@ -88,7 +88,7 @@ class SamplesControllerTest < ActionController::TestCase
 		login_as send(cu)
 		sample = factory_create
 		put :update, :id => sample.id,
-			:sample => { :unit_id => nil }
+			:sample => { :sample_type_id => nil }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'

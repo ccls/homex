@@ -43,6 +43,7 @@ protected
 	def valid_id_required
 		if !params[:id].blank? and Sample.exists?(params[:id])
 			@sample = Sample.find(params[:id])
+			@subject = @sample.subject
 		else
 			access_denied("Valid sample id required!", 
 				subjects_path)

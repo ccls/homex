@@ -213,7 +213,7 @@ end
 
 Factory.define :sample do |f|
 	f.association :subject
-	f.association :unit
+#	f.association :unit
 	f.association :sample_type
 end
 

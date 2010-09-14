@@ -25,7 +25,7 @@
 </tr>
 <% @subject.samples.each do |sample| %>
 	<tr><td>&nbsp;</td>
-		<td><%= sample.id -%></td>
+		<td><%= link_to sample.id, sample_path(sample) -%></td>
 		<td><%= sample.sample_type.code -%></td>
 		<td><%= sample.sent_to_subject_on -%></td>
 		<td>Insert Tracking No Here</td>
