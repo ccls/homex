@@ -94,3 +94,9 @@ div.pagination {
 	/* and this seems to alleviate the need for floating */
 	display:table-cell;
 }
+
+
+
+th {
+	text-align: left;
+}

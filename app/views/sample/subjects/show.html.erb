@@ -28,8 +28,8 @@
 		<td><%= link_to sample.id, sample_path(sample) -%></td>
 		<td><%= sample.sample_type.code -%></td>
 		<td><%=mdy sample.sent_to_subject_on -%></td>
-		<td>Insert Tracking No Here</td>
-		<td>Insert Tracking No Here</td>
+		<td><%= sample.kit_tracking_number %></td>
+		<td><%= sample.sample_tracking_number %></td>
 	</tr>
 <% end %>
 <tr>

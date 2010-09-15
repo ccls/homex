@@ -24,9 +24,14 @@
   <th>received</th>
 </tr>
 <tr><th>collection kit</th>
+<td><%= @sample.kit_tracking_number %></td>
+<td><%=mdy @sample.kit_sent_on %></td>
+<td><%=mdy @sample.kit_received_on %></td>
 
 </tr>
 <tr><th>sample</th>
-
+<td><%= @sample.sample_tracking_number %></td>
+<td><%=mdy @sample.sample_sent_on %></td>
+<td><%=mdy @sample.sample_received_on %></td>
 </tr>
 </tbody></table>
