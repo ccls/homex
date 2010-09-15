@@ -11,7 +11,7 @@
 <%= render 'form', :f => f %>
 <% end %>
 
-<% if current_user.may_destroy? %>
+<% if current_user.may_destroy_phone_numbers? %>
 <div class='dev_only'><span>Development only:</span>
 <%= (@phone_number.new_record?)? "&nbsp" : 
 destroy_link_to( "Destroy", phone_number_path(@phone_number) )

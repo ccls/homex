@@ -1,7 +1,13 @@
 class HomeExposureResponsesController < ApplicationController
 
-#	before_filter :may_view_responses_required
-	before_filter :may_view_required
+	before_filter :may_create_home_exposure_responses_required, 
+		:only => [:new,:create]
+	before_filter :may_read_home_exposure_responses_required, 
+		:only => [:show,:index]
+	before_filter :may_update_home_exposure_responses_required, 
+		:only => [:edit,:update]
+	before_filter :may_destroy_home_exposure_responses_required,
+		:only => :destroy
 
 	before_filter :valid_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]

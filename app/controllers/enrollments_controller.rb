@@ -1,6 +1,13 @@
 class EnrollmentsController < ApplicationController
 
-	before_filter :may_view_required
+	before_filter :may_create_enrollments_required, 
+		:only => [:new,:create]
+	before_filter :may_read_enrollments_required, 
+		:only => [:show,:index]
+	before_filter :may_update_enrollments_required, 
+		:only => [:edit,:update]
+	before_filter :may_destroy_enrollments_required,
+		:only => :destroy
 
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]

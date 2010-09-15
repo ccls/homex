@@ -1,7 +1,13 @@
 class HomePagePicsController < ApplicationController
 
-#	before_filter :may_edit_home_page_pics_required
-	before_filter :may_edit_required
+	before_filter :may_create_home_page_pics_required, 
+		:only => [:new,:create]
+	before_filter :may_read_home_page_pics_required, 
+		:only => [:show,:index]
+	before_filter :may_update_home_page_pics_required, 
+		:only => [:edit,:update,:activate]
+	before_filter :may_destroy_home_page_pics_required,
+		:only => :destroy
 
 	before_filter :valid_id_required, 
 		:except => [:index,:activate,:new,:create]

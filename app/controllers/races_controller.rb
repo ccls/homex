@@ -1,7 +1,13 @@
 class RacesController < ApplicationController
 
-#	before_filter :may_maintain_races_required
-	before_filter :may_administrate_required
+	before_filter :may_create_races_required, 
+		:only => [:new,:create]
+	before_filter :may_read_races_required, 
+		:only => [:show,:index]
+	before_filter :may_update_races_required, 
+		:only => [:edit,:update]
+	before_filter :may_destroy_races_required,
+		:only => :destroy
 
 	before_filter :valid_id_required, :only => [:show,:edit,:update,:destroy]
 

@@ -10,29 +10,79 @@ class User < ActiveRecord::Base
 
 	ucb_authenticated
 
-	#	['superuser','administrator']
-	alias_method :may_destroy?,          :may_administrate?
-#	alias_method :may_view_samples?,     :may_administrate?
-#	alias_method :may_view_sample_kits?, :may_administrate?
-#	alias_method :may_maintain_races?,   :may_administrate?
-#	alias_method :may_create_survey_invitations?, :may_administrate?
-	alias_method :may_take_surveys?,              :may_administrate?
+#	defined in plugin/engine ...
+#
+#	def may_administrate?(*args)
+#		(self.role_names & ['superuser','administrator']).length > 0
+#	end
+#
+#	def may_read?(*args)
+#		(self.role_names & 
+#			['superuser','administrator','editor','interviewer','reader']
+#		).length > 0
+#	end
+#
+#	def may_edit?(*args)
+#		(self.role_names & 
+#			['superuser','administrator','editor']
+#		).length > 0
+#	end
 
-	#	['superuser','administrator','editor']
-	alias_method :may_edit_subjects?,       :may_edit?
-	alias_method :may_edit_addresses?,      :may_edit?
-	alias_method :may_edit_phone_numbers?,  :may_edit?
-	alias_method :may_edit_enrollments?,    :may_edit?
-	alias_method :may_edit_patient?,        :may_edit?
-#	alias_method :may_edit_home_page_pics?, :may_edit?
+	alias_method :may_create?,  :may_edit?
+	alias_method :may_update?,  :may_edit?
+	alias_method :may_destroy?, :may_edit?
 
-#	#	['superuser','administrator','editor','reader']
-#	alias_method :may_view_calendar?,       :may_read?
-#	alias_method :may_view_dust_kits?,      :may_read?
-#	alias_method :may_view_home_exposures?, :may_read?		#	<----
-#	alias_method :may_view_packages?,       :may_read?
-#	alias_method :may_view_projects?,       :may_read?
-#	alias_method :may_view_responses?,      :may_read?
-#	alias_method :may_view_subjects?,       :may_read?
+#	alias_method :may_take_surveys?, :may_administrate?
+
+	%w(	interviews
+			people
+			races
+			response_sets
+			samples
+			sample_kits
+			).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_read_#{resource}?".to_sym,    :may_administrate?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_administrate?
+		alias_method "may_update_#{resource}?".to_sym,  :may_administrate?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_administrate?
+	end
+
+	%w(	contacts
+			guides
+			home_page_pics
+			patients
+			).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_edit?
+		alias_method "may_read_#{resource}?".to_sym,    :may_edit?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_edit?
+		alias_method "may_update_#{resource}?".to_sym,  :may_edit?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_edit?
+	end
+
+	%w(	addressings
+			addresses
+			home_exposures
+			phone_numbers
+			).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_create?
+		alias_method "may_read_#{resource}?".to_sym,    :may_read?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_edit?
+		alias_method "may_update_#{resource}?".to_sym,  :may_update?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_destroy?
+	end
+
+	%w(	enrollments
+			home_exposure_responses
+			packages
+			projects
+			subjects
+			).each do |resource|
+		alias_method "may_create_#{resource}?".to_sym,  :may_read?
+		alias_method "may_read_#{resource}?".to_sym,    :may_read?
+		alias_method "may_edit_#{resource}?".to_sym,    :may_read?
+		alias_method "may_update_#{resource}?".to_sym,  :may_read?
+		alias_method "may_destroy_#{resource}?".to_sym, :may_read?
+	end
 
 end

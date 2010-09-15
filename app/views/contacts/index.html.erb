@@ -11,8 +11,8 @@
 <%= render :partial => 'addressing', 
 	:collection => @subject.addressings.current,
 	:locals => { :details => true,
-		:edit => current_user.may_edit_addresses? } %>
-<% if current_user.may_edit_addresses? %>
+		:edit => current_user.may_edit_addressings? } %>
+<% if current_user.may_edit_addressings? %>
 <p id='new_address' class='new'>
 <%= link_to 'add new address ...', new_subject_addressing_path(@subject) %>
 </p>

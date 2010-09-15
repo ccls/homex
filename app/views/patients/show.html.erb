@@ -3,7 +3,7 @@
 
 <% content_for :id_bar do %>
 <%= link_to 'Edit', edit_subject_patient_path(@subject) %>
-<% end if current_user.may_edit_patient? %>
+<% end if current_user.may_edit_patients? %>
 <% render 'subjects/id_bar' %>
 
 <div id='patient'>

@@ -1,7 +1,13 @@
 class ResponseSetsController < ApplicationController
 
-#	before_filter :may_take_surveys_required
-	before_filter :may_administrate_required
+	before_filter :may_create_response_sets_required, 
+		:only => [:new,:create]
+	before_filter :may_read_response_sets_required, 
+		:only => [:show,:index]
+	before_filter :may_update_response_sets_required, 
+		:only => [:edit,:update]
+	before_filter :may_destroy_response_sets_required,
+		:only => :destroy
 
 	before_filter :valid_survey_required,     :only => :create
 	before_filter :valid_subject_id_required, :only => :create
