@@ -29,7 +29,7 @@ class SamplesController < ApplicationController
 
 	def update
 		@sample.update_attributes!(params[:sample])
-		redirect_to subjects_path
+		redirect_to sample_subject_path(@subject)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Sample update failed."
 		render :action => 'edit'
@@ -41,7 +41,7 @@ class SamplesController < ApplicationController
 
 	def destroy
 		@sample.destroy
-		redirect_to subjects_path
+		redirect_to sample_subjects_path
 	end
 
 protected

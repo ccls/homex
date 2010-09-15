@@ -1,0 +1,7 @@
+.field_wrapper {
+	clear:left;
+}
+.field_wrapper label {
+	float:left;
+	width: 150px;
+}

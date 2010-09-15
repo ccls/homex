@@ -35,9 +35,9 @@ class InterviewsController < ApplicationController
 		render :action => 'edit'
 	end
 
-	def index
-		@interviews = @subject.identifier.interviews
-	end
+#	def index
+#		@interviews = @subject.identifier.interviews
+#	end
 
 	def destroy
 		@interview.destroy
