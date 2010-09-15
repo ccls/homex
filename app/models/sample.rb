@@ -18,4 +18,8 @@ class Sample < ActiveRecord::Base
 	validates_presence_of :sample_type_id, :sample_type
 	validates_presence_of :subject_id, :subject
 
+	def sample_type_parent
+		sample_type.parent
+	end
+
 end

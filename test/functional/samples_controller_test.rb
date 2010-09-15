@@ -12,8 +12,8 @@ class SamplesControllerTest < ActionController::TestCase
 		# No attributes from Factory yet
 		Factory.attributes_for(:sample,{
 			:updated_at => Time.now,
-			:sample_type_id => SampleType.not_roots.first,	
-#Factory(:sample_type).id,
+#			:sample_type_id => SampleType.not_roots.first,	
+			:sample_type_id => Factory(:sample_type).id,
 			:unit_id => Factory(:unit).id }.merge(options))
 	end
 	def factory_create(options={})
