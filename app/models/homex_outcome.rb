@@ -24,8 +24,4 @@ class HomexOutcome < ActiveRecord::Base
 	validates_presence_of :interview_outcome_on,
 		:if => :interview_outcome_id?
 
-	def to_s
-		description
-	end
-
 end
