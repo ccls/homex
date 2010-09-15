@@ -29,6 +29,12 @@ class SampleTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return description as to_s" do
+		object = create_object(:description => "Description")
+		assert_equal object.description,
+			"#{object}"
+	end
+
 protected
 
 	def create_object(options = {})
