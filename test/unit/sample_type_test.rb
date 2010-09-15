@@ -6,6 +6,7 @@ class SampleTypeTest < ActiveSupport::TestCase
 #	assert_should_have_many(:sample_subtypes)
 	assert_should_have_many(:samples)
 	assert_should_belong_to(:parent, 
+#	assert_should_initially_belong_to(:parent, 
 		:class_name => 'SampleType')
 	assert_should_have_many(:children, 
 		:class_name => 'SampleType',
@@ -15,7 +16,7 @@ class SampleTypeTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code,:description)
 
 	test "should create sample_type" do
-		assert_difference 'SampleType.count' do
+		assert_difference('SampleType.count', 1) do	
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -38,7 +39,11 @@ class SampleTypeTest < ActiveSupport::TestCase
 protected
 
 	def create_object(options = {})
-		record = Factory.build(:sample_type,options)
+#		record = Factory.build(:sample_type,options)
+#	The normal sample_type factory creates a parent 
+#	which seems to cause some testing issues unless
+#	this was expected so ....
+		record = Factory.build(:sample_type_parent,options)
 		record.save
 		record
 	end
