@@ -19,6 +19,23 @@ class SampleTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require that kit and sample tracking " <<
+		"numbers are different" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(:sample_kit_attributes => {
+				:kit_package_attributes => {
+					:tracking_number => 'bogus_tracking_number'
+				},
+				:sample_package_attributes => {
+					:tracking_number => 'bogus_tracking_number'
+				}
+			})
+			assert object.errors.on(:base)
+			assert_match(/Tracking numbers MUST be different/,
+				object.errors.on(:base) )
+		end
+	end
+
 	test "should default order_no to 1" do
 		object = create_object
 		assert_equal 1, object.order_no

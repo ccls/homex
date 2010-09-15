@@ -54,4 +54,12 @@ class Sample < ActiveRecord::Base
 		try(:sample_kit).try(:sample_package).try(:received_on)
 	end
 
+	validate :tracking_numbers_are_different
+
+	def tracking_numbers_are_different
+		errors.add(:base, "Tracking numbers MUST be different.") if
+			( kit_tracking_number == sample_tracking_number ) &&
+			( !kit_tracking_number.nil? || !sample_tracking_number.nil? )
+	end
+
 end
