@@ -24,7 +24,8 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_nil flash[:error]
 	end
 
-	test "should NOT create invitation without subject with #{cu} login" do
+	test "should NOT create invitation with #{cu} login" <<
+		" without subject" do
 		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
@@ -33,7 +34,8 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		} } }
 	end
 
-	test "should NOT create invitation without valid subject id with #{cu} login" do
+	test "should NOT create invitation with #{cu} login" <<
+		" without valid subject id" do
 		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
@@ -43,7 +45,8 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create invitation without survey with #{cu} login" do
+	test "should NOT create invitation with #{cu} login" <<
+		" without survey" do
 		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
@@ -53,7 +56,8 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT create invitation without valid survey id with #{cu} login" do
+	test "should NOT create invitation with #{cu} login" <<
+		" without valid survey id" do
 		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {
@@ -105,8 +109,23 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_nil flash[:error]
 	end
 
-	test "should NOT create invitation when save fails with #{cu} login" do
-		SurveyInvitation.any_instance.stubs(:save).returns(false)
+	test "should NOT create invitation with #{cu} login" <<
+		" when save fails" do
+		SurveyInvitation.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		assert_difference('ActionMailer::Base.deliveries.length',0) {
+		assert_difference('SurveyInvitation.count',0) {
+			post :create, :subject_id => @subject.id, 
+				:access_code => @survey.access_code
+		} }
+		assert_redirected_to assigns(:subject)
+		assert_not_nil flash[:error]
+		assert_nil flash[:notice]
+	end
+
+	test "should NOT create invitation with #{cu} login" <<
+		" when invalid" do
+		SurveyInvitation.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('ActionMailer::Base.deliveries.length',0) {
 		assert_difference('SurveyInvitation.count',0) {

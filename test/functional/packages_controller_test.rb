@@ -43,7 +43,8 @@ class PackagesControllerTest < ActionController::TestCase
 
 %w( superuser admin editor interviewer reader ).each do |cu|
 
-	test "delivered packages should NOT have update status link with #{cu} login" do
+	test "delivered packages should NOT have update status link " <<
+		"with #{cu} login" do
 		factory_create(:status => "Delivered")
 		login_as send(cu)
 		get :index
@@ -52,7 +53,8 @@ class PackagesControllerTest < ActionController::TestCase
 		end
 	end
 
-	test "undelivered packages should have update status link with #{cu} login" do
+	test "undelivered packages should have update status link " <<
+		"with #{cu} login" do
 		factory_create
 		login_as send(cu)
 		get :index
@@ -71,8 +73,22 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
-	test "should NOT create with invalid package with #{cu} login" do
+	test "should NOT create package with #{cu} login" <<
+		"and invalid package" do
 		login_as send(cu)
+		Package.any_instance.stubs(:valid?).returns(false)
+		assert_difference('Package.count',0) do
+			post :create, :package => {}
+		end
+		assert_not_nil assigns(:package)
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create package with #{cu} login" <<
+		"and package create fails" do
+		login_as send(cu)
+		Package.any_instance.stubs(:create_or_update).returns(false)
 		assert_difference('Package.count',0) do
 			post :create, :package => {}
 		end
@@ -91,7 +107,8 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
-	test "should update and redirect to referer if set with #{cu} login" do
+	test "should update and redirect to referer if set " <<
+		"with #{cu} login" do
 		stub_package_for_successful_delivery	#	remove external dependency
 		login_as send(cu)
 		package = factory_create

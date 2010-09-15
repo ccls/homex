@@ -166,9 +166,22 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT post create with save failure with #{cu} login" do
+	test "should NOT create with #{cu} login" <<
+		"with save failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
+		assert_difference('SampleKit.count',0) {
+			post :create, :sample_id => @sample.id,
+				:sample_kit => factory_attributes
+		}
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create with #{cu} login" <<
+		"with invalid kit" do
+		login_as send(cu)
+		SampleKit.any_instance.stubs(:valid?).returns(false)
 		assert_difference('SampleKit.count',0) {
 			post :create, :sample_id => @sample.id,
 				:sample_kit => factory_attributes
@@ -188,9 +201,20 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT put update with save failure with #{cu} login" do
+	test "should NOT put update with #{cu} login" <<
+		"with save failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
+		put :update, :id => @sample_kit.id,
+			:sample_kit => factory_attributes
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT put update with #{cu} login" <<
+		"with invalid kit" do
+		login_as send(cu)
+		SampleKit.any_instance.stubs(:valid?).returns(false)
 		put :update, :id => @sample_kit.id,
 			:sample_kit => factory_attributes
 		assert_response :success

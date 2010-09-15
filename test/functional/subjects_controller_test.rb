@@ -107,6 +107,33 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_redirected_to subject_path(assigns(:subject))
 	end
 
+	test "should NOT create with #{cu} login" <<
+		" with invalid subject" do
+		login_as send(cu)
+		Subject.any_instance.stubs(:valid?).returns(false)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, :subject => {}
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT create with #{cu} login" <<
+		" when save fails" do
+		login_as send(cu)
+		Subject.any_instance.stubs(:create_or_update).returns(false)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			post :create, :subject => {}
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
 
 
 	test "should NOT create without subject_type_id with #{cu} login" do
@@ -168,6 +195,38 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
+
+	test "should NOT update with #{cu} login" <<
+		" and invalid" do
+		subject = factory_create
+		Subject.any_instance.stubs(:valid?).returns(false)
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => {}
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT update with #{cu} login" <<
+		" and save fails" do
+		subject = factory_create
+		Subject.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		assert_difference('Subject.count',0){
+		assert_difference('SubjectType.count',0){
+		assert_difference('Race.count',0){
+			put :update, :id => subject.id,
+				:subject => {}
+		} } }
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
 
 	test "should NOT update without subject_type_id with #{cu} login" do
 		subject = factory_create

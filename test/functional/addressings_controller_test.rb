@@ -4,8 +4,7 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Addressing',
-#		:actions => [:edit,:update],	#no attributes yet, so no update
-		:actions => [:edit],
+		:actions => [:edit,:update],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -150,15 +149,13 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT create new addressing with #{cu} login " <<
 			"and invalid addressing" do
+		Addressing.any_instance.stubs(:valid?).returns(false)
 		subject = Factory(:subject)
 		login_as send(cu)
 		assert_difference('Addressing.count',0) {
 		assert_difference('Address.count',0) {
 			post :create, :subject_id => subject.id,
-				:addressing => factory_attributes(
-					:is_verified  => true,
-					:how_verified => nil
-				)
+				:addressing => factory_attributes
 		} }
 		assert assigns(:subject)
 		assert_response :success
@@ -168,6 +165,8 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT create new addressing with #{cu} login " <<
 			"and invalid address" do
+#		Address.any_instance.stubs(:valid?).returns(false)
+		Address.any_instance.stubs(:create_or_update).returns(false)
 		subject = Factory(:subject)
 		login_as send(cu)
 		assert_difference('Addressing.count',0) {
@@ -297,12 +296,10 @@ class AddressingsControllerTest < ActionController::TestCase
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid addressing" do
 		addressing = factory_create
+		Addressing.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :id => addressing.id,
-			:addressing => factory_attributes(
-				:is_verified  => true,
-				:how_verified => nil
-			)
+			:addressing => factory_attributes
 		assert assigns(:addressing)
 		assert_response :success
 		assert_template 'edit'
@@ -312,6 +309,8 @@ class AddressingsControllerTest < ActionController::TestCase
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid address" do
 		addressing = factory_create
+#		Address.any_instance.stubs(:valid?).returns(false)
+		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		put :update, :id => addressing.id,
 			:addressing => factory_attributes(address_attributes(

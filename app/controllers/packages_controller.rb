@@ -27,6 +27,7 @@ class PackagesController < ApplicationController
 		@package.update_status
 		flash[:notice] = 'Package was successfully created.'
 		redirect_to(packages_path)
+#	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 	rescue ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the package"
 		render :action => "new"

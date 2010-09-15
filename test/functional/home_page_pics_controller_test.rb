@@ -40,7 +40,9 @@ class HomePagePicsControllerTest < ActionController::TestCase
 
 %w( superuser admin editor ).each do |cu|
 
-	test "should NOT create home_page_pic without valid HPP with #{cu} login" do
+	test "should NOT create home_page_pic without valid HPP " <<
+		"with #{cu} login" do
+		HomePagePic.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('HomePagePic.count',0) do
 			post :create, :home_page_pic => { }
@@ -50,12 +52,37 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update home_page_pic when update fails with #{cu} login" do
+	test "should NOT create home_page_pic when create fails " <<
+		"with #{cu} login" do
+		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		assert_difference('HomePagePic.count',0) do
+			post :create, :home_page_pic => { }
+		end
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT update home_page_pic without valid HPP " <<
+		"with #{cu} login" do
+		hpp = Factory(:home_page_pic)
+		HomePagePic.any_instance.stubs(:valid?).returns(false)
+		login_as send(cu)
+		put :update, :id => hpp.id,
+			:home_page_pic => factory_attributes
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT update home_page_pic when update fails " <<
+		"with #{cu} login" do
 		hpp = Factory(:home_page_pic)
 		HomePagePic.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		put :update, :id => hpp.id,
-			:home_page_pic => Factory.attributes_for(:home_page_pic)
+			:home_page_pic => factory_attributes
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
@@ -88,7 +115,8 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		assert_redirected_to home_page_pics_path
 	end
 
-	test "should NOT activate all when save fails with #{cu} login" do
+	test "should NOT activate all when save fails " <<
+		"with #{cu} login" do
 		login_as send(cu)
 		hpp1 = Factory(:home_page_pic, :active => false)
 		hpp2 = Factory(:home_page_pic, :active => false)

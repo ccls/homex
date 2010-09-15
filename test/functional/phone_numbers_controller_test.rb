@@ -160,10 +160,11 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 	test "should NOT create new phone_number with #{cu} login " <<
 			"and invalid phone_number" do
 		subject = Factory(:subject)
+		PhoneNumber.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('PhoneNumber.count',0) do
 			post :create, :subject_id => subject.id,
-				:phone_number => { }
+				:phone_number => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -269,9 +270,10 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 	test "should NOT update phone_number with #{cu} login " <<
 			"and invalid phone_number" do
 		phone_number = factory_create
+		PhoneNumber.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :id => phone_number.id,
-			:phone_number => { :phone_number => nil }
+			:phone_number => factory_attributes
 		assert assigns(:phone_number)
 		assert_response :success
 		assert_template 'edit'

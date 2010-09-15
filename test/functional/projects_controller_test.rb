@@ -113,8 +113,9 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT create with invalid project with #{cu} login" do
 		login_as send(cu)
+		Project.any_instance.stubs(:valid?).returns(false)
 		assert_difference('Project.count',0) do
-			post :create, :project => {}
+			post :create, :project => factory_attributes
 		end
 		assert_not_nil assigns(:project)
 		assert_not_nil flash[:error]
@@ -124,9 +125,10 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT update with invalid project with #{cu} login" do
 		project = factory_create
+		Project.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :id => project.id, 
-			:project => {:description => nil}
+			:project => factory_attributes
 		assert_not_nil assigns(:project)
 		assert_not_nil flash[:error]
 		assert_response :success

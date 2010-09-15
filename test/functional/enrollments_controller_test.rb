@@ -32,7 +32,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'index'
-#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get enrollments without subject_id and #{cu} login" do
@@ -42,7 +41,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT get enrollments with invalid subject_id and #{cu} login" do
+	test "should NOT get enrollments with invalid subject_id " <<
+		"and #{cu} login" do
 		login_as send(cu)
 		get :index, :subject_id => 0
 		assert_not_nil flash[:error]
@@ -55,10 +55,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		get :new, :subject_id => subject.id
 		assert assigns(:subject)
 		assert assigns(:projects)
-#		assert assigns(:enrollment)
 		assert_response :success
 		assert_template 'new'
-#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT get new enrollment without subject_id and #{cu} login" do
@@ -68,7 +66,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT get new enrollment with invalid subject_id and #{cu} login" do
+	test "should NOT get new enrollment with invalid subject_id " <<
+		"and #{cu} login" do
 		login_as send(cu)
 		get :new, :subject_id => 0
 		assert_not_nil flash[:error]
@@ -83,29 +82,24 @@ class EnrollmentsControllerTest < ActionController::TestCase
 			post :create, :subject_id => subject.id,
 				:enrollment => Factory.attributes_for(:enrollment,
 					:project_id => Factory(:project).id )
-#				:enrollment => { :project_id => Factory(:project).id }
-#				:project_id => Factory(:project).id
-#				:enrollment => factory_attributes
 		} }
 		assert assigns(:subject)
-#		assert_redirected_to subject_enrollments_path(subject)
 		assert_redirected_to edit_enrollment_path(assigns(:enrollment))
 	end
 
-	test "should NOT create enrollment without subject_id and #{cu} login" do
+	test "should NOT create enrollment without subject_id " <<
+		"and #{cu} login" do
 		login_as send(cu)
 		assert_raise(ActionController::RoutingError){
-#			post :create, :enrollment => factory_attributes
-#			post :create, :project_id => Factory(:project).id
 			post :create, :enrollment => { 
 				:project_id => Factory(:project).id }
 		}
 	end
 
-	test "should NOT create enrollment with invalid subject_id and #{cu} login" do
+	test "should NOT create enrollment with invalid subject_id " <<
+		"and #{cu} login" do
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
-#			post :create, :subject_id => 0, 
 			post :create, :subject_id => 0, :enrollment => {
 				:project_id => Factory(:project).id }
 		end
@@ -113,25 +107,25 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT create enrollment with #{cu} login when create fails" do
+	test "should NOT create enrollment with #{cu} login " <<
+		"when create fails" do
 		subject = Factory(:subject)
 		Enrollment.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
 			post :create, :subject_id => subject.id, :enrollment => {
 				:project_id => Factory(:project).id }
-#				:project_id => Factory(:project).id
-#				:enrollment => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'new'
-#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT create enrollment with #{cu} login and invalid enrollment" do
+	test "should NOT create enrollment with #{cu} login and " <<
+		"invalid enrollment" do
 		e = factory_create
+#		Enrollment.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
 			post :create, :subject_id => e.subject.id,
@@ -141,7 +135,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment).errors.on(:project_id)
 		assert_response :success
 		assert_template 'new'
-#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 
@@ -153,7 +146,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment)
 		assert_response :success
 		assert_template 'edit'
-#		assert_layout 'home_exposure'
 	end
 
 	test "should NOT edit enrollment with invalid id and #{cu} login" do
@@ -174,7 +166,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 	test "should update enrollment with #{cu} login" do
 		enrollment = factory_create
 		login_as send(cu)
-		put :update, :subject_id => enrollment.subject.id, :id => enrollment.id,
+		put :update, :subject_id => enrollment.subject.id, 
+			:id => enrollment.id,
 			:enrollment => factory_attributes
 		assert assigns(:enrollment)
 		assert_redirected_to subject_enrollments_path(enrollment.subject)
@@ -183,7 +176,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 	test "should NOT update enrollment with invalid id and #{cu} login" do
 		enrollment = factory_create
 		login_as send(cu)
-		put :update, :subject_id => enrollment.subject.id, :id => 0,
+		put :update, :subject_id => enrollment.subject.id, 
+			:id => 0,
 			:enrollment => factory_attributes
 		assert_redirected_to subjects_path
 	end
@@ -197,7 +191,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		}
 	end
 
-	test "should NOT update enrollment with #{cu} login when update fails" do
+	test "should NOT update enrollment with #{cu} login " <<
+		"when update fails" do
 		enrollment = factory_create
 		before = enrollment.updated_at
 		sleep 1	# if updated too quickly, updated_at won't change
@@ -213,9 +208,11 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_not_nil flash[:error]
 	end
 
-	test "should NOT update enrollment with #{cu} login and invalid enrollment" do
+	test "should NOT update enrollment with #{cu} login " <<
+		"and invalid enrollment" do
 		enrollment = factory_create
 		e = factory_create(:subject_id => enrollment.subject.id)
+#		Enrollment.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :id => enrollment.id,
 			:enrollment => factory_attributes(
@@ -223,7 +220,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:enrollment).errors.on(:project_id)
 		assert_response :success
 		assert_template 'edit'
-#		assert_layout 'home_exposure'
 		assert_not_nil flash[:error]
 	end
 

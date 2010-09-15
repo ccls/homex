@@ -13,6 +13,7 @@ Factory.define :addressing do |f|
 	f.association :subject
 	f.is_valid    1
 	f.is_verified 2
+	f.updated_at Time.now	#	to make it dirty
 end
 
 Factory.define :address_type do |f|

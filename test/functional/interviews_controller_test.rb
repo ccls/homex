@@ -42,6 +42,62 @@ class InterviewsControllerTest < ActionController::TestCase
 
 %w( superuser admin ).each do |cu|
 
+#	test "should NOT create new interview with #{cu} login when create fails" do
+#		Interview.any_instance.stubs(:create_or_update).returns(false)
+#		login_as send(cu)
+#		assert_difference('Interview.count',0) do
+#			post :create, :interview => factory_attributes
+#		end
+#		assert assigns(:interview)
+#		assert_response :success
+#		assert_template 'new'
+#		assert_not_nil flash[:error]
+#	end
+#
+#	test "should NOT create new interview with #{cu} login and invalid interview" do
+#		Interview.any_instance.stubs(:valid?).returns(false)
+#		login_as send(cu)
+#		assert_difference('Interview.count',0) do
+#			post :create, :interview => factory_attributes
+#		end
+#		assert assigns(:interview)
+#		assert_response :success
+#		assert_template 'new'
+#		assert_not_nil flash[:error]
+#	end
+
+	test "should NOT update interview with #{cu} login " <<
+		"when update fails" do
+		interview = factory_create
+		before = interview.updated_at
+		sleep 1	# if updated too quickly, updated_at won't change
+		Interview.any_instance.stubs(:create_or_update).returns(false)
+		login_as send(cu)
+		put :update, :id => interview.id,
+			:interview => factory_attributes
+		after = interview.reload.updated_at
+		assert_equal before.to_i,after.to_i
+		assert assigns(:interview)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
+
+	test "should NOT update interview with #{cu} login " <<
+		"and invalid interview" do
+		interview = factory_create
+		Interview.any_instance.stubs(:valid?).returns(false)
+		login_as send(cu)
+		put :update, :id => interview.id,
+			:interview => factory_attributes
+		assert assigns(:interview)
+		assert_response :success
+		assert_template 'edit'
+		assert_not_nil flash[:error]
+	end
+
+
+
 #		test "should get interview index with #{cu} login" do
 #			login_as send(cu)
 #	#		subject = Factory(:subject)

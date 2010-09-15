@@ -52,9 +52,10 @@ class RacesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create new race with #{cu} login and invalid race" do
+		Race.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('Race.count',0) do
-			post :create, :race => { }
+			post :create, :race => factory_attributes
 		end
 		assert assigns(:race)
 		assert_response :success
@@ -80,9 +81,10 @@ class RacesControllerTest < ActionController::TestCase
 
 	test "should NOT update race with #{cu} login and invalid race" do
 		race = factory_create
+		Race.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :id => race.id,
-			:race => { :code => nil }
+			:race => factory_attributes
 		assert assigns(:race)
 		assert_response :success
 		assert_template 'edit'

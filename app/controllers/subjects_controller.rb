@@ -44,7 +44,7 @@ class SubjectsController < ApplicationController
 		@subject.save!
 		flash[:notice] = 'Subject was successfully created.'
 		redirect_to(subject_path(@subject))
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "There was a problem creating the subject"
 		render :action => "new"
 	end
@@ -56,7 +56,7 @@ class SubjectsController < ApplicationController
 		@subject.update_attributes!(params[:subject])
 		flash[:notice] = 'Subject was successfully updated.'
 		redirect_to(subject_path(@subject))
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "There was a problem updating the subject."
 		render :action => "edit"
 	end

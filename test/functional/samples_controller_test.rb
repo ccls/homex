@@ -73,23 +73,53 @@ class SamplesControllerTest < ActionController::TestCase
 		assert_redirected_to sample_path(assigns(:sample))
 	end
 
-	test "should NOT create with invalid sample and #{cu} login" do
+	test "should NOT create with #{cu} login" <<
+		"and invalid sample" do
 		login_as send(cu)
+		Sample.any_instance.stubs(:valid?).returns(false)
 		subject = Factory(:subject)
 		assert_difference('Sample.count',0) do
 			post :create, :subject_id => subject.id,
-				:sample => {}
+				:sample => factory_attributes
 		end
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'new'
 	end
 
-	test "should NOT update with invalid sample and #{cu} login" do
+	test "should NOT update with #{cu} login" <<
+		"and invalid sample" do
 		login_as send(cu)
 		sample = factory_create
+		Sample.any_instance.stubs(:valid?).returns(false)
 		put :update, :id => sample.id,
-			:sample => { :sample_type_id => nil }
+			:sample => factory_attributes
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'edit'
+	end
+
+	test "should NOT create with #{cu} login" <<
+		"and save failure" do
+		login_as send(cu)
+		Sample.any_instance.stubs(:create_or_update).returns(false)
+		subject = Factory(:subject)
+		assert_difference('Sample.count',0) do
+			post :create, :subject_id => subject.id,
+				:sample => factory_attributes
+		end
+		assert_not_nil flash[:error]
+		assert_response :success
+		assert_template 'new'
+	end
+
+	test "should NOT update with #{cu} login" <<
+		"and save failure" do
+		login_as send(cu)
+		sample = factory_create
+		Sample.any_instance.stubs(:create_or_update).returns(false)
+		put :update, :id => sample.id,
+			:sample => factory_attributes
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'

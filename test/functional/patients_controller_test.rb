@@ -160,11 +160,11 @@ class PatientsControllerTest < ActionController::TestCase
 	test "should NOT create new patient with #{cu} " <<
 			"login and invalid patient" do
 		subject = Factory(:case_subject)
+		Patient.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('Patient.count',0) do
 			post :create, :subject_id => subject.id,
-				:patient => factory_attributes(
-					:diagnosis_date_string => 'bogus invalid date string' )
+				:patient => factory_attributes
 		end
 		assert assigns(:subject)
 		assert_response :success
@@ -246,10 +246,10 @@ class PatientsControllerTest < ActionController::TestCase
 	test "should NOT update patient with #{cu} " <<
 			"login and invalid patient" do
 		patient = factory_create
+		Patient.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		put :update, :subject_id => patient.subject.id,
-			:patient => factory_attributes(
-				:diagnosis_date_string => 'bogus invalid date string' )
+			:patient => factory_attributes
 		assert assigns(:patient)
 		assert_response :success
 		assert_template 'edit'

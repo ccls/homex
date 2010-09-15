@@ -30,7 +30,7 @@ class InterviewsController < ApplicationController
 	def update
 		@interview.update_attributes!(params[:interview])
 		redirect_to subjects_path
-	rescue ActiveRecord::RecordInvalid
+	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Interview update failed."
 		render :action => 'edit'
 	end
