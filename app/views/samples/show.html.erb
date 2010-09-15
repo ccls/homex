@@ -1,0 +1,32 @@
+<% stylesheets('sample') %>
+
+<% content_for :id_bar do %>
+<%= link_to "edit", edit_sample_path(@sample) %>
+<% end if current_user.may_edit_subjects? %>
+<% render 'subjects/id_bar' %>
+
+<%= wrapped_spans :sample, :id,
+	:label_text => 'Sample ID:' %>
+
+<%= wrapped_spans :sample, :sample_type_parent,
+	:label_text => 'sample type:' %>
+
+<%= wrapped_spans :sample, :sample_type,
+	:label_text => 'sample subtype:' %>
+
+<p id='shipping'>Shipping Information</p>
+
+<table><tbody>
+<tr>
+  <th>&nbsp;</th>
+  <th>tracking no.</th>
+  <th>sent</th>
+  <th>received</th>
+</tr>
+<tr><th>collection kit</th>
+
+</tr>
+<tr><th>sample</th>
+
+</tr>
+</tbody></table>

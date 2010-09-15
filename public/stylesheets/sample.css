@@ -1,0 +1,9 @@
+.field_wrapper.sample_type_parent, 
+.field_wrapper.id {
+	float:left;
+	margin-right:100px;
+}
+
+#shipping {
+	border-bottom: 1px solid silver;
+}

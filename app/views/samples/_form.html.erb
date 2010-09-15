@@ -4,6 +4,9 @@
 
 <%= f.error_messages %>
 
-<%= f.wrapped_collection_select :sample_type_id, SampleType.all, 
-	:id, :description, :include_blank => true,
-	:label_text => 'SampleType' %>
+<%= f.wrapped_select :sample_type_id, 
+	option_groups_from_collection_for_select(
+		SampleType.roots, :children, :to_s, :id, :to_s,
+		@sample.sample_type_id
+) %>
+
