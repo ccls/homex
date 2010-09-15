@@ -21,8 +21,9 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require consented_on be in the past" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
-				:consented_on => nil,
-				:consented_on_string => 'tomorrow')
+				:consented_on => Chronic.parse('tomorrow'))
+#				:consented_on => nil,
+#				:consented_on_string => 'tomorrow')
 			assert object.errors.on(:consented_on)
 			assert_match(/future/,
 				object.errors.on(:consented_on))
@@ -32,8 +33,9 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require completed_on be in the past" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
+				:completed_on => Chronic.parse('tomorrow'))
 #				:completed_on => nil,
-				:completed_on_string => 'tomorrow')
+#				:completed_on_string => 'tomorrow')
 			#	I don't quite understand why this doesn't
 			#	do what I expect.  I think that setting both
 			#	at the same time is part of the problem.

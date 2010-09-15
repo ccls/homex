@@ -99,8 +99,7 @@ class PiiTest < ActiveSupport::TestCase
 		#	but Date.parse will. ???
 		assert_difference( 'Pii.count', 1 ) do
 			object = create_object(
-				:dob => nil, 
-				:dob_string =>  "January 1, 2001")
+				:dob => Chronic.parse("January 1 2001"))
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		end
