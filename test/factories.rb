@@ -231,6 +231,10 @@ end
 Factory.define :sample_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
+	f.association :parent, :factory => :sample_type_parent
+end
+Factory.define :sample_type_parent, :parent => :sample_type do |f|
+	f.parent nil
 end
 
 Factory.define :phone_number do |f|
