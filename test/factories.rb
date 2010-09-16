@@ -143,6 +143,14 @@ Factory.define :interview_type do |f|
 	f.association :project
 end
 
+Factory.define :instrument do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+	f.name 'Instrument Name'
+	f.sequence(:description) { |n| "Desc#{n}" }
+#	f.association :interview_type
+#	f.association :language
+end
+
 Factory.define :instrument_version do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
