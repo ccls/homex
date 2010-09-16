@@ -56,7 +56,7 @@ module ApplicationHelper
 			when 1   then 'Yes'
 			when 2   then 'No'
 			when 999 then "Don't Know"
-			else '&nbsp'
+			else '&nbsp;'
 		end
 	end
 

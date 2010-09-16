@@ -59,6 +59,10 @@ class Enrollment < ActiveRecord::Base
 		terminated_participation == 1
 	end
 
+	def is_complete?
+		is_complete == 1
+	end
+
 protected
 
 	def completed_on_is_valid

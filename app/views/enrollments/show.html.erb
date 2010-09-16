@@ -61,7 +61,8 @@
 						<%= wrapped_spans :enrollment, :terminated_reason,
 							:label_text => 'reason:' %>
 					<%# else %>
-						<%= wrapped_yes_or_no_spans :enrollment, :is_complete,
+						<%= wrapped_spans :enrollment, :is_complete,
+							:value => y_n_dk(@enrollment.is_complete),
 							:label_text => 'completed?' %>
 						<%# if @enrollment.is_complete? %>
 

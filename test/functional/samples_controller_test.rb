@@ -73,7 +73,7 @@ class SamplesControllerTest < ActionController::TestCase
 		assert_redirected_to sample_path(assigns(:sample))
 	end
 
-	test "should NOT create with #{cu} login" <<
+	test "should NOT create with #{cu} login " <<
 		"and invalid sample" do
 		login_as send(cu)
 		Sample.any_instance.stubs(:valid?).returns(false)
@@ -87,7 +87,7 @@ class SamplesControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update with #{cu} login" <<
+	test "should NOT update with #{cu} login " <<
 		"and invalid sample" do
 		login_as send(cu)
 		sample = factory_create
@@ -99,7 +99,7 @@ class SamplesControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT create with #{cu} login" <<
+	test "should NOT create with #{cu} login " <<
 		"and save failure" do
 		login_as send(cu)
 		Sample.any_instance.stubs(:create_or_update).returns(false)
@@ -113,7 +113,7 @@ class SamplesControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT update with #{cu} login" <<
+	test "should NOT update with #{cu} login " <<
 		"and save failure" do
 		login_as send(cu)
 		sample = factory_create
