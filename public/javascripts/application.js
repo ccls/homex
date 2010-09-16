@@ -10,6 +10,8 @@ jQuery(function(){
 
 	jQuery('p.flash').click(function(){$(this).remove();});
 
+	jQuery('.datepicker').datepicker();
+
 });
 
 var submit_form = function() {

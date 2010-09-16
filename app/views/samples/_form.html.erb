@@ -1,4 +1,4 @@
-<% stylesheets(:edit_sample) %>
+<% stylesheets('edit_sample','base/jquery.ui.all.css') %>
 <% render 'subjects/submenu', :subject => @subject %>
 <% render 'subjects/id_bar',  :subject => @subject %>
 
@@ -10,14 +10,19 @@
 ) %>
 
 <%= f.wrapped_text_field :sent_to_subject_on_string,
+	:class => 'datepicker',
 	:label_text => 'Sent to Subject on:' %>
 <%= f.wrapped_text_field :received_by_ccls_on_string,
+	:class => 'datepicker',
 	:label_text => 'Received by CCLS on:' %>
 <%= f.wrapped_text_field :sent_to_lab_on_string,
+	:class => 'datepicker',
 	:label_text => 'Sent to Lab on:' %>
 <%= f.wrapped_text_field :received_by_lab_on_string,
+	:class => 'datepicker',
 	:label_text => 'Received by Lab on:' %>
 <%= f.wrapped_text_field :aliquotted_on_string,
+	:class => 'datepicker',
 	:label_text => 'Aliquotted on:' %>
 
 <p>Sample Kit:</p>

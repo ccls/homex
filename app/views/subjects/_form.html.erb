@@ -1,4 +1,4 @@
-<% stylesheets('edit_subject') %>
+<% stylesheets('edit_subject', 'base/jquery.ui.all.css') %>
 <% render 'subjects/id_bar' %>
 
 <%= f.error_messages %>
@@ -34,11 +34,9 @@
 	<%= pii_fields.wrapped_text_field :state_id_no %>
 	<%= pii_fields.wrapped_text_field :email %>
 
-	<%= pii_fields.label :dob, "DOB" %>
-	(<%= link_to 'Chronic', 
-		'http://chronic.rubyforge.org',
-		:target => 'new' %> parsed field)<br />
+	<%= pii_fields.label :dob, "DOB" %><br/>
 	<%= pii_fields.text_field :dob_string,
+		:class => 'datepicker',
 		:value => @subject.dob.try(:to_s,:dob) %><br/>
 
 <% end %>
@@ -65,16 +63,14 @@
 		InterviewOutcome.all, :id, :to_s, :include_blank => true %>
 
 	<%= hof.wrapped_text_field :interview_outcome_on_string,
-		:label_text => "Interview Outcome On:" <<
-			"(#{link_to('Chronic','http://chronic.rubyforge.org',
-			:target => 'new')} parsed field)"  %>
+		:class => 'datepicker',
+		:label_text => "Interview Outcome On:" %>
 
 	<%= hof.wrapped_collection_select :sample_outcome_id,
 		SampleOutcome.all, :id, :to_s, :include_blank => true %>
 
 	<%= hof.wrapped_text_field :sample_outcome_on_string,
-		:label_text => "Sample Outcome On:" <<
-			"(#{link_to('Chronic','http://chronic.rubyforge.org',
-			:target => 'new')} parsed field)"  %>
+		:class => 'datepicker',
+		:label_text => "Sample Outcome On:" %>
 
 <% end %>
