@@ -2,22 +2,33 @@
 module ApplicationHelper
 
 	def home_exposure_main_menu
-		s = "<div id='mainmenu'>\n"
 		controller_name = controller.controller_name
 		names = controller.class.name.split('::')
+		current = case controller.class.name.sub(/Controller$/,'')
+			when *%w( Addressings
+					Contacts
+					Enrollments
+					Patients
+					PhoneNumbers
+					Subjects
+				) then :subjects
+			when *%w( Interview::Subjects 
+				) then  :interview
+			when *%w( Samples Sample::Subjects
+				) then :sample
+			when *%w( Followup::Subjects 
+				) then :followup
+		end
 
-		#	TODO : subjects is always current with namespace changes
-
+		s = "<div id='mainmenu'>\n"
 		l = [link_to( "Subjects", subjects_path,
-			:class => (%w(subjects addresses enrollments).include?(controller_name)  && names.length < 2 )?'current':nil)]
-		#	2 is the namespace depth
-
+			:class => ((current == :subjects)?'current':nil))]
 		l.push(link_to( "Interview", interview_subjects_path,  
-			:class => (names.include?('Interview'))?'current':nil))
+			:class => ((current == :interview)?'current':nil)))
 		l.push(link_to( "Samples", sample_subjects_path,
-			:class => (names.include?('Sample'))?'current':nil))
+			:class => ((current == :sample)?'current':nil)))
 		l.push(link_to( "Follow-Up", followup_subjects_path,
-			:class => (names.include?('Followup'))?'current':nil))
+			:class => ((current == :followup)?'current':nil)))
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
 	end
