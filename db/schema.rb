@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916195449) do
+ActiveRecord::Schema.define(:version => 20100916210654) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(:version => 20100916195449) do
     t.string   "reason_not_chosen"
     t.integer  "terminated_participation"
     t.string   "terminated_reason"
-    t.boolean  "is_complete"
+    t.integer  "is_complete"
     t.date     "completed_on"
     t.boolean  "is_closed"
     t.string   "reason_closed"
