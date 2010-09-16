@@ -14,7 +14,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT require 3 char tracking_number" do
-		assert_no_difference 'Package.count' do
+		assert_difference 'Package.count' do
 			package = create_package(:tracking_number => 'Hi')
 			assert !package.errors.on(:tracking_number)
 		end
