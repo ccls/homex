@@ -1,4 +1,7 @@
 class Instrument < ActiveRecord::Base
+	acts_as_list
+	default_scope :order => :position
+
 	belongs_to :project
 	belongs_to :interview_method
 

@@ -3,10 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class InstrumentTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
-#	assert_should_have_many(:interviews)
 	assert_should_belong_to(:interview_method)
 	assert_should_initially_belong_to(:project)
-#	assert_requires_valid_associations(:interview_type)
 	assert_should_require(:code,:name)
 	assert_should_require_unique(:code,:description)
 
@@ -18,12 +16,12 @@ class InstrumentTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require 4 char description" do
-#		assert_no_difference 'Instrument.count' do
-#			object = create_object(:description => 'Hey')
-#			assert object.errors.on(:description)
-#		end
-#	end
+	test "should require 4 char description" do
+		assert_no_difference 'Instrument.count' do
+			object = create_object(:description => 'Hey')
+			assert object.errors.on(:description)
+		end
+	end
 
 protected
 
@@ -32,6 +30,5 @@ protected
 		record.save
 		record
 	end
-
 
 end
