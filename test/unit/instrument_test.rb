@@ -4,8 +4,8 @@ class InstrumentTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 #	assert_should_have_many(:interviews)
-#	assert_should_belong_to(:language)
-#	assert_should_initially_belong_to(:interview_type)
+	assert_should_belong_to(:interview_method)
+	assert_should_initially_belong_to(:project)
 #	assert_requires_valid_associations(:interview_type)
 	assert_should_require(:code,:name)
 	assert_should_require_unique(:code,:description)

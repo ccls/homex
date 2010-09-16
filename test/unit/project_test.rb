@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProjectTest < ActiveSupport::TestCase
 
 	assert_should_have_many(
-		:operational_event_types,:interview_types,:enrollments)
+		:operational_event_types,:interview_types,:enrollments,
+		:instruments)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 	assert_should_habtm(:samples)

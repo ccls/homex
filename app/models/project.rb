@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
 	has_many :interview_types
 	has_many :enrollments
 	has_many :subjects, :through => :enrollments
+	has_many :instruments
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
