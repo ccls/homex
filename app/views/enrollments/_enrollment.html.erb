@@ -4,13 +4,13 @@
 	enrollment_path(enrollment) %>
 </td>
 <td class='candidate'>
-<%= (enrollment.is_candidate?)?'yes':'no' %>
+<%=y_n_dk enrollment.is_candidate %>
 </td>
 <td class='locate'>
-<%= (enrollment.able_to_locate?)?'yes':'no' %>
+<%=y_n_dk enrollment.able_to_locate %>
 </td>
 <td class='eligible'>
-<%= (enrollment.is_eligible?)?'yes':'no' %>
+<%=y_n_dk enrollment.is_eligible %>
 </td>
 <td class='consented'>
 <%=mdy enrollment.consented_on %>

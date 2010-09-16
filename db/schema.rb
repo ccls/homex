@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916192916) do
+ActiveRecord::Schema.define(:version => 20100916195449) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -254,18 +254,18 @@ ActiveRecord::Schema.define(:version => 20100916192916) do
     t.integer  "subject_id"
     t.integer  "project_id"
     t.string   "recruitment_priority"
-    t.boolean  "able_to_locate"
-    t.boolean  "is_candidate"
-    t.boolean  "is_eligible"
+    t.integer  "able_to_locate"
+    t.integer  "is_candidate"
+    t.integer  "is_eligible"
     t.integer  "ineligible_reason_id"
     t.string   "ineligible_reason_specify"
-    t.boolean  "consented"
+    t.integer  "consented"
     t.date     "consented_on"
     t.integer  "refusal_reason_id"
     t.string   "other_refusal_reason"
-    t.boolean  "is_chosen"
+    t.integer  "is_chosen"
     t.string   "reason_not_chosen"
-    t.boolean  "terminated_participation"
+    t.integer  "terminated_participation"
     t.string   "terminated_reason"
     t.boolean  "is_complete"
     t.date     "completed_on"

@@ -11,13 +11,17 @@
 <p>Study name: <%= @enrollment.project.code.titleize -%></p>
 
 
-<%= wrapped_yes_or_no_spans :enrollment, :is_candidate,
-	:label_text => 'is candidate?' %>
+<%= wrapped_spans :enrollment, :is_candidate,
+	:value => y_n_dk(@enrollment.is_candidate),
+	:label_text => 'is_candidate?' %>
+
 <%# if @enrollment.is_candidate? %>
-	<%= wrapped_yes_or_no_spans :enrollment, :able_to_locate,
+	<%= wrapped_spans :enrollment, :able_to_locate,
+		:value => y_n_dk(@enrollment.able_to_locate),
 		:label_text => 'able to locate?' %>
 	<%# if @enrollment.able_to_locate? %>
-		<%= wrapped_yes_or_no_spans :enrollment, :is_eligible,
+		<%= wrapped_spans :enrollment, :is_eligible,
+			:value => y_n_dk(@enrollment.is_eligible),
 			:label_text => 'is eligible?' %>
 		<%# unless @enrollment.is_eligible? %>
 			<%= wrapped_spans :enrollment, :ineligible_reason,
@@ -25,19 +29,20 @@
 			<%= wrapped_spans :enrollment, :ineligible_reason_specify,
 				:label_text => 'specify:' %>
 		<%# else %>
-			<%= wrapped_yes_or_no_spans :enrollment, :is_chosen,
+			<%= wrapped_spans :enrollment, :is_chosen,
+				:value => y_n_dk(@enrollment.is_chosen),
 				:label_text => 'chosen to participate?' %>
 			<%# unless @enrollment.is_chosen? %>
 				<%= wrapped_spans :enrollment, :reason_not_chosen,
 					:label_text => 'reason not chosen:' %>
 			<%# else %>
-				<%= wrapped_yes_or_no_spans :enrollment, :consented,
+				<%= wrapped_spans :enrollment, :consented,
+					:value => y_n_dk(@enrollment.consented),
 					:label_text => 'consented?' %>
 
-<div class='consented_on field_wrapper'>
-<span class='label'>date:</span>
-<span class='value'><%=mdy @enrollment.consented_on %></span>
-</div><!-- class='consented_on' -->
+				<%= wrapped_spans :enrollment, :consented_on,
+					:value => mdy(@enrollment.consented_on),
+					:label_text => 'date:' %>
 
 				<%= wrapped_spans :enrollment, :document_version,
 					:label_text => 'version:' %>
@@ -48,8 +53,9 @@
 					<%= wrapped_spans :enrollment, :other_refusal_reason,
 						:label_text => 'specify:' %>
 				<%# else %>
-					<%= wrapped_yes_or_no_spans :enrollment, 
+					<%= wrapped_spans :enrollment, 
 						:terminated_participation,
+						:value => y_n_dk(@enrollment.terminated_participation),
 						:label_text => 'terminated participation?' %>
 					<%# unless @enrollment.terminated_participation? %>
 						<%= wrapped_spans :enrollment, :terminated_reason,
@@ -59,10 +65,9 @@
 							:label_text => 'completed?' %>
 						<%# if @enrollment.is_complete? %>
 
-<div class='completed_on field_wrapper'>
-<span class='label'>date:</span>
-<span class='value'><%=mdy @enrollment.completed_on %></span>
-</div><!-- class='completed_on' -->
+							<%= wrapped_spans :enrollment, :completed_on,
+								:value => mdy(@enrollment.completed_on),
+								:label_text => 'date:' %>
 
 						<%# end %><%# @enrollment.is_complete? %>
 					<%# end %><%# @enrollment.terminated_participation? %>

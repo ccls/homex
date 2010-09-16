@@ -51,4 +51,13 @@ module ApplicationHelper
 		( date.nil? )?'&nbsp;':date.strftime("%m/%d/%Y")
 	end
 
+	def y_n_dk(value)
+		case value
+			when 1   then 'Yes'
+			when 2   then 'No'
+			when 999 then "Don't Know"
+			else '&nbsp'
+		end
+	end
+
 end

@@ -22,8 +22,6 @@ class EnrollmentTest < ActiveSupport::TestCase
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
 				:consented_on => Chronic.parse('tomorrow'))
-#				:consented_on => nil,
-#				:consented_on_string => 'tomorrow')
 			assert object.errors.on(:consented_on)
 			assert_match(/future/,
 				object.errors.on(:consented_on))
@@ -34,19 +32,6 @@ class EnrollmentTest < ActiveSupport::TestCase
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
 				:completed_on => Chronic.parse('tomorrow'))
-#				:completed_on => nil,
-#				:completed_on_string => 'tomorrow')
-			#	I don't quite understand why this doesn't
-			#	do what I expect.  I think that setting both
-			#	at the same time is part of the problem.
-			#	completed_on_string gets set first, and then
-			#	completed_on gets set to nil, undoing it.
-			#		update_attribute (singular) does NOT
-			#		do validations
-			#	completed_on is not set in the factory
-			#	definition so leave it alone.
-#			object.update_attributes(:completed_on_string => 'tomorrow')
-
 			#	sometimes this fails during test:coverage?
 			assert object.errors.on(:completed_on)
 			assert_match(/future/,
@@ -54,9 +39,10 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require ineligible_reason if is_eligible == false" do
+
+	test "should require ineligible_reason if is_eligible == 2" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_eligible => false)
+			object = create_object(:is_eligible => 2)
 			assert object.errors.on(:ineligible_reason)
 		end
 	end
@@ -70,14 +56,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require reason_not_chosen if is_chosen == false" do
+	test "should require reason_not_chosen if is_chosen == 2" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_chosen => false)
+			object = create_object(:is_chosen => 2)
 			assert object.errors.on(:reason_not_chosen)
 		end
 	end
 
-	test "should require refusal_reason if consented == false" do
+	test "should require refusal_reason if consented == 2" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(:consented => false)
 			assert object.errors.on(:refusal_reason)
@@ -93,25 +79,25 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require consented_on if consented == true" do
+	test "should require consented_on if consented == 1" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:consented => true,
+			object = create_object(:consented => 1,
 				:consented_on => nil)
 			assert object.errors.on(:consented_on)
 		end
 	end
 
 	test "should require terminated_reason if " <<
-			"terminated_participation == true" do
+			"terminated_participation == 1" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:terminated_participation => true)
+			object = create_object(:terminated_participation => 1)
 			assert object.errors.on(:terminated_reason)
 		end
 	end
 
-	test "should require completed_on if is_complete == true" do
+	test "should require completed_on if is_complete == 1" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_complete => true)
+			object = create_object(:is_complete => 1)
 			assert object.errors.on(:completed_on)
 		end
 	end

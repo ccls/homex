@@ -43,6 +43,22 @@ class Enrollment < ActiveRecord::Base
 
 	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
+	def is_eligible?
+		is_eligible == 1
+	end
+
+	def is_chosen?
+		is_chosen == 1
+	end
+
+	def consented?
+		consented == 1
+	end
+
+	def terminated_participation?
+		terminated_participation == 1
+	end
+
 protected
 
 	def completed_on_is_valid

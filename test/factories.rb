@@ -82,12 +82,12 @@ end
 Factory.define :enrollment do |f|
 	f.association :subject
 	f.association :project
-	f.is_eligible true
-	f.is_chosen   true
-	f.consented   true
+	f.is_eligible 1	#true
+	f.is_chosen   1	#true
+	f.consented   1	#true
 	f.consented_on Chronic.parse('yesterday')
-	f.terminated_participation false
-	f.is_complete false
+	f.terminated_participation 2	#false
+	f.is_complete 2	#false
 end
 
 Factory.define :guide do |f|
