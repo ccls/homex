@@ -1,5 +1,9 @@
 require 'test/unit'	#	<-- needed but not added by rails generator
 require 'rubygems'
+
+#	NOT > 3
+gem 'activerecord', '~> 2.3.9'
+
 require 'active_support'
 require 'active_support/test_case'
 require 'active_record'

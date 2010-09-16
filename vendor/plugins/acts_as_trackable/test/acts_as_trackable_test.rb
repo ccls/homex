@@ -18,17 +18,17 @@ class ActsAsTrackableTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require tracking_number" do
-		assert_no_difference 'Book.count' do
+	test "should NOT require tracking_number" do
+		assert_difference 'Book.count' do
 			book = create_book(:tracking_number => nil)
-			assert book.errors.on(:tracking_number)
+			assert !book.errors.on(:tracking_number)
 		end
 	end
 
-	test "should require 3 char tracking_number" do
-		assert_no_difference 'Book.count' do
+	test "should NOT require 3 char tracking_number" do
+		assert_difference 'Book.count' do
 			book = create_book(:tracking_number => 'Hi')
-			assert book.errors.on(:tracking_number)
+			assert !book.errors.on(:tracking_number)
 		end
 	end
 
