@@ -1,0 +1,84 @@
+intro:
+  id: 1
+  position: 1
+  project_id:  4
+  code: intro
+  description: intro letter sent
+scheduled:
+  id: 2
+  position: 2
+  project_id:  4
+  code: scheduled
+  description: interview scheduled with respondent
+iv_complete:
+  id: 3
+  position: 3
+  project_id:  4
+  code: iv_complete
+  description: interview completed
+kit_sent:
+  id: 4
+  position: 4
+  project_id:  4
+  code: kit_sent
+  description: sample kit sent
+sample_received:
+  id: 5
+  position: 5
+  project_id:  5
+  code: sample_received
+  description: sample received by CCLS
+sample_to_lab:
+  id: 6
+  position: 
+  project_id:  6
+  code: sample_to_lab
+  description: sample sent to lab
+giftcard:
+  id: 7
+  position: 7
+  project_id:  4
+  code: giftcard
+  description: gift card issued
+thankyou:
+  id: 8
+  position: 8
+  project_id:  4
+  code: thank_you
+  description: thank you letter sent to respondent
+completed:
+  id: 9
+  position: 9
+  project_id:  4
+  code: complete
+  description: completed all study requirements
+other:
+  id: 10
+  position: 10
+  project_id:  4
+  code: other
+  description: other event - please specify
+sample_complete:
+  id: 11
+  position: 11
+  project_id:  4
+  code: sample_complete
+  description: sample collection completed
+subject_moved:
+  id: 12
+  position: 12
+  project_id:  4
+  code: subject_moved
+  description: subject moved
+reopened:
+  id: 13
+  position: 13
+  project_id:  4
+  code: reopened
+  description: completed flag set to false
+ineligible:
+  id: 14
+  position: 14
+  project_id: 1
+  code: ineligible
+  description: subject determined to be ineligible
