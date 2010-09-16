@@ -11,7 +11,7 @@
 
 <% @subject.build_pii if @subject.pii.nil? %>
 <% f.fields_for :pii do |pii_fields| %>
-	<%= pii_fields.hidden_field :id %>
+	<%#= pii_fields.hidden_field :id %>
 
 	<%= pii_fields.label :name %><br />
 	<%= pii_fields.text_field :first_name %>
@@ -59,7 +59,7 @@
 
 <% @subject.build_homex_outcome if @subject.homex_outcome.nil? %>
 <% f.fields_for :homex_outcome do |hof| %>
-	<%= hof.hidden_field :id %>
+	<%#= hof.hidden_field :id unless @subject.homex_outcome.id.nil? %>
 
 	<%= hof.wrapped_collection_select :interview_outcome_id,
 		InterviewOutcome.all, :id, :to_s, :include_blank => true %>
