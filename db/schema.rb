@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100914172231) do
+ActiveRecord::Schema.define(:version => 20100916181101) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -540,6 +540,21 @@ ActiveRecord::Schema.define(:version => 20100914172231) do
   add_index "ineligible_reasons", ["code"], :name => "index_ineligible_reasons_on_code", :unique => true
   add_index "ineligible_reasons", ["description"], :name => "index_ineligible_reasons_on_description", :unique => true
 
+  create_table "instrument_versions", :force => true do |t|
+    t.integer  "position"
+    t.integer  "interview_type_id"
+    t.integer  "language_id"
+    t.date     "began_use_on"
+    t.date     "ended_use_on"
+    t.string   "code",              :null => false
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "instrument_versions", ["code"], :name => "index_interview_versions_on_code", :unique => true
+  add_index "instrument_versions", ["description"], :name => "index_interview_versions_on_description", :unique => true
+
   create_table "interview_methods", :force => true do |t|
     t.integer  "position"
     t.string   "code",        :null => false
@@ -572,27 +587,12 @@ ActiveRecord::Schema.define(:version => 20100914172231) do
   add_index "interview_types", ["code"], :name => "index_interview_types_on_code", :unique => true
   add_index "interview_types", ["description"], :name => "index_interview_types_on_description", :unique => true
 
-  create_table "interview_versions", :force => true do |t|
-    t.integer  "position"
-    t.integer  "interview_type_id"
-    t.integer  "language_id"
-    t.date     "began_use_on"
-    t.date     "ended_use_on"
-    t.string   "code",              :null => false
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "interview_versions", ["code"], :name => "index_interview_versions_on_code", :unique => true
-  add_index "interview_versions", ["description"], :name => "index_interview_versions_on_description", :unique => true
-
   create_table "interviews", :force => true do |t|
     t.integer  "position"
     t.integer  "identifier_id"
     t.integer  "address_id"
     t.integer  "interviewer_id"
-    t.integer  "interview_version_id"
+    t.integer  "instrument_version_id"
     t.integer  "interview_method_id"
     t.integer  "language_id"
     t.date     "began_on"

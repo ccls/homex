@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewTest < ActiveSupport::TestCase
 
-	assert_should_belong_to(:address,:interview_version,
+	assert_should_belong_to(:address,:instrument_version,
 		:interview_method,:identifier,:language)
 	assert_should_belong_to(:interviewer, :class_name => 'Person')
 
@@ -28,10 +28,10 @@ class InterviewTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require interview_version_id" do
+	test "should NOT require instrument_version_id" do
 		assert_difference('Interview.count',1) do
-			object = create_object(:interview_version_id => nil)
-			assert !object.errors.on(:interview_version_id)
+			object = create_object(:instrument_version_id => nil)
+			assert !object.errors.on(:instrument_version_id)
 		end
 	end
 
@@ -71,10 +71,10 @@ class InterviewTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require valid interview_version_id" do
+	test "should NOT require valid instrument_version_id" do
 		assert_difference('Interview.count',1) do
-			object = create_object(:interview_version_id => 0)
-			assert !object.errors.on(:interview_version_id)
+			object = create_object(:instrument_version_id => 0)
+			assert !object.errors.on(:instrument_version_id)
 		end
 	end
 

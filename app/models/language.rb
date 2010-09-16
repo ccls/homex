@@ -6,7 +6,7 @@ class Language < ActiveRecord::Base
 	default_scope :order => :position
 
 	has_many :interviews
-	has_many :interview_versions
+	has_many :instrument_versions
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code

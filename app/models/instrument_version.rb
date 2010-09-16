@@ -2,7 +2,7 @@
 #	*	code ( unique )
 #	*	description ( unique and > 3 chars )
 #	*	interview_type_id
-class InterviewVersion < ActiveRecord::Base
+class InstrumentVersion < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
 

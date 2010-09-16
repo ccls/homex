@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class InterviewVersionTest < ActiveSupport::TestCase
+class InstrumentVersionTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
 	assert_should_have_many(:interviews)
@@ -11,7 +11,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code,:description)
 
 	test "should create interview_version" do
-		assert_difference 'InterviewVersion.count' do
+		assert_difference 'InstrumentVersion.count' do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -19,7 +19,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char description" do
-		assert_no_difference 'InterviewVersion.count' do
+		assert_no_difference 'InstrumentVersion.count' do
 			object = create_object(:description => 'Hey')
 			assert object.errors.on(:description)
 		end
@@ -28,7 +28,7 @@ class InterviewVersionTest < ActiveSupport::TestCase
 protected
 
 	def create_object(options = {})
-		record = Factory.build(:interview_version,options)
+		record = Factory.build(:instrument_version,options)
 		record.save
 		record
 	end

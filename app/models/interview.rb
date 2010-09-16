@@ -6,7 +6,7 @@ class Interview < ActiveRecord::Base
 	belongs_to :identifier
 	belongs_to :address
 	belongs_to :interviewer, :class_name => 'Person'
-	belongs_to :interview_version
+	belongs_to :instrument_version
 	belongs_to :interview_method
 	belongs_to :language
 

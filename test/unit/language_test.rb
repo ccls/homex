@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class LanguageTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
-	assert_should_have_many(:interviews,:interview_versions)
+	assert_should_have_many(:interviews,:instrument_versions)
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 

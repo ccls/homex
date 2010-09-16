@@ -6,7 +6,7 @@ class InterviewType < ActiveRecord::Base
 	default_scope :order => :position
 
 	belongs_to :project
-	has_many :interview_versions
+	has_many :instrument_versions
 
 	validates_presence_of :project_id, :project
 	validates_presence_of   :code
