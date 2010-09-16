@@ -73,7 +73,7 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_redirected_to packages_path
 	end
 
-	test "should NOT create package with #{cu} login" <<
+	test "should NOT create package with #{cu} login " <<
 		"and invalid package" do
 		login_as send(cu)
 		Package.any_instance.stubs(:valid?).returns(false)
@@ -85,7 +85,7 @@ class PackagesControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT create package with #{cu} login" <<
+	test "should NOT create package with #{cu} login " <<
 		"and package create fails" do
 		login_as send(cu)
 		Package.any_instance.stubs(:create_or_update).returns(false)

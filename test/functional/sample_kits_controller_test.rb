@@ -153,20 +153,22 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 #	save errors
 
-	test "should NOT post create with empty packages with #{cu} login" do
+#	test "should NOT post create with empty packages with #{cu} login" do
+	test "should post create with empty packages with #{cu} login" do
 		login_as send(cu)
-		assert_difference('SampleKit.count',0) {
+		assert_difference('SampleKit.count',1) {
 			post :create, :sample_id => @sample.id,
 				:sample_kit => {
 					:kit_package_attributes  => {},
 					:sample_package_attributes => {} 
 				}
 		}
-		assert_response :success
-		assert_template 'new'
+#		assert_response :success
+#		assert_template 'new'
+		assert_redirected_to subject_path(@sample.subject)
 	end
 
-	test "should NOT create with #{cu} login" <<
+	test "should NOT create with #{cu} login " <<
 		"with save failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
@@ -178,7 +180,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT create with #{cu} login" <<
+	test "should NOT create with #{cu} login " <<
 		"with invalid kit" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:valid?).returns(false)
@@ -190,18 +192,20 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT put update with empty packages with #{cu} login" do
+#	test "should NOT put update with empty packages with #{cu} login" do
+	test "should put update with empty packages with #{cu} login" do
 		login_as send(cu)
 		put :update, :id => @sample_kit.id,
 			:sample_kit => {
 				:kit_package_attributes  => {},
 				:sample_package_attributes => {} 
 			}
-		assert_response :success
-		assert_template 'edit'
+#		assert_response :success
+#		assert_template 'edit'
+		assert_redirected_to subject_path(@sample_kit.sample.subject)
 	end
 
-	test "should NOT put update with #{cu} login" <<
+	test "should NOT put update with #{cu} login " <<
 		"with save failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
@@ -211,7 +215,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT put update with #{cu} login" <<
+	test "should NOT put update with #{cu} login " <<
 		"with invalid kit" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:valid?).returns(false)
@@ -221,7 +225,8 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'edit'
 	end
 
-	test "should NOT delete destroy with destruction failure with #{cu} login" do
+	test "should NOT delete destroy with #{cu} login " <<
+		"with destruction failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:new_record?).returns(true)
 		assert_difference('SampleKit.count',0){
