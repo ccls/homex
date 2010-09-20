@@ -25,21 +25,21 @@ class AddressingTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is 1" do
+	test "should NOT require why_invalid if is_valid is :yes" do
 		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => 1)
+			object = create_object(:is_valid => YNDK[:yes])
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is 999" do
+	test "should NOT require why_invalid if is_valid is :dk" do
 		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => 999)
+			object = create_object(:is_valid => YNDK[:dk])
 		end
 	end
 
-	test "should require why_invalid if is_valid is 2" do
+	test "should require why_invalid if is_valid is :no" do
 		assert_difference 'Addressing.count', 0 do
-			object = create_object(:is_valid => 2)
+			object = create_object(:is_valid => YNDK[:no])
 			assert object.errors.on(:why_invalid)
 		end
 	end
@@ -110,9 +110,9 @@ class AddressingTest < ActiveSupport::TestCase
 
 
 	test "should only return current addressings" do
-		create_object(:current_address => 1)
-		create_object(:current_address => 2)
-		create_object(:current_address => 999)
+		create_object(:current_address => YNDK[:yes])
+		create_object(:current_address => YNDK[:no])
+		create_object(:current_address => YNDK[:dk])
 		objects = Addressing.current
 		objects.each do |object|
 			assert_equal 1, object.current_address
@@ -120,9 +120,9 @@ class AddressingTest < ActiveSupport::TestCase
 	end
 
 	test "should only return historic addressings" do
-		create_object(:current_address => 1)
-		create_object(:current_address => 2)
-		create_object(:current_address => 999)
+		create_object(:current_address => YNDK[:yes])
+		create_object(:current_address => YNDK[:no])
+		create_object(:current_address => YNDK[:dk])
 		objects = Addressing.historic
 		objects.each do |object|
 			assert_not_equal 1, object.current_address

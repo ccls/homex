@@ -41,9 +41,9 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 
 
-	test "should require ineligible_reason if is_eligible == 2" do
+	test "should require ineligible_reason if is_eligible == :no" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_eligible => 2)
+			object = create_object(:is_eligible => YNDK[:no])
 			assert object.errors.on(:ineligible_reason)
 		end
 	end
@@ -57,16 +57,16 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require reason_not_chosen if is_chosen == 2" do
+	test "should require reason_not_chosen if is_chosen == :no" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_chosen => 2)
+			object = create_object(:is_chosen => YNDK[:no])
 			assert object.errors.on(:reason_not_chosen)
 		end
 	end
 
-	test "should require refusal_reason if consented == 2" do
+	test "should require refusal_reason if consented == :no" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:consented => false)
+			object = create_object(:consented => YNDK[:no])
 			assert object.errors.on(:refusal_reason)
 		end
 	end
@@ -80,25 +80,25 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require consented_on if consented == 1" do
+	test "should require consented_on if consented == :yes" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:consented => 1,
+			object = create_object(:consented => YNDK[:yes],
 				:consented_on => nil)
 			assert object.errors.on(:consented_on)
 		end
 	end
 
 	test "should require terminated_reason if " <<
-			"terminated_participation == 1" do
+			"terminated_participation == :yes" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:terminated_participation => 1)
+			object = create_object(:terminated_participation => YNDK[:yes])
 			assert object.errors.on(:terminated_reason)
 		end
 	end
 
-	test "should require completed_on if is_complete == 1" do
+	test "should require completed_on if is_complete == :yes" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:is_complete => 1)
+			object = create_object(:is_complete => YNDK[:yes])
 			assert object.errors.on(:completed_on)
 		end
 	end

@@ -29,21 +29,21 @@ class PhoneNumberTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is 1" do
+	test "should NOT require why_invalid if is_valid is :yes" do
 		assert_difference 'PhoneNumber.count', 1 do
-			object = create_object(:is_valid => 1)
+			object = create_object(:is_valid => YNDK[:yes])
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is 999" do
+	test "should NOT require why_invalid if is_valid is :dk" do
 		assert_difference 'PhoneNumber.count', 1 do
-			object = create_object(:is_valid => 999)
+			object = create_object(:is_valid => YNDK[:dk])
 		end
 	end
 
-	test "should require why_invalid if is_valid is 2" do
+	test "should require why_invalid if is_valid is :no" do
 		assert_difference 'PhoneNumber.count', 0 do
-			object = create_object(:is_valid => 2)
+			object = create_object(:is_valid => YNDK[:no])
 			assert object.errors.on(:why_invalid)
 		end
 	end
