@@ -62,10 +62,18 @@ protected
 	def check_state_for_eligibilty
 		if( state != 'CA' && subject && subject.hx_enrollment &&
 			address_type == AddressType.find_by_code('residence') )
+
 			subject.hx_enrollment.update_attributes(
 				:is_eligible => YNDK[:no],
 				:ineligible_reason => IneligibleReason.find_by_code('moved')
 			)
+
+			subject.hx_enrollment.operational_events << OperationalEvent.create!(
+				:operational_event_type => OperationalEventType.find_by_code(
+					'ineligible'),
+				:occurred_on => Date.today
+			)
+
 		end
 	end
 

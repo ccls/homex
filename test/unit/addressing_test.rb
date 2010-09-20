@@ -137,6 +137,7 @@ class AddressingTest < ActiveSupport::TestCase
 			:is_eligible => YNDK[:yes] })
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('OperationalEvent.count',1) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			subject.addressings << Addressing.create(
@@ -145,7 +146,7 @@ class AddressingTest < ActiveSupport::TestCase
 						:state => 'AZ',
 						:address_type => AddressType.find_by_code('residence')
 			)	)	)
-		} }
+		} } }
 		assert_not_nil subject.hx_enrollment.ineligible_reason_id
 		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
 	end
@@ -156,6 +157,7 @@ class AddressingTest < ActiveSupport::TestCase
 			:is_eligible => YNDK[:yes] })
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			subject.addressings << Addressing.create(
@@ -164,7 +166,7 @@ class AddressingTest < ActiveSupport::TestCase
 						:state => 'AZ',
 						:address_type => AddressType.find_by_code('mailing')
 			)	)	)
-		} }
+		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
 	end
@@ -175,6 +177,7 @@ class AddressingTest < ActiveSupport::TestCase
 			:is_eligible => YNDK[:yes] })
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			subject.addressings << Addressing.create(
@@ -183,7 +186,7 @@ class AddressingTest < ActiveSupport::TestCase
 						:state => 'CA',
 						:address_type => AddressType.find_by_code('residence')
 			)	)	)
-		} }
+		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
 	end
