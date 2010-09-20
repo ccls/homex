@@ -103,6 +103,41 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+
+	test "should create operational event when enrollment complete" do
+		object = create_object(
+			:completed_on => nil,
+			:is_complete => YNDK[:no])
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:completed_on => past_date,
+				:is_complete => YNDK[:yes])
+		end
+		oe = OperationalEvent.last
+		assert_equal 'complete', oe.operational_event_type.code
+		assert_equal past_date,  oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
+	end
+
+	test "should create operational event when enrollment complete UNSET" do
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		object = nil
+		assert_difference('OperationalEvent.count',1) do
+			object = create_object(
+				:completed_on => past_date,
+				:is_complete => YNDK[:yes])
+		end
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:is_complete => YNDK[:no])
+		end
+		oe = OperationalEvent.last
+		assert_equal 'reopened', oe.operational_event_type.code
+		assert_equal Date.today, oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
+	end
+
 protected
 
 	def create_object(options = {})

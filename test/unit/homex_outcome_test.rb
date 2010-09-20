@@ -64,6 +64,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		oe = OperationalEvent.last
 		assert_equal 'scheduled', oe.operational_event_type.code
 		assert_equal past_date,   oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
 	end
 
 	test "should create operational event when interview completed" do
@@ -77,6 +78,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		oe = OperationalEvent.last
 		assert_equal 'iv_complete', oe.operational_event_type.code
 		assert_equal past_date,   oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
 	end
 
 	test "should create operational event when sample kit sent" do
@@ -90,6 +92,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		oe = OperationalEvent.last
 		assert_equal 'kit_sent', oe.operational_event_type.code
 		assert_equal past_date,  oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
 	end
 
 	test "should create operational event when sample received" do
@@ -103,6 +106,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		oe = OperationalEvent.last
 		assert_equal 'sample_received', oe.operational_event_type.code
 		assert_equal past_date,  oe.occurred_on
+		assert_equal object.subject_id, oe.enrollment.subject_id
 	end
 
 	test "should create operational event when sample complete" do
@@ -116,16 +120,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		oe = OperationalEvent.last
 		assert_equal 'sample_complete', oe.operational_event_type.code
 		assert_equal past_date,  oe.occurred_on
-	end
-
-	test "should create operational event when enrollment complete" do
-		object = create_object
-pending
-	end
-
-	test "should create operational event when enrollment complete UNSET" do
-		object = create_object
-pending
+		assert_equal object.subject_id, oe.enrollment.subject_id
 	end
 
 protected

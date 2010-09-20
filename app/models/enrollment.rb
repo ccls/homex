@@ -44,6 +44,9 @@ class Enrollment < ActiveRecord::Base
 
 	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
+	before_save :create_enrollment_update,
+		:if => :is_complete_changed?
+
 	def is_eligible?
 		is_eligible == 1
 	end
@@ -92,6 +95,22 @@ protected
 
 	def refusal_reason_is_other?
 		refusal_reason.try(:code) == 'other'
+	end
+
+	def create_enrollment_update
+		operational_event_type, occurred_on = if( is_complete == YNDK[:yes] )
+			[OperationalEventType.find_by_code('complete'), completed_on]
+		elsif( is_complete_was == YNDK[:yes] )
+			[OperationalEventType.find_by_code('reopened'), Date.today]
+		else 
+			[nil, nil]
+		end
+		unless operational_event_type.nil?
+			operational_events << OperationalEvent.create!(
+				:operational_event_type => operational_event_type,
+				:occurred_on => occurred_on
+			)
+		end
 	end
 
 end

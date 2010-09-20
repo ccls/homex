@@ -614,7 +614,7 @@ pending
 #	end
 
 	test "should include subjects with complete sample" do
-		s1 = create_subject
+		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
@@ -632,7 +632,7 @@ pending
 	end
 
 	test "should include subjects with incomplete sample" do
-		s1 = create_subject
+		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:sample_outcome_on => Date.today,
 			:sample_outcome_id => 
@@ -650,7 +650,7 @@ pending
 	end
 
 	test "should include subjects with complete interview" do
-		s1 = create_subject
+		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 
@@ -668,7 +668,7 @@ pending
 	end
 
 	test "should include subjects with incomplete interview" do
-		s1 = create_subject
+		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:interview_outcome_on => Date.today,
 			:interview_outcome_id => 

@@ -74,3 +74,11 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
+
+YNDK = {
+	:yes   => 1,
+	:true  => 1,
+	:no    => 2,
+	:false => 2,
+	:dk    => 999
+}.freeze

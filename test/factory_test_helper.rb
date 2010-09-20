@@ -102,12 +102,14 @@ module FactoryTestHelper
 		response_set
 	end
 
-	def create_home_exposure_with_subject
-		s = Factory(:subject)
+	def create_home_exposure_with_subject(options={})
+		s = Factory(:subject,options[:subject]||{})
 		p = Project.find_or_create_by_code('HomeExposures')
-		Factory(:enrollment, :subject => s, :project => p )
+		Factory(:enrollment, (options[:enrollment]||{}).merge(
+			:subject => s, :project => p ))
+		s
 	end
-
+	alias_method :create_hx_subject, :create_home_exposure_with_subject
 
 	def create_subject(options = {})
 		record = Factory.build(:subject,options)

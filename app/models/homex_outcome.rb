@@ -30,6 +30,8 @@ class HomexOutcome < ActiveRecord::Base
 	before_save :create_sample_outcome_update,
 		:if => :sample_outcome_id_changed?
 
+	class NoHomeExposureEnrollment < StandardError; end
+
 protected
 
 	def create_interview_outcome_update
@@ -41,6 +43,7 @@ protected
 			else nil
 		end
 		unless operational_event_type.nil?
+			raise NoHomeExposureEnrollment if subject.hx_enrollment.nil?
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
 				:operational_event_type => operational_event_type,
 				:occurred_on => interview_outcome_on
@@ -59,6 +62,7 @@ protected
 			else nil
 		end
 		unless operational_event_type.nil?
+			raise NoHomeExposureEnrollment if subject.hx_enrollment.nil?
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
 				:operational_event_type => operational_event_type,
 				:occurred_on => sample_outcome_on
