@@ -39,6 +39,8 @@ class Addressing < ActiveRecord::Base
 		:unless => :is_verified?,
 		:if => :is_verified_was
 
+	after_create :check_state_for_eligibilty
+
 	attr_accessor :current_user
 
 	def is_not_valid?
@@ -55,6 +57,15 @@ protected
 	def nullify_verifier
 		self.verified_on = nil
 		self.verified_by_id = nil
+	end
+
+	def check_state_for_eligibilty
+		if( state != 'CA' && subject && subject.hx_enrollment )
+			subject.hx_enrollment.update_attributes(
+				:is_eligible => YNDK[:no],
+				:ineligible_reason => IneligibleReason.find_by_code('moved')
+			)
+		end
 	end
 
 end

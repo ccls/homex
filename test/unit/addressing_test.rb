@@ -129,6 +129,45 @@ class AddressingTest < ActiveSupport::TestCase
 		end
 	end
 
+
+
+
+	test "should set is_eligible to false "<<
+			"on create if state NOT 'CA'" do
+		subject = create_hx_subject(:enrollment => {
+			:is_eligible => YNDK[:yes] })
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('Addressing.count',1) {
+		assert_difference('Address.count',1) {
+			subject.addressings << Addressing.create(
+				Factory.attributes_for(:addressing,
+					:address_attributes => Factory.attributes_for(:address,
+						:state => 'AZ',
+						:address_type => AddressType.first 
+			)	)	)
+		} }
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:no]
+	end
+
+	test "should set ineligible_reason to 'subject moved' "<<
+			"on create if state NOT 'CA'" do
+		subject = create_hx_subject(:enrollment => {
+			:is_eligible => YNDK[:yes] })
+		assert_nil   subject.hx_enrollment.ineligible_reason_id
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('Addressing.count',1) {
+		assert_difference('Address.count',1) {
+			subject.addressings << Addressing.create(
+				Factory.attributes_for(:addressing,
+					:address_attributes => Factory.attributes_for(:address,
+						:state => 'AZ',
+						:address_type => AddressType.first 
+			)	)	)
+		} }
+		assert_not_nil subject.hx_enrollment.ineligible_reason_id
+		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
+	end
+
 protected
 
 	def create_object(options={})
