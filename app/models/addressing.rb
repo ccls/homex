@@ -71,7 +71,8 @@ protected
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
 				:operational_event_type => OperationalEventType.find_by_code(
 					'ineligible'),
-				:occurred_on => Date.today
+				:occurred_on => Date.today,
+				:description => IneligibleReason.find_by_code('moved').to_s
 			)
 
 		end
