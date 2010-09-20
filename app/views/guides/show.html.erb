@@ -8,10 +8,10 @@
   <%=h @guide.action %>
 </p>
 
-<p>
+<div>
   <b>Body:</b>
-  <%=h @guide.body %>
-</p>
+  <%=sanitize(textilize(@guide.body)) %>
+</div>
 
 
 <%= link_to 'Edit', edit_guide_path(@guide) %> |

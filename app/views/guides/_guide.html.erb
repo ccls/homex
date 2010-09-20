@@ -1,5 +1,4 @@
 <% content_tag_for( :tr, guide, :class => 'row' ) do %>
-<td><table><tbody><tr>
 <td class='controller'>
 <%= guide.controller -%>
 </td>
@@ -13,5 +12,4 @@
 	:confirm => "Delete '#{guide.controller}/#{guide.action}'?\nAre you sure?", 
 	:method => :delete -%>
 </td>
-</tr></tbody></table></td>
 <% end %><!-- class='guide' -->

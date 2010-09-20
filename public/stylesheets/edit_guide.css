@@ -1,0 +1,10 @@
+.field_wrapper label {
+	display:block;
+	margin-top:10px;
+}
+.edit_guide textarea {
+	width: 100%;
+}
+.edit_guide input[type=text] {
+	width: 99%;
+}

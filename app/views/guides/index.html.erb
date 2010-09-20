@@ -1,7 +1,10 @@
 <% stylesheets('guides') %>
 
 <% unless @guides.empty? %>
-<table id='guides'><tbody>
+<table id='guides'><thead><tr>
+<th>Controller</th>
+<th>Action</th>
+</tr></thead><tbody>
 <%= render :partial => 'guide', :collection => @guides %>
 </tbody></table><!-- id='guides' -->
 <% else %>
