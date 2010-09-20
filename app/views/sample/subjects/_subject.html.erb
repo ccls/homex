@@ -1,5 +1,7 @@
 <% content_tag_for( :tr, subject, :class => 'row' ) do %>
-<td class='childid'><%= link_to subject.childid, sample_subject_path(subject) -%></td>
+<td class='childid'>
+<%= link_to subject.childid, sample_subject_path(subject) -%>
+</td>
 <td class='studyid'>
 <%= subject.studyid %>
 </td>
@@ -13,7 +15,7 @@
 dust outcome
 </td>
 <td class='interview_completion_date'>
-inteview completion date
+interview completion date
 </td>
 
 
