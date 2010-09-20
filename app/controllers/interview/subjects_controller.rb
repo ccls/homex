@@ -16,7 +16,7 @@ class Interview::SubjectsController < ApplicationController
 		:only => :show
 
 	def index
-		remember_or_recall_sort_order
+		record_or_recall_sort_order
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end

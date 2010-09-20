@@ -29,7 +29,7 @@ class Sample::SubjectsController < ApplicationController
 protected
 
 	def get_subjects
-		remember_or_recall_sort_order
+		record_or_recall_sort_order
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
