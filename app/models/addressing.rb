@@ -60,7 +60,8 @@ protected
 	end
 
 	def check_state_for_eligibilty
-		if( state != 'CA' && subject && subject.hx_enrollment )
+		if( state != 'CA' && subject && subject.hx_enrollment &&
+			address_type == AddressType.find_by_code('residence') )
 			subject.hx_enrollment.update_attributes(
 				:is_eligible => YNDK[:no],
 				:ineligible_reason => IneligibleReason.find_by_code('moved')
