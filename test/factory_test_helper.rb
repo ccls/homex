@@ -103,13 +103,27 @@ module FactoryTestHelper
 	end
 
 	def create_home_exposure_with_subject(options={})
-		s = Factory(:subject,options[:subject]||{})
-		p = Project.find_or_create_by_code('HomeExposures')
+		subject    = Factory(:subject,options[:subject]||{})
+#		identifier = Factory(:identifier, :subject => subject)
+		project = Project.find_or_create_by_code('HomeExposures')
 		Factory(:enrollment, (options[:enrollment]||{}).merge(
-			:subject => s, :project => p ))
-		s
+			:subject => subject, :project => project ))
+		subject
 	end
 	alias_method :create_hx_subject, :create_home_exposure_with_subject
+
+	def create_hx_interview_subject(options={})
+		subject = create_hx_subject
+		identifier = Factory(:identifier, :subject => subject)
+		interview_type = Factory(:interview_type, 
+			:project => Project.find_or_create_by_code('HomeExposures'))
+		instrument_version = Factory(:instrument_version, 
+			:interview_type => interview_type)
+		interview = Factory(:interview, 
+			:identifier => identifier,
+			:instrument_version => instrument_version)
+		subject
+	end
 
 	def create_subject(options = {})
 		record = Factory.build(:subject,options)

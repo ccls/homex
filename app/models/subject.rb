@@ -82,7 +82,7 @@ class Subject < ActiveRecord::Base
 #				"interview_types.id = instrument_versions.interview_type_id",
 #				"JOIN projects ON projects.id = interview_types.project_id",
 #			]
-		)
+		) unless identifier.nil?
 	end
 
 	def response_sets_the_same?

@@ -37,7 +37,7 @@ protected
 
 	def valid_hx_interview_required
 		@interview = @subject.hx_interview
-		unless @interview.nil?
+		if @interview.nil?
 			access_denied("Valid hx interview required!", 
 				interview_subjects_path)
 		end
