@@ -49,7 +49,21 @@ protected
 	end
 
 	def create_sample_outcome_update
-puts "create_sample_outcome_update"
+		operational_event_type = case sample_outcome 
+			when SampleOutcome.find_by_code('sent')
+				OperationalEventType.find_by_code('kit_sent')
+			when SampleOutcome.find_by_code('received')
+				OperationalEventType.find_by_code('sample_received')
+			when SampleOutcome.find_by_code('complete')
+				OperationalEventType.find_by_code('sample_complete')
+			else nil
+		end
+		unless operational_event_type.nil?
+			subject.hx_enrollment.operational_events << OperationalEvent.create!(
+				:operational_event_type => operational_event_type,
+				:occurred_on => sample_outcome_on
+			)
+		end
 	end
 
 end

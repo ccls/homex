@@ -80,18 +80,42 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 	end
 
 	test "should create operational event when sample kit sent" do
-		object = create_object
-pending
+		object = create_complete_object
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:sample_outcome_on => past_date,
+				:sample_outcome => SampleOutcome.find_by_code('sent'))
+		end
+		oe = OperationalEvent.last
+		assert_equal 'kit_sent', oe.operational_event_type.code
+		assert_equal past_date,  oe.occurred_on
 	end
 
 	test "should create operational event when sample received" do
-		object = create_object
-pending
+		object = create_complete_object
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:sample_outcome_on => past_date,
+				:sample_outcome => SampleOutcome.find_by_code('received'))
+		end
+		oe = OperationalEvent.last
+		assert_equal 'sample_received', oe.operational_event_type.code
+		assert_equal past_date,  oe.occurred_on
 	end
 
 	test "should create operational event when sample complete" do
-		object = create_object
-pending
+		object = create_complete_object
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:sample_outcome_on => past_date,
+				:sample_outcome => SampleOutcome.find_by_code('complete'))
+		end
+		oe = OperationalEvent.last
+		assert_equal 'sample_complete', oe.operational_event_type.code
+		assert_equal past_date,  oe.occurred_on
 	end
 
 	test "should create operational event when enrollment complete" do
