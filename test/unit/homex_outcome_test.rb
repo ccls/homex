@@ -53,12 +53,74 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create operational event when interview scheduled" do
+		object = create_complete_object
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:interview_outcome_on => past_date,
+				:interview_outcome => InterviewOutcome.find_by_code('scheduled'))
+		end
+		oe = OperationalEvent.last
+		assert_equal 'scheduled', oe.operational_event_type.code
+		assert_equal past_date,   oe.occurred_on
+	end
+
+	test "should create operational event when interview completed" do
+		object = create_complete_object
+		past_date = Chronic.parse('Jan 15 2003').to_date
+		assert_difference('OperationalEvent.count',1) do
+			object.update_attributes(
+				:interview_outcome_on => past_date,
+				:interview_outcome => InterviewOutcome.find_by_code('complete'))
+		end
+		oe = OperationalEvent.last
+		assert_equal 'iv_complete', oe.operational_event_type.code
+		assert_equal past_date,   oe.occurred_on
+	end
+
+	test "should create operational event when sample kit sent" do
+		object = create_object
+pending
+	end
+
+	test "should create operational event when sample received" do
+		object = create_object
+pending
+	end
+
+	test "should create operational event when sample complete" do
+		object = create_object
+pending
+	end
+
+	test "should create operational event when enrollment complete" do
+		object = create_object
+pending
+	end
+
+	test "should create operational event when enrollment complete UNSET" do
+		object = create_object
+pending
+	end
+
 protected
 
 	def create_object(options = {})
 		record = Factory.build(:homex_outcome,options)
 		record.save
 		record
+	end
+
+	def create_complete_object(options={})
+		s = Factory(:subject,options[:subject]||{})
+		p = Project.find_or_create_by_code('HomeExposures')
+		Factory(:enrollment, :subject => s, :project => p )
+		h = create_object(
+			(options[:homex_outcome]||{}).merge(:subject => s,
+			:interview_outcome_on => nil,
+			:sample_outcome_on => nil))
+		h
 	end
 
 end

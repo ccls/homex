@@ -5,6 +5,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:project,:subject)
 	assert_should_belong_to(:ineligible_reason,:refusal_reason,
 		:document_version)
+	assert_should_have_many(:operational_events)
 	assert_should_initially_belong_to(:project,:subject)
 
 	assert_should_require_unique(:project_id, 

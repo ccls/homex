@@ -24,4 +24,32 @@ class HomexOutcome < ActiveRecord::Base
 	validates_presence_of :interview_outcome_on,
 		:if => :interview_outcome_id?
 
+	before_save :create_interview_outcome_update,
+		:if => :interview_outcome_id_changed?
+
+	before_save :create_sample_outcome_update,
+		:if => :sample_outcome_id_changed?
+
+protected
+
+	def create_interview_outcome_update
+		operational_event_type = case interview_outcome 
+			when InterviewOutcome.find_by_code('scheduled')
+				OperationalEventType.find_by_code('scheduled')
+			when InterviewOutcome.find_by_code('complete')
+				OperationalEventType.find_by_code('iv_complete')
+			else nil
+		end
+		unless operational_event_type.nil?
+			subject.hx_enrollment.operational_events << OperationalEvent.create!(
+				:operational_event_type => operational_event_type,
+				:occurred_on => interview_outcome_on
+			)
+		end
+	end
+
+	def create_sample_outcome_update
+puts "create_sample_outcome_update"
+	end
+
 end

@@ -7,6 +7,7 @@ class Enrollment < ActiveRecord::Base
 	belongs_to :refusal_reason
 	belongs_to :document_version
 	belongs_to :project
+	has_many   :operational_events
 
 	validates_uniqueness_of :project_id, :scope => [:subject_id]
 	validates_presence_of :subject_id, :project_id,
