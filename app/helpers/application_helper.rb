@@ -12,7 +12,7 @@ module ApplicationHelper
 					PhoneNumbers
 					Subjects
 				) then :subjects
-			when *%w( Interview::Subjects 
+			when *%w( Interview::Subjects Interviews
 				) then  :interview
 			when *%w( Samples Sample::Subjects
 				) then :sample
