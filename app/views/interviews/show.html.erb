@@ -5,16 +5,19 @@
 
 <% content_tag_for( :div, @interview ) do %>
 <p>Interview Info</p>
-<p>  Outcome: completed</p>
-<p>  Dates of interview</p>
-<p>    began: 08/30/2010:  ended (if other than date began)</p>
-<p>  Interviewer: Ellen Rosensweig</p>
-<p>  Version: Home Exposures telephone interview, version 1</p>
-<p>  Interview method: telephone</p>
-<p>  Interview language: English</p>
+<p>Outcome: NOT CODED YET</p>
+
+<p>Dates of interview</p>
+<p>began: <%=mdy @interview.began_on %>:  
+ended (if other than date began)<%=mdy @interview.ended_on %>
+</p>
+<p>Interviewer:<%= @interview.interviewer %></p>
+<p>Version:<%= @interview.instrument_version %></p>
+<p>Interview method:<%= @interview.interview_method %></p>
+<p>Interview language:<%= @interview.language %></p>
 
 <p>Respondent Info</p>
-<p>  Name: Mary Jones</p>
-<p>  Relationship: mother       specify:</p>
+<p>Name:<%= @interview.respondent_full_name %></p>
+<p>Relationship: NOT CODED YET       specify:NOT CODED YET</p>
 
 <% end %><%# content_tag_for %>

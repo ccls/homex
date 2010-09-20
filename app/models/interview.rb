@@ -14,4 +14,8 @@ class Interview < ActiveRecord::Base
 
 #	validates_presence_of :identifier
 
+	def respondent_full_name
+		"#{respondent_first_name} #{respondent_last_name}"
+	end
+
 end

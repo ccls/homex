@@ -1,0 +1,15 @@
+<% stylesheets('interview_subject') %>
+<%# render 'subjects/submenu' %>
+<% render 'subjects/id_bar' %>
+
+<% if @interviews.length > 0 %>
+<table id='interviews'><thead><tr>
+<th>ID</th>
+<th>Began</th>
+<th>Ended</th>
+</tr></thead><tbody>
+<%= render :partial => 'interview', :collection => @interviews %>
+</tbody></table>
+<% else %>
+<p>There are no interviews.</p>
+<% end %>

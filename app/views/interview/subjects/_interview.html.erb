@@ -1,0 +1,11 @@
+<% content_tag_for( :tr, interview, :class => 'row' ) do %>
+<td class='id'>
+<%= link_to interview.id, interview_path(interview) %>
+</td>
+<td class='began'>
+<%=mdy interview.began_on %>
+</td>
+<td class='ended'>
+<%=mdy interview.ended_on %>
+</td>
+<% end %><%# content_tag_for %>

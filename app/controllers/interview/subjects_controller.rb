@@ -12,8 +12,8 @@ class Interview::SubjectsController < ApplicationController
 	before_filter :valid_id_for_hx_subject_required,
 		:only => [:show]
 
-	before_filter :valid_hx_interview_required,
-		:only => :show
+#	before_filter :valid_hx_interview_required,
+#		:only => :show
 
 	def index
 		record_or_recall_sort_order
@@ -30,7 +30,8 @@ class Interview::SubjectsController < ApplicationController
 	end
 
 	def show
-		redirect_to interview_path(@interview)
+#		redirect_to interview_path(@interview)
+		@interviews = @subject.identifier.try(:interviews)||[]
 	end
 
 protected

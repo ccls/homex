@@ -32,8 +32,11 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 		subject = create_hx_subject
 		login_as send(cu)
 		get :show, :id => subject.id
-		assert_not_nil flash[:error]
-		assert_redirected_to interview_subjects_path
+
+		assert_response :success
+
+#		assert_not_nil flash[:error]
+#		assert_redirected_to interview_subjects_path
 	end
 
 	test "should redirect to show interview " <<
@@ -42,8 +45,11 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 		subject = create_hx_interview_subject
 		login_as send(cu)
 		get :show, :id => subject.id
-		assert_nil flash[:error]
-		assert_redirected_to interview_path(subject.hx_interview)
+
+		assert_response :success
+
+#		assert_nil flash[:error]
+#		assert_redirected_to interview_path(subject.hx_interview)
 	end
 
 end
