@@ -26,6 +26,12 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
 	end
 
+	test "should redirect to show interview " <<
+			"with valid hx interview " <<
+			"with #{cu} login" do
+pending
+	end
+
 end
 
 %w( active_user ).each do |cu|

@@ -71,6 +71,20 @@ class Subject < ActiveRecord::Base
 			:joins => :project)
 	end
 
+	def hx_interview
+		identifier.interviews.find(:first,
+			:conditions => "projects.code = 'HomeExposures'",
+			:joins => [:instrument_version => [:interview_type => :project]]
+#			:joins => [
+#				"JOIN instrument_versions ON " <<
+#				"instrument_versions.id = interviews.instrument_version_id",
+#				"JOIN interview_types ON " <<
+#				"interview_types.id = instrument_versions.interview_type_id",
+#				"JOIN projects ON projects.id = interview_types.project_id",
+#			]
+		)
+	end
+
 	def response_sets_the_same?
 		if response_sets.length == 2
 			#	response_sets.inject(:is_the_same_as?) was nice

@@ -49,6 +49,7 @@ protected
 	def valid_id_required
 		if !params[:id].blank? and Interview.exists?(params[:id])
 			@interview = Interview.find(params[:id])
+			@subject = @interview.identifier.try(:subject)
 		else
 			access_denied("Valid interview id required!", 
 				subjects_path)

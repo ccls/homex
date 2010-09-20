@@ -4,7 +4,7 @@ class InterviewsControllerTest < ActionController::TestCase
 
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Interview',
-		:actions => [:edit,:update,:destroy],
+		:actions => [:show,:edit,:update,:destroy],
 		:attributes_for_create => :factory_attributes,
 		:method_for_create => :factory_create
 	}
@@ -35,6 +35,7 @@ class InterviewsControllerTest < ActionController::TestCase
 		:suffix => " and invalid id",
 		:login => :superuser,
 		:redirect => :subjects_path,
+		:show => { :id => 0 },
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
 		:destroy => { :id => 0 }
