@@ -603,16 +603,16 @@ survey "Home Exposure survey",
 			:number => 33
 	
 
-		_q_y_n_dk "1 = A gas stove/oven",
+		_q_y_n_dk "A gas stove/oven",
 			:data_export_identifier => :used_gas_stove_12mos
 
-		_q_y_n_dk "2 = A gas clothes dryer",
+		_q_y_n_dk "A gas clothes dryer",
 			:data_export_identifier => :used_gas_dryer_12mos
 
-		_q_y_n_dk "3 = A gas water heater",
+		_q_y_n_dk "A gas water heater",
 			:data_export_identifier => :used_gas_water_heater_12mos
 
-		_q_y_n_dk "8 = How about some other gas appliance",
+		_q_y_n_dk "How about some other gas appliance",
 			:reference_identifier => 'gas_other',
 			:data_export_identifier => :used_other_gas_appliance_12mos
 
