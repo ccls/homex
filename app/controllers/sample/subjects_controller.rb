@@ -22,9 +22,9 @@ class Sample::SubjectsController < ApplicationController
 		end
 	end
 
-	def send_to_lab
-		get_subjects
-	end
+#	def send_to_lab
+#		get_subjects
+#	end
 
 protected
 
