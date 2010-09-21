@@ -13,3 +13,8 @@ other:
   position: 3
   code: other
   description: other
+nonCA:
+  id: 4
+  position: 4
+  code: newnonCA
+  description: new non-CA subject

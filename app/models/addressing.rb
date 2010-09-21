@@ -63,15 +63,22 @@ protected
 		if( state != 'CA' && subject && subject.hx_enrollment &&
 			address_type == AddressType['residence'] )
 
+			#	This is an after_save so using 1 NOT 0
+			ineligible_reason = if( subject.residence_addresses_count == 1 )
+				IneligibleReason['newnonCA']
+			else
+				IneligibleReason['moved']
+			end
+
 			subject.hx_enrollment.update_attributes(
 				:is_eligible => YNDK[:no],
-				:ineligible_reason => IneligibleReason['moved']
+				:ineligible_reason => ineligible_reason
 			)
 
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
 				:operational_event_type => OperationalEventType['ineligible'],
 				:occurred_on => Date.today,
-				:description => IneligibleReason['moved'].to_s
+				:description => ineligible_reason.to_s
 			)
 
 		end

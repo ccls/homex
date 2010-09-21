@@ -61,6 +61,13 @@ class Subject < ActiveRecord::Base
 
 	class NotTwoResponseSets < StandardError; end
 
+	def residence_addresses_count
+		addresses.count(
+			:joins => :address_type,
+			:conditions => "address_types.code = 'residence'"
+		)
+	end
+
 	def is_case?
 		subject_type.try(:code) == 'Case'
 	end
