@@ -10,6 +10,28 @@
 #		variable names for questions and values for answers.
 #
 
+
+def _q_y_n_dk(title,options={})
+	q     title,        options.merge(:pick => :one)
+	a_1   "Yes",        :data_export_identifier => 1
+	a_2   "No",         :data_export_identifier => 2
+	a_999 "Don't know", :data_export_identifier => 999
+end
+
+def _q_osrn(title,options={})
+	q   title,       options.merge(:pick => :one)
+	a_1 "Often",     :data_export_identifier => 1
+	a_2 "Sometimes", :data_export_identifier => 2
+	a_3 "Rarely",    :data_export_identifier => 3
+	a_4 "Never",     :data_export_identifier => 4
+end
+
+def _q_five_times(title,options={})
+	q   title,                options.merge(:pick => :one)
+	a_1 "5 or more time",     :data_export_identifier => 1
+	a_2 "Fewer than 5 times", :data_export_identifier => 2
+end
+
 survey "Home Exposure survey",
 	:manual_numbering => true do
 
@@ -17,14 +39,9 @@ survey "Home Exposure survey",
 
 		label "Before we start I would like to remind you that everything you tell us is confidential.  You can refuse to answer any questions and you may stop the interview at any time."
 		
-		q "Does your vacuum cleaner have a disposable bag?", 
+		_q_y_n_dk "Does your vacuum cleaner have a disposable bag?", 
 			:number => 1,
-			:pick => :one, 
 			:data_export_identifier => :vacuum_has_disposable_bag
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
-
 		
 		q "In the last 12 months, on average, how often were the rugs and floors in this home usually vacuumed?  Would you say...", 
 			:number => 2,
@@ -36,79 +53,48 @@ survey "Home Exposure survey",
 		a "More than once a week?", :data_export_identifier => 4
 		a "Don't know",             :data_export_identifier => 999
 		
-		q "In the last 12 months, did all of the people who lived in this home usually take off their shoes when entering the home?", 
+		_q_y_n_dk "In the last 12 months, did all of the people who lived in this home usually take off their shoes when entering the home?", 
 			:number => 3,
-			:pick => :one, 
 			:data_export_identifier => :shoes_usually_off_inside_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		
-		q_4 "During the last 12 months, did you or anyone else in your home eat hamburger, steak, pork, chicken or other meat products?", 
+		_q_y_n_dk "During the last 12 months, did you or anyone else in your home eat hamburger, steak, pork, chicken or other meat products?", 
 			:number => 4,
-			:pick => :one, 
+			:reference_identifier => '4',
 			:data_export_identifier => :someone_ate_meat_12mos
-		a_1 "Yes",        :data_export_identifier => 1
-		a_2 "No",         :data_export_identifier => 2
-		a_3 "Don't know", :data_export_identifier => 999
 		
 		label "I am now going to ask you about different high temperature cooking methods you or other household members may have used to cook meat.  During the last 12 months, when you ate meat products, did you ...", 
 			:number => 5
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 	
-		q_5a "Pan fry (very hot)", 
+		_q_osrn "Pan fry (very hot)", 
 			:number => '5a',
-			:pick => :one, 
 			:data_export_identifier => :freq_pan_fried_meat_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 	
-		q_5b "Deep fry", 
+		_q_osrn "Deep fry", 
 			:number => '5b',
-			:pick => :one, 
 			:data_export_identifier => :freq_deep_fried_meat_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 	
-		q_5c "Oven broil", 
+		_q_osrn "Oven broil", 
 			:number => '5c',
-			:pick => :one, 
 			:data_export_identifier => :freq_oven_fried_meat_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 	
-		q_5d "Grill or barbeque (outside)", 
+		_q_osrn "Grill or barbeque (outside)", 
 			:number => '5d',
-			:pick => :one, 
 			:data_export_identifier => :freq_grilled_meat_outside_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 	
-		q_5e "Other", 
+		_q_osrn "Other", 
 			:number => '5e',
-			:pick => :one, 
+			:reference_identifier => '5e',
 			:data_export_identifier => :freq_other_high_temp_cooking_12mos
-		a_1 "Often",     :data_export_identifier => 1
-		a_2 "Sometimes", :data_export_identifier => 2
-		a_3 "Rarely",    :data_export_identifier => 3
-		a_4 "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_4, "==", :a_1
 
@@ -147,445 +133,249 @@ survey "Home Exposure survey",
 		label "In the past 12 months, has anyone living in this home, including yourself, had one of the following jobs?  How about ...",
 			:number => 7
 
-		question "Airplane Mechanic", 
-			:pick => :one, 
+		_q_y_n_dk "Airplane Mechanic", 
 			:data_export_identifier => :job_is_plane_mechanic_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Artist / Art Teacher", 
-			:pick => :one, 
+		_q_y_n_dk "Artist / Art Teacher", 
 			:data_export_identifier => :job_is_artist_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Cleaner / Janitor", 
-			:pick => :one, 
+		_q_y_n_dk "Cleaner / Janitor", 
 			:data_export_identifier => :job_is_janitor_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Construction Worker / Carpenter", 
-			:pick => :one, 
+		_q_y_n_dk "Construction Worker / Carpenter", 
 			:data_export_identifier => :job_is_construction_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Dentist / Dental Worker", 
-			:pick => :one, 
+		_q_y_n_dk "Dentist / Dental Worker", 
 			:data_export_identifier => :job_is_dentist_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Electrician / Lineman / Cable puller", 
-			:pick => :one, 
+		_q_y_n_dk "Electrician / Lineman / Cable puller", 
 			:data_export_identifier => :job_is_electrician_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Engineer/ Environmental Scientist", 
-			:pick => :one, 
+		_q_y_n_dk "Engineer/ Environmental Scientist", 
 			:data_export_identifier => :job_is_engineer_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Farmer / Farm or Ranch Worker", 
-			:pick => :one, 
+		_q_y_n_dk "Farmer / Farm or Ranch Worker", 
 			:data_export_identifier => :job_is_farmer_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Gardner / Groundskeeper / Landscaper / Nursery worker", 
-			:pick => :one, 
+		_q_y_n_dk "Gardner / Groundskeeper / Landscaper / Nursery worker", 
 			:data_export_identifier => :job_is_gardener_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Laboratory worker / Lab ScienceTeacher", 
-			:pick => :one, 
+		_q_y_n_dk "Laboratory worker / Lab ScienceTeacher", 
 			:data_export_identifier => :job_is_lab_worker_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Manufacturing / Assembly / Industrial operations/ Product repair", 
-			:pick => :one, 
+		_q_y_n_dk "Manufacturing / Assembly / Industrial operations/ Product repair", 
 			:data_export_identifier => :job_is_manufacturer_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Mechanic-auto / truck / bus", 
-			:pick => :one, 
+		_q_y_n_dk "Mechanic-auto / truck / bus", 
 			:data_export_identifier => :job_auto_mechanic_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Medical Patient Care Worker", 
-			:pick => :one, 
+		_q_y_n_dk "Medical Patient Care Worker", 
 			:data_export_identifier => :job_is_patient_care_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Packer - Agricultural", 
-			:pick => :one, 
+		_q_y_n_dk "Packer - Agricultural", 
 			:data_export_identifier => :job_is_agr_packer_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Painter / Wallpaperer", 
-			:pick => :one, 
+		_q_y_n_dk "Painter / Wallpaperer", 
 			:data_export_identifier => :job_is_painter_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Pesticiding Handling / Production / Formulation or Mixing", 
-			:pick => :one, 
+		_q_y_n_dk "Pesticiding Handling / Production / Formulation or Mixing", 
 			:data_export_identifier => :job_is_pesticides_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Photographer / Framer / Photography Teacher", 
-			:pick => :one, 
+		_q_y_n_dk "Photographer / Framer / Photography Teacher", 
 			:data_export_identifier => :job_is_photographer_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Teacher-- Preschool to 5th Grade", 
-			:pick => :one, 
+		_q_y_n_dk "Teacher-- Preschool to 5th Grade", 
 			:data_export_identifier => :job_is_teacher_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		question "Welder / Joiner", 
-			:pick => :one, 
+		_q_y_n_dk "Welder / Joiner", 
 			:data_export_identifier => :job_is_welder_12mos
-		a "Yes",        :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 	
 	end
 
 	section "Products" do
 		label "Now I have some questions about products that you may have used in or around the home during the last 12 months."
 
-		q_8 "During the last 12 months, did you have a pet that was treated for fleas or ticks using shampoos, soaps, collars, sprays, dusts, powders, or skin applications?", 
+		_q_y_n_dk "During the last 12 months, did you have a pet that was treated for fleas or ticks using shampoos, soaps, collars, sprays, dusts, powders, or skin applications?", 
 			:number => 8,
-			:pick => :one, 
+			:reference_identifier => '8',
 			:data_export_identifier => :used_flea_control_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_8a "How often during the past 12 months? Would you say...", 
+		_q_five_times "How often during the past 12 months? Would you say...", 
 			:number => '8a',
-			:pick => :one, 
 			:data_export_identifier => :freq_used_flea_control_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_8, "==", :a_1
 
-		q_9 "During the last 12 months, have you or anyone else in your home used ant, fly, or cockroach control products in or around the house?", 
+		_q_y_n_dk "During the last 12 months, have you or anyone else in your home used ant, fly, or cockroach control products in or around the house?", 
 			:number => 9,
-			:pick => :one, 
+			:reference_identifier => '9',
 			:data_export_identifier => :used_ant_control_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-
-		q_9a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '9a',
-			:pick => :one, 
 			:data_export_identifier => :freq_ant_control_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_9, "==", :a_1
 
 
 
-		q_10 "During the last 12 months, have you or anyone else in your home used bee, wasp, or hornet control products in or around the house?", 
+		_q_y_n_dk "During the last 12 months, have you or anyone else in your home used bee, wasp, or hornet control products in or around the house?", 
 			:number => 10,
-			:pick => :one, 
+			:reference_identifier => '10',
 			:data_export_identifier => :used_bee_control_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-
-		q_10a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '10a',
-			:pick => :one, 
 			:data_export_identifier => :freq_bee_control_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_10, "==", :a_1
 
 
 
-		q_11 "During the last 12 months, did you or anyone in your home use any products to control indoor plant insects or diseases?", 
+		_q_y_n_dk "During the last 12 months, did you or anyone in your home use any products to control indoor plant insects or diseases?", 
 			:number => 11,
-			:pick => :one, 
+			:reference_identifier => '11',
 			:data_export_identifier => :used_indoor_plant_prod_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-
-
-		q_11a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '11a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_indoor_plant_product_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_11, "==", :a_1
 
 
 
-		q_12 "During the last 12 months, did you or anyone in your home treat any other indoor insects or other types of pests?  Do not include products applied outside on your lawn, garden, or trees.", 
+		_q_y_n_dk "During the last 12 months, did you or anyone in your home treat any other indoor insects or other types of pests?  Do not include products applied outside on your lawn, garden, or trees.", 
 			:number => 12,
-			:pick => :one, 
+			:reference_identifier => '12',
 			:data_export_identifier => :used_other_indoor_product_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_12a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '12a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_other_indoor_product_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_12, "==", :a_1
 
 
-		q_13 "During the last 12 months, have you or anyone else in your home used indoor foggers or bombs?", 
+		_q_y_n_dk "During the last 12 months, have you or anyone else in your home used indoor foggers or bombs?", 
 			:number => 13,
-			:pick => :one, 
+			:reference_identifier => '13',
 			:data_export_identifier => :used_indoor_foggers
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_13a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '13a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_indoor_foggers_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_13, "==", :a_1
 
 
 
-		q_14 "During the last 12 months has a professional pest control person or exterminator applied products inside this dwelling?", 
+		_q_y_n_dk "During the last 12 months has a professional pest control person or exterminator applied products inside this dwelling?", 
 			:number => 14,
-			:pick => :one, 
+			:reference_identifier => '14',
 			:data_export_identifier => :used_pro_pest_inside_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_14a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '14a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_pro_pest_inside_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_14, "==", :a_1
 
 
 
-		q_15 "During the last 12 months, has a professional pest control person or exterminator applied products on the exterior or foundation of this dwelling?", 
+		_q_y_n_dk "During the last 12 months, has a professional pest control person or exterminator applied products on the exterior or foundation of this dwelling?", 
 			:number => 15,
-			:pick => :one, 
+			:reference_identifier => '15',
 			:data_export_identifier => :used_pro_pest_outside_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-
-		q_15a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '15a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_used_pro_pest_outside_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_15, "==", :a_1
 
 
 
-		q_16 "During the last 12 months, has a professional lawn or landscape service treated the lawn, garden, trees or other outdoor plants with products to control weeds, insects, or plant diseases?", 
+		_q_y_n_dk "During the last 12 months, has a professional lawn or landscape service treated the lawn, garden, trees or other outdoor plants with products to control weeds, insects, or plant diseases?", 
 			:number => 16,
-			:pick => :one, 
+			:reference_identifier => '16',
 			:data_export_identifier => :used_pro_lawn_service_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_16a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '16a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_pro_lawn_service_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_16, "==", :a_1
 
 
 
-		q_17 "In the last 12 months, did you or anyone in your home treat the lawn, garden, trees, or other outdoor plants with products to control weeds, insects, or plant diseases?", 
+		_q_y_n_dk "In the last 12 months, did you or anyone in your home treat the lawn, garden, trees, or other outdoor plants with products to control weeds, insects, or plant diseases?", 
 			:number => 17,
-			:pick => :one, 
+			:reference_identifier => '17',
 			:data_export_identifier => :used_lawn_products_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_17a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '17a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_lawn_products_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_17, "==", :a_1
 
 
 
-		q_18 "In the last 12 months, did you or anyone in your home use products to control slugs or snails?", 
+		_q_y_n_dk "In the last 12 months, did you or anyone in your home use products to control slugs or snails?", 
 			:number => 18,
-			:pick => :one, 
+			:reference_identifier => '18',
 			:data_export_identifier => :used_slug_control_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_18 "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '18a',
-			:pick => :one, 
 			:data_export_identifier  => :freq_slug_control_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_18, "==", :a_1
 
 
 
-		q_19 "Not including traps, in the last 12 months, did you or anyone in your home use products to control rats, mice, gophers or moles?", 
+		_q_y_n_dk "Not including traps, in the last 12 months, did you or anyone in your home use products to control rats, mice, gophers or moles?", 
 			:number => 19,
-			:pick => :one, 
+			:reference_identifier => '19',
 			:data_export_identifier => :used_rat_control_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_19a "How often during the past 12 months?  Would you say...", 
+		_q_five_times "How often during the past 12 months?  Would you say...", 
 			:number => '19a',
-			:pick => :one, 
 			:data_export_identifier => :freq_rat_control_12mos
-		a "5 or more time",     :data_export_identifier => 1
-		a "Fewer than 5 times", :data_export_identifier => 2
 		dependency :rule => "A"
 		condition_A :q_19, "==", :a_1
 
 
 
-		q_20 "In the last 12 months, have mothballs been used in your home?", 
+		_q_y_n_dk "In the last 12 months, have mothballs been used in your home?", 
 			:number => 20,
-			:pick => :one, 
+			:reference_identifier => '20',
 			:data_export_identifier => :used_mothballs_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
-
 
 
 		label "During the last 12 months, did the community spray for any of the following insects near your home?  How about...",
 			:number => 21
 
 
-		q_21a "Gypsy moths", 
-			:pick => :one, 
+		_q_y_n_dk "Gypsy moths", 
 			:data_export_identifier => :cmty_sprayed_gypsy_moths_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_21b "Mediterranean fruit flies", 
-			:pick => :one, 
+		_q_y_n_dk "Mediterranean fruit flies", 
 			:data_export_identifier => :cmty_sprayed_medflies_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_21c "Mosquitoes", 
-			:pick => :one, 
+		_q_y_n_dk "Mosquitoes", 
 			:data_export_identifier => :cmty_sprayed_mosquitoes_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_21d "Glassy Winged Sharpshooter", 
-			:pick => :one, 
+		_q_y_n_dk "Glassy Winged Sharpshooter", 
 			:data_export_identifier => :cmty_sprayed_sharpshooters_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_21e "Light Brown Apple Moth", 
-			:pick => :one, 
+		_q_y_n_dk "Light Brown Apple Moth", 
 			:data_export_identifier => :cmty_sprayed_apple_moths_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-
-		q_21f "Some Other insect (specify)", 
-			:pick => :one, 
+		_q_y_n_dk "Some Other insect (specify)", 
+			:reference_identifier => '21f',
 			:data_export_identifier => :cmty_sprayed_other_pest_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
 		q_21g  "Other pest", 
 			:data_export_identifier => :other_pest_community_sprayed
@@ -693,21 +483,15 @@ survey "Home Exposure survey",
 		condition_A :q_26, "==", :a_3
 	
 
-		q_27 "Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)",
+		_q_y_n_dk "Does this home have an attached garage?  (An attached garage has a door connecting directly to the house.)",
 			:number => 27,
-			:pick => :one, 
+			:reference_identifier => '27',
 			:data_export_identifier => :home_has_attached_garage
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_27a "Has there been a car or motorcycle parked in the attached garage during the past month?",
+		_q_y_n_dk "Has there been a car or motorcycle parked in the attached garage during the past month?",
 			:number => '27a',
-			:pick => :one, 
+			:reference_identifier => '27a',
 			:data_export_identifier => :vehicle_in_garage_1mo
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A"
 		condition_A :q_27, "==", :a_1
 
@@ -725,13 +509,10 @@ survey "Home Exposure survey",
 		condition_A :q_27a, "==", :a_1
 
 
-		q_28 "Does this residence have any type of electric cooling system such as air conditioning? ",
+		_q_y_n_dk "Does this residence have any type of electric cooling system such as air conditioning? ",
 			:number => 28,
-			:pick => :one, 
+			:reference_identifier => '28',
 			:data_export_identifier => :home_has_electric_cooling
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
 
 		q_29 "During the last 12 months, how often was at least one window open on a regular basis during the colder months?  Would you say...",
@@ -764,75 +545,43 @@ survey "Home Exposure survey",
 
 		label "In the last 12 months, did you use..."
 
-		q_31_heat_a "Electric heat",
-			:pick => :one, 
+		_q_y_n_dk "Electric heat",
 			:data_export_identifier => :used_electric_heat_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_31_heat_b "Kerosene heat",
-			:pick => :one, 
+		_q_y_n_dk "Kerosene heat",
 			:data_export_identifier => :used_kerosene_heat_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_31_heat_c "Radiator or steam heat",
-			:pick => :one, :data_export_identifier => :used_radiator_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "Radiator or steam heat",
+			:data_export_identifier => :used_radiator_12mos
 
-		q_31_heat_d "Gas heat (including gas fireplace)",
-			:pick => :one, :data_export_identifier => :used_gas_heat_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "Gas heat (including gas fireplace)",
+			:data_export_identifier => :used_gas_heat_12mos
 
-		q_31_heat_e "Wood-burning Stove",
-			:pick => :one, :data_export_identifier => :used_wood_burning_stove_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "Wood-burning Stove",
+			:reference_identifier => '31_heat_e',
+			:data_export_identifier => :used_wood_burning_stove_12mos
 
-		q_31a "How often did you use during the past 12 months?",
+		_q_osrn "How often did you use during the past 12 months?",
 			:number => '31a',
-			:pick => :one, 
 			:data_export_identifier => :freq_used_wood_stove_12mos
-		a "Often",     :data_export_identifier => 1
-		a "Sometimes", :data_export_identifier => 2
-		a "Rarely",    :data_export_identifier => 3
-		a "Never",     :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_31_heat_e, "==", :a_1
 
 
-		q_31_wood_burning "Wood-burning Fireplace?",
-			:pick => :one, 
+		_q_y_n_dk "Wood-burning Fireplace?",
+			:reference_identifier => '31_wood_burning',
 			:data_export_identifier => :used_wood_fireplace_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_31b "How often did you use during the past 12 months?",
+		_q_osrn "How often did you use during the past 12 months?",
 			:number => '31b',
-			:pick => :one, 
+			:reference_identifier => '31b',
 			:data_export_identifier => :freq_used_wood_fireplace_12mos
-		a_1 "Often",     :data_export_identifier => 1
-		a_2 "Sometimes", :data_export_identifier => 2
-		a_3 "Rarely",    :data_export_identifier => 3
-		a "Never",       :data_export_identifier => 4
 		dependency :rule => "A"
 		condition_A :q_31_wood_burning, "==", :a_1
 
-		q_31c "Was an insert used in the fireplace in the last 12 months? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
+		_q_y_n_dk "Was an insert used in the fireplace in the last 12 months? (An insert is a wood stove designed to fit into a conventional open fireplace and allows for clean efficient burning of wood.)",
 			:number => '31c',
-			:pick => :one, 
 			:data_export_identifier => :used_fireplace_insert_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A or B or C"
 		condition_A :q_31b, "==", :a_1
 		condition_B :q_31b, "==", :a_2
@@ -847,29 +596,18 @@ survey "Home Exposure survey",
 			:number => 32
 	
 
-		q "1 = A gas stove/oven",
-			:pick => :one, :data_export_identifier => :used_gas_stove_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "1 = A gas stove/oven",
+			:data_export_identifier => :used_gas_stove_12mos
 
-		q "2 = A gas clothes dryer",
-			:pick => :one, :data_export_identifier => :used_gas_dryer_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "2 = A gas clothes dryer",
+			:data_export_identifier => :used_gas_dryer_12mos
 
-		q "3 = A gas water heater",
-			:pick => :one, :data_export_identifier => :used_gas_water_heater_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "3 = A gas water heater",
+			:data_export_identifier => :used_gas_water_heater_12mos
 
-		q_gas_other "8 = How about some other gas appliance",
-			:pick => :one, :data_export_identifier => :used_other_gas_appliance_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "8 = How about some other gas appliance",
+			:reference_identifier => 'gas_other',
+			:data_export_identifier => :used_other_gas_appliance_12mos
 
 		q "Other (DO NOT INCLUDE GAS HEAT)",
 			:data_export_identifier => :type_of_other_gas_appliance
@@ -886,53 +624,30 @@ survey "Home Exposure survey",
 			:number => 33
 
 
-		q "1 = Painting done indoors",
-			:pick => :one, :data_export_identifier => :painted_inside_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "1 = Painting done indoors",
+			:data_export_identifier => :painted_inside_home
 
-		q "2 = Carpeting",
-			:pick => :one, :data_export_identifier => :carpeted_in_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "2 = Carpeting",
+			:data_export_identifier => :carpeted_in_home
 
-		q "3 = Reflooring",
-			:pick => :one, :data_export_identifier => :refloored_in_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "3 = Reflooring",
+			:data_export_identifier => :refloored_in_home
 
-		q "4 = Weather Proofing",
-			:pick => :one, :data_export_identifier => :weather_proofed_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "4 = Weather Proofing",
+			:data_export_identifier => :weather_proofed_home
 
-		q "5 = Window Replacement",
-			:pick => :one, :data_export_identifier => :replaced_home_windows
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "5 = Window Replacement",
+			:data_export_identifier => :replaced_home_windows
 
-		q "6 = Roofing",
-			:pick => :one, :data_export_identifier => :roof_work_on_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "6 = Roofing",
+			:data_export_identifier => :roof_work_on_home
 
-		q "7 = Construction",
-			:pick => :one, :data_export_identifier => :construction_in_home
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "7 = Construction",
+			:data_export_identifier => :construction_in_home
 
-		q_remodel_other "8 = Other: SPECIFY",
-			:pick => :one, :data_export_identifier => :other_home_remodelling
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
+		_q_y_n_dk "8 = Other: SPECIFY",
+			:reference_identifier => 'remodel_other',
+			:data_export_identifier => :other_home_remodelling
 
 		q "Other",
 			:data_export_identifier => :type_other_home_remodelling
@@ -944,50 +659,32 @@ survey "Home Exposure survey",
 
 	section "Tobacco" do
 
-		q_34 "During the time you have lived in this home, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
+		_q_y_n_dk "During the time you have lived in this home, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
 			:number => 34,
-			:pick => :one, 
+			:reference_identifier => '34',
 			:data_export_identifier => :regularly_smoked_indoors
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_34a "During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
+		_q_y_n_dk "During the last 12 months, have you or anyone else regularly - that is once a week or more - smoked cigarettes, pipes or cigars INSIDE this home?",
 			:number => '34a',
-			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_indoors_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A"
 		condition_A :q_34, "==", :a_1
 
 
-		q_35 "During the time you have lived in this home, have you or anyone who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home (in the car, at work, yard, deck, etc.)?",
+		_q_y_n_dk "During the time you have lived in this home, have you or anyone who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home (in the car, at work, yard, deck, etc.)?",
 			:number => 35,
-			:pick => :one, 
+			:reference_identifier => '35',
 			:data_export_identifier => :regularly_smoked_outdoors
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
-		q_35a "During the last 12 months, have you or anyone else who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home?",
+		_q_y_n_dk "During the last 12 months, have you or anyone else who lives in this home regularly smoked cigarettes, pipes or cigars OUTSIDE this home?",
 			:number => '35a',
-			:pick => :one, 
 			:data_export_identifier => :regularly_smoked_outdoors_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A"
 		condition_A :q_35, "==", :a_1
 
-		q_36 "During the last 12 months, have you or anyone else regularly - that is once a week or more - used smokeless tobacco products such as dipping or chewing tobacco in this home?",
+		_q_y_n_dk "During the last 12 months, have you or anyone else regularly - that is once a week or more - used smokeless tobacco products such as dipping or chewing tobacco in this home?",
 			:number => 36,
-			:pick => :one, 
 			:data_export_identifier => :used_smokeless_tobacco_12mos
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
 	end
 
@@ -1017,13 +714,9 @@ survey "Home Exposure survey",
 		condition_B :q_37, "==", :a_3
 		condition_C :q_37, "==", :a_4
 
-		q_37b "Does any of the upholstered furniture have exposed or crumbling foam?",
+		_q_y_n_dk "Does any of the upholstered furniture have exposed or crumbling foam?",
 			:number => '37b',
-			:pick => :one, 
 			:data_export_identifier => :furniture_has_exposed_foam
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 		dependency :rule => "A or B or C"
 		condition_A :q_37, "==", :a_2
 		condition_B :q_37, "==", :a_3
@@ -1031,13 +724,10 @@ survey "Home Exposure survey",
 
 #	defining a dependency without a matching condition ends badly
 
-		q_38 "Not including area rugs, are there any carpets in your home?",
+		_q_y_n_dk "Not including area rugs, are there any carpets in your home?",
 			:number => 38,
-			:pick => :one, 
+			:reference_identifier => '38',
 			:data_export_identifier => :home_has_carpets
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
 		q_38a "Approximately what percentage of your home has carpet?",
 			:number => '38a',
@@ -1058,13 +748,10 @@ survey "Home Exposure survey",
 	section "Electronics" do
 
 
-		q_39 "Do you have any televisions in your home?",
+		_q_y_n_dk "Do you have any televisions in your home?",
 			:number => 39,
-			:pick => :one, 
+			:reference_identifier => '39',
 			:data_export_identifier => :home_has_televisions
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
 
 		q_39a "How many televisions are in your home?",
 			:number => '39a',
@@ -1088,14 +775,10 @@ survey "Home Exposure survey",
 		condition_A :q_39, "==", :a_1
 
 
-		q_40 "Do you have any computers in your home?",
+		_q_y_n_dk "Do you have any computers in your home?",
 			:number => 40,
-			:pick => :one, 
+			:reference_identifier => '40',
 			:data_export_identifier => :home_has_computers
-		a_1 "Yes",      :data_export_identifier => 1
-		a "No",         :data_export_identifier => 2
-		a "Don't know", :data_export_identifier => 999
-
 
 		q_40a "How many computers are in your home?",
 			:pick => :one,
