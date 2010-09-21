@@ -408,7 +408,7 @@ class Subject < ActiveRecord::Base
 protected
 
 	def self.hx_id
-		Project.find_by_code('HomeExposures').id
+		Project['HomeExposures'].id
 	end
 
 end

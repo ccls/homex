@@ -99,9 +99,9 @@ protected
 
 	def create_enrollment_update
 		operational_event_type, occurred_on = if( is_complete == YNDK[:yes] )
-			[OperationalEventType.find_by_code('complete'), completed_on]
+			[OperationalEventType['complete'], completed_on]
 		elsif( is_complete_was == YNDK[:yes] )
-			[OperationalEventType.find_by_code('reopened'), Date.today]
+			[OperationalEventType['reopened'], Date.today]
 		else 
 			[nil, nil]
 		end

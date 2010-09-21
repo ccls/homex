@@ -92,7 +92,7 @@ class AddressTest < ActiveSupport::TestCase
 		assert_difference('Address.count',0) do
 			object = create_object({
 				:line_1 => "P.O. Box 123",
-				:address_type_id => AddressType.find_by_code('residence').id
+				:address_type => AddressType['residence']
 			})
 			assert object.errors.on(:address_type_id)
 		end

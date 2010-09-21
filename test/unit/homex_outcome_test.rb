@@ -59,7 +59,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:interview_outcome_on => past_date,
-				:interview_outcome => InterviewOutcome.find_by_code('scheduled'))
+				:interview_outcome => InterviewOutcome['scheduled'])
 		end
 		oe = OperationalEvent.last
 		assert_equal 'scheduled', oe.operational_event_type.code
@@ -73,7 +73,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:interview_outcome_on => past_date,
-				:interview_outcome => InterviewOutcome.find_by_code('complete'))
+				:interview_outcome => InterviewOutcome['complete'])
 		end
 		oe = OperationalEvent.last
 		assert_equal 'iv_complete', oe.operational_event_type.code
@@ -87,7 +87,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:sample_outcome_on => past_date,
-				:sample_outcome => SampleOutcome.find_by_code('sent'))
+				:sample_outcome => SampleOutcome['sent'])
 		end
 		oe = OperationalEvent.last
 		assert_equal 'kit_sent', oe.operational_event_type.code
@@ -101,7 +101,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:sample_outcome_on => past_date,
-				:sample_outcome => SampleOutcome.find_by_code('received'))
+				:sample_outcome => SampleOutcome['received'])
 		end
 		oe = OperationalEvent.last
 		assert_equal 'sample_received', oe.operational_event_type.code
@@ -115,7 +115,7 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:sample_outcome_on => past_date,
-				:sample_outcome => SampleOutcome.find_by_code('complete'))
+				:sample_outcome => SampleOutcome['complete'])
 		end
 		oe = OperationalEvent.last
 		assert_equal 'sample_complete', oe.operational_event_type.code

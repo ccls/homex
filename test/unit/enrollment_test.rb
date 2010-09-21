@@ -51,8 +51,8 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require ineligible_reason_specify if " <<
 			"ineligible_reason == other" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:ineligible_reason_id => 
-				IneligibleReason.find_by_code('other').id )
+			object = create_object(:ineligible_reason => 
+				IneligibleReason['other'] )
 			assert object.errors.on(:ineligible_reason_specify)
 		end
 	end
@@ -74,8 +74,8 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require other_refusal_reason if " <<
 			"refusal_reason == other" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:refusal_reason_id => 
-				RefusalReason.find_by_code('other').id )
+			object = create_object(:refusal_reason => 
+				RefusalReason['other'] )
 			assert object.errors.on(:other_refusal_reason)
 		end
 	end

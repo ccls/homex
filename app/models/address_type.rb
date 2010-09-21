@@ -10,4 +10,8 @@ class AddressType < ActiveRecord::Base
 		self.code
 	end
 
+	def self.[](code)
+		find_by_code(code)
+	end
+
 end

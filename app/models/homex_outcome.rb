@@ -36,10 +36,10 @@ protected
 
 	def create_interview_outcome_update
 		operational_event_type = case interview_outcome 
-			when InterviewOutcome.find_by_code('scheduled')
-				OperationalEventType.find_by_code('scheduled')
-			when InterviewOutcome.find_by_code('complete')
-				OperationalEventType.find_by_code('iv_complete')
+			when InterviewOutcome['scheduled']
+				OperationalEventType['scheduled']
+			when InterviewOutcome['complete']
+				OperationalEventType['iv_complete']
 			else nil
 		end
 		unless operational_event_type.nil?
@@ -53,12 +53,12 @@ protected
 
 	def create_sample_outcome_update
 		operational_event_type = case sample_outcome 
-			when SampleOutcome.find_by_code('sent')
-				OperationalEventType.find_by_code('kit_sent')
-			when SampleOutcome.find_by_code('received')
-				OperationalEventType.find_by_code('sample_received')
-			when SampleOutcome.find_by_code('complete')
-				OperationalEventType.find_by_code('sample_complete')
+			when SampleOutcome['sent']
+				OperationalEventType['kit_sent']
+			when SampleOutcome['received']
+				OperationalEventType['sample_received']
+			when SampleOutcome['complete']
+				OperationalEventType['sample_complete']
 			else nil
 		end
 		unless operational_event_type.nil?

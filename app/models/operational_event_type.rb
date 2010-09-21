@@ -11,4 +11,9 @@ class OperationalEventType < ActiveRecord::Base
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
+
+	def self.[](code)
+		find_by_code(code)
+	end
+
 end

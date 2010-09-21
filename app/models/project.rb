@@ -25,4 +25,8 @@ class Project < ActiveRecord::Base
 			:conditions => [ "enrollments.subject_id IS NULL" ])
 	end
 
+	def self.[](code)
+		find_by_code(code)
+	end
+
 end

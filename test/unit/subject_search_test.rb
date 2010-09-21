@@ -617,13 +617,11 @@ pending
 		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:sample_outcome_on => Date.today,
-			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Complete').id)
+			:sample_outcome => SampleOutcome['Complete'])
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_on => Date.today,
-			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Pending').id)
+			:sample_outcome => SampleOutcome['Pending'])
 		s3 = create_subject
 		subjects = Subject.search(:sample_outcome => 'Complete')
 		assert  subjects.include?(s1)
@@ -635,13 +633,11 @@ pending
 		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:sample_outcome_on => Date.today,
-			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Complete').id)
+			:sample_outcome => SampleOutcome['Complete'])
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:sample_outcome_on => Date.today,
-			:sample_outcome_id => 
-				SampleOutcome.find_by_code('Pending').id)
+			:sample_outcome => SampleOutcome['Pending'])
 		s3 = create_subject
 		subjects = Subject.search(:sample_outcome => 'Incomplete')
 		assert !subjects.include?(s1)
@@ -653,13 +649,11 @@ pending
 		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:interview_outcome_on => Date.today,
-			:interview_outcome_id => 
-				InterviewOutcome.find_by_code('Complete').id)
+			:interview_outcome => InterviewOutcome['Complete'])
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:interview_outcome_on => Date.today,
-			:interview_outcome_id => 
-				InterviewOutcome.find_by_code('Incomplete').id)
+			:interview_outcome => InterviewOutcome['Incomplete'])
 		s3 = create_subject
 		subjects = Subject.search(:interview_outcome => 'Complete')
 		assert  subjects.include?(s1)
@@ -671,13 +665,11 @@ pending
 		s1 = create_hx_subject
 		s1.create_homex_outcome(
 			:interview_outcome_on => Date.today,
-			:interview_outcome_id => 
-				InterviewOutcome.find_by_code('Complete').id)
+			:interview_outcome => InterviewOutcome['Complete'])
 		s2 = create_subject
 		s2.create_homex_outcome(
 			:interview_outcome_on => Date.today,
-			:interview_outcome_id => 
-				InterviewOutcome.find_by_code('Incomplete').id)
+			:interview_outcome => InterviewOutcome['Incomplete'])
 		s3 = create_subject
 		subjects = Subject.search(:interview_outcome => 'Incomplete')
 		assert !subjects.include?(s1)

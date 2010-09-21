@@ -144,7 +144,7 @@ class AddressingTest < ActiveSupport::TestCase
 				Factory.attributes_for(:addressing,
 					:address_attributes => Factory.attributes_for(:address,
 						:state => 'AZ',
-						:address_type => AddressType.find_by_code('residence')
+						:address_type => AddressType['residence']
 			)	)	)
 		} } }
 		assert_not_nil subject.hx_enrollment.ineligible_reason_id
@@ -164,7 +164,7 @@ class AddressingTest < ActiveSupport::TestCase
 				Factory.attributes_for(:addressing,
 					:address_attributes => Factory.attributes_for(:address,
 						:state => 'AZ',
-						:address_type => AddressType.find_by_code('mailing')
+						:address_type => AddressType['mailing']
 			)	)	)
 		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
@@ -184,7 +184,7 @@ class AddressingTest < ActiveSupport::TestCase
 				Factory.attributes_for(:addressing,
 					:address_attributes => Factory.attributes_for(:address,
 						:state => 'CA',
-						:address_type => AddressType.find_by_code('residence')
+						:address_type => AddressType['residence']
 			)	)	)
 		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id

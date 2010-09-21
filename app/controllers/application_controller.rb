@@ -56,7 +56,7 @@ protected	#	private #	(does it matter which or if neither?)
 #	Don't know if I'll use this or not.
 #
 #	def get_hx_subjects
-#		hx = Project.find_by_code('HomeExposures')
+#		hx = Project['HomeExposures']
 #		if params[:commit] && params[:commit] == 'download'
 #			params[:paginate] = false
 #		end

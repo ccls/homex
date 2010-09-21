@@ -511,8 +511,8 @@ pending
 	test "should return valid hx_enrollment if enrolled" do
 		subject = create_subject
 		hx_enrollment = Factory(:enrollment,
-			:subject_id => subject.id,
-			:project_id => Project.find_by_code('HomeExposures').id
+			:subject => subject,
+			:project => Project['HomeExposures']
 		)
 		assert_not_nil subject.hx_enrollment
 	end
