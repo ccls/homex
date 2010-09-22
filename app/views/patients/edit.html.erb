@@ -7,6 +7,6 @@
 
 <% form_for(@patient,
 	:url => subject_patient_path(@subject),
-	:html => { :class => 'confirm' }) do |f| %>
+	:html => { :class => 'edit_patient confirm' }) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>

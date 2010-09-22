@@ -132,4 +132,32 @@ module SubjectsHelper
 		s
 	end
 
+	def id_bar_for(subject,&block)
+		stylesheets('subject_id_bar')
+		content_for :main do
+			"<div id='id_bar'>\n" <<
+			"<div class='childid'>\n" <<
+			"<span>ChildID:</span>\n" <<
+			"<span>#{subject.childid}</span>\n" <<
+			"</div><!-- class='childid' -->\n" <<
+			"<div class='studyid'>\n" <<
+			"<span>StudyID:</span>\n" <<
+			"<span>#{subject.studyid}</span>\n" <<
+			"</div><!-- class='studyid' -->\n" <<
+			"<div class='full_name'>\n" <<
+			"<span>#{subject.full_name}</span>\n" <<
+			"</div><!-- class='full_name' -->\n" <<
+			"<div class='controls'>\n" <<
+			((block_given?)?yield: '') <<
+			"</div><!-- class='controls' -->\n" <<
+			"</div><!-- id='id_bar' -->\n"
+		end
+
+		content_for :main do
+			"<div id='do_not_contact'>\n" <<
+			"Subject requests no further contact with Study.\n" <<
+			"</div>\n" 
+		end if subject.do_not_contact?
+	end	#	id_bar_for
+
 end

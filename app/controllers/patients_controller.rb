@@ -22,6 +22,7 @@ class PatientsController < ApplicationController
 	end
 
 	def new
+		flash.discard	#	dump the Patient required from 'show' redirect
 		@patient = @subject.build_patient
 	end
 

@@ -1,6 +1,10 @@
 <% stylesheets('subject') %>
 <% render 'submenu' %>
 
+<% content_for :id_bar do %>
+<%= link_to 'Edit', edit_interview_path(@interview) %>
+<% end if current_user.may_edit_interviews? %>
+
 <% render 'subjects/id_bar' unless @subject.nil? %>
 
 <% content_tag_for( :div, @interview ) do %>

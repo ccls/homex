@@ -9,4 +9,13 @@ class Person < ActiveRecord::Base
 	has_many :organizations
 
 	validates_presence_of :last_name
+
+	def full_name
+		"#{first_name} #{last_name}"
+	end
+
+	def to_s
+		full_name
+	end
+
 end

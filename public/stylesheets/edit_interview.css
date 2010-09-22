@@ -1,0 +1,7 @@
+.edit_interview .field_wrapper {
+	padding: 10px;
+}
+.edit_interview .field_wrapper label {
+	width: 170px;
+	float:left;
+}
