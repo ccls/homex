@@ -1,5 +1,5 @@
 <% stylesheets('enrollment') %>
-<% homex_sub_menu(@enrollment.subject) %>
+<% sub_menu_for(@enrollment.subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to 'Edit', edit_enrollment_path(@enrollment) %>

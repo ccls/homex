@@ -33,7 +33,13 @@ module ApplicationHelper
 		s << "\n</div><!-- mainmenu -->\n"
 	end
 
-	def homex_sub_menu(subject)
+	def sub_menu_for(object)
+		if object.is_a?(Subject)
+			subject_sub_menu(object)
+		end
+	end
+
+	def subject_sub_menu(subject)
 		current = case controller.class.name.sub(/Controller$/,'')
 			when *%w( Subjects ) then :general
 			when *%w( Patients ) then :hospital
