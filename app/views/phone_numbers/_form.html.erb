@@ -9,11 +9,8 @@ jQuery(function(){
 });
 <% end ; end -%>
 
-
-<% render 'subjects/submenu', 
-	:subject => @phone_number.subject %>
-<% render 'subjects/id_bar', 
-	:subject => @phone_number.subject %>
+<% homex_sub_menu(@subject||@phone_number.subject) %>
+<% id_bar_for(@subject||@phone_number.subject) %>
 
 <%= f.error_messages %>
 

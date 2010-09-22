@@ -5,7 +5,7 @@
 <%= link_to 'Edit', edit_interview_path(@interview) %>
 <% end if current_user.may_edit_interviews? %>
 
-<% render 'subjects/id_bar' unless @subject.nil? %>
+<% id_bar_for(@subject) %>
 
 <% content_tag_for( :div, @interview ) do %>
 <p>Interview Info</p>

@@ -1,11 +1,12 @@
 <% stylesheets('edit_interview','base/jquery.ui.all.css') %>
+<% render 'submenu' %>
 
 <% id_bar_for(@subject) do %>
 <%= link_to( 'Save', nil, {
 	:id => "for_#{dom_id(@interview,:edit)}",
 	:class => :submitter
 }) %>
-<% end unless @subject.nil? %>
+<% end %>
 
 <% form_for(@interview,
 	:url => interview_path(@interview),

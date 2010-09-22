@@ -8,10 +8,8 @@ jQuery(function(){
 });
 <% end ; end -%>
 
-<% render 'subjects/submenu', 
-	:subject => @addressing.subject %>
-<% render 'subjects/id_bar', 
-	:subject => @addressing.subject %>
+<% homex_sub_menu(@subject||@addressing.subject) %>
+<% id_bar_for(@subject||@addressing.subject) %>
 
 <%= f.error_messages %>
 

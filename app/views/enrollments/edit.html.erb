@@ -1,6 +1,5 @@
 <% stylesheets('edit_enrollment','base/jquery.ui.all.css') %>
-<% render 'subjects/submenu', 
-	:subject => @enrollment.subject %>
+<% homex_sub_menu(@enrollment.subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to( 'Save', nil, {
@@ -8,8 +7,7 @@
 	:class => :submitter
 }) %>
 <% end %>
-<% render 'subjects/id_bar', 
-	:subject => @enrollment.subject %>
+<% id_bar_for(@enrollment.subject) %>
 
 
 

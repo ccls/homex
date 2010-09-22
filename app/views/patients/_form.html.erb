@@ -1,8 +1,6 @@
 <% stylesheets('edit_patient','base/jquery.ui.all.css') %>
-<% render 'subjects/submenu', 
-	:subject => @subject %>
-<% render 'subjects/id_bar', 
-	:subject => @subject %>
+<% homex_sub_menu(@subject) %>
+<% id_bar_for(@subject) %>
 
 <%= f.error_messages %>
 

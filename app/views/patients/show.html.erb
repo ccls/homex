@@ -1,10 +1,10 @@
 <% stylesheets('patient') %>
-<% render 'subjects/submenu' %>
+<% homex_sub_menu(@subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to 'Edit', edit_subject_patient_path(@subject) %>
 <% end if current_user.may_edit_patients? %>
-<% render 'subjects/id_bar' %>
+<% id_bar_for(@subject) %>
 
 <div id='patient'>
 <div class='diagnosis_date field_wrapper'>

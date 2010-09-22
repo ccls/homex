@@ -2,8 +2,8 @@
 module ApplicationHelper
 
 	def home_exposure_main_menu
-		controller_name = controller.controller_name
-		names = controller.class.name.split('::')
+#		controller_name = controller.controller_name
+#		names = controller.class.name.split('::')
 		current = case controller.class.name.sub(/Controller$/,'')
 			when *%w( Addressings
 					Contacts
@@ -31,6 +31,32 @@ module ApplicationHelper
 			:class => ((current == :followup)?'current':nil)))
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
+	end
+
+	def homex_sub_menu(subject)
+		current = case controller.class.name.sub(/Controller$/,'')
+			when *%w( Subjects ) then :general
+			when *%w( Patients ) then :hospital
+			when *%w( Addresses Addressings Contacts PhoneNumbers 
+				) then :contact
+			when *%w( Enrollments ) then :eligibility
+		end
+		content_for :main do
+			s = "<div id='submenu'>\n"
+			l=[link_to( 'general', subject_path(subject),
+				:class => ((current == :general)?'current':nil)
+			)]
+			l.push(link_to( 'hospital', subject_patient_path(subject),
+				:class => ((current == :hospital)?'current':nil)
+			))
+			l.push(link_to( 'address/contact', subject_contacts_path(subject),
+				:class => ((current == :contact)?'current':nil)))
+			l.push(link_to( 'eligibility/enrollments', 
+				subject_enrollments_path(subject),
+				:class => ((current == :eligibility)?'current':nil)))
+			s << l.join("\n")
+			s << "\n</div><!-- submenu -->\n"
+		end
 	end
 
 #	def se_check_boxes(se,attr)

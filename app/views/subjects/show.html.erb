@@ -1,10 +1,10 @@
 <% stylesheets('subject','contacts') %>
-<% render 'submenu' %>
+<% homex_sub_menu(@subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to "edit", edit_subject_path(@subject) %>
 <% end if current_user.may_edit_subjects? %>
-<% render 'subjects/id_bar' %>
+<% id_bar_for(@subject) %>
 
 <% content_tag_for( :div, @subject ) do %>
 <%= render 'subject_personal' %>

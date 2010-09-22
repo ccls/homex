@@ -1,7 +1,6 @@
 <% stylesheets(:edit_enrollment) %>
 
-<% render 'subjects/submenu', 
-	:subject => @subject %>
+<% homex_sub_menu(@subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to( 'Create', nil, {
@@ -9,8 +8,7 @@
 	:class => :submitter
 }) %>
 <% end %>
-<% render 'subjects/id_bar',
-	:subject => @subject %>
+<% id_bar_for(@subject) %>
 
 <% form_for(@enrollment,
 	:url => subject_enrollments_path(@subject) ) do |f| %>

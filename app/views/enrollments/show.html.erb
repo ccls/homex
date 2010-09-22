@@ -1,12 +1,10 @@
 <% stylesheets('enrollment') %>
-<% render 'subjects/submenu', 
-	:subject => @enrollment.subject %>
+<% homex_sub_menu(@enrollment.subject) %>
 
 <% content_for :id_bar do %>
 <%= link_to 'Edit', edit_enrollment_path(@enrollment) %>
 <% end if current_user.may_edit_enrollments? %>
-<% render 'subjects/id_bar', 
-	:subject => @enrollment.subject %>
+<% id_bar_for(@enrollment.subject) %>
 
 <p>Study name: <%= @enrollment.project.code.titleize -%></p>
 
