@@ -59,7 +59,6 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_equal 1, assigns(:subjects).length
 		assert_response :success
 		assert_template 'index'
-#		assert_layout 'home_exposure'
 	end
 
 	test "should get index with order and dir desc with #{cu} login" do
@@ -85,7 +84,26 @@ class SubjectsControllerTest < ActionController::TestCase
 		get :show, :id => subject
 		assert_response :success
 		assert_template 'show'
-#		assert_layout 'home_exposure'
+	end
+
+	test "should have do_not_contact if it is true "<<
+			"with #{cu} login" do
+		subject = factory_create(:do_not_contact => true)
+		login_as send(cu)
+		get :show, :id => subject
+		assert_response :success
+		assert_template 'show'
+		assert_select "#do_not_contact", :count => 1
+	end
+
+	test "should NOT have do_not_contact if it is false "<<
+			"with #{cu} login" do
+		subject = factory_create(:do_not_contact => false)
+		login_as send(cu)
+		get :show, :id => subject
+		assert_response :success
+		assert_template 'show'
+		assert_select "#do_not_contact", :count => 0
 	end
 
 	test "should download csv with #{cu} login" do

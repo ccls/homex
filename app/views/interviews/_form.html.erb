@@ -23,11 +23,11 @@
 	:label_text => 'Ended on:' %>
 
 <%= f.wrapped_collection_select :interviewer_id,
-	Person.all, :id, :full_name, :include_blank => true, 
+	Person.all, :id, :to_s, :include_blank => true, 
 	:label_text => 'Interviewer:' %>
 
 <%= f.wrapped_collection_select :language_id,
-	Language.all, :id, :description, :include_blank => true, 
+	Language.all, :id, :to_s, :include_blank => true, 
 	:label_text => 'Language:' %>
 
 
