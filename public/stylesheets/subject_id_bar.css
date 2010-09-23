@@ -25,44 +25,14 @@
 	top:10px;
 	right:10px;
 	display:inline;
-/*
-	text-align: right;
-	float: right;
-*/
+
 	/* box-shadow: <horizontal> <vertical> <blur> <color> */
+/*
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-
-}
-	/* http://css-radius.heroku.com */
-/*
-#main #id_bar .controls a {
-	background-color: white;
-	padding: 2px 15px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	border: 1px solid gray;
-}
 */
-	/* http://gradients.glrzad.com/ */
-/*
-	background-image: -moz-linear-gradient(
-		center bottom,
-		rgb(235,235,235) 10%,
-		rgb(179,179,179) 47%,
-		rgb(235,235,235) 74%
-	);
-	background-image: -webkit-gradient(
-		linear,
-		left bottom,
-		left top,
-		color-stop(0.10, rgb(235,235,235)),
-		color-stop(0.47, rgb(179,179,179)),
-		color-stop(0.74, rgb(235,235,235))
-	);
-*/
+}
 
 #do_not_contact {
 	text-align:center;
@@ -73,17 +43,17 @@
 	border: 2px solid red;
 }
 
+	/* http://css-radius.heroku.com */
 #id_bar .controls a {
 	text-align:center;
 	font-size:12pt;
 	width: 90px;
-	background-color: white;
 	padding: 2px 15px;
+	text-decoration:none;
+	background-color: white;
 	border: 1px solid gray;
 	color: black;
-	text-decoration:none;
 
-	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;

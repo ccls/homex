@@ -12,6 +12,20 @@ jQuery(function(){
 
 	jQuery('.datepicker').datepicker();
 
+
+	/* jquery ui testing */
+/*
+	jQuery("#mainmenu a").addClass('ui-state-default ui-corner-top');
+	jQuery("#mainmenu a.current").addClass('ui-state-active');
+	jQuery("#submenu").addClass('ui-state-active');
+	jQuery("#id_bar").addClass('ui-state-active');
+	jQuery("#id_bar .controls a").addClass('ui-state-default ui-corner-all');
+	jQuery(".ui-state-default").mouseover(function(){
+		$(this).addClass('ui-state-hover');
+	}).mouseout(function(){
+		$(this).removeClass('ui-state-hover');
+	});
+*/
 });
 
 var submit_form = function() {
