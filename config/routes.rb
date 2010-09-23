@@ -63,15 +63,13 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :races
 
 	#	Create named routes for expected pages so can avoid
-	# needing to append the relative_url_root
+	# needing to append the relative_url_root prefix manually.
 	#	ActionController::Base.relative_url_root + '/admin',
-	map.admin '/admin',
-		:controller => "pages", :action => "show", :path => ["admin"]
-	map.faqs '/faqs',
-		:controller => "pages", :action => "show", :path => ["faqs"]
-	map.reports '/reports',
-		:controller => "pages", :action => "show", :path => ["reports"]
-
+	map.with_options :controller => "pages", :action => "show" do |page|
+		page.admin   '/admin',   :path => ["admin"]
+		page.faqs    '/faqs',    :path => ["faqs"]
+		page.reports '/reports', :path => ["reports"]
+	end
 	#	MUST BE LAST OR WILL BLOCK ALL OTHER ROUTES!
 	#	catch all route to manage admin created pages.
 	map.connect   '*path', :controller => 'pages', :action => 'show'
