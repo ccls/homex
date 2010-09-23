@@ -25,7 +25,7 @@ Rails::Initializer.run do |config|
 	config.gem "i18n", :version => '=0.3.7'
 
 	# This is set to /homex in environments/production.rb
-	config.action_controller.relative_url_root = ''
+#	config.action_controller.relative_url_root = ''
 	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
