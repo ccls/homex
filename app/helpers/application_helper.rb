@@ -18,6 +18,8 @@ module ApplicationHelper
 				) then :sample
 			when *%w( Followup::Subjects 
 				) then :followup
+			when *%w( Guides Users Pages
+				) then :admin
 		end
 
 		s = "<div id='mainmenu'>\n"
@@ -29,6 +31,12 @@ module ApplicationHelper
 			:class => ((current == :sample)?'current':nil)))
 		l.push(link_to( "Follow-Up", followup_subjects_path,
 			:class => ((current == :followup)?'current':nil)))
+
+		l.push(link_to( "Admin", admin_path,
+#			ActionController::Base.relative_url_root + '/admin',
+			:class => ((current == :admin)?'current':nil))
+		) if current_user.may_administrate?
+
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
 	end
