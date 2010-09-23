@@ -34,7 +34,7 @@ module ApplicationHelper
 
 		l.push(link_to( "Admin", admin_path,
 			:class => ((current == :admin)?'current':nil))
-		) if current_user.may_administrate?
+		) if current_user.try(:may_administrate?)
 
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
