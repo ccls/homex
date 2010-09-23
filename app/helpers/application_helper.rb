@@ -33,7 +33,6 @@ module ApplicationHelper
 			:class => ((current == :followup)?'current':nil)))
 
 		l.push(link_to( "Admin", admin_path,
-#			ActionController::Base.relative_url_root + '/admin',
 			:class => ((current == :admin)?'current':nil))
 		) if current_user.may_administrate?
 
