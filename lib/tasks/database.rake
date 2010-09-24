@@ -19,6 +19,8 @@ namespace :db do
 		Identifier.destroy_all
 		Patient.destroy_all
 		Pii.destroy_all
+		ResponseSet.destroy_all
+		Response.destroy_all
 	end
 
 	task :random_enrollments_data => :environment do 
