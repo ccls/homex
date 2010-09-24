@@ -415,7 +415,8 @@ class Subject < ActiveRecord::Base
 protected
 
 	def self.hx_id
-		Project['HomeExposures'].id
+		#	added try and || for usage on empty db
+		Project['HomeExposures'].try(:id)||0
 	end
 
 end
