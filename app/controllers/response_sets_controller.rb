@@ -19,6 +19,7 @@ class ResponseSetsController < ApplicationController
 			:survey     => @survey,
 			:subject_id => params[:subject_id] 
 		)
+		session[:access_code] = @response_set.access_code
 		redirect_to(
 			edit_my_survey_path(
 				:survey_code => @survey.access_code, 

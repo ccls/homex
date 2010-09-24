@@ -3,7 +3,9 @@ Surveyor::Config.run do |config|
   config['default.title'] = nil # "You can take these surveys:"
   config['default.layout'] = 'survey' # "surveyor_default"
   config['default.index'] =  nil # "/surveys" # or :index_path_method
-  config['default.finish'] =  '/survey_finished' # "/surveys" # or :finish_path_method
+  config['default.finish'] = :survey_finished_path
+#	must use a symbol!
+#'/survey_finished' # "/surveys" # or :finish_path_method
   config['use_restful_authentication'] = false # set to true to use restful authentication
   config['extend'] = %w(survey surveyor_controller response response_set)
 end
