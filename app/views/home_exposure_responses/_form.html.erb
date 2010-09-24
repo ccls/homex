@@ -1,23 +1,16 @@
 <% form_for(@home_exposure_response) do |f| %>
   <%= f.error_messages %>
 
-
-
-<%# HomeExposureQuestionnaire.questions_and_answers.each_with_index do |qanda,index| %>
-	<%#= f.he_question(qanda,index+1) %>
 <% HomeExposureResponse.questions_and_answers.each do |qanda| %>
 	<%= f.he_question(qanda) %>
 <% end %>
 
-	<p>
-		<%#= f.label :childid, "For Child ID" %><br/>
-		<%#= f.text_field :childid %></p>
-	<p>
-		<%= f.check_box :is_complete %>
-		<%= f.label :is_complete, "Is the interview entry complete?" %>
+<p>
+	<%= f.check_box :is_complete %>
+	<%= f.label :is_complete, "Is the interview entry complete?" %>
 </p>
 
-  <p>
-    <%= f.submit( (@home_exposure_response.new_record?)? "Create" : "Update" )%>
-  </p>
+<p><%= 
+	f.submit( (@home_exposure_response.new_record?)? "Create" : "Update" 
+)%></p>
 <% end %>
