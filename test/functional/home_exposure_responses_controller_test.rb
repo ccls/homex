@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomeExposureResponsesControllerTest < ActionController::TestCase
 
+	#	no subject_id (has_one so NOT id for show)
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+	assert_no_route(:get,:show)
+
+	#	no route
+	assert_no_route(:get,:index)
+	assert_no_route(:get,:edit,:id => 0)
+	assert_no_route(:put,:update,:id => 0)
+	assert_no_route(:delete,:destroy,:id => 0)
+
 	setup :create_home_exposure_with_subject
 
 	setup :build_response_sets
@@ -58,15 +69,6 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		assert_template 'show'
 	end
 
-
-	test "should NOT get new without subject_id " <<
-		"with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
-	end
-
 	test "should NOT get new with 1 response sets " <<
 		"with #{cu} login" do
 		@rs2.destroy
@@ -103,17 +105,6 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		get :new, :subject_id => @rs1.subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
-	end
-
-
-	test "should NOT create HER without subject_id " <<
-		"with #{cu} login" do
-		login_as send(cu)
-		assert_difference("HomeExposureResponse.count",0) {
-		assert_raise(ActionController::RoutingError){
-			post :create, 
-				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
-		} }
 	end
 
 	test "should NOT create HER without valid subject_id " <<
@@ -171,14 +162,6 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to home_exposure_path
-	end
-
-	test "should NOT show without subject_id " <<
-		"with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :show
-		}
 	end
 
 	test "should NOT show without existing home_exposure_response " <<
@@ -239,44 +222,4 @@ end
 		assert_redirected_to_login
 	end
 
-
-	test "should get index" do
-		pending
-	end
-
-	test "should get edit" do
-		pending
-	end
-
-	test "should update" do
-		pending
-	end
-
-	test "should destroy" do
-		pending
-	end
-
-#  test "should get index" do
-#    get :index
-#    assert_response :success
-#    assert_not_nil assigns(:home_exposure_responses)
-#  end
-#
-#  test "should get edit" do
-#    get :edit, :id => home_exposure_responses(:one).to_param
-#    assert_response :success
-#  end
-#
-#  test "should update home_exposure_response" do
-#    put :update, :id => home_exposure_responses(:one).to_param, :home_exposure_response => { }
-#    assert_redirected_to home_exposure_response_path(assigns(:home_exposure_response))
-#  end
-#
-#  test "should destroy home_exposure_response" do
-#    assert_difference('HomeExposureResponse.count', -1) do
-#      delete :destroy, :id => home_exposure_responses(:one).to_param
-#    end
-#
-#    assert_redirected_to home_exposure_responses_path
-#  end
 end

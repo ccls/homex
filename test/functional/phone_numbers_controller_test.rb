@@ -2,6 +2,20 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PhoneNumbersControllerTest < ActionController::TestCase
 
+	#	no subject_id
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+
+	#	no id
+	assert_no_route(:get,:edit)
+	assert_no_route(:put,:update)
+	assert_no_route(:delete,:destroy)
+
+	#	no route
+	assert_no_route(:get,:index)
+	assert_no_route(:get,:show)
+	assert_no_route(:get,:show,:id => 0)
+
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'PhoneNumber',
 		:actions => [:edit,:update],
@@ -33,30 +47,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 
 %w( superuser admin editor ).each do |cu|
 
-#	test "should get phone_numbers with #{cu} login" do
-#		subject = Factory(:subject)
-#		login_as send(cu)
-#		get :index, :subject_id => subject.id
-#		assert assigns(:subject)
-#		assert_response :success
-#		assert_template 'index'
-##		assert_layout 'home_exposure'
-#	end
-
-#	test "should NOT get phone_numbers without subject_id and #{cu} login" do
-#		login_as send(cu)
-#		assert_raise(ActionController::RoutingError){
-#			get :index
-#		}
-#	end
-
-#	test "should NOT get phone_numbers with invalid subject_id and #{cu} login" do
-#		login_as send(cu)
-#		get :index, :subject_id => 0
-#		assert_not_nil flash[:error]
-#		assert_redirected_to subjects_path
-#	end
-
 	test "should get new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
@@ -66,14 +56,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'new'
 #		assert_layout 'home_exposure'
-	end
-
-	test "should NOT get new phone_number without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
 	end
 
 	test "should NOT get new phone_number with invalid subject_id " <<
@@ -121,14 +103,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert assigns(:phone_number)
 		assert_not_nil assigns(:phone_number).verified_by_id
 		assert_equal assigns(:phone_number).verified_by_id, u.id
-	end
-
-	test "should NOT create new phone_number without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			post :create, :phone_number => factory_attributes
-		}
 	end
 
 	test "should NOT create new phone_number with invalid subject_id " <<
@@ -189,14 +163,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT edit phone_number without id and #{cu} login" do
-		phone_number = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
 	test "should update phone_number with #{cu} login" do
 		phone_number = factory_create
 		login_as send(cu)
@@ -241,15 +207,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT update phone_number without id and #{cu} login" do
-		phone_number = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update,
-				:phone_number => factory_attributes
-		}
-	end
-
 	test "should NOT update phone_number with #{cu} login " <<
 			"when update fails" do
 		phone_number = factory_create
@@ -285,14 +242,6 @@ end
 
 %w( interviewer reader active_user ).each do |cu|
 
-#	test "should NOT get phone_numbers with #{cu} login" do
-#		subject = Factory(:subject)
-#		login_as send(cu)
-#		get :index, :subject_id => subject.id
-#		assert_not_nil flash[:error]
-#		assert_redirected_to root_path
-#	end
-
 	test "should NOT get new phone_number with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
@@ -311,12 +260,6 @@ end
 	end
 
 end
-
-#	test "should NOT get phone_numbers without login" do
-#		subject = Factory(:subject)
-#		get :index, :subject_id => subject.id
-#		assert_redirected_to_login
-#	end
 
 	test "should NOT get new phone_number without login" do
 		subject = Factory(:subject)

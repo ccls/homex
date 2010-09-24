@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyInvitationsControllerTest < ActionController::TestCase
 
+	#	no subject_id
+	assert_no_route(:post, :create, :survey_id => 0)
+
 	setup :create_home_exposure_with_subject
 
 	setup :build_stuff
@@ -22,16 +25,6 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 		assert_redirected_to assigns(:subject)
 		assert_not_nil flash[:notice]
 		assert_nil flash[:error]
-	end
-
-	test "should NOT create invitation with #{cu} login" <<
-		" without subject" do
-		login_as send(cu)
-		assert_difference('ActionMailer::Base.deliveries.length',0) {
-		assert_difference('SurveyInvitation.count',0) {
-		assert_raise(ActionController::RoutingError){
-			post :create, :survey_id => @survey.id
-		} } }
 	end
 
 	test "should NOT create invitation with #{cu} login" <<

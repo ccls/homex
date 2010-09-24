@@ -2,6 +2,20 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressingsControllerTest < ActionController::TestCase
 
+	#	no route
+	assert_no_route(:get,:index)
+	assert_no_route(:get,:show)
+	assert_no_route(:get,:show,:id => 0)
+
+	#	no subject_id
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+
+	#	no id
+	assert_no_route(:get,:edit)
+	assert_no_route(:put,:update)
+	assert_no_route(:delete,:destroy)
+
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Addressing',
 		:actions => [:edit,:update],
@@ -53,14 +67,6 @@ class AddressingsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT get new addressing without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
-	end
-
 	test "should NOT get new addressing with invalid subject_id " <<
 			"and #{cu} login" do
 		login_as send(cu)
@@ -109,14 +115,6 @@ class AddressingsControllerTest < ActionController::TestCase
 		assert assigns(:addressing)
 		assert_not_nil assigns(:addressing).verified_by_id
 		assert_equal assigns(:addressing).verified_by_id, u.id
-	end
-
-	test "should NOT create new addressing without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			post :create, :addressing => factory_attributes
-		}
 	end
 
 	test "should NOT create new addressing with invalid subject_id " <<
@@ -198,14 +196,6 @@ class AddressingsControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT edit addressing without id and #{cu} login" do
-		addressing = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
 	test "should update addressing with #{cu} login" do
 		addressing = factory_create
 		login_as send(cu)
@@ -248,15 +238,6 @@ class AddressingsControllerTest < ActionController::TestCase
 		put :update, :id => 0,
 			:addressing => factory_attributes
 		assert_redirected_to subjects_path
-	end
-
-	test "should NOT update addressing without id and #{cu} login" do
-		addressing = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update,
-				:addressing => factory_attributes
-		}
 	end
 
 	test "should NOT update addressing with #{cu} login " <<

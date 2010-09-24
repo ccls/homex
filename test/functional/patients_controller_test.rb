@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PatientsControllerTest < ActionController::TestCase
 
+	#	no route
+	assert_no_route(:get,:index)
+
+	#	no subject_id (has_one so no id needed)
+	assert_no_route(:get,:show)	
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+	assert_no_route(:get,:edit)
+	assert_no_route(:put,:update)
+	assert_no_route(:delete,:destroy)
+
 #	ASSERT_ACCESS_OPTIONS = {
 #		:model => 'Patient',
 #		:actions => [:edit,:update],
@@ -31,14 +42,6 @@ class PatientsControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'show'
-	end
-
-	test "should NOT show patient without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :show
-		}
 	end
 
 	test "should NOT show patient with invalid subject_id " <<
@@ -81,14 +84,6 @@ class PatientsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-	test "should NOT get new patient without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
-	end
-
 	test "should NOT get new patient with invalid subject_id " <<
 			"and #{cu} login" do
 		login_as send(cu)
@@ -121,14 +116,6 @@ class PatientsControllerTest < ActionController::TestCase
 #		assert_template 'new'
 #		assert_redirected_to subject_patient_path(subject)
 		assert_redirected_to subject_path(subject)
-	end
-
-	test "should NOT create new patient without subject_id " <<
-			"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			post :create, :patient => factory_attributes
-		}
 	end
 
 	test "should NOT create new patient with invalid subject_id " <<
@@ -189,15 +176,6 @@ class PatientsControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT edit patient without subject_id " <<
-			"and #{cu} login" do
-		patient = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
 	test "should update patient with #{cu} login" do
 		patient = factory_create
 		login_as send(cu)
@@ -214,16 +192,6 @@ class PatientsControllerTest < ActionController::TestCase
 		put :update, :subject_id => 0,
 			:patient => factory_attributes
 		assert_redirected_to subjects_path
-	end
-
-	test "should NOT update patient without subject_id " <<
-			"and #{cu} login" do
-		patient = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update,
-				:patient => factory_attributes
-		}
 	end
 
 	test "should NOT update patient with #{cu} " <<

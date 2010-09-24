@@ -2,6 +2,19 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleKitsControllerTest < ActionController::TestCase
 
+	#	no route as is has_one
+	assert_no_route(:get, :index, :sample_id => 0)
+
+	#	no sample_id
+	assert_no_route(:get, :new)
+	assert_no_route(:post, :create)
+
+	# no id
+	assert_no_route(:get, :show)
+	assert_no_route(:get, :edit)
+	assert_no_route(:put, :update)
+	assert_no_route(:delete, :destroy)
+
 	setup :build_sample_kit
 	def build_sample_kit
 		@sample_kit = factory_create
@@ -46,13 +59,6 @@ class SampleKitsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	) 
 
-#	no route as is has_one
-
-	test "should NOT get index with sample id" do
-		assert_raise(ActionController::RoutingError){
-			get :index, :sample_id => @sample.id
-		}
-	end
 
 #	not logged in
 
@@ -99,56 +105,6 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'show'
 		assert assigns(:sample_kit)
-	end
-
-#	no sample_id
-
-	test "should get new without sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
-	end
-
-	test "should post create without sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-		assert_difference('SampleKit.count',0) {
-			post :create,
-				:sample_kit => factory_attributes
-		} }
-	end
-
-#	no id
-
-	test "should get edit without id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
-	test "should put update without id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update,
-				:sample_kit => factory_attributes
-		}
-	end
-
-	test "should get show without id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :show
-		}
-	end
-
-	test "should delete destroy without id with #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-		assert_difference('SampleKit.count',0){
-			delete :destroy
-		} }
 	end
 
 #	save errors

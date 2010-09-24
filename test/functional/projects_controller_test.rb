@@ -2,6 +2,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProjectsControllerTest < ActionController::TestCase
 
+	#	no id
+	assert_no_route(:get,:show)
+	assert_no_route(:get,:edit)
+	assert_no_route(:put,:update)
+	assert_no_route(:delete,:destroy)
+
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Project',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
@@ -73,41 +79,6 @@ class ProjectsControllerTest < ActionController::TestCase
 ##		assert_not_nil flash[:error]
 #		assert_redirected_to projects_path
 #	end
-
-#	NO id
-
-	test "should NOT get show without id with #{cu} login" do
-		project = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :show
-		}
-	end
-
-	test "should NOT get edit without id with #{cu} login" do
-		project = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit
-		}
-	end
-
-	test "should NOT update without id with #{cu} login" do
-		project = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update, :project => factory_attributes
-		}
-	end
-
-	test "should NOT destroy without id with #{cu} login" do
-		project = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-		assert_difference('Project.count',0){
-			delete :destroy
-		} }
-	end
 
 #	invalid project
 

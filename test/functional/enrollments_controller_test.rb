@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EnrollmentsControllerTest < ActionController::TestCase
 
+	#	no subject_id
+	assert_no_route(:get,:index)
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+
+	#	no id
+	assert_no_route(:get, :show)
+	assert_no_route(:get, :edit)
+	assert_no_route(:put, :update)
+	assert_no_route(:delete, :destroy)
+
 	ASSERT_ACCESS_OPTIONS = {
 		:model => 'Enrollment',
 		:actions => [:show,:edit,:update],	#	only the shallow ones
@@ -34,13 +45,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
-	test "should NOT get enrollments without subject_id and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :index
-		}
-	end
-
 	test "should NOT get enrollments with invalid subject_id " <<
 		"and #{cu} login" do
 		login_as send(cu)
@@ -57,13 +61,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert assigns(:projects)
 		assert_response :success
 		assert_template 'new'
-	end
-
-	test "should NOT get new enrollment without subject_id and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :new
-		}
 	end
 
 	test "should NOT get new enrollment with invalid subject_id " <<
@@ -86,15 +83,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		} }
 		assert assigns(:subject)
 		assert_redirected_to edit_enrollment_path(assigns(:enrollment))
-	end
-
-	test "should NOT create enrollment without subject_id " <<
-		"and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			post :create, :enrollment => { 
-				:project_id => Factory(:project).id }
-		}
 	end
 
 	test "should NOT create enrollment with invalid subject_id " <<
@@ -156,14 +144,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
-	test "should NOT edit enrollment without id and #{cu} login" do
-		enrollment = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :edit, :subject_id => enrollment.subject.id
-		}
-	end
-
 	test "should update enrollment with #{cu} login" do
 		enrollment = factory_create
 		login_as send(cu)
@@ -181,15 +161,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 			:id => 0,
 			:enrollment => factory_attributes
 		assert_redirected_to subjects_path
-	end
-
-	test "should NOT update enrollment without id and #{cu} login" do
-		enrollment = factory_create
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			put :update, :subject_id => enrollment.subject.id,
-				:enrollment => factory_attributes
-		}
 	end
 
 	test "should NOT update enrollment with #{cu} login " <<

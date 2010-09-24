@@ -2,6 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ContactsControllerTest < ActionController::TestCase
 
+	#	no subject_id
+	assert_no_route(:get,:index)
+
+	#	no route
+	assert_no_route(:get,:new)
+	assert_no_route(:post,:create)
+	assert_no_route(:get,:show,:id => 0)
+	assert_no_route(:get,:edit,:id => 0)
+	assert_no_route(:put,:update,:id => 0)
+	assert_no_route(:delete,:destroy,:id => 0)
+
 %w( superuser admin editor ).each do |cu|
 
 	test "should get contacts with #{cu} login" do
@@ -11,13 +22,6 @@ class ContactsControllerTest < ActionController::TestCase
 		assert assigns(:subject)
 		assert_response :success
 		assert_template 'index'
-	end
-
-	test "should NOT get contacts without subject_id and #{cu} login" do
-		login_as send(cu)
-		assert_raise(ActionController::RoutingError){
-			get :index
-		}
 	end
 
 	test "should NOT get contacts with invalid subject_id and #{cu} login" do
