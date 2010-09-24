@@ -13,6 +13,7 @@ module ApplicationHelper
 					Subjects
 				) then :subjects
 			when *%w( Interview::Subjects Interviews
+					HomeExposureResponses
 				) then  :interview
 			when *%w( Samples Sample::Subjects
 				) then :sample

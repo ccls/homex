@@ -8,10 +8,12 @@
 <% id_bar_for(@subject) %>
 
 <% content_tag_for( :div, @interview ) do %>
-<p>Interview Info</p>
-<p>Outcome: NOT CODED YET</p>
+<h4>Interview Info</h4>
+<p>Outcome:
+<%=@interview.subject.try(:homex_outcome).try(:interview_outcome) %>
+</p>
 
-<p>Dates of interview</p>
+<h4>Dates of interview</h4>
 <p>began: <%=mdy @interview.began_on %>:  
 ended (if other than date began)<%=mdy @interview.ended_on %>
 </p>
@@ -20,8 +22,9 @@ ended (if other than date began)<%=mdy @interview.ended_on %>
 <p>Interview method:<%= @interview.interview_method %></p>
 <p>Interview language:<%= @interview.language %></p>
 
-<p>Respondent Info</p>
+<h4>Respondent Info</h4>
 <p>Name:<%= @interview.respondent_full_name %></p>
-<p>Relationship: NOT CODED YET       specify:NOT CODED YET</p>
+<p>Relationship:<%= @interview.respondent_relationship_id %>
+specify:<%= @interview.respondent_relationship_other %></p>
 
 <% end %><%# content_tag_for %>
