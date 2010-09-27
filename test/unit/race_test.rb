@@ -27,6 +27,17 @@ class RaceTest < ActiveSupport::TestCase
 		assert_equal object.name, "#{object}"
 	end
 
+	test "should find by code with []" do
+		object = Race['1']
+		assert object.is_a?(Race)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(Race::NotFound) {
+			object = Race['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

@@ -25,8 +25,10 @@ class Project < ActiveRecord::Base
 			:conditions => [ "enrollments.subject_id IS NULL" ])
 	end
 
+	class NotFound < StandardError; end
+
 	def self.[](code)
-		find_by_code(code)
+		find_by_code(code) || raise(NotFound)
 	end
 
 end

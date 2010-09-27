@@ -27,6 +27,17 @@ class AddressTypeTest < ActiveSupport::TestCase
 		assert_equal object.code, "#{object}"
 	end
 
+	test "should find by code with []" do
+		object = AddressType['residence']
+		assert object.is_a?(AddressType)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(AddressType::NotFound) {
+			object = AddressType['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

@@ -21,6 +21,17 @@ class InterviewOutcomeTest < ActiveSupport::TestCase
 			"#{object}"
 	end
 
+	test "should find by code with []" do
+		object = InterviewOutcome['complete']
+		assert object.is_a?(InterviewOutcome)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(InterviewOutcome::NotFound) {
+			object = InterviewOutcome['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

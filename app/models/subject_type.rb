@@ -21,8 +21,10 @@ class SubjectType < ActiveRecord::Base
 		description
 	end
 
+	class NotFound < StandardError; end
+
 	def self.[](code)
-		find_by_code(code)
+		find_by_code(code) || raise(NotFound)
 	end
 
 end

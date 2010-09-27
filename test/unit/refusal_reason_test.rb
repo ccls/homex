@@ -26,6 +26,17 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
+	test "should find by code with []" do
+		object = RefusalReason['busy']
+		assert object.is_a?(RefusalReason)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(RefusalReason::NotFound) {
+			object = RefusalReason['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

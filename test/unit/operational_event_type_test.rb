@@ -23,6 +23,17 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should find by code with []" do
+		object = OperationalEventType['ineligible']
+		assert object.is_a?(OperationalEventType)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(OperationalEventType::NotFound) {
+			object = OperationalEventType['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

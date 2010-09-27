@@ -28,6 +28,17 @@ class VitalStatusTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
+#	test "should find by code with []" do
+#		object = VitalStatus['living']
+#		assert object.is_a?(VitalStatus)
+#	end
+#
+#	test "should raise error if not found by code with []" do
+#		assert_raise(VitalStatus::NotFound) {
+#			object = VitalStatus['idonotexist']
+#		}
+#	end
+
 protected
 
 	def create_object(options = {})

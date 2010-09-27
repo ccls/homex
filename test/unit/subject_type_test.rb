@@ -27,6 +27,17 @@ class SubjectTypeTest < ActiveSupport::TestCase
 			"#{object}"
 	end
 
+	test "should find by code with []" do
+		object = SubjectType['Case']
+		assert object.is_a?(SubjectType)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(SubjectType::NotFound) {
+			object = SubjectType['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})

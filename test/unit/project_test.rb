@@ -34,6 +34,17 @@ class ProjectTest < ActiveSupport::TestCase
 		assert_equal 2, object.reload.subjects.length
 	end
 
+	test "should find by code with []" do
+		object = Project['HomeExposures']
+		assert object.is_a?(Project)
+	end
+
+	test "should raise error if not found by code with []" do
+		assert_raise(Project::NotFound) {
+			object = Project['idonotexist']
+		}
+	end
+
 protected
 
 	def create_object(options = {})
