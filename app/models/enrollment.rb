@@ -23,25 +23,33 @@ class Enrollment < ActiveRecord::Base
 		:unless => :is_chosen?
 
 	validates_presence_of :refusal_reason,
-		:unless => :consented?
+		:if => :not_consented?
+	validates_absence_of :refusal_reason,
+		:message => "not allowed with consent",
+		:unless => :not_consented?
 
 	validates_presence_of :consented_on,
 		:if => :consented?
+	validate :consented_on_is_valid
+	validate :consented_on_is_in_the_past
 
 	validates_presence_of :other_refusal_reason,
 		:if => :refusal_reason_is_other?
+	validates_absence_of :other_refusal_reason,
+		:message => "not allowed",
+		:unless => :refusal_reason_is_other?
 
 	validates_presence_of :terminated_reason,
 		:if => :terminated_participation?
 
 	validates_presence_of :completed_on,
 		:if => :is_complete?
-
 	validate :completed_on_is_valid
-	validate :consented_on_is_valid
 	validate :completed_on_is_in_the_past
-	validate :consented_on_is_in_the_past
-	validate :document_version_absent
+
+	validates_absence_of :document_version,
+		:message => "not allowed with unknown consent",
+		:if => :consent_unknown?
 
 	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
@@ -60,6 +68,10 @@ class Enrollment < ActiveRecord::Base
 		consented == 1
 	end
 
+	def not_consented?
+		consented == 2
+	end
+
 	def consent_unknown?
 		[nil,999].include?(consented)	#	not 1 or 2
 	end
@@ -73,12 +85,6 @@ class Enrollment < ActiveRecord::Base
 	end
 
 protected
-
-	def document_version_absent
-		if consent_unknown? && !document_version_id.blank?
-			errors.add(:document_version, "not allowed with unknown consent") 
-		end
-	end
 
 	def completed_on_is_valid
 		errors.add(:completed_on, "is invalid") if completed_on_invalid?

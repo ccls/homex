@@ -64,6 +64,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+
 	test "should require refusal_reason if consented == :no" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(:consented => YNDK[:no])
@@ -71,14 +72,52 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should NOT ALLOW refusal_reason if consented == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => nil,
+				:refusal_reason => Factory(:refusal_reason))
+			assert object.errors.on(:refusal_reason)
+		end
+	end
+
+	test "should NOT ALLOW refusal_reason if consented == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => YNDK[:dk],
+				:refusal_reason => Factory(:refusal_reason))
+			assert object.errors.on(:refusal_reason)
+		end
+	end
+
+	test "should NOT ALLOW refusal_reason if consented == :yes" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => YNDK[:yes],
+				:refusal_reason => Factory(:refusal_reason))
+			assert object.errors.on(:refusal_reason)
+		end
+	end
+
+
+
+
 	test "should require other_refusal_reason if " <<
 			"refusal_reason == other" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:refusal_reason => 
-				RefusalReason['other'] )
+			object = create_object(
+				:refusal_reason => RefusalReason['other'] )
 			assert object.errors.on(:other_refusal_reason)
 		end
 	end
+
+	test "should NOT ALLOW other_refusal_reason if " <<
+			"refusal_reason != other" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(
+				:refusal_reason => Factory(:refusal_reason),
+				:other_refusal_reason => 'asdfasdf' )
+			assert object.errors.on(:other_refusal_reason)
+		end
+	end
+
 
 	test "should require consented_on if consented == :yes" do
 		assert_difference('Enrollment.count',0) do
