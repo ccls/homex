@@ -30,7 +30,7 @@ module ApplicationHelper
 			:class => ((current == :interview)?'current':nil)))
 		l.push(link_to( "Samples", sample_subjects_path,
 			:class => ((current == :sample)?'current':nil)))
-		l.push(link_to( "Follow-Up", followup_subjects_path,
+		l.push(link_to( "Gift Cards", followup_subjects_path,
 			:class => ((current == :followup)?'current':nil)))
 
 		l.push(link_to( "Admin", admin_path,
