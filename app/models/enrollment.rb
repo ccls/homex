@@ -29,10 +29,13 @@ class Enrollment < ActiveRecord::Base
 		:unless => :not_consented?
 
 	validates_presence_of :consented_on,
+		:message => 'required with consent',
 		:if => :consented?
 	validates_presence_of :consented_on,
+		:message => 'required without consent',
 		:if => :not_consented?
 	validates_absence_of :consented_on,
+		:message => 'not allowed with unknown consent',
 		:if => :consent_unknown?
 	validate :consented_on_is_valid
 	validate :consented_on_is_in_the_past
