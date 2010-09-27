@@ -14,10 +14,15 @@ class Enrollment < ActiveRecord::Base
 		:subject, :project
 
 	validates_presence_of :ineligible_reason,
-		:unless => :is_eligible?
+		:if => :is_not_eligible?
+	validates_absence_of :ineligible_reason,
+		:unless => :is_not_eligible?
 
 	validates_presence_of :ineligible_reason_specify,
 		:if => :ineligible_reason_is_other?
+	validates_absence_of :ineligible_reason_specify,
+		:message => 'not allowed',
+		:unless => :ineligible_reason_is_other?
 
 	validates_presence_of :reason_not_chosen,
 		:unless => :is_chosen?
@@ -69,6 +74,10 @@ class Enrollment < ActiveRecord::Base
 
 	def is_eligible?
 		is_eligible == 1
+	end
+
+	def is_not_eligible?
+		is_eligible == 2
 	end
 
 	def is_chosen?

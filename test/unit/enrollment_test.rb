@@ -49,14 +49,50 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should NOT ALLOW ineligible_reason if is_eligible == :yes" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_eligible => YNDK[:yes],
+				:ineligible_reason => Factory(:ineligible_reason) )
+			assert object.errors.on(:ineligible_reason)
+		end
+	end
+
+	test "should NOT ALLOW ineligible_reason if is_eligible == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_eligible => YNDK[:dk],
+				:ineligible_reason => Factory(:ineligible_reason) )
+			assert object.errors.on(:ineligible_reason)
+		end
+	end
+
+	test "should NOT ALLOW ineligible_reason if is_eligible == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_eligible => nil,
+				:ineligible_reason => Factory(:ineligible_reason) )
+			assert object.errors.on(:ineligible_reason)
+		end
+	end
+
+
 	test "should require ineligible_reason_specify if " <<
 			"ineligible_reason == other" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(:ineligible_reason => 
-				IneligibleReason['other'] )
+			object = create_object(
+				:ineligible_reason => IneligibleReason['other'] )
 			assert object.errors.on(:ineligible_reason_specify)
 		end
 	end
+
+	test "should NOT ALLOW ineligible_reason_specify if " <<
+			"ineligible_reason != other" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(
+				:ineligible_reason => Factory(:ineligible_reason),
+				:ineligible_reason_specify => 'blah blah blah' )
+			assert object.errors.on(:ineligible_reason_specify)
+		end
+	end
+
 
 	test "should require reason_not_chosen if is_chosen == :no" do
 		assert_difference('Enrollment.count',0) do
