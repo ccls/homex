@@ -23,8 +23,13 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = OperationalEventType['ineligible']
+		assert object.is_a?(OperationalEventType)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = OperationalEventType[:ineligible]
 		assert object.is_a?(OperationalEventType)
 	end
 

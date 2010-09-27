@@ -27,8 +27,13 @@ class RaceTest < ActiveSupport::TestCase
 		assert_equal object.name, "#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = Race['1']
+		assert object.is_a?(Race)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = Race['1'.to_sym]	#	:1 is no good, but '1'.to_sym is OK
 		assert object.is_a?(Race)
 	end
 

@@ -27,8 +27,13 @@ class AddressTypeTest < ActiveSupport::TestCase
 		assert_equal object.code, "#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = AddressType['residence']
+		assert object.is_a?(AddressType)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = AddressType[:residence]
 		assert object.is_a?(AddressType)
 	end
 

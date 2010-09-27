@@ -161,9 +161,9 @@ pending
 
   test "should include subject by project indifferent completed" do
     e1 = Factory(:enrollment, :completed_on => nil,
-      :is_complete => false)
+      :is_complete => YNDK[:no])
     e2 = Factory(:enrollment, :completed_on => Time.now,
-      :is_complete => true,
+      :is_complete => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :completed => [true,false] }
@@ -174,9 +174,9 @@ pending
 
   test "should include subject by project not completed" do
     e1 = Factory(:enrollment, :completed_on => nil,
-      :is_complete => false)
+      :is_complete => YNDK[:no])
     e2 = Factory(:enrollment, :completed_on => Time.now,
-      :is_complete => true,
+      :is_complete => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :completed => false }
@@ -187,9 +187,9 @@ pending
 
   test "should include subject by project is completed" do
     e1 = Factory(:enrollment, :completed_on => nil,
-      :is_complete => false)
+      :is_complete => YNDK[:no])
     e2 = Factory(:enrollment, :completed_on => Time.now,
-      :is_complete => true,
+      :is_complete => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :completed => true }
@@ -232,8 +232,8 @@ pending
   end
 
   test "should include subject by project indifferent terminated" do
-    e1 = Factory(:enrollment, :terminated_participation => false)
-    e2 = Factory(:enrollment, :terminated_participation => true,
+    e1 = Factory(:enrollment, :terminated_participation => YNDK[:no])
+    e2 = Factory(:enrollment, :terminated_participation => YNDK[:yes],
       :terminated_reason => 'unknown',
       :project => e1.project )
     subjects = Subject.search(:projects => {
@@ -244,8 +244,8 @@ pending
   end
 
   test "should include subject by project not terminated" do
-    e1 = Factory(:enrollment, :terminated_participation => false)
-    e2 = Factory(:enrollment, :terminated_participation => true,
+    e1 = Factory(:enrollment, :terminated_participation => YNDK[:no])
+    e2 = Factory(:enrollment, :terminated_participation => YNDK[:yes],
       :terminated_reason => 'unknown',
       :project => e1.project )
     subjects = Subject.search(:projects => {
@@ -256,8 +256,8 @@ pending
   end
 
   test "should include subject by project is terminated" do
-    e1 = Factory(:enrollment, :terminated_participation => false)
-    e2 = Factory(:enrollment, :terminated_participation => true,
+    e1 = Factory(:enrollment, :terminated_participation => YNDK[:no])
+    e2 = Factory(:enrollment, :terminated_participation => YNDK[:yes],
       :terminated_reason => 'unknown',
       :project => e1.project )
     subjects = Subject.search(:projects => {
@@ -268,9 +268,9 @@ pending
   end
 
   test "should include subject by project indifferent consented" do
-    e1 = Factory(:enrollment, :consented => false,
+    e1 = Factory(:enrollment, :consented => YNDK[:no],
       :refusal_reason_id => RefusalReason.first.id)
-    e2 = Factory(:enrollment, :consented => true,
+    e2 = Factory(:enrollment, :consented => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :consented => [true,false] }
@@ -280,21 +280,21 @@ pending
   end
 
   test "should include subject by project not consented" do
-    e1 = Factory(:enrollment, :consented => false,
+    e1 = Factory(:enrollment, :consented => YNDK[:no],
       :refusal_reason_id => RefusalReason.first.id)
-    e2 = Factory(:enrollment, :consented => true,
+    e2 = Factory(:enrollment, :consented => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
-      e1.project.id => { :consented => false }
+      e1.project.id => { :consented => YNDK[:no] }
     })
     assert  subjects.include?(e1.subject)
     assert !subjects.include?(e2.subject)
   end
 
   test "should include subject by project is consented" do
-    e1 = Factory(:enrollment, :consented => false,
+    e1 = Factory(:enrollment, :consented => YNDK[:no],
       :refusal_reason_id => RefusalReason.first.id)
-    e2 = Factory(:enrollment, :consented => true,
+    e2 = Factory(:enrollment, :consented => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :consented => true }
@@ -304,8 +304,8 @@ pending
   end
 
   test "should include subject by project indifferent candidate" do
-    e1 = Factory(:enrollment, :is_candidate => false)
-    e2 = Factory(:enrollment, :is_candidate => true,
+    e1 = Factory(:enrollment, :is_candidate => YNDK[:no])
+    e2 = Factory(:enrollment, :is_candidate => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :candidate => [true,false] }
@@ -315,8 +315,8 @@ pending
   end
 
   test "should include subject by project not candidate" do
-    e1 = Factory(:enrollment, :is_candidate => false)
-    e2 = Factory(:enrollment, :is_candidate => true,
+    e1 = Factory(:enrollment, :is_candidate => YNDK[:no])
+    e2 = Factory(:enrollment, :is_candidate => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :candidate => false }
@@ -326,8 +326,8 @@ pending
   end
 
   test "should include subject by project is candidate" do
-    e1 = Factory(:enrollment, :is_candidate => false)
-    e2 = Factory(:enrollment, :is_candidate => true,
+    e1 = Factory(:enrollment, :is_candidate => YNDK[:no])
+    e2 = Factory(:enrollment, :is_candidate => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :candidate => true }
@@ -337,9 +337,9 @@ pending
   end
 
   test "should include subject by project indifferent chosen" do
-    e1 = Factory(:enrollment, :is_chosen => false,
+    e1 = Factory(:enrollment, :is_chosen => YNDK[:no],
       :reason_not_chosen => 'unknown')
-    e2 = Factory(:enrollment, :is_chosen => true,
+    e2 = Factory(:enrollment, :is_chosen => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :chosen => [true,false] }
@@ -349,9 +349,9 @@ pending
   end
 
   test "should include subject by project not chosen" do
-    e1 = Factory(:enrollment, :is_chosen => false,
+    e1 = Factory(:enrollment, :is_chosen => YNDK[:no],
       :reason_not_chosen => 'unknown')
-    e2 = Factory(:enrollment, :is_chosen => true,
+    e2 = Factory(:enrollment, :is_chosen => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :chosen => false }
@@ -361,9 +361,9 @@ pending
   end
 
   test "should include subject by project is chosen" do
-    e1 = Factory(:enrollment, :is_chosen => false,
+    e1 = Factory(:enrollment, :is_chosen => YNDK[:no],
       :reason_not_chosen => 'unknown')
-    e2 = Factory(:enrollment, :is_chosen => true,
+    e2 = Factory(:enrollment, :is_chosen => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :chosen => true }
@@ -373,9 +373,9 @@ pending
   end
 
   test "should include subject by project indifferent eligible" do
-    e1 = Factory(:enrollment, :is_eligible => false,
+    e1 = Factory(:enrollment, :is_eligible => YNDK[:no],
       :ineligible_reason_id => IneligibleReason.first.id)
-    e2 = Factory(:enrollment, :is_eligible => true,
+    e2 = Factory(:enrollment, :is_eligible => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :eligible => [true,false] }
@@ -385,9 +385,9 @@ pending
   end
 
   test "should include subject by project not eligible" do
-    e1 = Factory(:enrollment, :is_eligible => false,
+    e1 = Factory(:enrollment, :is_eligible => YNDK[:no],
       :ineligible_reason_id => IneligibleReason.first.id)
-    e2 = Factory(:enrollment, :is_eligible => true,
+    e2 = Factory(:enrollment, :is_eligible => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :eligible => false }
@@ -397,9 +397,9 @@ pending
   end
 
   test "should include subject by project is eligible" do
-    e1 = Factory(:enrollment, :is_eligible => false,
+    e1 = Factory(:enrollment, :is_eligible => YNDK[:no],
       :ineligible_reason_id => IneligibleReason.first.id)
-    e2 = Factory(:enrollment, :is_eligible => true,
+    e2 = Factory(:enrollment, :is_eligible => YNDK[:yes],
       :project => e1.project )
     subjects = Subject.search(:projects => {
       e1.project.id => { :eligible => true }

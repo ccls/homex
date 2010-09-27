@@ -34,8 +34,13 @@ class ProjectTest < ActiveSupport::TestCase
 		assert_equal 2, object.reload.subjects.length
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = Project['HomeExposures']
+		assert object.is_a?(Project)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = Project[:HomeExposures]
 		assert object.is_a?(Project)
 	end
 

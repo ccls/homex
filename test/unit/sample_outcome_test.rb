@@ -21,8 +21,13 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 			"#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = SampleOutcome['complete']
+		assert object.is_a?(SampleOutcome)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = SampleOutcome[:complete]
 		assert object.is_a?(SampleOutcome)
 	end
 

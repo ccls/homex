@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
 	class NotFound < StandardError; end
 
 	def self.[](code)
-		find_by_code(code) #|| raise(NotFound)
+		find_by_code(code.to_s) #|| raise(NotFound)
 	end
 
 end

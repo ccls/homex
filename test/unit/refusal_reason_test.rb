@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class RefusalReasonTest < ActiveSupport::TestCase
 
-	assert_should_have_many(:enrollments)
+#	Only IF subject not consented
+#	assert_should_have_many(:enrollments)
+
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 
@@ -26,8 +28,13 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = RefusalReason['busy']
+		assert object.is_a?(RefusalReason)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = RefusalReason[:busy]
 		assert object.is_a?(RefusalReason)
 	end
 

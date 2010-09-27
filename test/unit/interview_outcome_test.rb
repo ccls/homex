@@ -21,8 +21,13 @@ class InterviewOutcomeTest < ActiveSupport::TestCase
 			"#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = InterviewOutcome['complete']
+		assert object.is_a?(InterviewOutcome)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = InterviewOutcome[:complete]
 		assert object.is_a?(InterviewOutcome)
 	end
 

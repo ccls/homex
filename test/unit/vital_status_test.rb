@@ -28,8 +28,13 @@ class VitalStatusTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
-#	test "should find by code with []" do
+#	test "should find by code with ['string']" do
 #		object = VitalStatus['living']
+#		assert object.is_a?(VitalStatus)
+#	end
+#
+#	test "should find by code with [:symbol]" do
+#		object = VitalStatus[:living]
 #		assert object.is_a?(VitalStatus)
 #	end
 #

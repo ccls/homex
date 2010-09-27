@@ -27,8 +27,13 @@ class SubjectTypeTest < ActiveSupport::TestCase
 			"#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = SubjectType['Case']
+		assert object.is_a?(SubjectType)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = SubjectType[:Case]
 		assert object.is_a?(SubjectType)
 	end
 

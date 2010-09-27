@@ -14,8 +14,10 @@ class Enrollment < ActiveRecord::Base
 		:subject, :project
 
 	validates_presence_of :ineligible_reason,
+		:message => 'required if ineligible',
 		:if => :is_not_eligible?
 	validates_absence_of :ineligible_reason,
+		:message => 'not allowed if not ineligible',
 		:unless => :is_not_eligible?
 
 	validates_presence_of :ineligible_reason_specify,

@@ -3,7 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class IneligibleReasonTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
-	assert_should_have_many(:enrollments)
+
+#	only if subject is ineligible
+#	assert_should_have_many(:enrollments)
+
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 
@@ -27,8 +30,13 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
-	test "should find by code with []" do
+	test "should find by code with ['string']" do
 		object = IneligibleReason['moved']
+		assert object.is_a?(IneligibleReason)
+	end
+
+	test "should find by code with [:symbol]" do
+		object = IneligibleReason[:moved]
 		assert object.is_a?(IneligibleReason)
 	end
 
