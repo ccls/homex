@@ -32,11 +32,11 @@ class SubjectTypeTest < ActiveSupport::TestCase
 		assert object.is_a?(SubjectType)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(SubjectType::NotFound) {
-			object = SubjectType['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(SubjectType::NotFound) {
+#			object = SubjectType['idonotexist']
+#		}
+#	end
 
 protected
 

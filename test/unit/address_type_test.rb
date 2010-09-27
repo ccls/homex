@@ -32,11 +32,11 @@ class AddressTypeTest < ActiveSupport::TestCase
 		assert object.is_a?(AddressType)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(AddressType::NotFound) {
-			object = AddressType['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(AddressType::NotFound) {
+#			object = AddressType['idonotexist']
+#		}
+#	end
 
 protected
 

@@ -140,12 +140,7 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
-			subject.addressings << Addressing.create(
-				Factory.attributes_for(:addressing,
-					:address_attributes => Factory.attributes_for(:address,
-						:state => 'AZ',
-						:address_type => AddressType['residence']
-			)	)	)
+			create_az_addressing(subject)
 		} } }
 		assert_not_nil subject.hx_enrollment.ineligible_reason_id
 		assert_equal   subject.hx_enrollment.ineligible_reason,
@@ -162,23 +157,32 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',1) {
 		assert_difference('Addressing.count',2) {
 		assert_difference('Address.count',2) {
-			subject.addressings << Addressing.create(
-				Factory.attributes_for(:addressing,
-					:address_attributes => Factory.attributes_for(:address,
-						:state => 'CA',
-						:address_type => AddressType['residence']
-			)	)	)
-			subject.addressings << Addressing.create(
-				Factory.attributes_for(:addressing,
-					:address_attributes => Factory.attributes_for(:address,
-						:state => 'AZ',
-						:address_type => AddressType['residence']
-			)	)	)
+			create_ca_addressing(subject)
+			create_az_addressing(subject)
 		} } }
 		assert_not_nil subject.hx_enrollment.ineligible_reason_id
 		assert_equal   subject.hx_enrollment.ineligible_reason,
 			IneligibleReason['moved']
 		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
+	end
+
+	test "should NOT make subject ineligible "<<
+			"on create if OET is missing" do
+		OperationalEventType['ineligible'].destroy
+		subject = create_hx_subject(:enrollment => {
+			:is_eligible => YNDK[:yes] })
+		assert_nil   subject.hx_enrollment.ineligible_reason_id
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_difference('OperationalEvent.count',0) {
+		assert_difference('Addressing.count',1) {
+		assert_difference('Address.count',1) {
+			create_ca_addressing(subject)
+assert_raise(ActiveRecord::RecordInvalid){
+			create_az_addressing(subject)
+}
+		} } }
+		assert_nil   subject.hx_enrollment.ineligible_reason_id
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
 	end
 
 	test "should NOT make subject ineligible "<<
@@ -190,12 +194,8 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
-			subject.addressings << Addressing.create(
-				Factory.attributes_for(:addressing,
-					:address_attributes => Factory.attributes_for(:address,
-						:state => 'AZ',
-						:address_type => AddressType['mailing']
-			)	)	)
+			create_az_addressing(subject,
+				:address => { :address_type => AddressType['mailing'] })
 		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
@@ -210,12 +210,7 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
-			subject.addressings << Addressing.create(
-				Factory.attributes_for(:addressing,
-					:address_attributes => Factory.attributes_for(:address,
-						:state => 'CA',
-						:address_type => AddressType['residence']
-			)	)	)
+			create_ca_addressing(subject)
 		} } }
 		assert_nil   subject.hx_enrollment.ineligible_reason_id
 		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
@@ -229,4 +224,24 @@ protected
 		record
 	end
 	
+	def create_addressing_with_address(subject,options={})
+		Factory(:addressing, {
+			:subject => subject,
+			:address => nil,	#	block address_attributes
+			:address_attributes => Factory.attributes_for(:address,{
+				:address_type => AddressType['residence']
+			}.merge(options[:address]||{}))
+		}.merge(options[:addressing]||{}))
+	end
+
+	def create_ca_addressing(subject,options={})
+		create_addressing_with_address(subject,{
+			:address => {:state => 'CA'}}.merge(options))
+	end
+
+	def create_az_addressing(subject,options={})
+		create_addressing_with_address(subject,{
+			:address => {:state => 'AZ'}}.merge(options))
+	end
+
 end

@@ -75,11 +75,17 @@ protected
 				:ineligible_reason => ineligible_reason
 			)
 
+begin
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
 				:operational_event_type => OperationalEventType['ineligible'],
 				:occurred_on => Date.today,
 				:description => ineligible_reason.to_s
 			)
+rescue
+#puts 'rescuing!'
+	errors.add(:base,'testing')
+	raise 
+end
 
 		end
 	end

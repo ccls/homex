@@ -32,11 +32,11 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		assert object.is_a?(IneligibleReason)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(IneligibleReason::NotFound) {
-			object = IneligibleReason['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(IneligibleReason::NotFound) {
+#			object = IneligibleReason['idonotexist']
+#		}
+#	end
 
 protected
 

@@ -32,11 +32,11 @@ class RaceTest < ActiveSupport::TestCase
 		assert object.is_a?(Race)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(Race::NotFound) {
-			object = Race['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(Race::NotFound) {
+#			object = Race['idonotexist']
+#		}
+#	end
 
 protected
 

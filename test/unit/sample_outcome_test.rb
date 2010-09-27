@@ -26,11 +26,11 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 		assert object.is_a?(SampleOutcome)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(SampleOutcome::NotFound) {
-			object = SampleOutcome['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(SampleOutcome::NotFound) {
+#			object = SampleOutcome['idonotexist']
+#		}
+#	end
 
 protected
 

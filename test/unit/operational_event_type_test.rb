@@ -28,11 +28,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		assert object.is_a?(OperationalEventType)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(OperationalEventType::NotFound) {
-			object = OperationalEventType['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(OperationalEventType::NotFound) {
+#			object = OperationalEventType['idonotexist']
+#		}
+#	end
 
 protected
 

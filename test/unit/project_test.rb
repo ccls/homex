@@ -39,11 +39,11 @@ class ProjectTest < ActiveSupport::TestCase
 		assert object.is_a?(Project)
 	end
 
-	test "should raise error if not found by code with []" do
-		assert_raise(Project::NotFound) {
-			object = Project['idonotexist']
-		}
-	end
+#	test "should raise error if not found by code with []" do
+#		assert_raise(Project::NotFound) {
+#			object = Project['idonotexist']
+#		}
+#	end
 
 protected
 
