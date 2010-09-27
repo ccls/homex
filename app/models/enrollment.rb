@@ -30,6 +30,10 @@ class Enrollment < ActiveRecord::Base
 
 	validates_presence_of :consented_on,
 		:if => :consented?
+	validates_presence_of :consented_on,
+		:if => :not_consented?
+	validates_absence_of :consented_on,
+		:if => :consent_unknown?
 	validate :consented_on_is_valid
 	validate :consented_on_is_in_the_past
 
@@ -41,9 +45,13 @@ class Enrollment < ActiveRecord::Base
 
 	validates_presence_of :terminated_reason,
 		:if => :terminated_participation?
+#	validates_absence_of :terminated_reason,
+#		:unless => :terminated_participation?
 
 	validates_presence_of :completed_on,
 		:if => :is_complete?
+	validates_absence_of :completed_on,
+		:unless => :is_complete?
 	validate :completed_on_is_valid
 	validate :completed_on_is_in_the_past
 

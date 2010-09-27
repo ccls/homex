@@ -32,6 +32,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require completed_on be in the past" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(
+				:is_complete  => YNDK[:yes],
 				:completed_on => Chronic.parse('tomorrow'))
 			#	sometimes this fails during test:coverage?
 			assert object.errors.on(:completed_on)
@@ -127,6 +128,31 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should require consented_on if consented == :no" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => YNDK[:no],
+				:consented_on => nil)
+			assert object.errors.on(:consented_on)
+		end
+	end
+
+	test "should NOT ALLOW consented_on if consented == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => YNDK[:dk],
+				:consented_on => Date.today)
+			assert object.errors.on(:consented_on)
+		end
+	end
+
+	test "should NOT ALLOW consented_on if consented == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => nil,
+				:consented_on => Date.today)
+			assert object.errors.on(:consented_on)
+		end
+	end
+
+
 	test "should require terminated_reason if " <<
 			"terminated_participation == :yes" do
 		assert_difference('Enrollment.count',0) do
@@ -135,12 +161,38 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+
 	test "should require completed_on if is_complete == :yes" do
 		assert_difference('Enrollment.count',0) do
 			object = create_object(:is_complete => YNDK[:yes])
 			assert object.errors.on(:completed_on)
 		end
 	end
+
+	test "should NOT ALLOW completed_on if is_complete == :no" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_complete => YNDK[:no],
+				:completed_on => Date.today)
+			assert object.errors.on(:completed_on)
+		end
+	end
+
+	test "should NOT ALLOW completed_on if is_complete == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_complete => YNDK[:dk],
+				:completed_on => Date.today)
+			assert object.errors.on(:completed_on)
+		end
+	end
+
+	test "should NOT ALLOW completed_on if is_complete == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_complete => nil,
+				:completed_on => Date.today)
+			assert object.errors.on(:completed_on)
+		end
+	end
+
 
 	test "should NOT ALLOW document_version_id if consented == nil" do
 		assert_difference('Enrollment.count',0) do
@@ -201,7 +253,8 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
-				:is_complete => YNDK[:no])
+				:is_complete => YNDK[:no],
+				:completed_on => nil)
 		end
 		oe = OperationalEvent.last
 		assert_equal 'reopened', oe.operational_event_type.code
