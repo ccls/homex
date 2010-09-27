@@ -41,6 +41,7 @@ class Enrollment < ActiveRecord::Base
 	validate :consented_on_is_valid
 	validate :completed_on_is_in_the_past
 	validate :consented_on_is_in_the_past
+	validate :document_version_absent
 
 	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
@@ -59,6 +60,10 @@ class Enrollment < ActiveRecord::Base
 		consented == 1
 	end
 
+	def consent_unknown?
+		[nil,999].include?(consented)	#	not 1 or 2
+	end
+
 	def terminated_participation?
 		terminated_participation == 1
 	end
@@ -68,6 +73,12 @@ class Enrollment < ActiveRecord::Base
 	end
 
 protected
+
+	def document_version_absent
+		if consent_unknown? && !document_version_id.blank?
+			errors.add(:document_version, "not allowed with unknown consent") 
+		end
+	end
 
 	def completed_on_is_valid
 		errors.add(:completed_on, "is invalid") if completed_on_invalid?

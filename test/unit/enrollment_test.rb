@@ -103,6 +103,38 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should NOT ALLOW document_version_id if consented == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => nil,
+				:document_version => Factory(:document_version) )
+			assert object.errors.on(:document_version)
+		end
+	end
+
+	test "should NOT ALLOW document_version_id if consented == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:consented => YNDK[:dk],
+				:document_version => Factory(:document_version) )
+			assert object.errors.on(:document_version)
+		end
+	end
+
+	test "should allow document_version_id if consented == :yes" do
+		assert_difference('Enrollment.count',1) do
+			object = create_object(:consented => YNDK[:yes],
+				:document_version => Factory(:document_version) )
+		end
+	end
+
+	test "should allow document_version_id if consented == :no" do
+		assert_difference('Enrollment.count',1) do
+			object = create_object(:consented => YNDK[:no],
+				:refusal_reason   => Factory(:refusal_reason),
+				:document_version => Factory(:document_version) )
+		end
+	end
+
+
 
 	test "should create operational event when enrollment complete" do
 		object = create_object(
