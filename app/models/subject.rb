@@ -158,7 +158,7 @@ class Subject < ActiveRecord::Base
 			:projects=>{hx_id=>{}}
 		)
 		options.merge!(
-#			:sample_outcome => 'complete',
+			:sample_outcome => 'complete',
 			:interview_outcome => 'complete'
 		)
 		Subject.search(options)
