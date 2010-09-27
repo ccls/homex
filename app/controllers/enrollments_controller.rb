@@ -31,7 +31,8 @@ class EnrollmentsController < ApplicationController
 
 	def update
 		@enrollment.update_attributes!(params[:enrollment])
-		redirect_to subject_enrollments_path(@enrollment.subject)
+#		redirect_to subject_enrollments_path(@enrollment.subject)
+		redirect_to enrollment_path(@enrollment)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "Enrollment update failed"
 		render :action => 'edit'

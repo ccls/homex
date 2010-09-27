@@ -151,7 +151,8 @@ class EnrollmentsControllerTest < ActionController::TestCase
 			:id => enrollment.id,
 			:enrollment => factory_attributes
 		assert assigns(:enrollment)
-		assert_redirected_to subject_enrollments_path(enrollment.subject)
+#		assert_redirected_to subject_enrollments_path(enrollment.subject)
+		assert_redirected_to enrollment_path(enrollment)
 	end
 
 	test "should NOT update enrollment with invalid id and #{cu} login" do
