@@ -1,5 +1,5 @@
 <% javascripts('edit_addressing') %>
-<% stylesheets('edit_addressing') %>
+<% stylesheets('edit_addressing','base/jquery.ui.all.css') %>
 <% content_for :head do -%>
 <% javascript_tag do -%>
 jQuery(function(){
@@ -28,6 +28,16 @@ jQuery(function(){
 	AddressType.all, 
     :id, :code, :include_blank => true %>
 <% end %>
+</div>
+
+<div>
+<%= f.wrapped_text_field :valid_from_string,
+	:label_text => 'address valid from:',
+	:class => 'datepicker' %>
+<%= f.wrapped_text_field :valid_to_string,
+	:label_text => 'to:',
+	:class => 'datepicker' %>
+<p>leave dates blank if unknown or to: is 'present'</p>
 </div>
 
 <div class='valid'>
