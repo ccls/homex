@@ -75,17 +75,17 @@ protected
 				:ineligible_reason => ineligible_reason
 			)
 
-begin
+			oet = OperationalEventType['ineligible']
+			if( oet.blank? )
+				errors.add(:base,"OperationalEventType['ineligible'] not found")
+				raise ActiveRecord::RecordNotSaved
+			end
+
 			subject.hx_enrollment.operational_events << OperationalEvent.create!(
-				:operational_event_type => OperationalEventType['ineligible'],
+				:operational_event_type => oet,
 				:occurred_on => Date.today,
 				:description => ineligible_reason.to_s
 			)
-rescue
-#puts 'rescuing!'
-	errors.add(:base,'testing')
-	raise 
-end
 
 		end
 	end

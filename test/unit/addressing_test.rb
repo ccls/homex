@@ -177,7 +177,8 @@ class AddressingTest < ActiveSupport::TestCase
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			create_ca_addressing(subject)
-assert_raise(ActiveRecord::RecordInvalid){
+#assert_raise(ActiveRecord::RecordInvalid){
+assert_raise(ActiveRecord::RecordNotSaved){
 			create_az_addressing(subject)
 }
 		} } }
@@ -225,7 +226,8 @@ protected
 	end
 	
 	def create_addressing_with_address(subject,options={})
-		Factory(:addressing, {
+#		Factory(:addressing, {
+		create_object({
 			:subject => subject,
 			:address => nil,	#	block address_attributes
 			:address_attributes => Factory.attributes_for(:address,{

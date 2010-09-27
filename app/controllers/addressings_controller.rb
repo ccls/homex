@@ -19,6 +19,13 @@ class AddressingsController < ApplicationController
 	end
 
 	def create
+		#	If create fails and re-renders 'new', then the
+		#	address id may be on the form due to after_create
+		#	modifications and it causes problems.
+		if params[:addressing] && params[:addressing][:address_attributes] 
+			params[:addressing][:address_attributes][:id] = nil
+		end
+
 		@addressing = @subject.addressings.build(
 			params[:addressing].merge( :current_user => current_user ) )
 #		@addressing = @subject.addressings.build( params[:addressing] )
