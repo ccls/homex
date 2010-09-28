@@ -23,6 +23,8 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		assert assigns(:survey)
 		assert assigns(:response_set)
 		assert_equal assigns(:response_set).user_id, u.id
+		assert_not_nil session[:access_code]
+		assert_equal session[:access_code], assigns(:response_set).access_code
 		assert_redirected_to(
 			edit_my_survey_path(
 				:survey_code => assigns(:survey).access_code, 
@@ -38,6 +40,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 			post :create, :subject_id => Subject.first.id, 
 				:survey_code => Survey.first.access_code
 		}
+		assert_nil session[:access_code]
 	end
 
 	test "should NOT begin survey with invalid subject_id with #{cu} login" do
@@ -47,6 +50,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 			post :create, :subject_id => 'bogus', 
 				:survey_code => survey.access_code
 		}
+		assert_nil session[:access_code]
 		assert assigns(:survey)
 		assert !assigns(:response_set)
 		assert_not_nil flash[:error]
@@ -59,6 +63,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 			post :create, :subject_id => Subject.first.id, 
 				:survey_code => "bogus code"
 		}
+		assert_nil session[:access_code]
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
 		assert_not_nil flash[:error]
@@ -92,6 +97,7 @@ end
 			post :create, :subject_id => Subject.first.id, 
 				:survey_code => survey.access_code
 		}
+		assert_nil session[:access_code]
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
 		assert_not_nil flash[:error]
@@ -106,6 +112,7 @@ end
 			post :create, :subject_id => Subject.first.id, 
 				:survey_code => survey.access_code
 		}
+		assert_nil session[:access_code]
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
 		assert_redirected_to_login
