@@ -1,9 +1,10 @@
 <% stylesheets('interview_subject') %>
 <% id_bar_for(@subject) %>
 
-<% if @interviews.length > 0 %>
+<% unless @interviews.empty? %>
 <table id='interviews'><thead><tr>
-<th>ID</th>
+<th>Instrument</th>
+<th>Project</th>
 <th>Began</th>
 <th>Ended</th>
 </tr></thead><tbody>
