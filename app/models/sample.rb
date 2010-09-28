@@ -30,28 +30,31 @@ class Sample < ActiveRecord::Base
 		sample_type.parent
 	end
 
+	delegate :kit_package,    :to => :sample_kit, :allow_nil => true
+	delegate :sample_package, :to => :sample_kit, :allow_nil => true
+
 	def kit_tracking_number
-		try(:sample_kit).try(:kit_package).try(:tracking_number)
+		kit_package.try(:tracking_number)
 	end
 
 	def kit_sent_on
-		try(:sample_kit).try(:kit_package).try(:sent_on)
+		kit_package.try(:sent_on)
 	end
 
 	def kit_received_on
-		try(:sample_kit).try(:kit_package).try(:received_on)
+		kit_package.try(:received_on)
 	end
 
 	def sample_tracking_number
-		try(:sample_kit).try(:sample_package).try(:tracking_number)
+		sample_package.try(:tracking_number)
 	end
 
 	def sample_sent_on
-		try(:sample_kit).try(:sample_package).try(:sent_on)
+		sample_package.try(:sent_on)
 	end
 
 	def sample_received_on
-		try(:sample_kit).try(:sample_package).try(:received_on)
+		sample_package.try(:received_on)
 	end
 
 	validate :tracking_numbers_are_different

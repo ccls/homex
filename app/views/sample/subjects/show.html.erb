@@ -14,7 +14,7 @@
 </tr>
 </tbody></table><!-- id='general' -->
 
-<table id='pending'><tbody><tr>
+<table id='pending'><thead><tr>
 <th>Pending Samples</th>
 <th>id</th>
 <th>type</th>
@@ -22,13 +22,16 @@
 <th>kit tracking no</th>
 <th>sample tracking no</th>
 </tr>
+</thead><tbody>
 <% @subject.samples.each do |sample| %>
 	<tr><td>&nbsp;</td>
 		<td><%= link_to sample.id, sample_path(sample) -%></td>
 		<td><%= sample.sample_type.code -%></td>
 		<td><%=mdy sample.sent_to_subject_on -%></td>
-		<td><%= sample.kit_tracking_number %></td>
-		<td><%= sample.sample_tracking_number %></td>
+		<td><%=link_to sample.kit_tracking_number, 
+			sample.sample_kit.kit_package %></td>
+		<td><%=link_to sample.sample_tracking_number,
+			sample.sample_kit.sample_package %></td>
 	</tr>
 <% end %>
 <tr>

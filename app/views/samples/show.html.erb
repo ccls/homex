@@ -16,21 +16,22 @@
 
 <p id='shipping'>Shipping Information</p>
 
-<table><tbody>
+<table><thead>
 <tr>
   <th>&nbsp;</th>
   <th>tracking no.</th>
   <th>sent</th>
   <th>received</th>
-</tr>
+</tr></thead><tbody>
 <tr><th>collection kit</th>
-<td><%= @sample.kit_tracking_number %></td>
+<td><%=link_to @sample.kit_tracking_number,
+			@sample.kit_package %></td>
 <td><%=mdy @sample.kit_sent_on %></td>
 <td><%=mdy @sample.kit_received_on %></td>
-
 </tr>
 <tr><th>sample</th>
-<td><%= @sample.sample_tracking_number %></td>
+<td><%=link_to @sample.sample_tracking_number,
+			@sample.sample_package %></td>
 <td><%=mdy @sample.sample_sent_on %></td>
 <td><%=mdy @sample.sample_received_on %></td>
 </tr>

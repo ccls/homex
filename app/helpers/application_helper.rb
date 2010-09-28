@@ -15,7 +15,7 @@ module ApplicationHelper
 			when *%w( Interview::Subjects Interviews
 					HomeExposureResponses
 				) then  :interview
-			when *%w( Samples Sample::Subjects
+			when *%w( Samples Sample::Subjects Packages
 				) then :sample
 			when *%w( Followup::Subjects 
 				) then :followup
