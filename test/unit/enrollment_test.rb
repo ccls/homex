@@ -273,7 +273,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 				:completed_on => past_date,
 				:is_complete => YNDK[:yes])
 		end
-		oe = OperationalEvent.last
+		oe = object.operational_events.find(:last,:order => 'id ASC')
 		assert_equal 'complete', oe.operational_event_type.code
 		assert_equal past_date,  oe.occurred_on
 		assert_equal object.subject_id, oe.enrollment.subject_id
@@ -287,12 +287,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 				:completed_on => past_date,
 				:is_complete => YNDK[:yes])
 		end
+		oe = object.operational_events.find(:last,:order => 'id ASC')
+		assert_equal 'complete', oe.operational_event_type.code
 		assert_difference('OperationalEvent.count',1) do
 			object.update_attributes(
 				:is_complete => YNDK[:no],
 				:completed_on => nil)
 		end
-		oe = OperationalEvent.last
+		oe = object.operational_events.find(:last,:order => 'id ASC')
 		assert_equal 'reopened', oe.operational_event_type.code
 		assert_equal Date.today, oe.occurred_on
 		assert_equal object.subject_id, oe.enrollment.subject_id
