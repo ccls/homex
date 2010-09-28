@@ -62,6 +62,7 @@ class User < ActiveRecord::Base
 	end
 
 	%w(	enrollments home_exposure_responses packages projects subjects
+			events
 			).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_read?
 		alias_method "may_read_#{resource}?".to_sym,    :may_read?

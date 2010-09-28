@@ -18,4 +18,8 @@ class OperationalEventType < ActiveRecord::Base
 		find_by_code(code.to_s) #|| raise(NotFound)
 	end
 
+	def to_s
+		description
+	end
+
 end

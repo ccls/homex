@@ -23,6 +23,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return description as to_s" do
+		object = create_object
+		assert_equal object.description, "#{object}"
+	end
+
 	test "should find by code with ['string']" do
 		object = OperationalEventType['ineligible']
 		assert object.is_a?(OperationalEventType)

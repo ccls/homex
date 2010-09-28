@@ -112,7 +112,7 @@ module SubjectsHelper
 
 	#	&uarr; and &darr;
 	def sort_link(column,text=nil)
-		order = column.downcase.gsub(/\s+/,'_')
+		order = column.to_s.downcase.gsub(/\s+/,'_')
 		dir = ( params[:dir] && params[:dir] == 'asc' ) ? 'desc' : 'asc'
 		link_text = text||column
 		classes = []	#[order]

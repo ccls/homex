@@ -11,6 +11,7 @@ module ApplicationHelper
 					Patients
 					PhoneNumbers
 					Subjects
+					Events
 				) then :subjects
 			when *%w( Interview::Subjects Interviews
 					HomeExposureResponses
