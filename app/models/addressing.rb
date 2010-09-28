@@ -31,7 +31,7 @@ class Addressing < ActiveRecord::Base
 		'current_address IS NULL OR current_address != 1'
 	]
 
-	stringify_date :valid_from, :valid_to, :format => '%m/%d/%Y'
+#	stringify_date :valid_from, :valid_to, :format => '%m/%d/%Y'
 
 	before_save :set_verifier, 
 		:if => :is_verified?, 

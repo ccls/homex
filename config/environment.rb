@@ -53,10 +53,10 @@ Rails::Initializer.run do |config|
 	end
 
 
-	config.gem 'jakewendt-stringify_date',
-		:lib => 'stringify_date',
-		:source => 'http://rubygems.org',
-		:version => '>= 1.0.1'
+#	config.gem 'jakewendt-stringify_date',
+#		:lib => 'stringify_date',
+#		:source => 'http://rubygems.org',
+#		:version => '>= 1.0.1'
 
 	config.gem 'haml'      # Needed for Surveyor
 	config.gem "chronic"   #		http://chronic.rubyforge.org/

@@ -13,6 +13,8 @@ select#subject_subject_type_id {
 	width: 170px;
 }
 
+.field_wrapper.interview_outcome_on label,
+.field_wrapper.sample_outcome_on label,
 .field_wrapper.interview_outcome_on_string label,
 .field_wrapper.sample_outcome_on_string label,
 .field_wrapper.state_id_no label,

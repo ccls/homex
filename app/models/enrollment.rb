@@ -44,7 +44,7 @@ class Enrollment < ActiveRecord::Base
 	validates_absence_of :consented_on,
 		:message => 'not allowed with unknown consent',
 		:if => :consent_unknown?
-	validate :consented_on_is_valid
+#	validate :consented_on_is_valid
 	validate :consented_on_is_in_the_past
 
 	validates_presence_of :other_refusal_reason,
@@ -62,14 +62,14 @@ class Enrollment < ActiveRecord::Base
 		:if => :is_complete?
 	validates_absence_of :completed_on,
 		:unless => :is_complete?
-	validate :completed_on_is_valid
+#	validate :completed_on_is_valid
 	validate :completed_on_is_in_the_past
 
 	validates_absence_of :document_version,
 		:message => "not allowed with unknown consent",
 		:if => :consent_unknown?
 
-	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
+#	stringify_date :completed_on, :consented_on, :format => '%m/%d/%Y'
 
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?
@@ -108,13 +108,13 @@ class Enrollment < ActiveRecord::Base
 
 protected
 
-	def completed_on_is_valid
-		errors.add(:completed_on, "is invalid") if completed_on_invalid?
-	end
-
-	def consented_on_is_valid
-		errors.add(:consented_on, "is invalid") if consented_on_invalid?
-	end
+#	def completed_on_is_valid
+#		errors.add(:completed_on, "is invalid") if completed_on_invalid?
+#	end
+#
+#	def consented_on_is_valid
+#		errors.add(:consented_on, "is invalid") if consented_on_invalid?
+#	end
 
 	def completed_on_is_in_the_past
 		if !completed_on.blank? && Time.now < completed_on

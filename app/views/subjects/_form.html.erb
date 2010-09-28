@@ -35,9 +35,14 @@
 	<%= pii_fields.wrapped_text_field :email %>
 
 	<%= pii_fields.label :dob, "DOB" %><br/>
-	<%= pii_fields.text_field :dob_string,
+
+	<%#= pii_fields.text_field :dob_string,
 		:class => 'datepicker',
-		:value => @subject.dob.try(:to_s,:dob) %><br/>
+		:value => @subject.dob.try(:to_s,:dob) %>
+
+	<%= pii_fields.date_text_field :dob,
+		:class => 'datepicker'	#, :value => @subject.dob 
+%><br/>
 
 <% end %>
 
@@ -62,14 +67,16 @@
 	<%= hof.wrapped_collection_select :interview_outcome_id,
 		InterviewOutcome.all, :id, :to_s, :include_blank => true %>
 
-	<%= hof.wrapped_text_field :interview_outcome_on_string,
+	<%#= hof.wrapped_text_field :interview_outcome_on_string,%>
+	<%= hof.wrapped_date_text_field :interview_outcome_on,
 		:class => 'datepicker',
 		:label_text => "Interview Outcome On:" %>
 
 	<%= hof.wrapped_collection_select :sample_outcome_id,
 		SampleOutcome.all, :id, :to_s, :include_blank => true %>
 
-	<%= hof.wrapped_text_field :sample_outcome_on_string,
+	<%#= hof.wrapped_text_field :sample_outcome_on_string,%>
+	<%= hof.wrapped_date_text_field :sample_outcome_on,
 		:class => 'datepicker',
 		:label_text => "Sample Outcome On:" %>
 

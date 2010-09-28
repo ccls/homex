@@ -31,8 +31,10 @@ class PatientTest < ActiveSupport::TestCase
 
 	test "should require diagnosis_date be in the past" do
 		assert_difference('Patient.count',0) do
+#			object = create_object(
+#				:diagnosis_date_string => 'tomorrow')
 			object = create_object(
-				:diagnosis_date_string => 'tomorrow')
+				:diagnosis_date => Chronic.parse('tomorrow'))
 			assert object.errors.on(:diagnosis_date)
 			assert_match(/future/,
 				object.errors.on(:diagnosis_date))

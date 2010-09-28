@@ -49,6 +49,8 @@ form div.controls select {
 	clear:left;
 	padding:10px;
 }
+.valid_from label,
+.valid_to label,
 .valid_from_string label,
 .valid_to_string label,
 .address_type_id label,
@@ -63,10 +65,13 @@ form div.controls select {
 	width: 100px;
 }
 
+.valid_from label,
+.valid_to label,
 .valid_from_string label,
 .valid_to_string label {
 	text-align:right;
 }
+.valid_to,
 .valid_to_string {
 	float:left;
 }

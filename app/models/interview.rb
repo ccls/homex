@@ -19,8 +19,8 @@ class Interview < ActiveRecord::Base
 
 #	validates_presence_of :identifier
 
-	stringify_date :began_on, :ended_on, 
-		:format => '%m/%d/%Y'
+#	stringify_date :began_on, :ended_on, 
+#		:format => '%m/%d/%Y'
 
 	def respondent_full_name
 		"#{respondent_first_name} #{respondent_last_name}"
