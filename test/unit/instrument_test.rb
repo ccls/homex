@@ -23,6 +23,12 @@ class InstrumentTest < ActiveSupport::TestCase
 		end
 	end
 
+	#	unfortunately name is NOT unique so should change this
+	test "should return name as to_s" do
+		object = create_object
+		assert_equal object.name, "#{object}"
+	end
+
 protected
 
 	def create_object(options = {})

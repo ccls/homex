@@ -50,6 +50,17 @@ class OperationalEventTest < ActiveSupport::TestCase
 		assert_equal events, [oe3,oe1,oe2]
 	end
 
+	test "should order by type and DESC as default dir" do
+		oe1 = create_object(:operational_event_type => Factory(
+			:operational_event_type,:description => 'MMMM'))
+		oe2 = create_object(:operational_event_type => Factory(
+			:operational_event_type,:description => 'AAAA'))
+		oe3 = create_object(:operational_event_type => Factory(
+			:operational_event_type,:description => 'ZZZZ'))
+		events = OperationalEvent.search(:order => 'type')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
 	test "should order by description ASC" do
 		oe1 = create_object(:description => 'M')
 		oe2 = create_object(:description => 'A')
@@ -66,6 +77,14 @@ class OperationalEventTest < ActiveSupport::TestCase
 		assert_equal events, [oe3,oe1,oe2]
 	end
 
+	test "should order by description and DESC as default dir" do
+		oe1 = create_object(:description => 'M')
+		oe2 = create_object(:description => 'A')
+		oe3 = create_object(:description => 'Z')
+		events = OperationalEvent.search(:order => 'description')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
 	test "should order by occurred_on ASC" do
 		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
 		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
@@ -79,6 +98,47 @@ class OperationalEventTest < ActiveSupport::TestCase
 		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
 		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
 		events = OperationalEvent.search(:order => 'occurred_on',:dir => 'desc')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
+	test "should order by occurred_on and DESC as default dir" do
+		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
+		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
+		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
+		events = OperationalEvent.search(:order => 'occurred_on')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
+	test "should order by occurred_on DESC as defaults" do
+		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
+		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
+		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
+		events = OperationalEvent.search()
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
+	test "should ignore invalid order" do
+		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
+		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
+		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
+		events = OperationalEvent.search(:order => 'iambogus')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
+	test "should ignore invalid dir" do
+		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
+		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
+		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
+		events = OperationalEvent.search(:order => 'occurred_on',
+			:dir => 'iambogus')
+		assert_equal events, [oe3,oe1,oe2]
+	end
+
+	test "should ignore valid dir without order" do
+		oe1 = create_object(:occurred_on => Chronic.parse('last month'))
+		oe2 = create_object(:occurred_on => Chronic.parse('last year'))
+		oe3 = create_object(:occurred_on => Chronic.parse('last week'))
+		events = OperationalEvent.search(:dir => 'ASC')
 		assert_equal events, [oe3,oe1,oe2]
 	end
 

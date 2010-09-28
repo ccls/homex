@@ -74,9 +74,9 @@ class Enrollment < ActiveRecord::Base
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?
 
-	def is_eligible?
-		is_eligible == 1
-	end
+#	def is_eligible?
+#		is_eligible == 1
+#	end
 
 	def is_not_eligible?
 		is_eligible == 2

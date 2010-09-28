@@ -26,6 +26,15 @@ class EventsControllerTest < ActionController::TestCase
 		assert_template 'index'
 	end
 
+	test "should get events with #{cu} login and hx subject" do
+		subject = create_hx_subject
+		login_as send(cu)
+		get :index, :subject_id => subject.id
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'index'
+	end
+
 	test "should NOT get events with invalid subject_id " <<
 		"and #{cu} login" do
 		login_as send(cu)
@@ -40,7 +49,7 @@ end
 %w( active_user ).each do |cu|
 
 	test "should NOT get events with #{cu} login" do
-		subject = Factory(:subject)
+		subject = create_hx_subject
 		login_as send(cu)
 		get :index, :subject_id => subject.id
 		assert_not_nil flash[:error]
@@ -50,7 +59,7 @@ end
 end
 
 	test "should NOT get events without login" do
-		subject = Factory(:subject)
+		subject = create_hx_subject
 		get :index, :subject_id => subject.id
 		assert_redirected_to_login
 	end
