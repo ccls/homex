@@ -54,6 +54,7 @@ module ApplicationHelper
 			when *%w( Addresses Addressings Contacts PhoneNumbers 
 				) then :contact
 			when *%w( Enrollments ) then :eligibility
+			when *%w( Events ) then :events
 		end
 		content_for :main do
 			s = "<div id='submenu'>\n"
@@ -68,6 +69,9 @@ module ApplicationHelper
 			l.push(link_to( 'eligibility/enrollments', 
 				subject_enrollments_path(subject),
 				:class => ((current == :eligibility)?'current':nil)))
+			l.push(link_to( 'events', 
+				subject_events_path(subject),
+				:class => ((current == :events)?'current':nil)))
 			s << l.join("\n")
 			s << "\n</div><!-- submenu -->\n"
 		end
