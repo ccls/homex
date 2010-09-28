@@ -129,11 +129,13 @@ protected
 	end
 
 	def ineligible_reason_is_other?
-		ineligible_reason.try(:code) == 'other'
+#		ineligible_reason.try(:code) == 'other'
+		ineligible_reason.try(:is_other?)
 	end
 
 	def refusal_reason_is_other?
-		refusal_reason.try(:code) == 'other'
+#		refusal_reason.try(:code) == 'other'
+		refusal_reason.try(:is_other?)
 	end
 
 	def create_enrollment_update
