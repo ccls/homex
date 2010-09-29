@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929164118) do
+ActiveRecord::Schema.define(:version => 20100929180336) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -618,8 +618,8 @@ ActiveRecord::Schema.define(:version => 20100929164118) do
     t.date     "ended_on"
     t.string   "respondent_first_name"
     t.string   "respondent_last_name"
-    t.integer  "respondent_relationship_id"
-    t.string   "respondent_relationship_other"
+    t.integer  "subject_relationship_id"
+    t.string   "subject_relationship_other"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
