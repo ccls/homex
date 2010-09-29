@@ -29,7 +29,6 @@ versions/
 /script/server_secure
 /script/webrick
 /surveys/fixtures/
-/test/unit/helpers/
 /tmp/
 
 #*/documents

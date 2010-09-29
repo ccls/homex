@@ -40,6 +40,18 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 		assert object.is_a?(IneligibleReason)
 	end
 
+	test "should find random" do
+		object = IneligibleReason.random()
+		assert object.is_a?(IneligibleReason)
+	end
+
+	test "should return nil on random when no records" do
+#		IneligibleReason.destroy_all
+		IneligibleReason.stubs(:count).returns(0)
+		object = IneligibleReason.random()
+		assert_nil object
+	end
+
 #	test "should raise error if not found by code with []" do
 #		assert_raise(IneligibleReason::NotFound) {
 #			object = IneligibleReason['idonotexist']

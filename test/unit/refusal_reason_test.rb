@@ -38,6 +38,18 @@ class RefusalReasonTest < ActiveSupport::TestCase
 		assert object.is_a?(RefusalReason)
 	end
 
+	test "should find random" do
+		object = RefusalReason.random()
+		assert object.is_a?(RefusalReason)
+	end
+
+	test "should return nil on random when no records" do
+#		RefusalReason.destroy_all
+		RefusalReason.stubs(:count).returns(0)
+		object = RefusalReason.random()
+		assert_nil object
+	end
+
 #	test "should raise error if not found by code with []" do
 #		assert_raise(RefusalReason::NotFound) {
 #			object = RefusalReason['idonotexist']
