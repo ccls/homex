@@ -2,8 +2,6 @@
 module ApplicationHelper
 
 	def home_exposure_main_menu
-#		controller_name = controller.controller_name
-#		names = controller.class.name.split('::')
 		current = case controller.class.name.sub(/Controller$/,'')
 			when *%w( Addressings
 					Contacts
