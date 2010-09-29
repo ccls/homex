@@ -55,8 +55,9 @@ class Enrollment < ActiveRecord::Base
 
 	validates_presence_of :terminated_reason,
 		:if => :terminated_participation?
-#	validates_absence_of :terminated_reason,
-#		:unless => :terminated_participation?
+	validates_absence_of :terminated_reason,
+		:message => "not allowed",
+		:unless => :terminated_participation?
 
 	validates_presence_of :completed_on,
 		:if => :is_complete?

@@ -197,6 +197,36 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should NOT ALLOW terminated_reason if " <<
+			"terminated_participation == :no" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(
+				:terminated_participation => YNDK[:no],
+				:terminated_reason => 'some bogus reason')
+			assert object.errors.on(:terminated_reason)
+		end
+	end
+
+	test "should NOT ALLOW terminated_reason if " <<
+			"terminated_participation == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(
+				:terminated_participation => YNDK[:dk],
+				:terminated_reason => 'some bogus reason')
+			assert object.errors.on(:terminated_reason)
+		end
+	end
+
+	test "should NOT ALLOW terminated_reason if " <<
+			"terminated_participation == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(
+				:terminated_participation => nil,
+				:terminated_reason => 'some bogus reason')
+			assert object.errors.on(:terminated_reason)
+		end
+	end
+
 
 	test "should require completed_on if is_complete == :yes" do
 		assert_difference('Enrollment.count',0) do
