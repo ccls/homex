@@ -1,3 +1,7 @@
+#	This controller serves one purpose.  It is the destination
+#	after completion of a survey.  This is set in 
+#		config/initializers/surveyor.rb 
+#	There are no views, just logic to control a redirect.
 class SurveyFinishedsController < ApplicationController
 
 #	skip_before_filter :login_required
@@ -11,6 +15,8 @@ class SurveyFinishedsController < ApplicationController
 #	before_filter :may_destroy_subjects_required,
 #		:only => :destroy
 
+	#	We are not using survey invitations or self-administration
+	#	so that code has been commented out.
 	def show
 		flash[:notice] = "Survey complete"
 #		if SurveyInvitation.exists?(:token => session[:invitation])
