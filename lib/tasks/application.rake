@@ -2,37 +2,37 @@ namespace :app do
 
 	desc "Load some fixtures to database for application"
 	task :update => :environment do
-		fixtures = []
-		fixtures.push('address_types')
-		fixtures.push('data_sources')
-		fixtures.push('diagnoses')
-		fixtures.push('document_types')
-		fixtures.push('document_versions')
-#		fixtures.push('guides')
-		fixtures.push('hospitals')
-		fixtures.push('ineligible_reasons')
-		fixtures.push('instrument_versions')
-		fixtures.push('instruments')
-		fixtures.push('interview_methods')
-		fixtures.push('interview_outcomes')
-		fixtures.push('interview_types')
-		fixtures.push('languages')
-		fixtures.push('organizations')
-		fixtures.push('operational_event_types')
-#		fixtures.push('pages')
-		fixtures.push('people')
-		fixtures.push('phone_types')
-		fixtures.push('projects')
-		fixtures.push('races')
-		fixtures.push('refusal_reasons')
-		fixtures.push('roles')
-#		fixtures.push('sample_subtypes')
-		fixtures.push('sample_outcomes')
-		fixtures.push('sample_types')
-		fixtures.push('states')
-		fixtures.push('subject_types')
-		fixtures.push('units')
-		fixtures.push('vital_statuses')
+#			guides
+#			pages
+		fixtures = %w(
+			address_types
+			data_sources
+			diagnoses
+			document_types
+			document_versions
+			hospitals
+			ineligible_reasons
+			instrument_versions
+			instruments
+			interview_methods
+			interview_outcomes
+			interview_types
+			languages
+			organizations
+			operational_event_types
+			people
+			phone_types
+			projects
+			races
+			refusal_reasons
+			roles
+			sample_outcomes
+			sample_types
+			states
+			subject_types
+			units
+			vital_statuses 
+		)
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
 		Rake::Task["db:fixtures:load"].invoke

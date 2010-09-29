@@ -18,4 +18,8 @@ class InstrumentVersion < ActiveRecord::Base
 
 	validates_presence_of :interview_type_id, :interview_type
 
+	def to_s
+		description
+	end
+
 end

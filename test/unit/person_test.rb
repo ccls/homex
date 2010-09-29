@@ -18,6 +18,11 @@ class PersonTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should return full_name as to_s" do
+		object = create_object
+		assert_equal object.full_name, "#{object}"
+	end
+
 protected
 
 	def create_object(options = {})
