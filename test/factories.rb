@@ -293,6 +293,11 @@ Factory.define :case_subject, :parent => :subject do |f|
 		}) }
 end
 
+Factory.define :subject_relationship do |f|
+	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:description) { |n| "Desc#{n}" }
+end
+
 Factory.define :subject_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }

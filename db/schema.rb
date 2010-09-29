@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929180336) do
+ActiveRecord::Schema.define(:version => 20100929180958) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -994,6 +994,17 @@ ActiveRecord::Schema.define(:version => 20100929180336) do
   add_index "states", ["fips_country_code"], :name => "index_states_on_fips_country_code"
   add_index "states", ["fips_state_code"], :name => "index_states_on_fips_state_code", :unique => true
   add_index "states", ["name"], :name => "index_states_on_name", :unique => true
+
+  create_table "subject_relationships", :force => true do |t|
+    t.integer  "position"
+    t.string   "code",        :null => false
+    t.string   "description", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subject_relationships", ["code"], :name => "index_subject_relationships_on_code", :unique => true
+  add_index "subject_relationships", ["description"], :name => "index_subject_relationships_on_description", :unique => true
 
   create_table "subject_types", :force => true do |t|
     t.integer  "position"

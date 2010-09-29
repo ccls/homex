@@ -29,6 +29,7 @@ namespace :app do
 			sample_outcomes
 			sample_types
 			states
+			subject_relationships
 			subject_types
 			units
 			vital_statuses 

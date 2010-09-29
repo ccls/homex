@@ -14,6 +14,7 @@ class Interview < ActiveRecord::Base
 	belongs_to :instrument_version
 	belongs_to :interview_method
 	belongs_to :language
+	belongs_to :subject_relationship
 
 #	has_many :operational_event_types
 
