@@ -8,6 +8,7 @@ class InstrumentVersion < ActiveRecord::Base
 
 	belongs_to :language
 	belongs_to :interview_type
+	belongs_to :instrument
 	has_many :interviews
 
 	validates_presence_of   :code

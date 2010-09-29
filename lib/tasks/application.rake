@@ -11,6 +11,8 @@ namespace :app do
 #		fixtures.push('guides')
 		fixtures.push('hospitals')
 		fixtures.push('ineligible_reasons')
+		fixtures.push('instrument_versions')
+		fixtures.push('instruments')
 		fixtures.push('interview_methods')
 		fixtures.push('interview_outcomes')
 		fixtures.push('interview_types')

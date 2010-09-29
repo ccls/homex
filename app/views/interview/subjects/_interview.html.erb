@@ -1,10 +1,9 @@
 <% content_tag_for( :tr, interview, :class => 'row' ) do %>
 <td class='instrument'>
-<%= link_to interview.try(:interview_method).try(:instrument)||'Unknown',
-	interview_path(interview) %>
+<%= interview.try(:instrument_version).try(:instrument)||'Unknown' %>
 </td>
 <td class='project'>
-<%#= interview.try(:instrument_version).try(:interview_type).try(:project)||'Unknown' %>TESTING
+<%= interview.try(:instrument_version).try(:instrument).try(:project)||'Unknown' %>
 </td>
 <td class='began'>
 <%=mdy interview.began_on %>

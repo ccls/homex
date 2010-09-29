@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class InstrumentTest < ActiveSupport::TestCase
 
 	assert_should_act_as_list
+	assert_should_have_many(:instrument_versions)
 	assert_should_belong_to(:interview_method)
 	assert_should_initially_belong_to(:project)
 	assert_should_require(:code,:name)

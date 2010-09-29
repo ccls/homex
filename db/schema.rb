@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916210654) do
+ActiveRecord::Schema.define(:version => 20100929164118) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -550,6 +550,7 @@ ActiveRecord::Schema.define(:version => 20100916210654) do
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "instrument_id"
   end
 
   add_index "instrument_versions", ["code"], :name => "index_interview_versions_on_code", :unique => true
