@@ -12,6 +12,7 @@ module ApplicationHelper
 					Events
 				) then :subjects
 			when *%w( Interview::Subjects Interviews
+					ResponseSets
 					HomeExposureResponses
 				) then  :interview
 			when *%w( Samples Sample::Subjects Packages
@@ -41,8 +42,29 @@ module ApplicationHelper
 	end
 
 	def sub_menu_for(object)
-		if object.is_a?(Subject)
-			subject_sub_menu(object)
+#		if object.is_a?(Subject)
+		case object
+			when Subject   then subject_sub_menu(object)
+			when Interview then interview_sub_menu(object)
+		end
+	end
+
+	def interview_sub_menu(interview)
+		current = nil
+#		current = case controller.class.name.sub(/Controller$/,'')
+#			when *%w( ) then :schedule
+#			when *%w( Interviews ResponseSets ) then :edit
+#		end
+		content_for :main do
+			s = "<div id='submenu'>\n"
+			l=[link_to( 'schedule interview', subject_path(interview.subject),
+				:class => ((current == :schedule)?'current':nil)
+			)]
+			l.push(link_to( 'edit/view interview', 
+				subject_response_sets_path(interview.subject),
+				:class => ((current == :edit)?'current':nil)))
+			s << l.join("\n")
+			s << "\n</div><!-- submenu -->\n"
 		end
 	end
 

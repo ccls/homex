@@ -126,6 +126,7 @@ Factory.define :interview do |f|
 #	f.association :address
 #	f.association :subject
 #	f.association :interviewer, :factory => :person
+	f.association :identifier
 end
 
 Factory.define :interview_method do |f|

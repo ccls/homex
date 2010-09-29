@@ -1,5 +1,5 @@
 <% stylesheets('edit_interview','base/jquery.ui.all.css') %>
-<% render 'submenu' %>
+<% sub_menu_for(@interview) %>
 
 <% id_bar_for(@subject) do %>
 <%= link_to( 'Save', nil, {

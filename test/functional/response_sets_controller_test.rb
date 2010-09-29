@@ -2,6 +2,23 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResponseSetsControllerTest < ActionController::TestCase
 
+	#	no subject_id
+	assert_no_route(:get,:index)
+
+	#	no id
+	assert_no_route(:get, :show)
+	assert_no_route(:get, :edit)
+	assert_no_route(:put, :update)
+	assert_no_route(:delete, :destroy)
+
+	#	no route
+	assert_no_route(:get,:new,:subject_id => 0)
+#	assert_no_route(:post,:create,:subject_id => 0)
+	assert_no_route(:get, :show, :id => 0)
+	assert_no_route(:get, :edit, :id => 0)
+	assert_no_route(:put, :update, :id => 0)
+	assert_no_route(:delete, :destroy, :id => 0)
+
 	setup :build_stuff
 	def build_stuff	#	setup
 		#	Make 2 so that the index tests duplication.
@@ -86,6 +103,32 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
+	test "should get response sets with #{cu} login" do
+		subject = Factory(:subject)
+		login_as send(cu)
+		get :index, :subject_id => subject.id
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'index'
+	end
+
+	test "should get response sets with #{cu} login and hx subject" do
+		subject = create_hx_subject
+		login_as send(cu)
+		get :index, :subject_id => subject.id
+		assert assigns(:subject)
+		assert_response :success
+		assert_template 'index'
+	end
+
+	test "should NOT get response sets with invalid subject_id " <<
+		"and #{cu} login" do
+		login_as send(cu)
+		get :index, :subject_id => 0
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path	#subjects_path
+	end
+
 end
 
 %w( active_user editor interviewer reader ).each do |cu|
@@ -104,6 +147,14 @@ end
 		assert_redirected_to root_path
 	end
 
+	test "should NOT get response sets with #{cu} login" do
+		subject = create_hx_subject
+		login_as send(cu)
+		get :index, :subject_id => subject.id
+		assert_not_nil flash[:error]
+		assert_redirected_to root_path
+	end
+
 end
 
 	test "should NOT begin survey without login" do
@@ -115,6 +166,12 @@ end
 		assert_nil session[:access_code]
 		assert !assigns(:survey)
 		assert !assigns(:response_set)
+		assert_redirected_to_login
+	end
+
+	test "should NOT get response sets without login" do
+		subject = create_hx_subject
+		get :index, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 

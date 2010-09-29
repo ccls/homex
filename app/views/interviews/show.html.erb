@@ -1,5 +1,5 @@
 <% stylesheets('subject') %>
-<% render 'submenu' %>
+<% sub_menu_for(@interview) %>
 
 <% content_for :id_bar do %>
 <%= link_to 'Edit', edit_interview_path(@interview) %>

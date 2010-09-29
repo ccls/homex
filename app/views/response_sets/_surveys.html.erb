@@ -14,9 +14,14 @@
 	<% end %>
 </div>
 <% if ( subject.response_sets_count < 2 ) %>
-	<% form_tag(response_sets_path, :class => 'take_survey') do %>
+	<%# form_tag(response_sets_path, :class => 'take_survey') do %>
+		<%#= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
+		<%#= hidden_field_tag :subject_id, subject.id, :id => nil %>
+		<%#= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
+	<%# end %>
+	<% form_tag(subject_response_sets_path(subject), 
+		:class => 'take_survey') do %>
 		<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
-		<%= hidden_field_tag :subject_id, subject.id, :id => nil %>
 		<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
 	<% end %>
 <% else %>

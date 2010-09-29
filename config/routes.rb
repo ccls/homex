@@ -14,12 +14,16 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :home_page_pics, :collection => { :activate => :post }
 	map.resources :packages, :except => :edit, 
 		:member => { :ship => :put, :deliver => :put }
-	map.resources :response_sets, :only => [ :create ]
+#	map.resources :response_sets, :only => [ :create ]
 
 	map.resource :home_exposure, :only => :show
 
 	map.resources :subjects,
 		:shallow => true do |subject|
+
+		subject.resources :response_sets, 
+			:only => [ :create, :index ]
+
 		subject.resources :samples do |sample|
 			#	one kit per sample
 			sample.resources :sample_kits, :except => [:index]

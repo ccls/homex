@@ -4,14 +4,19 @@ class ResponseSetsController < ApplicationController
 		:only => [:new,:create]
 	before_filter :may_read_response_sets_required, 
 		:only => [:show,:index]
-	before_filter :may_update_response_sets_required, 
-		:only => [:edit,:update]
-	before_filter :may_destroy_response_sets_required,
-		:only => :destroy
+#	before_filter :may_update_response_sets_required, 
+#		:only => [:edit,:update]
+#	before_filter :may_destroy_response_sets_required,
+#		:only => :destroy
 
 	before_filter :valid_survey_required,     :only => :create
-	before_filter :valid_subject_id_required, :only => :create
+	before_filter :valid_subject_id_required	#, :only => :create
 	before_filter :limit_response_set_count,  :only => :create
+
+	def index
+		@response_sets = ResponseSet.find(:all,:conditions => {
+			:subject_id => @subject.id } )
+	end
 
 	def create
 		@response_set = ResponseSet.create!( 
@@ -43,7 +48,10 @@ protected
 	#	A subject_id must be present and the associated
 	#	Subject must exist.
 	def valid_subject_id_required
-		unless( Subject.exists?( params[:subject_id] ) )
+		if( !params[:subject_id].blank? and 
+				Subject.exists?( params[:subject_id] ) )
+			@subject = Subject.find( params[:subject_id] )
+		else
 			access_denied("Subject ID Required to take survey")
 		end
 	end

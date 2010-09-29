@@ -2,8 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class InterviewTest < ActiveSupport::TestCase
 
+	assert_should_initially_belong_to(:identifier)
 	assert_should_belong_to(:address,:instrument_version,
-		:interview_method,:identifier,:language,:subject_relationship)
+		:interview_method,:language,:subject_relationship)
 	assert_should_belong_to(:interviewer, :class_name => 'Person')
 
 	test "should create interview" do
