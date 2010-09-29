@@ -27,7 +27,10 @@ class Enrollment < ActiveRecord::Base
 		:unless => :ineligible_reason_is_other?
 
 	validates_presence_of :reason_not_chosen,
-		:unless => :is_chosen?
+		:if => :is_not_chosen?
+	validates_absence_of :reason_not_chosen,
+		:message => 'not allowed',
+		:unless => :is_not_chosen?
 
 	validates_presence_of :refusal_reason,
 		:if => :not_consented?
@@ -83,8 +86,12 @@ class Enrollment < ActiveRecord::Base
 		is_eligible == 2
 	end
 
-	def is_chosen?
-		is_chosen == 1
+#	def is_chosen?
+#		is_chosen == 1
+#	end
+
+	def is_not_chosen?
+		is_chosen == 2
 	end
 
 	def consented?

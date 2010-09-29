@@ -101,6 +101,30 @@ class EnrollmentTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should NOT ALLOW reason_not_chosen if is_chosen == :yes" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_chosen => YNDK[:yes],
+				:reason_not_chosen => "blah blah blah")
+			assert object.errors.on(:reason_not_chosen)
+		end
+	end
+
+	test "should NOT ALLOW reason_not_chosen if is_chosen == :dk" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_chosen => YNDK[:dk],
+				:reason_not_chosen => "blah blah blah")
+			assert object.errors.on(:reason_not_chosen)
+		end
+	end
+
+	test "should NOT ALLOW reason_not_chosen if is_chosen == nil" do
+		assert_difference('Enrollment.count',0) do
+			object = create_object(:is_chosen => nil,
+				:reason_not_chosen => "blah blah blah")
+			assert object.errors.on(:reason_not_chosen)
+		end
+	end
+
 
 	test "should require refusal_reason if consented == :no" do
 		assert_difference('Enrollment.count',0) do
