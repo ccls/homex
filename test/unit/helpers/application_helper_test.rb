@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../../test_helper'
 class ApplicationHelperTest < ActionView::TestCase
 
 	test "mdy should return mdy date with date" do
-		response = mdy(Date.parse('12/31/1999'))
-		assert_match '12/31/99', response
+		response = mdy(Date.parse('Dec 31, 1999'))
+		assert_match '12/31/1999', response
 	end
 
 	test "mdy should return nbsp with nil date" do
