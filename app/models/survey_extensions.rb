@@ -8,6 +8,9 @@ module SurveyExtensions	#	:nodoc:
 			#	this relationship is true
 			#	but I don't know how useful it is
 			#has_many :survey_invitations
+
+			has_many :questions, :through => :sections
+
 		end
 	end
 	

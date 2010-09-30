@@ -1,6 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class SurveyControllerTest < ActionController::TestCase
+class SurveyorControllerTest < ActionController::TestCase
+#
+#	For some reason, I used to have to do this ...?
+#
+#class SurveyControllerTest < ActionController::TestCase
+#	tests SurveyorController
 
 	setup :prep_stuff
 	def prep_stuff	#	setup
@@ -12,7 +17,7 @@ class SurveyControllerTest < ActionController::TestCase
 		Factory(:survey_section)	#	creates a survey too
 		#	a survey section is needed in the edit action
 #		Factory(:survey)
-		@controller = SurveyorController.new
+#		@controller = SurveyorController.new
 	end
 
 %w( superuser admin ).each do |cu|
@@ -35,7 +40,8 @@ class SurveyControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should NOT continue survey with invalid response_set_code with #{cu} login" do
+	test "should NOT continue survey with invalid response_set_code "<<
+			"with #{cu} login" do
 		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
   	#	<input autocomplete="off" ...
 		SurveyorController.skip_after_filter :validate_page
@@ -58,6 +64,7 @@ class SurveyControllerTest < ActionController::TestCase
 		login_as send(cu)
 		get :edit, :survey_code => rs.survey.access_code,
 			:response_set_code => rs.access_code
+		assert_equal rs.access_code, session[:access_code]
 		assert assigns(:survey)
 		assert assigns(:response_set)
 		assert assigns(:current_user)
@@ -80,7 +87,8 @@ class SurveyControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should set completed_at on response_set finish with #{cu} login" do
+	test "should set completed_at on response_set finish "<<
+			"with #{cu} login" do
 		SurveyorController.skip_after_filter :validate_page
 		rs = Factory(:response_set, :survey => Survey.first)
 		login_as send(cu)
@@ -137,6 +145,7 @@ end
 		session[:invitation] = si.token
 		get :edit, :survey_code => rs.survey.access_code,
 			:response_set_code => rs.access_code
+		assert_equal rs.access_code, session[:access_code]
 		assert assigns(:survey)
 		assert assigns(:response_set)
 		assert_response :success

@@ -62,8 +62,10 @@ module SurveyorControllerExtensions	#	:nodoc:
 		end
 
 		def valid_response_set_required
-			unless @response_set = ResponseSet.find_by_access_code(
+			if @response_set = ResponseSet.find_by_access_code(
 					params[:response_set_code])
+				session[:access_code] = params[:response_set_code]
+			else
 				access_denied("Valid response set code required.")
 			end
 		end
