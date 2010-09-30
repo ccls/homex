@@ -1,18 +1,12 @@
+#	Rich join of Subject and Address
 class Addressing < ActiveRecord::Base
 	belongs_to :subject
 	belongs_to :address
 
-#	validates_presence_of :address_id, :address
 	validates_presence_of :address, :on => :update
 	validates_presence_of :subject_id, :subject
 
 	accepts_nested_attributes_for :address
-
-#	delegate :address_type,:address_type=,
-#		:address_type_id, :address_type_id=,
-#		:line_1,:line_2,:city,:state,:zip,:csz,
-#		:line_1=,:line_2=,:city=,:state=,:zip=,
-#		:to => :address, :allow_nil => true
 
 	delegate :address_type, :address_type_id,
 		:line_1,:line_2,:city,:state,:zip,:csz,
@@ -30,8 +24,6 @@ class Addressing < ActiveRecord::Base
 	named_scope :historic, :conditions => [
 		'current_address IS NULL OR current_address != 1'
 	]
-
-#	stringify_date :valid_from, :valid_to, :format => '%m/%d/%Y'
 
 	before_save :set_verifier, 
 		:if => :is_verified?, 

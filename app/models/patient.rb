@@ -4,16 +4,9 @@ class Patient < ActiveRecord::Base
 	belongs_to :organization
 	belongs_to :diagnosis
 
-#	# because subject accepts_nested_attributes for patient
-#	# we can't require subject_id on create
-#	validates_presence_of   :subject, :on => :update
-#	validates_uniqueness_of :subject_id, :allow_nil => true
-
 	validates_presence_of :subject_id, :subject
 	validates_uniqueness_of :subject_id
 
-#	stringify_date :diagnosis_date, :format => '%m/%d/%Y'
-#	validate :diagnosis_date_is_valid
 	validate :diagnosis_date_is_in_the_past
 	validate :diagnosis_date_is_after_dob
 	validate :subject_is_case
@@ -35,10 +28,6 @@ protected
 			errors.add(:diagnosis_date, "is before subject's dob.") 
 		end
 	end
-
-#	def diagnosis_date_is_valid
-#		errors.add(:diagnosis_date, "is invalid") if diagnosis_date_invalid?
-#	end
 
 	def subject_is_case
 		if subject and subject.subject_type.code != 'Case'

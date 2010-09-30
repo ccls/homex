@@ -20,9 +20,6 @@ class Pii < ActiveRecord::Base
 
 	before_validation :nullify_blank_email
 
-#	stringify_date :dob, :format => '%m/%d/%Y'
-#	validate :dob_is_valid
-
 	def full_name
 		[first_name, middle_name, last_name].join(' ')
 	end
@@ -42,10 +39,6 @@ class Pii < ActiveRecord::Base
 	end
 
 protected
-
-#	def dob_is_valid
-#		errors.add(:dob, "is invalid") if dob_invalid?
-#	end
 
 	def nullify_blank_email
 		#	An empty form field is not NULL to MySQL so ...

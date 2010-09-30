@@ -17,10 +17,6 @@ class Organization < ActiveRecord::Base
 	has_many :hospitals
 	has_many :patients
 
-#	how
-#	has_many :samples
-#	this is not clear in my UML diagram
-
 	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
 	validates_length_of     :name, :minimum => 4

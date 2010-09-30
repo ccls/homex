@@ -14,10 +14,6 @@ class InterviewOutcome < ActiveRecord::Base
 		description
 	end
 
-#	def name
-#		description
-#	end
-
 	class NotFound < StandardError; end
 
 	def self.[](code)

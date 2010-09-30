@@ -16,13 +16,6 @@ class Interview < ActiveRecord::Base
 	belongs_to :language
 	belongs_to :subject_relationship
 
-#	has_many :operational_event_types
-
-#	validates_presence_of :identifier
-
-#	stringify_date :began_on, :ended_on, 
-#		:format => '%m/%d/%Y'
-
 	def respondent_full_name
 		"#{respondent_first_name} #{respondent_last_name}"
 	end

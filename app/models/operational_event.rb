@@ -4,10 +4,6 @@ class OperationalEvent < ActiveRecord::Base
 	default_scope :order => 'occurred_on DESC'
 	belongs_to :enrollment
 
-#	belongs_to :subject
-#	validates_presence_of :subject_id, :operational_event_type_id,
-#		:subject, :operational_event_type
-
 	belongs_to :operational_event_type
 	validates_presence_of :operational_event_type_id,
 		:operational_event_type
