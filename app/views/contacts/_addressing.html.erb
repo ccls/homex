@@ -2,7 +2,9 @@
 
 <% if defined?(dates) and dates -%>
 <div class='when'>
-DATES NOT CODED YET
+<span class='from'><%=mdy addressing.valid_from %></span>
+&nbsp;-&nbsp;
+<span class='to'><%=mdy addressing.valid_to %></span>
 </div><!-- class='when' -->
 <% end -%><%# if defined?(details) and details -%>
 
