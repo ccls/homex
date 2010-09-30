@@ -16,8 +16,21 @@ class Interview < ActiveRecord::Base
 	belongs_to :language
 	belongs_to :subject_relationship
 
+
+	validates_presence_of :subject_relationship_other,
+		:if => :subject_relationship_is_other?
+	validates_absence_of :subject_relationship_other,
+		:message => "not allowed",
+		:unless => :subject_relationship_is_other?
+
 	def respondent_full_name
 		"#{respondent_first_name} #{respondent_last_name}"
+	end
+
+protected
+
+	def subject_relationship_is_other?
+		subject_relationship.try(:is_other?)
 	end
 
 end
