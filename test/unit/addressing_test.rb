@@ -229,7 +229,9 @@ protected
 #		Factory(:addressing, {
 		create_object({
 			:subject => subject,
-			:address => nil,	#	block address_attributes
+#	doesn't work in rcov for some reason
+#			:address => nil,	#	block address_attributes
+			:address_id => nil,	#	block address_attributes
 			:address_attributes => Factory.attributes_for(:address,{
 				:address_type => AddressType['residence']
 			}.merge(options[:address]||{}))
