@@ -1,6 +1,5 @@
 <% stylesheets('home_exposure_responses') %>
-<p>Subject ID:<%= link_to @home_exposure_response.subject_id,
-	subject_path(@home_exposure_response.subject) -%></p>
+
 <table><tbody>
 <% HomeExposureResponse.field_names.each do |field_name| %>
 <%= show_row(:home_exposure_response,field_name) %>
