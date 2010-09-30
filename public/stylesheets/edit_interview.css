@@ -2,6 +2,9 @@
 	padding: 10px;
 }
 .edit_interview .field_wrapper label {
-	width: 170px;
+	width: 180px;
 	float:left;
+}
+.subject_relationship_other label {
+	text-align:center;
 }
