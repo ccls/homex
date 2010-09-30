@@ -527,6 +527,16 @@ pending
 		assert subject.is_case?
 	end
 
+	test "should not have hx_interview" do
+		subject = create_subject
+		assert_nil subject.hx_interview
+	end
+
+	test "should have hx_interview" do
+		subject = create_hx_interview_subject
+		assert_not_nil subject.hx_interview
+	end
+
 protected
 
 	def create_survey_response_sets

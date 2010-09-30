@@ -42,7 +42,7 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 	test "should redirect to show interview " <<
 			"with valid hx interview subject " <<
 			"with #{cu} login" do
-		subject = create_hx_interview_subject
+		subject = create_hx_interview_subject	#	doesn't really matter
 		login_as send(cu)
 		get :show, :id => subject.id
 

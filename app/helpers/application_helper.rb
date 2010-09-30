@@ -52,10 +52,14 @@ module ApplicationHelper
 	end
 
 	def sub_menu_for(object)
+		#	In development, the app will forget
+		require 'subject'
+		require 'interview'
 #		if object.is_a?(Subject)
 		case object
 			when Subject   then subject_sub_menu(object)
 			when Interview then interview_sub_menu(object)
+			else nil
 		end
 	end
 

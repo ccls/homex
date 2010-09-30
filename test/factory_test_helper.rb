@@ -115,10 +115,14 @@ module FactoryTestHelper
 	def create_hx_interview_subject(options={})
 		subject = create_hx_subject
 		identifier = Factory(:identifier, :subject => subject)
-		interview_type = Factory(:interview_type, 
+#		interview_type = Factory(:interview_type, 
+#			:project => Project.find_or_create_by_code('HomeExposures'))
+#		instrument_version = Factory(:instrument_version, 
+#			:interview_type => interview_type)
+		instrument = Factory(:instrument, 
 			:project => Project.find_or_create_by_code('HomeExposures'))
 		instrument_version = Factory(:instrument_version, 
-			:interview_type => interview_type)
+			:instrument => instrument)
 		interview = Factory(:interview, 
 			:identifier => identifier,
 			:instrument_version => instrument_version)

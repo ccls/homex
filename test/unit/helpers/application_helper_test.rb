@@ -32,4 +32,18 @@ class ApplicationHelperTest < ActionView::TestCase
 		assert_match '&nbsp;', response
 	end
 
+
+	test "sub_menu_for Subject should" do
+pending
+	end
+
+	test "sub_menu_for Interview should" do
+pending
+	end
+
+	test "sub_menu_for nil should return nil" do
+		response = sub_menu_for(nil)
+		assert_nil response
+	end
+
 end
