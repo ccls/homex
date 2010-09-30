@@ -3,7 +3,8 @@ module ApplicationHelper
 
 	def home_exposure_main_menu
 		current = case controller.class.name.sub(/Controller$/,'')
-			when *%w( Addressings
+			when *%w( 
+					Addressings
 					Contacts
 					Enrollments
 					Patients
@@ -11,15 +12,24 @@ module ApplicationHelper
 					Subjects
 					Events
 				) then :subjects
-			when *%w( Interview::Subjects Interviews
+			when *%w( 
+					Interview::Subjects 
+					Interviews
 					ResponseSets
 					HomeExposureResponses
 				) then  :interview
-			when *%w( Samples Sample::Subjects Packages
+			when *%w( 
+					Samples 
+					Sample::Subjects 
+					Packages
 				) then :sample
-			when *%w( Followup::Subjects 
+			when *%w( 
+					Followup::Subjects 
 				) then :followup
-			when *%w( Guides Users Pages
+			when *%w( 
+					Guides 
+					Users 
+					Pages
 				) then :admin
 		end
 
