@@ -27,6 +27,17 @@ class LanguageTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
+	test "should find random" do
+		object = Language.random()
+		assert object.is_a?(Language)
+	end
+
+	test "should return nil on random when no records" do
+		Language.stubs(:count).returns(0)
+		object = Language.random()
+		assert_nil object
+	end
+
 protected
 
   def create_object(options = {}) 

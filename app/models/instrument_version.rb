@@ -22,4 +22,10 @@ class InstrumentVersion < ActiveRecord::Base
 		description
 	end
 
+#	class NotFound < StandardError; end
+
+	def self.[](code)
+		find_by_code(code.to_s) #|| raise(NotFound)
+	end
+
 end

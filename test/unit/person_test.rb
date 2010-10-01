@@ -23,6 +23,17 @@ class PersonTest < ActiveSupport::TestCase
 		assert_equal object.full_name, "#{object}"
 	end
 
+	test "should find random" do
+		object = Person.random()
+		assert object.is_a?(Person)
+	end
+
+	test "should return nil on random when no records" do
+		Person.stubs(:count).returns(0)
+		object = Person.random()
+		assert_nil object
+	end
+
 protected
 
 	def create_object(options = {})

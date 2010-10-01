@@ -172,11 +172,20 @@ namespace :db do
 				}) unless line[i].blank?
 			end
 
-			Interview.create!({
+			options = {
 				:identifier_id => subject.identifier.id,
+				:interview_method => InterviewMethod.random(),
+				:language   => Language.random(),
+				:instrument_version => InstrumentVersion.random(),
 				:began_on   => interview_date,
 				:ended_on   => interview_date
-			})
+			}
+			options[:subject_relationship] = SubjectRelationship.random()
+			if options[:subject_relationship].is_other?
+				options[:subject_relationship_other] = 'super unknown god buddy'
+			end
+			
+			Interview.create!(options)
 			
 #	use Time.parse to parse all dates (better than Date.parse)
 

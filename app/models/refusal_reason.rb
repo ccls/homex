@@ -21,15 +21,6 @@ class RefusalReason < ActiveRecord::Base
 		find_by_code(code.to_s) #|| raise(NotFound)
 	end
 
-	def self.random
-		count = count()
-		if count > 0
-			first(:offset => rand(count))
-		else
-			nil
-		end
-	end
-
 	def is_other?
 		code == 'other'
 	end

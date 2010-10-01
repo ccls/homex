@@ -37,6 +37,17 @@ class SubjectRelationshipTest < ActiveSupport::TestCase
 		assert object.is_a?(SubjectRelationship)
 	end
 
+	test "should find random" do
+		object = SubjectRelationship.random()
+		assert object.is_a?(SubjectRelationship)
+	end
+
+	test "should return nil on random when no records" do
+		SubjectRelationship.stubs(:count).returns(0)
+		object = SubjectRelationship.random()
+		assert_nil object
+	end
+
 protected
 
 	def create_object(options = {})

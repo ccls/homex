@@ -5,6 +5,15 @@ module ActiveRecordExtension
 
 	module ClassMethods
 
+		def random
+			count = count()
+			if count > 0
+				first(:offset => rand(count))
+			else
+				nil
+			end
+		end
+
 		def validates_absence_of(*attr_names)
 			configuration = { :on => :save }
 			configuration.update(attr_names.extract_options!)
