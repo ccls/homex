@@ -4,7 +4,14 @@
 #	*	identifier_id
 class Interview < ActiveRecord::Base
 	belongs_to :identifier
-	has_one :subject, :through => :identifier
+#	Occassionally getting .... for when 
+#		Instrument Version ... Instrument ... Project was unknown?
+#TypeError (can't dup NilClass):
+#  app/controllers/interviews_controller.rb:52:in `valid_id_required'
+#	has_one :subject, :through => :identifier
+#		changed from has_one to delegate to see if better
+	delegate :subject, :to => :identifier
+
 #	I think that these are pushing it a bit far.
 #		(they do work though)
 #	has_one :homex_outcome, :through => :subject
