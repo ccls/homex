@@ -40,7 +40,7 @@ namespace :db do
 				:able_to_locate => true
 			}
 			options[:is_eligible] = [nil,1,2,999][rand(4)]
-			unless options[:is_eligible] == 1
+			if options[:is_eligible] == 2
 				ir = IneligibleReason.random()
 				options[:ineligible_reason_id] = ir.id
 				if ir.is_other?
@@ -49,14 +49,15 @@ namespace :db do
 			end
 
 			options[:is_chosen] = [nil,1,2,999][rand(4)]
-			unless options[:is_chosen] == 1
+			if options[:is_chosen] == 2
 				options[:reason_not_chosen] = "Random reason not chosen"
 			end
 
 			options[:consented] = [nil,1,2,999][rand(4)]
 			if options[:consented] == 1
 				options[:consented_on] = Date.jd(2440000+rand(15000))
-			else
+			elsif options[:consented] == 2
+				options[:consented_on] = Date.jd(2440000+rand(15000))
 				rr = RefusalReason.random()
 				options[:refusal_reason_id] = rr.id
 				if rr.is_other?
@@ -175,6 +176,7 @@ namespace :db do
 			options = {
 				:identifier_id => subject.identifier.id,
 				:interview_method => InterviewMethod.random(),
+				:interviewer => Person.random(),
 				:language   => Language.random(),
 				:instrument_version => InstrumentVersion.random(),
 				:began_on   => interview_date,
