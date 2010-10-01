@@ -21,6 +21,12 @@ namespace :db do
 		Pii.destroy_all
 		ResponseSet.destroy_all
 		Response.destroy_all
+		Sample.destroy_all
+		SampleKit.destroy_all
+		Package.destroy_all
+		HomexOutcome.destroy_all
+		HomeExposureResponse.destroy_all
+		SurveyInvitation.destroy_all
 	end
 
 	task :random_enrollments_data => :environment do 
@@ -75,6 +81,20 @@ namespace :db do
 				options[:completed_on] = Date.jd(2440000+rand(15000))
 			end
 			Enrollment.create!(options)
+
+
+			options = {
+				:interview_outcome => InterviewOutcome.random(),
+				:sample_outcome => SampleOutcome.random()
+			}
+			if options[:interview_outcome]
+				options[:interview_outcome_on] = Date.jd(2440000+rand(15000))
+			end
+			if options[:sample_outcome]
+				options[:sample_outcome_on] = Date.jd(2440000+rand(15000))
+			end
+			s.build_homex_outcome(options)
+			s.save!
 		end
 	end
 
@@ -125,10 +145,12 @@ namespace :db do
 			puts "Processing line #{f.lineno}"
 			puts line
 
-			subject_type = SubjectType['Case']
+#			subject_type = SubjectType['Case']
+			subject_type = SubjectType.random()
 
 			#	TODO	(not included in csv)
-			race = Race[1]
+#			race = Race[1]
+			race = Race.random()
 
 			dob = (line[6].blank?)?'':Time.parse(line[6])
 			refdate = (line[7].blank?)?'':Time.parse(line[7])
