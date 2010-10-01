@@ -1,11 +1,12 @@
-<div class='count'>Taken: <%= subject.response_sets_count -%></div>
 <div class='edit_surveys'>
-	<% subject.response_sets.each do |rs| %>
+	<% subject.response_sets.each_with_index do |rs,i| %>
+		<% i+=1 %>
 		<% content_tag_for( :div, rs ) do %>
 			<% if rs.is_complete? %>
-				<span>Complete</span>
+				<span><%= "#{i.ordinalize} Entry Complete" %></span>
 			<% else %>
-				<%= link_to "Edit", edit_my_survey_path(
+				<%= link_to "Edit Incomplete #{i.ordinalize} Entry", 
+						edit_my_survey_path(
 						:survey_code => rs.survey.access_code, 
 						:response_set_code	=> rs.access_code
 					) %>
@@ -17,17 +18,17 @@
 	<% form_tag(subject_response_sets_path(subject), 
 		:class => 'take_survey') do %>
 		<%= hidden_field_tag :survey_code, "home_exposure_survey", :id => nil %>
-		<%= submit_tag "Take Home Exposure Survey", :name => nil, :id => nil %>
+		<%= submit_tag "Enter Interview Data", :name => nil, :id => nil %>
 	<% end %>
 <% else %>
 	<% if subject.home_exposure_response.nil? %>
 		<% if subject.response_sets.collect(&:is_complete?).all? %>
-			<%= link_to "Merge", 
+			<%= link_to "Verify Interview Data", 
 				new_subject_home_exposure_response_path(subject) -%>
 			<span> (<%=(subject.response_sets_the_same?)?'Same':'Differ'%>) </span>
 		<% end %>
 	<% else %>
-		<%= link_to "View Merged HER", 
+		<%= link_to "View Merged HER Interview Data", 
 			subject_home_exposure_response_path(subject) %>
 	<% end %>
 <% end %>
