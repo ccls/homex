@@ -25,7 +25,7 @@ class Enrollment < ActiveRecord::Base
 		:if => :ineligible_reason_is_other?
 	validates_absence_of :ineligible_reason_specify,
 		:message => 'not allowed',
-		:unless => :ineligible_reason_is_other?
+		:unless => :is_not_eligible?
 
 	validates_presence_of :reason_not_chosen,
 		:if => :is_not_chosen?
