@@ -17,14 +17,11 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		:model => 'Enrollment',
 		:actions => [:show,:edit,:update],	#	only the shallow ones
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_enrollment
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:enrollment,
 			{:project_id => Factory(:project).id}.merge(options))
-	end
-	def factory_create(options={})
-		Factory(:enrollment,options)
 	end
 
 	assert_access_with_login({ 
@@ -78,8 +75,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		assert_difference('Enrollment.count',1) {
 			post :create, :subject_id => subject.id,
 				:enrollment => factory_attributes
-#				:enrollment => Factory.attributes_for(:enrollment,
-#					:project_id => Factory(:project).id )
 		} }
 		assert assigns(:subject)
 		assert_redirected_to edit_enrollment_path(assigns(:enrollment))
@@ -113,8 +108,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 
 	test "should NOT create enrollment with #{cu} login and " <<
 		"invalid enrollment" do
-		e = factory_create
-#		Enrollment.any_instance.stubs(:valid?).returns(false)
+		e = create_enrollment
 		login_as send(cu)
 		assert_difference('Enrollment.count',0) do
 			post :create, :subject_id => e.subject.id,
@@ -129,7 +123,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 
 
 	test "should edit enrollment with #{cu} login" do
-		enrollment = factory_create
+		enrollment = create_enrollment
 		login_as send(cu)
 		get :edit, :subject_id => enrollment.subject.id, :id => enrollment.id
 		assert assigns(:enrollment)
@@ -138,43 +132,44 @@ class EnrollmentsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT edit enrollment with invalid id and #{cu} login" do
-		enrollment = factory_create
+		enrollment = create_enrollment
 		login_as send(cu)
 		get :edit, :subject_id => enrollment.subject.id, :id => 0
 		assert_redirected_to subjects_path
 	end
 
 	test "should update enrollment with #{cu} login" do
-		enrollment = factory_create
+		enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
-		put :update, :subject_id => enrollment.subject.id, 
-			:id => enrollment.id,
-			:enrollment => factory_attributes
+		assert_changes("Enrollment.find(#{enrollment.id}).updated_at") {
+			put :update, :subject_id => enrollment.subject.id, 
+				:id => enrollment.id,
+				:enrollment => factory_attributes
+		}
 		assert assigns(:enrollment)
-#		assert_redirected_to subject_enrollments_path(enrollment.subject)
 		assert_redirected_to enrollment_path(enrollment)
 	end
 
 	test "should NOT update enrollment with invalid id and #{cu} login" do
-		enrollment = factory_create
+		enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
-		put :update, :subject_id => enrollment.subject.id, 
-			:id => 0,
-			:enrollment => factory_attributes
+		deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
+			put :update, :subject_id => enrollment.subject.id, 
+				:id => 0,
+				:enrollment => factory_attributes
+		}
 		assert_redirected_to subjects_path
 	end
 
 	test "should NOT update enrollment with #{cu} login " <<
 		"when update fails" do
-		enrollment = factory_create
-		before = enrollment.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
 		Enrollment.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => enrollment.id,
-			:enrollment => factory_attributes
-		after = enrollment.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
+			put :update, :id => enrollment.id,
+				:enrollment => factory_attributes
+		}
 		assert assigns(:enrollment)
 		assert_response :success
 		assert_template 'edit'
@@ -183,13 +178,14 @@ class EnrollmentsControllerTest < ActionController::TestCase
 
 	test "should NOT update enrollment with #{cu} login " <<
 		"and invalid enrollment" do
-		enrollment = factory_create
-		e = factory_create(:subject_id => enrollment.subject.id)
-#		Enrollment.any_instance.stubs(:valid?).returns(false)
+		enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
+		e = create_enrollment(:subject_id => enrollment.subject.id)
 		login_as send(cu)
-		put :update, :id => enrollment.id,
-			:enrollment => factory_attributes(
-				:project_id => e.project_id)
+		deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
+			put :update, :id => enrollment.id,
+				:enrollment => factory_attributes(
+					:project_id => e.project_id)
+		}
 		assert assigns(:enrollment).errors.on(:project_id)
 		assert_response :success
 		assert_template 'edit'

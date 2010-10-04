@@ -8,7 +8,7 @@ class LanguageTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code,:description)
 
   test "should create language" do
-    assert_difference 'Language.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
       object = create_object
       assert !object.new_record?,
         "#{object.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class LanguageTest < ActiveSupport::TestCase
   end
 
   test "should require 4 char description" do
-    assert_no_difference 'Language.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
       object = create_object(:description => 'Hey')
       assert object.errors.on(:description)
     end 
@@ -37,13 +37,5 @@ class LanguageTest < ActiveSupport::TestCase
 		object = Language.random()
 		assert_nil object
 	end
-
-protected
-
-  def create_object(options = {}) 
-    record = Factory.build(:language,options)
-    record.save
-    record
-  end 
 
 end

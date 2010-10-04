@@ -8,7 +8,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:survey,:subject)
 
 	test "should create response_set" do
-		assert_difference 'ResponseSet.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			response_set = create_response_set
 			assert !response_set.new_record?, 
 				"#{response_set.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 	test "should require survey_id" do
-		assert_no_difference 'ResponseSet.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			response_set = create_response_set(:survey_id => nil)
 			assert response_set.errors.on(:survey_id)
 		end
@@ -25,7 +25,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	test "should require unique access_code" do
 		ResponseSet.stubs(:find_by_access_code).returns(nil)
 		rs = create_response_set
-		assert_no_difference 'ResponseSet.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			response_set = Factory.build(:response_set)
 			assert_not_nil response_set.access_code
 			response_set.access_code = rs.access_code
@@ -35,15 +35,15 @@ class ResponseSetTest < ActiveSupport::TestCase
 	end
 
 	test "should require valid subject" do
-		assert_difference('ResponseSet.count',0) { 
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:subject => Factory.build(:subject))
 			assert object.errors.on(:subject_id)
-		}    
+		end
 	end 
 
 	test "should replace non unique access_code" do
 		rs = create_response_set
-		assert_difference 'ResponseSet.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			response_set = Factory.build(:response_set)
 			assert_not_nil response_set.access_code
 			ac1 = response_set.access_code
@@ -148,15 +148,5 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_equal Hash.new, rs1.diff(rs2)
 		assert_equal Hash.new, rs1.codes_and_text
 	end
-
-
-protected
-
-	def create_response_set(options = {})
-		record = Factory.build(:response_set,options)
-		record.save
-		record
-	end
-	alias_method :create_object, :create_response_set
 
 end

@@ -9,7 +9,7 @@ class DocumentTypeTest < ActiveSupport::TestCase
 #	assert_should_require_unique(:code)	#,:description)
 
 	test "should create document_type" do
-		assert_difference 'DocumentType.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -23,13 +23,5 @@ class DocumentTypeTest < ActiveSupport::TestCase
 #			assert object.errors.on(:description)
 #		end
 #	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:document_type,options)
-		record.save
-		record
-	end
 
 end

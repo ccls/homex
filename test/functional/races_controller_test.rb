@@ -6,13 +6,10 @@ class RacesControllerTest < ActionController::TestCase
 		:model => 'Race',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_race
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:race,options)
-	end
-	def factory_create(options={})
-		Factory(:race,options)
 	end
 
 	assert_access_with_login({ 
@@ -64,15 +61,13 @@ class RacesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update race with #{cu} login when update fails" do
-		race = factory_create
-		before = race.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		race = create_race(:updated_at => Chronic.parse('yesterday'))
 		Race.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => race.id,
-			:race => factory_attributes
-		after = race.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Race.find(#{race.id}).updated_at") {
+			put :update, :id => race.id,
+				:race => factory_attributes
+		}
 		assert assigns(:race)
 		assert_response :success
 		assert_template 'edit'
@@ -80,11 +75,13 @@ class RacesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update race with #{cu} login and invalid race" do
-		race = factory_create
+		race = create_race(:updated_at => Chronic.parse('yesterday'))
 		Race.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => race.id,
-			:race => factory_attributes
+		deny_changes("Race.find(#{race.id}).updated_at") {
+			put :update, :id => race.id,
+				:race => factory_attributes
+		}
 		assert assigns(:race)
 		assert_response :success
 		assert_template 'edit'

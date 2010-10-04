@@ -12,7 +12,7 @@ class AddressTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:address_type)
 
 	test "should create address" do
-		assert_difference 'Address.count' do
+		assert_difference "#{model_name}.count" do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -20,28 +20,28 @@ class AddressTest < ActiveSupport::TestCase
 	end
 
 	test "should require line_1" do
-		assert_difference('Address.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object( :line_1 => nil )
 			assert object.errors.on(:line_1)
 		end
 	end
 
 	test "should require city" do
-		assert_difference('Address.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object( :city => nil )
 			assert object.errors.on(:city)
 		end
 	end
 
 	test "should require state" do
-		assert_difference('Address.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object( :state => nil )
 			assert object.errors.on(:state)
 		end
 	end
 
 	test "should require zip" do
-		assert_difference('Address.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object( :zip => nil )
 			assert object.errors.on(:zip)
 		end
@@ -49,13 +49,13 @@ class AddressTest < ActiveSupport::TestCase
 
 	test "should require 5 or 9 digit zip" do
 		%w( asdf 1234 123456 1234Q 123456789 ).each do |bad_zip|
-			assert_difference('Address.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object( :zip => bad_zip )
 				assert object.errors.on(:zip)
 			end
 		end
 		%w( 12345 12345-6789 ).each do |good_zip|
-			assert_difference('Address.count',1) do
+			assert_difference( "#{model_name}.count", 1 ) do
 				object = create_object( :zip => good_zip )
 				assert !object.errors.on(:zip)
 				assert object.zip =~ /\A\d{5}(-\d{4})?\z/
@@ -89,21 +89,13 @@ class AddressTest < ActiveSupport::TestCase
 	end
 
 	test "should require non-residence address type with pobox in line" do
-		assert_difference('Address.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object({
 				:line_1 => "P.O. Box 123",
 				:address_type => AddressType['residence']
 			})
 			assert object.errors.on(:address_type_id)
 		end
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:address,options)
-		record.save
-		record
 	end
 
 end

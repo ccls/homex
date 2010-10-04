@@ -6,7 +6,7 @@ class PackageTest < ActiveSupport::TestCase
 	assert_should_require_unique(:tracking_number)
 
 	test "should create package" do
-		assert_difference 'Package.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			package = create_package
 			assert !package.new_record?, 
 				"#{package.errors.full_messages.to_sentence}"
@@ -14,7 +14,7 @@ class PackageTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT require 3 char tracking_number" do
-		assert_difference 'Package.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			package = create_package(:tracking_number => 'Hi')
 			assert !package.errors.on(:tracking_number)
 		end
@@ -136,14 +136,5 @@ class PackageTest < ActiveSupport::TestCase
 		Factory(:track, :trackable => package)
 		assert_equal 2, package.reload.tracks.length
 	end
-
-protected
-
-	def create_package(options = {})
-		record = Factory.build(:package,options)
-		record.save
-		record
-	end
-	alias_method :create_object, :create_package
 
 end

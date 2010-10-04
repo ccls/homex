@@ -29,7 +29,7 @@ class SubjectTest < ActiveSupport::TestCase
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
 		assert_difference( 'SubjectType.count' ){
-		assert_difference( 'Subject.count' ){
+		assert_difference( "#{model_name}.count", 1 ) {
 			subject = create_subject
 			assert !subject.new_record?, 
 				"#{subject.errors.full_messages.to_sentence}"
@@ -38,7 +38,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should create subject with pii" do
 		assert_difference( 'Pii.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			subject = create_subject(
 				:pii_attributes => Factory.attributes_for(:pii))
 			assert !subject.new_record?, 
@@ -48,7 +48,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should NOT create subject with second pii" do
 		assert_difference( 'Pii.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			subject = create_subject(
 				:pii_attributes => Factory.attributes_for(:pii))
 			assert !subject.new_record?, 
@@ -61,7 +61,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should NOT create subject with empty pii" do
 		assert_difference( 'Pii.count', 0) {
-		assert_difference( 'Subject.count', 0) {
+		assert_difference( "#{model_name}.count", 0 ) {
 			subject = create_subject( :pii_attributes => {})
 			assert subject.errors.on('pii.state_id_no')
 		} }
@@ -71,7 +71,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should create subject with homex_outcome" do
 		assert_difference( 'HomexOutcome.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			subject = create_subject(
 				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
 			assert !subject.new_record?, 
@@ -81,7 +81,7 @@ class SubjectTest < ActiveSupport::TestCase
 
 	test "should NOT create subject with second homex_outcome" do
 		assert_difference( 'HomexOutcome.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			subject = create_subject(
 				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
 			assert !subject.new_record?, 
@@ -115,7 +115,7 @@ pending
 
 	test "should NOT create subject with second patient" do
 		assert_difference( 'Patient.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 #			subject = create_subject(
 #				:patient_attributes => Factory.attributes_for(:patient))
 #			assert !subject.new_record?, 
@@ -152,7 +152,7 @@ pending
 
 	test "should NOT create subject with second identifier" do
 		assert_difference( 'Identifier.count', 1) {
-		assert_difference( 'Subject.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 #			subject = create_subject(
 #				:identifier_attributes => Factory.attributes_for(:identifier))
 #			assert !subject.new_record?, 
@@ -240,7 +240,7 @@ pending
 		subject = create_subject
 		Factory(:survey_invitation, :subject_id => subject.id)
 		Factory(:survey_invitation, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('SurveyInvitation.count',0) {
 			subject.destroy
 		} }
@@ -258,7 +258,7 @@ pending
 	test "should NOT destroy identifier with subject" do
 		subject = create_subject
 		Factory(:identifier, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Identifier.count',0) {
 			subject.destroy
 		} }
@@ -267,7 +267,7 @@ pending
 	test "should NOT destroy pii with subject" do
 		subject = create_subject
 		Factory(:pii, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Pii.count',0) {
 			subject.destroy
 		} }
@@ -277,7 +277,7 @@ pending
 #		subject = create_subject
 		subject = Factory(:case_subject)
 		Factory(:patient, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Patient.count',0) {
 			subject.destroy
 		} }
@@ -286,7 +286,7 @@ pending
 	test "should NOT destroy home_exposure_response with subject" do
 		subject = create_subject
 		Factory(:home_exposure_response, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('HomeExposureResponse.count',0) {
 			subject.destroy
 		} }
@@ -316,7 +316,7 @@ pending
 		subject = create_subject
 		Factory(:enrollment, :subject_id => subject.id)
 		Factory(:enrollment, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Enrollment.count',0) {
 			subject.destroy
 		} }
@@ -335,7 +335,7 @@ pending
 		subject = create_subject
 		Factory(:sample, :subject_id => subject.id)
 		Factory(:sample, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Sample.count',0) {
 			subject.destroy
 		} }
@@ -345,7 +345,7 @@ pending
 		subject = create_subject
 		Factory(:response_set, :subject_id => subject.id)
 		Factory(:response_set, :subject_id => subject.id)
-		assert_difference('Subject.count',-1) {
+		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('ResponseSet.count',0) {
 			subject.destroy
 		} }
@@ -546,8 +546,6 @@ protected
 			:subject => rs1.subject)
 		[rs1.reload,rs2.reload]
 	end
-
-	alias_method :create_object, :create_subject
 
 #	def create_dust_kit(options = {})
 #		Factory(:dust_kit, {

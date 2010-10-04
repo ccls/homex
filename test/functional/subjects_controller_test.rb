@@ -9,15 +9,12 @@ class SubjectsControllerTest < ActionController::TestCase
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:before => :create_home_exposure_subjects,
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_subject
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:subject,{
 			:subject_type_id => Factory(:subject_type).id,
 			:race_id => Factory(:race).id}.merge(options))
-	end
-	def factory_create(options={})
-		Factory(:subject,options)
 	end
 
 	assert_access_with_login({ 
@@ -52,7 +49,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		rs3 = fill_out_survey(:survey => survey)
 		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 		rs5 = fill_out_survey(:survey => survey)
-		Factory(:project)	#	test search code in view
+		create_project	#Factory(:project)	#	test search code in view
 		#	There should now be 4 subjects in different states.
 		login_as send(cu)
 		get :index
@@ -78,7 +75,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should get show with pii with #{cu} login" do
-		subject = factory_create(
+		subject = create_subject(
 			:pii_attributes => Factory.attributes_for(:pii))
 		login_as send(cu)
 		get :show, :id => subject
@@ -88,7 +85,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should have do_not_contact if it is true "<<
 			"with #{cu} login" do
-		subject = factory_create(:do_not_contact => true)
+		subject = create_subject(:do_not_contact => true)
 		login_as send(cu)
 		get :show, :id => subject
 		assert_response :success
@@ -98,7 +95,7 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should NOT have do_not_contact if it is false "<<
 			"with #{cu} login" do
-		subject = factory_create(:do_not_contact => false)
+		subject = create_subject(:do_not_contact => false)
 		login_as send(cu)
 		get :show, :id => subject
 		assert_response :success
@@ -114,14 +111,15 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should update with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		assert_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
-		} } }
+		} } } }
 		assert_redirected_to subject_path(assigns(:subject))
 	end
 
@@ -169,7 +167,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without race_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -184,7 +182,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without valid subject_type_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -199,7 +197,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT create without valid race_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
@@ -216,15 +214,16 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should NOT update with #{cu} login" <<
 		" and invalid" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		Subject.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => {}
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
@@ -232,71 +231,76 @@ class SubjectsControllerTest < ActionController::TestCase
 
 	test "should NOT update with #{cu} login" <<
 		" and save fails" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		Subject.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => {}
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT update without subject_type_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => { :subject_type_id => nil }
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT update without race_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => { :race_id => nil }
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT update without valid subject_type_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => { :subject_type_id => 0 }
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
 	end
 
 	test "should NOT update without valid race_id with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id,
 				:subject => { :race_id => 0 }
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
@@ -315,14 +319,15 @@ end
 	end
 
 	test "should NOT update with #{cu} login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
-		} } }
+		} } } }
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -335,13 +340,14 @@ end
 	end
 
 	test "should NOT update without login" do
-		subject = factory_create
+		subject = create_subject(:updated_at => Chronic.parse('yesterday'))
 		assert_difference('Subject.count',0){
 		assert_difference('SubjectType.count',0){
 		assert_difference('Race.count',0){
+		deny_changes("Subject.find(#{subject.id}).updated_at") {
 			put :update, :id => subject.id, 
 				:subject => Factory.attributes_for(:subject)
-		} } }
+		} } } }
 		assert_redirected_to_login
 	end
 
@@ -351,7 +357,7 @@ protected
 	def create_home_exposure_subjects
 		p = Project.find_or_create_by_code('HomeExposures')
 		3.times do
-			s  = factory_create
+			s  = create_subject
 			Factory(:enrollment, :subject => s, :project => p )
 			s
 		end

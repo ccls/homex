@@ -10,7 +10,7 @@ class OperationalEventTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:operational_event_type)
 
 	test "should create operational_event" do
-		assert_difference 'OperationalEvent.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -108,12 +108,6 @@ class OperationalEventTest < ActiveSupport::TestCase
 	end
 
 protected
-
-	def create_object(options = {})
-		record = Factory.build(:operational_event,options)
-		record.save
-		record
-	end
 
 	def create_objects(*args)
 		args.collect{|options| create_object(options) }

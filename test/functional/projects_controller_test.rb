@@ -12,14 +12,11 @@ class ProjectsControllerTest < ActionController::TestCase
 		:model => 'Project',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_project
 	}
 
 	def factory_attributes(options={})
 		Factory.attributes_for(:project,options)
-	end
-	def factory_create(options={})
-		Factory(:project,options)
 	end
 
 	assert_access_with_login({ 
@@ -61,17 +58,19 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	test "should NOT update when save fails with #{cu} login" do
 		login_as send(cu)
-		project = factory_create
+		project = create_project(:updated_at => Chronic.parse('yesterday'))
 		Project.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :id => project.id,
-			:project => factory_attributes
+		deny_changes("Project.find(#{project.id}).updated_at") {
+			put :update, :id => project.id,
+				:project => factory_attributes
+		}
 		assert_response :success
 		assert_template 'edit'
 	end
 
 #	test "should NOT destroy when save fails with #{cu} login" do
 #		login_as send(cu)
-#		project = factory_create
+#		project = create_project
 #		Project.any_instance.stubs(:new_record?).returns(true)
 #		assert_difference('Project.count',0){
 #			delete :destroy, :id => project.id
@@ -95,11 +94,13 @@ class ProjectsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update with invalid project with #{cu} login" do
-		project = factory_create
+		project = create_project(:updated_at => Chronic.parse('yesterday'))
 		Project.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => project.id, 
-			:project => factory_attributes
+		deny_changes("Project.find(#{project.id}).updated_at") {
+			put :update, :id => project.id, 
+				:project => factory_attributes
+		}
 		assert_not_nil assigns(:project)
 		assert_not_nil flash[:error]
 		assert_response :success

@@ -15,6 +15,38 @@ class ActiveSupport::TestCase
 	self.use_instantiated_fixtures  = false
 	fixtures :all
 
+	def model_name
+		self.class.name.sub(/Test$/,'')
+	end
+
+	def method_missing(symb,*args, &block)
+		method = symb.to_s
+#		if method =~ /^create_(.+)(\!?)$/
+		if method =~ /^create_([^!]+)(!?)$/
+			factory = if( $1 == 'object' )
+#	doesn't work for controllers yet.  Need to consider
+#	singular and plural as well as "tests" method.
+#	Probably should just use the explicit factory
+#	name in the controller tests.
+#				self.class.name.sub(/Test$/,'').underscore
+				model_name.underscore
+			else
+				$1
+			end
+			bang = $2
+			options = args.extract_options!
+			if bang.blank?
+				record = Factory.build(factory,options)
+				record.save
+				record
+			else
+				Factory(factory,options)
+			end
+		else
+			super(symb,*args, &block)
+		end
+	end
+
 	include FactoryTestHelper
 
 	def assert_subject_is_eligible(subject)
@@ -25,6 +57,35 @@ class ActiveSupport::TestCase
 	def assert_subject_is_not_eligible(subject)
 		assert_not_nil subject.hx_enrollment.ineligible_reason_id
 		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
+	end
+
+	#	basically a copy of assert_difference, but
+	#	without any explicit comparison as it is 
+	#	simply stating that something will change
+	#	(designed for updated_at)
+	def assert_changes(expression, message = nil, &block)
+		b = block.send(:binding)
+		exps = Array.wrap(expression)
+		before = exps.map { |e| eval(e, b) }
+		yield
+		exps.each_with_index do |e, i|
+			error = "#{e.inspect} didn't change"
+			error = "#{message}.\n#{error}" if message
+			assert_not_equal(before[i], eval(e, b), error)
+		end
+	end
+
+	#	Just a negation of assert_changes
+	def deny_changes(expression, message = nil, &block)
+		b = block.send(:binding)
+		exps = Array.wrap(expression)
+		before = exps.map { |e| eval(e, b) }
+		yield
+		exps.each_with_index do |e, i|
+			error = "#{e.inspect} changed"
+			error = "#{message}.\n#{error}" if message
+			assert_equal(before[i], eval(e, b), error)
+		end
 	end
 
 end

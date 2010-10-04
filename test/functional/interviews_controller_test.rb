@@ -6,17 +6,13 @@ class InterviewsControllerTest < ActionController::TestCase
 		:model => 'Interview',
 		:actions => [:show,:edit,:update,:destroy],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_interview
 	}
 	def factory_attributes(options={})
 		#	no attributes to trigger updated_at
 		Factory.attributes_for(:interview,{
 			:updated_at => Time.now
 		}.merge(options))
-	end
-
-	def factory_create(options={})
-		Factory(:interview,options)
 	end
 
 	assert_access_with_login({ 
@@ -69,15 +65,13 @@ class InterviewsControllerTest < ActionController::TestCase
 
 	test "should NOT update interview with #{cu} login " <<
 		"when update fails" do
-		interview = factory_create
-		before = interview.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		interview = create_interview(:updated_at => Chronic.parse('yesterday'))
 		Interview.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => interview.id,
-			:interview => factory_attributes
-		after = interview.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Interview.find(#{interview.id}).updated_at") {
+			put :update, :id => interview.id,
+				:interview => factory_attributes
+		}
 		assert assigns(:interview)
 		assert_response :success
 		assert_template 'edit'
@@ -86,11 +80,13 @@ class InterviewsControllerTest < ActionController::TestCase
 
 	test "should NOT update interview with #{cu} login " <<
 		"and invalid interview" do
-		interview = factory_create
+		interview = create_interview(:updated_at => Chronic.parse('yesterday'))
 		Interview.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => interview.id,
-			:interview => factory_attributes
+		deny_changes("Interview.find(#{interview.id}).updated_at") {
+			put :update, :id => interview.id,
+				:interview => factory_attributes
+		}
 		assert assigns(:interview)
 		assert_response :success
 		assert_template 'edit'
@@ -148,7 +144,7 @@ class InterviewsControllerTest < ActionController::TestCase
 #			pending
 #	#	no validations
 #			login_as send(cu)
-#			interview = factory_create
+#			interview = create_interview
 #			put :update, :id => interview.id,
 #				:interview => { }										#	make invalid
 #			assert_not_nil flash[:error]

@@ -8,7 +8,7 @@ class PhoneTypeTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code)
 
 	test "should create phone_type" do
-		assert_difference 'PhoneType.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class PhoneTypeTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char code" do
-		assert_no_difference 'PhoneType.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:code => 'Hey')
 			assert object.errors.on(:code)
 		end
@@ -25,15 +25,6 @@ class PhoneTypeTest < ActiveSupport::TestCase
 	test "should return code as to_s" do
 		object = create_object
 		assert_equal object.code, "#{object}"
-	end
-
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:phone_type,options)
-		record.save
-		record
 	end
 
 end

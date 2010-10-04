@@ -8,7 +8,7 @@ class RaceTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code,:description)
 
 	test "should create race" do
-		assert_difference 'Race.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class RaceTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char description" do
-		assert_no_difference 'Race.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:description => 'Hey')
 			assert object.errors.on(:description)
 		end
@@ -42,13 +42,5 @@ class RaceTest < ActiveSupport::TestCase
 #			object = Race['idonotexist']
 #		}
 #	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:race,options)
-		record.save
-		record
-	end
 
 end

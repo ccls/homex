@@ -12,7 +12,7 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_habtm(:projects)
 
 	test "should create sample" do
-		assert_difference 'Sample.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -59,14 +59,6 @@ class SampleTest < ActiveSupport::TestCase
 		#	this is not clear in my UML diagram
 
 		pending
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:sample,options)
-		record.save
-		record
 	end
 
 end

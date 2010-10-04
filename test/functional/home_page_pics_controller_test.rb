@@ -6,14 +6,11 @@ class HomePagePicsControllerTest < ActionController::TestCase
 		:model => 'HomePagePic',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_home_page_pic
 	}
 
 	def factory_attributes
 		Factory.attributes_for(:home_page_pic)
-	end
-	def factory_create
-		Factory(:home_page_pic)
 	end
 
 	assert_access_with_login(    { 

@@ -11,7 +11,7 @@ class AddressingTest < ActiveSupport::TestCase
 	# or this test fails.
 	#
 	test "should require address_id on update" do
-		assert_difference 'Addressing.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:address_id => nil)
 			object.reload.update_attributes(
 				:created_at => Chronic.parse('yesterday'))
@@ -21,25 +21,25 @@ class AddressingTest < ActiveSupport::TestCase
 
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT require why_invalid if is_valid is #{yndk}" do
-			assert_difference 'Addressing.count', 1 do
+			assert_difference( "#{model_name}.count", 1 ) do
 				object = create_object(:is_valid => YNDK[yndk])
 			end
 		end
 	end
 	test "should require why_invalid if is_valid is :no" do
-		assert_difference 'Addressing.count', 0 do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_valid => YNDK[:no])
 			assert object.errors.on(:why_invalid)
 		end
 	end
 
 	test "should NOT require how_verified if is_verified is false" do
-		assert_difference 'Addressing.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:is_verified => false)
 		end
 	end
 	test "should require how_verified if is_verified is true" do
-		assert_difference 'Addressing.count', 0 do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_verified => true)
 			assert object.errors.on(:how_verified)
 		end
@@ -136,8 +136,8 @@ class AddressingTest < ActiveSupport::TestCase
 			"on create if state NOT 'CA' and address is ANOTHER residence" do
 		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',1) {
-		assert_difference('Addressing.count',2) {
 		assert_difference('Address.count',2) {
+		assert_difference( "#{model_name}.count", 2 ) {
 			create_ca_addressing(subject)
 			create_az_addressing(subject)
 		} } }
@@ -151,8 +151,8 @@ class AddressingTest < ActiveSupport::TestCase
 		OperationalEventType['ineligible'].destroy
 		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
-		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			create_ca_addressing(subject)
 			assert_raise(ActiveRecord::RecordNotSaved){
 				create_az_addressing(subject)
@@ -164,8 +164,8 @@ class AddressingTest < ActiveSupport::TestCase
 			"on create if state NOT 'CA' and address is NOT residence" do
 		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
-		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			create_az_addressing(subject,
 				:address => { :address_type => AddressType['mailing'] })
 		} } }
@@ -176,8 +176,8 @@ class AddressingTest < ActiveSupport::TestCase
 			"on create if state 'CA' and address is residence" do
 		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
-		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 			create_ca_addressing(subject)
 		} } }
 		assert_subject_is_eligible(subject)
@@ -185,12 +185,6 @@ class AddressingTest < ActiveSupport::TestCase
 
 protected
 
-	def create_object(options={})
-		record = Factory.build(:addressing,options)
-		record.save
-		record
-	end
-	
 	def create_addressing_with_address(subject,options={})
 #		Factory(:addressing, {
 		create_object({

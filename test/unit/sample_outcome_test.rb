@@ -8,7 +8,7 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code)
 
 	test "should create sample_outcome" do
-		assert_difference 'SampleOutcome.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -36,13 +36,5 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 #			object = SampleOutcome['idonotexist']
 #		}
 #	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:sample_outcome,options)
-		record.save
-		record
-	end
 
 end

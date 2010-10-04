@@ -12,7 +12,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 		:scope => :subject_id)
 
 	test "should create enrollment" do
-		assert_difference 'Enrollment.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -20,7 +20,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 
 	test "should require consented_on be in the past" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:consented_on => Chronic.parse('tomorrow'))
 			assert object.errors.on(:consented_on)
@@ -30,7 +30,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 
 	test "should require completed_on be in the past" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:is_complete  => YNDK[:yes],
 				:completed_on => Chronic.parse('tomorrow'))
@@ -43,14 +43,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 
 	test "should require ineligible_reason if is_eligible == :no" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_eligible => YNDK[:no])
 			assert object.errors.on(:ineligible_reason)
 		end
 	end
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW ineligible_reason if is_eligible == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:is_eligible => YNDK[yndk],
 					:ineligible_reason => Factory(:ineligible_reason) )
 				assert object.errors.on(:ineligible_reason)
@@ -60,7 +60,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	test "should require ineligible_reason_specify if " <<
 			"ineligible_reason == other" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:is_eligible => YNDK[:no],
 				:ineligible_reason => IneligibleReason['other'] )
@@ -69,7 +69,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 	test "should ALLOW ineligible_reason_specify if " <<
 			"ineligible_reason != other" do
-		assert_difference('Enrollment.count',1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(
 				:is_eligible => YNDK[:no],
 				:ineligible_reason => Factory(:ineligible_reason),
@@ -80,7 +80,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW ineligible_reason_specify if " <<
 				"is_eligible == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(
 					:is_eligible => YNDK[yndk],
 					:ineligible_reason => Factory(:ineligible_reason),
@@ -92,14 +92,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 
 	test "should require reason_not_chosen if is_chosen == :no" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_chosen => YNDK[:no])
 			assert object.errors.on(:reason_not_chosen)
 		end
 	end
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW reason_not_chosen if is_chosen == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:is_chosen => YNDK[yndk],
 					:reason_not_chosen => "blah blah blah")
 				assert object.errors.on(:reason_not_chosen)
@@ -109,14 +109,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 
 	test "should require refusal_reason if consented == :no" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:consented => YNDK[:no])
 			assert object.errors.on(:refusal_reason)
 		end
 	end
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW refusal_reason if consented == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:consented => YNDK[yndk],
 					:refusal_reason => Factory(:refusal_reason))
 				assert object.errors.on(:refusal_reason)
@@ -126,7 +126,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	test "should require other_refusal_reason if " <<
 			"refusal_reason == other" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:consented => YNDK[:no],
 				:refusal_reason => RefusalReason['other'] )
 			assert object.errors.on(:other_refusal_reason)
@@ -134,7 +134,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 	test "should ALLOW other_refusal_reason if " <<
 			"refusal_reason != other" do
-		assert_difference('Enrollment.count',1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:consented => YNDK[:no],
 				:refusal_reason => Factory(:refusal_reason),
 				:other_refusal_reason => 'asdfasdf' )
@@ -144,7 +144,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	[:yes,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW other_refusal_reason if "<<
 				"consented == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:consented => YNDK[yndk],
 					:refusal_reason => Factory(:refusal_reason),
 					:other_refusal_reason => 'asdfasdf' )
@@ -156,7 +156,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	[:yes,:no].each do |yndk|
 		test "should require consented_on if consented == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:consented => YNDK[yndk],
 					:consented_on => nil)
 				assert object.errors.on(:consented_on)
@@ -165,7 +165,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 	[:dk,:nil].each do |yndk|
 		test "should NOT ALLOW consented_on if consented == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:consented => YNDK[yndk],
 					:consented_on => Date.today)
 				assert object.errors.on(:consented_on)
@@ -176,7 +176,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	test "should require terminated_reason if " <<
 			"terminated_participation == :yes" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:terminated_participation => YNDK[:yes])
 			assert object.errors.on(:terminated_reason)
 		end
@@ -185,7 +185,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	[:no,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW terminated_reason if " <<
 				"terminated_participation == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(
 					:terminated_participation => YNDK[yndk],
 					:terminated_reason => 'some bogus reason')
@@ -196,14 +196,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 
 	test "should require completed_on if is_complete == :yes" do
-		assert_difference('Enrollment.count',0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_complete => YNDK[:yes])
 			assert object.errors.on(:completed_on)
 		end
 	end
 	[:no,:dk,:nil].each do |yndk|
 		test "should NOT ALLOW completed_on if is_complete == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:is_complete => YNDK[yndk],
 					:completed_on => Date.today)
 				assert object.errors.on(:completed_on)
@@ -214,7 +214,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	[:dk,:nil].each do |yndk|
 		test "should NOT ALLOW document_version_id if consented == #{yndk}" do
-			assert_difference('Enrollment.count',0) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:consented => YNDK[yndk],
 					:document_version => Factory(:document_version) )
 				assert object.errors.on(:document_version)
@@ -223,14 +223,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 	end
 
 	test "should allow document_version_id if consented == :yes" do
-		assert_difference('Enrollment.count',1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:consented => YNDK[:yes],
 				:document_version => Factory(:document_version) )
 		end
 	end
 
 	test "should allow document_version_id if consented == :no" do
-		assert_difference('Enrollment.count',1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:consented => YNDK[:no],
 				:refusal_reason   => Factory(:refusal_reason),
 				:document_version => Factory(:document_version) )
@@ -274,14 +274,6 @@ class EnrollmentTest < ActiveSupport::TestCase
 		assert_equal 'reopened', oe.operational_event_type.code
 		assert_equal Date.today, oe.occurred_on
 		assert_equal object.subject_id, oe.enrollment.subject_id
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:enrollment,options)
-		record.save
-		record
 	end
 
 end

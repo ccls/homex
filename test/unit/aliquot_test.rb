@@ -10,7 +10,7 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:owner,:class_name => 'Organization')
 
 	test "should create aliquot" do
-		assert_difference 'Aliquot.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -86,14 +86,6 @@ class AliquotTest < ActiveSupport::TestCase
 			object.transfer_to(0)
 		} } } } } #}
 		assert_not_nil object.reload.owner
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:aliquot,options)
-		record.save
-		record
 	end
 
 end

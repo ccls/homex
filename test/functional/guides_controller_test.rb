@@ -6,15 +6,11 @@ class GuidesControllerTest < ActionController::TestCase
 		:model => 'Guide',
 		:actions => [:new,:create,:edit,:update,:show,:index,:destroy],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_guide
 	}
 
 	def factory_attributes(options={})
 		Factory.attributes_for(:guide,options)
-	end
-
-	def factory_create(options={})
-		Factory(:guide,options)
 	end
 
 	assert_access_with_login({ 
@@ -63,15 +59,13 @@ class GuidesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update guide with #{cu} login when update fails" do
-		guide = factory_create
-		before = guide.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		guide = create_guide(:updated_at => Chronic.parse('yesterday'))
 		Guide.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => guide.id,
-			:guide => factory_attributes
-		after = guide.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Guide.find(#{guide.id}).updated_at") {
+			put :update, :id => guide.id,
+				:guide => factory_attributes
+		}
 		assert assigns(:guide)
 		assert_response :success
 		assert_template 'edit'
@@ -79,11 +73,13 @@ class GuidesControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update guide with #{cu} login and invalid guide" do
-		guide = factory_create
+		guide = create_guide(:updated_at => Chronic.parse('yesterday'))
 		Guide.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => guide.id,
-			:guide => factory_attributes
+		deny_changes("Guide.find(#{guide.id}).updated_at") {
+			put :update, :id => guide.id,
+				:guide => factory_attributes
+		}
 		assert assigns(:guide)
 		assert_response :success
 		assert_template 'edit'

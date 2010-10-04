@@ -5,7 +5,7 @@ class TrackTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:trackable)
 
 	test "should create track" do
-		assert_difference 'Track.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -13,7 +13,7 @@ class TrackTest < ActiveSupport::TestCase
 	end
 
 	test "should require trackable_id" do
-		assert_no_difference 'Track.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:trackable_id => nil)
 			assert object.errors.on(:trackable_id)
 		end
@@ -22,7 +22,7 @@ class TrackTest < ActiveSupport::TestCase
 	test "should require trackable_type" do
 		#	kinda challenging to override the _type with 
 		#	Factory girl apparently
-		assert_no_difference 'Track.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = Factory.build(:track)
 			object.trackable_type = nil
 			object.save
@@ -32,7 +32,7 @@ class TrackTest < ActiveSupport::TestCase
 
 	test "should require unique time scoped by trackable" do
 		se = create_object
-		assert_no_difference 'Track.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:trackable => se.trackable,
 				:time      => se.time
@@ -61,14 +61,6 @@ class TrackTest < ActiveSupport::TestCase
 	test "should use None as location when no location, city or state given" do
 		object = create_object
 		assert_equal object.location, "None"
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:track,options)
-		record.save
-		record
 	end
 
 end

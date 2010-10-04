@@ -8,7 +8,7 @@ class DiagnosisTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code,:description)
 
 	test "should create diagnosis" do
-		assert_difference 'Diagnosis.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class DiagnosisTest < ActiveSupport::TestCase
 	end
 
 	test "should require 3 char description" do
-		assert_no_difference 'Diagnosis.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:description => 'Hi')
 			assert object.errors.on(:description)
@@ -26,14 +26,6 @@ class DiagnosisTest < ActiveSupport::TestCase
 	test "should return description as to_s" do
 		object = create_object
 		assert_equal object.description, "#{object}"
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:diagnosis,options)
-		record.save
-		record
 	end
 
 end

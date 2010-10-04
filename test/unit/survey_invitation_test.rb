@@ -10,7 +10,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		:scope => :survey_id)
 
 	test "should create survey_invitation" do
-		assert_difference( 'SurveyInvitation.count', 1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			survey_invitation = create_survey_invitation
 			assert !survey_invitation.new_record?, 
 				"#{survey_invitation.errors.full_messages.to_sentence}"
@@ -19,7 +19,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 
 	test "should require token" do
 		SurveyInvitation.any_instance.stubs(:create_token).returns(true)
-		assert_no_difference 'SurveyInvitation.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			survey_invitation = create_survey_invitation
 			assert survey_invitation.errors.on(:token)
 		end
@@ -28,7 +28,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 	test "should require unique token" do
 		si = create_survey_invitation
 		SurveyInvitation.any_instance.stubs(:create_token).returns(true)
-		assert_no_difference 'SurveyInvitation.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			survey_invitation = create_survey_invitation(
 				:token      => si.token,
 				:subject_id => si.subject_id,
@@ -38,7 +38,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 	end
 
 	test "should require response_set_id on update" do
-		assert_difference 'SurveyInvitation.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			survey_invitation = create_survey_invitation
 			survey_invitation.reload.update_attributes(:created_at => Time.now)
 			assert survey_invitation.errors.on(:response_set_id)
@@ -68,7 +68,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		subject = survey_invitation.subject
 		survey = survey_invitation.survey
 		before_id = subject.survey_invitations.first.id
-		assert_difference('SurveyInvitation.count', 0) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			subject.recreate_survey_invitation(survey)
 		end
 		after_id = subject.reload.survey_invitations.first.id
@@ -81,14 +81,5 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		survey_invitation = create_survey_invitation(:subject => subject)
 		assert_not_nil survey_invitation.email
 	end
-
-protected
-
-	def create_survey_invitation(options = {})
-		record = Factory.build(:survey_invitation,options)
-		record.save
-		record
-	end
-	alias_method :create_object, :create_survey_invitation
 
 end

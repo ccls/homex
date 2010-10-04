@@ -8,14 +8,14 @@ class PhoneNumberTest < ActiveSupport::TestCase
 	test "should require properly formated phone number" do
 		[ 'asdf', 'me@some@where.com','12345678','12345678901' 
 		].each do |bad_phone|
-			assert_difference( 'PhoneNumber.count', 0 ) do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:phone_number => bad_phone)
 				assert object.errors.on(:phone_number)
 			end
 		end
 		[ "(123)456-7890", "1234567890", 
 			"  1 asdf23,4()5\+67   8 9   0asdf" ].each do |good_phone|
-			assert_difference( 'PhoneNumber.count', 1 ) do
+			assert_difference( "#{model_name}.count", 1 ) do
 				object = create_object(:phone_number => good_phone)
 				assert !object.errors.on(:phone_number)
 				assert object.reload.phone_number =~ /\A\(\d{3}\)\s+\d{3}-\d{4}\z/
@@ -24,38 +24,38 @@ class PhoneNumberTest < ActiveSupport::TestCase
 	end
 
 	test "should NOT require why_invalid if is_valid is nil" do
-		assert_difference 'PhoneNumber.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:is_valid => nil)
 		end
 	end
 
 	test "should NOT require why_invalid if is_valid is :yes" do
-		assert_difference 'PhoneNumber.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:is_valid => YNDK[:yes])
 		end
 	end
 
 	test "should NOT require why_invalid if is_valid is :dk" do
-		assert_difference 'PhoneNumber.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:is_valid => YNDK[:dk])
 		end
 	end
 
 	test "should require why_invalid if is_valid is :no" do
-		assert_difference 'PhoneNumber.count', 0 do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_valid => YNDK[:no])
 			assert object.errors.on(:why_invalid)
 		end
 	end
 
 	test "should NOT require how_verified if is_verified is false" do
-		assert_difference 'PhoneNumber.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:is_verified => false)
 		end
 	end
 
 	test "should require how_verified if is_verified is true" do
-		assert_difference 'PhoneNumber.count', 0 do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:is_verified => true)
 			assert object.errors.on(:how_verified)
 		end
@@ -108,14 +108,6 @@ class PhoneNumberTest < ActiveSupport::TestCase
 		assert_not_nil object.verified_by_id
 		object.update_attributes(:is_verified => false)
 		assert_nil object.verified_by_id
-	end
-
-protected
-
-	def create_object(options={})
-		record = Factory.build(:phone_number,options)
-		record.save
-		record
 	end
 
 end

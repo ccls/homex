@@ -11,7 +11,7 @@ class DocumentVersionTest < ActiveSupport::TestCase
 #	assert_should_require_unique(:code)	#,:description)
 
 	test "should create document_version" do
-		assert_difference 'DocumentVersion.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -32,14 +32,6 @@ class DocumentVersionTest < ActiveSupport::TestCase
 		objects.each do |o|
 			assert_equal 1, o.document_type_id
 		end
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:document_version,options)
-		record.save
-		record
 	end
 
 end

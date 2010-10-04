@@ -8,7 +8,7 @@ class VitalStatusTest < ActiveSupport::TestCase
 	assert_should_require_unique(:code)	#,:description)
 
 	test "should create vital_status" do
-		assert_difference 'VitalStatus.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -16,7 +16,7 @@ class VitalStatusTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char description" do
-		assert_no_difference 'VitalStatus.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(
 				:description => 'Hey')
 			assert object.errors.on(:description)
@@ -43,13 +43,5 @@ class VitalStatusTest < ActiveSupport::TestCase
 #			object = VitalStatus['idonotexist']
 #		}
 #	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:vital_status,options)
-		record.save
-		record
-	end
 
 end

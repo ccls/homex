@@ -25,7 +25,7 @@ class IdentifierTest < ActiveSupport::TestCase
 #	assert_should_protect_attributes(:subjectid)
 
 	test "should create identifier" do
-		assert_difference 'Identifier.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -40,14 +40,14 @@ class IdentifierTest < ActiveSupport::TestCase
 	end 
 
 	test "should require valid subject_id" do
-		assert_difference( 'Identifier.count', 0 )do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:subject_id => 0)
 			assert object.errors.on(:subject)
 		end
 	end
 
 	test "should create with all numeric ssn" do
-		assert_difference 'Identifier.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:ssn => 987654321)
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -56,7 +56,7 @@ class IdentifierTest < ActiveSupport::TestCase
 	end
 
 	test "should create with string all numeric ssn" do
-		assert_difference 'Identifier.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:ssn => '987654321')
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -65,7 +65,7 @@ class IdentifierTest < ActiveSupport::TestCase
 	end
 
 	test "should create with string standard format ssn" do
-		assert_difference 'Identifier.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:ssn => '987-65-4321')
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -89,19 +89,11 @@ class IdentifierTest < ActiveSupport::TestCase
 
 	test "should require 9 digits in ssn" do
 		%w( 12345678X 12345678 1-34-56-789 ).each do |invalid_ssn|
-			assert_no_difference 'Identifier.count' do
+			assert_difference( "#{model_name}.count", 0 ) do
 				object = create_object(:ssn => invalid_ssn)
 				assert object.errors.on(:ssn)
 			end
 		end
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:identifier,options)
-		record.save
-		record
 	end
 
 end

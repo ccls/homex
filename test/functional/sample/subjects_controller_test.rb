@@ -6,13 +6,10 @@ class Sample::SubjectsControllerTest < ActionController::TestCase
 	ASSERT_ACCESS_OPTIONS = {
 		:actions => [:index,:show],
  		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_subject
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:subject,options)
-	end
-	def factory_create(options={})
-		Factory(:subject,options)
 	end
 
 	assert_access_with_login({ 

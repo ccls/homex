@@ -17,7 +17,7 @@ class OrganizationTest < ActiveSupport::TestCase
 		:foreign_key => :from_organization_id)
 
 	test "should create organization" do
-		assert_difference 'Organization.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			organization = create_organization
 			assert !organization.new_record?, 
 				"#{organization.errors.full_messages.to_sentence}"
@@ -25,14 +25,14 @@ class OrganizationTest < ActiveSupport::TestCase
 	end
 
 	test "should require 4 char code" do
-		assert_no_difference 'Organization.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			organization = create_organization(:code => 'Hey')
 			assert organization.errors.on(:code)
 		end
 	end
 
 	test "should require 4 char name" do
-		assert_no_difference 'Organization.count' do
+		assert_difference( "#{model_name}.count", 0 ) do
 			organization = create_organization(:name => 'Hey')
 			assert organization.errors.on(:name)
 		end
@@ -66,14 +66,5 @@ class OrganizationTest < ActiveSupport::TestCase
 		organization = create_organization
 		assert_equal organization.name, "#{organization}"
 	end
-
-protected
-
-	def create_organization(options = {})
-		record = Factory.build(:organization,options)
-		record.save
-		record
-	end
-	alias_method :create_object, :create_organization
 
 end

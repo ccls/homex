@@ -20,15 +20,11 @@ class AddressingsControllerTest < ActionController::TestCase
 		:model => 'Addressing',
 		:actions => [:edit,:update],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_addressing
 	}
 
 	def factory_attributes(options={})
 		Factory.attributes_for(:addressing,options)
-	end
-
-	def factory_create(options={})
-		Factory(:addressing,options)
 	end
 
 	def address_attributes(options={})
@@ -46,7 +42,6 @@ class AddressingsControllerTest < ActionController::TestCase
 	assert_no_access_with_login({ 
 		:logins => [:interviewer,:reader,:active_user] })
 	assert_no_access_without_login
-
 
 	#	destroy is TEMPORARY
 	assert_access_with_login(
@@ -205,7 +200,7 @@ class AddressingsControllerTest < ActionController::TestCase
 	end
 
 	test "should edit addressing with #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing
 		login_as send(cu)
 		get :edit, :id => addressing.id
 		assert assigns(:addressing)
@@ -214,24 +209,26 @@ class AddressingsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT edit addressing with invalid id and #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing
 		login_as send(cu)
 		get :edit, :id => 0
 		assert_redirected_to subjects_path
 	end
 
 	test "should update addressing with #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
-		put :update, :id => addressing.id,
-			:addressing => factory_attributes
+		assert_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => addressing.id,
+				:addressing => factory_attributes
+		}
 		assert assigns(:addressing)
 		assert_redirected_to subject_contacts_path(addressing.subject)
 	end
 
 	test "should set verified_on on update if is_verified " <<
 			"with #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing
 		login_as send(cu)
 		put :update, :id => addressing.id,
 			:addressing => factory_attributes(
@@ -244,7 +241,7 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should set verified_by on update if is_verified " <<
 			"with #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing
 		login_as u = send(cu)
 		put :update, :id => addressing.id,
 			:addressing => factory_attributes(
@@ -257,24 +254,24 @@ class AddressingsControllerTest < ActionController::TestCase
 	end
 
 	test "should NOT update addressing with invalid id and #{cu} login" do
-		addressing = factory_create
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		login_as send(cu)
-		put :update, :id => 0,
-			:addressing => factory_attributes
+		deny_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => 0,
+				:addressing => factory_attributes
+		}
 		assert_redirected_to subjects_path
 	end
 
 	test "should NOT update addressing with #{cu} login " <<
 			"when addressing update fails" do
-		addressing = factory_create
-		before = addressing.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		Addressing.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => addressing.id,
-			:addressing => factory_attributes
-		after = addressing.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => addressing.id,
+				:addressing => factory_attributes
+		}
 		assert assigns(:addressing)
 		assert_response :success
 		assert_template 'edit'
@@ -283,15 +280,13 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT update addressing with #{cu} login " <<
 			"when address update fails" do
-		addressing = factory_create
-		before = addressing.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => addressing.id,
-			:addressing => factory_attributes(address_attributes)
-		after = addressing.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => addressing.id,
+				:addressing => factory_attributes(address_attributes)
+		}
 		assert assigns(:addressing)
 		assert_response :success
 		assert_template 'edit'
@@ -300,11 +295,13 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid addressing" do
-		addressing = factory_create
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		Addressing.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => addressing.id,
-			:addressing => factory_attributes
+		deny_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => addressing.id,
+				:addressing => factory_attributes
+		}
 		assert assigns(:addressing)
 		assert_response :success
 		assert_template 'edit'
@@ -313,14 +310,15 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should NOT update addressing with #{cu} login " <<
 			"and invalid address" do
-		addressing = factory_create
-#		Address.any_instance.stubs(:valid?).returns(false)
+		addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
 		Address.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => addressing.id,
-			:addressing => factory_attributes(address_attributes(
-				:line_1 => nil
-			))
+		deny_changes("Addressing.find(#{addressing.id}).updated_at") {
+			put :update, :id => addressing.id,
+				:addressing => factory_attributes(address_attributes(
+					:line_1 => nil
+				))
+		}
 		assert assigns(:addressing)
 		assert_response :success
 		assert_template 'edit'

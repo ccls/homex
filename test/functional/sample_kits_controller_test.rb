@@ -17,7 +17,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 	setup :build_sample_kit
 	def build_sample_kit
-		@sample_kit = factory_create
+		@sample_kit = create_sample_kit
 		@sample = @sample_kit.sample
 	end
 
@@ -25,16 +25,13 @@ class SampleKitsControllerTest < ActionController::TestCase
 		:model => 'SampleKit',
 		:actions => [:show,:edit,:update,:destroy],	#	the shallow routes
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_sample_kit
 	}
 
 	def factory_attributes(options={})
 		#	No attributes from Factory yet
 		Factory.attributes_for(:sample_kit,{
 			:updated_at => Time.now}.merge(options))
-	end
-	def factory_create(options={})
-		Factory(:sample_kit,options)
 	end
 
 	assert_access_with_login({ 
@@ -67,7 +64,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-	test "should NOT post create without login" do
+	test "should NOT create without login" do
 		assert_difference('SampleKit.count',0){
 			post :create, :sample_id => @sample.id, 
 				:sample_kit => factory_attributes
@@ -86,7 +83,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 #		assert_layout 'home_exposure'
 	end
 
-	test "should post create with #{cu} login" do
+	test "should create with #{cu} login" do
 		login_as send(cu)
 		assert_difference('SampleKit.count',1) {
 			post :create, :sample_id => @sample.id,
@@ -95,8 +92,8 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
 	end
 
-	test "should get show with #{cu} login and packages" do
-		sk = factory_create(
+	test "should show with #{cu} login and packages" do
+		sk = create_sample_kit(
 			:kit_package_attributes  => Factory.attributes_for(:package),
 			:sample_package_attributes => Factory.attributes_for(:package)
 		)
@@ -109,8 +106,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 #	save errors
 
-#	test "should NOT post create with empty packages with #{cu} login" do
-	test "should post create with empty packages with #{cu} login" do
+	test "should create with empty packages with #{cu} login" do
 		login_as send(cu)
 		assert_difference('SampleKit.count',1) {
 			post :create, :sample_id => @sample.id,
@@ -119,8 +115,6 @@ class SampleKitsControllerTest < ActionController::TestCase
 					:sample_package_attributes => {} 
 				}
 		}
-#		assert_response :success
-#		assert_template 'new'
 		assert_redirected_to subject_path(@sample.subject)
 	end
 
@@ -148,40 +142,46 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_template 'new'
 	end
 
-#	test "should NOT put update with empty packages with #{cu} login" do
-	test "should put update with empty packages with #{cu} login" do
+	test "should update with empty packages with #{cu} login" do
 		login_as send(cu)
-		put :update, :id => @sample_kit.id,
-			:sample_kit => {
-				:kit_package_attributes  => {},
-				:sample_package_attributes => {} 
-			}
-#		assert_response :success
-#		assert_template 'edit'
-		assert_redirected_to subject_path(@sample_kit.sample.subject)
+		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+		assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+			put :update, :id => sample_kit.id,
+				:sample_kit => {
+					:kit_package_attributes  => {},
+					:sample_package_attributes => {} 
+				}
+		}
+		assert_redirected_to subject_path(sample_kit.sample.subject)
 	end
 
-	test "should NOT put update with #{cu} login " <<
+	test "should NOT update with #{cu} login " <<
 		"with save failure" do
 		login_as send(cu)
+		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
 		SampleKit.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :id => @sample_kit.id,
-			:sample_kit => factory_attributes
+		deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+			put :update, :id => sample_kit.id,
+				:sample_kit => factory_attributes
+		}
 		assert_response :success
 		assert_template 'edit'
 	end
 
-	test "should NOT put update with #{cu} login " <<
+	test "should NOT update with #{cu} login " <<
 		"with invalid kit" do
 		login_as send(cu)
+		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
 		SampleKit.any_instance.stubs(:valid?).returns(false)
-		put :update, :id => @sample_kit.id,
-			:sample_kit => factory_attributes
+		deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+			put :update, :id => sample_kit.id,
+				:sample_kit => factory_attributes
+		}
 		assert_response :success
 		assert_template 'edit'
 	end
 
-	test "should NOT delete destroy with #{cu} login " <<
+	test "should NOT destroy with #{cu} login " <<
 		"with destruction failure" do
 		login_as send(cu)
 		SampleKit.any_instance.stubs(:new_record?).returns(true)

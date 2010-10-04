@@ -6,13 +6,10 @@ class PeopleControllerTest < ActionController::TestCase
 		:model => 'Person',
 		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_person
 	}
 	def factory_attributes(options={})
 		Factory.attributes_for(:person,options)
-	end
-	def factory_create(options={})
-		Factory(:person,options)
 	end
 
 	assert_access_with_login({ 
@@ -67,15 +64,13 @@ class PeopleControllerTest < ActionController::TestCase
 
 	test "should NOT update person with #{cu} login " <<
 		"when update fails" do
-		person = factory_create
-		before = person.updated_at
-		sleep 1	# if updated too quickly, updated_at won't change
+		person = create_person(:updated_at => Chronic.parse('yesterday'))
 		Person.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
-		put :update, :id => person.id,
-			:person => factory_attributes
-		after = person.reload.updated_at
-		assert_equal before.to_i,after.to_i
+		deny_changes("Person.find(#{person.id}).updated_at") {
+			put :update, :id => person.id,
+				:person => factory_attributes
+		}
 		assert assigns(:person)
 		assert_response :success
 		assert_template 'edit'
@@ -84,11 +79,13 @@ class PeopleControllerTest < ActionController::TestCase
 
 	test "should NOT update person with #{cu} login " <<
 		"and invalid person" do
-		person = factory_create
+		person = create_person(:updated_at => Chronic.parse('yesterday'))
 		Person.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
-		put :update, :id => person.id,
-			:person => factory_attributes
+		deny_changes("Person.find(#{person.id}).updated_at") {
+			put :update, :id => person.id,
+				:person => factory_attributes
+		}
 		assert assigns(:person)
 		assert_response :success
 		assert_template 'edit'

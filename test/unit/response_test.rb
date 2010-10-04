@@ -6,7 +6,7 @@ class ResponseTest < ActiveSupport::TestCase
 	assert_should_require(:response_set_id,:question_id,:answer_id)
 
 	test "should create response" do
-		assert_difference 'Response.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			response = create_response
 			assert !response.new_record?, 
 				"#{response.errors.full_messages.to_sentence}"
@@ -103,14 +103,5 @@ class ResponseTest < ActiveSupport::TestCase
 			:a_text => Factory.attributes_for(:answer)[:text],
 			:q_text => Factory.attributes_for(:question)[:text]}]
 	end
-
-protected
-
-	def create_response(options = {})
-		record = Factory.build(:response,options)
-		record.save
-		record
-	end
-	alias_method :create_object, :create_response
 
 end

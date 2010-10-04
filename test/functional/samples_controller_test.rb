@@ -6,7 +6,7 @@ class SamplesControllerTest < ActionController::TestCase
 		:model => 'Sample',
 		:actions => [:edit,:update,:show,:destroy],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_sample
 	}
 	def factory_attributes(options={})
 		# No attributes from Factory yet
@@ -15,9 +15,6 @@ class SamplesControllerTest < ActionController::TestCase
 #			:sample_type_id => SampleType.not_roots.first,	
 			:sample_type_id => Factory(:sample_type).id,
 			:unit_id => Factory(:unit).id }.merge(options))
-	end
-	def factory_create(options={})
-		Factory(:sample,options)
 	end
 
 	assert_access_with_login({ 
@@ -46,7 +43,7 @@ class SamplesControllerTest < ActionController::TestCase
 
 	test "should get sample index with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :index, :subject_id => subject.id
 		assert_nil flash[:error]
 		assert_response :success
@@ -55,7 +52,7 @@ class SamplesControllerTest < ActionController::TestCase
 
 	test "should get new sample with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :new, :subject_id => subject.id
 		assert_nil flash[:error]
 		assert_response :success
@@ -64,7 +61,7 @@ class SamplesControllerTest < ActionController::TestCase
 
 	test "should create new sample with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		assert_difference('Sample.count',1) do
 			post :create, :subject_id => subject.id,
 				:sample => factory_attributes
@@ -77,7 +74,7 @@ class SamplesControllerTest < ActionController::TestCase
 		"and invalid sample" do
 		login_as send(cu)
 		Sample.any_instance.stubs(:valid?).returns(false)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		assert_difference('Sample.count',0) do
 			post :create, :subject_id => subject.id,
 				:sample => factory_attributes
@@ -90,10 +87,12 @@ class SamplesControllerTest < ActionController::TestCase
 	test "should NOT update with #{cu} login " <<
 		"and invalid sample" do
 		login_as send(cu)
-		sample = factory_create
+		sample = create_sample(:updated_at => Chronic.parse('yesterday'))
 		Sample.any_instance.stubs(:valid?).returns(false)
-		put :update, :id => sample.id,
-			:sample => factory_attributes
+		deny_changes("Sample.find(#{sample.id}).updated_at") {
+			put :update, :id => sample.id,
+				:sample => factory_attributes
+		}
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
@@ -103,7 +102,7 @@ class SamplesControllerTest < ActionController::TestCase
 		"and save failure" do
 		login_as send(cu)
 		Sample.any_instance.stubs(:create_or_update).returns(false)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		assert_difference('Sample.count',0) do
 			post :create, :subject_id => subject.id,
 				:sample => factory_attributes
@@ -116,10 +115,12 @@ class SamplesControllerTest < ActionController::TestCase
 	test "should NOT update with #{cu} login " <<
 		"and save failure" do
 		login_as send(cu)
-		sample = factory_create
+		sample = create_sample(:updated_at => Chronic.parse('yesterday'))
 		Sample.any_instance.stubs(:create_or_update).returns(false)
-		put :update, :id => sample.id,
-			:sample => factory_attributes
+		deny_changes("Sample.find(#{sample.id}).updated_at") {
+			put :update, :id => sample.id,
+				:sample => factory_attributes
+		}
 		assert_not_nil flash[:error]
 		assert_response :success
 		assert_template 'edit'
@@ -131,7 +132,7 @@ end
 
 	test "should NOT get sample index with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :index, :subject_id => subject.id
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -139,7 +140,7 @@ end
 
 	test "should NOT get new sample with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :new, :subject_id => subject.id
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
@@ -147,7 +148,7 @@ end
 
 	test "should NOT create new sample with #{cu} login" do
 		login_as send(cu)
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		post :create, :subject_id => subject.id,
 			:sample => factory_attributes
 		assert_not_nil flash[:error]
@@ -157,19 +158,19 @@ end
 end
 
 	test "should NOT get sample index without login" do
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :index, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT get new sample without login" do
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		get :new, :subject_id => subject.id
 		assert_redirected_to_login
 	end
 
 	test "should NOT create new sample without login" do
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		post :create, :subject_id => subject.id,
 			:sample => factory_attributes
 		assert_redirected_to_login

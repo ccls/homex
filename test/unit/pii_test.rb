@@ -7,7 +7,7 @@ class PiiTest < ActiveSupport::TestCase
 	assert_should_require_unique(:state_id_no,:email)
 
 	test "should create pii" do
-		assert_difference 'Pii.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -20,7 +20,7 @@ class PiiTest < ActiveSupport::TestCase
 	#	or this test fails.
 	#
 	test "should require subject_id on update" do
-		assert_difference 'Pii.count', 1 do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			object.reload.update_attributes(:first_name => "New First Name")
 			assert object.errors.on(:subject)
@@ -30,7 +30,7 @@ class PiiTest < ActiveSupport::TestCase
 	test "should require unique subject_id" do
 		subject = Factory(:subject)
 		create_object(:subject => subject)
-		assert_difference( 'Pii.count', 0 ) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:subject => subject)
 			assert object.errors.on(:subject_id)
 		end
@@ -38,19 +38,19 @@ class PiiTest < ActiveSupport::TestCase
 
 	test "should allow multiple blank email" do
 		create_object(:email => '  ')
-		assert_difference('Pii.count',1) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:email => ' ')
 		end
 	end
 
 	test "should require properly formated email address" do
-		assert_difference( 'Pii.count', 0 ) do
+		assert_difference( "#{model_name}.count", 0 ) do
 			%w( asdf me@some@where.com ).each do |bad_email|
 				object = create_object(:email => bad_email)
 				assert object.errors.on(:email)
 			end
 		end
-		assert_difference( 'Pii.count', 1 ) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			%w( me@some.where.com ).each do |good_email|
 				object = create_object(:email => good_email)
 				assert !object.errors.on(:email)
@@ -59,38 +59,25 @@ class PiiTest < ActiveSupport::TestCase
 	end
 
 	test "should return dob as a date NOT time" do
-#	This used to work, but now doesn't ????
-#		object = create_object(:dob => nil, :dob_string =>  "tomorrow at noon")
 		object = create_object
-		dob_before = object.dob
-#		object.update_attribute(:dob_string, "tomorrow at noon")
-		object.update_attribute(:dob, Chronic.parse('tomorrow at noon'))
-		dob_after = object.dob
-		assert_not_equal dob_before, dob_after
+		assert_changes("Pii.find(#{object.id}).dob") {
+			object.update_attribute(:dob, Chronic.parse('tomorrow at noon'))
+		}
 		assert !object.new_record?
 		assert_not_nil object.dob
 		assert object.dob.is_a?(Date)
 		assert_equal object.dob, object.dob.to_date
-#		assert_equal object.dob.strftime("%m/%d/%Y"), object.dob_string
 	end
 
 	test "should parse a properly formatted date" do
 		#	Chronic won't parse this correctly,
 		#	but Date.parse will. ???
-		assert_difference( 'Pii.count', 1 ) do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(
 				:dob => Chronic.parse("January 1 2001"))
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
 		end
-	end
-
-protected
-
-	def create_object(options = {})
-		record = Factory.build(:pii,options)
-		record.save
-		record
 	end
 
 end

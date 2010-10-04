@@ -7,7 +7,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	assert_should_belong_to(:kit_package,:class_name => 'Package')
 
 	test "should create sample kit" do
-		assert_difference 'SampleKit.count' do
+		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			assert !object.new_record?, 
 				"#{object.errors.full_messages.to_sentence}"
@@ -15,7 +15,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	end
 
 	test "should create sample kit with kit package" do
-		assert_difference('SampleKit.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 		assert_difference('Package.count', 1) {
 			object = create_object(
 				:kit_package_attributes => Factory.attributes_for(:package) )
@@ -23,7 +23,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	end
 
 	test "should create sample kit with sample package" do
-		assert_difference('SampleKit.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 		assert_difference('Package.count', 1) {
 			object = create_object(
 				:sample_package_attributes => Factory.attributes_for(:package) )
@@ -31,7 +31,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	end
 
 	test "should create sample kit with both packages" do
-		assert_difference('SampleKit.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 		assert_difference('Package.count', 2) {
 			object = create_object(
 				:kit_package_attributes  => Factory.attributes_for(:package),
@@ -41,7 +41,7 @@ class SampleKitTest < ActiveSupport::TestCase
 	end
 
 	test "should require a unique sample" do
-		assert_difference('SampleKit.count', 1) {
+		assert_difference( "#{model_name}.count", 1 ) {
 #		assert_difference('Subject.count', 1) {
 		assert_difference('Sample.count', 1) {
 			object = create_object
@@ -150,12 +150,6 @@ protected
 			:kit_package_attributes  => Factory.attributes_for(:package),
 			:sample_package_attributes => Factory.attributes_for(:package) 
 		)
-	end
-
-	def create_object(options = {})
-		record = Factory.build(:sample_kit,options)
-		record.save
-		record
 	end
 
 end

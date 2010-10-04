@@ -6,14 +6,11 @@ class PackagesControllerTest < ActionController::TestCase
 		:model => 'Package',
 		:actions => [:new,:show,:destroy,:index],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :factory_create
+		:method_for_create => :create_package
 	}
 
 	def factory_attributes(options={})
 		Factory.attributes_for(:package,options)
-	end
-	def factory_create(options={})
-		Factory(:package,options)
 	end
 
 	assert_access_with_login({    
@@ -45,7 +42,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "delivered packages should NOT have update status link " <<
 		"with #{cu} login" do
-		factory_create(:status => "Delivered")
+		create_package(:status => "Delivered")
 		login_as send(cu)
 		get :index
 		assert_select "div.update" do
@@ -55,7 +52,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "undelivered packages should have update status link " <<
 		"with #{cu} login" do
-		factory_create
+		create_package
 		login_as send(cu)
 		get :index
 		assert_select "div.update" do
@@ -100,7 +97,7 @@ class PackagesControllerTest < ActionController::TestCase
 	test "should update with #{cu} login" do
 		stub_package_for_successful_delivery	#	remove external dependency
 		login_as send(cu)
-		package = factory_create(:tracking_number => '077973360403984')
+		package = create_package(:tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
 		assert_not_nil package.reload.status
@@ -111,7 +108,7 @@ class PackagesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		stub_package_for_successful_delivery	#	remove external dependency
 		login_as send(cu)
-		package = factory_create
+		package = create_package
 		@request.env["HTTP_REFERER"] = package_path(package)
 #	all currently result in the same redirect
 #		@request.session[:refer_to] = package_path(package)
@@ -122,7 +119,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should simulate ship with #{cu} login" do
 		login_as send(cu)
-		package = factory_create
+		package = create_package
 		assert_not_equal 'Transit', package.reload.status
 		put :ship, :id => package.id
 		assert_equal 'Transit', package.reload.status
@@ -131,7 +128,7 @@ class PackagesControllerTest < ActionController::TestCase
 
 	test "should simulate delivery with #{cu} login" do
 		login_as send(cu)
-		package = factory_create
+		package = create_package
 		assert_not_equal 'Delivered', package.reload.status
 		put :deliver, :id => package.id
 		assert_equal 'Delivered', package.reload.status
@@ -141,7 +138,7 @@ class PackagesControllerTest < ActionController::TestCase
 	test "should show tracks for package with #{cu} login" do
 		stub_package_for_successful_delivery
 		login_as send(cu)
-		package = factory_create
+		package = create_package
 		package.update_status
 		assert package.tracks.length > 0
 		get :show, :id => package.id
@@ -158,7 +155,7 @@ end
 
 	test "should NOT update with #{cu} login" do
 		login_as send(cu)
-		package = factory_create(:tracking_number => '077973360403984')
+		package = create_package(:tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
 		assert_nil package.reload.status
@@ -168,7 +165,7 @@ end
 end
 
 	test "should NOT update without login" do
-		package = factory_create(:tracking_number => '077973360403984')
+		package = create_package(:tracking_number => '077973360403984')
 		assert_nil package.status
 		put :update, :id => package.id
 		assert_nil package.reload.status

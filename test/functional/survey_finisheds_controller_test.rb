@@ -21,7 +21,7 @@ class SurveyFinishedsControllerTest < ActionController::TestCase
 
 	test "should redirect to interview/subject without token "<<
 			"but with access_code and #{cu} login" do
-		rs = Factory(:response_set)
+		rs = create_response_set	#Factory(:response_set)
 		session[:access_code] = rs.access_code
 		login_as send(cu)
 		#	No mail without 'invitation'

@@ -104,7 +104,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 	end
 
 	test "should get response sets with #{cu} login" do
-		subject = Factory(:subject)
+		subject = create_subject	#Factory(:subject)
 		login_as send(cu)
 		get :index, :subject_id => subject.id
 		assert assigns(:subject)
