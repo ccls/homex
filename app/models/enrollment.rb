@@ -54,7 +54,7 @@ class Enrollment < ActiveRecord::Base
 		:if => :refusal_reason_is_other?
 	validates_absence_of :other_refusal_reason,
 		:message => "not allowed",
-		:unless => :refusal_reason_is_other?
+		:unless => :not_consented?
 
 	validates_presence_of :terminated_reason,
 		:if => :terminated_participation?

@@ -127,19 +127,29 @@ class EnrollmentTest < ActiveSupport::TestCase
 	test "should require other_refusal_reason if " <<
 			"refusal_reason == other" do
 		assert_difference('Enrollment.count',0) do
-			object = create_object(
+			object = create_object(:consented => YNDK[:no],
 				:refusal_reason => RefusalReason['other'] )
 			assert object.errors.on(:other_refusal_reason)
 		end
 	end
-
-	test "should NOT ALLOW other_refusal_reason if " <<
+	test "should ALLOW other_refusal_reason if " <<
 			"refusal_reason != other" do
-		assert_difference('Enrollment.count',0) do
-			object = create_object(
+		assert_difference('Enrollment.count',1) do
+			object = create_object(:consented => YNDK[:no],
 				:refusal_reason => Factory(:refusal_reason),
 				:other_refusal_reason => 'asdfasdf' )
-			assert object.errors.on(:other_refusal_reason)
+			assert !object.errors.on(:other_refusal_reason)
+		end
+	end
+	[:yes,:dk,:nil].each do |yndk|
+		test "should NOT ALLOW other_refusal_reason if "<<
+				"consented == #{yndk}" do
+			assert_difference('Enrollment.count',0) do
+				object = create_object(:consented => YNDK[yndk],
+					:refusal_reason => Factory(:refusal_reason),
+					:other_refusal_reason => 'asdfasdf' )
+				assert object.errors.on(:other_refusal_reason)
+			end
 		end
 	end
 
