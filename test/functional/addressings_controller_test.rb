@@ -75,6 +75,34 @@ class AddressingsControllerTest < ActionController::TestCase
 		assert_redirected_to subjects_path
 	end
 
+
+
+
+
+	test "should make subject ineligible after create " <<
+			"with #{cu} login" do
+		subject = create_hx_subject(:enrollment => {
+			:is_eligible => YNDK[:yes] })
+		assert_nil   subject.hx_enrollment.ineligible_reason_id
+		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		login_as send(cu)
+		assert_difference("Subject.find(#{subject.id}).addressings.count",1) {
+		assert_difference("Subject.find(#{subject.id}).addresses.count",1) {
+		assert_difference('Addressing.count',1) {
+		assert_difference('Address.count',1) {
+			post :create, :subject_id => subject.id,
+				:addressing => az_addressing()
+		} } } }
+		assert assigns(:subject)
+		assert_not_nil subject.hx_enrollment.ineligible_reason_id
+		assert_equal   subject.hx_enrollment.ineligible_reason,
+			IneligibleReason['newnonCA']
+		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
+		assert_redirected_to subject_contacts_path(subject)
+	end
+
+
+
 	test "should create new addressing with #{cu} login" do
 		subject = Factory(:subject)
 		login_as send(cu)
@@ -338,6 +366,27 @@ end
 		post :create, :subject_id => subject.id,
 			:addressing => factory_attributes
 		assert_redirected_to_login
+	end
+
+protected
+
+	
+	def addressing_with_address(options={})
+		Factory.attributes_for(:addressing, {
+			:address_attributes => Factory.attributes_for(:address,{
+				:address_type => AddressType['residence']
+			}.merge(options[:address]||{}))
+		}.merge(options[:addressing]||{}))
+	end
+
+	def ca_addressing(options={})
+		addressing_with_address({
+			:address => {:state => 'CA'}}.merge(options))
+	end
+
+	def az_addressing(options={})
+		addressing_with_address({
+			:address => {:state => 'AZ'}}.merge(options))
 	end
 
 end
