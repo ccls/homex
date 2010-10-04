@@ -113,8 +113,14 @@ module FactoryTestHelper
 	alias_method :create_hx_subject, :create_home_exposure_with_subject
 
 	def create_eligible_hx_subject()
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
+		subject = nil
+		assert_nil subject
+		assert_difference('Enrollment.count',1) {
+		assert_difference('Subject.count',1) {
+			subject = create_hx_subject(:enrollment => {
+				:is_eligible => YNDK[:yes] })
+		} }
+		assert_not_nil subject
 		assert_subject_is_eligible(subject)
 		subject
 	end
