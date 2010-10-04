@@ -81,10 +81,7 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	test "should make subject ineligible after create " <<
 			"with #{cu} login" do
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		login_as send(cu)
 		assert_difference("Subject.find(#{subject.id}).addressings.count",1) {
 		assert_difference("Subject.find(#{subject.id}).addresses.count",1) {
@@ -94,10 +91,9 @@ class AddressingsControllerTest < ActionController::TestCase
 				:addressing => az_addressing()
 		} } } }
 		assert assigns(:subject)
-		assert_not_nil subject.hx_enrollment.ineligible_reason_id
+		assert_subject_is_not_eligible(subject)
 		assert_equal   subject.hx_enrollment.ineligible_reason,
 			IneligibleReason['newnonCA']
-		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
 		assert_redirected_to subject_contacts_path(subject)
 	end
 

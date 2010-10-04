@@ -19,24 +19,13 @@ class AddressingTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT require why_invalid if is_valid is nil" do
-		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => nil)
+	[:yes,:dk,:nil].each do |yndk|
+		test "should NOT require why_invalid if is_valid is #{yndk}" do
+			assert_difference 'Addressing.count', 1 do
+				object = create_object(:is_valid => YNDK[yndk])
+			end
 		end
 	end
-
-	test "should NOT require why_invalid if is_valid is :yes" do
-		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => YNDK[:yes])
-		end
-	end
-
-	test "should NOT require why_invalid if is_valid is :dk" do
-		assert_difference 'Addressing.count', 1 do
-			object = create_object(:is_valid => YNDK[:dk])
-		end
-	end
-
 	test "should require why_invalid if is_valid is :no" do
 		assert_difference 'Addressing.count', 0 do
 			object = create_object(:is_valid => YNDK[:no])
@@ -49,7 +38,6 @@ class AddressingTest < ActiveSupport::TestCase
 			object = create_object(:is_verified => false)
 		end
 	end
-
 	test "should require how_verified if is_verified is true" do
 		assert_difference 'Addressing.count', 0 do
 			object = create_object(:is_verified => true)
@@ -133,88 +121,66 @@ class AddressingTest < ActiveSupport::TestCase
 
 	test "should make subject ineligible "<<
 			"on create if state NOT 'CA' and address is ONLY residence" do
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',1) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			create_az_addressing(subject)
 		} } }
-		assert_not_nil subject.hx_enrollment.ineligible_reason_id
+		assert_subject_is_not_eligible(subject)
 		assert_equal   subject.hx_enrollment.ineligible_reason,
 			IneligibleReason['newnonCA']
-		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
 	end
 
 	test "should make subject ineligible "<<
 			"on create if state NOT 'CA' and address is ANOTHER residence" do
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',1) {
 		assert_difference('Addressing.count',2) {
 		assert_difference('Address.count',2) {
 			create_ca_addressing(subject)
 			create_az_addressing(subject)
 		} } }
-		assert_not_nil subject.hx_enrollment.ineligible_reason_id
+		assert_subject_is_not_eligible(subject)
 		assert_equal   subject.hx_enrollment.ineligible_reason,
 			IneligibleReason['moved']
-		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
 	end
 
 	test "should NOT make subject ineligible "<<
 			"on create if OET is missing" do
 		OperationalEventType['ineligible'].destroy
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			create_ca_addressing(subject)
-#assert_raise(ActiveRecord::RecordInvalid){
-assert_raise(ActiveRecord::RecordNotSaved){
-			create_az_addressing(subject)
-}
-		} } }
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+			assert_raise(ActiveRecord::RecordNotSaved){
+				create_az_addressing(subject)
+		} } } }
+		assert_subject_is_eligible(subject)
 	end
 
 	test "should NOT make subject ineligible "<<
 			"on create if state NOT 'CA' and address is NOT residence" do
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			create_az_addressing(subject,
 				:address => { :address_type => AddressType['mailing'] })
 		} } }
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_subject_is_eligible(subject)
 	end
 
 	test "should NOT make subject ineligible "<<
 			"on create if state 'CA' and address is residence" do
-		subject = create_hx_subject(:enrollment => {
-			:is_eligible => YNDK[:yes] })
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		subject = create_eligible_hx_subject
 		assert_difference('OperationalEvent.count',0) {
 		assert_difference('Addressing.count',1) {
 		assert_difference('Address.count',1) {
 			create_ca_addressing(subject)
 		} } }
-		assert_nil   subject.hx_enrollment.ineligible_reason_id
-		assert_equal subject.hx_enrollment.is_eligible, YNDK[:yes]
+		assert_subject_is_eligible(subject)
 	end
 
 protected

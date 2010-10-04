@@ -26,7 +26,7 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 		assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
 	end
 
-	test "should redirect to interview/subjects " <<
+	test "should show interview/subjects " <<
 			"with invalid hx interview subject " <<
 			"with #{cu} login" do
 		subject = create_hx_subject
@@ -39,7 +39,7 @@ class Interview::SubjectsControllerTest < ActionController::TestCase
 #		assert_redirected_to interview_subjects_path
 	end
 
-	test "should redirect to show interview " <<
+	test "should show interview/subjects " <<
 			"with valid hx interview subject " <<
 			"with #{cu} login" do
 		subject = create_hx_interview_subject	#	doesn't really matter

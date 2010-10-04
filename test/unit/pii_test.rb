@@ -58,27 +58,6 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require properly formated phone numbers" do
-#		[ :phone_primary, :phone_alternate, :phone_alternate_2,
-#			:phone_alternate_3 ].each do |phone_field|
-#			[ 'asdf', 'me@some@where.com','12345678','12345678901' 
-#			].each do |bad_phone|
-#				assert_difference( 'Pii.count', 0 ) do
-#					object = create_object(phone_field => bad_phone)
-#					assert object.errors.on(phone_field)
-#				end
-#			end
-#			[ "(123)456-7890", "1234567890" ].each do |good_phone|
-#				assert_difference( 'Pii.count', 1 ) do
-#					object = create_object(phone_field => good_phone)
-#					assert !object.errors.on(phone_field)
-#					assert object.reload.send(phone_field
-#						) =~ /\A\(\d{3}\)\s+\d{3}-\d{4}\z/
-#				end
-#			end
-#		end
-#	end
-
 	test "should return dob as a date NOT time" do
 #	This used to work, but now doesn't ????
 #		object = create_object(:dob => nil, :dob_string =>  "tomorrow at noon")
