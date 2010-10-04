@@ -75,10 +75,10 @@ Rails::Initializer.run do |config|
 
 end
 
-YNDK = {
+YNDK = HashWithIndifferentAccess.new({
 	:yes   => 1,
 	:true  => 1,
 	:no    => 2,
 	:false => 2,
 	:dk    => 999
-}.freeze
+}).freeze
