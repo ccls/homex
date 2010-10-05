@@ -2,16 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SurveyTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_have_many(:response_sets)
 	assert_should_require(:title)
 
-	test "should create survey" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			survey = create_survey
-			assert !survey.new_record?, 
-				"#{survey.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create survey" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			survey = create_survey
+#			assert !survey.new_record?, 
+#				"#{survey.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should require unique access_code" do
 		Survey.stubs(:find_by_access_code).returns(nil)

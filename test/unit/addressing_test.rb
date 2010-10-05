@@ -5,6 +5,8 @@ class AddressingTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:subject)
 	assert_should_initially_belong_to(:subject,:address)
 
+	assert_should_create_default_object
+
 	#
 	# addressing uses accepts_attributes_for :address
 	# so the addressing can't require address_id on create

@@ -2,17 +2,18 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleKitTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_initially_belong_to(:sample)
 	assert_should_belong_to(:sample_package,:class_name => 'Package')
 	assert_should_belong_to(:kit_package,:class_name => 'Package')
 
-	test "should create sample kit" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create sample kit" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should create sample kit with kit package" do
 		assert_difference( "#{model_name}.count", 1 ) {

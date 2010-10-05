@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 #	assert_requires_valid_associations(:subject,:unit,:sample_type)
 	assert_requires_valid_associations(:subject,:sample_type)
 	assert_should_have_one(:sample_kit)
@@ -11,13 +12,13 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:subject,:sample_type)
 	assert_should_habtm(:projects)
 
-	test "should create sample" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create sample" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should require that kit and sample tracking " <<
 		"numbers are different" do

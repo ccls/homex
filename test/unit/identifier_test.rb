@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IdentifierTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_have_many(:interviews)
 	assert_should_initially_belong_to(:subject)
 	assert_should_require(
@@ -24,13 +25,13 @@ class IdentifierTest < ActiveSupport::TestCase
 
 #	assert_should_protect_attributes(:subjectid)
 
-	test "should create identifier" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create identifier" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should pad subjectid with leading zeros" do
 		identifier = Factory.build(:identifier)

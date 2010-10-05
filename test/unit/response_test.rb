@@ -2,16 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResponseTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_initially_belong_to(:response_set)
 	assert_should_require(:response_set_id,:question_id,:answer_id)
 
-	test "should create response" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			response = create_response
-			assert !response.new_record?, 
-				"#{response.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create response" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			response = create_response
+#			assert !response.new_record?, 
+#				"#{response.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should raise error on q_and_a_codes with invalid response_class" do
 		#	This is unlikely to happen in reality

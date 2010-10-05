@@ -2,22 +2,24 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class TrackTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_initially_belong_to(:trackable)
+	assert_should_require(:trackable_id)
 
-	test "should create track" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create track" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
-	test "should require trackable_id" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(:trackable_id => nil)
-			assert object.errors.on(:trackable_id)
-		end
-	end
+#	test "should require trackable_id" do
+#		assert_difference( "#{model_name}.count", 0 ) do
+#			object = create_object(:trackable_id => nil)
+#			assert object.errors.on(:trackable_id)
+#		end
+#	end
 
 	test "should require trackable_type" do
 		#	kinda challenging to override the _type with 

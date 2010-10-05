@@ -88,6 +88,16 @@ class ActiveSupport::TestCase
 		end
 	end
 
+	def self.assert_should_create_default_object
+		test "should create default #{model_name.underscore}" do
+			assert_difference( "#{model_name}.count", 1 ) do
+				object = create_object
+				assert !object.new_record?, 
+					"#{object.errors.full_messages.to_sentence}"
+			end
+		end
+	end
+
 end
 
 class ActionController::TestCase

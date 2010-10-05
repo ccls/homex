@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OperationalEventTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 #	assert_should_initially_belong_to(:operational_event_type,:subject)
 #	assert_requires_valid_associations(:operational_event_type,:subject)
 	assert_should_belong_to(:enrollment)
@@ -9,13 +10,13 @@ class OperationalEventTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:operational_event_type)
 	assert_requires_valid_associations(:operational_event_type)
 
-	test "should create operational_event" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create operational_event" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	#	description is not required so ...
 	test "should return description as to_s if not nil" do

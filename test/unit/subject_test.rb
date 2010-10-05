@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SubjectTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_requires_valid_associations(
 		:race,
 		:subject_type

@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_act_as_list
 	assert_should_require(:code,:name)
 	assert_should_require_unique(:code,:name)
@@ -16,13 +17,13 @@ class OrganizationTest < ActiveSupport::TestCase
 		:class_name => 'Transfer',
 		:foreign_key => :from_organization_id)
 
-	test "should create organization" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			organization = create_organization
-			assert !organization.new_record?, 
-				"#{organization.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create organization" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			organization = create_organization
+#			assert !organization.new_record?, 
+#				"#{organization.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should require 4 char code" do
 		assert_difference( "#{model_name}.count", 0 ) do

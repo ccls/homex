@@ -2,17 +2,18 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PiiTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_belong_to(:subject)
 	assert_should_require(:state_id_no,:dob)
 	assert_should_require_unique(:state_id_no,:email)
 
-	test "should create pii" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create pii" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	#
 	#	subject uses accepts_attributes_for :pii

@@ -2,18 +2,19 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PatientTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_initially_belong_to(:subject)
 	assert_should_belong_to(:organization,:diagnosis)
 	assert_should_require(:subject_id)
 	assert_should_require_unique(:subject_id)
 
-	test "should create patient" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create patient" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should require Case subject" do
 		assert_difference( "#{model_name}.count", 0 ) do

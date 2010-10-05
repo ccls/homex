@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class PersonTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_act_as_list
 #	assert_should_belong_to(:context)
 	assert_should_have_many(:organizations)
@@ -10,13 +11,13 @@ class PersonTest < ActiveSupport::TestCase
 
 	assert_should_require_attribute(:last_name)
 
-	test "should create person" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create person" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should return full_name as to_s" do
 		object = create_object

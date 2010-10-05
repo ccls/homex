@@ -2,16 +2,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class HomexOutcomeTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_act_as_list
 	assert_should_belong_to(:subject)
 
-	test "should create homex_outcome" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create homex_outcome" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	#
 	#	subject uses accepts_attributes_for :pii

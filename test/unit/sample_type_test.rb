@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SampleTypeTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
 	assert_should_act_as_list :scope => :parent_id
 #	assert_should_have_many(:sample_subtypes)
 	assert_should_have_many(:samples)
@@ -15,13 +16,13 @@ class SampleTypeTest < ActiveSupport::TestCase
 	assert_should_require(:code,:description)
 	assert_should_require_unique(:code,:description)
 
-	test "should create sample_type" do
-		assert_difference( "#{model_name}.count", 1 ) do
-			object = create_object
-			assert !object.new_record?, 
-				"#{object.errors.full_messages.to_sentence}"
-		end
-	end
+#	test "should create sample_type" do
+#		assert_difference( "#{model_name}.count", 1 ) do
+#			object = create_object
+#			assert !object.new_record?, 
+#				"#{object.errors.full_messages.to_sentence}"
+#		end
+#	end
 
 	test "should require 4 char description" do
 		assert_difference( "#{model_name}.count", 0 ) do
