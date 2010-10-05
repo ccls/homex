@@ -3,16 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PackageTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-#	assert_should_require(:tracking_number)
-	assert_should_require_unique(:tracking_number)
+	assert_should_require_unique_attribute(:tracking_number)
 
-#	test "should create package" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			package = create_package
-#			assert !package.new_record?, 
-#				"#{package.errors.full_messages.to_sentence}"
-#		end
-#	end
 
 	test "should NOT require 3 char tracking_number" do
 		assert_difference( "#{model_name}.count", 1 ) do

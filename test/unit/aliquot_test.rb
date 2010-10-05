@@ -10,13 +10,6 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:sample,:unit)
 	assert_should_initially_belong_to(:owner,:class_name => 'Organization')
 
-#	test "should create aliquot" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
 
 	test "should transfer to another organization" do
 		object = create_object

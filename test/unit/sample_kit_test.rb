@@ -7,13 +7,8 @@ class SampleKitTest < ActiveSupport::TestCase
 	assert_should_belong_to(:sample_package,:class_name => 'Package')
 	assert_should_belong_to(:kit_package,:class_name => 'Package')
 
-#	test "should create sample kit" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
+	assert_should_require_unique_attribute(:sample_id)
+
 
 	test "should create sample kit with kit package" do
 		assert_difference( "#{model_name}.count", 1 ) {

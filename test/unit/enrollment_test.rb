@@ -3,22 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnrollmentTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_requires_valid_associations(:project,:subject)
-	assert_should_belong_to(:ineligible_reason,:refusal_reason,
-		:document_version)
-	assert_should_have_many(:operational_events)
-	assert_should_initially_belong_to(:project,:subject)
-
-	assert_should_require_unique(:project_id, 
+	assert_should_require_unique_attribute(:project_id, 
 		:scope => :subject_id)
 
-#	test "should create enrollment" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
+	assert_should_have_many(:operational_events)
+	assert_should_belong_to(
+		:ineligible_reason,
+		:refusal_reason,
+		:document_version)
+	assert_should_initially_belong_to(:project,:subject)
+	assert_requires_valid_associations(:project,:subject)
+
 
 	test "should require consented_on be in the past" do
 		assert_difference( "#{model_name}.count", 0 ) do

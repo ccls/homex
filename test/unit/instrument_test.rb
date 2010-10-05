@@ -7,16 +7,10 @@ class InstrumentTest < ActiveSupport::TestCase
 	assert_should_have_many(:instrument_versions)
 	assert_should_belong_to(:interview_method)
 	assert_should_initially_belong_to(:project)
-	assert_should_require(:code,:name)
-	assert_should_require_unique(:code,:description)
+#	assert_requires_valid_association(:project)
+	assert_should_require_attributes(:code,:name,:description)
+	assert_should_require_unique_attributes(:code,:description)
 
-#	test "should create instrument" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
 
 	test "should require 4 char description" do
 		assert_difference( "#{model_name}.count", 0 ) do

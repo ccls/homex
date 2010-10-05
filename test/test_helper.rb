@@ -59,35 +59,6 @@ class ActiveSupport::TestCase
 		assert_equal   subject.hx_enrollment.is_eligible, YNDK[:no]
 	end
 
-	#	basically a copy of assert_difference, but
-	#	without any explicit comparison as it is 
-	#	simply stating that something will change
-	#	(designed for updated_at)
-	def assert_changes(expression, message = nil, &block)
-		b = block.send(:binding)
-		exps = Array.wrap(expression)
-		before = exps.map { |e| eval(e, b) }
-		yield
-		exps.each_with_index do |e, i|
-			error = "#{e.inspect} didn't change"
-			error = "#{message}.\n#{error}" if message
-			assert_not_equal(before[i], eval(e, b), error)
-		end
-	end
-
-	#	Just a negation of assert_changes
-	def deny_changes(expression, message = nil, &block)
-		b = block.send(:binding)
-		exps = Array.wrap(expression)
-		before = exps.map { |e| eval(e, b) }
-		yield
-		exps.each_with_index do |e, i|
-			error = "#{e.inspect} changed"
-			error = "#{message}.\n#{error}" if message
-			assert_equal(before[i], eval(e, b), error)
-		end
-	end
-
 	def self.assert_should_create_default_object
 		test "should create default #{model_name.underscore}" do
 			assert_difference( "#{model_name}.count", 1 ) do
@@ -103,10 +74,5 @@ end
 class ActionController::TestCase
 
 	setup :turn_https_on
-
-	def assert_layout(layout)
-		layout = "layouts/#{layout}" unless layout.match(/^layouts/)
-		assert_equal layout, @response.layout
-	end
 
 end

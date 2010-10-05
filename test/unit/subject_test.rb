@@ -26,6 +26,7 @@ class SubjectTest < ActiveSupport::TestCase
 		:identifier,
 		:pii
 	)
+	assert_should_habtm(:analyses)
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){

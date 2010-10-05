@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PhoneNumberTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_act_as_list :scope => :subject_id
-	assert_should_initially_belong_to :subject, :phone_type
+	assert_should_act_as_list( :scope => :subject_id )
+	assert_should_initially_belong_to( :subject, :phone_type )
+	assert_should_require_attribute(:phone_number)
+
 
 	test "should require properly formated phone number" do
 		[ 'asdf', 'me@some@where.com','12345678','12345678901' 

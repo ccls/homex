@@ -2,53 +2,15 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddressTest < ActiveSupport::TestCase
 
+	assert_should_create_default_object
+	assert_should_require_attributes(:line_1, :city, :state, :zip)
+
 	assert_requires_valid_associations(:address_type)
-#	assert_requires_valid_associations(:subject,:address_type)
-#	assert_should_have_one(:residence)
 	assert_should_have_one(:addressing)
 	assert_should_have_many(:interviews)
 	assert_should_belong_to(:data_source)
-# assert_should_initially_belong_to(:subject,:address_type)
 	assert_should_initially_belong_to(:address_type)
 
-	assert_should_create_default_object
-	assert_should_require(:line_1, :city, :state, :zip)
-
-#	test "should create address" do
-#		assert_difference "#{model_name}.count" do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
-#
-#	test "should require line_1" do
-#		assert_difference( "#{model_name}.count", 0 ) do
-#			object = create_object( :line_1 => nil )
-#			assert object.errors.on(:line_1)
-#		end
-#	end
-#
-#	test "should require city" do
-#		assert_difference( "#{model_name}.count", 0 ) do
-#			object = create_object( :city => nil )
-#			assert object.errors.on(:city)
-#		end
-#	end
-#
-#	test "should require state" do
-#		assert_difference( "#{model_name}.count", 0 ) do
-#			object = create_object( :state => nil )
-#			assert object.errors.on(:state)
-#		end
-#	end
-#
-#	test "should require zip" do
-#		assert_difference( "#{model_name}.count", 0 ) do
-#			object = create_object( :zip => nil )
-#			assert object.errors.on(:zip)
-#		end
-#	end
 
 	test "should require 5 or 9 digit zip" do
 		%w( asdf 1234 123456 1234Q 123456789 ).each do |bad_zip|
@@ -65,15 +27,6 @@ class AddressTest < ActiveSupport::TestCase
 			end
 		end
 	end
-
-#	test "should NOT destroy residence on destroy" do
-#		object = create_object
-#		Factory(:residence, :address_id => object.id)
-#		assert_difference('Residence.count',0) {
-#		assert_difference('Address.count',-1) {
-#			object.destroy
-#		} }
-#	end
 
 	test "should order address chronologically reversed" do
 		a1 = Factory(:address, :created_at => Date.jd(2440000) ).id

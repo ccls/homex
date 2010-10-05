@@ -4,15 +4,10 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_act_as_list
-	assert_should_belong_to(:subject)
+	assert_should_belong_to(:subject,:sample_outcome,:interview_outcome)
 
-#	test "should create homex_outcome" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
+#	Need to add something to allow_nil => true
+#	assert_should_require_unique_attribute(:subject_id)
 
 	#
 	#	subject uses accepts_attributes_for :pii

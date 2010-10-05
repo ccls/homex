@@ -14,12 +14,4 @@ class TransferTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:from_organization,
 		:class_name => 'Organization')
 
-#	test "should create transfer" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
-
 end

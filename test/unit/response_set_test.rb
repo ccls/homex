@@ -8,20 +8,10 @@ class ResponseSetTest < ActiveSupport::TestCase
 	assert_should_belong_to(:user)
 	assert_should_initially_belong_to(:survey,:subject)
 
-#	test "should create response_set" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			response_set = create_response_set
-#			assert !response_set.new_record?, 
-#				"#{response_set.errors.full_messages.to_sentence}"
-#		end
-#	end
+	assert_should_require_attributes(:survey_id)
+#	assert_should_require_unique_attributes(:access_code)
+#	assert_requires_valid_associations(:subject)
 
-	test "should require survey_id" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			response_set = create_response_set(:survey_id => nil)
-			assert response_set.errors.on(:survey_id)
-		end
-	end
 
 	test "should require unique access_code" do
 		ResponseSet.stubs(:find_by_access_code).returns(nil)

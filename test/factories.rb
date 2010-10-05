@@ -209,6 +209,7 @@ end
 
 Factory.define :project_outcome do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
+	f.sequence(:description) { |n| "Desc#{n}" }
 end
 
 Factory.define :race do |f|

@@ -8,16 +8,9 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 #	only if subject is ineligible
 #	assert_should_have_many(:enrollments)
 
-	assert_should_require(:code,:description)
-	assert_should_require_unique(:code,:description)
+	assert_should_require_attributes(:code,:description)
+	assert_should_require_unique_attributes(:code,:description)
 
-#	test "should create ineligible_reason" do
-#		assert_difference( "#{model_name}.count", 1 ) do
-#			object = create_object
-#			assert !object.new_record?, 
-#				"#{object.errors.full_messages.to_sentence}"
-#		end
-#	end
 
 	test "should require 4 char description" do
 		assert_difference( "#{model_name}.count", 0 ) do
