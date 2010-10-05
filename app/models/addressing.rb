@@ -17,7 +17,8 @@ class Addressing < ActiveRecord::Base
 	validates_presence_of :how_verified,
 		:if => :is_verified?
 
-	validates_complete_date_for :valid_from, :valid_to
+	validates_complete_date_for :valid_from, :valid_to,
+		:allow_nil => true
 
 	named_scope :current, :conditions => {
 		:current_address => 1

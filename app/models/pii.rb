@@ -20,17 +20,8 @@ class Pii < ActiveRecord::Base
 
 	before_validation :nullify_blank_email
 
-#	validate :complete_dob_date
-#	def complete_dob_date
-#		unless Date._parse(dob).has_key?(:mday)
-#			errors.add(:dob, "Incomplete")
-#		end
-#	end
-
-	
 	validates_complete_date_for :dob, :died_on,
 		:allow_nil => true
-
 
 	def full_name
 		[first_name, middle_name, last_name].join(' ')

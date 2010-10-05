@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100929180958) do
+ActiveRecord::Schema.define(:version => 20101005235251) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -461,9 +461,9 @@ ActiveRecord::Schema.define(:version => 20100929180958) do
     t.integer  "position"
     t.integer  "subject_id"
     t.integer  "sample_outcome_id"
-    t.datetime "sample_outcome_on"
+    t.date     "sample_outcome_on"
     t.integer  "interview_outcome_id"
-    t.datetime "interview_outcome_on"
+    t.date     "interview_outcome_on"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

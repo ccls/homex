@@ -18,7 +18,8 @@ class InstrumentVersion < ActiveRecord::Base
 
 	validates_presence_of :interview_type_id, :interview_type
 
-	validates_complete_date_for :began_use_on, :ended_use_on
+	validates_complete_date_for :began_use_on, :ended_use_on,
+		:allow_nil => true
 
 	def to_s
 		description
