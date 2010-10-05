@@ -7,6 +7,7 @@ class PiiTest < ActiveSupport::TestCase
 	assert_should_require_attributes(:state_id_no,:dob)
 	assert_should_require_unique_attributes(:state_id_no,:email)
 
+	assert_requires_complete_date( :dob, :died_on )
 
 	#
 	#	subject uses accepts_attributes_for :pii

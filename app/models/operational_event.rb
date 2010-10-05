@@ -8,6 +8,9 @@ class OperationalEvent < ActiveRecord::Base
 	validates_presence_of :operational_event_type_id,
 		:operational_event_type
 
+	validates_complete_date_for :occurred_on,
+		:allow_nil => true
+
 	def to_s
 		description
 	end

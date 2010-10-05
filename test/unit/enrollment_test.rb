@@ -14,6 +14,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:project,:subject)
 	assert_requires_valid_associations(:project,:subject)
 
+	assert_requires_complete_date(:consented_on,:completed_on)
 
 	test "should require consented_on be in the past" do
 		assert_difference( "#{model_name}.count", 0 ) do

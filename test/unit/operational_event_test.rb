@@ -7,6 +7,7 @@ class OperationalEventTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:operational_event_type)
 	assert_requires_valid_associations(:operational_event_type)
 
+	assert_requires_complete_date(:occurred_on)
 
 	#	description is not required so ...
 	test "should return description as to_s if not nil" do

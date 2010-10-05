@@ -23,6 +23,8 @@ class Interview < ActiveRecord::Base
 	belongs_to :language
 	belongs_to :subject_relationship
 
+	validates_complete_date_for :began_on, :ended_on,
+		:allow_nil => true
 
 	validates_presence_of :subject_relationship_other,
 		:if => :subject_relationship_is_other?

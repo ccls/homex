@@ -6,6 +6,7 @@ class AddressingTest < ActiveSupport::TestCase
 	assert_requires_valid_associations(:subject)
 	assert_should_initially_belong_to(:subject,:address)
 
+	assert_requires_complete_date(:valid_from,:valid_to)
 
 	#
 	# addressing uses accepts_attributes_for :address

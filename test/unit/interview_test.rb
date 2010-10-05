@@ -17,6 +17,8 @@ class InterviewTest < ActiveSupport::TestCase
 		:identifier_id
 	)
 
+	assert_requires_complete_date(:began_on,:ended_on)
+
 	test "should NOT require valid address_id" do
 		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object(:address_id => 0)

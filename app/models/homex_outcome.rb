@@ -18,6 +18,9 @@ class HomexOutcome < ActiveRecord::Base
 	validates_presence_of :interview_outcome_on,
 		:if => :interview_outcome_id?
 
+	validates_complete_date_for :interview_outcome_on, :sample_outcome_on,
+		:allow_nil => true
+
 	before_save :create_interview_outcome_update,
 		:if => :interview_outcome_id_changed?
 

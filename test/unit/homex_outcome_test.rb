@@ -6,6 +6,8 @@ class HomexOutcomeTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_belong_to(:subject,:sample_outcome,:interview_outcome)
 
+	assert_requires_complete_date(:interview_outcome_on,:sample_outcome_on)
+
 #	Need to add something to allow_nil => true
 #	assert_should_require_unique_attribute(:subject_id)
 

@@ -69,6 +69,17 @@ class ActiveSupport::TestCase
 		end
 	end
 
+	def self.assert_requires_complete_date(*attr_names)
+		attr_names.each do |attr_name|
+			test "should require a complete date for #{attr_name}" do
+				assert_difference( "#{model_name}.count", 0 ) do
+					object = create_object( attr_name => "Sept 2010")
+					assert object.errors.on(attr_name)
+				end
+			end
+		end
+	end
+
 end
 
 class ActionController::TestCase

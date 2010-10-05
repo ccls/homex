@@ -32,6 +32,9 @@ class Subject < ActiveRecord::Base
 #	validates_inclusion_of :sex, :in => %w( male female ),
 #		:message => "must be male or female"
 
+	validates_complete_date_for :reference_date,
+		:allow_nil => true
+
 	delegate :full_name, :email,
 		:last_name, :first_name, :dob, #:dob_string,
 		:fathers_name, :mothers_name,

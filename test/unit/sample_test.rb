@@ -10,6 +10,12 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:subject,:sample_type)
 	assert_should_habtm(:projects)
 
+	assert_requires_complete_date( :sent_to_subject_on,
+		:received_by_ccls_on,
+		:sent_to_lab_on,
+		:received_by_lab_on,
+		:aliquotted_on,
+		:receipt_confirmed_on )
 
 	test "should require that kit and sample tracking " <<
 		"numbers are different" do

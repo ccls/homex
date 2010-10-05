@@ -9,6 +9,7 @@ class PatientTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes(:subject_id)
 	assert_requires_valid_association(:subject)
 
+	assert_requires_complete_date(:diagnosis_date)
 
 	test "should require Case subject" do
 		assert_difference( "#{model_name}.count", 0 ) do

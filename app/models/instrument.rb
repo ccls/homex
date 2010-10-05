@@ -13,6 +13,8 @@ class Instrument < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
+	validates_complete_date_for :began_use_on, :ended_use_on
+
 	def to_s
 		name
 	end

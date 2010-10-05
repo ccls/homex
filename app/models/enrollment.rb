@@ -71,6 +71,8 @@ class Enrollment < ActiveRecord::Base
 	validates_absence_of :document_version,
 		:message => "not allowed with unknown consent",
 		:if => :consent_unknown?
+	
+	validates_complete_date_for :consented_on, :completed_on
 
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?

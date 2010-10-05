@@ -11,6 +11,9 @@ class Patient < ActiveRecord::Base
 	validate :diagnosis_date_is_after_dob
 	validate :subject_is_case
 
+	validates_complete_date_for :diagnosis_date,
+		:allow_nil => true
+
 protected
 
 	def diagnosis_date_is_in_the_past

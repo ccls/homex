@@ -17,6 +17,9 @@ class Project < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
+	validates_complete_date_for :began_on, :ended_on,
+		:allow_nil => true
+
 	def self.unenrolled_projects(subject)
 		Project.all(
 			:joins => "LEFT JOIN enrollments ON " <<
