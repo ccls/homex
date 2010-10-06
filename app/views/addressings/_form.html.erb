@@ -34,10 +34,11 @@ jQuery(function(){
 <%= f.wrapped_date_text_field :valid_from,
 	:label_text => 'address valid from:',
 	:class => 'datepicker' %>
-<%= f.wrapped_date_text_field :valid_to,
+<% f.wrapped_date_text_field :valid_to,
 	:label_text => 'to:',
-	:class => 'datepicker' %>
-<p>leave dates blank if unknown or to: is 'present'</p>
+	:class => 'datepicker' do %>
+<span>leave dates blank if unknown or to: is 'present'</span>
+<% end %>
 </div>
 
 <div class='valid'>
