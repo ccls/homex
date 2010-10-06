@@ -18,12 +18,12 @@ class PatientTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require valid subject_id" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(:subject_id => 0)
-			assert object.errors.on(:subject)
-		end
-	end
+#	test "should require valid subject_id" do
+#		assert_difference( "#{model_name}.count", 0 ) do
+#			object = create_object(:subject_id => 0)
+#			assert object.errors.on(:subject)
+#		end
+#	end
 
 	test "should require diagnosis_date be in the past" do
 		assert_difference( "#{model_name}.count", 0 ) do
@@ -47,6 +47,14 @@ class PatientTest < ActiveSupport::TestCase
 			assert_match(/before.*dob/,
 				object.errors.on(:diagnosis_date))
 		end
+	end
+
+	test "should update all matching subjects' reference date " <<
+			"with updated diagnosis date" do
+pending
+		subject = Factory(:patient).subject
+		subject.patient.update_attributes(
+			:diagnosis_date => Chronic.parse('yesterday'))
 	end
 
 end
