@@ -5,3 +5,15 @@
 	width: 170px;
 	float:left;
 }
+.field_wrapper .warning {
+	display:none;
+	width:300px;
+	float:right;
+	padding: 5px;
+	padding-right:0;
+}
+.field_wrapper.changed .warning {
+	display:inline;
+	background-color: #FDD;
+	border: 1px solid #F88;
+}

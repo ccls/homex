@@ -9,14 +9,17 @@
 	font-weight: bold;
 	font-size: 12pt;
 }
+.flash.error,
 .flash#error {
 	border: 2px solid #F44;
 	background-color: #FCC;
 }
+.flash.notice,
 .flash#notice {
 	border: 2px solid #4F4;
 	background-color: #CFC;
 }
+.flash.noscript,
 .flash#noscript {
 	border: 2px solid #FF8C00;
 	background-color: #FFC5AF;
