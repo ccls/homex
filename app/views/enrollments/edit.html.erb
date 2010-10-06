@@ -43,7 +43,7 @@
 <%= f.wrapped_y_n_dk_select :consented,
 	:include_blank => true,
 	:label_text => 'consented?' %>
-<%#= f.wrapped_text_field :consented_on_string, %>
+
 <%= f.wrapped_date_text_field :consented_on,
 	:size => 20,
 	:class => 'datepicker',
@@ -73,7 +73,7 @@ This shouldn't be ALL document versions.
 <%= f.wrapped_y_n_dk_select :is_complete,
 	:include_blank => true,
 	:label_text => 'completed?' %>
-<%#= f.wrapped_text_field :completed_on_string, %>
+
 <%= f.wrapped_date_text_field :completed_on,
 	:class => 'datepicker',
 	:label_text => 'date:' %>
