@@ -9,7 +9,7 @@
 
 <% content_tag_for( :div, @interview ) do %>
 <h4>Interview Info</h4>
-<%= wrapped_spans(:interview,:irrelevatn,
+<%= wrapped_spans(:interview,:outcome,
 	:label_text => 'Outcome:',
 	:value => @interview.subject.try(:homex_outcome).try(
 		:interview_outcome)||'&nbsp;') %>

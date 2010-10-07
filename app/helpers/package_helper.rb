@@ -2,13 +2,17 @@ module PackageHelper
 
 	def tracks_for(package)
 		s = "<div id='tracks'>&nbsp;\n"	#	leave the &nbsp; so never empty
-		package.tracks.each do |event|
-			s << "<div class='track row'>\n"
-			s << "<div class='name'>#{event.name}</div>\n"
-			s << "<div class='location'>#{event.location}</div>\n"
-			s << "<div class='time'>#{event.time}</div>\n"
-			s << "</div><!-- class='track row' -->\n"
-		end
+		s << if package.tracks.empty?
+			"<div class='row'>Sorry, but there don't appear to be any tracks for this package.</div>"
+		else
+			package.tracks.collect do |event|
+				"<div class='track row'>\n" <<
+				"<div class='name'>#{event.name}</div>\n" <<
+				"<div class='location'>#{event.location}</div>\n" <<
+				"<div class='time'>#{event.time}</div>\n" <<
+				"</div><!-- class='track row' -->\n"
+			end.join()
+		end 
 		s << "</div><!-- id='tracks' -->\n"
 	end
 
