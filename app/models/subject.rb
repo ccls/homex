@@ -85,14 +85,6 @@ class Subject < ActiveRecord::Base
 		identifier.interviews.find(:first,
 			:conditions => "projects.code = 'HomeExposures'",
 			:joins => [:instrument_version => [:instrument => :project]]
-#			:joins => [:instrument_version => [:interview_type => :project]]
-#			:joins => [
-#				"JOIN instrument_versions ON " <<
-#				"instrument_versions.id = interviews.instrument_version_id",
-#				"JOIN interview_types ON " <<
-#				"interview_types.id = instrument_versions.interview_type_id",
-#				"JOIN projects ON projects.id = interview_types.project_id",
-#			]
 		) unless identifier.nil?
 	end
 
