@@ -37,6 +37,6 @@
 </div><!-- class='column' -->
 <div class='column'>
 <p>reference date:&nbsp;<%=mdy @subject.reference_date %></p>
-<p>vital status:&nbsp;<%= @subject.vital_status.try(:code) %></p>
+<p>vital status:&nbsp;<%= "#{@subject.vital_status}" %></p>
 </div><!-- class='column' -->
 </div><!-- class='personal' -->
