@@ -27,7 +27,8 @@ class SurveyFinishedsController < ApplicationController
 			if session[:access_code] &&
 				rs = ResponseSet.find_by_access_code(session[:access_code])
 				session[:access_code] = nil
-				redirect_to interview_subject_path(rs.subject)
+#				redirect_to interview_subject_path(rs.subject)
+				redirect_to subject_response_sets_path(rs.subject)
 			else
 				redirect_to root_path
 			end

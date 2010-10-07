@@ -19,7 +19,8 @@ class SurveyFinishedsControllerTest < ActionController::TestCase
 
 %w( superuser admin editor interviewer reader ).each do |cu|
 
-	test "should redirect to interview/subject without token "<<
+#	test "should redirect to interview/subject without token "<<
+	test "should redirect to subject's response_sets without token "<<
 			"but with access_code and #{cu} login" do
 		rs = create_response_set	#Factory(:response_set)
 		session[:access_code] = rs.access_code
@@ -29,7 +30,8 @@ class SurveyFinishedsControllerTest < ActionController::TestCase
 			get :show
 		}
 		assert_not_nil flash[:notice]
-		assert_redirected_to interview_subject_path(rs.subject)
+#		assert_redirected_to interview_subject_path(rs.subject)
+		assert_redirected_to subject_response_sets_path(rs.subject)
 	end
 
 	test "should redirect to root_path without token " <<
