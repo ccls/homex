@@ -24,7 +24,7 @@
 </thead><tbody>
 <% @subject.samples.each do |sample| %>
 	<tr><td>&nbsp;</td>
-		<td><%= link_to sample.sample_type.code, sample_path(sample) -%></td>
+		<td><%= link_to sample.sample_type.to_s, sample_path(sample) -%></td>
 		<td><%=mdy sample.sent_to_subject_on -%></td>
 		<td><%= sample.kit_tracking_number %></td>
 		<td><%= sample.sample_tracking_number %></td>
