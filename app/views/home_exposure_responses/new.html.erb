@@ -20,7 +20,10 @@
 <table>
 <tbody>
 <% HomeExposureResponse.field_names.each do |column| %>
-	<% content_tag( :tr, :class => ((@diffs[column])?'diff':'') ) do %>
+<%	classes = ['row'];
+		classes.push('diff') if (@diffs[column])
+%>
+	<% content_tag( :tr, :class => classes.join(' ') ) do %>
 		<td><%=column.titleize-%></td>
 		<td>
 
