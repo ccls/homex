@@ -12,6 +12,14 @@ jQuery(function(){
 
 	jQuery('.datepicker').datepicker();
 
+	jQuery('a.ajax').click(function(){
+//		jQuery.getScript($(this).attr('href')+'.js');
+		jQuery.get($(this).attr('href')+'.js', function(data){
+			jQuery('#ajax').html(data);
+		});
+		return false;
+	});
+
 
 	/* jquery ui testing */
 /*

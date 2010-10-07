@@ -49,6 +49,9 @@ class PackagesController < ApplicationController
 
 	def show
 		@last_shipping_update = Package.last_updated
+
+		#	This is probably not needed if we start using backgroundrb
+		@package.update_status	
 	end
 
 	def destroy
