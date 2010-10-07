@@ -11,7 +11,7 @@ class HomeExposureResponsesController < ApplicationController
 
 	before_filter :valid_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]
-	before_filter :her_must_exist, :only => [:show]
+	before_filter :her_must_exist, :only => [:show,:destroy]
 	before_filter :two_response_sets_required, :only => [:new,:create]
 	before_filter :all_response_sets_completed_required, 
 		:only => [:new,:create]
@@ -35,9 +35,11 @@ class HomeExposureResponsesController < ApplicationController
 	end
 
 	def show
-		@home_exposure_response = HomeExposureResponse.find(:first,
-			:conditions => { :subject_id => @subject.id }
-		)
+	end
+
+	def destroy
+		@home_exposure_response.destroy
+		redirect_to subject_response_sets_path(@subject)
 	end
 
 protected
@@ -51,7 +53,11 @@ protected
 	end
 
 	def her_must_exist
-		unless HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
+		if HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
+			@home_exposure_response = HomeExposureResponse.find(:first,
+				:conditions => { :subject_id => @subject.id }
+			)
+		else
 			access_denied("HER does not exist for this subject",
 				home_exposure_path)
 		end

@@ -29,7 +29,8 @@ ActionController::Routing::Routes.draw do |map|
 			sample.resources :sample_kits, :except => [:index]
 		end
 		subject.resource :home_exposure_response, 
-			:only => [ :new, :create, :show ]
+			:only => [ :new, :create, :show, 
+			:destroy ]	# TEMP ADD DESTROY FOR DEV ONLY!
 		subject.resources :survey_invitations, 
 			:only => [:create,:update,:destroy,:show]
 		subject.resource :patient

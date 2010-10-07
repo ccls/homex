@@ -7,3 +7,7 @@
 <%= show_row(:home_exposure_response,field_name) %>
 <% end %>
 </tbody></table>
+
+<p>Development Only</p>
+<%= destroy_link_to 'Destroy', 
+	subject_home_exposure_response_path(@subject) %>

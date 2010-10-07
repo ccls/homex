@@ -30,5 +30,10 @@
 	<% else %>
 		<%= link_to "View Merged HER Interview Data", 
 			subject_home_exposure_response_path(subject) %>
+
+<p>Development Only</p>
+<%= destroy_link_to 'Destroy',
+	subject_home_exposure_response_path(@subject) %>
+
 	<% end %>
 <% end %>

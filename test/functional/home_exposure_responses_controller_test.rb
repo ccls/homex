@@ -11,7 +11,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	assert_no_route(:get,:index)
 	assert_no_route(:get,:edit,:id => 0)
 	assert_no_route(:put,:update,:id => 0)
-	assert_no_route(:delete,:destroy,:id => 0)
+#	assert_no_route(:delete,:destroy,:id => 0)
 
 	setup :create_home_exposure_with_subject
 
