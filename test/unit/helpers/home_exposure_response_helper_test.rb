@@ -7,7 +7,7 @@ class HomeExposureResponseHelperTest < ActionView::TestCase
 		HomeExposureResponse.field_names.each do |field_name|
 			response = HTML::Document.new(show_row(:he,field_name)).root
 			assert_select response, 'tr', 1 do
-				assert_select 'td', 2
+				assert_select 'td', 3
 			end
 		end
 	end
@@ -18,7 +18,7 @@ class HomeExposureResponseHelperTest < ActionView::TestCase
 			response = HTML::Document.new(
 				show_row(:he,field_name,:value => 'fake')).root
 			assert_select response, 'tr', 1 do
-				assert_select 'td', 2
+				assert_select 'td', 3
 			end
 		end
 	end
