@@ -76,6 +76,10 @@ class ActiveSupport::TestCase
 					object = create_object( attr_name => "Sept 2010")
 					assert object.errors.on(attr_name)
 				end
+				assert_difference( "#{model_name}.count", 0 ) do
+					object = create_object( attr_name => "9/2010")
+					assert object.errors.on(attr_name)
+				end
 			end
 		end
 	end
