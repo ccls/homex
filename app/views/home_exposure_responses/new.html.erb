@@ -26,11 +26,13 @@
 
 <% if @diffs[column] %>
 	<%= f.radio_button( column, c_and_t[0][column][:a_code] ) %>
-	<%= f.label( column, c_and_t[0][column][:a_text] ) %>
+	<%= f.label( column, c_and_t[0][column][:a_text],
+		:value => c_and_t[0][column][:a_code]  ) %>
 <br/>
 	<%= f.radio_button( column, c_and_t[1][column][:a_code],
 		:checked => true ) %>
-	<%= f.label( column, c_and_t[1][column][:a_text]) %>
+	<%= f.label( column, c_and_t[1][column][:a_text],
+		:value => c_and_t[1][column][:a_code] ) %>
 <% else %>
 	<%= f.text_field column, :value => c_and_t[0][column][:a_code],
 		:readonly => true %>
