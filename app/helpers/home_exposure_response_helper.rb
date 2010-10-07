@@ -1,7 +1,7 @@
 module HomeExposureResponseHelper
 
 	def show_row(object_name,method,options={})
-		s = "<tr><td>#{method.to_s.titleize}:</td><td>"
+		s = "<tr class='row'><td>#{method.to_s.titleize}:</td><td>"
 		value = if options[:value]
 			options[:value]
 		else
