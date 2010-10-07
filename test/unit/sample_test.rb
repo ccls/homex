@@ -59,4 +59,17 @@ class SampleTest < ActiveSupport::TestCase
 		pending
 	end
 
+#	what about?
+#	receipt_confirmed_on 
+	%w( sent_to_subject_on received_by_ccls_on sent_to_lab_on 
+			received_by_lab_on aliquotted_on ).each_cons(2) do |pair|
+
+		test "should require #{pair[0]} if #{pair[1]}" do
+pending
+		end
+
+	end
+
+
+
 end
