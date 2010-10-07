@@ -29,7 +29,8 @@ class SamplesController < ApplicationController
 
 	def update
 		@sample.update_attributes!(params[:sample])
-		redirect_to sample_subject_path(@subject)
+#		redirect_to sample_subject_path(@subject)
+		redirect_to sample_path(@sample)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Sample update failed."
 		render :action => 'edit'
