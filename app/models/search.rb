@@ -15,7 +15,7 @@ private
 #	end
 
 	def paginate
-		@paginate || true
+		(@paginate.nil?) ? true : @paginate
 	end
 
 	def initialize(options={})
