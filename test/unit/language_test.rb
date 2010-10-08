@@ -10,12 +10,12 @@ class LanguageTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes(:position)
 
 
-  test "should require 4 char description" do
+	test "should require 4 char description" do
 		assert_difference( "#{model_name}.count", 0 ) do
-      object = create_object(:description => 'Hey')
-      assert object.errors.on(:description)
-    end 
-  end 
+			object = create_object(:description => 'Hey')
+			assert object.errors.on(:description)
+		end 
+	end 
 
 	test "should return description as to_s" do
 		object = create_object
