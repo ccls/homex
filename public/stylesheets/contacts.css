@@ -25,9 +25,6 @@
 .phone_number,
 .addressing {
 	float: left;
-/*
-	clear: both;
-*/
 	width: 15em;
 }
 .contact_meta {
@@ -49,8 +46,6 @@
 .contact_valid .brief {
 	width: 100px;
 }
-
-
 
 .addressing .line_1,
 .addressing .line_2,

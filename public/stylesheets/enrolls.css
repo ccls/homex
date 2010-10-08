@@ -1,28 +1,4 @@
 @import url('hx_subjects.css');
-/*
-div.checkbox {
-	width: 30px;
-}
-div.childid {
-	width: 70px;
-}
-div.studyid {
-	width: 80px;
-}
-div.priority {
-	width: 70px;
-	text-align:center;
-}
-div.last_name {
-	width: 140px;
-}
-div.first_name {
-	width: 140px;
-}
-div.outcome {
-	width: 80px;
-}
-*/
 div.set_date {
 	float:right;
 }

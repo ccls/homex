@@ -3,9 +3,6 @@ body {
 	padding:0;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	margin: 0px;
-/*
-	background-color: #F0F0FF;
-*/
 	background-color: #EEEEEE;
 }
 
@@ -95,9 +92,6 @@ div#submenu a.current {
 div#content_wrapper {
 	background-color:white;
 	border-right: 1px solid silver;
-/*
-	border-left: 1px solid silver;
-*/
 }
 div#content {
 	padding: 5px 25px;

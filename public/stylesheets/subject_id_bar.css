@@ -25,13 +25,6 @@
 	top:10px;
 	right:10px;
 	display:inline;
-
-	/* box-shadow: <horizontal> <vertical> <blur> <color> */
-/*
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-*/
 }
 
 #do_not_contact {
