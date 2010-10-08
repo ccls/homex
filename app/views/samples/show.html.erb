@@ -5,14 +5,32 @@
 <% end if current_user.may_edit_subjects? %>
 <% id_bar_for(@subject) %>
 
-<%= wrapped_spans :sample, :id,
-	:label_text => 'Sample ID:' %>
-
 <%= wrapped_spans :sample, :sample_type_parent,
 	:label_text => 'sample type:' %>
 
 <%= wrapped_spans :sample, :sample_type,
 	:label_text => 'sample subtype:' %>
+
+<%= wrapped_spans :sample, :sent_to_subject_on,
+	:value => mdy(@sample.sent_to_subject_on),
+	:label_text => 'Sent to Subject on:' %>
+
+<%= wrapped_spans :sample, :received_by_ccls_on,
+	:value => mdy(@sample.received_by_ccls_on),
+	:label_text => 'Received by CCLS on:' %>
+
+<%= wrapped_spans :sample, :sent_to_lab_on,
+	:value => mdy(@sample.sent_to_lab_on),
+	:label_text => 'Sent to Lab on:' %>
+
+<%= wrapped_spans :sample, :received_by_lab_on,
+	:value => mdy(@sample.received_by_lab_on),
+	:label_text => 'Received by Lab on:' %>
+
+<%= wrapped_spans :sample, :aliquotted_on,
+	:value => mdy(@sample.aliquotted_on),
+	:label_text => 'Aliquotted on:' %>
+
 
 <p id='shipping'>Shipping Information</p>
 

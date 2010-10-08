@@ -3,7 +3,7 @@ module PackageHelper
 	def tracks_for(package)
 		s = "<div id='tracks'>&nbsp;\n"	#	leave the &nbsp; so never empty
 		s << if package.tracks.empty?
-			"<div class='row'>Sorry, but there don't appear to be any tracks for this package.</div>"
+			"<div class='row'>Sorry, but there don't appear to be any tracks for the package with tracking number: '#{package.tracking_number}'.</div>"
 		else
 			package.tracks.collect do |event|
 				"<div class='track row'>\n" <<
