@@ -4,6 +4,12 @@ class PackageTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_require_unique_attribute(:tracking_number)
+	assert_should_not_require_attributes(
+		:position,
+		:status,
+		:tracks_count,
+		:tracking_number,
+		:latest_event )
 
 
 	test "should NOT require 3 char tracking_number" do

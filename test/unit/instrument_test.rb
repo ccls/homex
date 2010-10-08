@@ -8,8 +8,16 @@ class InstrumentTest < ActiveSupport::TestCase
 	assert_should_belong_to(:interview_method)
 	assert_should_initially_belong_to(:project)
 #	assert_requires_valid_association(:project)
-	assert_should_require_attributes(:code,:name,:description)
+	assert_should_require_attributes(:code,:name,
+		:project_id,
+		:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(
+		:position,
+		:results_table_id,
+		:interview_method_id,
+		:began_use_on,
+		:ended_use_on )
 
 	assert_requires_complete_date(:began_use_on,:ended_use_on)
 

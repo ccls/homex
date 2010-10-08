@@ -6,6 +6,8 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_act_as_list
 	assert_should_require_attributes(:code,:name)
 	assert_should_require_unique_attributes(:code,:name)
+	assert_should_not_require_attributes(
+		:position, :person_id )
 	assert_should_belong_to(:person)
 	assert_should_have_many(:hospitals,:patients)
 	assert_should_have_many(:aliquots, 

@@ -14,4 +14,14 @@ class TransferTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:from_organization,
 		:class_name => 'Organization')
 
+	assert_should_require_attributes(
+		:aliquot_id,
+		:from_organization_id,
+		:to_organization_id )
+	assert_should_not_require_attributes(
+		:position,
+		:amount,
+		:reason,
+		:is_permanent )
+
 end

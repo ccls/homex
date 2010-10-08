@@ -7,6 +7,12 @@ class TrackTest < ActiveSupport::TestCase
 	assert_should_require_attributes(:trackable_id,:name,:time)
 	assert_should_require_unique_attributes(:time, 
 		:scope => [:trackable_id, :trackable_type])
+	assert_should_not_require_attributes(
+		:trackable_type,
+		:location,
+		:city,
+		:state,
+		:zip )
 
 
 	test "should require trackable_type" do

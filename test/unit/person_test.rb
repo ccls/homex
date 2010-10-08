@@ -4,6 +4,11 @@ class PersonTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_require_attribute(:last_name)
+	assert_should_not_require_attributes(
+		:position,
+		:first_name,
+		:honorific,
+		:person_type_id )
 	assert_should_act_as_list
 	assert_should_have_many(:organizations)
 	assert_should_have_many(:interviews,

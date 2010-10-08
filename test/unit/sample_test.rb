@@ -10,6 +10,26 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:subject,:sample_type)
 	assert_should_habtm(:projects)
 
+	assert_should_require_attributes(
+		:sample_type_id,
+		:subject_id )
+	assert_should_not_require_attributes(
+		:position,
+		:aliquot_sample_format_id,
+		:unit_id,
+		:order_no,
+		:quantity_in_sample,
+		:aliquot_or_sample_on_receipt,
+		:sent_to_subject_on,
+		:received_by_ccls_on,
+		:sent_to_lab_on,
+		:received_by_lab_on,
+		:aliquotted_on,
+		:external_id,
+		:external_id_source,
+		:receipt_confirmed_on,
+		:receipt_confirmed_by )
+
 	assert_requires_complete_date( :sent_to_subject_on,
 		:received_by_ccls_on,
 		:sent_to_lab_on,

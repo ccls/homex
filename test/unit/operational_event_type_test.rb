@@ -7,6 +7,9 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	assert_should_have_many(:operational_events)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(
+		:position,
+		:project_id )
 
 
 	test "should require 4 char description" do

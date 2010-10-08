@@ -23,6 +23,10 @@ class IdentifierTest < ActiveSupport::TestCase
 	)
 	assert_should_require_unique_attribute( :patid, 
 		:scope => [:orderno,:case_control_type] )
+	assert_should_not_require_attributes(
+		:lab_no,
+		:related_childid,
+		:related_case_childid )
 
 
 #	assert_should_protect_attributes(:subjectid)

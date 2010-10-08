@@ -7,6 +7,8 @@ class SubjectTypeTest < ActiveSupport::TestCase
 	assert_should_have_many(:subjects)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(
+		:position, :related_case_control_type )
 
 
 	test "should return description as name" do

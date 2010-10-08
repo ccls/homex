@@ -7,6 +7,7 @@ class RaceTest < ActiveSupport::TestCase
 	assert_should_have_many(:subjects)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(:position)
 
 
 	test "should require 4 char description" do

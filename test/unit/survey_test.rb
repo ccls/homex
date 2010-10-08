@@ -5,6 +5,19 @@ class SurveyTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_have_many(:response_sets)
 	assert_should_require_attribute(:title)
+	assert_should_not_require_attributes(
+		:description,
+		:access_code,
+		:reference_identifier,
+		:data_export_identifier,
+		:common_namespace,
+		:common_identifier,
+		:active_at,
+		:inactive_at,
+		:css_url,
+		:custom_class,
+		:display_order,
+		:manual_numbering )
 
 
 	test "should require unique access_code" do

@@ -5,6 +5,15 @@ class ResponseTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_initially_belong_to(:response_set)
 	assert_should_require_attributes(:response_set_id,:question_id,:answer_id)
+	assert_should_not_require_attributes(
+		:datetime_value,
+		:integer_value,
+		:float_value,
+		:unit,
+		:text_value,
+		:string_value,
+		:response_other,
+		:response_group )
 
 
 	test "should raise error on q_and_a_codes with invalid response_class" do

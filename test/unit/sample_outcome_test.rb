@@ -7,6 +7,7 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 	assert_should_have_many(:homex_outcomes)
 	assert_should_require_attributes(:code)
 	assert_should_require_unique_attributes(:code)
+	assert_should_not_require_attributes(:position, :description )
 
 
 	test "should return description as to_s" do

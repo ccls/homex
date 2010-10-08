@@ -28,6 +28,16 @@ class SubjectTest < ActiveSupport::TestCase
 	)
 	assert_should_habtm(:analyses)
 	assert_requires_complete_date( :reference_date )
+	assert_should_require_attributes(
+		:do_not_contact )	#	not required, but can't be nil
+	assert_should_not_require_attributes(
+		:vital_status_id,
+		:hispanicity_id,
+		:reference_date,
+		:response_sets_count,
+		:sex,
+		:matchingid,
+		:familyid )
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){

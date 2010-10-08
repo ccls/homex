@@ -9,6 +9,13 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 
 	assert_should_require_unique_attribute(:subject_id, 
 		:scope => :survey_id)
+	assert_should_require_attributes(
+		:subject_id,
+		:survey_id )
+	assert_should_not_require_attributes(
+		:response_set_id,
+		:token,
+		:sent_at )
 
 
 	test "should require token" do

@@ -3,6 +3,16 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AddressingTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
+	assert_should_not_require_attributes(
+		:address_id,
+		:current_address,
+		:address_at_diagnosis,
+		:is_valid,
+		:why_invalid,
+		:is_verified,
+		:how_verified,
+		:valid_from,:valid_to,
+		:verified_on, :verified_by_id, :data_source_id)
 	assert_requires_valid_associations(:subject)
 	assert_should_initially_belong_to(:subject,:address)
 

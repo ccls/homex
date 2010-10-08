@@ -13,6 +13,8 @@ class SampleTypeTest < ActiveSupport::TestCase
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
 
+	assert_should_not_require_attributes(
+		:position, :parent_id )
 
 	test "should require 4 char description" do
 		assert_difference( "#{model_name}.count", 0 ) do

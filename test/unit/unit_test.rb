@@ -8,6 +8,7 @@ class UnitTest < ActiveSupport::TestCase
 	assert_should_belong_to(:context)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(:position, :context_id)
 
 
 	test "should require 4 char description" do

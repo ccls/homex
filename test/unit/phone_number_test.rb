@@ -6,6 +6,18 @@ class PhoneNumberTest < ActiveSupport::TestCase
 	assert_should_act_as_list( :scope => :subject_id )
 	assert_should_initially_belong_to( :subject, :phone_type )
 	assert_should_require_attribute(:phone_number)
+	assert_should_not_require_attributes(
+		:position,
+		:subject_id,
+		:phone_type_id,
+		:data_source_id,
+		:is_primary,
+		:is_valid,
+		:why_invalid,
+		:is_verified,
+		:how_verified,
+		:verified_on,
+		:verified_by_id )
 
 
 	test "should require properly formated phone number" do

@@ -3,7 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AddressTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_require_attributes(:line_1, :city, :state, :zip)
+	assert_should_require_attributes(
+		:line_1, :city, :state, :zip)
+	assert_should_not_require_attributes(
+		:line_2, :data_source_id, :external_address_id)
 
 	assert_requires_valid_associations(:address_type)
 	assert_should_have_one(:addressing)

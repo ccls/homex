@@ -7,6 +7,11 @@ class PatientTest < ActiveSupport::TestCase
 	assert_should_belong_to(:organization,:diagnosis)
 	assert_should_require_attributes(:subject_id)
 	assert_should_require_unique_attributes(:subject_id)
+	assert_should_not_require_attributes(
+		:diagnosis_date,
+		:hospital_no,
+		:diagnosis_id,
+		:organization_id )
 	assert_requires_valid_association(:subject)
 
 	assert_requires_complete_date(:diagnosis_date)

@@ -8,7 +8,14 @@ class ResponseSetTest < ActiveSupport::TestCase
 	assert_should_belong_to(:user)
 	assert_should_initially_belong_to(:survey,:subject)
 
-	assert_should_require_attributes(:survey_id)
+	assert_should_require_attributes(
+		:survey_id,
+		:subject_id )
+	assert_should_not_require_attributes(
+		:user_id,
+		:access_code,
+		:started_at,
+		:completed_at )
 #	assert_should_require_unique_attributes(:access_code)
 #	assert_requires_valid_associations(:subject)
 

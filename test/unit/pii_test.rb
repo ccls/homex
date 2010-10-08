@@ -6,6 +6,20 @@ class PiiTest < ActiveSupport::TestCase
 	assert_should_belong_to(:subject)
 	assert_should_require_attributes(:state_id_no,:dob)
 	assert_should_require_unique_attributes(:state_id_no,:email)
+	assert_should_not_require_attributes(
+		:subject_id,
+		:first_name,
+		:middle_name,
+		:last_name,
+		:died_on,
+		:mother_first_name,
+		:mother_middle_name,
+		:mother_maiden_name,
+		:mother_last_name,
+		:father_first_name,
+		:father_middle_name,
+		:father_last_name,
+		:email )
 
 	assert_requires_complete_date( :dob, :died_on )
 

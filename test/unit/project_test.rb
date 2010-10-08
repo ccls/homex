@@ -8,6 +8,11 @@ class ProjectTest < ActiveSupport::TestCase
 		:instruments)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_not_require_attributes(
+		:position,
+		:began_on,
+		:ended_on,
+		:eligibility_criteria )
 	assert_should_habtm(:samples)
 	assert_should_act_as_list
 

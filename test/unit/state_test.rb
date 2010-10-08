@@ -8,5 +8,6 @@ class StateTest < ActiveSupport::TestCase
 		:code,:name,:fips_state_code,:fips_country_code)
 	assert_should_require_unique_attributes(
 		:code,:name,:fips_state_code)
+	assert_should_not_require_attributes( :position )
 
 end

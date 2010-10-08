@@ -5,6 +5,27 @@ class EnrollmentTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_require_unique_attribute(:project_id, 
 		:scope => :subject_id)
+	assert_should_not_require_attributes(
+		:position,
+		:recruitment_priority,
+		:able_to_locate,
+		:is_candidate,
+		:is_eligible,
+		:ineligible_reason_id,
+		:ineligible_reason_specify,
+		:refusal_reason_id,
+		:other_refusal_reason,
+		:is_chosen,
+		:reason_not_chosen,
+		:terminated_participation,
+		:terminated_reason,
+		:is_complete,
+		:completed_on,
+		:is_closed,
+		:reason_closed,
+		:notes,
+		:document_version_id       
+	)
 
 	assert_should_have_many(:operational_events)
 	assert_should_belong_to(
