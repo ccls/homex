@@ -2,10 +2,11 @@
 	padding: 5px;
 	padding-left: 15px;
 }
+/*
 .field_wrapper > label {
 	float:left;
 }
-
+*/
 .field_wrapper.terminated_reason,
 .field_wrapper.refusal_reason_id,
 .field_wrapper.ineligible_reason_id,
@@ -25,6 +26,8 @@
 	float:left;
 }
 
+.field_wrapper.consented_on label,
+.field_wrapper.completed_on label,
 .field_wrapper.is_candidate label,
 .field_wrapper.able_to_locate label,
 .field_wrapper.is_eligible label,

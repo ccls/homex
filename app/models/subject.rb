@@ -45,6 +45,10 @@ class Subject < ActiveRecord::Base
 	delegate :childid, :ssn, :patid, :orderno, :studyid,
 		:to => :identifier, :allow_nil => true
 
+	delegate :interview_outcome, :interview_outcome_on,
+		:sample_outcome,    :sample_outcome_on,
+		:to => :homex_outcome, :allow_nil => true
+
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly
 	#	s.update_attributes({"pii_attributes" => { "ssn" => "123456789", 'state_id_no' => 'x'}})

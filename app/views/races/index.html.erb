@@ -1,4 +1,4 @@
-<%# stylesheets('races') %>
 <table id='races'><tbody>
 <%= render :partial => 'race', :collection => @races %>
 </tbody></table>
+<%= link_to 'Create new race', new_race_path %>

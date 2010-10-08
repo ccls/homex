@@ -102,3 +102,19 @@ div.pagination {
 th {
 	text-align: left;
 }
+
+
+.field_wrapper {
+	margin-bottom: 15px;
+	clear:both;
+}
+.field_wrapper * {
+	float:left;
+}
+.field_wrapper *:last-child {
+	float:none;
+}
+.field_wrapper .label,
+.field_wrapper  label {
+	width: 250px;
+}

@@ -49,15 +49,20 @@ form div.controls select {
 	clear:left;
 	padding:10px;
 }
+/*
+.is_valid label,
+.is_verified label,
 .valid_from label,
 .valid_to label,
-.valid_from_string label,
-.valid_to_string label,
 .address_type_id label,
 .current_address label,
 .address_at_diagnosis label {
 	width: 160px;
 	float:left;
+}
+*/
+.field_wrapper label {
+	width:160px;
 }
 .address_type_id select,
 .current_address select,
@@ -66,40 +71,42 @@ form div.controls select {
 }
 
 .valid_from label,
-.valid_to label,
-.valid_from_string label,
-.valid_to_string label {
+.valid_to label {
 	text-align:right;
 }
+/*
 .valid_to,
 .valid_to_string {
 	float:left;
 }
-
-
+*/
+/*
 .addressing,
 .phone_type_id,
 .is_valid,
 .is_verified {
 	float:left;
 }
+*/
+/*
 .valid,
 .verified {
 	clear:left;
 }
+*/
 .why_invalid,
 .how_verified {
 	margin-left: 150px;
 }
-
+/*
 .is_valid,
 .is_verified {
 	width: 150px;
 }
-
 .field_wrapper {
 	padding:10px;
 }
+*/
 .field_wrapper .fieldWithErrors:first-child {
 	float:left;
 	clear:left;

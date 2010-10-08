@@ -3,12 +3,20 @@
 <p>Study Outcomes:</p>
 </div><!-- class='column' -->
 <div class='column'>
-<p>interview: <%= @subject.homex_outcome.try(:interview_outcome) %></p>
-<p>sample status: <%= @subject.homex_outcome.try(:sample_outcome) %></p>
-<p>final outcome: NOT CODED YET</p>
+<%= wrapped_spans :subject, :interview_outcome,
+	:label_text => 'interview:' %>
+<%= wrapped_spans :subject, :sample_outcome,
+	:label_text => 'sample status:' %>
+<%= wrapped_spans :subject, :final,
+	:value => 'NOT CODED YET',
+	:label_text => 'final outcome:' %>
 </div><!-- class='column' -->
 <div class='column'>
-<p>date: <%=mdy @subject.homex_outcome.try(:interview_outcome_on) %></p>
-<p>date: <%=mdy @subject.homex_outcome.try(:sample_outcome_on) %></p>
+<%= wrapped_spans :subject, :interview_outcome_on,
+	:value => mdy(@subject.interview_outcome_on),
+	:label_text => 'date:' %>
+<%= wrapped_spans :subject, :sample_outcome_on,
+	:value => mdy(@subject.sample_outcome_on),
+	:label_text => 'date:' %>
 </div><!-- class='column' -->
 </div><!-- class='outcomes' -->

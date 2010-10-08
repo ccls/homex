@@ -14,7 +14,11 @@
 	width: 150px;
 }
 .columns .column:nth-child(2) {
-	width: 320px;
+	width: 350px;
 }
 .columns .column:nth-child(3) {
+}
+
+.field_wrapper .label {
+	width: 110px;
 }

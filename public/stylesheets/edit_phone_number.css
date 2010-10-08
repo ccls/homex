@@ -1,3 +1,4 @@
+/*
 .phone_number,
 .phone_type_id,
 .is_valid,
@@ -10,19 +11,24 @@
 .is_primary {
 	clear:left;
 }
+*/
 .why_invalid,
 .how_verified {
-	margin-left: 150px;
+	margin-left: 160px;
 }
-
+/*
 .is_valid,
 .is_verified {
-	width: 150px;
+	width: 250px;
 }
-
 .field_wrapper {
 	padding:10px;
 }
+*/
+.field_wrapper label {
+	width:160px;
+}
+
 
 
 

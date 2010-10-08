@@ -31,7 +31,8 @@ class RacesController < ApplicationController
 
 	def update
 		@race.update_attributes!(params[:race])
-		redirect_to @race
+		flash[:notice] = 'Success!'
+		redirect_to races_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the race"
 		render :action => "edit"

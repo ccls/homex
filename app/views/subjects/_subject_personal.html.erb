@@ -14,13 +14,12 @@
 <p class='full_name'><%= @subject.full_name -%></p>
 </div><!-- class='column' -->
 <div class='column'>
-
-<p>birth date:&nbsp;<%=mdy @subject.dob -%></p>
-<p>sex:&nbsp;
-<% unless @subject.sex.blank? %>
-<%= (@subject.sex.match(/f/i))?'female':'male' -%> 
-<% end %>
-</p>
+<%= wrapped_spans :subject, :dob,
+	:value => mdy(@subject.dob),
+	:label_text => 'birth date:' %>
+<%= wrapped_spans :subject, :sex,
+	:value => (@subject.sex.match(/f/i))?'female':'male',
+	:label_text => 'sex:' %>
 
 <div id='addressings'>
 <%= render :partial => 'contacts/addressing',
@@ -36,7 +35,10 @@
 
 </div><!-- class='column' -->
 <div class='column'>
-<p>reference date:&nbsp;<%=mdy @subject.reference_date %></p>
-<p>vital status:&nbsp;<%= @subject.vital_status.to_s %></p>
+<%= wrapped_spans :subject, :reference_date,
+	:value => mdy(@subject.reference_date),
+	:label_text => 'reference date:' %>
+<%= wrapped_spans :subject, :vital_status,
+	:label_text => 'vital status:' %>
 </div><!-- class='column' -->
 </div><!-- class='personal' -->

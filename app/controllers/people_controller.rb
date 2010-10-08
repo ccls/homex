@@ -31,7 +31,8 @@ class PeopleController < ApplicationController
 
 	def update
 		@person.update_attributes!(params[:person])
-		redirect_to @person
+		flash[:notice] = 'Success!'
+		redirect_to people_path
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the person"
 		render :action => "edit"
