@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101005235251) do
+ActiveRecord::Schema.define(:version => 20101008165352) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -1034,7 +1034,6 @@ ActiveRecord::Schema.define(:version => 20101005235251) do
   end
 
   add_index "subjects", ["familyid"], :name => "index_subjects_on_familyid", :unique => true
-  add_index "subjects", ["matchingid"], :name => "index_subjects_on_matchingid", :unique => true
 
   create_table "survey_invitations", :force => true do |t|
     t.integer  "subject_id",      :null => false
