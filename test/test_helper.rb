@@ -77,10 +77,17 @@ class ActiveSupport::TestCase
 				assert_difference( "#{model_name}.count", 0 ) do
 					object = create_object( attr_name => "Sept 2010")
 					assert object.errors.on(attr_name)
+					#
+					#	object.errors.on CAN be an Array!
+					#
+					assert_match(/not a complete date/, 
+						object.errors.on(attr_name).to_a.join(','))
 				end
 				assert_difference( "#{model_name}.count", 0 ) do
 					object = create_object( attr_name => "9/2010")
 					assert object.errors.on(attr_name)
+					assert_match(/not a complete date/, 
+						object.errors.on(attr_name).to_a.join(','))
 				end
 			end
 		end
