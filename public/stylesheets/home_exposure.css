@@ -185,3 +185,11 @@ table#guides td.controller {
 form.edit_sample .field_wrapper label {
 	width: 150px;
 }
+
+form.edit_interview .field_wrapper label {
+	width: 180px;
+}
+form.edit_interview .subject_relationship_other label {
+	text-align:center;
+}
+
