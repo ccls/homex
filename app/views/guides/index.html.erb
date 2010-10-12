@@ -1,3 +1,4 @@
+<h4>Guides:</h4>
 <% unless @guides.empty? %>
 <table id='guides'><thead><tr>
 <th>Controller</th>
@@ -9,6 +10,4 @@
 Sorry, no guides yet.
 <% end %>
 
-<p>
-<%= button_link_to "Create new guide", new_guide_path %>
-</p>
+<p><%= button_link_to "Create new guide", new_guide_path %></p>
