@@ -156,3 +156,32 @@ div#guidance {
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
 }
+
+
+/*
+
+	Generic stuff above.
+	Specific stuff below.
+
+*/
+
+
+
+
+
+
+
+
+
+table#enrollments tr {
+	text-align:left;
+}
+
+
+table#guides td.controller {
+	width: 300px;
+}
+
+form.edit_sample .field_wrapper label {
+	width: 150px;
+}

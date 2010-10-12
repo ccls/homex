@@ -4,7 +4,8 @@
 	:class => :submitter
 }) %>
 <% end %>
-<% form_for @sample,
-	:url => subject_samples_path(@subject) do |f| %>
+<% form_for( @sample,
+	:url => subject_samples_path(@subject),
+	:html => {:class => 'edit_sample'}) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>

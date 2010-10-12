@@ -5,6 +5,7 @@
 }) %>
 <% end %>
 
-<% form_for @sample, :html => {:class => 'confirm'} do |f| %>
+<% form_for @sample, 
+	:html => {:class => 'confirm edit_sample'} do |f| %>
 <%= render 'form', :f => f %>
 <% end %>
