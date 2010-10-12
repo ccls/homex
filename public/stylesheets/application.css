@@ -205,6 +205,10 @@ table.sample_subject {
 .interview .field_wrapper.ended_on {
 	clear:none;
 }
+.interview .field_wrapper.ended_on .label {
+	padding-right: 30px;
+	width:auto;
+}
 .interview .field_wrapper .label {
 	width: 160px;
 }
