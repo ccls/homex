@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101008165352) do
+ActiveRecord::Schema.define(:version => 20101012233731) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -558,7 +558,7 @@ ActiveRecord::Schema.define(:version => 20101008165352) do
 
   create_table "instruments", :force => true do |t|
     t.integer  "position"
-    t.integer  "project_id",          :null => false
+    t.integer  "project_id"
     t.integer  "results_table_id"
     t.string   "code",                :null => false
     t.string   "name",                :null => false
