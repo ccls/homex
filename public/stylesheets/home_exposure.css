@@ -242,3 +242,22 @@ form.edit_guide input[type=text] {
 	text-indent:50px;
 }
 
+form.edit_patient .field_wrapper {
+	padding: 10px;
+}
+form.edit_patient .field_wrapper label {
+	width: 170px;
+	float:left;
+}
+form.edit_patient .field_wrapper .warning {
+	display:none;
+	width:300px;
+	float:right;
+	padding: 5px;
+	padding-right:0;
+}
+form.edit_patient .field_wrapper.changed .warning {
+	display:inline;
+	background-color: #FDD;
+	border: 1px solid #F88;
+}
