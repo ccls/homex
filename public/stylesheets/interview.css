@@ -5,3 +5,6 @@
 .interview .ended_on {
 	clear:none;
 }
+.interview .field_wrapper .label {
+	width: 160px;
+}
