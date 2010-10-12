@@ -1,23 +1,9 @@
-label[for=subject_vital_status_id],
-label[for=subject_sex],
-label[for=subject_race_id],
-label[for=subject_subject_type_id] {
-	/* float is OK as label and select are in div */
-	float:left;
-	width: 100px;
+.field_wrapper label {
+	width: 160px;
 }
 select#subject_vital_status_id,
 select#subject_sex,
 select#subject_race_id,
 select#subject_subject_type_id {
 	width: 170px;
-}
-
-.field_wrapper.interview_outcome_on label,
-.field_wrapper.sample_outcome_on label,
-.field_wrapper.interview_outcome_on_string label,
-.field_wrapper.sample_outcome_on_string label,
-.field_wrapper.state_id_no label,
-.field_wrapper.email label {
-	display:block;
 }

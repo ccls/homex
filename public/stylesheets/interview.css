@@ -1,7 +1,7 @@
-.began_on {
+.interview .began_on {
 	float:left;
 	padding-right: 30px;
 }
-.field_wrapper {
-	margin-bottom: 15px;
+.interview .ended_on {
+	clear:none;
 }

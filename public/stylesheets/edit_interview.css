@@ -1,10 +1,6 @@
-.edit_interview .field_wrapper {
-	padding: 10px;
-}
 .edit_interview .field_wrapper label {
 	width: 180px;
-	float:left;
 }
-.subject_relationship_other label {
+.edit_interview .subject_relationship_other label {
 	text-align:center;
 }
