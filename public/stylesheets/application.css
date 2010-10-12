@@ -1,149 +1,139 @@
 @import url('shared.css');
 body {
+	padding:0;
 	font-family:Verdana,Arial,Helvetica,sans-serif;
 	margin: 0px;
-	background-color: #F0F0FF;
-/*
-	this gradient image was created at 
-	http://tools.dynamicdrive.com/gradient/
-	It is 1x800, top: F8F8FF, bottom: F0F0FF
-*/
-	background-image: url("../images/gradient.png");
-	background-repeat: repeat-x;
+	background-color: #EEEEEE;
 }
 
-/*
-	The common width of 900 is set here and in ...
-		app/views/layouts/_head.html.erb
-		app/models/home_page_pic.rb
-div#head,
 div#container {
-*/
-div.main_width {
+	width: 1000px;
 	margin: 0 auto;
-	width: 900px;
+	background-color: #ECE9DF;	/* guidance background color */
+	/* box-shadow: <horizontal> <vertical> <blur> <color> */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
+
 div#header {
-/* Darker blue 2A71CC */
-/* Even darker 1629f2 */
-/* EVEN DARKER 0057AE */
-	margin: 10px auto;
-	background-image: url('../images/menu_normal.png');
-	background-repeat: repeat-x;
-	background-color: #DDD;
-	margin-bottom: 1px;
-	padding-bottom: 5px;
-}
-div#header, div#footer {
-	/* keep the header and footer backgrounds 
-		from cutting off on super zoom */
-	min-width: 900px;
+	background-color: #6A7780;
+	height: 100px;
+	background-image: url('../images/berkeley-text.gif');
+	background-repeat: no-repeat;
+	position:relative; /* NEEDED so that mainmenu can be at bottom */
 }
 
-div#home_page_pic {
-	margin: 10px auto;
-}
-
-/*
-	surveyor uses #menu, so we can't
-	Actually, now that I've changed the layout for the survey,
-	we could actually use #menu here.
-*/
-div#rootmenu {
-	padding:0;
-	height: 35px;
-/*
-	text-align: left;
-	background-color: #51A9E7;
-*/
-}
-/*
-	margin:0;
-	5x35
-	menu_normal : 51A9E7 - 2A71CC
-	menu_hover  : 2A71CC - 1629f2
-	menu_active : 1629f2 - 0057AE
-	menu_current: 0057AE - 51A9E7
-*/
-div#rootmenu a {
-	float:left;
-	text-align: center;
-	margin:0 auto;
-	background-color: #51A9E7;
-	background-image: url('../images/menu_normal.png');
-	background-repeat: repeat-x;
-	color: #111111;
-/*	padding: 0px 24px; */
-	
-	border-left: 1px dotted #2A71CC;
-	text-decoration:none;
-	font-family:Verdana,Arial,Helvetica,sans-serif;
-	line-height: 35px;
-	font-weight:bold;
-/* text-shadow isn't yet standardized */
-	text-shadow: #FFF 0 1px 2px;
-}
-div#rootmenu a:first-child {
-	border-left: 0;
-}
-div#rootmenu a:hover {
-	background-color: #2A71CC;
-	background-image: url('../images/menu_hover.png');
-}
-div#rootmenu a:active {				/* mouse button down */
-	background-color: #0057AE;
-	background-image: url('../images/menu_active.png');
-}
-div#rootmenu a.current {
-	background-color: #1629f2;
-	background-image: url('../images/menu_current.png');
+div#minimenu {
+	float:right;
+	padding: 5px 10px;
 	color: white;
-	text-shadow: #000 0 1px 2px;
 }
-
-div#submenu {
-	margin: 10px auto;
-	height: 20px;
+div#minimenu a {
+	color: white;
+	text-decoration:none;
 }
-div#submenu div#current_root {
-	font-size: 14pt;
-	font-weight: bold;
-	float:left;
-}
-div#submenu div#children {
+div#fullsearch {
+	clear:right;
 	float:right;
 }
-div#submenu div#children .child a {
-	color: black;
-	margin-left: 30px;
-	text-decoration:none;
-}
-div#submenu div#children .child.current_child a, 
-div#submenu div#children .child a:hover {
-	background-color:transparent;
-	color:gray;
+div#subsearch {
+	clear:right;
+	float:right;
 }
 
-div#content {
-	margin: 10px auto;
-	clear:both;
+#mainmenu a,
+#submenu a {
+	text-decoration: none;
+	color:black;
+}
+div#mainmenu { 
+	/* NEEDED so that mainmenu can be at bottom */
+	position:absolute;
+	bottom:0;
+}
+div#mainmenu a {
+	margin:0;
+	float:left;
+	padding: 4px 24px;
+	font-size: 12pt;
+	font-weight: bold;
+	border: 2px solid black;
+	border-bottom: 1px solid black;
+	border-left: 0;
+	background-color: #A9BECC;
+}
+div#mainmenu a:nth-child(1) {
+	border-left: 2px solid black;
+}
+div#mainmenu a.current {
+	background-color: #CCC3A9;
+}
+
+
+div#main {
+	width: 800px;
+	float:left;
+}
+div#submenu {
+	clear:left;
+	margin: 0;
+	background-color: #CCC3A9;
+	border: 1px solid black;
+	line-height: 22pt;
+}
+div#submenu a {
+	padding: 5px 20px;
+}
+div#submenu a.current {
+	font-weight:bold;
+}
+
+div#content_wrapper {
 	background-color:white;
-	border: 1px solid silver;
-	padding: 5px 25px;
+	border-right: 1px solid silver;
 }
-div#content div#main h1:nth-child(1),
-div#content p:nth-child(2),
-div#content h1:nth-child(2),
-div#content h2:nth-child(2) {
-	margin-top: 0;
+div#content {
+	padding: 5px 25px;
+	font-size: 10pt;
 }
 
-div#content,
-fieldset {
-	/* http://css-radius.heroku.com */
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+div#preview {
+	margin-top: 20px;
+	border-top: 1px solid silver;
+}
+div.section {
+	border-right: 1px solid silver;
+	float:left;
+	width: 33.1%;
+	text-align:center;
+}
+div.section:last-child {
+	border-right: 0;
+}
+div.section h4 {
+	margin: 10px;
+	padding-bottom:5px;
+	border-bottom:1px solid silver;
+}
+div.section table {
+	float:left;
+	width:100%;
+}
+
+div#guidance {
+	width: 180px;
+	float:right;
+
+	/* NOT PADDING-BOTTOM */
+	padding:9px;
+
+	/* column hack override */
+	padding-bottom: 32767px;
+	/* smaller to put some real padding on bottom */
+	margin-bottom: -32740px;
+
+	font-size: 10pt;
 }
 
 #footer {
@@ -157,6 +147,126 @@ fieldset {
 	color: gray;
 }
 
-.note {
-	font-size: 8pt;
+#container, #footer {
+	/* http://css-radius.heroku.com */
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
 }
+
+
+/*
+
+	Generic stuff above.
+	Specific stuff below.
+
+*/
+
+
+
+
+
+
+
+
+
+table#enrollments tr {
+	text-align:left;
+}
+
+
+table#guides td.controller {
+	width: 300px;
+}
+
+form.edit_sample .field_wrapper label {
+	width: 150px;
+}
+
+form.edit_interview .field_wrapper label {
+	width: 180px;
+}
+form.edit_interview .subject_relationship_other label {
+	text-align:center;
+}
+
+
+table.sample_subject {
+	margin-top: 30px;
+}
+
+.interview .field_wrapper.began_on {
+	float:left;
+	padding-right: 30px;
+}
+.interview .field_wrapper.ended_on {
+	clear:none;
+}
+.interview .field_wrapper .label {
+	width: 160px;
+}
+
+form.edit_subject .field_wrapper label {
+	width: 160px;
+}
+form.edit_subject select#subject_vital_status_id,
+form.edit_subject select#subject_sex,
+form.edit_subject select#subject_race_id,
+form.edit_subject select#subject_subject_type_id {
+	width: 170px;
+}
+
+form.edit_guide .field_wrapper label {
+	display:block;
+	margin-top:10px;
+}
+form.edit_guide textarea {
+	width: 100%;
+}
+form.edit_guide input[type=text] {
+	width: 99%;
+}
+
+.enrollment .field_wrapper.completed_on .label,
+.enrollment .field_wrapper.terminated_reason .label,
+.enrollment .field_wrapper.other_refusal_reason .label,
+.enrollment .field_wrapper.refusal_reason .label,
+.enrollment .field_wrapper.document_version .label,
+.enrollment .field_wrapper.consented_on .label,
+.enrollment .field_wrapper.ineligible_reason_specify .label,
+.enrollment .field_wrapper.ineligible_reason .label,
+.enrollment .field_wrapper.reason_not_chosen  .label{
+	text-indent:50px;
+}
+
+form.edit_patient .field_wrapper {
+	padding: 10px;
+}
+form.edit_patient .field_wrapper label {
+	width: 170px;
+	float:left;
+}
+form.edit_patient .field_wrapper .warning {
+	display:none;
+	width:300px;
+	float:right;
+	padding: 5px;
+	padding-right:0;
+}
+form.edit_patient .field_wrapper.changed .warning {
+	display:inline;
+	background-color: #FDD;
+	border: 1px solid #F88;
+}
+
+
+form.edit_phone_number .field_wrapper label {
+  width:160px;
+}
+form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
+  float:left;
+}
+
