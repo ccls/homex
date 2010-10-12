@@ -23,8 +23,10 @@ form .fields_for_address label {
 	margin-top:15px;
 }
 form .fields_for_address label {
+/*
 	float:left;
 	clear:left;
+*/
 	width: 105px;
 }
 
@@ -43,13 +45,13 @@ form div.controls select {
 	float:left;
 }
 
+/*
 .address_type_id,
 .current_address,
 .address_at_diagnosis {
 	clear:left;
 	padding:10px;
 }
-/*
 .is_valid label,
 .is_verified label,
 .valid_from label,

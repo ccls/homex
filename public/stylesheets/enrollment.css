@@ -1,3 +1,4 @@
+/*
 .field_wrapper {
 	padding: 5px;
 	padding-left: 15px;
@@ -13,14 +14,24 @@
 .consented_on.field_wrapper > span.label {
 	width: 60px;
 }
+*/
 
-.field_wrapper.terminated_reason,
-.field_wrapper.refusal_reason,
-.field_wrapper.ineligible_reason,
-.field_wrapper.reason_not_chosen {
+.field_wrapper.completed_on .label,
+.field_wrapper.terminated_reason .label,
+.field_wrapper.other_refusal_reason .label,
+.field_wrapper.refusal_reason .label,
+.field_wrapper.document_version .label,
+.field_wrapper.consented_on .label,
+.field_wrapper.ineligible_reason_specify .label,
+.field_wrapper.ineligible_reason .label,
+.field_wrapper.reason_not_chosen  .label{
+	text-indent:50px;
+/*
 	margin-left:50px;
 	margin-right:50px;
+*/
 }
+/*
 .field_wrapper.is_complete,
 .field_wrapper.completed_on,
 .field_wrapper.consented,
@@ -29,7 +40,8 @@
 .field_wrapper.ineligible_reason {
 	float:left;
 }
-
+*/
+/*
 .field_wrapper.is_candidate,
 .field_wrapper.able_to_locate,
 .field_wrapper.is_eligible,
@@ -44,7 +56,8 @@
 .field_wrapper.notes {
 	clear:left;
 }
-
+*/
+/*
 .field_wrapper.consented,
 .field_wrapper.is_complete {
 	width: 220px;
@@ -56,4 +69,4 @@
 .field_wrapper.document_version {
 	text-align:right;
 }
-
+*/

@@ -11,11 +11,11 @@
 .is_primary {
 	clear:left;
 }
-*/
 .why_invalid,
 .how_verified {
 	margin-left: 160px;
 }
+*/
 /*
 .is_valid,
 .is_verified {
@@ -25,7 +25,7 @@
 	padding:10px;
 }
 */
-.field_wrapper label {
+form.edit_phone_number .field_wrapper label {
 	width:160px;
 }
 
@@ -40,6 +40,6 @@
 	float:left;
 }
 
-.field_wrapper .fieldWithErrors:first-child {
+form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
 	float:left;
 }
