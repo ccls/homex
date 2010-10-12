@@ -208,3 +208,13 @@ table.sample_subject {
 .interview .field_wrapper .label {
 	width: 160px;
 }
+
+form.edit_subject .field_wrapper label {
+	width: 160px;
+}
+form.edit_subject select#subject_vital_status_id,
+form.edit_subject select#subject_sex,
+form.edit_subject select#subject_race_id,
+form.edit_subject select#subject_subject_type_id {
+	width: 170px;
+}

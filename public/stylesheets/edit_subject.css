@@ -1,9 +1,0 @@
-.field_wrapper label {
-	width: 160px;
-}
-select#subject_vital_status_id,
-select#subject_sex,
-select#subject_race_id,
-select#subject_subject_type_id {
-	width: 170px;
-}

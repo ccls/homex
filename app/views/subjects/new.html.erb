@@ -7,6 +7,7 @@
 } %>
 <% end %>
 
-<% form_for(@subject, :url => subjects_path) do |f| %>
+<% form_for(@subject, :url => subjects_path,
+	:html => { :class => 'edit_subject' }) do |f| %>
 <%= render 'form', :f => f %>
 <% end %>
