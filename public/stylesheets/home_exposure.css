@@ -218,3 +218,14 @@ form.edit_subject select#subject_race_id,
 form.edit_subject select#subject_subject_type_id {
 	width: 170px;
 }
+
+form.edit_guide .field_wrapper label {
+	display:block;
+	margin-top:10px;
+}
+form.edit_guide textarea {
+	width: 100%;
+}
+form.edit_guide input[type=text] {
+	width: 99%;
+}
