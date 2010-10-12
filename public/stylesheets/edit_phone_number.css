@@ -1,45 +1,7 @@
-/*
-.phone_number,
-.phone_type_id,
-.is_valid,
-.is_verified {
-	display:inline;
-	float:left;
-}
-.valid,
-.verified,
-.is_primary {
-	clear:left;
-}
-.why_invalid,
-.how_verified {
-	margin-left: 160px;
-}
-*/
-/*
-.is_valid,
-.is_verified {
-	width: 250px;
-}
-.field_wrapper {
-	padding:10px;
-}
-*/
-form.edit_phone_number .field_wrapper label {
-	width:160px;
-}
-
-
-
-
 .dev_only {
 	margin-top: 30px;
 	clear:left;
 }
 .dev_only span {
-	float:left;
-}
-
-form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
 	float:left;
 }

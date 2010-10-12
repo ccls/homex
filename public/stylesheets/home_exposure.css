@@ -261,3 +261,12 @@ form.edit_patient .field_wrapper.changed .warning {
 	background-color: #FDD;
 	border: 1px solid #F88;
 }
+
+
+form.edit_phone_number .field_wrapper label {
+  width:160px;
+}
+form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
+  float:left;
+}
+
