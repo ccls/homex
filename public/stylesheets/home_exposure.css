@@ -193,3 +193,8 @@ form.edit_interview .subject_relationship_other label {
 	text-align:center;
 }
 
+
+table.sample_subject {
+	margin-top: 30px;
+}
+
