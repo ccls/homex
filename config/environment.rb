@@ -1,7 +1,6 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-#RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 RAILS_GEM_VERSION = '2.3.9' unless defined? RAILS_GEM_VERSION
 
 #ENV['RAILS_ENV'] ||= 'production'
@@ -24,9 +23,6 @@ Rails::Initializer.run do |config|
 	#	This must be called early, or someone else will load a newer version.
 	config.gem "i18n", :version => '=0.3.7'
 
-	# This is set to /homex in environments/production.rb
-#	config.action_controller.relative_url_root = ''
-	
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
@@ -52,20 +48,11 @@ Rails::Initializer.run do |config|
 		config.gem 'mysql'
 	end
 
-
-#	config.gem 'jakewendt-stringify_date',
-#		:lib => 'stringify_date',
-#		:source => 'http://rubygems.org',
-#		:version => '>= 1.0.1'
-
 	config.gem 'haml'      # Needed for Surveyor
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
-	config.gem 'jrails'
-
-	# config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
 	config.frameworks -= [ :active_resource ]
 
