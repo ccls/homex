@@ -8,6 +8,7 @@
 
 <p>Study name: <%= @enrollment.project.code.titleize -%></p>
 
+<% div_for @enrollment do %>
 
 <%= wrapped_spans :enrollment, :is_candidate,
 	:value => y_n_dk(@enrollment.is_candidate),
@@ -78,4 +79,4 @@
 
 <%= wrapped_spans :enrollment, :notes,
 	:label_text => 'notes:' %>
-
+<% end %>
