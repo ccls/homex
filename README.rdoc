@@ -34,7 +34,6 @@
 * {calnet_authentication}[http://github.com/jakewendt/calnet_authentication] - user authentication
 * {assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
 * {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {stringify_date}[http://github.com/jakewendt/stringify_date]
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 
 
