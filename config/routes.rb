@@ -68,6 +68,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :projects
 	map.resources :races
+	map.resources :languages
 
 	#	Create named routes for expected pages so can avoid
 	# needing to append the relative_url_root prefix manually.
