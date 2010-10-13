@@ -69,3 +69,12 @@ YNDK = HashWithIndifferentAccess.new({
 	:false => 2,
 	:dk    => 999
 }).freeze
+
+#	Due to some flexibility mods to CalnetAuthenticated
+#	User doesn't load until it is needed, 
+#	which means that calnet_authenticated isn't called,
+#	which means that current_user doesn't know what 
+#	a User is yet, which causes lots of ...
+#	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
+#	so ...
+require 'user'
