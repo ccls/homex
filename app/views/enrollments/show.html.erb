@@ -1,4 +1,3 @@
-<% stylesheets('enrollment') %>
 <% sub_menu_for(@enrollment.subject) %>
 
 <% content_for :id_bar do %>
@@ -6,7 +5,7 @@
 <% end if current_user.may_edit_enrollments? %>
 <% id_bar_for(@enrollment.subject) %>
 
-<p>Study name: <%= @enrollment.project.code.titleize -%></p>
+<h4>Study name: <%= @enrollment.project.code.titleize -%></h4>
 
 <% div_for @enrollment do %>
 
