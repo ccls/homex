@@ -78,3 +78,6 @@ YNDK = HashWithIndifferentAccess.new({
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
 require 'user'
+#	Actually, this is probably only needed in development,
+#	but putting it in environments/development.rb doesn't
+#	work right, even in an after_initialize.
