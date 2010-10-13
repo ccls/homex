@@ -11,6 +11,9 @@
 * ImageMagick (which may require {MacPorts}[http://www.macports.org/])
   * ImageMagick is used to image manipulation
 * curl - for the installation of rvm
+* mysql - because ...
+  * a manually triggered rollback in the Addressing model
+  * the SubjectSearch model contains explicit MySQL code
 
 == Required Gems
 
@@ -59,6 +62,9 @@
 
  #	Copy and add your own FedEx credentials.
  cp config/fed_ex.yml.example config/fed_ex.yml
+
+ #	Copy and add your own S3 credentials.
+ cp config/s3.yml.example config/s3.yml
 
  #	Copy and add your own gmail credentials.
  cp config/initializers/mail.rb.example config/initializers/mail.rb

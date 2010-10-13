@@ -43,12 +43,16 @@ module ApplicationHelper
 		l.push(link_to( "Gift Cards", followup_subjects_path,
 			:class => ((current == :followup)?'current':nil)))
 
-		l.push(link_to( "Admin", admin_path,
-			:class => ((current == :admin)?'current':nil))
-		) if current_user.try(:may_administrate?)
+#		l.push(link_to( "Admin", admin_path,
+#			:class => ((current == :admin)?'current':nil))
+#		) if current_user.try(:may_administrate?)
 
 		s << l.join("\n")
 		s << "\n</div><!-- mainmenu -->\n"
+	end
+
+	def administrator_menu()
+		link_to( "Admin", admin_path )
 	end
 
 	def sub_menu_for(object)

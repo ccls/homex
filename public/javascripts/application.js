@@ -1,5 +1,8 @@
 jQuery(function(){
 
+	var root = (location.host == 'ccls.berkeley.edu')?'/homex':''
+	jQuery.getScript(root + '/users/menu.js');
+
 	jQuery('a.submitter').click(submit_form);
 
 	jQuery('form.confirm').submit(confirm_submission);
