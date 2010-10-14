@@ -168,7 +168,9 @@ div#guidance {
 
 
 
-
+div#preview table tr th {
+	text-align: center;
+}
 
 
 
