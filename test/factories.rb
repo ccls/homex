@@ -90,6 +90,10 @@ Factory.define :enrollment do |f|
 	f.is_complete 2	#false
 end
 
+Factory.define :gift_card do |f|
+	f.sequence(:gift_card_number){ |n| "#{n}" }
+end
+
 Factory.define :guide do |f|
 	f.sequence(:controller){ |n| "controller#{n}" }
 	f.sequence(:action){ |n| "action#{n}" }

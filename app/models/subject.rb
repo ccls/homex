@@ -13,6 +13,7 @@ class Subject < ActiveRecord::Base
 	has_many :addressings
 	has_many :addresses, :through => :addressings
 	has_many :enrollments
+	has_many :gift_cards
 #	has_many :home_exposure_events
 #	has_many :hospitals
 #	has_many :operational_events

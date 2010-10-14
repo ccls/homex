@@ -9,6 +9,7 @@ class Project < ActiveRecord::Base
 	has_many :operational_event_types
 	has_many :interview_types
 	has_many :enrollments
+	has_many :gift_cards
 	has_many :subjects, :through => :enrollments
 	has_many :instruments
 

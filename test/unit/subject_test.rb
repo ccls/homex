@@ -10,6 +10,7 @@ class SubjectTest < ActiveSupport::TestCase
 	assert_should_have_many(
 		:addressings,
 		:enrollments,
+		:gift_cards,
 		:phone_numbers,
 		:response_sets,
 		:samples,
