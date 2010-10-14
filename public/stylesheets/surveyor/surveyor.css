@@ -240,17 +240,15 @@ body {
 	background-color: transparent;
 	color: black; 
 }
-#surveyor .label {
-	margin:0;
-	padding:0;
-	font-size: 1.1em;
-	line-height: 1.1em;
-}
-#surveyor .question {
-	clear:left;
+#surveyor #menu {
+	margin-left: 2em;
 }
 #surveyor .question span.text {
 	margin-top:0.5em;
+	font-size: 1em; 
+}
+#surveyor .question {
+	clear:left;
 }
 #surveyor .question legend {
 	width: auto;
@@ -263,9 +261,14 @@ body {
 	padding: 0.6em;
 	font-size: 1.5em;
 }
-#surveyor .question .text {
-	font-size: 1em; 
+#surveyor .label {
+	margin:0;
+	padding:0;
 }
+#surveyor .label span.text{
+	font-size: 1.1em;
+}
+
 #surveyor .question_group ul li .question ol.answers {
 	display: block; 
 }
