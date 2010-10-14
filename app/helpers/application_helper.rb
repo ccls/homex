@@ -31,6 +31,7 @@ module ApplicationHelper
 					Users 
 					Pages
 				) then :admin
+			else nil
 		end
 
 		s = "<div id='mainmenu'>\n"
@@ -68,15 +69,16 @@ module ApplicationHelper
 	end
 
 	def interview_sub_menu(interview)
-		current = nil
-#		current = case controller.class.name.sub(/Controller$/,'')
-#			when *%w( ) then :schedule
-#			when *%w( Interviews ResponseSets ) then :edit
-#		end
+		current = case controller.class.name.sub(/Controller$/,'')
+			when *%w( Interviews ) then :general
+			when *%w( ResponseSets ) then :edit
+			else nil
+		end
 		content_for :main do
 			s = "<div id='submenu'>\n"
-			l=[link_to( 'schedule interview', subject_path(interview.subject),
-				:class => ((current == :schedule)?'current':nil)
+#			l=[link_to( 'schedule interview', subject_path(interview.subject),
+			l=[link_to( 'general', interview_path(interview),
+				:class => ((current == :general)?'current':nil)
 			)]
 			l.push(link_to( 'edit/view interview', 
 				subject_response_sets_path(interview.subject),
@@ -94,6 +96,7 @@ module ApplicationHelper
 				) then :contact
 			when *%w( Enrollments ) then :eligibility
 			when *%w( Events ) then :events
+			else nil
 		end
 		content_for :main do
 			s = "<div id='submenu'>\n"
