@@ -27,7 +27,8 @@ class HomexOutcome < ActiveRecord::Base
 	before_save :create_sample_outcome_update,
 		:if => :sample_outcome_id_changed?
 
-	class NoHomeExposureEnrollment < StandardError; end
+	class NoHomeExposureEnrollment < StandardError	#	:nodoc:
+	end
 
 protected
 

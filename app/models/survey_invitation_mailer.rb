@@ -9,7 +9,8 @@ class SurveyInvitationMailer < ActionMailer::Base
 #	before_deliver :ensure_valid_email_address
 #
 
-	class NoEmailAddress < StandardError; end
+	class NoEmailAddress < StandardError	#	:nodoc:
+	end
 
 	def invitation(survey_invitation)
 		subject    'CCLS Survey Invitation'

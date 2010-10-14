@@ -7,7 +7,7 @@ module ResponseExtensions	#	:nodoc:
 		end
 	end
 	
-	module ClassMethods
+	module ClassMethods	#	:nodoc:
 	end
 	
 	module InstanceMethods

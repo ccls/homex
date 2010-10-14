@@ -40,7 +40,7 @@ module SurveyorControllerExtensions	#	:nodoc:
 		end
 	end
 	
-	module ClassMethods
+	module ClassMethods	#	:nodoc:
 	end
 	
 	module InstanceMethods
@@ -72,6 +72,6 @@ module SurveyorControllerExtensions	#	:nodoc:
 
 	end
 	
-	module Actions
+	module Actions	#	:nodoc:
 	end
 end
