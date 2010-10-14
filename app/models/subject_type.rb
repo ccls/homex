@@ -13,16 +13,20 @@ class SubjectType < ActiveRecord::Base
 	validates_uniqueness_of :description
 #	validates_format_of     :description, :with => /\w/
 
+	#	Returns description
 	def to_s
 		description
 	end
 
+	#	Returns description
 	def name
 		description
 	end
 
-	class NotFound < StandardError; end
+#	class NotFound < StandardError; end
 
+	#	Treats the class a bit like a Hash and
+	#	searches for a record with a matching code.
 	def self.[](code)
 		find_by_code(code.to_s) #|| raise(NotFound)
 	end

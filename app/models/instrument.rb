@@ -16,6 +16,7 @@ class Instrument < ActiveRecord::Base
 	validates_complete_date_for :began_use_on, :ended_use_on,
 		:allow_nil => true
 
+	#	Return name
 	def to_s
 		name
 	end

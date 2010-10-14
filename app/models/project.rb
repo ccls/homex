@@ -20,6 +20,8 @@ class Project < ActiveRecord::Base
 	validates_complete_date_for :began_on, :ended_on,
 		:allow_nil => true
 
+	#	Returns all projects for which the subject
+	#	does not have an enrollment
 	def self.unenrolled_projects(subject)
 		Project.all(
 			:joins => "LEFT JOIN enrollments ON " <<
@@ -28,12 +30,15 @@ class Project < ActiveRecord::Base
 			:conditions => [ "enrollments.subject_id IS NULL" ])
 	end
 
-	class NotFound < StandardError; end
+#	class NotFound < StandardError; end
 
+	#	Treats the class a bit like a Hash and
+	#	searches for a record with a matching code.
 	def self.[](code)
 		find_by_code(code.to_s) #|| raise(NotFound)
 	end
 
+	#	Returns description
 	def to_s
 		description
 	end

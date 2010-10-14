@@ -10,6 +10,7 @@ class HomePagePic < ActiveRecord::Base
 
 #	class MissingAdapter < StandardError; end
 
+	#	Return a randomly selected active HomePagePic
 	def self.random_active
 #		#	there should be a better way.  a rails way.
 #		#	This will cause code to be untested.

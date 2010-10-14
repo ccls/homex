@@ -10,6 +10,7 @@ class Diagnosis < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 3
 	validates_uniqueness_of :description
 
+	#	Return description
 	def to_s
 		description
 	end

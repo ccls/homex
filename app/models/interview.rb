@@ -32,6 +32,7 @@ class Interview < ActiveRecord::Base
 		:message => "not allowed",
 		:unless => :subject_relationship_is_other?
 
+	#	Returns string containing respondent's first and last name
 	def respondent_full_name
 		"#{respondent_first_name} #{respondent_last_name}"
 	end

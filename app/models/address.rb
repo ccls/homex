@@ -20,12 +20,15 @@ class Address < ActiveRecord::Base
 
 	before_save :format_zip
 
+	#	Returns a string with the city, state and zip
 	def csz
 		"#{self.city}, #{self.state} #{self.zip}"
 	end
 
 protected
 
+	#	Determine if the address is a PO Box and then
+	#	require that the address type NOT be a residence.
 	def address_type_matches_line
 		#	It is inevitable that this will match too much
 		if(( line_1 =~ /p.*o.*box/i ) &&
@@ -35,6 +38,7 @@ protected
 		end
 	end
 
+	#	Simply squish the zip removing leading and trailing spaces.
 	def format_zip
 		self.zip.squish!
 	end

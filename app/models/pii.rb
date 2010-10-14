@@ -23,18 +23,24 @@ class Pii < ActiveRecord::Base
 	validates_complete_date_for :dob, :died_on,
 		:allow_nil => true
 
+	#	Returns string containing subject's first, middle and last name
 	def full_name
 		[first_name, middle_name, last_name].join(' ')
 	end
 
+	#	Returns string containing subject's father's first, middle and last name
 	def fathers_name
 		[father_first_name, father_middle_name, father_last_name].join(' ')
 	end
 
+	#	Returns string containing subject's mother's first, middle and last name
 	def mothers_name
 		[mother_first_name, mother_middle_name, mother_maiden_name, mother_last_name].join(' ')
 	end
 
+	#	I don't know if I still need this
+	#	commented out 20101014
+	#	uncommented 20101014
 	def dob	#	overwrite default dob method for formatting
 		#	added to_date to fix sqlite3 quirk which doesn't
 		#	differentiate between times and dates.

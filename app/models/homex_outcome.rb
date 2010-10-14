@@ -31,6 +31,7 @@ class HomexOutcome < ActiveRecord::Base
 
 protected
 
+	#	Create OperationalEvent regarding the interview outcome
 	def create_interview_outcome_update
 		operational_event_type = case interview_outcome 
 			when InterviewOutcome['scheduled']
@@ -48,6 +49,7 @@ protected
 		end
 	end
 
+	#	Create OperationalEvent regarding the sample outcome
 	def create_sample_outcome_update
 		operational_event_type = case sample_outcome 
 			when SampleOutcome['sent']

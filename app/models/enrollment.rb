@@ -78,30 +78,44 @@ class Enrollment < ActiveRecord::Base
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?
 
+	#	Return boolean of comparison
+	#	true only if is_eligible == 2
 	def is_not_eligible?
 		is_eligible == 2
 	end
 
+	#	Return boolean of comparison
+	#	true only if is_chosen == 2
 	def is_not_chosen?
 		is_chosen == 2
 	end
 
+	#	Return boolean of comparison
+	#	true only if consented == 1
 	def consented?
 		consented == 1
 	end
 
+	#	Return boolean of comparison
+	#	true only if consented == 2
 	def not_consented?
 		consented == 2
 	end
 
+	#	Return boolean of comparison
+	#	true only if consented == nil or 999
 	def consent_unknown?
 		[nil,999].include?(consented)	#	not 1 or 2
 	end
 
+	#	Return boolean of comparison
+	#	true only if terminated_participation == 1
 	def terminated_participation?
 		terminated_participation == 1
 	end
 
+	#	Return boolean of comparison
+	#	true only if is_complete == 1
 	def is_complete?
 		is_complete == 1
 	end

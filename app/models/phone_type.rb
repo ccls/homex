@@ -6,8 +6,9 @@ class PhoneType < ActiveRecord::Base
 	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
 
+	#	Returns code
 	def to_s
-		self.code
+		code
 	end
 
 end

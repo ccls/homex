@@ -7,8 +7,9 @@ class DocumentVersion < ActiveRecord::Base
 	validates_presence_of :document_type_id,
 		:document_type
 
+	#	Return title
 	def to_s
-		title	#	description
+		title
 	end
 
 	named_scope :type1, :conditions => {

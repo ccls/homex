@@ -25,22 +25,27 @@ class PhoneNumber < ActiveRecord::Base
 
 	attr_accessor :current_user
 
+	#	Returns boolean of comparison
+	#	true only if is_valid == 2
 	def is_not_valid?
 		is_valid == 2
 	end
 
 protected
 
+	#	Set verified time and user if given
 	def set_verifier
 		self.verified_on = Time.now
 		self.verified_by_id = current_user.try(:id)||0
 	end
 
+	#	Unset verified time and user
 	def nullify_verifier
 		self.verified_on = nil
 		self.verified_by_id = nil
 	end
 
+	#	Formats phone numer with () and -
 	def format_phone_number
 		unless self.phone_number.nil?
 			old = self.phone_number.gsub(/\D/,'')

@@ -17,6 +17,7 @@ class SampleKit < ActiveRecord::Base
 
 #	after_update :update_sample_dates
 
+	#	Returns kit shipping status
 	def status
 		status = case
 			when sample_package.status == 'Delivered' then 'Received'

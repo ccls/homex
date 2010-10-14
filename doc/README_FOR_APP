@@ -12,6 +12,7 @@ Plugins
 * {RubyExtension}[link:../plugins/ruby_extension/index.html]
 * {SSLRequirement}[link:../plugins/ssl_requirement/index.html]
 * {Surveyor}[link:../plugins/surveyor/index.html]
+* {UCB CCLS Engine}[link:../plugins/ucb_ccls_engine/index.html]
 
 Other RDoc info
 * {RDoc Example on SourceForge}[http://rdoc.sourceforge.net/doc/index.html]

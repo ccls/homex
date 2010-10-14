@@ -22,6 +22,7 @@ class Sample < ActiveRecord::Base
 		:receipt_confirmed_on,
 		:allow_nil => true
 
+	#	Returns the parent of this sample type
 	def sample_type_parent
 		sample_type.parent
 	end
@@ -29,26 +30,32 @@ class Sample < ActiveRecord::Base
 	delegate :kit_package,    :to => :sample_kit, :allow_nil => true
 	delegate :sample_package, :to => :sample_kit, :allow_nil => true
 
+	#	Returns tracking number of the kit package
 	def kit_tracking_number
 		kit_package.try(:tracking_number)
 	end
 
+	#	Returns sent on of the kit package
 	def kit_sent_on
 		kit_package.try(:sent_on)
 	end
 
+	#	Returns received on of the kit package
 	def kit_received_on
 		kit_package.try(:received_on)
 	end
 
+	#	Returns tracking number of the sample package
 	def sample_tracking_number
 		sample_package.try(:tracking_number)
 	end
 
+	#	Returns sent on of the sample package
 	def sample_sent_on
 		sample_package.try(:sent_on)
 	end
 
+	#	Returns received on of the sample package
 	def sample_received_on
 		sample_package.try(:received_on)
 	end

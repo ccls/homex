@@ -6,12 +6,15 @@ class AddressType < ActiveRecord::Base
 	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
 
+	#	Returns the code
 	def to_s
 		self.code
 	end
 
-	class NotFound < StandardError; end
+#	class NotFound < StandardError; end
 
+	#	Treats the class a bit like a Hash and
+	#	searches for a record with a matching code.
 	def self.[](code)
 		find_by_code(code.to_s) #|| raise(NotFound)
 	end

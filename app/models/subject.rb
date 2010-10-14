@@ -70,6 +70,8 @@ class Subject < ActiveRecord::Base
 
 	class NotTwoResponseSets < StandardError; end
 
+	#	Returns number of addresses with 
+	#	address_type.code == 'residence'
 	def residence_addresses_count
 		addresses.count(
 			:joins => :address_type,
@@ -77,16 +79,20 @@ class Subject < ActiveRecord::Base
 		)
 	end
 
+	#	Returns boolean of comparison
+	#	true only if type is Case
 	def is_case?
 		subject_type.try(:code) == 'Case'
 	end
 
+	#	Returns home exposures enrollment
 	def hx_enrollment
 		enrollments.find(:first,
 			:conditions => "projects.code = 'HomeExposures'",
 			:joins => :project)
 	end
 
+	#	Returns home exposures interview
 	def hx_interview
 		identifier.interviews.find(:first,
 			:conditions => "projects.code = 'HomeExposures'",

@@ -26,16 +26,20 @@ class Identifier < ActiveRecord::Base
 	before_validation :pad_zeros_to_subjectid
 	before_validation :format_ssn
 
+	#	Returns a string containing the patid,
+	#	case_control_type and orderno
 	def studyid
 		"#{patid}-#{case_control_type}-#{orderno}"
 	end
 
 protected
 
+	#	Strips out all non-numeric characters
 	def format_ssn
 		self.ssn.to_s.gsub!(/\D/,'')
 	end
 
+	#	Pad leading zeroes to subjectid
 	def pad_zeros_to_subjectid
 		#>> sprintf("%06d","0001234")
 		#=> "000668"

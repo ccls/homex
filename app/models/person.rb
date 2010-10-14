@@ -10,10 +10,12 @@ class Person < ActiveRecord::Base
 
 	validates_presence_of :last_name
 
+	#	Returns string containing first and last name
 	def full_name
 		"#{first_name} #{last_name}"
 	end
 
+	#	Returns full_name
 	def to_s
 		full_name
 	end

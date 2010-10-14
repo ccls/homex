@@ -7,6 +7,7 @@ class ProjectOutcome < ActiveRecord::Base
 	validates_presence_of   :description
 	validates_uniqueness_of :description
 
+	#	Returns description
 	def to_s
 		description
 	end

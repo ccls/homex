@@ -11,10 +11,12 @@ class OperationalEvent < ActiveRecord::Base
 	validates_complete_date_for :occurred_on,
 		:allow_nil => true
 
+	#	Returns description
 	def to_s
 		description
 	end
 
+	#	find wrapper
 	def self.search(options={})
 		find(:all,
 			:joins => joins(options),
