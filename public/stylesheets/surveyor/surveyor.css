@@ -20,13 +20,11 @@ body {
   text-align: center; }
 
 #surveyor {
+  width: 960px;
   padding: 1em;
   margin: 0 auto;
-/*
-  width: 960px;
   background-color: #fffff4;
-  color: #213e00; 
-*/ }
+  color: #213e00; }
   #surveyor #survey_list ul {
     padding-left: 2em;
     margin-top: -2em; }
@@ -112,28 +110,20 @@ body {
   #surveyor .question {
     margin: 0 0 0.6em 0;
     padding: 0.2em; }
-  #surveyor .question.invalid {
-    background-color: red; }
     #surveyor .question legend {
-/*
       width: 940px;
-*/
       white-space: normal; }
       #surveyor .question legend span {
         display: block; }
     #surveyor .question .number {
-      clear:left;
-      padding: 0.6em;
+      padding: 0.2em;
       font-weight: bold;
-      font-size: 1.5em;
+      font-size: 1.2em;
       letter-spacing: 0;
       float: left; }
     #surveyor .question .text {
       padding-top: 0.2em;
-/*
       font-size: 1.1em;
-*/
-      font-size: 1em;
       line-height: 1.2em; }
     #surveyor .question .help {
       font-size: 0.8em;
@@ -209,10 +199,6 @@ body {
           #surveyor .question_group ul li .question ol.answers {
             display: inline;
             margin: 0.2em; }
-/* Jake added */
-            #surveyor .question_group ul li .question ol.answers {
-                display: block; }
-
     #surveyor .question_group ul.repeater {
       list-style-type: none; }
     #surveyor .question_group li.repeater {
@@ -244,3 +230,42 @@ body {
       font-weight: bold;
       font-size: 1em;
       letter-spacing: 0; }
+
+
+
+
+
+#surveyor {
+	width: auto;
+	background-color: transparent;
+	color: black; 
+}
+#surveyor .label {
+	margin:0;
+	padding:0;
+	font-size: 1.1em;
+	line-height: 1.1em;
+}
+#surveyor .question {
+	clear:left;
+}
+#surveyor .question span.text {
+	margin-top:0.5em;
+}
+#surveyor .question legend {
+	width: auto;
+}
+#surveyor .question.invalid {
+	background-color: red; 
+}
+#surveyor .question .number {
+	clear:left;
+	padding: 0.6em;
+	font-size: 1.5em;
+}
+#surveyor .question .text {
+	font-size: 1em; 
+}
+#surveyor .question_group ul li .question ol.answers {
+	display: block; 
+}
