@@ -15,6 +15,10 @@ RAILS_APP_NAME = 'homex'
 
 Rails::Initializer.run do |config|
 
+	config.gem 'jakewendt-ccls_engine',
+		:lib    => 'ccls_engine',
+		:source => 'http://rubygems.org'
+
 	#	rails 3 requires i18n gem which will load
 	#	a version incompatible with 2.3.8.
 	#	It will generate several of ...
