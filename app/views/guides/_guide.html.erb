@@ -9,7 +9,7 @@
 <%= button_link_to "View", guide_path(guide) -%>&nbsp;
 <%= button_link_to "Edit", edit_guide_path(guide) -%>&nbsp;
 <% destroy_link_to "Destroy", guide_path(guide) do %>
-<%= hidden_field_tag 'confirm', "Destroy guide '#{project}'?", :id => nil %>
+<%= hidden_field_tag 'confirm', "Destroy guide '#{guide}'?", :id => nil %>
 <% end %>
 </td>
 <% end %><!-- class='guide' -->
