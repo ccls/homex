@@ -2,14 +2,14 @@
 # Warbler.framework_detection = false
 
 #	Due to the existance of rails 3, warbler won't find
-#	rails 2.3.9 unless a gem of that version is listed
+#	rails 2.3.10 unless a gem of that version is listed
 #	directly below this.  Without it, it will complain
 #	that you don't have rails installed.
-#		Missing the Rails 2.3.9 gem. Please `gem install -v=2.3.9 rails`, 
+#		Missing the Rails 2.3.10 gem. Please `gem install -v=2.3.10 rails`, 
 #		update your RAILS_GEM_VERSION setting in config/environment.rb 
 #		for the Rails version you do have installed, or comment out 
 #		RAILS_GEM_VERSION to use the latest version installed.
-gem 'activesupport', '=2.3.9'
+gem 'activesupport', '=2.3.10'
 require 'active_support/core_ext'	#	note the name disparity
 
 module WarblerWar
@@ -26,10 +26,10 @@ module WarblerWar
 		@files.delete_if {|k,v|
 			#	MUST REMOVE SPECIFICATION TOO!
 			#	Wasn't removing 3.0 specs and then rails
-			#	complained that rails 2.3.8 wasn't installed??
+			#	complained that rails 2.3.10 wasn't installed??
 			k =~ %r{WEB-INF/gems/[^/]+/(#{config.remove_gem_files.join('|')})}
 		} unless config.remove_gem_files.empty?
-		puts "AFTER:#{@files.keys.length} (~4650)"
+		puts "AFTER:#{@files.keys.length} (~4900)"
 	end
 
 end
