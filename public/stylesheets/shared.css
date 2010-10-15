@@ -118,3 +118,7 @@ th {
 .field_wrapper  label {
 	width: 250px;
 }
+
+form.destroy_link_to {
+	display:inline;
+}

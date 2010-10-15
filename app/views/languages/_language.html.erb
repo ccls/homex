@@ -6,7 +6,9 @@
 		<%= language.description %>
 	</td>
 	<td class='manage'>
-		<%= link_to 'Edit', edit_language_path(language), :style => 'float:left;' %>
-		<%= destroy_link_to 'Destroy', language_path(language) %>
+		<%= button_link_to 'Edit', edit_language_path(language) %>&nbsp;
+<% destroy_link_to 'Destroy', language_path(language) do %>
+<%= hidden_field_tag 'confirm', "Destroy language '#{language}'?", :id => nil %>
+<% end %>
 	</td>
 <% end %>

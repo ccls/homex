@@ -6,10 +6,10 @@
 <%= guide.action -%>
 </td>
 <td class='manage'>
-<%= link_to "View", guide_path(guide) -%>&nbsp;
-<%= link_to "Edit", edit_guide_path(guide) -%>&nbsp;
-<%= link_to "Destroy", guide_path(guide), 
-	:confirm => "Delete '#{guide.controller}/#{guide.action}'?\nAre you sure?", 
-	:method => :delete -%>
+<%= button_link_to "View", guide_path(guide) -%>&nbsp;
+<%= button_link_to "Edit", edit_guide_path(guide) -%>&nbsp;
+<% destroy_link_to "Destroy", guide_path(guide) do %>
+<%= hidden_field_tag 'confirm', "Destroy guide '#{project}'?", :id => nil %>
+<% end %>
 </td>
 <% end %><!-- class='guide' -->
