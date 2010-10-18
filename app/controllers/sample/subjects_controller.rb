@@ -1,13 +1,9 @@
 class Sample::SubjectsController < ApplicationController
 
-	before_filter :may_create_subjects_required, 
-		:only => [:new,:create]
+	permissive
+
 	before_filter :may_read_subjects_required, 
 		:only => [:show,:index,:send_to_lab]
-	before_filter :may_update_subjects_required, 
-		:only => [:edit,:update]
-	before_filter :may_destroy_subjects_required,
-		:only => :destroy
 
 	before_filter :valid_id_for_hx_subject_required,
 		:only => [:show]
