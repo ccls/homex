@@ -6,7 +6,8 @@ module ResourcefulController
 		def resourceful(*args)
 			options = args.extract_options!
 			resource = options[:resource] || ActiveSupport::ModelName.new(
-				self.model_name.gsub(/Controller$/,'').singularize)
+				self.model_name.split('::').last.gsub(/Controller$/,'').singularize)
+#				self.model_name.gsub(/Controller$/,'').singularize)
 
 			permissive
 

@@ -6,7 +6,9 @@ module PermissiveController
 		def permissive(*args)
 			options = args.extract_options!
 			resource = options[:resource] || ActiveSupport::ModelName.new(
-				self.model_name.gsub(/Controller$/,'').singularize)
+				self.model_name.split('::').last.gsub(/Controller$/,'').singularize)
+
+#	remove NameSpace or create the may*required permission
 
 			before_filter "may_create_#{resource.plural}_required",
 				:only => [:new,:create]
