@@ -1,8 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-	map.resources :guides
-
-	map.resources :people
-
 #	It appears that the plugin routes are loaded after
 #	the app's (or they aren't overridable) as this 'root'
 #	is not the 'root'.  The 'root' from the engine is.
@@ -69,6 +65,13 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :projects
 	map.resources :races
 	map.resources :languages
+	map.resources :guides
+	map.resources :people
+	map.resources :gift_cards
+	map.resources :refusal_reasons
+	map.resources :ineligible_reasons
+	map.resources :document_versions
+
 
 	#	Create named routes for expected pages so can avoid
 	# needing to append the relative_url_root prefix manually.

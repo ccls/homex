@@ -10,6 +10,7 @@ namespace :app do
 			diagnoses
 			document_types
 			document_versions
+#			gift_cards
 			hospitals
 			ineligible_reasons
 			instrument_versions

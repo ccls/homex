@@ -14,4 +14,9 @@ class GiftCardTest < ActiveSupport::TestCase
 		:gift_card_type
 	)
 
+	test "should return gift_card_number as to_s" do
+		object = create_object
+		assert_equal object.gift_card_number, "#{object}"
+	end
+
 end

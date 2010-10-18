@@ -1,0 +1,7 @@
+<h4>GiftCard:</h4>
+<% form_for(@gift_card) do |f| %>
+	<%= f.error_messages %>
+	<%= f.wrapped_text_field :gift_card_type %>
+	<%= f.wrapped_text_field :gift_card_number %>
+	<p><%= f.submit( (@gift_card.new_record?)?'Create':'Update' ) %></p>
+<% end %>
