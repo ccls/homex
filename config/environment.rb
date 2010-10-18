@@ -81,6 +81,7 @@ YNDK = HashWithIndifferentAccess.new({
 #	a User is yet, which causes lots of ...
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
+require 'ccls_engine'	#	without this, rake has problems
 require 'user'
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't

@@ -60,3 +60,4 @@ require 'tasks/rails'
 #
 
 require 'lib/surveyor/survey_extensions'
+require 'ccls_engine/tasks'
