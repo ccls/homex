@@ -1,13 +1,6 @@
 class SamplesController < ApplicationController
 
-	before_filter :may_create_samples_required, 
-		:only => [:new,:create]
-	before_filter :may_read_samples_required, 
-		:only => [:show,:index]
-	before_filter :may_update_samples_required, 
-		:only => [:edit,:update]
-	before_filter :may_destroy_samples_required,
-		:only => :destroy
+	permissive
 
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]

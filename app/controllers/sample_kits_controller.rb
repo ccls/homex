@@ -1,13 +1,6 @@
 class SampleKitsController < ApplicationController
 
-	before_filter :may_create_sample_kits_required, 
-		:only => [:new,:create]
-	before_filter :may_read_sample_kits_required, 
-		:only => [:show,:index]
-	before_filter :may_update_sample_kits_required, 
-		:only => [:edit,:update]
-	before_filter :may_destroy_sample_kits_required,
-		:only => :destroy
+	permissive
 
 	before_filter :valid_sample_id_required,
 		:only => [ :index, :new, :create ]

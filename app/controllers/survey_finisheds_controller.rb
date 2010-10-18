@@ -4,16 +4,7 @@
 #	There are no views, just logic to control a redirect.
 class SurveyFinishedsController < ApplicationController
 
-#	skip_before_filter :login_required
-
-#	before_filter :may_create_subjects_required, 
-#		:only => [:new,:create]
-	before_filter :may_read_subjects_required		#, 
-#		:only => [:show,:index]
-#	before_filter :may_update_subjects_required, 
-#		:only => [:edit,:update]
-#	before_filter :may_destroy_subjects_required,
-#		:only => :destroy
+	before_filter :may_read_subjects_required
 
 	#	We are not using survey invitations or self-administration
 	#	so that code has been commented out.

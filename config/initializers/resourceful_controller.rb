@@ -8,14 +8,7 @@ module ResourcefulController
 			resource = options[:resource] || ActiveSupport::ModelName.new(
 				self.model_name.gsub(/Controller$/,'').singularize)
 
-		  before_filter "may_create_#{resource.plural}_required",
-		    :only => [:new,:create]
-		  before_filter "may_read_#{resource.plural}_required",
-		    :only => [:show,:index]
-		  before_filter "may_update_#{resource.plural}_required",
-		    :only => [:edit,:update]
-		  before_filter "may_destroy_#{resource.plural}_required",
-		    :only => :destroy
+			permissive
 
 			before_filter :valid_id_required, 
 				:only => [:show,:edit,:update,:destroy]
@@ -60,19 +53,19 @@ module ResourcefulController
 		protected
 
 			define_method :get_all do
-				self.instance_variable_set("@#{resource.plural}",
+				instance_variable_set("@#{resource.plural}",
 					resource.constantize.send(:all) )
 			end
 
 			define_method :get_new do
-				self.instance_variable_set("@#{resource.singular}",
+				instance_variable_set("@#{resource.singular}",
 					resource.constantize.send(:new) )
 			end
 
 			define_method :valid_id_required do
 				if( !params[:id].blank? && 
 						resource.constantize.send(:exists?,params[:id]) )
-					self.instance_variable_set("@#{resource.singular}",
+					instance_variable_set("@#{resource.singular}",
 						resource.constantize.send(:find,params[:id]) )
 				else
 					access_denied("Valid id required!",
@@ -80,9 +73,6 @@ module ResourcefulController
 				end
 			end
 		end
-#		alias_method :i_am_resourceful, :resourceful
-#		alias_method :i_am_resourceful_too, :resourceful
-#		alias_method :i_am_really_resourceful, :resourceful
 
 	end
 end

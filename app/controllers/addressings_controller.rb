@@ -1,13 +1,6 @@
 class AddressingsController < ApplicationController
 
-	before_filter :may_create_addressings_required, 
-		:only => [:new,:create]
-	before_filter :may_read_addressings_required, 
-		:only => [:show,:index]
-	before_filter :may_update_addressings_required, 
-		:only => [:edit,:update]
-	before_filter :may_destroy_addressings_required,
-		:only => :destroy
+	permissive
 
 	before_filter :valid_hx_subject_id_required,
 		:only => [:new,:create,:index]
