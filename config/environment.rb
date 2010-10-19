@@ -30,8 +30,14 @@ Rails::Initializer.run do |config|
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
+		config.gem 'activerecord-jdbcsqlite3-adapter',
+			:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter',
+			:version => '~>0.9'
+		#	1.0.1 is for rails 3 I think
 		config.gem 'activerecord-jdbcmysql-adapter',
-			:lib => 'active_record/connection_adapters/jdbcmysql_adapter'
+			:lib => 'active_record/connection_adapters/jdbcmysql_adapter',
+			:version => '~>0.9'
+		#	1.0.1 is for rails 3 I think
 
 		config.gem 'jdbc-mysql', :lib => 'jdbc/mysql'
 		#	Additional jruby specific jars required in the war
