@@ -1,9 +1,8 @@
 class SubjectsController < ApplicationController
 
-	permissive
+	resourceful :update_redirect => :update_redirect_path
 
-	before_filter :valid_id_for_hx_subject_required, 
-		:only => [:edit,:show,:update,:destroy]
+	skip_before_filter :get_all
 
 	def index
 		record_or_recall_sort_order
@@ -28,35 +27,10 @@ class SubjectsController < ApplicationController
 		@hx_enrollment = @subject.hx_enrollment || @subject.enrollments.new
 	end
 
-	def new
-		@subject = Subject.new
-	end
+protected
 
-	def create
-		@subject = Subject.new(params[:subject])
-		@subject.save!
-		flash[:notice] = 'Subject was successfully created.'
-		redirect_to(subject_path(@subject))
-	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-		flash.now[:error] = "There was a problem creating the subject"
-		render :action => "new"
-	end
-
-	def edit
-	end
-
-	def update
-		@subject.update_attributes!(params[:subject])
-		flash[:notice] = 'Subject was successfully updated.'
-		redirect_to(subject_path(@subject))
-	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
-		flash.now[:error] = "There was a problem updating the subject."
-		render :action => "edit"
-	end
-
-	def destroy
-		@subject.destroy
-		redirect_to(subjects_path)
+	def update_redirect_path
+		subject_path(@subject)
 	end
 
 end
