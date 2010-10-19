@@ -15,6 +15,12 @@
   * a manually triggered rollback in the Addressing model
   * the SubjectSearch model contains explicit MySQL code
 
+
+== Required Gem Sources
+
+ gem sources -a http://rubygems.org
+ gem sources -a http://gems.github.com
+
 == Required Gems
 
 * {RedCloth}[http://redcloth.org] - textile parser.
