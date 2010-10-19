@@ -1,6 +1,10 @@
 # Disable automatic framework detection by uncommenting/setting to false
 # Warbler.framework_detection = false
 
+#	I don't know exactly why, but without this
+#	a newer versions loads, but is incompatible.
+gem 'i18n', '=0.3.7'
+
 #	Due to the existance of rails 3, warbler won't find
 #	rails 2.3.10 unless a gem of that version is listed
 #	directly below this.  Without it, it will complain
@@ -10,7 +14,10 @@
 #		for the Rails version you do have installed, or comment out 
 #		RAILS_GEM_VERSION to use the latest version installed.
 gem 'activesupport', '=2.3.10'
-require 'active_support/core_ext'	#	note the name disparity
+
+#	for alias_method_chain
+require 'active_support'	#	note the name disparity
+#require 'active_support/core_ext'	#	note the name disparity
 
 module WarblerWar
 
