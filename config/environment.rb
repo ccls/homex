@@ -14,31 +14,9 @@ require File.join(File.dirname(__FILE__), 'boot')
 RAILS_APP_NAME = 'homex'
 
 Rails::Initializer.run do |config|
-#Gem.sources << 'http://gems.github.com'
-#Gem.configuration.write
-
-#	config.gem 'ryanb-acts-as-list', 
-#		:lib => 'acts_as_list', 
-#		:source => 'http://gems.github.com'
 
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
-#	removed :source as it impedes 'rake gems:install'
-#	for some reason.  I think that it forces rubygems
-#	to look for the dependencies at the same source
-#	which won't work.  May need to do something
-#	to ensure that the gem sources include rubygems.org
-#	and gems.github.com and any other expected.
-#		:lib    => 'ccls_engine',
-#		:source => 'http://rubygems.org'
-
-	#	rails 3 requires i18n gem which will load
-	#	a version incompatible with 2.3.8.
-	#	It will generate several of ...
-	#	The {{key}} interpolation syntax in I18n 
-	#	messages is deprecated. Please use %{key} instead.
-	#	This must be called early, or someone else will load a newer version.
-	config.gem "i18n", :version => '=0.3.7'
 
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
@@ -72,6 +50,7 @@ Rails::Initializer.run do |config|
 	end
 
 	config.gem 'haml'      # Needed for Surveyor
+	#	Keep chronic here
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
@@ -101,9 +80,9 @@ YNDK = HashWithIndifferentAccess.new({
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
 #	condition added to allow clean 'rake gems:install'
-if Gem.searcher.find('jakewendt-ccls_engine')
+if Gem.searcher.find('ccls_engine')
 require 'ccls_engine'	#	without this, rake has problems
-require 'user'
+require 'user' unless defined?(User)
 end
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
