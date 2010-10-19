@@ -60,4 +60,7 @@ require 'tasks/rails'
 #
 
 require 'lib/surveyor/survey_extensions'
-require 'ccls_engine/tasks'
+#	condition added to allow clean 'rake gems:install'
+if Gem.searcher.find('jakewendt-ccls_engine')
+	require 'ccls_engine/tasks'
+end
