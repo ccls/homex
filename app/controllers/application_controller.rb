@@ -77,7 +77,8 @@ protected	#	private #	(does it matter which or if neither?)
 	end
 
 	def get_guidance
-		return if [ "/users/menu.js" ].include?(request.env['REQUEST_PATH'])
+		return if params[:format] == 'js'	#	better
+#		return if [ "/users/menu.js" ].include?(request.env['REQUEST_PATH'])
 		require 'guide'
 		@guidance = Guide.find(:first, :conditions => {
 				:controller => self.class.name.underscore.sub(/_controller/,''),
