@@ -4,13 +4,13 @@ namespace :app do
 	task :update => :environment do
 #			guides
 #			pages
+#			gift_cards
 		fixtures = %w(
 			address_types
 			data_sources
 			diagnoses
 			document_types
 			document_versions
-#			gift_cards
 			hospitals
 			ineligible_reasons
 			instrument_versions
