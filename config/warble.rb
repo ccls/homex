@@ -86,10 +86,15 @@ Warbler::Config.new do |config|
 	# config.excludes = FileList["lib/tasks/*"]
 	config.excludes = FileList[*%w(
 		db/*sqlite3
-		**/versions/
-		versions/**/*
 		.DS_Store
+		**/versions/**/*
 	)]	#	be VERY specific here
+#
+#	This blocks app/views/document_versions/*
+#		versions/**/*
+#	This does too, but I don't understand why.
+#	Testing shows that it shouldn't.
+#		**/versions/
 
 	# Additional Java .jar files to include.	Note that if .jar files are placed
 	# in lib (and not otherwise excluded) then they need not be mentioned here.
