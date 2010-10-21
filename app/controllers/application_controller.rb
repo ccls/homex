@@ -5,10 +5,13 @@ class ApplicationController < ActionController::Base
 	# See ActionController::RequestForgeryProtection for details
 	protect_from_forgery 
 
-	#	from ucb_ccls_engine_controller.rb 
-	skip_before_filter :build_menu_js
-	def build_menu_js
-	end
+#	#	from ucb_ccls_engine_controller.rb 
+#
+#	Not needed anymore, I think
+#
+#	skip_before_filter :build_menu_js
+#	def build_menu_js
+#	end
 
 	before_filter :get_guidance
 
