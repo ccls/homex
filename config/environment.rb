@@ -18,6 +18,12 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
+	config.gem 'jakewendt-calnet_authenticated',
+		:lib    => 'calnet_authenticated'
+
+	config.gem 'jakewendt-authorized',
+		:lib    => 'authorized'
+
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't
@@ -81,10 +87,11 @@ YNDK = HashWithIndifferentAccess.new({
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
 #	condition added to allow clean 'rake gems:install'
-if Gem.searcher.find('ccls_engine')
-require 'ccls_engine'	#	without this, rake has problems
-require 'user' unless defined?(User)
-end
+#if Gem.searcher.find('ccls_engine')
+#require 'ccls_engine'	#	without this, rake has problems
+#require 'user' unless defined?(User)
+#require 'role' unless defined?(Role)
+#end
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
 #	work right, even in an after_initialize.
