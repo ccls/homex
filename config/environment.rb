@@ -18,11 +18,11 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
-	config.gem 'jakewendt-calnet_authenticated',
-		:lib    => 'calnet_authenticated'
-
-	config.gem 'jakewendt-authorized',
-		:lib    => 'authorized'
+#	config.gem 'jakewendt-calnet_authenticated',
+#		:lib    => 'calnet_authenticated'
+#
+#	config.gem 'jakewendt-authorized',
+#		:lib    => 'authorized'
 
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
@@ -89,7 +89,7 @@ YNDK = HashWithIndifferentAccess.new({
 #	condition added to allow clean 'rake gems:install'
 #if Gem.searcher.find('ccls_engine')
 #require 'ccls_engine'	#	without this, rake has problems
-#require 'user' unless defined?(User)
+require 'user' unless defined?(User)
 #require 'role' unless defined?(Role)
 #end
 #	Actually, this is probably only needed in development,
