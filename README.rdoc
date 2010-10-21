@@ -40,9 +40,11 @@
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {calnet_authentication}[http://github.com/jakewendt/calnet_authentication] - user authentication
-* {assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
-* {ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
+* {jakewendt-ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the common code used in several apps
+* {jakewendt-calnet_authenticated}[http://github.com/jakewendt/calnet_authenticated] - user authentication
+* {jakewendt-authorized}[http://github.com/jakewendt/authorized] - user authorization
+* {jakewendt-assert_this_and_that}[http://github.com/jakewendt/assert_this_and_that]
+* {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
 
 
@@ -54,7 +56,6 @@
 * {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
 * {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 * {Surveyor}[http://github.com/jakewendt/surveyor] - for the taking of surveys (using plugin instead of gem)
-* {ucb_ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the user authorization and other code used in several apps
 
 
 
