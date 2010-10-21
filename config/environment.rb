@@ -87,11 +87,11 @@ YNDK = HashWithIndifferentAccess.new({
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
 #	condition added to allow clean 'rake gems:install'
-#if Gem.searcher.find('ccls_engine')
-#require 'ccls_engine'	#	without this, rake has problems
+if Gem.searcher.find('ccls_engine')
+require 'ccls_engine'	#	without this, rake has problems
 require 'user' unless defined?(User)
 #require 'role' unless defined?(Role)
-#end
+end
 #	Actually, this is probably only needed in development,
 #	but putting it in environments/development.rb doesn't
 #	work right, even in an after_initialize.
