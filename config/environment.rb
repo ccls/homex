@@ -18,6 +18,9 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
+	config.gem 'jakewendt-simply_trackable',
+		:lib    => 'simply_trackable'
+
 #	config.gem 'jakewendt-calnet_authenticated',
 #		:lib    => 'calnet_authenticated'
 #
