@@ -62,6 +62,7 @@ Rails::Initializer.run do |config|
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
+	config.gem 'paperclip'	#	not using 'photos' or 'documents' so 
 
 	config.frameworks -= [ :active_resource ]
 
