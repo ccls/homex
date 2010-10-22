@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101014225820) do
+ActiveRecord::Schema.define(:version => 20101022222535) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -231,23 +231,6 @@ ActiveRecord::Schema.define(:version => 20101014225820) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "documents", :force => true do |t|
-    t.integer  "owner_id"
-    t.string   "title",                                    :null => false
-    t.text     "abstract"
-    t.boolean  "shared_with_all",       :default => false, :null => false
-    t.boolean  "shared_with_select",    :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "document_file_name"
-    t.string   "document_content_type"
-    t.integer  "document_file_size"
-    t.datetime "document_updated_at"
-  end
-
-  add_index "documents", ["document_file_name"], :name => "index_documents_on_document_file_name", :unique => true
-  add_index "documents", ["owner_id"], :name => "index_documents_on_owner_id"
 
   create_table "enrollments", :force => true do |t|
     t.integer  "position"
@@ -761,17 +744,6 @@ ActiveRecord::Schema.define(:version => 20101014225820) do
   end
 
   add_index "phone_types", ["code"], :name => "index_phone_types_on_code", :unique => true
-
-  create_table "photos", :force => true do |t|
-    t.string   "title",              :null => false
-    t.text     "caption"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-  end
 
   create_table "piis", :force => true do |t|
     t.integer  "subject_id"
