@@ -21,12 +21,6 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_trackable',
 		:lib    => 'simply_trackable'
 
-#	config.gem 'jakewendt-calnet_authenticated',
-#		:lib    => 'calnet_authenticated'
-#
-#	config.gem 'jakewendt-authorized',
-#		:lib    => 'authorized'
-
 	if RUBY_PLATFORM =~ /java/
 		#	For functionality with rvm/jruby
 		#	I expected to have to change database.yml for this but didn't

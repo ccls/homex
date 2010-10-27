@@ -1,7 +1,4 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
-
-gem 'i18n', '= 0.3.7'
+#gem 'i18n', '= 0.3.7'
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 #	Use the updated rdoc gem rather than version
@@ -36,8 +33,8 @@ class Rake::RDocTask
 				%w(	
 					README.rdoc
 					/usr/lib/ruby/user-gems/1.8/gems/surveyor-0.9.10/app/models/**
-					vendor/plugins/acts_as_trackable/lib/track.rb
 				).each{|f| rdoc.rdoc_files.include( f ) }
+#					vendor/plugins/acts_as_trackable/lib/track.rb
 #				rdoc.rdoc_files.include('README.rdoc')
 #				rdoc.rdoc_files.include(
 #					'vendor/plugins/acts_as_trackable/lib/track.rb')
@@ -50,17 +47,8 @@ end
 
 require 'tasks/rails'
 
-#	why?  Included by default
-#	As a plugin, this line will cause all tasks to be duplicated
-#	so DEFINITELY remove this line
-#require 'tasks/surveyor'
-#	It still tries to run it twice!!!! WTF
-#
-#	There were some lines in one of my rake files for getting 
-#	the tasks from the gem
-#
-
 require 'lib/surveyor/survey_extensions'
+
 #	condition added to allow clean 'rake gems:install'
 if Gem.searcher.find('ccls_engine')
 	require 'ccls_engine/tasks'
