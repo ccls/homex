@@ -3,7 +3,7 @@
 
 #	I don't know exactly why, but without this
 #	a newer versions loads, but is incompatible.
-gem 'i18n', '=0.3.7'
+#gem 'i18n', '=0.3.7'
 
 #	Due to the existance of rails 3, warbler won't find
 #	rails 2.3.10 unless a gem of that version is listed
@@ -167,7 +167,6 @@ Warbler::Config.new do |config|
 		rack-1.2.1
 		rack-mount-
 		rack-test-
-		i18n-0.4 
 		abstract-
 		arel-
 		bundler-
@@ -178,6 +177,7 @@ Warbler::Config.new do |config|
 		treetop-
 		tzinfo-
 	)
+#		i18n-0.4 
 
 	# You can also use regexps or Gem::Dependency objects for flexibility or
 	# fine-grained control.
