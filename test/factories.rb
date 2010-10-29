@@ -91,7 +91,7 @@ Factory.define :enrollment do |f|
 end
 
 Factory.define :gift_card do |f|
-	f.sequence(:gift_card_number){ |n| "#{n}" }
+	f.sequence(:number){ |n| "#{n}" }
 end
 
 Factory.define :guide do |f|
