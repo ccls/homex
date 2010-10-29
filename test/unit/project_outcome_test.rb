@@ -8,6 +8,7 @@ class ProjectOutcomeTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes(:code,:description)
 	assert_should_not_require_attributes(
 		:position, :project_id )
+	assert_should_have_many(:enrollments)
 
 
 	test "should return description as to_s" do

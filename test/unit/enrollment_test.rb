@@ -29,6 +29,7 @@ class EnrollmentTest < ActiveSupport::TestCase
 
 	assert_should_have_many(:operational_events)
 	assert_should_belong_to(
+		:project_outcome,
 		:ineligible_reason,
 		:refusal_reason,
 		:document_version)
