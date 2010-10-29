@@ -1,4 +1,3 @@
-#gem 'i18n', '= 0.3.7'
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 #	Use the updated rdoc gem rather than version
@@ -55,3 +54,11 @@ if Gem.searcher.find('ccls_engine')
 end
 #	From script/generate simply_pages ...
 require 'simply_pages/test_tasks'
+#	From `script/generate simply_authorized` ...
+require 'simply_authorized/test_tasks'
+#	From `script/generate simply_helpful` ...
+require 'simply_helpful/test_tasks'
+# From `script/generate ccls_engine` ...
+require 'ccls_engine/test_tasks'
+# From `script/generate calnet_authenticated` ...
+require 'calnet_authenticated/test_tasks'
