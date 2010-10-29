@@ -25,11 +25,13 @@ module HomeExposureResponseHelper
 			'question not found?'
 		else
 			a = q.answers.find_by_data_export_identifier(value)
-			if a.nil?
-				"answer not found with value #{value}"
-			else
-				a.text
-			end
+#			if a.nil?
+#				"answer not found with value #{value}"
+#			else
+#				a.text
+#			end
+#			(a.nil?) ? '&nbsp;' : a.text 
+			(a.nil?) ? '' : a.text 
 		end
 	end
 
