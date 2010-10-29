@@ -15,7 +15,6 @@ module HomeExposureResponseHelper
 		s << "</td></tr>"
 	end
 
-
 	def answer_text(method,value)
 		return '' if value.blank? or value == '&nbsp;'
 		require 'question'
