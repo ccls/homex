@@ -175,4 +175,57 @@ class SampleTest < ActiveSupport::TestCase
 		end
 	end
 
+	test "should create homex outcome with sample" do
+		assert_difference( 'Sample.count', 1 ) {
+		assert_difference( 'HomexOutcome.count', 1 ) {
+			object = create_object(
+				:subject => create_hx_subject() )
+		} }
+	end
+
+	test "should update homex outcome sample_outcome to sent" do
+		assert_difference( 'OperationalEvent.count', 1 ) {
+		assert_difference( 'Sample.count', 1 ) {
+		assert_difference( 'HomexOutcome.count', 1 ) {
+			object = create_object(
+				:subject => create_hx_subject(),
+				:sent_to_subject_on => Chronic.parse('yesterday') )
+			assert_equal SampleOutcome['sent'],
+				object.subject.homex_outcome.sample_outcome
+			assert_equal object.sent_to_subject_on,
+				object.subject.homex_outcome.sample_outcome_on
+		} } }
+	end
+
+	test "should update homex outcome sample_outcome to received" do
+		assert_difference( 'OperationalEvent.count', 1 ) {
+		assert_difference( 'Sample.count', 1 ) {
+		assert_difference( 'HomexOutcome.count', 1 ) {
+			object = create_object(
+				:subject => create_hx_subject(),
+				:sent_to_subject_on => Chronic.parse('2 days ago'),
+				:received_by_ccls_on => Chronic.parse('yesterday') )
+			assert_equal SampleOutcome['received'],
+				object.subject.homex_outcome.sample_outcome
+			assert_equal object.received_by_ccls_on,
+				object.subject.homex_outcome.sample_outcome_on
+		} } }
+	end
+
+	test "should update homex outcome sample_outcome to lab" do
+#		assert_difference( 'OperationalEvent.count', 1 ) {
+		assert_difference( 'Sample.count', 1 ) {
+		assert_difference( 'HomexOutcome.count', 1 ) {
+			object = create_object(
+				:subject => create_hx_subject(),
+				:sent_to_subject_on => Chronic.parse('3 days ago'),
+				:received_by_ccls_on => Chronic.parse('2 days ago'),
+				:sent_to_lab_on => Chronic.parse('yesterday') )
+			assert_equal SampleOutcome['lab'],
+				object.subject.homex_outcome.sample_outcome
+			assert_equal object.sent_to_lab_on,
+				object.subject.homex_outcome.sample_outcome_on
+		} } #}
+	end
+
 end

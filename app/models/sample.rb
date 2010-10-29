@@ -72,6 +72,8 @@ class Sample < ActiveRecord::Base
 		sample_package.try(:received_on)
 	end
 
+	before_save :update_sample_outcome
+
 protected
 
 	def tracking_numbers_are_different
@@ -100,6 +102,22 @@ protected
 			"must be after received_by_lab_on") if
 			( received_by_lab_on && aliquotted_on ) &&
 			( received_by_lab_on >  aliquotted_on )
+	end
+
+	def update_sample_outcome
+		if subject.hx_enrollment
+			ho = subject.homex_outcome || subject.create_homex_outcome
+			so,date = if sent_to_lab_on_changed? && !sent_to_lab_on.nil?
+				[SampleOutcome['lab'], sent_to_lab_on ]
+			elsif received_by_ccls_on_changed? && !received_by_ccls_on.nil?
+				[SampleOutcome['received'], received_by_ccls_on ]
+			elsif sent_to_subject_on_changed? && !sent_to_subject_on.nil?
+				[SampleOutcome['sent'], sent_to_subject_on ]
+			end
+			ho.update_attributes({
+				:sample_outcome => so,
+				:sample_outcome_on => date }) if so
+		end
 	end
 
 end
