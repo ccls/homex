@@ -79,17 +79,100 @@ class SampleTest < ActiveSupport::TestCase
 		pending
 	end
 
-#	what about?
-#	receipt_confirmed_on 
-	%w( sent_to_subject_on received_by_ccls_on sent_to_lab_on 
-			received_by_lab_on aliquotted_on ).each_cons(2) do |pair|
-
-		test "should require #{pair[0]} if #{pair[1]}" do
-pending
+	test "should require sent_to_subject_on if received_by_ccls_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:sent_to_subject_on => nil,
+				:received_by_ccls_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:sent_to_subject_on)
+			assert_match(/be blank/,
+				object.errors.on(:sent_to_subject_on) )
 		end
-
 	end
 
+	test "should require received_by_ccls_on be after sent_to_subject_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:sent_to_subject_on => Chronic.parse('tomorrow'),
+				:received_by_ccls_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:received_by_ccls_on)
+			assert_match(/after sent_to_subject_on/,
+				object.errors.on(:received_by_ccls_on) )
+		end
+	end
 
+	test "should require received_by_ccls_on if sent_to_lab_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:received_by_ccls_on => nil,
+				:sent_to_lab_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:received_by_ccls_on)
+			assert_match(/be blank/,
+				object.errors.on(:received_by_ccls_on) )
+		end
+	end
+
+	test "should require sent_to_lab_on be after received_by_ccls_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:received_by_ccls_on => Chronic.parse('tomorrow'),
+				:sent_to_lab_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:sent_to_lab_on)
+			assert_match(/after received_by_ccls_on/,
+				object.errors.on(:sent_to_lab_on) )
+		end
+	end
+
+	test "should require sent_to_lab_on if received_by_lab_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:sent_to_lab_on => nil,
+				:received_by_lab_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:sent_to_lab_on)
+			assert_match(/be blank/,
+				object.errors.on(:sent_to_lab_on) )
+		end
+	end
+
+	test "should require received_by_lab_on be after sent_to_lab_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:sent_to_lab_on => Chronic.parse('tomorrow'),
+				:received_by_lab_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:received_by_lab_on)
+			assert_match(/after sent_to_lab_on/,
+				object.errors.on(:received_by_lab_on) )
+		end
+	end
+
+	test "should require received_by_lab_on if aliquotted_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:received_by_lab_on => nil,
+				:aliquotted_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:received_by_lab_on)
+			assert_match(/be blank/,
+				object.errors.on(:received_by_lab_on) )
+		end
+	end
+
+	test "should require aliquotted_on be after received_by_lab_on" do
+		assert_difference( 'Sample.count', 0 ) do
+			object = create_object(
+				:received_by_lab_on => Chronic.parse('tomorrow'),
+				:aliquotted_on => Chronic.parse('yesterday')
+			)
+			assert object.errors.on(:aliquotted_on)
+			assert_match(/after received_by_lab_on/,
+				object.errors.on(:aliquotted_on) )
+		end
+	end
 
 end

@@ -14,6 +14,15 @@ class Sample < ActiveRecord::Base
 	validates_presence_of :sample_type_id, :sample_type
 	validates_presence_of :subject_id, :subject
 
+	validates_presence_of :sent_to_subject_on, 
+		:if => :received_by_ccls_on
+	validates_presence_of :received_by_ccls_on, 
+		:if => :sent_to_lab_on
+	validates_presence_of :sent_to_lab_on, 
+		:if => :received_by_lab_on
+	validates_presence_of :received_by_lab_on, 
+		:if => :aliquotted_on
+
 	validates_complete_date_for :sent_to_subject_on,
 		:received_by_ccls_on,
 		:sent_to_lab_on,
@@ -21,6 +30,9 @@ class Sample < ActiveRecord::Base
 		:aliquotted_on,
 		:receipt_confirmed_on,
 		:allow_nil => true
+
+	validate :tracking_numbers_are_different
+	validate :date_chronology
 
 	#	Returns the parent of this sample type
 	def sample_type_parent
@@ -60,12 +72,34 @@ class Sample < ActiveRecord::Base
 		sample_package.try(:received_on)
 	end
 
-	validate :tracking_numbers_are_different
+protected
 
 	def tracking_numbers_are_different
 		errors.add(:base, "Tracking numbers MUST be different.") if
 			( kit_tracking_number == sample_tracking_number ) &&
 			( !kit_tracking_number.blank? || !sample_tracking_number.blank? )
+	end
+
+	def date_chronology
+		errors.add(:received_by_ccls_on,
+			"must be after sent_to_subject_on") if
+			( sent_to_subject_on && received_by_ccls_on ) &&
+			( sent_to_subject_on >  received_by_ccls_on )
+
+		errors.add(:sent_to_lab_on,
+			"must be after received_by_ccls_on") if
+			( received_by_ccls_on && sent_to_lab_on ) &&
+			( received_by_ccls_on >  sent_to_lab_on )
+
+		errors.add(:received_by_lab_on,
+			"must be after sent_to_lab_on") if
+			( sent_to_lab_on && received_by_lab_on ) &&
+			( sent_to_lab_on >  received_by_lab_on )
+
+		errors.add(:aliquotted_on,
+			"must be after received_by_lab_on") if
+			( received_by_lab_on && aliquotted_on ) &&
+			( received_by_lab_on >  aliquotted_on )
 	end
 
 end
