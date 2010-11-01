@@ -18,21 +18,8 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_have_many(:outgoing_transfers, 
 		:class_name => 'Transfer',
 		:foreign_key => :from_organization_id)
+	assert_should_require_attribute_length(:code, :name, :minimum => 4)
 
-
-	test "should require 4 char code" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			organization = create_organization(:code => 'Hey')
-			assert organization.errors.on(:code)
-		end
-	end
-
-	test "should require 4 char name" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			organization = create_organization(:name => 'Hey')
-			assert organization.errors.on(:name)
-		end
-	end
 
 	test "new incoming_transfer should have matching organization id" do
 		organization = create_organization

@@ -7,22 +7,14 @@ class InterviewMethodTest < ActiveSupport::TestCase
 	assert_should_have_many(:interviews,:instruments)
 	assert_should_require_attributes(:code,:description)
 	assert_should_require_unique_attributes(:code,:description)
+	assert_should_require_attribute_length(:description, :minimum => 4)
 	assert_should_not_require_attributes(:position)
 
-
-	test "should require 4 char description" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(
-				:description => 'Hey')
-			assert object.errors.on(:description)
-		end
-	end
 
 	test "should return description as to_s" do
 		object = create_object
 		assert_equal object.description, "#{object}"
 	end
-
 
 	test "should find by code with ['string']" do
 		object = InterviewMethod['other']

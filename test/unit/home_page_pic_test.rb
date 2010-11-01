@@ -6,13 +6,7 @@ class HomePagePicTest < ActiveSupport::TestCase
 	assert_should_require_attributes(:title)
 	assert_should_not_require_attributes(
 		:caption, :active )
-
-	test "should require 4 char title" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(:title => 'Hey')
-			assert object.errors.on(:title)
-		end
-	end
+	assert_should_require_attribute_length(:title, :minimum => 4)
 
 	test "should return random HPP" do
 		active   = Factory(:home_page_pic, :active => true, 

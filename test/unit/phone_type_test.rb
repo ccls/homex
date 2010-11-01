@@ -9,14 +9,8 @@ class PhoneTypeTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes(:code)
 	assert_should_not_require_attributes(
 		:position, :description )
+	assert_should_require_attribute_length(:code, :minimum => 4)
 
-
-	test "should require 4 char code" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(:code => 'Hey')
-			assert object.errors.on(:code)
-		end
-	end
 
 	test "should return code as to_s" do
 		object = create_object

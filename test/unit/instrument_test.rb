@@ -11,6 +11,7 @@ class InstrumentTest < ActiveSupport::TestCase
 	assert_should_require_attributes(:code,:name,
 		:project_id,
 		:description)
+	assert_should_require_attribute_length(:description, :minimum => 4)
 	assert_should_require_unique_attributes(:code,:description)
 	assert_should_not_require_attributes(
 		:position,
@@ -20,13 +21,6 @@ class InstrumentTest < ActiveSupport::TestCase
 		:ended_use_on )
 
 	assert_requires_complete_date(:began_use_on,:ended_use_on)
-
-	test "should require 4 char description" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(:description => 'Hey')
-			assert object.errors.on(:description)
-		end
-	end
 
 	#	unfortunately name is NOT unique so should change this
 	test "should return name as to_s" do
