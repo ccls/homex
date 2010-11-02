@@ -6,12 +6,13 @@ class OperationalEventTest < ActiveSupport::TestCase
 	assert_should_belong_to(:enrollment)
 	assert_should_initially_belong_to(:operational_event_type)
 	assert_requires_valid_associations(:operational_event_type)
-	assert_should_not_require_attributes(
-		:occurred_on,
-		:enrollment_id,
-		:description )
+	assert_should_not_require_attributes( :occurred_on )
+	assert_should_not_require_attributes( :enrollment_id )
+	assert_should_not_require_attributes( :description )
 
 	assert_requires_complete_date(:occurred_on)
+
+	assert_should_require_attribute_length( :description, :maximum => 250 )
 
 	#	description is not required so ...
 	test "should return description as to_s if not nil" do

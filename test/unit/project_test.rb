@@ -15,6 +15,9 @@ class ProjectTest < ActiveSupport::TestCase
 		:eligibility_criteria )
 	assert_should_habtm(:samples)
 	assert_should_act_as_list
+	assert_should_require_attribute_length(
+		:code, :description,
+		:maximum => 250 )
 
 	assert_requires_complete_date( :began_on, :ended_on )
 	assert_should_require_attribute_length(:description, :minimum => 4)

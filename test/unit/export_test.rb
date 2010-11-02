@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ExportTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_require_attributes(:patid,:childid)
-	assert_should_require_unique_attributes(:patid,:childid)
+	assert_should_require_attributes(:patid)
+	assert_should_require_attributes(:childid)
+	assert_should_require_unique_attributes(:patid)
+	assert_should_require_unique_attributes(:childid)
 	assert_should_not_require_attributes(
 		:first_name,
 		:middle_name,
@@ -23,5 +25,10 @@ class ExportTest < ActiveSupport::TestCase
 		:is_eligible,
 		:is_chosen,
 		:reference_date )
+	assert_should_require_attribute_length(
+		:first_name, :middle_name, :last_name, :type, :orderno, :mother_first_name, 
+		:mother_middle_name, :mother_last_name, :father_first_name, 
+		:father_middle_name, :father_last_name, :hospital_code,
+		:maximum => 250 )
 
 end

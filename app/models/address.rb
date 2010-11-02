@@ -13,6 +13,8 @@ class Address < ActiveRecord::Base
 	validate :address_type_matches_line
 
 	validates_presence_of :line_1, :city, :state, :zip
+	validates_length_of :line_1, :line_2, :city, :state,
+		:maximum => 250, :allow_blank => true
 
 	validates_format_of :zip,
 		:with => /\A\s*\d{5}(-\d{4})?\s*\z/,

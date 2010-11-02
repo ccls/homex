@@ -11,6 +11,9 @@ class RefusalReason < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
+	validates_length_of :code, :description,
+		:maximum => 250, :allow_blank => true
+
 	#	Returns description
 	def to_s
 		description

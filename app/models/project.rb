@@ -21,6 +21,9 @@ class Project < ActiveRecord::Base
 	validates_complete_date_for :began_on, :ended_on,
 		:allow_nil => true
 
+	validates_length_of :code, :description,
+		:maximum => 250, :allow_blank => true
+
 	#	Returns all projects for which the subject
 	#	does not have an enrollment
 	def self.unenrolled_projects(subject)

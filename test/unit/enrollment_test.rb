@@ -3,40 +3,45 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnrollmentTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_require_unique_attribute(:project_id, 
-		:scope => :subject_id)
-	assert_should_not_require_attributes(
-		:position,
-		:recruitment_priority,
-		:able_to_locate,
-		:is_candidate,
-		:is_eligible,
-		:ineligible_reason_id,
-		:ineligible_reason_specify,
-		:refusal_reason_id,
-		:other_refusal_reason,
-		:is_chosen,
-		:reason_not_chosen,
-		:terminated_participation,
-		:terminated_reason,
-		:is_complete,
-		:completed_on,
-		:is_closed,
-		:reason_closed,
-		:notes,
-		:document_version_id       
-	)
+	assert_should_require_unique_attribute(:project_id, :scope => :subject_id)
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :recruitment_priority )
+	assert_should_not_require_attributes( :able_to_locate )
+	assert_should_not_require_attributes( :is_candidate )
+	assert_should_not_require_attributes( :is_eligible )
+	assert_should_not_require_attributes( :ineligible_reason_id )
+	assert_should_not_require_attributes( :ineligible_reason_specify )
+	assert_should_not_require_attributes( :refusal_reason_id )
+	assert_should_not_require_attributes( :other_refusal_reason )
+	assert_should_not_require_attributes( :is_chosen )
+	assert_should_not_require_attributes( :reason_not_chosen )
+	assert_should_not_require_attributes( :terminated_participation )
+	assert_should_not_require_attributes( :terminated_reason )
+	assert_should_not_require_attributes( :is_complete )
+	assert_should_not_require_attributes( :completed_on )
+	assert_should_not_require_attributes( :is_closed )
+	assert_should_not_require_attributes( :reason_closed )
+	assert_should_not_require_attributes( :notes )
+	assert_should_not_require_attributes( :document_version_id )
+	assert_should_require_attribute_length( :recruitment_priority,      :maximum => 250 )
+	assert_should_require_attribute_length( :ineligible_reason_specify, :maximum => 250 )
+	assert_should_require_attribute_length( :other_refusal_reason,      :maximum => 250 )
+	assert_should_require_attribute_length( :reason_not_chosen,         :maximum => 250 )
+	assert_should_require_attribute_length( :terminated_reason,         :maximum => 250 )
+	assert_should_require_attribute_length( :reason_closed,             :maximum => 250 )
 
 	assert_should_have_many(:operational_events)
-	assert_should_belong_to(
-		:project_outcome,
-		:ineligible_reason,
-		:refusal_reason,
-		:document_version)
-	assert_should_initially_belong_to(:project,:subject)
-	assert_requires_valid_associations(:project,:subject)
+	assert_should_belong_to( :project_outcome )
+	assert_should_belong_to( :ineligible_reason )
+	assert_should_belong_to( :refusal_reason )
+	assert_should_belong_to( :document_version )
+	assert_should_initially_belong_to(:subject)
+	assert_should_initially_belong_to(:project)
+	assert_requires_valid_associations(:subject)
+	assert_requires_valid_associations(:project)
 
-	assert_requires_complete_date(:consented_on,:completed_on)
+	assert_requires_complete_date(:completed_on)
+	assert_requires_complete_date(:consented_on)
 
 	test "should require consented_on be in the past" do
 		assert_difference( "#{model_name}.count", 0 ) do

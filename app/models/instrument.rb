@@ -15,6 +15,8 @@ class Instrument < ActiveRecord::Base
 
 	validates_complete_date_for :began_use_on, :ended_use_on,
 		:allow_nil => true
+	validates_length_of :code, :name, :description,
+		:maximum => 250, :allow_blank => true
 
 	#	Return name
 	def to_s

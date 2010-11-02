@@ -13,6 +13,9 @@ class Transfer < ActiveRecord::Base
 		:to_organization_id, :to_organization, 
 		:from_organization_id, :from_organization
 
+	validates_length_of :reason, 
+		:maximum => 250, :allow_blank => true
+
 	before_save :update_aliquot_owner
 
 	#	Associate the given transfer "to" an #Organization

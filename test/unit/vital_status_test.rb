@@ -10,6 +10,8 @@ class VitalStatusTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes(:position)
 	assert_should_require_attribute_length(:description, :minimum => 4)
 
+	assert_should_require_attribute_length(
+		:description, :maximum => 250 )
 
 	test "should return description as to_s" do
 		object = create_object

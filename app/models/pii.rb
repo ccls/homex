@@ -23,6 +23,12 @@ class Pii < ActiveRecord::Base
 	validates_complete_date_for :dob, :died_on,
 		:allow_nil => true
 
+	validates_length_of :state_id_no,
+		:first_name, :middle_name, :last_name,
+		:father_first_name, :father_middle_name, :father_last_name,
+		:mother_first_name, :mother_middle_name, :mother_maiden_name, :mother_last_name,
+		:maximum => 250, :allow_blank => true
+
 	#	Returns string containing subject's first, middle and last name
 	def full_name
 		[first_name, middle_name, last_name].join(' ')

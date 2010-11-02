@@ -23,6 +23,10 @@ class Identifier < ActiveRecord::Base
 	validates_presence_of   :subjectid
 	validates_uniqueness_of :subjectid
 
+	validates_length_of :case_control_type, :lab_no, 
+		:related_childid, :related_case_childid, :ssn,
+		:maximum => 250, :allow_blank => true
+
 	before_validation :pad_zeros_to_subjectid
 	before_validation :format_ssn
 

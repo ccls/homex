@@ -4,9 +4,9 @@ class HomePagePicTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_require_attributes(:title)
-	assert_should_not_require_attributes(
-		:caption, :active )
-	assert_should_require_attribute_length(:title, :minimum => 4)
+	assert_should_not_require_attributes( :caption )
+	assert_should_not_require_attributes( :active )
+	assert_should_require_attribute_length(:title, :minimum => 4, :maximum => 250 )
 
 	test "should return random HPP" do
 		active   = Factory(:home_page_pic, :active => true, 

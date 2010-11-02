@@ -12,6 +12,8 @@ class SubjectType < ActiveRecord::Base
 #	validates_length_of     :description, :is => 1
 	validates_uniqueness_of :description
 #	validates_format_of     :description, :with => /\w/
+	validates_length_of :code, :description,
+		:maximum => 250
 
 	#	Returns description
 	def to_s

@@ -23,5 +23,7 @@ class TransferTest < ActiveSupport::TestCase
 		:amount,
 		:reason,
 		:is_permanent )
+	assert_should_require_attribute_length(
+		:reason, :maximum => 250 )
 
 end

@@ -76,6 +76,10 @@ class Enrollment < ActiveRecord::Base
 	validates_complete_date_for :consented_on, :completed_on,
 		:allow_nil => true
 
+	validates_length_of :recruitment_priority, :ineligible_reason_specify, 
+		:other_refusal_reason, :reason_not_chosen, :terminated_reason, :reason_closed,
+		:maximum => 250, :allow_blank => true
+
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?
 

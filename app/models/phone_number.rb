@@ -13,6 +13,9 @@ class PhoneNumber < ActiveRecord::Base
 	validates_presence_of :how_verified,
 		:if => :is_verified?
 
+	validates_length_of :why_invalid, :how_verified,
+		:maximum => 250, :allow_blank => true
+
 	before_save :format_phone_number
 
 	before_save :set_verifier, 

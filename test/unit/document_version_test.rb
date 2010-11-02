@@ -9,8 +9,13 @@ class DocumentVersionTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:document_type)
 	assert_requires_valid_association(:document_type)
 	assert_should_require_attributes(:document_type_id)
-	assert_should_not_require_attributes(
-		:position, :title, :description, :indicator)
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :title )
+	assert_should_not_require_attributes( :description )
+	assert_should_not_require_attributes( :indicator)
+	assert_should_require_attribute_length( :title,       :maximum => 250 )
+	assert_should_require_attribute_length( :description, :maximum => 250 )
+	assert_should_require_attribute_length( :indicator,   :maximum => 250 )
 
 	test "should only return document type id == 1 for type1" do
 		objects = DocumentVersion.type1

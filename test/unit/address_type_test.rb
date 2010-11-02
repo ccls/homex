@@ -4,9 +4,11 @@ class AddressTypeTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_require_attributes(:code)
-	assert_should_require_attribute_length(:code, :minimum => 4)
 	assert_should_require_unique_attributes(:code)
-	assert_should_not_require_attributes(:position,:description)
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :description )
+	assert_should_require_attribute_length( :code, :minimum => 4, :maximum => 250 )
+	assert_should_require_attribute_length( :description, :maximum => 250 )
 	assert_should_act_as_list
 	assert_should_have_many(:addresses)
 

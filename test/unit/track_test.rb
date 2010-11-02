@@ -13,6 +13,9 @@ class TrackTest < ActiveSupport::TestCase
 		:city,
 		:state,
 		:zip )
+#	assert_should_require_attribute_length(
+#		:name, :location, :city, :state, :zip,
+#		:maximum => 250 )
 
 
 	test "should require trackable_type" do

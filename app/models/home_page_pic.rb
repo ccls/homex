@@ -1,7 +1,7 @@
 # A picture used soley on the home page
 class HomePagePic < ActiveRecord::Base
 	validates_presence_of :title
-	validates_length_of :title, :minimum => 4
+	validates_length_of :title, :in => 4..250
 
 	has_attached_file :image,
 		YAML::load(ERB.new(IO.read(File.expand_path(

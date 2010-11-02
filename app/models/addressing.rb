@@ -5,6 +5,8 @@ class Addressing < ActiveRecord::Base
 
 	validates_presence_of :address, :on => :update
 	validates_presence_of :subject_id, :subject
+	validates_length_of :why_invalid, :how_verified,
+		:maximum => 250, :allow_blank => true
 
 	accepts_nested_attributes_for :address
 

@@ -25,6 +25,9 @@ class Interview < ActiveRecord::Base
 
 	validates_complete_date_for :began_on, :ended_on,
 		:allow_nil => true
+	validates_length_of :subject_relationship_other, 
+		:respondent_first_name, :respondent_last_name,
+		:maximum => 250, :allow_blank => true
 
 	validates_presence_of :subject_relationship_other,
 		:if => :subject_relationship_is_other?

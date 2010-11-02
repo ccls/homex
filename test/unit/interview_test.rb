@@ -4,9 +4,12 @@ class InterviewTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_initially_belong_to(:identifier)
-	assert_should_belong_to(:address,:instrument_version,
-		:interview_method,:language,:subject_relationship)
-	assert_should_belong_to(:interviewer, :class_name => 'Person')
+	assert_should_belong_to( :address )
+	assert_should_belong_to( :instrument_version )
+	assert_should_belong_to( :interview_method )
+	assert_should_belong_to( :language )
+	assert_should_belong_to( :subject_relationship )
+	assert_should_belong_to( :interviewer, :class_name => 'Person')
 
 	assert_should_not_require_attributes(
 		:address_id,
@@ -16,8 +19,12 @@ class InterviewTest < ActiveSupport::TestCase
 		:interview_method_id,
 		:identifier_id
 	)
+	assert_should_require_attribute_length( :subject_relationship_other, :maximum => 250 )
+	assert_should_require_attribute_length( :respondent_first_name,      :maximum => 250 )
+	assert_should_require_attribute_length( :respondent_last_name,       :maximum => 250 )
 
-	assert_requires_complete_date(:began_on,:ended_on)
+	assert_requires_complete_date( :began_on )
+	assert_requires_complete_date( :ended_on )
 
 	test "should NOT require valid address_id" do
 		assert_difference( "#{model_name}.count", 1 ) do

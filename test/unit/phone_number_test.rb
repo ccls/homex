@@ -4,7 +4,8 @@ class PhoneNumberTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_act_as_list( :scope => :subject_id )
-	assert_should_initially_belong_to( :subject, :phone_type )
+	assert_should_initially_belong_to( :subject )
+	assert_should_initially_belong_to( :phone_type )
 	assert_should_require_attribute(:phone_number)
 	assert_should_not_require_attributes(
 		:position,
@@ -18,6 +19,8 @@ class PhoneNumberTest < ActiveSupport::TestCase
 		:how_verified,
 		:verified_on,
 		:verified_by_id )
+	assert_should_require_attribute_length( :how_verified, :maximum => 250 )
+	assert_should_require_attribute_length( :why_invalid,  :maximum => 250 )
 
 
 	test "should require properly formated phone number" do

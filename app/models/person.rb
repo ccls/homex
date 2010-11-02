@@ -9,6 +9,8 @@ class Person < ActiveRecord::Base
 	has_many :organizations
 
 	validates_presence_of :last_name
+	validates_length_of :first_name, :last_name, :honorific,
+		:maximum => 250, :allow_blank => true
 
 	#	Returns string containing first and last name
 	def full_name

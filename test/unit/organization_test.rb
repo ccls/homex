@@ -4,12 +4,15 @@ class OrganizationTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
 	assert_should_act_as_list
-	assert_should_require_attributes(:code,:name)
-	assert_should_require_unique_attributes(:code,:name)
-	assert_should_not_require_attributes(
-		:position, :person_id )
-	assert_should_belong_to(:person)
-	assert_should_have_many(:hospitals,:patients)
+	assert_should_require_attributes( :code )
+	assert_should_require_attributes( :name )
+	assert_should_require_unique_attributes( :code )
+	assert_should_require_unique_attributes( :name )
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :person_id )
+	assert_should_belong_to( :person )
+	assert_should_have_many( :hospitals )
+	assert_should_have_many( :patients )
 	assert_should_have_many(:aliquots, 
 		:foreign_key => :owner_id)
 	assert_should_have_many(:incoming_transfers, 
@@ -18,8 +21,8 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_have_many(:outgoing_transfers, 
 		:class_name => 'Transfer',
 		:foreign_key => :from_organization_id)
-	assert_should_require_attribute_length(:code, :name, :minimum => 4)
-
+	assert_should_require_attribute_length( :code, :minimum => 4, :maximum => 250 )
+	assert_should_require_attribute_length( :name, :minimum => 4, :maximum => 250 )
 
 	test "new incoming_transfer should have matching organization id" do
 		organization = create_organization

@@ -3,14 +3,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AliquotTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_not_require_attributes(
-		:position, :aliquot_sample_format_id, :location,
-		:mass, :external_aliquot_id, :external_aliquot_id_source)
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :aliquot_sample_format_id )
+	assert_should_not_require_attributes( :location )
+	assert_should_not_require_attributes( :mass )
+	assert_should_not_require_attributes( :external_aliquot_id )
+	assert_should_not_require_attributes( :external_aliquot_id_source )
+	assert_should_require_attribute_length( :location, :maximum => 250 )
+	assert_should_require_attribute_length( :mass,     :maximum => 250 )
 	assert_should_have_many(:transfers)
-	assert_requires_valid_associations(:sample,:unit)
+	assert_requires_valid_associations(:sample)
+	assert_requires_valid_associations(:unit)
 	assert_requires_valid_associations(:organization, :as => :owner)
 	assert_should_belong_to(:aliquot_sample_format)
-	assert_should_initially_belong_to(:sample,:unit)
+	assert_should_initially_belong_to(:sample)
+	assert_should_initially_belong_to(:unit)
 	assert_should_initially_belong_to(:owner,:class_name => 'Organization')
 
 

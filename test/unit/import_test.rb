@@ -28,5 +28,12 @@ class ImportTest < ActiveSupport::TestCase
 		:respondent_city,
 		:respondent_state,
 		:respondent_zip )
+	assert_should_require_attribute_length(
+		:first_name, :middle_name, :last_name, :sex, :language_code, :race, 
+		:primary_phone_number, :alternate_phone_number, :respondent_type, 
+		:respondent_first_name, :respondent_middle_name, :respondent_last_name, 
+		:respondent_address_line_1, :respondent_address_line_2, 
+		:respondent_city, :respondent_state, :respondent_zip,
+		:maximum => 250 )
 
 end

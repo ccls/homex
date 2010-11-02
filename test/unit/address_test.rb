@@ -3,11 +3,17 @@ require File.dirname(__FILE__) + '/../test_helper'
 class AddressTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_require_attributes(
-		:line_1, :city, :state, :zip)
-	assert_should_not_require_attributes(
-		:line_2, :data_source_id, :external_address_id)
-
+	assert_should_require_attributes( :line_1 )
+	assert_should_require_attributes( :city )
+	assert_should_require_attributes( :state )
+	assert_should_require_attributes( :zip )
+	assert_should_not_require_attributes( :line_2 )
+	assert_should_not_require_attributes( :data_source_id )
+	assert_should_not_require_attributes( :external_address_id )
+	assert_should_require_attribute_length( :line_1, :maximum => 250 )
+	assert_should_require_attribute_length( :line_2, :maximum => 250 )
+	assert_should_require_attribute_length( :city,   :maximum => 250 )
+	assert_should_require_attribute_length( :state,  :maximum => 250 )
 	assert_requires_valid_associations(:address_type)
 	assert_should_have_one(:addressing)
 	assert_should_have_many(:interviews)

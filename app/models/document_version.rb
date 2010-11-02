@@ -6,6 +6,8 @@ class DocumentVersion < ActiveRecord::Base
 
 	validates_presence_of :document_type_id,
 		:document_type
+	validates_length_of :title, :description, :indicator,
+		:maximum => 250, :allow_blank => true
 
 	#	Return title
 	def to_s

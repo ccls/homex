@@ -9,7 +9,9 @@ class RaceTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes(:code,:description)
 	assert_should_not_require_attributes(:position)
 	assert_should_require_attribute_length(:description, :minimum => 4)
-
+	assert_should_require_attribute_length(
+		:code, :description,
+		:maximum => 250 )
 
 	test "should return name as to_s" do
 		object = create_object

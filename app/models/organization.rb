@@ -17,10 +17,9 @@ class Organization < ActiveRecord::Base
 	has_many :hospitals
 	has_many :patients
 
-	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
-	validates_length_of     :name, :minimum => 4
 	validates_uniqueness_of :name
+	validates_length_of :code, :name, :in => 4..250
 
 	#	Returns name
 	def to_s

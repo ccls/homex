@@ -12,6 +12,9 @@ class Package < ActiveRecord::Base
 	include ActiveMerchant::Shipping
 	acts_as_trackable
 
+	validates_length_of :status, :tracking_number, :latest_event,
+		:maximum => 250, :allow_blank => true
+
 	@@fedex = FedEx.new(YAML::load(ERB.new(
 		IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])
 	cattr_accessor :fedex

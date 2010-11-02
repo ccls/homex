@@ -13,7 +13,9 @@ class PersonTest < ActiveSupport::TestCase
 	assert_should_have_many(:organizations)
 	assert_should_have_many(:interviews,
 		:foreign_key => :interviewer_id )
-
+	assert_should_require_attribute_length( :first_name, :maximum => 250 )
+	assert_should_require_attribute_length( :last_name,  :maximum => 250 )
+	assert_should_require_attribute_length( :honorific,  :maximum => 250 )
 
 	test "should return full_name as to_s" do
 		object = create_object

@@ -27,6 +27,10 @@ class IdentifierTest < ActiveSupport::TestCase
 		:lab_no,
 		:related_childid,
 		:related_case_childid )
+	assert_should_require_attribute_length( :case_control_type,    :maximum => 250 )
+	assert_should_require_attribute_length( :lab_no,               :maximum => 250 )
+	assert_should_require_attribute_length( :related_childid,      :maximum => 250 )
+	assert_should_require_attribute_length( :related_case_childid, :maximum => 250 )
 
 
 #	assert_should_protect_attributes(:subjectid)

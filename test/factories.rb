@@ -279,9 +279,11 @@ Factory.define :state do |f|
 #	fips_state_code is actually 2 chars so could add something
 #	36 squared is pretty big so  ....
 	f.sequence(:fips_state_code){|n|
-		n += 56	#	56 appears to be the highest code used
-		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n/36] <<
-		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
+#		n += 56	#	56 appears to be the highest code used
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n/26] <<
+		'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%26] }
+#		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n/36] <<
+#		'0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')[n%36] }
 	f.fips_country_code 'US'
 end
 

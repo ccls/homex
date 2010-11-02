@@ -8,6 +8,8 @@ class SubjectRelationship < ActiveRecord::Base
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
+	validates_length_of :code, :description,
+		:maximum => 250
 
 	#	Returns description
 	def to_s
