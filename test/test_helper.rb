@@ -15,38 +15,6 @@ class ActiveSupport::TestCase
 	self.use_instantiated_fixtures  = false
 	fixtures :all
 
-	def model_name
-		self.class.name.sub(/Test$/,'')
-	end
-
-	def method_missing(symb,*args, &block)
-		method = symb.to_s
-#		if method =~ /^create_(.+)(\!?)$/
-		if method =~ /^create_([^!]+)(!?)$/
-			factory = if( $1 == 'object' )
-#	doesn't work for controllers yet.  Need to consider
-#	singular and plural as well as "tests" method.
-#	Probably should just use the explicit factory
-#	name in the controller tests.
-#				self.class.name.sub(/Test$/,'').underscore
-				model_name.underscore
-			else
-				$1
-			end
-			bang = $2
-			options = args.extract_options!
-			if bang.blank?
-				record = Factory.build(factory,options)
-				record.save
-				record
-			else
-				Factory(factory,options)
-			end
-		else
-			super(symb,*args, &block)
-		end
-	end
-
 	include FactoryTestHelper
 
 	def assert_subject_is_eligible(subject)
