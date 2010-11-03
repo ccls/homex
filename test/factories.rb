@@ -317,11 +317,11 @@ Factory.define :survey_invitation do |f|
 end
 
 
-Factory.define :track do |f|
-	f.association :trackable, :factory => :package
-	f.name "Name"
-	f.time Time.now
-end
+#Factory.define :track do |f|
+#	f.association :trackable, :factory => :package
+#	f.name "Name"
+#	f.time Time.now
+#end
 
 Factory.define :transfer do |f|
 	f.association :from_organization, :factory => :organization
