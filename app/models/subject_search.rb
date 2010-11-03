@@ -27,7 +27,8 @@ class SubjectSearch < Search
 	end
 
 	def valid_orders
-		%w( id childid last_name first_name dob studyid priority )
+		%w( id childid last_name first_name dob studyid priority sample_outcome
+			interview_outcome_on sample_sent_on sample_received_on )
 	end
 
 private	#	THIS IS REQUIRED
@@ -49,6 +50,10 @@ private	#	THIS IS REQUIRED
 				when 'dob'        then 'piis.dob'
 				when 'studyid'    then 'identifiers.patid'
 				when 'priority'   then 'recruitment_priority'
+				when 'sample_outcome'       then 'homex_outcomes.sample_outcome_id'
+				when 'interview_outcome_on' then 'homex_outcomes.interview_outcome_on'
+#				when 'sample_sent_on'       then 'recruitment_priority'
+#				when 'sample_received_on'   then 'recruitment_priority'
 				else @order
 			end
 			dir = case @dir.try(:downcase)
@@ -110,8 +115,9 @@ private	#	THIS IS REQUIRED
 	#	How?  Added a sort to joins and an "a_" to this
 	def a_homex_outcome_joins
 		"LEFT JOIN homex_outcomes ON homex_outcomes.subject_id " <<
-			"= subjects.id" unless 
-				sample_outcome.blank? && interview_outcome.blank?
+			"= subjects.id" if( !sample_outcome.blank? ||
+				!interview_outcome.blank? ||
+				[ 'sample_outcome','interview_outcome_on'].include?(@order) )
 	end
 
 	def sample_outcome_joins

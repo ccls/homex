@@ -464,98 +464,27 @@ pending
 		assert_equal [s3,s2,s1], subjects
 	end
 
-	test "should order by childid asc by default" do
-		s1,s2,s3 = three_subjects_with_childid
-		subjects = Subject.search(:order => 'childid')
-		assert_equal [s2,s3,s1], subjects
-	end
+#			sample_sent_on sample_received_on 
+	%w( childid studyid dob first_name last_name 
+			sample_outcome interview_outcome_on 
+			).each do |column|
+		test "should order by #{column} asc by default" do
+			s1,s2,s3 = send("three_subjects_with_#{column}")
+			subjects = Subject.search(:order => column)
+			assert_equal [s2,s3,s1], subjects
+		end
 
-	test "should order by childid asc" do
-		s1,s2,s3 = three_subjects_with_childid
-		subjects = Subject.search(:order => 'childid', :dir => 'asc')
-		assert_equal [s2,s3,s1], subjects
-	end
+		test "should order by #{column} asc" do
+			s1,s2,s3 = send("three_subjects_with_#{column}")
+			subjects = Subject.search(:order => column, :dir => 'asc')
+			assert_equal [s2,s3,s1], subjects
+		end
 
-	test "should order by childid desc" do
-		s1,s2,s3 = three_subjects_with_childid
-		subjects = Subject.search(:order => 'childid', :dir => 'desc')
-		assert_equal [s1,s3,s2], subjects
-	end
-
-	test "should order by studyid asc by default" do
-		s1,s2,s3 = three_subjects_with_patid
-		subjects = Subject.search(
-			:order => 'studyid')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by studyid asc" do
-		s1,s2,s3 = three_subjects_with_patid
-		subjects = Subject.search(:order => 'studyid')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by studyid desc" do
-		s1,s2,s3 = three_subjects_with_patid
-		subjects = Subject.search(:order => 'studyid', :dir => 'desc')
-		assert_equal [s1,s3,s2], subjects
-	end
-
-	test "should order by last_name asc by default" do
-		s1,s2,s3 = three_subjects_with_last_name
-		subjects = Subject.search(
-			:order => 'last_name')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by last_name asc" do
-		s1,s2,s3 = three_subjects_with_last_name
-		subjects = Subject.search(:order => 'last_name')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by last_name desc" do
-		s1,s2,s3 = three_subjects_with_last_name
-		subjects = Subject.search(:order => 'last_name', :dir => 'desc')
-		assert_equal [s1,s3,s2], subjects
-	end
-
-	test "should order by first_name asc by default" do
-		s1,s2,s3 = three_subjects_with_first_name
-		subjects = Subject.search(
-			:order => 'first_name')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by first_name asc" do
-		s1,s2,s3 = three_subjects_with_first_name
-		subjects = Subject.search(:order => 'first_name')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by first_name desc" do
-		s1,s2,s3 = three_subjects_with_first_name
-		subjects = Subject.search(:order => 'first_name', :dir => 'desc')
-		assert_equal [s1,s3,s2], subjects
-	end
-
-	test "should order by dob asc by default" do
-		s1,s2,s3 = three_subjects_with_dob
-		subjects = Subject.search(
-			:order => 'dob')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by dob asc" do
-		s1,s2,s3 = three_subjects_with_dob
-		subjects = Subject.search(:order => 'dob')
-		assert_equal [s2,s3,s1], subjects
-	end
-
-	test "should order by dob desc" do
-		s1,s2,s3 = three_subjects_with_dob
-		subjects = Subject.search(:order => 'dob', :dir => 'desc')
-		assert_equal [s1,s3,s2], subjects
+		test "should order by #{column} desc" do
+			s1,s2,s3 = send("three_subjects_with_#{column}")
+			subjects = Subject.search(:order => column, :dir => 'desc')
+			assert_equal [s1,s3,s2], subjects
+		end
 	end
 
 #	#	There was a problem doing finds which included joins

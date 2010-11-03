@@ -197,6 +197,7 @@ module FactoryTestHelper
 		s3 = create_subject_with_patid('6')
 		return [s1,s2,s3]
 	end
+	alias_method :three_subjects_with_studyid, :three_subjects_with_patid
 
 	def create_subject_with_last_name(last_name)
 		create_subject(
@@ -234,6 +235,56 @@ module FactoryTestHelper
 		s1 = create_subject_with_dob('12/31/2005')
 		s2 = create_subject_with_dob('12/31/2001')
 		s3 = create_subject_with_dob('12/31/2003')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_sample_outcome(outcome)
+		s = create_hx_subject
+		s.update_attributes( 
+			:homex_outcome_attributes => Factory.attributes_for(:homex_outcome,
+				:sample_outcome_id => outcome) )
+		s
+	end
+
+	def three_subjects_with_sample_outcome
+		s1 = create_subject_with_sample_outcome('9')
+		s2 = create_subject_with_sample_outcome('3')
+		s3 = create_subject_with_sample_outcome('6')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_interview_outcome_on(date)
+		create_hx_subject(:subject => {
+			:homex_outcome_attributes => Factory.attributes_for(:homex_outcome,
+				:interview_outcome_on => date ) })
+	end
+
+	def three_subjects_with_interview_outcome_on
+		s1 = create_subject_with_interview_outcome_on('12/31/2005')
+		s2 = create_subject_with_interview_outcome_on('12/31/2001')
+		s3 = create_subject_with_interview_outcome_on('12/31/2003')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_sample_sent_on(date)
+		create_hx_subject
+	end
+
+	def three_subjects_with_sample_sent_on
+		s1 = create_subject_with_sample_sent_on('12/31/2005')
+		s2 = create_subject_with_sample_sent_on('12/31/2001')
+		s3 = create_subject_with_sample_sent_on('12/31/2003')
+		return [s1,s2,s3]
+	end
+
+	def create_subject_with_sample_received_on(date)
+		create_hx_subject
+	end
+
+	def three_subjects_with_sample_received_on
+		s1 = create_subject_with_sample_received_on('12/31/2005')
+		s2 = create_subject_with_sample_received_on('12/31/2001')
+		s3 = create_subject_with_sample_received_on('12/31/2003')
 		return [s1,s2,s3]
 	end
 
