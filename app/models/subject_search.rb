@@ -114,7 +114,7 @@ private	#	THIS IS REQUIRED
 	#	those that join on home_outcomes!  Hmm?
 	#	How?  Added a sort to joins and an "a_" to this
 	def a_homex_outcome_joins
-		"LEFT JOIN homex_outcomes ON homex_outcomes.subject_id " <<
+		"LEFT JOIN homex_outcomes ON homex_outcomes.study_subject_id " <<
 			"= subjects.id" if( !sample_outcome.blank? ||
 				!interview_outcome.blank? ||
 				[ 'sample_outcome','interview_outcome_on'].include?(@order) )
@@ -159,7 +159,7 @@ private	#	THIS IS REQUIRED
 			s = ''
 			projects.keys.each do |id|
 				s << "JOIN enrollments proj_#{id} ON subjects.id "<<
-						"= proj_#{id}.subject_id AND proj_#{id}.project_id = #{id} " 
+						"= proj_#{id}.study_subject_id AND proj_#{id}.project_id = #{id} " 
 			end
 			s
 		end

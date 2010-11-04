@@ -171,7 +171,7 @@ module FactoryTestHelper
 	def create_subject_with_childid(childid)
 		subject = create_subject
 		Factory(:identifier, 
-			:subject_id => subject.id, 
+			:subject => subject,
 			:childid => childid )
 		subject
 	end
@@ -186,7 +186,7 @@ module FactoryTestHelper
 	def create_subject_with_patid(patid)
 		subject = create_subject
 		Factory(:identifier, 
-			:subject_id => subject.id, 
+			:subject => subject,
 			:patid => patid )
 		subject
 	end

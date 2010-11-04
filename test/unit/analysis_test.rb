@@ -20,6 +20,8 @@ class AnalysisTest < ActiveSupport::TestCase
 	assert_should_belong_to(:analytic_file_creator, :class_name => 'Person')
 	assert_should_belong_to(:analyst,               :class_name => 'Person')
 	assert_should_belong_to(:project)
-	assert_should_habtm(:subjects)
+
+#	TODO
+#	assert_should_habtm(:subjects)
 
 end

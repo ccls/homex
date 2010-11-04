@@ -6,14 +6,15 @@ class PatientTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to(:subject)
 	assert_should_belong_to( :organization )
 	assert_should_belong_to( :diagnosis )
-	assert_should_require_attributes(:subject_id)
-	assert_should_require_unique_attributes(:subject_id)
-	assert_should_not_require_attributes(
-		:diagnosis_date,
-		:hospital_no,
-		:diagnosis_id,
-		:organization_id )
-	assert_requires_valid_association(:subject)
+	assert_should_require_attributes( :study_subject_id )
+	assert_should_require_unique_attributes( :study_subject_id )
+	assert_should_not_require_attributes( :diagnosis_date )
+	assert_should_not_require_attributes( :hospital_no )
+	assert_should_not_require_attributes( :diagnosis_id )
+	assert_should_not_require_attributes( :organization_id )
+
+#	TODO
+#	assert_requires_valid_association(:subject)
 
 	assert_requires_complete_date(:diagnosis_date)
 
@@ -24,9 +25,9 @@ class PatientTest < ActiveSupport::TestCase
 		end
 	end
 
-#	test "should require valid subject_id" do
+#	test "should require valid study_subject_id" do
 #		assert_difference( "#{model_name}.count", 0 ) do
-#			object = create_object(:subject_id => 0)
+#			object = create_object(:study_subject_id => 0)
 #			assert object.errors.on(:subject)
 #		end
 #	end
@@ -44,9 +45,9 @@ class PatientTest < ActiveSupport::TestCase
 	test "should require diagnosis_date be after DOB" do
 		assert_difference( "#{model_name}.count", 0 ) do
 			subject = Factory(:case_subject)
-			pii = Factory(:pii,:subject_id => subject.id)
+			pii = Factory(:pii,:subject => subject)
 			object = create_object(
-				:subject_id => subject.id,
+				:subject => subject,
 				:diagnosis_date => Date.jd(2430000) ) 
 				# smaller than my factory set dob
 			assert object.errors.on(:diagnosis_date)

@@ -1,5 +1,5 @@
 class GiftCard < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :project
 	validates_presence_of   :number
 	validates_uniqueness_of :number

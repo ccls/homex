@@ -8,14 +8,14 @@ class ResponseSetsController < ApplicationController
 
 	def index
 		@response_sets = ResponseSet.find(:all,:conditions => {
-			:subject_id => @subject.id } )
+			:study_subject_id => @subject.id } )
 	end
 
 	def create
 		@response_set = ResponseSet.create!( 
 			:user_id    => current_user.id,
 			:survey     => @survey,
-			:subject_id => params[:subject_id] 
+			:study_subject_id => params[:subject_id] 
 		)
 		session[:access_code] = @response_set.access_code
 		redirect_to(
@@ -53,7 +53,7 @@ protected
 	def limit_response_set_count
 		if ResponseSet.count(:conditions => { 
 				:survey_id => @survey,
-				:subject_id => params[:subject_id]
+				:study_subject_id => params[:subject_id]
 			}) >= 2
 			access_denied("Subject has already completed the survey twice.")
 		end

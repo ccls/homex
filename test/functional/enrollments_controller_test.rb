@@ -179,7 +179,9 @@ class EnrollmentsControllerTest < ActionController::TestCase
 	test "should NOT update enrollment with #{cu} login " <<
 		"and invalid enrollment" do
 		enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
-		e = create_enrollment(:subject_id => enrollment.subject.id)
+#		e = create_enrollment(:study_subject_id => enrollment.subject.id)
+#	TODO (confirm ok)
+		e = create_enrollment(:subject => enrollment.subject)
 		login_as send(cu)
 		deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
 			put :update, :id => enrollment.id,

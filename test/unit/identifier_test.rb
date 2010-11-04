@@ -5,28 +5,26 @@ class IdentifierTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_have_many(:interviews)
 	assert_should_initially_belong_to(:subject)
-	assert_requires_valid_association(:subject)
-	assert_should_require_attributes(
-		:case_control_type,
-		:childid,
-		:orderno,
-		:patid,
-		:ssn,
-		:subjectid,
-		:subject_id
-	)
-	assert_should_require_unique_attributes(
-		:childid,
-		:ssn,
-		:subject_id,
-		:subjectid
-	)
+
+#	TODO
+#	assert_requires_valid_association(:subject,:as => 'study_subject')
+
+	assert_should_require_attributes( :case_control_type )
+	assert_should_require_attributes( :childid )
+	assert_should_require_attributes( :orderno )
+	assert_should_require_attributes( :patid )
+	assert_should_require_attributes( :ssn )
+	assert_should_require_attributes( :subjectid )
+	assert_should_require_attributes( :study_subject_id )
+	assert_should_require_unique_attributes( :childid )
+	assert_should_require_unique_attributes( :ssn )
+	assert_should_require_unique_attributes( :study_subject_id )
+	assert_should_require_unique_attributes( :subjectid )
 	assert_should_require_unique_attribute( :patid, 
 		:scope => [:orderno,:case_control_type] )
-	assert_should_not_require_attributes(
-		:lab_no,
-		:related_childid,
-		:related_case_childid )
+	assert_should_not_require_attributes( :lab_no )
+	assert_should_not_require_attributes( :related_childid )
+	assert_should_not_require_attributes( :related_case_childid )
 	assert_should_require_attribute_length( :case_control_type,    :maximum => 250 )
 	assert_should_require_attribute_length( :lab_no,               :maximum => 250 )
 	assert_should_require_attribute_length( :related_childid,      :maximum => 250 )
@@ -76,6 +74,14 @@ class IdentifierTest < ActiveSupport::TestCase
 				assert object.errors.on(:ssn)
 			end
 		end
+	end
+
+
+	def create_object(options={})
+		record = Factory.build(:identifier,options)
+		record.attributes=options
+		record.save
+		record
 	end
 
 end

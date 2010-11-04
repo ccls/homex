@@ -3,19 +3,21 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SurveyInvitationTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_requires_valid_associations(:subject,:survey)
-	assert_should_belong_to(:response_set)
-	assert_should_initially_belong_to(:subject,:survey)
 
-	assert_should_require_unique_attribute(:subject_id, 
-		:scope => :survey_id)
-	assert_should_require_attributes(
-		:subject_id,
-		:survey_id )
-	assert_should_not_require_attributes(
-		:response_set_id,
-		:token,
-		:sent_at )
+#	TODO
+#	assert_requires_valid_associations(:subject, :as => 'study_subject')
+
+	assert_requires_valid_associations( :survey )
+	assert_should_belong_to( :response_set )
+	assert_should_initially_belong_to( :subject )
+	assert_should_initially_belong_to( :survey )
+	assert_should_require_unique_attribute( :study_subject_id, 
+		:scope => :survey_id )
+	assert_should_require_attributes( :study_subject_id )
+	assert_should_require_attributes( :survey_id )
+	assert_should_not_require_attributes( :response_set_id )
+	assert_should_not_require_attributes( :token )
+	assert_should_not_require_attributes( :sent_at )
 
 
 	test "should require token" do
@@ -32,7 +34,7 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 		assert_difference( "#{model_name}.count", 0 ) do
 			survey_invitation = create_survey_invitation(
 				:token      => si.token,
-				:subject_id => si.subject_id,
+				:subject    => si.subject,
 				:survey_id  => si.survey_id )
 			assert survey_invitation.errors.on(:token)
 		end

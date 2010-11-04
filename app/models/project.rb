@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
 	has_many :interview_types
 	has_many :enrollments
 	has_many :gift_cards
-	has_many :subjects, :through => :enrollments
+	has_many :subjects, :through => :enrollments, :foreign_key => 'study_subject_id'
 	has_many :instruments
 
 	validates_presence_of   :code
@@ -30,8 +30,8 @@ class Project < ActiveRecord::Base
 		Project.all(
 			:joins => "LEFT JOIN enrollments ON " <<
 				"projects.id = enrollments.project_id AND " <<
-				"enrollments.subject_id = #{subject.id}",
-			:conditions => [ "enrollments.subject_id IS NULL" ])
+				"enrollments.study_subject_id = #{subject.id}",
+			:conditions => [ "enrollments.study_subject_id IS NULL" ])
 	end
 
 #	class NotFound < StandardError; end

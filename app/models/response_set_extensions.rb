@@ -5,10 +5,10 @@ module ResponseSetExtensions	#	:nodoc:
 		base.class_eval do
 			# Same as typing in the class
 
-			belongs_to :subject, :counter_cache => true
+			belongs_to :subject, :counter_cache => true, :foreign_key => 'study_subject_id'
 			has_one :survey_invitation
 
-			validates_presence_of :subject_id
+			validates_presence_of :study_subject_id
 		end
 	end
 	
@@ -74,7 +74,7 @@ module ResponseSetExtensions	#	:nodoc:
 		#	Convert response set to a home exposure questionnaire.
 		def to_her
 			HomeExposureResponse.create({
-				:subject_id => self.subject_id
+				:study_subject_id => self.study_subject_id
 			}.merge(self.q_and_a_codes_as_attributes))
 		end
 

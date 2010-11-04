@@ -5,14 +5,14 @@ class SubjectTypeTest < ActiveSupport::TestCase
 	assert_should_create_default_object
 	assert_should_act_as_list
 	assert_should_have_many(:subjects)
-	assert_should_require_attributes(:code,:description)
-	assert_should_require_unique_attributes(:code,:description)
-	assert_should_not_require_attributes(
-		:position, :related_case_control_type )
-
-	assert_should_require_attribute_length(
-		:code, :description,
-		:maximum => 250 )
+	assert_should_require_attributes( :code )
+	assert_should_require_attributes( :description )
+	assert_should_require_unique_attributes( :code )
+	assert_should_require_unique_attributes( :description )
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :related_case_control_type )
+	assert_should_require_attribute_length( :code,        :maximum => 250 )
+	assert_should_require_attribute_length( :description, :maximum => 250 )
 
 	test "should return description as name" do
 		object = create_object

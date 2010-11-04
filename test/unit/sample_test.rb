@@ -3,16 +3,20 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SampleTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_requires_valid_associations(:subject,:sample_type)
+
+#	TODO
+#	assert_requires_valid_associations(:subject,:as => 'study_subject')
+
+	assert_requires_valid_associations(:sample_type)
 	assert_should_have_one(:sample_kit)
 	assert_should_have_many(:aliquots)
-	assert_should_belong_to(:aliquot_sample_format,:unit)
+	assert_should_belong_to(:aliquot_sample_format)
+	assert_should_belong_to(:unit)
 	assert_should_initially_belong_to(:subject,:sample_type)
 	assert_should_habtm(:projects)
+	assert_should_require_attributes( :sample_type_id )
+	assert_should_require_attributes( :study_subject_id )
 
-	assert_should_require_attributes(
-		:sample_type_id,
-		:subject_id )
 	assert_should_not_require_attributes(
 		:position,
 		:aliquot_sample_format_id,
@@ -30,12 +34,12 @@ class SampleTest < ActiveSupport::TestCase
 		:receipt_confirmed_on,
 		:receipt_confirmed_by )
 
-	assert_requires_complete_date( :sent_to_subject_on,
-		:received_by_ccls_on,
-		:sent_to_lab_on,
-		:received_by_lab_on,
-		:aliquotted_on,
-		:receipt_confirmed_on )
+	assert_requires_complete_date( :sent_to_subject_on )
+	assert_requires_complete_date( :received_by_ccls_on )
+	assert_requires_complete_date( :sent_to_lab_on )
+	assert_requires_complete_date( :received_by_lab_on )
+	assert_requires_complete_date( :aliquotted_on )
+	assert_requires_complete_date( :receipt_confirmed_on )
 
 	test "should require that kit and sample tracking " <<
 		"numbers are different" do

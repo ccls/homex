@@ -46,9 +46,9 @@ protected
 	end
 
 	def her_must_exist
-		if HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
+		if HomeExposureResponse.exists?(:study_subject_id => params[:subject_id] )
 			@home_exposure_response = HomeExposureResponse.find(:first,
-				:conditions => { :subject_id => @subject.id }
+				:conditions => { :study_subject_id => @subject.id }
 			)
 		else
 			access_denied("HER does not exist for this subject",
@@ -57,7 +57,7 @@ protected
 	end
 
 	def her_must_not_exist
-		if HomeExposureResponse.exists?(:subject_id => params[:subject_id] )
+		if HomeExposureResponse.exists?(:study_subject_id => params[:subject_id] )
 			access_denied("HER already exists for this subject",
 				home_exposure_path)
 		end

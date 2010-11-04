@@ -3,42 +3,44 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SubjectTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_requires_valid_associations(
-		:race,
-		:subject_type
-	)
-	assert_should_have_many(
-		:addressings,
-		:enrollments,
-		:gift_cards,
-		:phone_numbers,
-		:response_sets,
-		:samples,
-		:survey_invitations
-	)
-	assert_should_initially_belong_to(
-		:race,
-		:subject_type,
-		:vital_status
-	)
-	assert_should_have_one(
-		:home_exposure_response,
-		:homex_outcome,
-		:identifier,
-		:pii
-	)
-	assert_should_habtm(:analyses)
+	assert_requires_valid_associations( :race )
+	assert_requires_valid_associations( :subject_type )
+#	TODO
+#	assert_should_have_many( :addressings, :foreign_key => 'study_subject_id' )
+#	assert_should_have_many( :enrollments, :foreign_key => 'study_subject_id' )
+	assert_should_have_many( :gift_cards, :foreign_key => 'study_subject_id' )
+#	assert_should_have_many( :phone_numbers, :foreign_key => 'study_subject_id' )
+#	assert_should_have_many( :response_sets, :foreign_key => 'study_subject_id' )
+#	assert_should_have_many( :samples, :foreign_key => 'study_subject_id' )
+#	assert_should_have_many( :survey_invitations, :foreign_key => 'study_subject_id' )
+	assert_should_initially_belong_to( :race )
+	assert_should_initially_belong_to( :subject_type )
+	assert_should_initially_belong_to( :vital_status )
+
+#	TODO
+#	assert_should_have_one( :home_exposure_response, 
+#		:foreign_key => 'study_subject_id' )
+	assert_should_have_one( :homex_outcome, 
+		:foreign_key => 'study_subject_id' )
+#	TODO
+#	assert_should_have_one( :identifier, 
+#		:foreign_key => 'study_subject_id' )
+	assert_should_have_one( :pii, 
+		:foreign_key => 'study_subject_id' )
+
+#	TODO
+#	assert_should_habtm(:analyses)
+
 	assert_requires_complete_date( :reference_date )
-	assert_should_require_attributes_not_nil(
-		:do_not_contact )	#	not required, but can't be nil
-	assert_should_not_require_attributes(
-		:vital_status_id,
-		:hispanicity_id,
-		:reference_date,
-		:response_sets_count,
-		:sex,
-		:matchingid,
-		:familyid )
+	assert_should_require_attributes_not_nil( :do_not_contact )
+	assert_should_not_require_attributes( :vital_status_id )
+	assert_should_not_require_attributes( :hispanicity_id )
+	assert_should_not_require_attributes( :reference_date )
+	assert_should_not_require_attributes( :response_sets_count )
+	assert_should_not_require_attributes( :sex )
+	assert_should_not_require_attributes( :matchingid )
+	assert_should_not_require_attributes( :familyid )
+
 
 	test "should create subject" do
 		assert_difference( 'Race.count' ){
@@ -69,7 +71,7 @@ class SubjectTest < ActiveSupport::TestCase
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
 				:pii_attributes => Factory.attributes_for(:pii))
-			assert subject.errors.on('pii.subject_id')
+			assert subject.errors.on('pii.study_subject_id')
 		} }
 	end
 
@@ -102,7 +104,7 @@ class SubjectTest < ActiveSupport::TestCase
 				"#{subject.errors.full_messages.to_sentence}"
 			subject.update_attributes(
 				:homex_outcome_attributes => Factory.attributes_for(:homex_outcome))
-			assert subject.errors.on('homex_outcome.subject_id')
+			assert subject.errors.on('homex_outcome.study_subject_id')
 		} }
 	end
 
@@ -136,12 +138,12 @@ pending
 #				"#{subject.errors.full_messages.to_sentence}"
 #			subject.update_attributes(
 #				:patient_attributes => Factory.attributes_for(:patient))
-#			assert subject.errors.on('patient.subject_id')
+#			assert subject.errors.on('patient.study_subject_id')
 			subject = Factory(:case_subject)
-			patient1 = Factory(:patient,:subject_id => subject.id)
-			patient2 = Factory.build(:patient,:subject_id => subject.id)
+			patient1 = Factory(:patient,:subject => subject)
+			patient2 = Factory.build(:patient,:subject => subject)
 			patient2.save
-			assert patient2.errors.on(:subject_id)
+			assert patient2.errors.on(:study_subject_id)
 		} }
 	end
 
@@ -174,10 +176,10 @@ pending
 #			subject.update_attributes(
 #				:identifier_attributes => Factory.attributes_for(:identifier))
 			subject = create_subject
-			identifier1 = Factory(:identifier,:subject_id => subject.id)
-			identifier2 = Factory.build(:identifier,:subject_id => subject.id)
+			identifier1 = Factory(:identifier,:subject => subject)
+			identifier2 = Factory.build(:identifier,:subject => subject)
 			identifier2.save
-			assert identifier2.errors.on(:subject_id)
+			assert identifier2.errors.on(:study_subject_id)
 		} }
 	end
 
@@ -199,7 +201,7 @@ pending
 #		))
 		subject = create_subject
 		Factory(:identifier, 
-			:subject_id => subject.id,
+			:subject => subject,
 			:case_control_type => 'A',
 			:patid   => '123',
 			:orderno => '4'
@@ -224,7 +226,7 @@ pending
 
 	def sscount(subject_id,survey_id)
 		SurveyInvitation.count(:conditions => {
-			:subject_id => subject_id, :survey_id => survey_id })
+			:study_subject_id => subject_id, :survey_id => survey_id })
 	end
 
 	test "should have one survey_invitation per survey" do
@@ -232,12 +234,12 @@ pending
 		survey  = Factory(:survey)
 		assert_difference("sscount(#{subject.id},#{survey.id})",1){
 			Factory(:survey_invitation, {
-				:subject_id => subject.id, :survey_id => survey.id })
+				:subject => subject, :survey_id => survey.id })
 		}
 		assert_difference("sscount(#{subject.id},#{survey.id})",0){
 		assert_raise(ActiveRecord::RecordInvalid){
 			Factory(:survey_invitation, {
-				:subject_id => subject.id, :survey_id => survey.id })
+				:subject => subject, :survey_id => survey.id })
 		} }
 	end
 
@@ -252,8 +254,8 @@ pending
 
 	test "should NOT destroy survey_invitations with subject" do
 		subject = create_subject
-		Factory(:survey_invitation, :subject_id => subject.id)
-		Factory(:survey_invitation, :subject_id => subject.id)
+		Factory(:survey_invitation, :subject => subject)
+		Factory(:survey_invitation, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('SurveyInvitation.count',0) {
 			subject.destroy
@@ -262,7 +264,7 @@ pending
 
 #	test "should NOT destroy dust_kit with subject" do
 #		subject = create_subject
-#		Factory(:dust_kit, :subject_id => subject.id)
+#		Factory(:dust_kit, :subject => subject)
 #		assert_difference('Subject.count',-1) {
 #		assert_difference('DustKit.count',0) {
 #			subject.destroy
@@ -271,7 +273,7 @@ pending
 
 	test "should NOT destroy identifier with subject" do
 		subject = create_subject
-		Factory(:identifier, :subject_id => subject.id)
+		Factory(:identifier, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Identifier.count',0) {
 			subject.destroy
@@ -280,7 +282,7 @@ pending
 
 	test "should NOT destroy pii with subject" do
 		subject = create_subject
-		Factory(:pii, :subject_id => subject.id)
+		Factory(:pii, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Pii.count',0) {
 			subject.destroy
@@ -290,7 +292,7 @@ pending
 	test "should NOT destroy patient with subject" do
 #		subject = create_subject
 		subject = Factory(:case_subject)
-		Factory(:patient, :subject_id => subject.id)
+		Factory(:patient, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Patient.count',0) {
 			subject.destroy
@@ -298,8 +300,9 @@ pending
 	end
 
 	test "should NOT destroy home_exposure_response with subject" do
-		subject = create_subject
-		Factory(:home_exposure_response, :subject_id => subject.id)
+#		subject = create_subject
+#		Factory(:home_exposure_response, :subject => subject)
+		subject = Factory(:home_exposure_response).subject
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('HomeExposureResponse.count',0) {
 			subject.destroy
@@ -308,8 +311,8 @@ pending
 
 #	test "should NOT destroy addresses with subject" do
 #		subject = create_subject
-#		Factory(:address, :subject_id => subject.id)
-#		Factory(:address, :subject_id => subject.id)
+#		Factory(:address, :subject => subject)
+#		Factory(:address, :subject => subject)
 #		assert_difference('Subject.count',-1) {
 #		assert_difference('Address.count',0) {
 #			subject.destroy
@@ -318,8 +321,8 @@ pending
 
 #	test "should NOT destroy operational_events with subject" do
 #		subject = create_subject
-#		Factory(:operational_event, :subject_id => subject.id)
-#		Factory(:operational_event, :subject_id => subject.id)
+#		Factory(:operational_event, :subject => subject)
+#		Factory(:operational_event, :subject => subject)
 #		assert_difference('Subject.count',-1) {
 #		assert_difference('OperationalEvent.count',0) {
 #			subject.destroy
@@ -328,8 +331,8 @@ pending
 
 	test "should NOT destroy enrollments with subject" do
 		subject = create_subject
-		Factory(:enrollment, :subject_id => subject.id)
-		Factory(:enrollment, :subject_id => subject.id)
+		Factory(:enrollment, :subject => subject)
+		Factory(:enrollment, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Enrollment.count',0) {
 			subject.destroy
@@ -347,8 +350,8 @@ pending
 
 	test "should NOT destroy samples with subject" do
 		subject = create_subject
-		Factory(:sample, :subject_id => subject.id)
-		Factory(:sample, :subject_id => subject.id)
+		Factory(:sample, :subject => subject)
+		Factory(:sample, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('Sample.count',0) {
 			subject.destroy
@@ -357,8 +360,8 @@ pending
 
 	test "should NOT destroy response_sets with subject" do
 		subject = create_subject
-		Factory(:response_set, :subject_id => subject.id)
-		Factory(:response_set, :subject_id => subject.id)
+		Factory(:response_set, :subject => subject)
+		Factory(:response_set, :subject => subject)
 		assert_difference( "#{model_name}.count", -1 ) {
 		assert_difference('ResponseSet.count',0) {
 			subject.destroy
@@ -371,7 +374,8 @@ pending
 	end
 
 	test "should return ssn with identifier" do
-		subject = Factory(:identifier, :subject => create_subject).subject
+#		subject = Factory(:identifier, :subject => create_subject).subject
+		subject = Factory(:identifier).subject
 		assert_not_nil subject.ssn
 	end
 

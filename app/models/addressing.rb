@@ -1,10 +1,10 @@
 #	Rich join of Subject and Address
 class Addressing < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :address
 
 	validates_presence_of :address, :on => :update
-	validates_presence_of :subject_id, :subject
+	validates_presence_of :study_subject_id, :subject
 	validates_length_of :why_invalid, :how_verified,
 		:maximum => 250, :allow_blank => true
 

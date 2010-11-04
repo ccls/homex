@@ -3,7 +3,7 @@
 #	*	subject_id
 #	*	project
 class Enrollment < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :ineligible_reason
 	belongs_to :refusal_reason
 	belongs_to :document_version
@@ -11,8 +11,8 @@ class Enrollment < ActiveRecord::Base
 	belongs_to :project_outcome
 	has_many   :operational_events
 
-	validates_uniqueness_of :project_id, :scope => [:subject_id]
-	validates_presence_of :subject_id, :project_id,
+	validates_uniqueness_of :project_id, :scope => [:study_subject_id]
+	validates_presence_of :study_subject_id, :project_id,
 		:subject, :project
 
 	validates_presence_of :ineligible_reason,

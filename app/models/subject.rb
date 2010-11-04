@@ -8,25 +8,25 @@ class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :vital_status
 
-	has_and_belongs_to_many :analyses
+	has_and_belongs_to_many :analyses, :foreign_key => 'study_subject_id'
 
-	has_many :addressings
+	has_many :addressings, :foreign_key => 'study_subject_id'
 	has_many :addresses, :through => :addressings
-	has_many :enrollments
-	has_many :gift_cards
+	has_many :enrollments, :foreign_key => 'study_subject_id'
+	has_many :gift_cards, :foreign_key => 'study_subject_id'
 #	has_many :home_exposure_events
 #	has_many :hospitals
 #	has_many :operational_events
-	has_many :phone_numbers
-	has_many :response_sets
-	has_many :samples
-	has_many :survey_invitations
+	has_many :phone_numbers, :foreign_key => 'study_subject_id'
+	has_many :response_sets, :foreign_key => 'study_subject_id'
+	has_many :samples, :foreign_key => 'study_subject_id'
+	has_many :survey_invitations, :foreign_key => 'study_subject_id'
 
-	has_one :identifier
-	has_one :home_exposure_response
-	has_one :homex_outcome
-	has_one :patient
-	has_one :pii
+	has_one :identifier, :foreign_key => 'study_subject_id'
+	has_one :home_exposure_response, :foreign_key => 'study_subject_id'
+	has_one :homex_outcome, :foreign_key => 'study_subject_id'
+	has_one :patient, :foreign_key => 'study_subject_id'
+	has_one :pii, :foreign_key => 'study_subject_id'
 
 	validates_presence_of :subject_type, :race,
 		:subject_type_id, :race_id
@@ -54,12 +54,12 @@ class Subject < ActiveRecord::Base
 	#	if not done correctly
 	#	s.update_attributes({"pii_attributes" => { "ssn" => "123456789", 'state_id_no' => 'x'}})
 	#	s.update_attributes({"pii_attributes" => { "ssn" => "987654321", 'state_id_no' => 'a'}})
-	#	Pii.find(:all, :conditions => {:subject_id => s.id }).count 
+	#	Pii.find(:all, :conditions => {:study_subject_id => s.id }).count 
 	#	=> 2
 	#	without the :id attribute, it will create, but NOT destroy
 	#	s.reload.pii  will return the first one (sorts by id)
 	#	s.pii.destroy will destroy the last one !?!?!?
-	#	Make all these require a unique subject_id
+	#	Make all these require a unique study_subject_id
 	accepts_nested_attributes_for :pii
 	accepts_nested_attributes_for :homex_outcome
 
@@ -123,7 +123,7 @@ class Subject < ActiveRecord::Base
 
 	def recreate_survey_invitation(survey)
 		SurveyInvitation.destroy_all( 
-			:subject_id => self.id,
+			:study_subject_id => self.id,
 			:survey_id  => survey.id 
 		)
 		self.survey_invitations.create(

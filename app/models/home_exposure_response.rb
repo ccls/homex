@@ -1,9 +1,9 @@
 # Extraction of answers from the survey
 class HomeExposureResponse < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 
-	validates_presence_of   :subject_id, :subject
-	validates_uniqueness_of :subject_id
+	validates_presence_of   :study_subject_id, :subject
+	validates_uniqueness_of :study_subject_id
 
 #	def self.q_column_names
 #		column_names - 

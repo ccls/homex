@@ -39,14 +39,14 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		@rs2.responses.destroy_all
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_response :success
 		assert_template 'new'
 	end
 
 	test "should get new with #{cu} login" do
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_response :success
 		assert_template 'new'
 	end
@@ -54,7 +54,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should create HER with #{cu} login" do
 		login_as send(cu)
 		assert_difference("HomeExposureResponse.count",1) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_redirected_to subject_home_exposure_response_path(
@@ -64,7 +64,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should show with #{cu} login" do
 		@rs1.to_her
 		login_as send(cu)
-		get :show, :subject_id => @rs1.subject_id
+		get :show, :subject_id => @rs1.study_subject_id
 		assert_response :success
 		assert_template 'show'
 	end
@@ -73,7 +73,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		@rs2.destroy
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
@@ -82,7 +82,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		rs3 = fill_out_survey(:subject => @rs1.subject, :survey => @rs1.survey)
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
@@ -91,7 +91,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		@rs1.update_attribute(:completed_at, nil)
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
@@ -102,7 +102,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 			@rs1.to_her
 		}
 		login_as send(cu)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
@@ -122,7 +122,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		login_as send(cu)
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id
+			post :create, :subject_id => @rs1.study_subject_id
 		}
 		assert_not_nil flash[:error]
 		assert_redirected_to home_exposure_path
@@ -132,7 +132,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		"with #{cu} login" do
 		login_as send(cu)
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => 0
 		}
 		assert_not_nil flash[:error]
@@ -144,7 +144,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		HomeExposureResponse.any_instance.stubs(:save).returns(false)
 		login_as send(cu)
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
@@ -157,7 +157,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 		@rs1.to_her
 		login_as send(cu)
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_not_nil flash[:error]
@@ -167,7 +167,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	test "should NOT show without existing home_exposure_response " <<
 		"with #{cu} login" do
 		login_as send(cu)
-		get :show, :subject_id => @rs1.subject_id
+		get :show, :subject_id => @rs1.study_subject_id
 		assert_redirected_to home_exposure_path
 		assert_not_nil flash[:error]
 	end
@@ -178,7 +178,7 @@ end
 
 	test "should NOT get new with #{u} login" do
 		login_as send(u)
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to root_path
 		assert_not_nil flash[:error]
 	end
@@ -186,7 +186,7 @@ end
 	test "should NOT create HER with #{u} login" do
 		login_as send(u)
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_redirected_to root_path
@@ -196,7 +196,7 @@ end
 	test "should NOT show with #{u} login" do
 		@rs1.to_her
 		login_as send(u)
-		get :show, :subject_id => @rs1.subject_id
+		get :show, :subject_id => @rs1.study_subject_id
 		assert_not_nil flash[:error]
 		assert_redirected_to root_path
 	end
@@ -204,13 +204,13 @@ end
 end
 
 	test "should NOT get new without login" do
-		get :new, :subject_id => @rs1.subject_id
+		get :new, :subject_id => @rs1.study_subject_id
 		assert_redirected_to_login
 	end
 
 	test "should NOT create HER without login" do
 		assert_difference("HomeExposureResponse.count",0) {
-			post :create, :subject_id => @rs1.subject_id, 
+			post :create, :subject_id => @rs1.study_subject_id, 
 				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 		}
 		assert_redirected_to_login
@@ -218,7 +218,7 @@ end
 
 	test "should NOT show without login" do
 		@rs1.to_her
-		get :show, :subject_id => @rs1.subject_id
+		get :show, :subject_id => @rs1.study_subject_id
 		assert_redirected_to_login
 	end
 

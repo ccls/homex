@@ -5,7 +5,7 @@ class Address < ActiveRecord::Base
 
 	has_many :interviews
 	has_one :addressing
-	has_one :subject, :through => :addressing
+	has_one :subject, :through => :addressing, :foreign_key => 'study_subject_id'
 	belongs_to :address_type
 	belongs_to :data_source
 

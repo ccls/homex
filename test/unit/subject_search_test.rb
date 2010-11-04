@@ -66,7 +66,7 @@ pending
 
 #	test "should include all subjects and ignore dust kits" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		subject2 = create_subject
 #		subjects = Subject.search(:dust_kit => 'ignore')
 #		assert subjects.include?(subject1)
@@ -75,7 +75,7 @@ pending
 
 #	test "should include subjects with no dust kits" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		subject2 = create_subject
 #		subjects = Subject.search(:dust_kit => 'none')
 #		assert  subjects.include?(subject2)
@@ -84,7 +84,7 @@ pending
 
 #	test "should include subject with dust kit" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		subject2 = create_subject
 #		subjects = Subject.search(:dust_kit => 'shipped')
 #		assert  subjects.include?(subject1)
@@ -93,10 +93,10 @@ pending
 
 #	test "should include subject with dust kit delivered to subject" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		dust_kit.kit_package.update_attributes(:status => 'Delivered')
 #		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
+#		create_dust_kit(:study_subject_id => subject2.id)
 #		subjects = Subject.search(:dust_kit => 'delivered')
 #		assert  subjects.include?(subject1)
 #		assert !subjects.include?(subject2)
@@ -104,10 +104,10 @@ pending
 
 #	test "should include subject with dust kit returned to us" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		dust_kit.dust_package.update_attributes(:status => 'Transit')
 #		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
+#		create_dust_kit(:study_subject_id => subject2.id)
 #		subjects = Subject.search(:dust_kit => 'returned')
 #		assert  subjects.include?(subject1)
 #		assert !subjects.include?(subject2)
@@ -115,10 +115,10 @@ pending
 
 #	test "should include subject with dust kit received by us" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		dust_kit.dust_package.update_attributes(:status => 'Delivered')
 #		subject2 = create_subject
-#		create_dust_kit(:subject_id => subject2.id)
+#		create_dust_kit(:study_subject_id => subject2.id)
 #		subjects = Subject.search(:dust_kit => 'received')
 #		assert  subjects.include?(subject1)
 #		assert !subjects.include?(subject2)
@@ -130,7 +130,7 @@ pending
 #	#	tweaking.
 #	test "should work with both dust_kit string and race symbol" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		subject2 = create_subject
 #		subjects = Subject.search(:dust_kit => 'none', 
 #			:races => [subject2.race.name] )
@@ -491,7 +491,7 @@ pending
 #	#	which included both sql join fragment strings and an order.
 #	test "should work with both dust_kit string and order" do
 #		subject1 = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject1.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject1.id)
 #		subject2 = create_subject
 #		subjects = Subject.search(:dust_kit => 'none', 
 #			:order => 'childid')
@@ -538,7 +538,7 @@ pending
 
 #	test "should return dust_kit_status of New" do
 #		subject = create_subject
-#		dust_kit = create_dust_kit(:subject_id => subject.id)
+#		dust_kit = create_dust_kit(:study_subject_id => subject.id)
 #		assert_equal 'New', subject.dust_kit_status
 #	end
 

@@ -3,14 +3,14 @@ class HomexOutcome < ActiveRecord::Base
 	acts_as_list
 	default_scope :order => :position
 
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :sample_outcome
 	belongs_to :interview_outcome
 
 	# because subject accepts_nested_attributes for homex_outcome
 	# we can't require subject_id on create
 	validates_presence_of   :subject, :on => :update
-	validates_uniqueness_of :subject_id, :allow_nil => true
+	validates_uniqueness_of :study_subject_id, :allow_nil => true
 
 	validates_presence_of :sample_outcome_on,
 		:if => :sample_outcome_id?

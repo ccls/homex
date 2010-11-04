@@ -3,12 +3,12 @@
 #	*	subject_id
 #	*	state_id_no ( unique )
 class Pii < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 
 	#	because subject accepts_nested_attributes for pii 
 	#	we can't require subject_id on create
 	validates_presence_of   :subject, :on => :update
-	validates_uniqueness_of :subject_id, :allow_nil => true
+	validates_uniqueness_of :study_subject_id, :allow_nil => true
 
 	validates_presence_of   :dob
 	validates_presence_of   :state_id_no

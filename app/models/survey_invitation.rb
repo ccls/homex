@@ -1,15 +1,15 @@
 # don't know exactly
 class SurveyInvitation < ActiveRecord::Base
-	belongs_to :subject
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :response_set
 	belongs_to :survey
 
-	validates_uniqueness_of :subject_id, :scope => :survey_id
+	validates_uniqueness_of :study_subject_id, :scope => :survey_id
 	validates_presence_of   :token
 	validates_uniqueness_of :token
 	validates_presence_of   :response_set_id, :on => :update
 	validates_uniqueness_of :response_set_id, :allow_nil => true
-	validates_presence_of :subject_id, :survey_id,
+	validates_presence_of :study_subject_id, :survey_id,
 		:subject, :survey
 
 	delegate :email, :to => :subject

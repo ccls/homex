@@ -134,7 +134,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 
 	test "should send reminder on invitation update with #{cu} login" do
 		si = Factory(:survey_invitation,{
-			:subject_id => @subject.id,
+			:subject => @subject,
 			:survey_id  => @survey.id
 		})
 		login_as send(cu)

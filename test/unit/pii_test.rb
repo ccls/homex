@@ -9,7 +9,7 @@ class PiiTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes( :state_id_no )
 	assert_should_require_unique_attributes( :email )
 	assert_should_not_require_attributes(
-		:subject_id,
+		:study_subject_id,
 		:first_name,
 		:middle_name,
 		:last_name,
@@ -36,7 +36,7 @@ class PiiTest < ActiveSupport::TestCase
 	#	so the pii can't require subject_id on create
 	#	or this test fails.
 	#
-	test "should require subject_id on update" do
+	test "should require study_subject_id on update" do
 		assert_difference( "#{model_name}.count", 1 ) do
 			object = create_object
 			object.reload.update_attributes(:first_name => "New First Name")
@@ -44,12 +44,12 @@ class PiiTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should require unique subject_id" do
+	test "should require unique study_subject_id" do
 		subject = Factory(:subject)
 		create_object(:subject => subject)
 		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:subject => subject)
-			assert object.errors.on(:subject_id)
+			assert object.errors.on(:study_subject_id)
 		end
 	end
 

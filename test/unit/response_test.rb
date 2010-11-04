@@ -3,8 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_initially_belong_to(:response_set)
-	assert_should_require_attributes(:response_set_id,:question_id,:answer_id)
+	assert_should_initially_belong_to( :response_set )
+	assert_should_require_attributes( :response_set_id )
+	assert_should_require_attributes( :question_id )
+	assert_should_require_attributes( :answer_id )
 	assert_should_not_require_attributes(
 		:datetime_value,
 		:integer_value,

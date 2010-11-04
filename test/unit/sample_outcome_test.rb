@@ -7,11 +7,10 @@ class SampleOutcomeTest < ActiveSupport::TestCase
 	assert_should_have_many(:homex_outcomes)
 	assert_should_require_attributes(:code)
 	assert_should_require_unique_attributes(:code)
-	assert_should_not_require_attributes(:position, :description )
-
-	assert_should_require_attribute_length(
-		:code, :description,
-		:maximum => 250 )
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :description )
+	assert_should_require_attribute_length( :code,        :maximum => 250 )
+	assert_should_require_attribute_length( :description, :maximum => 250 )
 
 	test "should return description as to_s" do
 		object = create_object(:description => "Description")

@@ -14,12 +14,11 @@ class InstrumentVersionTest < ActiveSupport::TestCase
 	assert_should_require_attributes( :interview_type_id )
 	assert_should_require_unique_attributes( :code )
 	assert_should_require_unique_attributes( :description )
-	assert_should_not_require_attributes(
-		:position,
-		:language_id,
-		:began_use_on,
-		:ended_use_on,
-		:instrument_id )
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :language_id )
+	assert_should_not_require_attributes( :began_use_on )
+	assert_should_not_require_attributes( :ended_use_on )
+	assert_should_not_require_attributes( :instrument_id )
 
 	assert_requires_complete_date( :began_use_on )
 	assert_requires_complete_date( :ended_use_on )

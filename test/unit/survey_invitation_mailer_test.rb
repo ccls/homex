@@ -9,7 +9,7 @@ class SurveyInvitationMailerTest < ActionMailer::TestCase
 			:pii_attributes => Factory.attributes_for(:pii))
 		@si      = Factory(:survey_invitation, {
 			:survey_id => @survey.id,
-			:subject_id => @subject.id
+			:subject => @subject
 		})
 	end
 

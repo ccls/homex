@@ -10,15 +10,12 @@ class InterviewTest < ActiveSupport::TestCase
 	assert_should_belong_to( :language )
 	assert_should_belong_to( :subject_relationship )
 	assert_should_belong_to( :interviewer, :class_name => 'Person')
-
-	assert_should_not_require_attributes(
-		:address_id,
-		:language_id,
-		:interviewer_id,
-		:instrument_version_id,
-		:interview_method_id,
-		:identifier_id
-	)
+	assert_should_not_require_attributes( :address_id )
+	assert_should_not_require_attributes( :language_id )
+	assert_should_not_require_attributes( :interviewer_id )
+	assert_should_not_require_attributes( :instrument_version_id )
+	assert_should_not_require_attributes( :interview_method_id )
+	assert_should_not_require_attributes( :identifier_id )
 	assert_should_require_attribute_length( :subject_relationship_other, :maximum => 250 )
 	assert_should_require_attribute_length( :respondent_first_name,      :maximum => 250 )
 	assert_should_require_attribute_length( :respondent_last_name,       :maximum => 250 )

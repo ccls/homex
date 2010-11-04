@@ -3,19 +3,19 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseSetTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_have_one(:survey_invitation)
-	assert_should_have_many(:responses)
-	assert_should_belong_to(:user)
-	assert_should_initially_belong_to(:survey,:subject)
+	assert_should_have_one( :survey_invitation )
+	assert_should_have_many( :responses )
+	assert_should_belong_to( :user )
+	assert_should_initially_belong_to( :survey )
+	assert_should_initially_belong_to( :subject )
+	assert_should_require_attributes( :survey_id )
+	assert_should_require_attributes( :study_subject_id )
+	assert_should_not_require_attributes( :user_id )
+	assert_should_not_require_attributes( :access_code )
+	assert_should_not_require_attributes( :started_at )
+	assert_should_not_require_attributes( :completed_at )
 
-	assert_should_require_attributes(
-		:survey_id,
-		:subject_id )
-	assert_should_not_require_attributes(
-		:user_id,
-		:access_code,
-		:started_at,
-		:completed_at )
+#	TODO (maybe)
 #	assert_should_require_unique_attributes(:access_code)
 #	assert_requires_valid_associations(:subject)
 
@@ -35,7 +35,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	test "should require valid subject" do
 		assert_difference( "#{model_name}.count", 0 ) do
 			object = create_object(:subject => Factory.build(:subject))
-			assert object.errors.on(:subject_id)
+			assert object.errors.on(:study_subject_id)
 		end
 	end 
 
@@ -90,9 +90,9 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_difference( 'ResponseSet.count', 2 ) {
 		assert_difference( 'Response.count', 8 ) {
 			@rs1 = full_response_set(
-				:response_set => { :subject_id => subject.id })
+				:response_set => { :subject => subject })
 			@rs2 = full_response_set(:survey => @rs1.survey,
-				:response_set => { :subject_id => subject.id })
+				:response_set => { :subject => subject })
 		} } } } } }
 
 		qa1 = @rs1.reload.q_and_a_codes_as_attributes
@@ -103,7 +103,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_equal qa1, qa2
 		assert_difference( 'HomeExposureResponse.count') {
 			her = @rs1.to_her
-			assert_equal subject.id, her.subject_id
+			assert_equal subject.id, her.study_subject_id
 		}
 	end
 
@@ -115,9 +115,9 @@ class ResponseSetTest < ActiveSupport::TestCase
 		assert_difference( 'ResponseSet.count', 2 ) {
 		assert_difference( 'Response.count', 8 ) {
 			@rs1 = full_response_set(
-				:response_set => { :subject_id => 42 })
+				:response_set => { :study_subject_id => 42 })
 			@rs2 = full_response_set(:survey => @rs1.survey,
-				:response_set => { :subject_id => 42 })
+				:response_set => { :study_subject_id => 42 })
 		} } } } } }
 
 		assert_difference( 'Survey.count', 0 ) {

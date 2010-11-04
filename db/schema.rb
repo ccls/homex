@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101029222608) do
+ActiveRecord::Schema.define(:version => 20101104162048) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   end
 
   create_table "addressings", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "address_id"
     t.integer  "current_address"
     t.integer  "address_at_diagnosis"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   end
 
   add_index "addressings", ["address_id"], :name => "index_addressings_on_address_id"
-  add_index "addressings", ["subject_id"], :name => "index_addressings_on_subject_id"
+  add_index "addressings", ["study_subject_id"], :name => "index_addressings_on_study_subject_id"
 
   create_table "aliquot_sample_formats", :force => true do |t|
     t.integer  "position"
@@ -103,11 +103,11 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   create_table "analyses_subjects", :id => false, :force => true do |t|
     t.integer "analysis_id"
-    t.integer "subject_id"
+    t.integer "study_subject_id"
   end
 
   add_index "analyses_subjects", ["analysis_id"], :name => "index_analyses_subjects_on_analysis_id"
-  add_index "analyses_subjects", ["subject_id"], :name => "index_analyses_subjects_on_subject_id"
+  add_index "analyses_subjects", ["study_subject_id"], :name => "index_analyses_subjects_on_study_subject_id"
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   create_table "enrollments", :force => true do |t|
     t.integer  "position"
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "project_id"
     t.string   "recruitment_priority"
     t.integer  "able_to_locate"
@@ -262,7 +262,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
     t.date     "project_outcome_on"
   end
 
-  add_index "enrollments", ["project_id", "subject_id"], :name => "index_enrollments_on_project_id_and_subject_id", :unique => true
+  add_index "enrollments", ["project_id", "study_subject_id"], :name => "index_enrollments_on_project_id_and_study_subject_id", :unique => true
 
   create_table "exports", :force => true do |t|
     t.integer  "childid"
@@ -292,12 +292,12 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "exports", ["patid"], :name => "index_exports_on_patid", :unique => true
 
   create_table "gift_cards", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "project_id"
     t.date     "issued_on"
-    t.string   "expiration", :limit => 25
+    t.string   "expiration",       :limit => 25
     t.string   "vendor"
-    t.string   "number",                   :null => false
+    t.string   "number",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "guides", ["controller", "action"], :name => "index_guides_on_controller_and_action", :unique => true
 
   create_table "home_exposure_responses", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "vacuum_has_disposable_bag"
     t.integer  "how_often_vacuumed_12mos"
     t.integer  "shoes_usually_off_inside_12mos"
@@ -439,7 +439,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
     t.datetime "updated_at"
   end
 
-  add_index "home_exposure_responses", ["subject_id"], :name => "index_home_exposure_responses_on_subject_id", :unique => true
+  add_index "home_exposure_responses", ["study_subject_id"], :name => "index_home_exposure_responses_on_study_subject_id", :unique => true
 
   create_table "home_page_pics", :force => true do |t|
     t.string   "title"
@@ -457,7 +457,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   create_table "homex_outcomes", :force => true do |t|
     t.integer  "position"
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "sample_outcome_id"
     t.date     "sample_outcome_on"
     t.integer  "interview_outcome_id"
@@ -466,7 +466,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
     t.datetime "updated_at"
   end
 
-  add_index "homex_outcomes", ["subject_id"], :name => "index_homex_outcomes_on_subject_id", :unique => true
+  add_index "homex_outcomes", ["study_subject_id"], :name => "index_homex_outcomes_on_study_subject_id", :unique => true
 
   create_table "hospitals", :force => true do |t|
     t.integer  "position"
@@ -478,7 +478,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "hospitals", ["organization_id"], :name => "index_hospitals_on_organization_id"
 
   create_table "identifiers", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "childid"
     t.integer  "patid"
     t.string   "case_control_type",    :limit => 1
@@ -494,7 +494,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   add_index "identifiers", ["patid", "case_control_type", "orderno"], :name => "piccton", :unique => true
   add_index "identifiers", ["ssn"], :name => "index_identifiers_on_ssn", :unique => true
-  add_index "identifiers", ["subject_id"], :name => "index_identifiers_on_subject_id", :unique => true
+  add_index "identifiers", ["study_subject_id"], :name => "index_identifiers_on_study_subject_id", :unique => true
   add_index "identifiers", ["subjectid"], :name => "index_identifiers_on_subjectid", :unique => true
 
   create_table "imports", :force => true do |t|
@@ -696,7 +696,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "pages", ["path"], :name => "index_pages_on_path", :unique => true
 
   create_table "patients", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.date     "diagnosis_date"
     t.integer  "hospital_no"
     t.integer  "diagnosis_id"
@@ -706,7 +706,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   end
 
   add_index "patients", ["organization_id"], :name => "index_patients_on_organization_id"
-  add_index "patients", ["subject_id"], :name => "index_patients_on_subject_id", :unique => true
+  add_index "patients", ["study_subject_id"], :name => "index_patients_on_study_subject_id", :unique => true
 
   create_table "people", :force => true do |t|
     t.integer  "position"
@@ -720,7 +720,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   create_table "phone_numbers", :force => true do |t|
     t.integer  "position"
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "phone_type_id"
     t.integer  "data_source_id"
     t.string   "phone_number"
@@ -735,7 +735,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
     t.datetime "updated_at"
   end
 
-  add_index "phone_numbers", ["subject_id"], :name => "index_phone_numbers_on_subject_id"
+  add_index "phone_numbers", ["study_subject_id"], :name => "index_phone_numbers_on_study_subject_id"
 
   create_table "phone_types", :force => true do |t|
     t.integer  "position"
@@ -748,7 +748,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "phone_types", ["code"], :name => "index_phone_types_on_code", :unique => true
 
   create_table "piis", :force => true do |t|
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -769,7 +769,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   add_index "piis", ["email"], :name => "index_piis_on_email", :unique => true
   add_index "piis", ["state_id_no"], :name => "index_piis_on_state_id_no", :unique => true
-  add_index "piis", ["subject_id"], :name => "index_piis_on_subject_id", :unique => true
+  add_index "piis", ["study_subject_id"], :name => "index_piis_on_study_subject_id", :unique => true
 
   create_table "project_outcomes", :force => true do |t|
     t.integer  "position"
@@ -867,7 +867,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   create_table "response_sets", :force => true do |t|
     t.integer  "user_id"
     t.integer  "survey_id"
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.string   "access_code"
     t.datetime "started_at"
     t.datetime "completed_at"
@@ -877,7 +877,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
 
   add_index "response_sets", ["access_code"], :name => "index_response_sets_on_access_code", :unique => true
   add_index "response_sets", ["access_code"], :name => "response_sets_ac_idx", :unique => true
-  add_index "response_sets", ["subject_id"], :name => "index_response_sets_on_subject_id"
+  add_index "response_sets", ["study_subject_id"], :name => "index_response_sets_on_study_subject_id"
 
   create_table "responses", :force => true do |t|
     t.integer  "response_set_id"
@@ -949,7 +949,7 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
     t.integer  "position"
     t.integer  "aliquot_sample_format_id"
     t.integer  "sample_type_id"
-    t.integer  "subject_id"
+    t.integer  "study_subject_id"
     t.integer  "unit_id"
     t.integer  "order_no",                                                                  :default => 1
     t.integer  "quantity_in_sample",           :limit => 10, :precision => 10, :scale => 0
@@ -1023,16 +1023,16 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   add_index "subjects", ["familyid"], :name => "index_subjects_on_familyid", :unique => true
 
   create_table "survey_invitations", :force => true do |t|
-    t.integer  "subject_id",      :null => false
+    t.integer  "study_subject_id", :null => false
     t.integer  "response_set_id"
     t.integer  "survey_id"
-    t.string   "token",           :null => false
+    t.string   "token",            :null => false
     t.datetime "sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "survey_invitations", ["survey_id", "subject_id"], :name => "index_survey_invitations_on_survey_id_and_subject_id", :unique => true
+  add_index "survey_invitations", ["survey_id", "study_subject_id"], :name => "index_survey_invitations_on_survey_id_and_study_subject_id", :unique => true
   add_index "survey_invitations", ["token"], :name => "index_survey_invitations_on_token", :unique => true
 
   create_table "survey_sections", :force => true do |t|

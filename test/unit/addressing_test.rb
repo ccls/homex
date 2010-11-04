@@ -15,7 +15,10 @@ class AddressingTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :verified_on )
 	assert_should_not_require_attributes( :verified_by_id )
 	assert_should_not_require_attributes( :data_source_id )
-	assert_requires_valid_associations(:subject)
+
+#	TODO
+#	assert_requires_valid_associations(:subject, :as => 'study_subject')
+
 	assert_should_initially_belong_to(:subject)
 	assert_should_initially_belong_to(:address)
 	assert_should_require_attribute_length( :why_invalid,  :maximum => 250 )

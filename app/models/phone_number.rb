@@ -1,7 +1,7 @@
 # A subject's phone number
 class PhoneNumber < ActiveRecord::Base
-	acts_as_list :scope => :subject_id
-	belongs_to :subject
+	acts_as_list :scope => :study_subject_id
+	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :phone_type
 
 	validates_presence_of :phone_number
