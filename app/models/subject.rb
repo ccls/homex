@@ -8,7 +8,7 @@ class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :vital_status
 
-	has_and_belongs_to_many :analyses, :foreign_key => 'study_subject_id'
+	has_and_belongs_to_many :analyses	#, :foreign_key => 'study_subject_id'
 
 	has_many :addressings, :foreign_key => 'study_subject_id'
 	has_many :addresses, :through => :addressings
