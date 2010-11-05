@@ -12,13 +12,10 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_should_require_attribute_length( :location, :maximum => 250 )
 	assert_should_require_attribute_length( :mass,     :maximum => 250 )
 	assert_should_have_many(:transfers)
-	assert_requires_valid_associations(:sample)
-	assert_requires_valid_associations(:unit)
-	assert_requires_valid_associations(:organization, :as => :owner)
-	assert_should_belong_to(:aliquot_sample_format)
-	assert_should_initially_belong_to(:sample)
-	assert_should_initially_belong_to(:unit)
-	assert_should_initially_belong_to(:owner,:class_name => 'Organization')
+	assert_should_belong_to( :aliquot_sample_format )
+	assert_should_initially_belong_to( :sample )
+	assert_should_initially_belong_to( :unit )
+	assert_should_initially_belong_to( :owner, :class_name => 'Organization' )
 
 
 	test "should transfer to another organization" do

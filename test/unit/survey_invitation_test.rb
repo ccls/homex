@@ -3,11 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SurveyInvitationTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-
-#	TODO
-#	assert_requires_valid_associations(:subject, :as => 'study_subject')
-
-	assert_requires_valid_associations( :survey )
 	assert_should_belong_to( :response_set )
 	assert_should_initially_belong_to( :subject )
 	assert_should_initially_belong_to( :survey )

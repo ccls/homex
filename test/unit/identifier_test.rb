@@ -6,8 +6,7 @@ class IdentifierTest < ActiveSupport::TestCase
 	assert_should_have_many(:interviews)
 	assert_should_initially_belong_to(:subject)
 
-#	TODO
-#	assert_requires_valid_association(:subject,:as => 'study_subject')
+	assert_requires_valid_association( :subject, :as => 'study_subject' )
 
 	assert_should_require_attributes( :case_control_type )
 	assert_should_require_attributes( :childid )

@@ -8,7 +8,6 @@ class InstrumentVersionTest < ActiveSupport::TestCase
 	assert_should_belong_to( :language )
 	assert_should_belong_to( :instrument )
 	assert_should_initially_belong_to( :interview_type )
-	assert_requires_valid_associations( :interview_type )
 	assert_should_require_attributes( :code )
 	assert_should_require_attributes( :description )
 	assert_should_require_attributes( :interview_type_id )

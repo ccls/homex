@@ -13,8 +13,7 @@ class PatientTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :diagnosis_id )
 	assert_should_not_require_attributes( :organization_id )
 
-#	TODO
-#	assert_requires_valid_association(:subject)
+	assert_requires_valid_association( :subject, :as => 'study_subject' )
 
 	assert_requires_complete_date(:diagnosis_date)
 

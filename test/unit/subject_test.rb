@@ -3,33 +3,23 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SubjectTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_requires_valid_associations( :race )
-	assert_requires_valid_associations( :subject_type )
-#	TODO
-#	assert_should_have_many( :addressings, :foreign_key => 'study_subject_id' )
-#	assert_should_have_many( :enrollments, :foreign_key => 'study_subject_id' )
-	assert_should_have_many( :gift_cards, :foreign_key => 'study_subject_id' )
-#	assert_should_have_many( :phone_numbers, :foreign_key => 'study_subject_id' )
-#	assert_should_have_many( :response_sets, :foreign_key => 'study_subject_id' )
-#	assert_should_have_many( :samples, :foreign_key => 'study_subject_id' )
-#	assert_should_have_many( :survey_invitations, :foreign_key => 'study_subject_id' )
+	assert_should_have_many( :addressings )
+	assert_should_have_many( :enrollments )
+	assert_should_have_many( :gift_cards )
+	assert_should_have_many( :phone_numbers )
+	assert_should_have_many( :response_sets )
+	assert_should_have_many( :samples )
+	assert_should_have_many( :survey_invitations )
 	assert_should_initially_belong_to( :race )
 	assert_should_initially_belong_to( :subject_type )
 	assert_should_initially_belong_to( :vital_status )
 
-#	TODO
-#	assert_should_have_one( :home_exposure_response, 
-#		:foreign_key => 'study_subject_id' )
-	assert_should_have_one( :homex_outcome, 
-		:foreign_key => 'study_subject_id' )
-#	TODO
-#	assert_should_have_one( :identifier, 
-#		:foreign_key => 'study_subject_id' )
-	assert_should_have_one( :pii, 
-		:foreign_key => 'study_subject_id' )
+	assert_should_have_one( :home_exposure_response )
+	assert_should_have_one( :homex_outcome )
+	assert_should_have_one( :identifier )
+	assert_should_have_one( :pii )
 
-#	TODO
-#	assert_should_habtm(:analyses)
+	assert_should_habtm(:analyses)
 
 	assert_requires_complete_date( :reference_date )
 	assert_should_require_attributes_not_nil( :do_not_contact )

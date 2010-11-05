@@ -14,7 +14,6 @@ class AddressTest < ActiveSupport::TestCase
 	assert_should_require_attribute_length( :line_2, :maximum => 250 )
 	assert_should_require_attribute_length( :city,   :maximum => 250 )
 	assert_should_require_attribute_length( :state,  :maximum => 250 )
-	assert_requires_valid_associations(:address_type)
 	assert_should_have_one(:addressing)
 	assert_should_have_many(:interviews)
 	assert_should_belong_to(:data_source)

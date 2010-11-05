@@ -3,17 +3,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SampleTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-
-#	TODO
-#	assert_requires_valid_associations(:subject,:as => 'study_subject')
-
-	assert_requires_valid_associations(:sample_type)
-	assert_should_have_one(:sample_kit)
-	assert_should_have_many(:aliquots)
-	assert_should_belong_to(:aliquot_sample_format)
-	assert_should_belong_to(:unit)
-	assert_should_initially_belong_to(:subject,:sample_type)
-	assert_should_habtm(:projects)
+	assert_should_have_one( :sample_kit )
+	assert_should_have_many( :aliquots )
+	assert_should_belong_to( :aliquot_sample_format )
+	assert_should_belong_to( :unit )
+	assert_should_initially_belong_to( :subject )
+	assert_should_initially_belong_to( :sample_type )
+	assert_should_habtm( :projects )
 	assert_should_require_attributes( :sample_type_id )
 	assert_should_require_attributes( :study_subject_id )
 

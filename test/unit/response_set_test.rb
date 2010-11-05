@@ -17,7 +17,6 @@ class ResponseSetTest < ActiveSupport::TestCase
 
 #	TODO (maybe)
 #	assert_should_require_unique_attributes(:access_code)
-#	assert_requires_valid_associations(:subject)
 
 
 	test "should require unique access_code" do

@@ -38,12 +38,6 @@ class EnrollmentTest < ActiveSupport::TestCase
 	assert_should_belong_to( :document_version )
 	assert_should_initially_belong_to(:subject)
 	assert_should_initially_belong_to(:project)
-
-#	TODO
-#	assert_requires_valid_associations(:subject, :as => 'study_subject')
-
-	assert_requires_valid_associations(:project)
-
 	assert_requires_complete_date(:completed_on)
 	assert_requires_complete_date(:consented_on)
 

@@ -13,8 +13,10 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_belong_to( :person )
 	assert_should_have_many( :hospitals )
 	assert_should_have_many( :patients )
+
 	assert_should_have_many(:aliquots, 
 		:foreign_key => :owner_id)
+
 	assert_should_have_many(:incoming_transfers, 
 		:class_name => 'Transfer',
 		:foreign_key => :to_organization_id)

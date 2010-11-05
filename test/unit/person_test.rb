@@ -10,8 +10,11 @@ class PersonTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :person_type_id )
 	assert_should_act_as_list
 	assert_should_have_many( :organizations )
-	assert_should_have_many( :interviews,
-		:foreign_key => :interviewer_id )
+
+#	TODO
+#	assert_should_have_many( :interviews,
+#		:foreign_key => :interviewer_id )
+
 	assert_should_require_attribute_length( :first_name, :maximum => 250 )
 	assert_should_require_attribute_length( :last_name,  :maximum => 250 )
 	assert_should_require_attribute_length( :honorific,  :maximum => 250 )

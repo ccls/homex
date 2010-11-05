@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SurveyTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_have_many(:response_sets)
-	assert_should_require_attribute(:title)
+	assert_should_have_many( :response_sets )
+	assert_should_require_attribute( :title )
 	assert_should_not_require_attributes(
 		:description,
 		:access_code,
