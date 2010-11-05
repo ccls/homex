@@ -19,9 +19,33 @@ div#container {
 div#header {
 	background-color: #6A7780;
 	height: 100px;
+/*
 	background-image: url('../images/berkeley-text.gif');
 	background-repeat: no-repeat;
+*/
 	position:relative; /* NEEDED so that mainmenu can be at bottom */
+}
+div#logo {
+	width: 400px;
+	float:left;
+	padding-left: 20px;
+	font-family: Times New Roman,LeagueGothicRegular,helvetica,arial,sans-serif;
+}
+div#logo h2 {
+	font-size: 30px;
+	margin: 10px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	color:white;
+	text-shadow: #000 0 1px 2px;
+}
+div#logo span {
+	font-size: 15px;
+	margin: 5px;
+	margin-top: 0px;
+	margin-left: 10px;
+	color:white;
+	text-shadow: #000 0 1px 2px;
 }
 
 div#minimenu {
