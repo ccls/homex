@@ -495,10 +495,6 @@ pending
 #		} }
 #	end
 
-	test "should require properly formated email address" do
-		pending
-	end
-
 	test "should return race name for string" do
 		subject = create_subject
 		assert_equal subject.race.name, 
