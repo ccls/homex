@@ -104,7 +104,8 @@ module FactoryTestHelper
 
 	def create_home_exposure_with_subject(options={})
 		subject    = Factory(:subject,options[:subject]||{})
-#		identifier = Factory(:identifier, :subject => subject)
+# might cause a problem
+		identifier = Factory(:identifier, :subject => subject)
 		project = Project.find_or_create_by_code('HomeExposures')
 		Factory(:enrollment, (options[:enrollment]||{}).merge(
 			:subject => subject, :project => project ))

@@ -16,12 +16,46 @@ class InterviewTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :instrument_version_id )
 	assert_should_not_require_attributes( :interview_method_id )
 	assert_should_not_require_attributes( :identifier_id )
+	assert_should_not_require_attributes( :began_on )
+	assert_should_not_require_attributes( :ended_on )
+	assert_should_not_require_attributes( :intro_letter_sent_on )
 	assert_should_require_attribute_length( :subject_relationship_other, :maximum => 250 )
 	assert_should_require_attribute_length( :respondent_first_name,      :maximum => 250 )
 	assert_should_require_attribute_length( :respondent_last_name,       :maximum => 250 )
 
 	assert_requires_complete_date( :began_on )
 	assert_requires_complete_date( :ended_on )
+	assert_requires_complete_date( :intro_letter_sent_on )
+
+	test "should create intro letter operational event " <<
+			"when intro_letter_sent_on set" do
+		assert_difference( "OperationalEvent.count", 1 ) {
+		assert_difference( "#{model_name}.count", 1 ) {
+		assert_difference( "Enrollment.count", 1 ) {
+		assert_difference( "Identifier.count", 1 ) {
+		assert_difference( "Subject.count", 1 ) {
+			create_object(
+				:identifier => create_hx_subject.identifier,
+				:intro_letter_sent_on => Chronic.parse('yesterday'))
+		} } } } }
+		assert_equal OperationalEventType['intro'],
+			OperationalEvent.last.operational_event_type
+		assert_equal model_name.constantize.last.intro_letter_sent_on,
+			OperationalEvent.last.occurred_on
+	end
+
+	test "should update intro letter operational event " <<
+			"when intro_letter_sent_on updated" do
+		object = create_object(
+			:identifier => create_hx_subject.identifier,
+			:intro_letter_sent_on => Chronic.parse('yesterday'))
+		assert_difference( "OperationalEvent.count", 0 ) {
+		assert_difference( "#{model_name}.count", 0 ) {
+			object.update_attribute(:intro_letter_sent_on, Chronic.parse('today'))
+		} }
+		assert_equal Chronic.parse('today').to_date,
+			OperationalEvent.last.occurred_on
+	end
 
 	test "should NOT require valid address_id" do
 		assert_difference( "#{model_name}.count", 1 ) do
@@ -64,7 +98,6 @@ class InterviewTest < ActiveSupport::TestCase
 			assert !object.errors.on(:identifier_id)
 		end
 	end
-
 
 	test "should require subject_relationship_other if " <<
 			"subject_relationship == other" do

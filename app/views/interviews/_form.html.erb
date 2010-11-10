@@ -14,6 +14,10 @@
 
 <%= f.error_messages %>
 
+<%= f.wrapped_date_text_field :intro_letter_sent_on,
+	:class => 'datepicker',
+	:label_text => 'Intro Letter Sent:' %>
+
 <%= f.wrapped_date_text_field :began_on,
 	:class => 'datepicker',
 	:label_text => 'Began on:' %>

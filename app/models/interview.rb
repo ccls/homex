@@ -23,7 +23,11 @@ class Interview < ActiveRecord::Base
 	belongs_to :language
 	belongs_to :subject_relationship
 
-	validates_complete_date_for :began_on, :ended_on,
+	validates_complete_date_for :began_on, 
+		:allow_nil => true
+	validates_complete_date_for :ended_on, 
+		:allow_nil => true
+	validates_complete_date_for :intro_letter_sent_on, 
 		:allow_nil => true
 	validates_length_of :subject_relationship_other, 
 		:respondent_first_name, :respondent_last_name,
@@ -35,6 +39,9 @@ class Interview < ActiveRecord::Base
 		:message => "not allowed",
 		:unless => :subject_relationship_is_other?
 
+	before_save :update_intro_operational_event,
+		:if => :intro_letter_sent_on_changed?
+
 	#	Returns string containing respondent's first and last name
 	def respondent_full_name
 		"#{respondent_first_name} #{respondent_last_name}"
@@ -44,6 +51,27 @@ protected
 
 	def subject_relationship_is_other?
 		subject_relationship.try(:is_other?)
+	end
+
+	def update_intro_operational_event
+		oet = OperationalEventType['intro']
+		hxe = subject.hx_enrollment
+		if oet && hxe
+			oe = hxe.operational_events.find(:first,
+				:conditions => { :operational_event_type_id => oet.id } )
+			if oe
+				oe.update_attributes(
+					:description => oet.description,
+					:occurred_on => intro_letter_sent_on
+				)
+			else
+				hxe.operational_events << OperationalEvent.create!(
+					:operational_event_type => oet,
+					:description => oet.description,
+					:occurred_on => intro_letter_sent_on
+				)
+			end
+		end
 	end
 
 end
