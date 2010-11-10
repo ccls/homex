@@ -300,3 +300,6 @@ form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
   float:left;
 }
 
+.homex_outcomes .columns .column:nth-child(2) {
+	padding-left:50px;
+}
