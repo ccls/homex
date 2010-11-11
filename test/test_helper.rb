@@ -15,7 +15,7 @@ class ActiveSupport::TestCase
 	self.use_instantiated_fixtures  = false
 	fixtures :all
 
-	include FactoryTestHelper
+#	include FactoryTestHelper
 
 	def assert_subject_is_eligible(subject)
 		assert_nil   subject.hx_enrollment.ineligible_reason_id

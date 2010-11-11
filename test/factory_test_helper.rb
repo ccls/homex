@@ -104,7 +104,6 @@ module FactoryTestHelper
 
 	def create_home_exposure_with_subject(options={})
 		subject    = Factory(:subject,options[:subject]||{})
-# might cause a problem
 		identifier = Factory(:identifier, :subject => subject)
 		project = Project.find_or_create_by_code('HomeExposures')
 		Factory(:enrollment, (options[:enrollment]||{}).merge(
@@ -128,17 +127,13 @@ module FactoryTestHelper
 
 	def create_hx_interview_subject(options={})
 		subject = create_hx_subject
-		identifier = Factory(:identifier, :subject => subject)
-#		interview_type = Factory(:interview_type, 
-#			:project => Project.find_or_create_by_code('HomeExposures'))
-#		instrument_version = Factory(:instrument_version, 
-#			:interview_type => interview_type)
+#		identifier = Factory(:identifier, :subject => subject)
 		instrument = Factory(:instrument, 
 			:project => Project.find_or_create_by_code('HomeExposures'))
 		instrument_version = Factory(:instrument_version, 
 			:instrument => instrument)
 		interview = Factory(:interview, 
-			:identifier => identifier,
+			:identifier => subject.identifier,
 			:instrument_version => instrument_version)
 		subject
 	end
@@ -155,18 +150,16 @@ module FactoryTestHelper
 		return subjects
 	end
 
-	def three_subjects_with_recruitment_priority
+	def create_subjects_with_recruitment_priorities(*priorities)
 		project = Factory(:project)
-		s1 = create_subject
-		s2 = create_subject
-		s3 = create_subject
-		Factory(:enrollment, :project => project, :subject => s1,
-			:recruitment_priority => 9)
-		Factory(:enrollment, :project => project, :subject => s2,
-			:recruitment_priority => 3)
-		Factory(:enrollment, :project => project, :subject => s3,
-			:recruitment_priority => 6)
-		return [project,s1,s2,s3]
+		subjects = priorities.collect do |priority|
+			subject = create_subject
+			Factory(:enrollment, :project => project, 
+				:subject => subject,
+				:recruitment_priority => priority)
+			subject
+		end
+		return [project,*subjects]
 	end
 
 	def create_subject_with_childid(childid)
@@ -176,27 +169,22 @@ module FactoryTestHelper
 			:childid => childid )
 		subject
 	end
-	
+
 	def three_subjects_with_childid
-		s1 = create_subject_with_childid('9')
-		s2 = create_subject_with_childid('3')
-		s3 = create_subject_with_childid('6')
-		return [s1,s2,s3]
+		create_subjects_with_childids(9,3,6)
 	end
 
 	def create_subject_with_patid(patid)
 		subject = create_subject
 		Factory(:identifier, 
 			:subject => subject,
-			:patid => patid )
+			:patid   => patid )
 		subject
 	end
-	
+	alias_method :create_subject_with_studyid,   :create_subject_with_patid
+
 	def three_subjects_with_patid
-		s1 = create_subject_with_patid('9')
-		s2 = create_subject_with_patid('3')
-		s3 = create_subject_with_patid('6')
-		return [s1,s2,s3]
+		create_subjects_with_patids(9,3,6)
 	end
 	alias_method :three_subjects_with_studyid, :three_subjects_with_patid
 
@@ -207,10 +195,7 @@ module FactoryTestHelper
 	end
 	
 	def three_subjects_with_last_name
-		s1 = create_subject_with_last_name('9')
-		s2 = create_subject_with_last_name('3')
-		s3 = create_subject_with_last_name('6')
-		return [s1,s2,s3]
+		create_subjects_with_last_names('9','3','6')
 	end
 
 	def create_subject_with_first_name(first_name)
@@ -220,10 +205,7 @@ module FactoryTestHelper
 	end
 	
 	def three_subjects_with_first_name
-		s1 = create_subject_with_first_name('9')
-		s2 = create_subject_with_first_name('3')
-		s3 = create_subject_with_first_name('6')
-		return [s1,s2,s3]
+		create_subjects_with_first_names('9','3','6')
 	end
 
 	def create_subject_with_dob(dob)
@@ -231,12 +213,9 @@ module FactoryTestHelper
 			:pii_attributes => Factory.attributes_for(:pii, 
 				:dob => Time.parse(dob) ))
 	end
-	
+
 	def three_subjects_with_dob
-		s1 = create_subject_with_dob('12/31/2005')
-		s2 = create_subject_with_dob('12/31/2001')
-		s3 = create_subject_with_dob('12/31/2003')
-		return [s1,s2,s3]
+		create_subjects_with_dobs('12/31/2005','12/31/2001','12/31/2003')
 	end
 
 	def create_subject_with_sample_outcome(outcome)
@@ -248,10 +227,7 @@ module FactoryTestHelper
 	end
 
 	def three_subjects_with_sample_outcome
-		s1 = create_subject_with_sample_outcome('9')
-		s2 = create_subject_with_sample_outcome('3')
-		s3 = create_subject_with_sample_outcome('6')
-		return [s1,s2,s3]
+		create_subjects_with_sample_outcomes('9','3','6')
 	end
 
 	def create_subject_with_interview_outcome_on(date)
@@ -261,32 +237,40 @@ module FactoryTestHelper
 	end
 
 	def three_subjects_with_interview_outcome_on
-		s1 = create_subject_with_interview_outcome_on('12/31/2005')
-		s2 = create_subject_with_interview_outcome_on('12/31/2001')
-		s3 = create_subject_with_interview_outcome_on('12/31/2003')
-		return [s1,s2,s3]
+		create_subjects_with_interview_outcome_ons('12/31/2005','12/31/2001','12/31/2003')
 	end
 
 	def create_subject_with_sample_sent_on(date)
-		create_hx_subject
+		create_hx_subject		#	will need extended eventually
 	end
 
 	def three_subjects_with_sample_sent_on
-		s1 = create_subject_with_sample_sent_on('12/31/2005')
-		s2 = create_subject_with_sample_sent_on('12/31/2001')
-		s3 = create_subject_with_sample_sent_on('12/31/2003')
-		return [s1,s2,s3]
+		create_subjects_with_sample_sent_ons('12/31/2005','12/31/2001','12/31/2003')
 	end
 
 	def create_subject_with_sample_received_on(date)
-		create_hx_subject
+		create_hx_subject		#	will need extended eventually
 	end
 
 	def three_subjects_with_sample_received_on
-		s1 = create_subject_with_sample_received_on('12/31/2005')
-		s2 = create_subject_with_sample_received_on('12/31/2001')
-		s3 = create_subject_with_sample_received_on('12/31/2003')
-		return [s1,s2,s3]
+		create_subjects_with_sample_received_ons('12/31/2005','12/31/2001','12/31/2003')
+	end
+
+	def method_missing_with_pluralization(symb,*args, &block)
+		method_name = symb.to_s
+		if method_name =~ /^create_subjects_with_(.*)$/
+			attribute = $1.singularize
+			args.collect do |arg|
+				send("create_subject_with_#{attribute}",arg)
+			end
+		else
+			method_missing_without_pluralization(symb, *args, &block)
+		end
+	end
+
+	def self.included(base)
+		base.alias_method_chain :method_missing, :pluralization
 	end
 
 end
+ActiveSupport::TestCase.send(:include, FactoryTestHelper)

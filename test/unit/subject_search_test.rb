@@ -422,14 +422,14 @@ pending
 	end
 
 	test "should order by priority asc by default" do
-		project,s1,s2,s3 = three_subjects_with_recruitment_priority
+		project,s1,s2,s3 = create_subjects_with_recruitment_priorities(9,3,6)
 		subjects = Subject.search(:order => 'priority',
 			:projects=>{ project.id => {} })
 		assert_equal [s2,s3,s1], subjects
 	end
 
 	test "should order by priority asc" do
-		project,s1,s2,s3 = three_subjects_with_recruitment_priority
+		project,s1,s2,s3 = create_subjects_with_recruitment_priorities(9,3,6)
 		subjects = Subject.search(:order => 'priority',
 			:dir => 'asc',
 			:projects=>{ project.id => {} })
@@ -437,28 +437,28 @@ pending
 	end
 
 	test "should order by priority desc" do
-		project,s1,s2,s3 = three_subjects_with_recruitment_priority
+		project,s1,s2,s3 = create_subjects_with_recruitment_priorities(9,3,6)
 		subjects = Subject.search(:order => 'priority',:dir => 'desc',
 			:projects=>{ project.id => {} })
 		assert_equal [s1,s3,s2], subjects
 	end
 
 	test "should order by id asc by default" do
-		s1,s2,s3 = three_subjects_with_childid
+		s1,s2,s3 = create_subjects_with_childids(9,3,6)
 		subjects = Subject.search(
 			:order => 'id')
 		assert_equal [s1,s2,s3], subjects
 	end
 
 	test "should order by id asc" do
-		s1,s2,s3 = three_subjects_with_childid
+		s1,s2,s3 = create_subjects_with_childids(9,3,6)
 		subjects = Subject.search(
 			:order => 'id', :dir => 'asc')
 		assert_equal [s1,s2,s3], subjects
 	end
 
 	test "should order by id desc" do
-		s1,s2,s3 = three_subjects_with_childid
+		s1,s2,s3 = create_subjects_with_childids(9,3,6)
 		subjects = Subject.search(
 			:order => 'id', :dir => 'desc')
 		assert_equal [s3,s2,s1], subjects
@@ -500,32 +500,28 @@ pending
 #	end
 
 	test "should include subject by q first_name" do
-		s1 = create_subject_with_first_name('Michael')
-		s2 = create_subject_with_first_name('Bob')
+		s1,s2 = create_subjects_with_first_names('Michael','Bob')
 		subjects = Subject.search(:q => 'mi ch ha')
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q last_name" do
-		s1 = create_subject_with_last_name('Michael')
-		s2 = create_subject_with_last_name('Bob')
+		s1,s2 = create_subjects_with_last_names('Michael','Bob')
 		subjects = Subject.search(:q => 'cha ael')
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q childid" do
-		s1 = create_subject_with_childid(999999)
-		s2 = create_subject_with_childid('1')
+		s1,s2 = create_subjects_with_childids(999999,'1')
 		subjects = Subject.search(:q => s1.identifier.childid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
 	end
 
 	test "should include subject by q patid" do
-		s1 = create_subject_with_patid(999999)
-		s2 = create_subject_with_patid('1')
+		s1,s2 = create_subjects_with_patids(999999,'1')
 		subjects = Subject.search(:q => s1.identifier.patid)
 		assert  subjects.include?(s1)
 		assert !subjects.include?(s2)
