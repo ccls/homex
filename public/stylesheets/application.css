@@ -300,6 +300,35 @@ form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
   float:left;
 }
 
+
+.homex_outcomes .columns .column:nth-child(1) {
+	width: 350px;
+}
 .homex_outcomes .columns .column:nth-child(2) {
-	padding-left:50px;
+	width: auto;
+}
+.homex_outcomes .field_wrapper .label {
+	width: 120px;
+}
+.homex_outcomes .title {
+	width: 160px;
+}
+.subject .homex_outcomes .title {
+	float: left;
+}
+.interview .homex_outcomes .title {
+	font-weight: bold;
+}
+.interview      .homex_outcomes .title,
+.subject        .homex_outcomes,
+.edit_subject   .homex_outcomes,
+.interview      .homex_outcomes .columns,
+.edit_interview .homex_outcomes .columns,
+.edit_subject   .homex_outcomes .columns {
+	margin: 13px 0;
+}
+.interview      .homex_outcomes .columns,
+.edit_interview .homex_outcomes .columns,
+.edit_subject   .homex_outcomes .columns {
+	display: block;
 }
