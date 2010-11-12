@@ -319,13 +319,17 @@ form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
 .interview .homex_outcomes .title {
 	font-weight: bold;
 }
+.edit_subject   .do_not_contact,
+.edit_interview .intro_letter_sent_on,
 .interview      .homex_outcomes .title,
 .subject        .homex_outcomes,
-.edit_subject   .homex_outcomes,
+.edit_subject   .homex_outcomes {
+/*
 .interview      .homex_outcomes .columns,
 .edit_interview .homex_outcomes .columns,
 .edit_subject   .homex_outcomes .columns {
-	margin: 13px 0;
+*/
+	margin: 13.333px 0;
 }
 .interview      .homex_outcomes .columns,
 .edit_interview .homex_outcomes .columns,

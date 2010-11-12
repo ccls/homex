@@ -91,6 +91,7 @@ div.pagination {
 	clear:both;
 	/* this holds the div open to the size of the contents */
 	display:table-row;
+	margin: 13.333px 0;
 }
 .columns > div {
 	/* and this seems to alleviate the need for floating */
