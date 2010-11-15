@@ -25,13 +25,13 @@ kit_sent:
 sample_received:
   id: 5
   position: 5
-  project_id:  5
+  project_id:  4
   code: sample_received
   description: sample received by CCLS
 sample_to_lab:
   id: 6
-  position: 
-  project_id:  6
+  position: 6
+  project_id:  4
   code: sample_to_lab
   description: sample sent to lab
 giftcard:
@@ -79,6 +79,6 @@ reopened:
 ineligible:
   id: 14
   position: 14
-  project_id: 1
+  project_id:  4
   code: ineligible
   description: subject determined to be ineligible
