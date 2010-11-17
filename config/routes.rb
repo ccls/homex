@@ -73,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :document_versions
 
 	map.namespace :api do |api|
-		api.resources :subjects, :only => [:show,:index]
+		api.resources :subjects, :only => :show	#[:show,:index]
 	end
 
 	#	Create named routes for expected pages so can avoid
