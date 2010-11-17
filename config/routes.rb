@@ -72,6 +72,9 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :ineligible_reasons
 	map.resources :document_versions
 
+	map.namespace :api do |api|
+		api.resources :subjects, :only => [:show,:index]
+	end
 
 	#	Create named routes for expected pages so can avoid
 	# needing to append the relative_url_root prefix manually.
