@@ -98,7 +98,7 @@ namespace :app do
 		%w( 134619889171013 134619889171020 
 				918192619433536 918192619433550 918192619433567 
 				918192619433710 918192619433734 
-				450043071490 450043071505 ).each do |tn|
+				450043071490 450043071505 065140275594099 ).each do |tn|
 			puts " - Adding package with tracking number:#{tn}:"
 			Package.find_or_create_by_tracking_number(tn)
 		end
