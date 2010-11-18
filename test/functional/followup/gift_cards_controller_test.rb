@@ -8,9 +8,9 @@ class Followup::GiftCardsControllerTest < ActionController::TestCase
 	}
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:reader,:editor] })
+		:logins => [:superuser,:admin] })
 	assert_no_access_with_login({ 
-		:logins => [:active_user] })
+		:logins => [:editor,:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https

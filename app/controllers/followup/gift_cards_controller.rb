@@ -20,12 +20,7 @@ class Followup::GiftCardsController < ApplicationController
 protected
 
 	def get_all
-#		instance_variable_set("@#{resource.plural}",
-#			resource.constantize.send(:all) )
-		@gift_cards = GiftCard.paginate(
-			:per_page => params[:per_page]||25,
-			:page     => params[:page]||1
-		)
+		@gift_cards = GiftCard.search(params)
 	end
 
 end

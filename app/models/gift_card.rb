@@ -10,4 +10,8 @@ class GiftCard < ActiveRecord::Base
 		number
 	end
 
+	def self.search(params={})
+		GiftCardSearch.new(params).gift_cards
+	end
+
 end
