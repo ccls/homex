@@ -1,0 +1,20 @@
+<% content_tag_for :tr, gift_card, :class => 'row' do %>
+<td class='number'>
+	<%= gift_card.number %>
+</td>
+<td class='issued_on'>
+	<%=mdy gift_card.issued_on %>
+</td>
+<td class='subject_last_name'>
+	<%= gift_card.subject.try(:last_name) %>
+</td>
+<td class='subject_first_name'>
+	<%= gift_card.subject.try(:first_name) %>
+</td>
+<td class='subject_childid'>
+	<%= gift_card.subject.try(:childid) %>
+</td>
+<td class='subject_studyid'>
+	<%= gift_card.subject.try(:studyid) %>
+</td>
+<% end %>

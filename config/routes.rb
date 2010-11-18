@@ -56,7 +56,8 @@ ActionController::Routing::Routes.draw do |map|
 	end
 
 	map.namespace :followup do |followup|
-		followup.resources  :subjects
+		followup.resources :subjects
+		followup.resources :gift_cards
 	end
 
 #	map.resources :survey_invitations, :only => :show

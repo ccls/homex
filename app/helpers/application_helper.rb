@@ -68,6 +68,25 @@ module ApplicationHelper
 		end
 	end
 
+	def followup_sub_menu
+		current = case controller.class.name.sub(/Controller$/,'')
+			when *%w( Subjects )  then :subjects
+			when *%w( GiftCards ) then :gift_cards
+			else nil
+		end
+		content_for :main do
+			s = "<div id='submenu'>\n"
+			l=[link_to( 'manage by subject', followup_subjects_path,
+				:class => ((current == :subjects)?'current':nil)
+			)]
+			l.push(link_to( 'manage by cards',
+				followup_gift_cards_path,
+				:class => ((current == :gift_cards)?'current':nil)))
+			s << l.join("\n")
+			s << "\n</div><!-- submenu -->\n"
+		end
+	end
+
 	def interview_sub_menu(interview)
 		current = case controller.class.name.sub(/Controller$/,'')
 			when *%w( Interviews ) then :general

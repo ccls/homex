@@ -11,4 +11,14 @@
 <td class='first_name'>
 <%= subject.first_name %>
 </td>
+<td class='gift_card_issued'>
+<% subject.gift_cards.each do |gift_card| %>
+<%=mdy gift_card.issued_on %>
+<% end %>
+</td>
+<td class='gift_card_number'>
+<% subject.gift_cards.each do |gift_card| %>
+<%= gift_card.number %>
+<% end %>
+</td>
 <% end %><%# content_tag_for %>
