@@ -1,9 +1,7 @@
 # don't know exactly
 class GiftCardSearch < Search
 
-	@@searchable_attributes = [ ]
-
-#	includes= [:pii,:identifier]
+	@@searchable_attributes = [ :number ]
 
 	def gift_cards
 		@gift_cards ||= GiftCard.send(
@@ -50,15 +48,18 @@ private	#	THIS IS REQUIRED
 
 	#	must come before other subject related joins
 	def a_subjects_joins
-		"LEFT JOIN subjects ON gift_cards.study_subject_id = subjects.id"
+		"LEFT JOIN subjects ON gift_cards.study_subject_id = subjects.id" if(
+			%w(childid studyid last_name first_name).include?(@order) )
 	end
 
 	def identifiers_joins
-		"LEFT JOIN identifiers ON identifiers.study_subject_id = subjects.id"
+		"LEFT JOIN identifiers ON identifiers.study_subject_id = subjects.id" if (
+			%w(childid studyid).include?(@order) )
 	end
 
 	def piis_joins
-		"LEFT JOIN piis ON piis.study_subject_id = subjects.id"
+		"LEFT JOIN piis ON piis.study_subject_id = subjects.id" if (
+			%w(last_name first_name).include?(@order) )
 	end
 
 end
