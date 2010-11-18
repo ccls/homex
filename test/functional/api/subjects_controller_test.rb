@@ -15,6 +15,22 @@ class Api::SubjectsControllerTest < ActionController::TestCase
 		subject = create_subject
 		get :show, :id => subject.id
 		assert_response 401
+		assert_response :unauthorized
+		#	action_controller/status_codes.rb
+	end
+
+	test "should not gem homex subject without id" do
+		set_credentials
+		assert_raise(ActionController::RoutingError){
+			get :show
+		}
+	end
+
+	test "should not gem homex subject with invalid id" do
+		set_credentials
+		assert_raise(ActiveRecord::RecordNotFound){
+			get :show, :id => 0
+		}
 	end
 
 protected 
