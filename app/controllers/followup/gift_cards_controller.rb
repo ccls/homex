@@ -2,8 +2,8 @@ class Followup::GiftCardsController < ApplicationController
 
 	resourceful
 
-#	def index
-#		record_or_recall_sort_order
+	def index
+		record_or_recall_sort_order
 #		if params[:commit] && params[:commit] == 'download'
 #			params[:paginate] = false
 #		end
@@ -14,8 +14,7 @@ class Followup::GiftCardsController < ApplicationController
 #				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
 #			render :template => "subjects/index"
 #		end
-#		@gift_cards = GiftCard.
-#	end
+	end
 
 protected
 
