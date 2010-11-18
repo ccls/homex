@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101110212934) do
+ActiveRecord::Schema.define(:version => 20101118214737) do
 
   create_table "address_types", :force => true do |t|
     t.integer  "position"
@@ -636,10 +636,11 @@ ActiveRecord::Schema.define(:version => 20101110212934) do
   create_table "operational_event_types", :force => true do |t|
     t.integer  "position"
     t.integer  "project_id"
-    t.string   "code",        :null => false
+    t.string   "code",           :null => false
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "event_category"
   end
 
   add_index "operational_event_types", ["code"], :name => "index_operational_event_types_on_code", :unique => true

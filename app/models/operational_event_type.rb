@@ -25,7 +25,8 @@ class OperationalEventType < ActiveRecord::Base
 
 	#	Returns description
 	def to_s
-		description
+#		description
+		event_category
 	end
 
 end
