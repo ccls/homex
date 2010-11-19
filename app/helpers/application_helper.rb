@@ -69,7 +69,6 @@ module ApplicationHelper
 	end
 
 	def followup_sub_menu
-		puts controller.class.name
 		current = case controller.class.name.sub(/Controller$/,'')
 			when *%w( Followup::Subjects )  then :subjects
 			when *%w( Followup::GiftCards ) then :gift_cards
