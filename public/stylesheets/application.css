@@ -224,13 +224,16 @@ table.sample_subject {
 	margin-top: 30px;
 }
 
+.interview .field_wrapper.outcome,
 .interview .field_wrapper.began_on {
 	float:left;
 	padding-right: 30px;
 }
+.interview .field_wrapper.outcome_on,
 .interview .field_wrapper.ended_on {
 	clear:none;
 }
+.interview .field_wrapper.outcome_on .label,
 .interview .field_wrapper.ended_on .label {
 	padding-right: 30px;
 	width:auto;

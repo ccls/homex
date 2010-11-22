@@ -10,12 +10,17 @@ class Interview < ActiveRecord::Base
 #  app/controllers/interviews_controller.rb:52:in `valid_id_required'
 #	has_one :subject, :through => :identifier
 #		changed from has_one to delegate to see if better
-	delegate :subject, :to => :identifier
+#	delegate :subject, :to => :identifier
 
 #	I think that these are pushing it a bit far.
 #		(they do work though)
 #	has_one :homex_outcome, :through => :subject
 #	has_one :interview_outcome, :through => :homex_outcome
+
+	#	in order to do nested attributes, can't be delegate
+	has_one :subject, :through => :identifier
+	accepts_nested_attributes_for :subject
+
 	belongs_to :address
 	belongs_to :interviewer, :class_name => 'Person'
 	belongs_to :instrument_version
