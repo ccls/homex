@@ -8,6 +8,9 @@ class SubjectSearch < Search
 		:projects
 	]
 
+	@@attr_accessors.push :search_gift_cards
+	attr_accessor :search_gift_cards
+
 #	includes= [:pii,:identifier]
 
 	def subjects
@@ -72,7 +75,8 @@ private	#	THIS IS REQUIRED
 	end
 
 	def vital_statuses_conditions
-		['vital_statuses.code IN (?)', vital_statuses
+#		['vital_statuses.code IN (?)', vital_statuses
+		['vital_statuses.code IN (:vital_statuses)', { :vital_statuses => vital_statuses }
 			] unless vital_statuses.blank?
 	end
 
@@ -81,7 +85,8 @@ private	#	THIS IS REQUIRED
 	end
 
 	def races_conditions
-		['races.description IN (?)', races
+#		['races.description IN (?)', races
+		['races.description IN (:races)', { :races => races }
 			] unless races.blank?
 	end
 
@@ -91,8 +96,14 @@ private	#	THIS IS REQUIRED
 	end
 
 	def types_conditions
-		['subject_types.description IN (?)', types
+#		['subject_types.description IN (?)', types
+		['subject_types.description IN (:types)', { :types => types }
 			] unless types.blank?
+	end
+
+	def gift_card_joins
+		#	A subject has many gift cards so this may pose a problem
+		"LEFT JOIN gift_cards ON gift_cards.study_subject_id = subjects.id" if search_gift_cards
 	end
 
 	def q_conditions
@@ -104,6 +115,7 @@ private	#	THIS IS REQUIRED
 				c.push("piis.last_name LIKE :t#{i}")
 				c.push("identifiers.patid LIKE :t#{i}")
 				c.push("identifiers.childid LIKE :t#{i}")
+				c.push("gift_cards.number LIKE :t#{i}") if search_gift_cards
 				v["t#{i}".to_sym] = "%#{t}%"
 			end
 			[ "( #{c.join(' OR ')} )", v ]
@@ -129,7 +141,7 @@ private	#	THIS IS REQUIRED
 	def sample_outcome_conditions
 		unless sample_outcome.blank?
 			if sample_outcome =~ /^Complete$/i
-				['sample_outcomes.code = ?',sample_outcome]
+				['sample_outcomes.code = :sample_outcome',{:sample_outcome => sample_outcome}]
 			else
 				["(sample_outcomes.code != 'Complete' " <<
 						"OR sample_outcomes.code IS NULL)"]
@@ -146,7 +158,7 @@ private	#	THIS IS REQUIRED
 	def interview_outcome_conditions
 		unless interview_outcome.blank?
 			if interview_outcome =~ /^Complete$/i
-				['interview_outcomes.code = ?', interview_outcome]
+				['interview_outcomes.code = :interview_outcome', {:interview_outcome => interview_outcome}]
 			else
 				["(interview_outcomes.code != 'Complete'" <<
 					"OR interview_outcomes.code IS NULL)"]

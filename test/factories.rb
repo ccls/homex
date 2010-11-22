@@ -182,6 +182,7 @@ end
 Factory.define :operational_event_type do |f|
 	f.sequence(:code) { |n| "Code#{n}" }
 	f.sequence(:description) { |n| "Desc#{n}" }
+	f.sequence(:event_category) { |n| "Cat#{n}" }
 end
 
 Factory.define :package do |f|

@@ -167,6 +167,7 @@ class Subject < ActiveRecord::Base
 			:projects=>{hx_id=>{}}
 		)
 		options.merge!(
+			:search_gift_cards => true,
 			:sample_outcome => 'complete',
 			:interview_outcome => 'complete'
 		)

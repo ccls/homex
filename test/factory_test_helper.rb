@@ -162,6 +162,14 @@ module FactoryTestHelper
 		return [project,*subjects]
 	end
 
+	def create_subject_with_gift_card_number(gift_card_number)
+		subject = create_subject
+		Factory(:gift_card, 
+			:subject => subject,
+			:number  => gift_card_number )
+		subject
+	end
+
 	def create_subject_with_childid(childid)
 		subject = create_subject
 		Factory(:identifier, 

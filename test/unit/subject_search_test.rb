@@ -527,6 +527,14 @@ pending
 		assert !subjects.include?(s2)
 	end
 
+	test "should include subject by q gift_card" do
+		s1,s2 = create_subjects_with_gift_card_numbers('9999','1111')
+		subjects = Subject.search(:q => s1.gift_cards.first.number,
+			:search_gift_cards => true)
+		assert  subjects.include?(s1)
+		assert !subjects.include?(s2)
+	end
+
 #	test "should return dust_kit_status of None" do
 #		subject = create_subject
 #		assert_equal 'None', subject.dust_kit_status

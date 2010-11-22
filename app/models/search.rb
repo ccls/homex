@@ -63,7 +63,19 @@ private
 #		end
 #		opts 
 		#	That's better!
-		conditions_parts.map { |condition| condition[1..-1] }.flatten(1)
+		parts = conditions_parts.map { |condition| condition[1..-1] }.flatten(1)
+
+#	The "parts" contain the variables inserted in the query.
+#	Apparently, we can't mix ?'s with :var_name, but we
+#	can only have 1 trailing hash so we need to merge all
+#	of the trailing hashes.
+
+		symbol_options = HashWithIndifferentAccess.new
+		while( !( h = parts.extract_options! ).empty? ) do
+			symbol_options.merge!(h)
+		end
+
+		parts.push(symbol_options)
 	end
 
 	def conditions_parts

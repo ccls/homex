@@ -13,10 +13,11 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :project_id )
 	assert_should_require_attribute_length( :code,        :maximum => 250 )
 	assert_should_require_attribute_length( :description, :maximum => 250, :minimum => 4 )
+	assert_should_require_attribute_length( :event_category, :maximum => 250, :minimum => 4 )
 
-	test "should return description as to_s" do
+	test "should return event_category as to_s" do
 		object = create_object
-		assert_equal object.description, "#{object}"
+		assert_equal object.event_category, "#{object}"
 	end
 
 	test "should find by code with ['string']" do
