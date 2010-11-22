@@ -8,12 +8,12 @@
 
 <% content_tag_for( :div, @interview ) do %>
 <h4>Interview Info</h4>
-<%= wrapped_spans(:interview,:outcome,
+<%= wrapped_spans(:interview,:interview_outcome,
 	:label_text => 'Outcome:',
 	:value => @interview.subject.try(:homex_outcome).try(
 		:interview_outcome)||'&nbsp;') %>
 
-<%= wrapped_spans(:interview,:outcome_on,
+<%= wrapped_spans(:interview,:interview_outcome_on,
 	:label_text => 'Date:',
 	:value => mdy(@interview.subject.try(:homex_outcome).try(:interview_outcome_on))) %>
 
@@ -36,11 +36,11 @@
 	:label_text => "Interview Language:") %>
 
 <h4>Respondent Info</h4>
-<%= wrapped_spans(:interview,:respondent_full_name,
-	:label_text => "Name:") %>
 <%= wrapped_spans(:interview,:subject_relationship,
 	:label_text => "Relationship:") %>
 <%= wrapped_spans(:interview,:subject_relationship_other,
 	:label_text => "specify:") %>
+<%= wrapped_spans(:interview,:respondent_full_name,
+	:label_text => "Name:") %>
 
 <% end %><%# content_tag_for %>
