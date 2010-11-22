@@ -60,7 +60,11 @@ protected
 
 	def update_intro_operational_event
 		oet = OperationalEventType['intro']
-		hxe = subject.hx_enrollment
+#puts identifier.reload.inspect
+#puts identifier.subject.inspect
+#puts subject.inspect
+#		hxe = subject.hx_enrollment
+		hxe = identifier.subject.hx_enrollment
 		if oet && hxe
 			oe = hxe.operational_events.find(:first,
 				:conditions => { :operational_event_type_id => oet.id } )
