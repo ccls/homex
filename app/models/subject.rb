@@ -91,7 +91,7 @@ class Subject < ActiveRecord::Base
 	def to_s
 #		require 'pii' if RAILS_ENV == 'development'	#	forgets
 		load 'pii.rb' if RAILS_ENV == 'development'	#	forgets
-		full_name
+		[childid,studyid,full_name].compact.join(' ')
 	end
 
 	#	Returns boolean of comparison

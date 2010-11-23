@@ -15,6 +15,17 @@
 	) do |f| %>
 	<%= f.error_messages %>
 
+<%# TODO %>
+
+<%#	'wrapping' label doesn't work right so NEED label_text %>
+
+<%# causes a VERY long class name with the options %>
+
+	<%= wrapped_select_tag :gift_card_id, 
+		options_for_select(GiftCard.all.collect{ |u| [u.number, u.id] }),
+		:label_text => 'Card Number' %>
+
+	<%= wrapped_date_text_field :gift_card, :issued_on, :value => Date.today %>
 
 	<%= hidden_field_tag :study_subject_id, @subject.id %>
 
