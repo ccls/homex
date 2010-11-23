@@ -24,6 +24,8 @@ module ApplicationHelper
 					Packages
 				) then :sample
 			when *%w( 
+					GiftCards
+					Followup::GiftCards
 					Followup::Subjects 
 				) then :followup
 			when *%w( 
@@ -54,6 +56,17 @@ module ApplicationHelper
 
 	def administrator_menu()
 		link_to( "Admin", admin_path )
+	end
+
+	def id_bar_for(object,&block)
+		#	In development, the app will forget
+		require 'subject'
+		require 'gift_card'
+		case object
+			when Subject   then subject_id_bar(object,&block)
+			when GiftCard then gift_card_id_bar(object,&block)
+			else nil
+		end
 	end
 
 	def sub_menu_for(object)

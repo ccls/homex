@@ -2,6 +2,9 @@ class Followup::SubjectsController < ApplicationController
 
 	permissive
 
+	before_filter :valid_id_for_hx_subject_required,
+		:only => [:show,:edit]
+
 	def index
 		record_or_recall_sort_order
 		if params[:commit] && params[:commit] == 'download'
@@ -14,6 +17,10 @@ class Followup::SubjectsController < ApplicationController
 				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
 			render :template => "subjects/index"
 		end
+	end
+
+	def show
+#		@gift_cards = @subject.gift_cards
 	end
 
 end

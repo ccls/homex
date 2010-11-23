@@ -14,6 +14,11 @@ class SubjectSearch < Search
 #	includes= [:pii,:identifier]
 
 	def subjects
+		if RAILS_ENV == 'development'
+			load 'pii.rb'	
+			load 'identifier.rb'
+			load 'gift_card.rb'
+		end
 		@subjects ||= Subject.send(
 			(paginate)?'paginate':'all',{
 				:include => [:pii,:identifier],
@@ -31,7 +36,7 @@ class SubjectSearch < Search
 
 	def valid_orders
 		%w( id childid last_name first_name dob studyid priority sample_outcome
-			interview_outcome_on sample_sent_on sample_received_on )
+			interview_outcome_on sample_sent_on sample_received_on number issued_on )
 	end
 
 private	#	THIS IS REQUIRED
@@ -55,6 +60,8 @@ private	#	THIS IS REQUIRED
 				when 'priority'   then 'recruitment_priority'
 				when 'sample_outcome'       then 'homex_outcomes.sample_outcome_id'
 				when 'interview_outcome_on' then 'homex_outcomes.interview_outcome_on'
+				when 'number' then 'gift_cards.number'
+				when 'issued_on' then 'gift_cards.issued_on'
 #				when 'sample_sent_on'       then 'recruitment_priority'
 #				when 'sample_received_on'   then 'recruitment_priority'
 				else @order
@@ -103,7 +110,8 @@ private	#	THIS IS REQUIRED
 
 	def gift_card_joins
 		#	A subject has many gift cards so this may pose a problem
-		"LEFT JOIN gift_cards ON gift_cards.study_subject_id = subjects.id" if search_gift_cards
+		"LEFT JOIN gift_cards ON gift_cards.study_subject_id = subjects.id" if( 
+			search_gift_cards || %w( number issued_on ).include?(@order))
 	end
 
 	def q_conditions

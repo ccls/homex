@@ -11,8 +11,8 @@
 <th><%= sort_link('Issued') %></th>
 <th><%= sort_link('Number') %></th>
 </tr></thead><tbody>
-<%#= render :partial => 'subjects/subject', :collection => @subjects %>
-<%= render :partial => 'subject', :collection => @subjects %>
+<%# load 'gift_card.rb' %>
+<%= render @subjects %>
 </tbody></table>
 <% else %>
 <p>There are no subjects.</p>

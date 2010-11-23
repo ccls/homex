@@ -1,6 +1,9 @@
+<% load 'gift_card.rb' if RAILS_ENV == 'development' %>
+<% load 'pii.rb' if RAILS_ENV == 'development' %>
+
 <% content_tag_for( :tr, subject, :class => 'row' ) do %>
 <td class='childid'>
-<%= link_to subject.childid, subject_path(subject) -%>
+<%= link_to subject.childid, followup_subject_path(subject) -%>
 </td>
 <td class='studyid'>
 <%= subject.studyid %>
@@ -12,13 +15,9 @@
 <%= subject.first_name %>
 </td>
 <td class='gift_card_issued'>
-<% subject.gift_cards.each do |gift_card| %>
-<%=mdy gift_card.issued_on %>
-<% end %>
+<%=mdy subject.hx_gift_card.try(:issued_on) %>
 </td>
 <td class='gift_card_number'>
-<% subject.gift_cards.each do |gift_card| %>
-<%= gift_card.number %>
-<% end %>
+<%= subject.hx_gift_card.try(:number)||'&nbsp;' %>
 </td>
 <% end %><%# content_tag_for %>

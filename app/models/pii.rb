@@ -31,7 +31,7 @@ class Pii < ActiveRecord::Base
 
 	#	Returns string containing subject's first, middle and last name
 	def full_name
-		[first_name, middle_name, last_name].join(' ')
+		[first_name, middle_name, last_name].compact.join(' ')
 	end
 
 	#	Returns string containing subject's father's first, middle and last name

@@ -10,7 +10,7 @@
 <th><%= sort_link('ChildID') %></th>
 <th><%= sort_link('StudyID') %></th>
 </tr></thead><tbody>
-<%= render :partial => 'gift_card', :collection => @gift_cards %>
+<%= render @gift_cards %>
 </tbody></table>
 <% else %>
 <p>There are no gift_cards.</p>

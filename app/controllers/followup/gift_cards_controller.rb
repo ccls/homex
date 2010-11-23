@@ -1,6 +1,6 @@
 class Followup::GiftCardsController < ApplicationController
 
-	resourceful
+	resourceful :update_redirect => :update_redirect_path
 
 	def index
 		record_or_recall_sort_order
@@ -20,6 +20,10 @@ protected
 
 	def get_all
 		@gift_cards = GiftCard.search(params)
+	end
+
+	def update_redirect_path
+		followup_gift_card_path(@gift_card)
 	end
 
 end

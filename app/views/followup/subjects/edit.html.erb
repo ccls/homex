@@ -1,0 +1,21 @@
+<% stylesheets('base/jquery.ui.all.css') %>
+<% load 'gift_card.rb' %>
+
+<% content_for :id_bar do %>
+<%= link_to 'Save', nil, {
+	:id => "for_#{dom_id(@subject,:edit)}",
+	:class => :submitter
+} %>
+<% end %>
+<% id_bar_for(@subject) %>
+
+<% form_for(@subject,
+		:url  => followup_subject_path(@subject),
+		:html => { :class => 'confirm edit_subject' }
+	) do |f| %>
+	<%= f.error_messages %>
+
+
+	<%= hidden_field_tag :study_subject_id, @subject.id %>
+
+<% end %>

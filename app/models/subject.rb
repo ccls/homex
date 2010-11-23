@@ -13,7 +13,15 @@ class Subject < ActiveRecord::Base
 	has_many :addressings, :foreign_key => 'study_subject_id'
 	has_many :addresses, :through => :addressings
 	has_many :enrollments, :foreign_key => 'study_subject_id'
+	has_one  :hx_enrollment, :class_name => "Enrollment", 
+		:foreign_key => 'study_subject_id', 
+		:conditions => ["projects.code = 'HomeExposures'"], :include => :project
 	has_many :gift_cards, :foreign_key => 'study_subject_id'
+	has_one  :hx_gift_card, :class_name => "GiftCard", 
+		:foreign_key => 'study_subject_id', 
+		:conditions => ["projects.code = 'HomeExposures'"], :include => :project
+	accepts_nested_attributes_for :gift_cards
+
 #	has_many :home_exposure_events
 #	has_many :hospitals
 #	has_many :operational_events
@@ -80,18 +88,24 @@ class Subject < ActiveRecord::Base
 		)
 	end
 
+	def to_s
+#		require 'pii' if RAILS_ENV == 'development'	#	forgets
+		load 'pii.rb' if RAILS_ENV == 'development'	#	forgets
+		full_name
+	end
+
 	#	Returns boolean of comparison
 	#	true only if type is Case
 	def is_case?
 		subject_type.try(:code) == 'Case'
 	end
 
-	#	Returns home exposures enrollment
-	def hx_enrollment
-		enrollments.find(:first,
-			:conditions => "projects.code = 'HomeExposures'",
-			:joins => :project)
-	end
+#	#	Returns home exposures enrollment
+#	def hx_enrollment
+#		enrollments.find(:first,
+#			:conditions => "projects.code = 'HomeExposures'",
+#			:joins => :project)
+#	end
 
 	#	Returns home exposures interview
 	def hx_interview

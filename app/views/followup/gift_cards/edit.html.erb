@@ -1,6 +1,16 @@
 <% stylesheets('base/jquery.ui.all.css') %>
-<h4>GiftCard:</h4>
+
+<% content_for :id_bar do %>
+<%= link_to 'Save', nil, {
+:id => "for_#{dom_id(@gift_card,:edit)}",
+:class => :submitter
+} %>
+<% end %>
+<% id_bar_for(@gift_card) %>
+
+<% load 'subject.rb' %>
 <% form_for(@gift_card,
+		:url  => followup_gift_card_path(@gift_card),
 		:html => { :class => 'confirm edit_gift_card' }
 	) do |f| %>
 	<%= f.error_messages %>
@@ -11,10 +21,9 @@
 <%# I need to refine this to only include those that do not already have 
 	plus this subject so the select includes it.
 %>
-<%# subjects = Subject.for_hx_followup({:paginate => false}) %>
+<% subjects = Subject.for_hx_followup({:paginate => false}) %>
 
-	<%#= f.wrapped_collection_select :study_subject_id,
+	<%= f.wrapped_collection_select :study_subject_id,
 		subjects, :id, :to_s, :include_blank => true %>
 
-	<p><%= f.submit( (@gift_card.new_record?)?'Create':'Update' ) %></p>
 <% end %>

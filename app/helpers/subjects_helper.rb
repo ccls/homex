@@ -133,7 +133,8 @@ module SubjectsHelper
 	end
 
 	#	Used to replace the _id_bar partial
-	def id_bar_for(subject,&block)
+#	def id_bar_for(subject,&block)
+	def subject_id_bar(subject,&block)
 		stylesheets('subject_id_bar')
 		content_for :main do
 			"<div id='id_bar'>\n" <<
