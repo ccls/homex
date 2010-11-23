@@ -32,8 +32,12 @@ class Followup::SubjectsController < ApplicationController
 	end
 
 	def update
+		unless @subject.hx_gift_card.nil?
+			@subject.hx_gift_card.update_attribute(:subject, nil)
+		end
 		@gift_card.subject = @subject
-		@gift_card.project = Project['HomeExposures']
+#	Not currently necessary as the gift cards' fixtures already has a project_id
+#		@gift_card.project = Project['HomeExposures']
 		@gift_card.issued_on = params[:gift_card][:issued_on]
 		@gift_card.save!
 		flash[:notice] = 'Success!'
