@@ -86,6 +86,7 @@ class AddressingsControllerTest < ActionController::TestCase
 				:addressing => az_addressing()
 		} } } }
 		assert assigns(:subject)
+		subject.hx_enrollment.reload	#	NEEDED
 		assert_subject_is_not_eligible(subject)
 		assert_equal   subject.hx_enrollment.ineligible_reason,
 			IneligibleReason['newnonCA']

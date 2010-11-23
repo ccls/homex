@@ -174,6 +174,7 @@ class AddressingTest < ActiveSupport::TestCase
 			assert_raise(ActiveRecord::RecordNotSaved){
 				create_az_addressing(subject)
 		} } } }
+		subject.hx_enrollment.reload	#	NEEDED
 		assert_subject_is_eligible(subject)
 	end
 
