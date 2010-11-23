@@ -16,6 +16,12 @@ class Followup::GiftCardsController < ApplicationController
 #		end
 	end
 
+	def edit
+		@subjects  = []
+		@subjects += [@gift_card.subject] unless @gift_card.subject.nil?
+		@subjects += Subject.need_gift_card({:paginate => false})
+	end
+
 protected
 
 	def get_all

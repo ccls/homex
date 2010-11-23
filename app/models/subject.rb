@@ -176,6 +176,12 @@ class Subject < ActiveRecord::Base
 #		))
 	end
 
+	def self.need_gift_card(params={})
+		for_hx_followup(params.merge({
+			:has_gift_card => false
+		}))
+	end
+
 	def self.for_hx_followup(params={})
 		options = params.deep_merge(
 			:projects=>{hx_id=>{}}

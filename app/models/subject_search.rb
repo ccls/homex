@@ -5,7 +5,7 @@ class SubjectSearch < Search
 #		:race, :type, :races, :types, :vital_statuses
 		:races, :types, :vital_statuses, :q,
 		:sample_outcome, :interview_outcome,
-		:projects
+		:projects, :has_gift_card
 	]
 
 	@@attr_accessors.push :search_gift_cards
@@ -127,6 +127,16 @@ private	#	THIS IS REQUIRED
 				v["t#{i}".to_sym] = "%#{t}%"
 			end
 			[ "( #{c.join(' OR ')} )", v ]
+		end
+	end
+
+	def gift_card_conditions
+		unless has_gift_card.nil?
+			if has_gift_card
+				["gift_cards.id IS NOT NULL"]
+			else
+				["gift_cards.id IS NULL"]
+			end
 		end
 	end
 
