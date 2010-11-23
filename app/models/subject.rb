@@ -89,9 +89,8 @@ class Subject < ActiveRecord::Base
 	end
 
 	def to_s
-#		require 'pii' if RAILS_ENV == 'development'	#	forgets
 		load 'pii.rb' if RAILS_ENV == 'development'	#	forgets
-		[childid,studyid,full_name].compact.join(' ')
+		[childid,'(',studyid,full_name,')'].compact.join(' ')
 	end
 
 	#	Returns boolean of comparison
@@ -100,6 +99,7 @@ class Subject < ActiveRecord::Base
 		subject_type.try(:code) == 'Case'
 	end
 
+#	replaced with has_one relationship
 #	#	Returns home exposures enrollment
 #	def hx_enrollment
 #		enrollments.find(:first,
