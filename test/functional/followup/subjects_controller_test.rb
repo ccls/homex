@@ -4,8 +4,20 @@ class Followup::SubjectsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
 	ASSERT_ACCESS_OPTIONS = {
-		:actions => [:index]
+		:model => 'Subject',
+		:actions => [:index,:show,:edit],	#,:update],
+#		:before => :create_home_exposure_subjects,
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :create_subject
 	}
+	def factory_attributes(options={})
+		Factory.attributes_for(:subject,{
+			:subject_type_id => Factory(:subject_type).id,
+			:race_id => Factory(:race).id}.merge(options))
+	end
+
+#	This controller isn't exactly restful
+#	and doesn't actually edit the subject.
 
 	assert_access_with_login({ 
 		:logins => [:superuser,:admin,:reader,:editor] })

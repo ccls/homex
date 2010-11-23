@@ -15,18 +15,13 @@
 	) do |f| %>
 	<%= f.error_messages %>
 
-<%# TODO %>
-
-<%#	'wrapping' label doesn't work right so NEED label_text %>
-
-<%# causes a VERY long class name with the options %>
-
-	<%= wrapped_select_tag :gift_card_id, 
-		options_for_select(GiftCard.all.collect{ |u| [u.number, u.id] }),
-		:label_text => 'Card Number' %>
+	<div class='gift_card_id field_wrapper'>
+	<label for="gift_card_id">Card Number</label>
+	<%= select_tag 'gift_card[id]', 
+		options_for_select([nil]+@gift_cards.collect{ |u| [u.number, u.id] },
+			:selected => @subject.hx_gift_card.try(:id)) %>
+	</div><!-- class='gift_card_id' -->
 
 	<%= wrapped_date_text_field :gift_card, :issued_on, :value => Date.today %>
-
-	<%= hidden_field_tag :study_subject_id, @subject.id %>
 
 <% end %>

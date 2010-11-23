@@ -4,8 +4,15 @@ class Followup::GiftCardsControllerTest < ActionController::TestCase
 
 	setup :create_home_exposure_with_subject
 	ASSERT_ACCESS_OPTIONS = {
-		:actions => [:index]
+		:model => 'GiftCard',
+		:actions => [:index,:edit,:update,:show],
+#		:actions => [:new,:create,:edit,:update,:show,:destroy,:index],
+		:attributes_for_create => :factory_attributes,
+		:method_for_create => :create_gift_card
 	}
+	def factory_attributes(options={})
+		Factory.attributes_for(:gift_card,options)
+	end
 
 	assert_access_with_login({ 
 		:logins => [:superuser,:admin] })
