@@ -657,7 +657,7 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
 
   create_table "organizations", :force => true do |t|
     t.integer  "position"
-    t.string   "code",       :limit => 15, :null => false
+    t.string   "code",       :limit => 15
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -786,7 +786,7 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
     t.integer  "position"
     t.date     "began_on"
     t.date     "ended_on"
-    t.string   "code",                 :null => false
+    t.string   "code"
     t.string   "description"
     t.text     "eligibility_criteria"
     t.datetime "created_at"
@@ -877,8 +877,8 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
     t.datetime "updated_at"
   end
 
-  add_index "response_sets", ["access_code"], :name => "altered_response_sets_ac_idx", :unique => true
   add_index "response_sets", ["access_code"], :name => "index_response_sets_on_access_code", :unique => true
+  add_index "response_sets", ["access_code"], :name => "response_sets_ac_idx", :unique => true
   add_index "response_sets", ["study_subject_id"], :name => "index_response_sets_on_study_subject_id"
 
   create_table "responses", :force => true do |t|
@@ -953,9 +953,9 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
     t.integer  "sample_type_id"
     t.integer  "study_subject_id"
     t.integer  "unit_id"
-    t.integer  "order_no",                     :default => 1
-    t.decimal  "quantity_in_sample"
-    t.string   "aliquot_or_sample_on_receipt", :default => "Sample"
+    t.integer  "order_no",                                                                  :default => 1
+    t.integer  "quantity_in_sample",           :limit => 10, :precision => 10, :scale => 0
+    t.string   "aliquot_or_sample_on_receipt",                                              :default => "Sample"
     t.date     "sent_to_subject_on"
     t.date     "received_by_ccls_on"
     t.date     "sent_to_lab_on"
@@ -1092,9 +1092,9 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
   create_table "transfers", :force => true do |t|
     t.integer  "position"
     t.integer  "aliquot_id"
-    t.integer  "from_organization_id", :null => false
-    t.integer  "to_organization_id",   :null => false
-    t.decimal  "amount"
+    t.integer  "from_organization_id",                                              :null => false
+    t.integer  "to_organization_id",                                                :null => false
+    t.integer  "amount",               :limit => 10, :precision => 10, :scale => 0
     t.string   "reason"
     t.boolean  "is_permanent"
     t.datetime "created_at"
@@ -1174,8 +1174,8 @@ ActiveRecord::Schema.define(:version => 20101118214737) do
 
   create_table "vital_statuses", :force => true do |t|
     t.integer  "position"
-    t.integer  "code",        :limit => 255, :null => false
-    t.string   "description",                :null => false
+    t.integer  "code",        :null => false
+    t.string   "description", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
