@@ -2,14 +2,18 @@
 class Analysis < ActiveRecord::Base
 	has_and_belongs_to_many :subjects, :association_foreign_key => 'study_subject_id'
 
-	belongs_to :analyst, :class_name => 'Person'
-	belongs_to :analytic_file_creator, :class_name => 'Person'
+	with_options :class_name => 'Person' do |o|
+		o.belongs_to :analyst
+		o.belongs_to :analytic_file_creator
+	end
 	belongs_to :project
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
-	validates_length_of :code, :description,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 end

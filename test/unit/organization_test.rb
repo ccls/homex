@@ -17,14 +17,16 @@ class OrganizationTest < ActiveSupport::TestCase
 	assert_should_have_many(:aliquots, 
 		:foreign_key => :owner_id)
 
-	assert_should_have_many(:incoming_transfers, 
-		:class_name => 'Transfer',
-		:foreign_key => :to_organization_id)
-	assert_should_have_many(:outgoing_transfers, 
-		:class_name => 'Transfer',
-		:foreign_key => :from_organization_id)
-	assert_should_require_attribute_length( :code, :minimum => 4, :maximum => 250 )
-	assert_should_require_attribute_length( :name, :minimum => 4, :maximum => 250 )
+	with_options :class_name => 'Transfer' do |o|
+		o.assert_should_have_many(:incoming_transfers, 
+			:foreign_key => :to_organization_id)
+		o.assert_should_have_many(:outgoing_transfers, 
+			:foreign_key => :from_organization_id)
+	end
+	with_options :minimum => 4, :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.assert_should_require_attribute_length( :name )
+	end
 
 	test "new incoming_transfer should have matching organization id" do
 		organization = create_organization

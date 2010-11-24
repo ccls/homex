@@ -15,9 +15,11 @@ class PersonTest < ActiveSupport::TestCase
 #	assert_should_have_many( :interviews,
 #		:foreign_key => :interviewer_id )
 
-	assert_should_require_attribute_length( :first_name, :maximum => 250 )
-	assert_should_require_attribute_length( :last_name,  :maximum => 250 )
-	assert_should_require_attribute_length( :honorific,  :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :first_name )
+		o.assert_should_require_attribute_length( :last_name )
+		o.assert_should_require_attribute_length( :honorific )
+	end
 
 	test "should return full_name as to_s" do
 		object = create_object

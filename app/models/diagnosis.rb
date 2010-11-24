@@ -7,7 +7,6 @@ class Diagnosis < ActiveRecord::Base
 
 	validates_presence_of   :code
 	validates_uniqueness_of :code
-#	validates_length_of     :description, :minimum => 3, :maximum => 250
 	validates_length_of     :description, :in => 3..250
 	validates_uniqueness_of :description
 

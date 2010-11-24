@@ -11,8 +11,10 @@ class SubjectTypeTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes( :description )
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :related_case_control_type )
-	assert_should_require_attribute_length( :code,        :maximum => 250 )
-	assert_should_require_attribute_length( :description, :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.assert_should_require_attribute_length( :description )
+	end
 
 	test "should return description as name" do
 		object = create_object

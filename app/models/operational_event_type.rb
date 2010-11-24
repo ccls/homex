@@ -13,12 +13,12 @@ class OperationalEventType < ActiveRecord::Base
 	validates_uniqueness_of :description
 	validates_presence_of   :event_category
 	validates_uniqueness_of :event_category
-	validates_length_of :code, :maximum => 250, 
-		:allow_blank => true
-	validates_length_of :description, :in => 4..250, 
-		:allow_blank => true
-	validates_length_of :event_category, :in => 4..250, 
-		:allow_blank => true
+
+	with_options :allow_blank => true do |o|
+		o.validates_length_of :code, :maximum => 250
+		o.validates_length_of :description, :in => 4..250
+		o.validates_length_of :event_category, :in => 4..250
+	end
 
 #	class NotFound < StandardError; end
 

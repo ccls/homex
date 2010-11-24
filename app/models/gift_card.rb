@@ -3,8 +3,11 @@ class GiftCard < ActiveRecord::Base
 	belongs_to :project
 	validates_presence_of   :number
 	validates_uniqueness_of :number
-	validates_length_of :expiration, :vendor, :number,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :expiration
+		o.validates_length_of :vendor
+		o.validates_length_of :number
+	end
 
 	def to_s
 		number

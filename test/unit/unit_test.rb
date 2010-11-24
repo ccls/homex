@@ -13,7 +13,9 @@ class UnitTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes( :description )
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :context_id )
-	assert_should_require_attribute_length( :description, :maximum => 250, :minimum => 4)
-	assert_should_require_attribute_length( :code,        :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :description, :minimum => 4)
+		o.assert_should_require_attribute_length( :code )
+	end
 
 end

@@ -21,8 +21,10 @@ class InstrumentVersionTest < ActiveSupport::TestCase
 
 	assert_requires_complete_date( :began_use_on )
 	assert_requires_complete_date( :ended_use_on )
-	assert_should_require_attribute_length( :code,        :maximum => 250 )
-	assert_should_require_attribute_length( :description, :maximum => 250, :minimum => 4 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.assert_should_require_attribute_length( :description, :minimum => 4 )
+	end
 
 
 	test "should return description as to_s" do

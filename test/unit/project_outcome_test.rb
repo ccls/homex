@@ -11,8 +11,10 @@ class ProjectOutcomeTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :project_id )
 	assert_should_have_many( :enrollments )
-	assert_should_require_attribute_length( :code,        :maximum => 250 )
-	assert_should_require_attribute_length( :description, :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.assert_should_require_attribute_length( :description )
+	end
 
 
 	test "should return description as to_s" do

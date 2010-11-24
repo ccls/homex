@@ -28,15 +28,16 @@ class Interview < ActiveRecord::Base
 	belongs_to :language
 	belongs_to :subject_relationship
 
-	validates_complete_date_for :began_on, 
-		:allow_nil => true
-	validates_complete_date_for :ended_on, 
-		:allow_nil => true
-	validates_complete_date_for :intro_letter_sent_on, 
-		:allow_nil => true
-	validates_length_of :subject_relationship_other, 
-		:respondent_first_name, :respondent_last_name,
-		:maximum => 250, :allow_blank => true
+	with_options :allow_nil => true do |o|
+		o.validates_complete_date_for :began_on
+		o.validates_complete_date_for :ended_on
+		o.validates_complete_date_for :intro_letter_sent_on
+	end
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :subject_relationship_other
+		o.validates_length_of :respondent_first_name
+		o.validates_length_of :respondent_last_name
+	end
 
 	validates_presence_of :subject_relationship_other,
 		:if => :subject_relationship_is_other?

@@ -24,12 +24,14 @@ class EnrollmentTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :reason_closed )
 	assert_should_not_require_attributes( :notes )
 	assert_should_not_require_attributes( :document_version_id )
-	assert_should_require_attribute_length( :recruitment_priority,      :maximum => 250 )
-	assert_should_require_attribute_length( :ineligible_reason_specify, :maximum => 250 )
-	assert_should_require_attribute_length( :other_refusal_reason,      :maximum => 250 )
-	assert_should_require_attribute_length( :reason_not_chosen,         :maximum => 250 )
-	assert_should_require_attribute_length( :terminated_reason,         :maximum => 250 )
-	assert_should_require_attribute_length( :reason_closed,             :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :recruitment_priority )
+		o.assert_should_require_attribute_length( :ineligible_reason_specify )
+		o.assert_should_require_attribute_length( :other_refusal_reason )
+		o.assert_should_require_attribute_length( :reason_not_chosen )
+		o.assert_should_require_attribute_length( :terminated_reason )
+		o.assert_should_require_attribute_length( :reason_closed )
+	end
 
 	assert_should_have_many(:operational_events)
 	assert_should_belong_to( :project_outcome )

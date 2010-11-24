@@ -19,9 +19,11 @@ class InterviewTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :began_on )
 	assert_should_not_require_attributes( :ended_on )
 	assert_should_not_require_attributes( :intro_letter_sent_on )
-	assert_should_require_attribute_length( :subject_relationship_other, :maximum => 250 )
-	assert_should_require_attribute_length( :respondent_first_name,      :maximum => 250 )
-	assert_should_require_attribute_length( :respondent_last_name,       :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :subject_relationship_other )
+		o.assert_should_require_attribute_length( :respondent_first_name )
+		o.assert_should_require_attribute_length( :respondent_last_name )
+	end
 
 	assert_requires_complete_date( :began_on )
 	assert_requires_complete_date( :ended_on )

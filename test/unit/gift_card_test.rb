@@ -12,9 +12,11 @@ class GiftCardTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :issued_on )
 	assert_should_not_require_attributes( :expiration )
 	assert_should_not_require_attributes( :vendor )
-	assert_should_require_attribute_length( :expiration, :maximum => 250 )
-	assert_should_require_attribute_length( :vendor,     :maximum => 250 )
-	assert_should_require_attribute_length( :number,     :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :expiration )
+		o.assert_should_require_attribute_length( :vendor )
+		o.assert_should_require_attribute_length( :number )
+	end
 
 	test "should return number as to_s" do
 		object = create_object

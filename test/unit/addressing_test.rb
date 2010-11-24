@@ -17,8 +17,10 @@ class AddressingTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :data_source_id )
 	assert_should_initially_belong_to(:subject)
 	assert_should_initially_belong_to(:address)
-	assert_should_require_attribute_length( :why_invalid,  :maximum => 250 )
-	assert_should_require_attribute_length( :how_verified, :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :why_invalid )
+		o.assert_should_require_attribute_length( :how_verified )
+	end
 	assert_requires_complete_date(:valid_from)
 	assert_requires_complete_date(:valid_to)
 

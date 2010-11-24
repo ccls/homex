@@ -11,8 +11,10 @@ class Sample < ActiveRecord::Base
 	has_one :sample_kit
 	accepts_nested_attributes_for :sample_kit
 
-	validates_presence_of :sample_type_id, :sample_type
-	validates_presence_of :study_subject_id, :subject
+	validates_presence_of :sample_type_id
+	validates_presence_of :sample_type
+	validates_presence_of :study_subject_id
+	validates_presence_of :subject
 
 	validates_presence_of :sent_to_subject_on, 
 		:if => :received_by_ccls_on
@@ -23,13 +25,14 @@ class Sample < ActiveRecord::Base
 	validates_presence_of :received_by_lab_on, 
 		:if => :aliquotted_on
 
-	validates_complete_date_for :sent_to_subject_on,
-		:received_by_ccls_on,
-		:sent_to_lab_on,
-		:received_by_lab_on,
-		:aliquotted_on,
-		:receipt_confirmed_on,
-		:allow_nil => true
+	with_options :allow_nil => true do |o|
+		o.validates_complete_date_for :sent_to_subject_on
+		o.validates_complete_date_for :received_by_ccls_on
+		o.validates_complete_date_for :sent_to_lab_on
+		o.validates_complete_date_for :received_by_lab_on
+		o.validates_complete_date_for :aliquotted_on
+		o.validates_complete_date_for :receipt_confirmed_on
+	end
 
 	validate :tracking_numbers_are_different
 	validate :date_chronology
@@ -39,8 +42,10 @@ class Sample < ActiveRecord::Base
 		sample_type.parent
 	end
 
-	delegate :kit_package,    :to => :sample_kit, :allow_nil => true
-	delegate :sample_package, :to => :sample_kit, :allow_nil => true
+	with_options :to => :sample_kit, :allow_nil => true do |o|
+		o.delegate :kit_package
+		o.delegate :sample_package
+	end
 
 	#	Returns tracking number of the kit package
 	def kit_tracking_number

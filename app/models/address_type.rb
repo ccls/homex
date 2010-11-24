@@ -5,8 +5,10 @@ class AddressType < ActiveRecord::Base
 	validates_presence_of   :code
 	validates_length_of     :code, :minimum => 4
 	validates_uniqueness_of :code
-	validates_length_of :code, :description,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 
 	#	Returns the code
 	def to_s

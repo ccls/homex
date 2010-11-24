@@ -12,8 +12,10 @@ class Enrollment < ActiveRecord::Base
 	has_many   :operational_events
 
 	validates_uniqueness_of :project_id, :scope => [:study_subject_id]
-	validates_presence_of :study_subject_id, :project_id,
-		:subject, :project
+	validates_presence_of :study_subject_id
+	validates_presence_of :project_id
+	validates_presence_of :subject
+	validates_presence_of :project
 
 	validates_presence_of :ineligible_reason,
 		:message => 'required if ineligible',
@@ -73,12 +75,17 @@ class Enrollment < ActiveRecord::Base
 		:message => "not allowed with unknown consent",
 		:if => :consent_unknown?
 	
-	validates_complete_date_for :consented_on, :completed_on,
-		:allow_nil => true
+	validates_complete_date_for :consented_on, :allow_nil => true
+	validates_complete_date_for :completed_on, :allow_nil => true
 
-	validates_length_of :recruitment_priority, :ineligible_reason_specify, 
-		:other_refusal_reason, :reason_not_chosen, :terminated_reason, :reason_closed,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :recruitment_priority
+		o.validates_length_of :ineligible_reason_specify
+		o.validates_length_of :other_refusal_reason
+		o.validates_length_of :reason_not_chosen
+		o.validates_length_of :terminated_reason
+		o.validates_length_of :reason_closed
+	end
 
 	before_save :create_enrollment_update,
 		:if => :is_complete_changed?

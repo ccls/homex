@@ -12,6 +12,8 @@ class Unit < ActiveRecord::Base
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
-	validates_length_of :code, :description,
-		:maximum => 250
+	with_options :maximum => 250 do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 end

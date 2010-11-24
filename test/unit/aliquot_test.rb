@@ -9,8 +9,10 @@ class AliquotTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :mass )
 	assert_should_not_require_attributes( :external_aliquot_id )
 	assert_should_not_require_attributes( :external_aliquot_id_source )
-	assert_should_require_attribute_length( :location, :maximum => 250 )
-	assert_should_require_attribute_length( :mass,     :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :location )
+		o.assert_should_require_attribute_length( :mass )
+	end
 	assert_should_have_many(:transfers)
 	assert_should_belong_to( :aliquot_sample_format )
 	assert_should_initially_belong_to( :sample )

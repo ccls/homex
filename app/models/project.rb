@@ -18,11 +18,15 @@ class Project < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
-	validates_complete_date_for :began_on, :ended_on,
-		:allow_nil => true
+	with_options :allow_nil => true do |o|
+		o.validates_complete_date_for :began_on
+		o.validates_complete_date_for :ended_on
+	end
 
-	validates_length_of :code, :description,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 
 	#	Returns all projects for which the subject
 	#	does not have an enrollment

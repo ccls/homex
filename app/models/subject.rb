@@ -8,55 +8,61 @@ class Subject < ActiveRecord::Base
 	belongs_to :subject_type
 	belongs_to :vital_status
 
-	has_and_belongs_to_many :analyses, :foreign_key => 'study_subject_id'
+	with_options :foreign_key => 'study_subject_id' do |f|
+		f.has_and_belongs_to_many :analyses
+		f.has_many :addressings
+		f.has_many :enrollments
+		f.has_many :gift_cards
+		f.has_many :phone_numbers
+		f.has_many :response_sets
+		f.has_many :samples
+		f.has_many :survey_invitations
+		f.has_one :identifier
+		f.has_one :home_exposure_response
+		f.has_one :homex_outcome
+		f.has_one :patient
+		f.has_one :pii
+		f.with_options :conditions => ["projects.code = 'HomeExposures'"], :include => :project do |p|
+			p.has_one :hx_enrollment, :class_name => "Enrollment"
+			p.has_one :hx_gift_card,  :class_name => "GiftCard"
+		end
+	end
 
-	has_many :addressings, :foreign_key => 'study_subject_id'
 	has_many :addresses, :through => :addressings
-	has_many :enrollments, :foreign_key => 'study_subject_id'
-	has_one  :hx_enrollment, :class_name => "Enrollment", 
-		:foreign_key => 'study_subject_id', 
-		:conditions => ["projects.code = 'HomeExposures'"], :include => :project
-	has_many :gift_cards, :foreign_key => 'study_subject_id'
-	has_one  :hx_gift_card, :class_name => "GiftCard", 
-		:foreign_key => 'study_subject_id', 
-		:conditions => ["projects.code = 'HomeExposures'"], :include => :project
 	accepts_nested_attributes_for :gift_cards
 
-#	has_many :home_exposure_events
-#	has_many :hospitals
-#	has_many :operational_events
-	has_many :phone_numbers, :foreign_key => 'study_subject_id'
-	has_many :response_sets, :foreign_key => 'study_subject_id'
-	has_many :samples, :foreign_key => 'study_subject_id'
-	has_many :survey_invitations, :foreign_key => 'study_subject_id'
-
-	has_one :identifier, :foreign_key => 'study_subject_id'
-	has_one :home_exposure_response, :foreign_key => 'study_subject_id'
-	has_one :homex_outcome, :foreign_key => 'study_subject_id'
-	has_one :patient, :foreign_key => 'study_subject_id'
-	has_one :pii, :foreign_key => 'study_subject_id'
-
-	validates_presence_of :subject_type, :race,
-		:subject_type_id, :race_id
-#	validates_inclusion_of :sex, :in => %w( male female ),
-#		:message => "must be male or female"
-
-	validates_complete_date_for :reference_date,
-		:allow_nil => true
+	validates_presence_of :subject_type
+	validates_presence_of :race
+	validates_presence_of :subject_type_id
+	validates_presence_of :race_id
 
 	validates_inclusion_of :do_not_contact, :in => [ true, false ]
 
-	delegate :full_name, :email,
-		:last_name, :first_name, :dob, #:dob_string,
-		:fathers_name, :mothers_name,
-		:to => :pii, :allow_nil => true
-
-	delegate :childid, :ssn, :patid, :orderno, :studyid,
-		:to => :identifier, :allow_nil => true
-
-	delegate :interview_outcome, :interview_outcome_on,
-		:sample_outcome,    :sample_outcome_on,
-		:to => :homex_outcome, :allow_nil => true
+	with_options :allow_nil => true do |n|
+		n.validates_complete_date_for :reference_date
+		n.with_options :to => :pii do |o|
+			o.delegate :full_name
+			o.delegate :email
+			o.delegate :last_name
+			o.delegate :first_name
+			o.delegate :dob
+			o.delegate :fathers_name
+			o.delegate :mothers_name
+		end
+		n.with_options :to => :identifier do |o|
+			o.delegate :childid
+			o.delegate :ssn
+			o.delegate :patid
+			o.delegate :orderno
+			o.delegate :studyid
+		end
+		n.with_options :to => :homex_outcome do |o|
+			o.delegate :interview_outcome
+			o.delegate :interview_outcome_on
+			o.delegate :sample_outcome
+			o.delegate :sample_outcome_on
+		end
+	end
 
 	#	can lead to multiple piis in db for subject
 	#	if not done correctly

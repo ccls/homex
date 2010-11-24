@@ -13,8 +13,10 @@ class PhoneNumber < ActiveRecord::Base
 	validates_presence_of :how_verified,
 		:if => :is_verified?
 
-	validates_length_of :why_invalid, :how_verified,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :why_invalid
+		o.validates_length_of :how_verified
+	end
 
 	before_save :format_phone_number
 

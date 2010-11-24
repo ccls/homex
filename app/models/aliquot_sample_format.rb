@@ -11,6 +11,8 @@ class AliquotSampleFormat < ActiveRecord::Base
 	validates_uniqueness_of :code
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
-	validates_length_of :code, :description,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 end

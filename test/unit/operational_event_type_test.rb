@@ -11,9 +11,13 @@ class OperationalEventTypeTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes( :description )
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :project_id )
-	assert_should_require_attribute_length( :code,        :maximum => 250 )
-	assert_should_require_attribute_length( :description, :maximum => 250, :minimum => 4 )
-	assert_should_require_attribute_length( :event_category, :maximum => 250, :minimum => 4 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.with_options :minimum => 4 do |m|
+			m.assert_should_require_attribute_length( :description )
+			m.assert_should_require_attribute_length( :event_category )
+		end
+	end
 
 	test "should return event_category as to_s" do
 		object = create_object

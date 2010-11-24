@@ -5,10 +5,12 @@ class SampleType < ActiveRecord::Base
 	default_scope :order => :position
 
 	has_many :samples
-	belongs_to :parent, :class_name => 'SampleType'
-	has_many :children, :class_name => 'SampleType', 
-		:foreign_key => 'parent_id',
-		:dependent => :nullify
+	with_options :class_name => 'SampleType' do |o|
+		o.belongs_to :parent
+		o.has_many :children, 
+			:foreign_key => 'parent_id',
+			:dependent => :nullify
+	end
 	
 	named_scope :roots, :conditions => { 
 		:parent_id => nil }
@@ -21,8 +23,10 @@ class SampleType < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
-	validates_length_of :code, :description,
-		:maximum => 250
+	with_options :maximum => 250 do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 
 	#	Returns description
 	def to_s

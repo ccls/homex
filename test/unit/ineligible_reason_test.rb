@@ -14,9 +14,11 @@ class IneligibleReasonTest < ActiveSupport::TestCase
 	assert_should_require_unique_attributes( :description )
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :ineligible_context )
-	assert_should_require_attribute_length( :code,               :maximum => 250 )
-	assert_should_require_attribute_length( :description,        :maximum => 250, :minimum => 4 )
-	assert_should_require_attribute_length( :ineligible_context, :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :code )
+		o.assert_should_require_attribute_length( :description, :minimum => 4 )
+		o.assert_should_require_attribute_length( :ineligible_context )
+	end
 
 	test "should return description as to_s" do
 		object = create_object

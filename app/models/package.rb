@@ -5,15 +5,19 @@ require 'active_shipping'
 #	*	delivered
 #	*	undelivered
 class Package < ActiveRecord::Base
-	has_one :o_sample_kit, :foreign_key => 'kit_package_id',
-		:class_name => 'SampleKit'
-	has_one :i_sample_kit, :foreign_key => 'sample_package_id',
-		:class_name => 'SampleKit'
+	with_options :class_name => 'SampleKit' do |o|
+		o.has_one :o_sample_kit, :foreign_key => 'kit_package_id'
+		o.has_one :i_sample_kit, :foreign_key => 'sample_package_id'
+	end
+		
 	include ActiveMerchant::Shipping
 	acts_as_trackable
 
-	validates_length_of :status, :tracking_number, :latest_event,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :status
+		o.validates_length_of :tracking_number
+		o.validates_length_of :latest_event
+	end
 
 	@@fedex = FedEx.new(YAML::load(ERB.new(
 		IO.read('config/fed_ex.yml')).result)[::RAILS_ENV])

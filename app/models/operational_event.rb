@@ -5,10 +5,10 @@ class OperationalEvent < ActiveRecord::Base
 	belongs_to :enrollment
 
 	belongs_to :operational_event_type
-	validates_presence_of :operational_event_type_id,
-		:operational_event_type
+	validates_presence_of :operational_event_type_id
+	validates_presence_of :operational_event_type
 
-	validates_complete_date_for :occurred_on,
+	validates_complete_date_for :occurred_on, 
 		:allow_nil => true
 
 	validates_length_of :description,

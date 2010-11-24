@@ -21,8 +21,10 @@ class PhoneNumberTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :how_verified )
 	assert_should_not_require_attributes( :verified_on )
 	assert_should_not_require_attributes( :verified_by_id )
-	assert_should_require_attribute_length( :how_verified, :maximum => 250 )
-	assert_should_require_attribute_length( :why_invalid,  :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :how_verified )
+		o.assert_should_require_attribute_length( :why_invalid )
+	end
 
 
 	test "should require properly formated phone number" do

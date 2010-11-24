@@ -7,15 +7,14 @@ class ResponseTest < ActiveSupport::TestCase
 	assert_should_require_attributes( :response_set_id )
 	assert_should_require_attributes( :question_id )
 	assert_should_require_attributes( :answer_id )
-	assert_should_not_require_attributes(
-		:datetime_value,
-		:integer_value,
-		:float_value,
-		:unit,
-		:text_value,
-		:string_value,
-		:response_other,
-		:response_group )
+	assert_should_not_require_attributes( :datetime_value )
+	assert_should_not_require_attributes( :integer_value )
+	assert_should_not_require_attributes( :float_value )
+	assert_should_not_require_attributes( :unit )
+	assert_should_not_require_attributes( :text_value )
+	assert_should_not_require_attributes( :string_value )
+	assert_should_not_require_attributes( :response_other )
+	assert_should_not_require_attributes( :response_group )
 
 
 	test "should raise error on q_and_a_codes with invalid response_class" do

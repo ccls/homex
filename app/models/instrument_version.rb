@@ -16,12 +16,15 @@ class InstrumentVersion < ActiveRecord::Base
 	validates_length_of     :description, :minimum => 4
 	validates_uniqueness_of :description
 
-	validates_presence_of :interview_type_id, :interview_type
+	validates_presence_of :interview_type_id
+	validates_presence_of :interview_type
 
-	validates_complete_date_for :began_use_on, :ended_use_on,
-		:allow_nil => true
-	validates_length_of :code, :description,
-		:maximum => 250, :allow_blank => true
+	validates_complete_date_for :began_use_on, :allow_nil => true
+	validates_complete_date_for :ended_use_on, :allow_nil => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :code
+		o.validates_length_of :description
+	end
 
 	#	Returns description
 	def to_s

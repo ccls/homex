@@ -8,25 +8,32 @@ class PiiTest < ActiveSupport::TestCase
 	assert_should_require_attributes( :dob )
 	assert_should_require_unique_attributes( :state_id_no )
 	assert_should_require_unique_attributes( :email )
-	assert_should_not_require_attributes(
-		:study_subject_id,
-		:first_name,
-		:middle_name,
-		:last_name,
-		:died_on,
-		:mother_first_name,
-		:mother_middle_name,
-		:mother_maiden_name,
-		:mother_last_name,
-		:father_first_name,
-		:father_middle_name,
-		:father_last_name,
-		:email )
-	assert_should_require_attribute_length(
-		:first_name, :middle_name, :last_name, :state_id_no, 
-		:mother_first_name, :mother_middle_name, :mother_maiden_name, :mother_last_name, 
-		:father_first_name, :father_middle_name, :father_last_name,
-		:maximum => 250 )
+	assert_should_not_require_attributes( :study_subject_id )
+	assert_should_not_require_attributes( :first_name )
+	assert_should_not_require_attributes( :middle_name )
+	assert_should_not_require_attributes( :last_name )
+	assert_should_not_require_attributes( :died_on )
+	assert_should_not_require_attributes( :mother_first_name )
+	assert_should_not_require_attributes( :mother_middle_name )
+	assert_should_not_require_attributes( :mother_maiden_name )
+	assert_should_not_require_attributes( :mother_last_name )
+	assert_should_not_require_attributes( :father_first_name )
+	assert_should_not_require_attributes( :father_middle_name )
+	assert_should_not_require_attributes( :father_last_name )
+	assert_should_not_require_attributes( :email )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :first_name )
+		o.assert_should_require_attribute_length( :middle_name )
+		o.assert_should_require_attribute_length( :last_name )
+		o.assert_should_require_attribute_length( :state_id_no )
+		o.assert_should_require_attribute_length( :mother_first_name )
+		o.assert_should_require_attribute_length( :mother_middle_name )
+		o.assert_should_require_attribute_length( :mother_maiden_name )
+		o.assert_should_require_attribute_length( :mother_last_name )
+		o.assert_should_require_attribute_length( :father_first_name )
+		o.assert_should_require_attribute_length( :father_middle_name )
+		o.assert_should_require_attribute_length( :father_last_name )
+	end
 
 	assert_requires_complete_date( :dob )
 	assert_requires_complete_date( :died_on )

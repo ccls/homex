@@ -8,7 +8,9 @@ class DocumentTypeTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :title )
 	assert_should_not_require_attributes( :description )
-	assert_should_require_attribute_length( :title,       :maximum => 250 )
-	assert_should_require_attribute_length( :description, :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :title )
+		o.assert_should_require_attribute_length( :description )
+	end
 
 end

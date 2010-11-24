@@ -19,8 +19,10 @@ class Aliquot < ActiveRecord::Base
 
 	validates_presence_of :sample, :unit, :owner,
 		:sample_id, :unit_id, :owner_id
-	validates_length_of :location, :mass,
-		:maximum => 250, :allow_blank => true
+	with_options :maximum => 250, :allow_blank => true do |o|
+		o.validates_length_of :location
+		o.validates_length_of :mass
+	end
 
 	#	Create a #Transfer for the given #Aliquot from the 
 	#	current owner(#Organization) to the given #Organization.

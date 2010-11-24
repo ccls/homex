@@ -9,9 +9,11 @@ class PackageTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :tracks_count )
 	assert_should_not_require_attributes( :tracking_number )
 	assert_should_not_require_attributes( :latest_event )
-	assert_should_require_attribute_length( :status,          :maximum => 250 )
-	assert_should_require_attribute_length( :tracking_number, :maximum => 250 )
-	assert_should_require_attribute_length( :latest_event,    :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :status )
+		o.assert_should_require_attribute_length( :tracking_number )
+		o.assert_should_require_attribute_length( :latest_event )
+	end
 
 	test "should NOT require 3 char tracking_number" do
 		assert_difference( "#{model_name}.count", 1 ) do

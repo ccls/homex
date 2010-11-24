@@ -8,7 +8,9 @@ class DataSourceTest < ActiveSupport::TestCase
 	assert_should_not_require_attributes( :position )
 	assert_should_not_require_attributes( :research_origin )
 	assert_should_not_require_attributes( :data_origin )
-	assert_should_require_attribute_length( :research_origin, :maximum => 250 )
-	assert_should_require_attribute_length( :data_origin,     :maximum => 250 )
+	with_options :maximum => 250 do |o|
+		o.assert_should_require_attribute_length( :research_origin )
+		o.assert_should_require_attribute_length( :data_origin )
+	end
 
 end

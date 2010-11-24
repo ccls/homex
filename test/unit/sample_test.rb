@@ -13,22 +13,21 @@ class SampleTest < ActiveSupport::TestCase
 	assert_should_require_attributes( :sample_type_id )
 	assert_should_require_attributes( :study_subject_id )
 
-	assert_should_not_require_attributes(
-		:position,
-		:aliquot_sample_format_id,
-		:unit_id,
-		:order_no,
-		:quantity_in_sample,
-		:aliquot_or_sample_on_receipt,
-		:sent_to_subject_on,
-		:received_by_ccls_on,
-		:sent_to_lab_on,
-		:received_by_lab_on,
-		:aliquotted_on,
-		:external_id,
-		:external_id_source,
-		:receipt_confirmed_on,
-		:receipt_confirmed_by )
+	assert_should_not_require_attributes( :position )
+	assert_should_not_require_attributes( :aliquot_sample_format_id )
+	assert_should_not_require_attributes( :unit_id )
+	assert_should_not_require_attributes( :order_no )
+	assert_should_not_require_attributes( :quantity_in_sample )
+	assert_should_not_require_attributes( :aliquot_or_sample_on_receipt )
+	assert_should_not_require_attributes( :sent_to_subject_on )
+	assert_should_not_require_attributes( :received_by_ccls_on )
+	assert_should_not_require_attributes( :sent_to_lab_on )
+	assert_should_not_require_attributes( :received_by_lab_on )
+	assert_should_not_require_attributes( :aliquotted_on )
+	assert_should_not_require_attributes( :external_id )
+	assert_should_not_require_attributes( :external_id_source )
+	assert_should_not_require_attributes( :receipt_confirmed_on )
+	assert_should_not_require_attributes( :receipt_confirmed_by )
 
 	assert_requires_complete_date( :sent_to_subject_on )
 	assert_requires_complete_date( :received_by_ccls_on )
