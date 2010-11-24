@@ -25,8 +25,7 @@ class Followup::SubjectsController < ApplicationController
 	end
 
 	def edit
-		@gift_cards  = []
-		@gift_cards  = [@subject.hx_gift_card] unless @subject.hx_gift_card.nil?
+		@gift_cards  = (@subject.hx_gift_card.nil?) ? [] : [@subject.hx_gift_card]
 		@gift_cards += GiftCard.find(:all,
 			:conditions => {:study_subject_id => nil })
 	end
