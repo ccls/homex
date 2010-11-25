@@ -19,13 +19,10 @@
 <p>Study name: <%= @enrollment.project.code.titleize -%></p>
 
 <%= f.wrapped_y_n_dk_select :is_candidate,
-	:include_blank => true,
 	:label_text => 'is candidate?' %>
 <%= f.wrapped_y_n_dk_select :able_to_locate,
-	:include_blank => true,
 	:label_text => 'able to locate?' %>
 <%= f.wrapped_y_n_dk_select :is_eligible,
-	:include_blank => true,
 	:label_text => 'is eligible?' %>
 
 <%= f.wrapped_collection_select :ineligible_reason_id,
@@ -35,13 +32,11 @@
 	:label_text => 'specify:' %>
 
 <%= f.wrapped_y_n_dk_select :is_chosen,
-	:include_blank => true,
 	:label_text => 'chosen to participate?' %>
 <%= f.wrapped_text_field :reason_not_chosen,
 	:label_text => 'reason not chosen:' %>
 
 <%= f.wrapped_y_n_dk_select :consented,
-	:include_blank => true,
 	:label_text => 'consented?' %>
 
 <%= f.wrapped_date_text_field :consented_on,
@@ -65,13 +60,11 @@ This shouldn't be ALL document versions.
 	:label_text => 'specify:' %>
 
 <%= f.wrapped_y_n_dk_select :terminated_participation,
-	:include_blank => true,
 	:label_text => 'terminated participation?' %>
 <%= f.wrapped_text_field :terminated_reason,
 	:label_text => 'reason:' %>
 
 <%= f.wrapped_y_n_dk_select :is_complete,
-	:include_blank => true,
 	:label_text => 'completed?' %>
 
 <%= f.wrapped_date_text_field :completed_on,

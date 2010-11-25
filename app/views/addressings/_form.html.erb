@@ -43,8 +43,7 @@ jQuery(function(){
 
 <div class='valid'>
 <%= f.wrapped_y_n_dk_select :is_valid, 
-	:label_text => 'valid?',
-	:include_blank => true  %>
+	:label_text => 'valid?' %>
 <%= f.wrapped_text_field :why_invalid, 
 	:label_text => 'why?' %>
 </div><!-- class='valid' -->
@@ -54,8 +53,6 @@ jQuery(function(){
 <%= f.wrapped_text_field :how_verified, :label_text => 'how?' %>
 </div><!-- class='verified' -->
 
-<%= f.wrapped_y_n_dk_select :current_address, 
-	{ :include_blank => true } %>
+<%= f.wrapped_y_n_dk_select :current_address %>
 
-<%= f.wrapped_y_n_dk_select :address_at_diagnosis, 
-	{ :include_blank => true }  %>
+<%= f.wrapped_y_n_dk_select :address_at_diagnosis %>
