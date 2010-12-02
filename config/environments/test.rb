@@ -27,16 +27,6 @@ config.action_mailer.delivery_method = :test
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
 
-
-
-if RUBY_PLATFORM =~ /java/
-	config.gem 'activerecord-jdbcsqlite3-adapter',
-		:lib => 'active_record/connection_adapters/jdbcsqlite3_adapter'
-	config.gem 'jdbc-sqlite3', :lib => 'jdbc/sqlite3'
-else
-	config.gem "sqlite3-ruby", :lib => "sqlite3"
-end
-
 config.gem "rcov"
 
 #	Without the :lib => false, the 'rake test' actually fails?
