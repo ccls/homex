@@ -1,5 +1,6 @@
-= UC Berkeley, School of Public Health, California Childhood Leukemia Study
+= CCLS Home Exposures
 
+UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
 
 
@@ -40,7 +41,7 @@
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
-* {jakewendt-ccls_engine}[http://github.com/jakewendt/ucb_ccls_engine] - contains all of the common code used in several apps
+* {jakewendt-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the common code used in several apps
 * {jakewendt-calnet_authenticated}[http://github.com/jakewendt/calnet_authenticated] - user authentication
 * {jakewendt-simply_authorized}[http://github.com/jakewendt/simply_authorized] - user authorization
 * {jakewendt-simply_testable}[http://github.com/jakewendt/simply_testable]
