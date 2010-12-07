@@ -16,3 +16,8 @@ end
 #require 'models/survey_extensions'
 #require 'models/response_set_extensions'
 #require 'models/response_extensions'
+
+require 'survey'
+require 'surveyor_controller'
+require 'response'
+require 'response_set'

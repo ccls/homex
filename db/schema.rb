@@ -11,6 +11,33 @@
 
 ActiveRecord::Schema.define(:version => 20101029222608) do
 
+  create_table "exports", :force => true do |t|
+    t.integer  "childid"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "diagnosis_date"
+    t.integer  "patid"
+    t.string   "type"
+    t.string   "orderno"
+    t.string   "mother_first_name"
+    t.string   "mother_middle_name"
+    t.string   "mother_last_name"
+    t.string   "father_first_name"
+    t.string   "father_middle_name"
+    t.string   "father_last_name"
+    t.string   "hospital_code"
+    t.text     "comments"
+    t.boolean  "is_eligible"
+    t.boolean  "is_chosen"
+    t.date     "reference_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "exports", ["childid"], :name => "index_exports_on_childid", :unique => true
+  add_index "exports", ["patid"], :name => "index_exports_on_patid", :unique => true
+
   create_table "guides", :force => true do |t|
     t.string   "controller"
     t.string   "action"
@@ -20,6 +47,35 @@ ActiveRecord::Schema.define(:version => 20101029222608) do
   end
 
   add_index "guides", ["controller", "action"], :name => "index_guides_on_controller_and_action", :unique => true
+
+  create_table "imports", :force => true do |t|
+    t.date     "dob"
+    t.date     "diagnosis_date"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "sex"
+    t.string   "language_code"
+    t.boolean  "is_hispanic"
+    t.string   "race"
+    t.string   "primary_phone_number"
+    t.string   "alternate_phone_number"
+    t.date     "dust_kit_sent_on"
+    t.date     "completed_interview_on"
+    t.date     "case_assigned_on"
+    t.string   "respondent_type"
+    t.string   "respondent_first_name"
+    t.string   "respondent_middle_name"
+    t.string   "respondent_last_name"
+    t.date     "last_action_on"
+    t.string   "respondent_address_line_1"
+    t.string   "respondent_address_line_2"
+    t.string   "respondent_city"
+    t.string   "respondent_state"
+    t.string   "respondent_zip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "pages", :force => true do |t|
     t.integer  "position"

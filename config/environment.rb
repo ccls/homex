@@ -34,6 +34,9 @@ Rails::Initializer.run do |config|
 		config.gem "sqlite3-ruby", :lib => "sqlite3"
 	end
 
+	config.gem 'jakewendt-surveyor',
+		:lib    => 'surveyor'
+
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
 	config.gem 'jakewendt-ccls_engine',
@@ -41,9 +44,6 @@ Rails::Initializer.run do |config|
 
 	config.gem 'jakewendt-simply_trackable',
 		:lib    => 'simply_trackable'
-
-	config.gem 'jakewendt-surveyor',
-		:lib    => 'surveyor'
 
 	config.gem 'jakewendt-html_test',
 		:lib    => 'html_test'
@@ -63,11 +63,3 @@ Rails::Initializer.run do |config|
 	config.time_zone = 'UTC'
 
 end
-
-YNDK = HashWithIndifferentAccess.new({
-	:yes   => 1,
-	:true  => 1,
-	:no    => 2,
-	:false => 2,
-	:dk    => 999
-}).freeze
