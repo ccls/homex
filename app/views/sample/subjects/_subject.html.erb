@@ -12,10 +12,10 @@
 <%= subject.first_name %>
 </td>
 <td class='dust_outcome'>
-<%= subject.homex_outcome.sample_outcome %>
+<%= subject.homex_outcome.try(:sample_outcome) %>
 </td>
 <td class='interview_completion_date'>
-<%=mdy subject.homex_outcome.interview_outcome_on %>
+<%=mdy subject.homex_outcome.try(:interview_outcome_on) %>
 </td>
 
 <%# if subject.dust_kit %>
