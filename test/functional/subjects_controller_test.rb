@@ -42,8 +42,8 @@ class SubjectsControllerTest < ActionController::TestCase
 %w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "should get index with subjects with #{cu} login" do
-puts Subject.all.length
-puts Subject.all.inspect
+#puts Subject.all.length
+#puts Subject.all.inspect
 		assert_equal 1, Subject.for_hx.length		#	from :create_home_exposure_with_subject
 		survey = Survey.find_by_access_code("home_exposure_survey")
 		rs1 = rs2 = rs3 = rs4 = rs5 = nil
@@ -56,11 +56,11 @@ puts Subject.all.inspect
 			rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
 			rs5 = fill_out_survey(:survey => survey)
 		} }
-puts "About to fail"
-puts Subject.for_hx.inspect
-Subject.for_hx.each do |s|
-puts s.enrollments.inspect
-end
+#puts "About to fail"
+#puts Subject.for_hx.inspect
+#Subject.for_hx.each do |s|
+#puts s.enrollments.inspect
+#end
 		assert_equal 1, Subject.for_hx.length	#	the survey doesn't make'em "for_hx"
 		assert_difference('Project.count',1) {
 			create_project	#Factory(:project)	#	test search code in view
@@ -370,7 +370,7 @@ end
 protected
 
 	def create_home_exposure_subjects
-puts "Running create_home_exposure_subjects"
+#puts "Running create_home_exposure_subjects"
 		p = Project.find_or_create_by_code('HomeExposures')
 assert_difference('Subject.count',3) {
 assert_difference('Enrollment.count',3) {
