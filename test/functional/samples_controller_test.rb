@@ -18,9 +18,9 @@ class SamplesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => [:superuser,:admin,:editor] })
 	assert_no_access_with_login({
-		:logins => [:editor,:interviewer,:reader,:active_user] })
+		:logins => [:interviewer,:reader,:active_user] })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -39,7 +39,7 @@ class SamplesControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	) 
 
-%w( superuser admin ).each do |cu|
+%w( superuser admin editor ).each do |cu|
 
 	test "should get sample index with #{cu} login" do
 		login_as send(cu)
@@ -128,7 +128,7 @@ class SamplesControllerTest < ActionController::TestCase
 
 end
 
-%w( editor interviewer reader active_user ).each do |cu|
+%w( interviewer reader active_user ).each do |cu|
 
 	test "should NOT get sample index with #{cu} login" do
 		login_as send(cu)
