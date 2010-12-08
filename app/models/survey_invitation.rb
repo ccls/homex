@@ -1,5 +1,5 @@
 # don't know exactly
-class SurveyInvitation < Shared
+class SurveyInvitation < ActiveRecord::Base
 	belongs_to :subject, :foreign_key => 'study_subject_id'
 	belongs_to :response_set
 	belongs_to :survey
