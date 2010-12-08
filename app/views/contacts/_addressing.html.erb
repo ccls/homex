@@ -41,7 +41,8 @@ verified:&nbsp;<%= (addressing.is_verified?)?'yes':'no' %>
 </div><!-- class='brief' -->
 <div class='details'>
 <span class='why'>
-<%= (!addressing.is_valid?)?"why:&nbsp;#{addressing.why_invalid}":"&nbsp;" %>
+<%#= (!addressing.is_valid?)?"why:&nbsp;#{addressing.why_invalid}":"&nbsp;" %>
+<%= (addressing.is_not_valid?)?"why:&nbsp;#{addressing.why_invalid}":"&nbsp;" %>
 </span>
 <span class='how'>
 <%= (addressing.is_verified?)?"how:&nbsp;#{addressing.how_verified}":"&nbsp;" %>
