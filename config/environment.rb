@@ -42,6 +42,13 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-ccls_engine',
 		:lib    => 'ccls_engine'
 
+#	#	Without this, rake doesn't properly include that app/ paths
+	config.gem 'jakewendt-simply_authorized',
+		:lib    => 'simply_authorized'
+
+	config.gem 'jakewendt-simply_pages',
+		:lib    => 'simply_pages'
+
 	config.gem 'jakewendt-simply_trackable',
 		:lib    => 'simply_trackable'
 

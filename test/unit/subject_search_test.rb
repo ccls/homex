@@ -139,8 +139,13 @@ pending
 #	end
 
 	test "should include subject by having project" do
+		e1 = e2 = nil
+assert_difference('Subject.count',2) {
+assert_difference('Enrollment.count',2) {
+assert_difference('Project.count',2) {
 		e1 = Factory(:enrollment)
 		e2 = Factory(:enrollment)
+} } }
 		subjects = Subject.search(
 			:projects => {e1.project.id => ''})
 		assert  subjects.include?(e1.subject)
@@ -422,7 +427,12 @@ pending
 	end
 
 	test "should order by priority asc by default" do
+		project = s1 = s2 = s3 = nil
+		assert_difference('Project.count',1) {
+		assert_difference('Subject.count',3) {
+		assert_difference('Enrollment.count',3) {
 		project,s1,s2,s3 = create_subjects_with_recruitment_priorities(9,3,6)
+		} } }
 		subjects = Subject.search(:order => 'priority',
 			:projects=>{ project.id => {} })
 		assert_equal [s2,s3,s1], subjects

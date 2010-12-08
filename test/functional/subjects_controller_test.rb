@@ -42,15 +42,30 @@ class SubjectsControllerTest < ActionController::TestCase
 %w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "should get index with subjects with #{cu} login" do
+puts Subject.length
+puts Subject.all.inspect
+		assert_equal 1, Subject.for_hx.length		#	from :create_home_exposure_with_subject
 		survey = Survey.find_by_access_code("home_exposure_survey")
-		rs1 = fill_out_survey(:survey => survey)
-		rs2 = fill_out_survey(:survey => survey, :subject => rs1.subject)
-		rs2.to_her
-		rs3 = fill_out_survey(:survey => survey)
-		rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
-		rs5 = fill_out_survey(:survey => survey)
-		create_project	#Factory(:project)	#	test search code in view
-		#	There should now be 4 subjects in different states.
+		rs1 = rs2 = rs3 = rs4 = rs5 = nil
+		assert_difference('Subject.count',3) {
+		assert_difference('ResponseSet.count',5) {
+			rs1 = fill_out_survey(:survey => survey)
+			rs2 = fill_out_survey(:survey => survey, :subject => rs1.subject)
+			rs2.to_her
+			rs3 = fill_out_survey(:survey => survey)
+			rs4 = fill_out_survey(:survey => survey, :subject => rs3.subject)
+			rs5 = fill_out_survey(:survey => survey)
+		} }
+puts "About to fail"
+puts Subject.for_hx.inspect
+Subject.for_hx.each do |s|
+puts s.enrollments
+end
+		assert_equal 1, Subject.for_hx.length	#	the survey doesn't make'em "for_hx"
+		assert_difference('Project.count',1) {
+			create_project	#Factory(:project)	#	test search code in view
+		}
+		#	There should now be 3 + 1 subjects in different states.
 		login_as send(cu)
 		get :index
 		assert_equal 1, assigns(:subjects).length
@@ -355,12 +370,16 @@ end
 protected
 
 	def create_home_exposure_subjects
+puts "Running create_home_exposure_subjects"
 		p = Project.find_or_create_by_code('HomeExposures')
+assert_difference('Subject.count',3) {
+assert_difference('Enrollment.count',3) {
 		3.times do
 			s  = create_subject
 			Factory(:enrollment, :subject => s, :project => p )
 			s
 		end
+} }
 	end
 
 end
