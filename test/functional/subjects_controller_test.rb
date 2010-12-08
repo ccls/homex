@@ -42,7 +42,7 @@ class SubjectsControllerTest < ActionController::TestCase
 %w( superuser admin editor interviewer reader ).each do |cu|
 
 	test "should get index with subjects with #{cu} login" do
-puts Subject.length
+puts Subject.all.length
 puts Subject.all.inspect
 		assert_equal 1, Subject.for_hx.length		#	from :create_home_exposure_with_subject
 		survey = Survey.find_by_access_code("home_exposure_survey")
@@ -59,7 +59,7 @@ puts Subject.all.inspect
 puts "About to fail"
 puts Subject.for_hx.inspect
 Subject.for_hx.each do |s|
-puts s.enrollments
+puts s.enrollments.inspect
 end
 		assert_equal 1, Subject.for_hx.length	#	the survey doesn't make'em "for_hx"
 		assert_difference('Project.count',1) {

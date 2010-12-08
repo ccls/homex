@@ -200,8 +200,8 @@ ActiveRecord::Schema.define(:version => 20101104162048) do
     t.datetime "updated_at"
   end
 
+  add_index "response_sets", ["access_code"], :name => "altered_response_sets_ac_idx", :unique => true
   add_index "response_sets", ["access_code"], :name => "index_response_sets_on_access_code", :unique => true
-  add_index "response_sets", ["access_code"], :name => "response_sets_ac_idx", :unique => true
   add_index "response_sets", ["study_subject_id"], :name => "index_response_sets_on_study_subject_id"
 
   create_table "responses", :force => true do |t|
