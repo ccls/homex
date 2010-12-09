@@ -33,7 +33,7 @@ What is 'date' ?
 <div class='addressing_valid contact_valid'>
 <div class='brief'>
 <span class='valid'>
-valid:&nbsp;<%= (addressing.is_valid?)?'yes':'no' %>
+valid:&nbsp;<%= (!addressing.is_not_valid?)?'yes':'no' %>
 </span>
 <span class='verified'>
 verified:&nbsp;<%= (addressing.is_verified?)?'yes':'no' %>
