@@ -52,9 +52,6 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_trackable',
 		:lib    => 'simply_trackable'
 
-	config.gem 'jakewendt-html_test',
-		:lib    => 'html_test'
-
 	config.gem 'haml'      # Needed for Surveyor
 	#	Keep chronic here
 	config.gem "chronic"   #		http://chronic.rubyforge.org/
