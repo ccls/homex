@@ -1,6 +1,7 @@
 class CreateValidations < ActiveRecord::Migration
 	def self.up
-		create_table :validations do |t|
+		table_name = 'validations'
+		create_table table_name do |t|
 			# Context
 			t.integer :answer_id # the answer to validate
 			
@@ -11,8 +12,10 @@ class CreateValidations < ActiveRecord::Migration
 			t.string :message
 			
 			t.timestamps
-		end
-		add_index :validations, :answer_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :answer_id
+			) unless idxs.include?("index_#{table_name}_on_answer_id")
 	end
 
 	def self.down

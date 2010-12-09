@@ -1,6 +1,7 @@
 class CreateExports < ActiveRecord::Migration
 	def self.up
-		create_table :exports do |t|
+		table_name = 'exports'
+		create_table table_name do |t|
 #			t.integer :child_id
 			t.integer :childid
 			t.string :first_name
@@ -25,9 +26,12 @@ class CreateExports < ActiveRecord::Migration
 			t.boolean :is_chosen
 			t.date :reference_date
 			t.timestamps
-		end
-		add_index :exports, :childid, :unique => true
-		add_index :exports, :patid,   :unique => true
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :childid, :unique => true
+			) unless idxs.include?("index_#{table_name}_on_childid")
+		add_index( table_name, :patid,   :unique => true
+			) unless idxs.include?("index_#{table_name}_on_patid")
 	end
 
 	def self.down

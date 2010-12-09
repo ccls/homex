@@ -1,6 +1,7 @@
 class CreateDependencies < ActiveRecord::Migration
 	def self.up
-		create_table :dependencies do |t|
+		table_name = 'dependencies'
+		create_table table_name do |t|
 			# Context
 			t.integer :question_id # the dependent question
 			t.integer :question_group_id
@@ -13,8 +14,10 @@ class CreateDependencies < ActiveRecord::Migration
 			# t.string :effect #blind, opacity
 
 			t.timestamps
-		end
-		add_index :dependencies, :question_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :question_id
+			) unless idxs.include?("index_#{table_name}_on_question_id")
 	end
 
 	def self.down

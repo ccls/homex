@@ -1,6 +1,7 @@
 class CreateDependencyConditions < ActiveRecord::Migration
 	def self.up
-		create_table :dependency_conditions do |t|
+		table_name = 'dependency_conditions'
+		create_table table_name do |t|
 			# Context
 			t.integer :dependency_id
 			t.string :rule_key
@@ -20,9 +21,12 @@ class CreateDependencyConditions < ActiveRecord::Migration
 			t.string :response_other
 
 			t.timestamps
-		end
-		add_index :dependency_conditions, :dependency_id
-		add_index :dependency_conditions, :question_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :dependency_id
+			) unless idxs.include?("index_#{table_name}_on_dependency_id")
+		add_index( table_name, :question_id
+			) unless idxs.include?("index_#{table_name}_on_question_id")
 	end
 
 	def self.down

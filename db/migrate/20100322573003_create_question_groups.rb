@@ -18,7 +18,7 @@ class CreateQuestionGroups < ActiveRecord::Migration
 			t.string :custom_renderer
 			
 			t.timestamps
-		end
+		end unless table_exists?(:question_groups)
 	end
 
 	def self.down

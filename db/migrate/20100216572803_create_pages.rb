@@ -1,6 +1,7 @@
 class CreatePages < ActiveRecord::Migration
 	def self.up
-		create_table :pages do |t|
+		table_name = 'pages'
+		create_table table_name do |t|
 			t.integer :position
 			t.integer :parent_id
 			t.boolean :hide_menu, :default => false
@@ -12,9 +13,12 @@ class CreatePages < ActiveRecord::Migration
 			t.text :body_en
 			t.text :body_es
 			t.timestamps
-		end
-		add_index :pages, :path, :unique => true
-		add_index :pages, :parent_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :path, :unique => true
+			) unless idxs.include?("index_#{table_name}_on_path")
+		add_index( table_name, :parent_id
+			) unless idxs.include?("index_#{table_name}_on_parent_id")
 #	acts_as_list doesn't like the uniqueness
 #	when it reorders, positions are temporarily not unique
 #		add_index :pages, :position, :unique => true, :name => 'by_position'

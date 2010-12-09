@@ -9,7 +9,7 @@ class CreateUserInvitations < ActiveRecord::Migration
 			t.text     :message
 			t.datetime :sent_at
 			t.timestamps
-		end
+		end unless table_exists?(:user_invitations)
 	end
 
 	def self.down

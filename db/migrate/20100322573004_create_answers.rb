@@ -1,6 +1,7 @@
 class CreateAnswers < ActiveRecord::Migration
 	def self.up
-		create_table :answers do |t|
+		table_name = 'answers'
+		create_table table_name do |t|
 			# Context
 			t.integer :question_id
 
@@ -28,9 +29,12 @@ class CreateAnswers < ActiveRecord::Migration
 			
 			t.timestamps
 			
-		end
-		add_index :answers, :question_id
-		add_index :answers, :data_export_identifier
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :question_id
+			) unless idxs.include?("index_#{table_name}_on_question_id")
+		add_index( table_name, :data_export_identifier
+			) unless idxs.include?("index_#{table_name}_on_data_export_identifier")
 	end
 
 	def self.down

@@ -1,6 +1,7 @@
 class CreateResponses < ActiveRecord::Migration
 	def self.up
-		create_table :responses do |t|
+		table_name = 'responses'
+		create_table table_name do |t|
 			# Context
 			t.integer :response_set_id
 			t.integer :question_id
@@ -24,8 +25,10 @@ class CreateResponses < ActiveRecord::Migration
 			t.string :response_group
 			
 			t.timestamps
-		end
-		add_index :responses, :response_set_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :response_set_id
+			) unless idxs.include?("index_#{table_name}_on_response_set_id")
 	end
 
 	def self.down

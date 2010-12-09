@@ -39,7 +39,7 @@ class CreateImports < ActiveRecord::Migration
 			t.string :respondent_zip
 
 			t.timestamps
-		end
+		end unless table_exists?(:imports)
 	end
 
 	def self.down

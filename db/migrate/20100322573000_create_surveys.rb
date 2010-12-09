@@ -1,6 +1,7 @@
 class CreateSurveys < ActiveRecord::Migration
 	def self.up
-		create_table :surveys do |t|
+		table_name = 'surveys'
+		create_table table_name do |t|
 			# Content
 			t.string :title
 			t.text :description
@@ -22,9 +23,10 @@ class CreateSurveys < ActiveRecord::Migration
 			t.string :custom_class
 			
 			t.timestamps
-		end
-
-		add_index :surveys, :access_code, :unique => true
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :access_code, :unique => true
+			) unless idxs.include?("index_#{table_name}_on_access_code")
 	end
 
 	def self.down

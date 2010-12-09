@@ -1,6 +1,7 @@
 class CreateQuestions < ActiveRecord::Migration
 	def self.up
-		create_table :questions do |t|
+		table_name = 'questions'
+		create_table table_name do |t|
 			# Context
 			t.integer :survey_section_id
 			t.integer :question_group_id
@@ -27,9 +28,12 @@ class CreateQuestions < ActiveRecord::Migration
 			t.string :custom_renderer
 			
 			t.timestamps
-		end
-		add_index :questions, :survey_section_id
-		add_index :questions, :data_export_identifier
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :survey_section_id
+			) unless idxs.include?("index_#{table_name}_on_survey_section_id")
+		add_index( table_name, :data_export_identifier
+			) unless idxs.include?("index_#{table_name}_on_data_export_identifier")
 	end
 
 	def self.down

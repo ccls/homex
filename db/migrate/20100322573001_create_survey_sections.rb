@@ -1,6 +1,7 @@
 class CreateSurveySections < ActiveRecord::Migration
 	def self.up
-		create_table :survey_sections do |t|
+		table_name = 'survey_sections'
+		create_table table_name do |t|
 			# Context
 			t.integer :survey_id
 			
@@ -20,8 +21,10 @@ class CreateSurveySections < ActiveRecord::Migration
 			t.string :custom_class
 
 			t.timestamps
-		end
-		add_index :survey_sections, :survey_id
+		end unless table_exists?(table_name)
+		idxs = indexes(table_name).map(&:name)
+		add_index( table_name, :survey_id
+			) unless idxs.include?("index_#{table_name}_on_survey_id")
 	end
 
 	def self.down
