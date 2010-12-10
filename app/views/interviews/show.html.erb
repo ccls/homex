@@ -7,6 +7,10 @@
 <% id_bar_for(@subject) %>
 
 <% content_tag_for( :div, @interview ) do %>
+
+<%= wrapped_date_spans :interview,:intro_letter_sent_on,
+	:label_text => 'Intro Letter Sent:' %>
+
 <h4>Interview Info</h4>
 <%= wrapped_spans(:interview,:interview_outcome,
 	:label_text => 'Outcome:',
