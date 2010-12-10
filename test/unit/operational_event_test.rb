@@ -19,10 +19,10 @@ class OperationalEventTest < ActiveSupport::TestCase
 		assert_equal object.description, "#{object}"
 	end
 
-	test "should return NOT description as to_s if nil" do
-		object = create_object
-		assert_not_equal object.description, "#{object}"
-	end
+#	test "should return NOT description as to_s if nil" do
+#		object = create_object
+#		assert_not_equal object.description, "#{object}"
+#	end
 
 	test "should order by type ASC" do
 		oes = create_oet_objects
