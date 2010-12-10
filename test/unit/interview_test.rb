@@ -110,14 +110,14 @@ class InterviewTest < ActiveSupport::TestCase
 		end
 	end
 
-	test "should NOT ALLOW subject_relationship_other if " <<
-			"subject_relationship != other" do
-		assert_difference( "#{model_name}.count", 0 ) do
-			object = create_object(
-				:subject_relationship => Factory(:subject_relationship),
-				:subject_relationship_other => 'asdfasdf' )
-			assert object.errors.on(:subject_relationship_other)
-		end
-	end
+#	test "should NOT ALLOW subject_relationship_other if " <<
+#			"subject_relationship != other" do
+#		assert_difference( "#{model_name}.count", 0 ) do
+#			object = create_object(
+#				:subject_relationship => Factory(:subject_relationship),
+#				:subject_relationship_other => 'asdfasdf' )
+#			assert object.errors.on(:subject_relationship_other)
+#		end
+#	end
 
 end
