@@ -47,7 +47,7 @@
 
 <%= f.wrapped_collection_select :subject_type_id, SubjectType.all, 
 	:id, :to_s, :include_blank => true,
-	:label_text => "Subject Type" %>
+	:label_text => "Relation to Case:" %>
 
 <%= f.wrapped_collection_select :vital_status_id,
 	VitalStatus.all, :id, :to_s, :include_blank => true %>
