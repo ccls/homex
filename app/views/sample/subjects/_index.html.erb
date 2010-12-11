@@ -9,8 +9,8 @@
 <th><%= sort_link('First Name') %></th>
 <th><%= sort_link('Sample Outcome') %></th>
 <th><%= sort_link('Interview Outcome On') %></th>
-<th><%= sort_link('Sent On') %></th>
-<th><%= sort_link('Received On') %></th>
+<th><%= sort_link(:sent_to_subject_on,'Sent On') %></th>
+<th><%= sort_link(:received_by_ccls_on,'Received On') %></th>
 </tr></thead><tbody>
 <%= render :partial => 'subject', :collection => @subjects %>
 </tbody></table>

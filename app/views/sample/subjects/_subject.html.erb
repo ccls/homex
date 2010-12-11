@@ -21,9 +21,19 @@
 <%# if subject.dust_kit %>
 <td class='kit_sent_on'>
 <%#= ((date=subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#
+	This won't work in the long run, but we need to clarify which sample
+	We actually already have a duplicate.
+%>
+<%=mdy subject.samples.first.try(:sent_to_subject_on) %>
 </td>
 <td class='kit_received_on'>
 <%#= ((date=subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#
+	This won't work in the long run, but we need to clarify which sample
+	We actually already have a duplicate.
+%>
+<%=mdy subject.samples.first.try(:received_by_ccls_on) %>
 </td>
 <!--
 <%# else %>
