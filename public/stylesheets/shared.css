@@ -24,6 +24,13 @@
 	background-color: #FFC5AF;
 }
 
+.warning {
+	border: 2px solid #F44;
+	background-color: #FCC;
+	margin: 1px;
+	padding: 1px;
+}
+
 fieldset {
 	/* http://css-radius.heroku.com */
 	-webkit-border-radius: 10px;
