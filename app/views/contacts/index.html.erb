@@ -33,13 +33,20 @@
 </div><!-- id='current' -->
 
 <div id='history'>
-<span>Address History:</span>
+<span>History:</span>
 <div class='addressings'>
 <%#
 	This probably should be all except the current address ?
 %>
 <%= render :partial => 'addressing', 
 	:collection => @subject.addressings.historic,
-	:locals => { :dates => true } %>
+	:locals => { :dates => true,
+		:edit => current_user.may_administrate? } %>
 </div><!-- class='addressings' -->
+<div class='phone_numbers'>
+<%= render :partial => 'phone_number', 
+	:collection => @subject.phone_numbers,
+	:locals => { :details => true,
+		:edit => current_user.may_administrate? } %>
+</div><!-- class='phone_numbers' -->
 </div><!-- id='history' -->

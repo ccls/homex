@@ -6,7 +6,8 @@
 .addressings {
 	margin-left: 100px;
 }
-#current .addressings {
+#current .addressings,
+#history .addressings {
 	border-bottom: 1px solid black;
 }
 

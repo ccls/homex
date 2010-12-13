@@ -49,7 +49,7 @@ verified:&nbsp;<%= (addressing.is_verified?)?'yes':'no' %>
 </span>
 </div><!-- class='details' -->
 </div><!-- class='addressing_valid contact_valid' -->
-
+<% end -%><%# if defined?(details) and details -%>
 
 <div class='edit'>
 <%#
@@ -67,5 +67,4 @@ What is 'edit' ?
 &nbsp;
 <% end -%><%# if defined?(edit) and edit -%>
 </div><!-- class='edit' -->
-<% end -%><%# if defined?(details) and details -%>
 </div><!-- class='addressing_wrapper contact_wrapper' -->
