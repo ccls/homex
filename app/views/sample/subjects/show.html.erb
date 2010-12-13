@@ -21,7 +21,7 @@
 <th>sample tracking no</th>
 </tr>
 </thead><tbody>
-<% @subject.samples.each do |sample| %>
+<% @subject.samples.pending.each do |sample| %>
 	<tr><td>&nbsp;</td>
 		<td><%= link_to sample.sample_type.to_s, sample_path(sample) -%></td>
 		<td><%=mdy sample.sent_to_subject_on -%></td>
@@ -45,5 +45,13 @@
 <th>date received</th>
 <th>sample location</th>
 </tr>
+<% @subject.samples.collected.each do |sample| %>
+	<tr><td>&nbsp;</td>
+		<td><%= link_to sample.sample_type.to_s, sample_path(sample) -%></td>
+		<td><%= 'NOT CODED YET' -%></td>
+		<td><%=mdy sample.received_by_ccls_on %></td>
+		<td><%= 'NOT CODED YET' %></td>
+	</tr>
+<% end %>
 
 </tbody></table><!-- id='collected' -->
