@@ -18,6 +18,8 @@
 	:label_text => 'Intro Letter Sent:' %>
 
 <h4>Interview Info</h4>
+<%# without this, the homex_outcome fields won't show if it doesn't exist yet. %>
+<% @interview.subject.build_homex_outcome unless @interview.subject.homex_outcome %>
 <% f.fields_for :subject do |subject| %>
 <% subject.fields_for :homex_outcome do |io| %>
 <%= io.wrapped_collection_select :interview_outcome_id,
