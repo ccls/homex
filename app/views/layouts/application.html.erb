@@ -35,9 +35,12 @@
 <span>a California Childhood Leukemia Study</span>
 </div>
 <div id='minimenu'>
-	<%= link_to "Home", root_path %>&nbsp;|&nbsp;
-	<%= link_to 'Reports', reports_path %>&nbsp;|&nbsp;
-	<%= link_to 'FAQs', faqs_path %>
+ <%= link_to "Home", root_path %>&nbsp;|&nbsp;
+ <%= link_to 'Reports', reports_path %>&nbsp;|&nbsp;
+ <%= link_to 'FAQs', faqs_path %>
+ <% if logged_in? %>
+  &nbsp;|&nbsp;<%= link_to 'Logout', logout_path %>
+ <% end %>
 </div><!-- minimenu -->
 <%= render 'layouts/subjects_search' %>
 <%= home_exposure_main_menu() %>
