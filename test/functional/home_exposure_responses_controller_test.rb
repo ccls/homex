@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class HomeExposureResponsesControllerTest < ActionController::TestCase
 
@@ -34,6 +34,16 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	}
 
 %w( superuser admin editor interviewer reader ).each do |cu|
+
+
+#	ONLY FOR DEVELOPMENT.  THIS SHOULD PROBABLY BE REMOVED
+	test "should destroy with #{cu} login" do
+		@rs1.to_her
+		login_as send(cu)
+		delete :destroy, :subject_id => @rs1.study_subject_id
+		assert_redirected_to subject_response_sets_path(@rs1.subject)
+	end
+
 
 	test "should show new with very different response sets " <<
 		"with #{cu} login" do

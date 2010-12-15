@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class Followup::SubjectsControllerTest < ActionController::TestCase
 
@@ -71,6 +71,25 @@ class Followup::SubjectsControllerTest < ActionController::TestCase
 		assert_equal subject.reload.hx_gift_card, gift_card_2
 		assert_equal subject, assigns(:subject)
 		assert_redirected_to followup_subject_path(subject)
+	end
+
+	test "should not update gift_card when invalid with #{u} login" do
+#	44 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+#	45 		flash.now[:error] = "There was a problem updating the subject"
+#	47 		render :action => "edit"
+pending
+	end
+
+	test "should not update gift_card when save fails with #{u} login" do
+#	44 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+#	45 		flash.now[:error] = "There was a problem updating the subject"
+#	47 		render :action => "edit"
+pending
+	end
+
+	test "should not update gift_card without valid gift_card id with #{u} login" do
+#	60 			access_denied("Valid gift_card id required!", followup_subjects_path)
+pending
 	end
 
 end

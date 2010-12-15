@@ -16,18 +16,6 @@ test:
   timeout: 5000
 
 
-# production and production_prep have the same db
-#	but different users (in the real one).  The
-#	production_prep user has the power to create and
-#	drop tables, whereas the production user does not.
-
-production_prep:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
-
-
 production:
   adapter: sqlite3
   database: db/production.sqlite3
