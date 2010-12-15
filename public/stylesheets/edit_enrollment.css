@@ -33,13 +33,15 @@
 }
 
 .field_wrapper.consented_on label,
-.field_wrapper.completed_on label,
 .field_wrapper.is_candidate label,
 .field_wrapper.able_to_locate label,
 .field_wrapper.is_eligible label,
 .field_wrapper.consented label,
-.field_wrapper.is_complete label {
+.field_wrapper.completed_on label {
 	width: 100px;
+}
+.field_wrapper.is_complete label {
+	width: 250px;
 }
 
 .field_wrapper.consented_on label ,
