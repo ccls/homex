@@ -14,8 +14,12 @@
 		:edit => current_user.may_edit_addressings? } %>
 <% if current_user.may_edit_addressings? %>
 <p id='new_address' class='new'>
-<%= link_to 'add new address ...', new_subject_addressing_path(@subject) %>&nbsp;|&nbsp;
-<%= link_to 'toggle history', subject_contacts_path(@subject), :class => 'toggle_historic_addressings' %>
+<%= link_to 'add new address ...', new_subject_addressing_path(@subject) %>
+<% if @subject.addressings.historic.length > 0 %>
+&nbsp;|&nbsp;
+<%= link_to 'toggle history', subject_contacts_path(@subject), 
+	:class => 'toggle_historic_addressings' %>
+<% end %>
 </p>
 <% end %>
 
@@ -34,8 +38,12 @@
 		:edit => current_user.may_edit_phone_numbers? } %>
 <% if current_user.may_edit_phone_numbers? %>
 <p id='new_phone_number' class='new'>
-<%= link_to 'add new phone number ...', new_subject_phone_number_path(@subject) %>&nbsp;|&nbsp;
-<%= link_to 'toggle history', subject_contacts_path(@subject), :class => 'toggle_historic_phone_numbers' %>
+<%= link_to 'add new phone number ...', new_subject_phone_number_path(@subject) %>
+<% if @subject.phone_numbers.historic.length > 0 %>
+&nbsp;|&nbsp;
+<%= link_to 'toggle history', subject_contacts_path(@subject), 
+	:class => 'toggle_historic_phone_numbers' %>
+<% end %>
 </p>
 <% end %>
 <div class='historic' style='display:none'>
