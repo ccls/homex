@@ -17,7 +17,7 @@ namespace :app do
 			instruments
 			interview_methods
 			interview_outcomes
-			interview_types
+			instrument_types
 			languages
 			organizations
 			operational_event_types

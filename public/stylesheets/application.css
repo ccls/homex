@@ -208,9 +208,6 @@ table#guides td.controller {
 	width: 300px;
 }
 
-form.edit_sample .field_wrapper label {
-	width: 150px;
-}
 table.sample_subject {
 	margin-top: 30px;
 }
@@ -218,6 +215,20 @@ table.sample_subject {
 input.datepicker {
 	width: 100px;
 }
+/* 
+	BEGIN Sample stuff
+*/
+form.edit_sample .field_wrapper label {
+	width: 150px;
+}
+.edit_sample .field_wrapper.tracking_number label {
+	width: 250px;
+}
+
+/* 
+	END Sample stuff
+*/
+
 /*
 	BEGIN Interview stuff
 */
