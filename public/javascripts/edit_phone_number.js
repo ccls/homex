@@ -1,7 +1,7 @@
 jQuery(function(){
 
 	jQuery('.valid .is_valid #phone_number_is_valid').change(function(){
-		toggle_why_invalid($(this).val()!=2);
+		toggle_why_invalid( ( $(this).val()!=2 && $(this).val()!=999 ) );
 	});
 
 	jQuery('.verified .is_verified #phone_number_is_verified').change(function(){
