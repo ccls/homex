@@ -21,7 +21,6 @@ class Followup::SubjectsController < ApplicationController
 	end
 
 	def show
-#		@gift_cards = @subject.gift_cards
 	end
 
 	def edit
@@ -31,10 +30,21 @@ class Followup::SubjectsController < ApplicationController
 	end
 
 	def update
-		unless @subject.hx_gift_card.nil?
-			@subject.hx_gift_card.update_attribute(:subject, nil)
+#		unless @subject.hx_gift_card.nil?
+#	if the subject has a hx_gift_card and it is not the same one that 
+#	is being updated, unassign the old one.
+		if !@subject.hx_gift_card.nil? && @subject.hx_gift_card != @gift_card
+#			old_hx_gift_card = @subject.hx_gift_card
+# this doesn't simply assign the GC, it keeps the association?  calling old_hx_gift_card.reload effectively re-searches for subject's hx_gift_card, NOT reloading the gift card by id!, which seems very, very wrong to me.
+			old_hx_gift_card = GiftCard.find(@subject.hx_gift_card.id)
+#			old_hx_gift_card.update_attribute(:subject, nil)
+#			old_hx_gift_card.update_attributes!(:subject => nil)
+			old_hx_gift_card.update_attributes!(:study_subject_id => nil)
+#			@subject.hx_gift_card.update_attributes!(:subject => nil)
 		end
-		@gift_card.subject = @subject
+#	This will auto save and don't want that
+#		@gift_card.subject = @subject
+		@gift_card.study_subject_id = @subject.id
 #	Not currently necessary as the gift cards' fixtures already has a project_id
 #		@gift_card.project = Project['HomeExposures']
 		@gift_card.issued_on = params[:gift_card][:issued_on]
@@ -42,8 +52,7 @@ class Followup::SubjectsController < ApplicationController
 		flash[:notice] = 'Success!'
 		redirect_to followup_subject_path(@subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash.now[:error] = "There was a problem updating " <<
-			"the subject"
+		flash.now[:error] = "There was a problem updating the gift card"
 		render :action => "edit"
 	end
 

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
 
@@ -44,6 +44,28 @@ pending
 	test "sub_menu_for nil should return nil" do
 		response = sub_menu_for(nil)
 		assert_nil response
+	end
+
+	test "id_bar_for other object should return nil" do
+		response = id_bar_for(Object)
+		assert response.blank?
+		assert response.nil?
+	end
+
+	test "followup_sub_menu should not have a .current without matching controller" do
+		response = followup_sub_menu
+		assert response.blank?
+		assert response.nil?
+#		puts @content_for_main
+#<div id='submenu'>
+#<a href="/followup/subjects">manage by subject</a>
+#<a href="/followup/gift_cards">manage by cards</a>
+#</div><!-- submenu -->
+		html = HTML::Document.new(@content_for_main).root
+		assert_select html, 'div#submenu', 1 do
+			assert_select 'a', 2
+			assert_select 'a.current', 0
+		end
 	end
 
 end

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../test_helper'
+require 'test_helper'
 
 class HomeExposureResponseHelperTest < ActionView::TestCase
 
@@ -21,6 +21,26 @@ class HomeExposureResponseHelperTest < ActionView::TestCase
 				assert_select 'td', 3
 			end
 		end
+	end
+
+	test "answer_text should return blank without value" do
+		response = answer_text(:bogus_method,'')
+		assert response.blank?
+	end
+
+	test "answer_text should return blank with nbsp value" do
+		response = answer_text(:bogus_method,'&nbsp;')
+		assert response.blank?
+	end
+
+	test "answer_text should not return blank with non-space value" do
+		response = answer_text(:bogus_method,'bogus_value')
+		assert !response.blank?
+	end
+
+	test "answer_text should return 'question not found?' with non-existant method" do
+		response = answer_text(:bogus_method,'bogus_value')
+		assert_equal 'question not found?', response
 	end
 
 end

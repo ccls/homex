@@ -60,10 +60,10 @@ module ApplicationHelper
 
 	def id_bar_for(object,&block)
 		#	In development, the app will forget
-		require 'subject'
-		require 'gift_card'
+		require_dependency 'subject.rb'
+		require_dependency 'gift_card.rb'
 		case object
-			when Subject   then subject_id_bar(object,&block)
+			when Subject  then subject_id_bar(object,&block)
 			when GiftCard then gift_card_id_bar(object,&block)
 			else nil
 		end
@@ -71,8 +71,8 @@ module ApplicationHelper
 
 	def sub_menu_for(object)
 		#	In development, the app will forget
-		require 'subject'
-		require 'interview'
+		require_dependency 'subject.rb'
+		require_dependency 'interview.rb'
 #		if object.is_a?(Subject)
 		case object
 			when Subject   then subject_sub_menu(object)
