@@ -18,5 +18,12 @@
 	:label_text => 'hospital number:') %>
 </div><!-- id='patient' -->
 
-<p>Development:</p>
+<h4>Development Only:</h4>
 <%= destroy_link_to 'Destroy', subject_patient_path(@subject) %>
+<% unless( @identifier = @patient.try(:subject).try(:identifier) ).nil? %>
+<%= wrapped_spans(:identifier,:familyid) %>
+<%= wrapped_spans(:identifier,:matchingid) %>
+<% Identifier.find_all_by_matchingid(@identifier.matchingid).each do |i| %>
+<%= link_to i.subject.full_name, subject_path(i.subject) %>
+<% end %>
+<% end %>
