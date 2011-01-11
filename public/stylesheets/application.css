@@ -225,6 +225,15 @@ form.edit_sample .field_wrapper label {
 	width: 250px;
 }
 
+form.edit_sample .location_id.field_wrapper {
+	float:left;
+	clear:none;
+	padding-left: 10px;
+}
+form.edit_sample .location_id.field_wrapper label {
+	width:70px;
+}
+
 /* 
 	END Sample stuff
 */
