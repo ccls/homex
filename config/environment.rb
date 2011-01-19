@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
 
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
-	config.gem 'jakewendt-ccls_engine',
+	config.gem 'ccls-ccls_engine',
 		:lib    => 'ccls_engine'
 
 #	#	Without this, rake doesn't properly include that app/ paths
@@ -52,8 +52,8 @@ Rails::Initializer.run do |config|
 	config.gem 'jakewendt-simply_trackable',
 		:lib    => 'simply_trackable'
 
-	config.gem 'jakewendt-rdoc_rails',
-		:lib    => 'rdoc_rails'
+#	config.gem 'jakewendt-rdoc_rails',
+#		:lib    => 'rdoc_rails'
 
 	config.gem 'haml'      # Needed for Surveyor
 	#	Keep chronic here
