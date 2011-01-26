@@ -79,6 +79,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'index'
 		assert_select "span.arrow", :count => 1
+		assert_select "span.arrow", 1
 	end
 
 	test "should get index with order and dir asc with #{cu} login" do
@@ -87,6 +88,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'index'
 		assert_select "span.arrow", :count => 1
+		assert_select "span.arrow", 1
 	end
 
 	test "should get show with pii with #{cu} login" do
@@ -106,6 +108,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'show'
 		assert_select "#do_not_contact", :count => 1
+		assert_select "#do_not_contact", 1
 	end
 
 	test "should NOT have do_not_contact if it is false "<<
@@ -116,6 +119,50 @@ class SubjectsControllerTest < ActionController::TestCase
 		assert_response :success
 		assert_template 'show'
 		assert_select "#do_not_contact", :count => 0
+		assert_select "#do_not_contact", 0
+		assert_select "#do_not_contact", false
+	end
+
+	test "should have hospital link if subject is case "<<
+			"with #{cu} login" do
+		subject = create_subject(:subject_type => SubjectType['Case'])
+		assert subject.reload.is_case?
+		login_as send(cu)
+		get :show, :id => subject
+		assert_response :success
+		assert_template 'show'
+		assert_select "#submenu", :count => 1 do
+			assert_select "a", :count => 5
+			assert_select "a", 5
+			assert_select "a", :count => 1, :text => 'hospital'
+#	apparently 1 doesn't work if :text exists
+#			assert_select "a", 1, :text => 'hospital'
+		end
+		#	<div id='submenu'>
+		#	<a href="/subjects/2" class="current">general</a>
+		#	<a href="/subjects/2/patient">hospital</a>
+		#	<a href="/subjects/2/contacts">address/contact</a>
+		#	<a href="/subjects/2/enrollments">eligibility/enrollments</a>
+		#	<a href="/subjects/2/events">events</a>
+		#	</div><!-- submenu -->
+	end
+
+	test "should NOT have hospital link if subject is not case "<<
+			"with #{cu} login" do
+		subject = create_subject
+		assert !subject.reload.is_case?
+		login_as send(cu)
+		get :show, :id => subject
+		assert_response :success
+		assert_template 'show'
+		assert_select "#submenu", :count => 1 do
+			assert_select "a", :count => 4
+			assert_select "a", 4
+			assert_select "a", :count => 0, :text => 'hospital'
+#	apparently 0 and false don't work if :text exists
+#			assert_select "a", 0, :text => 'hospital'
+#			assert_select "a", false, :text => 'hospital'
+		end
 	end
 
 	test "should download csv with #{cu} login" do

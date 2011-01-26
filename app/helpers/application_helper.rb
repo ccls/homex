@@ -137,7 +137,7 @@ module ApplicationHelper
 			)]
 			l.push(link_to( 'hospital', subject_patient_path(subject),
 				:class => ((current == :hospital)?'current':nil)
-			))
+			)) if subject.is_case?
 			l.push(link_to( 'address/contact', subject_contacts_path(subject),
 				:class => ((current == :contact)?'current':nil)))
 			l.push(link_to( 'eligibility/enrollments', 
