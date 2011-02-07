@@ -165,8 +165,8 @@ Warbler::Config.new do |config|
 	# config.webxml.jruby.max.runtimes = 4
 
 #	May be the cause of permission problems
-#	config.webxml.jruby.min.runtimes = 1
-#	config.webxml.jruby.max.runtimes = 1
+	config.webxml.jruby.min.runtimes = 1
+	config.webxml.jruby.max.runtimes = 2
 
 	# JNDI data source name
 	# config.webxml.jndi = 'jdbc/rails'
