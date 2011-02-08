@@ -43,14 +43,12 @@
 <th>type</th>
 <th>date collected</th>
 <th>date received</th>
-<th>sample location</th>
 </tr>
 <% @subject.samples.collected.each do |sample| %>
 	<tr><td>&nbsp;</td>
 		<td><%= link_to sample.sample_type.to_s, sample_path(sample) -%></td>
 		<td><%=mdy sample.collected_on -%></td>
 		<td><%=mdy sample.received_by_ccls_on %></td>
-		<td><%= 'NOT CODED YET' %></td>
 	</tr>
 <% end %>
 
