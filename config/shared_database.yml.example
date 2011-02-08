@@ -29,6 +29,9 @@ shared_test:
 #	the username and production MUST have the ability to create
 #	and modify the structure as this 'app' runs the migrations.
 #
+#	In this app, however, the user does NOT need permissions
+#	to modify the structure, just the contents.
+#
 shared_production:
   adapter: mysql
   encoding: utf8

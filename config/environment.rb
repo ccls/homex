@@ -34,23 +34,16 @@ Rails::Initializer.run do |config|
 		config.gem "sqlite3-ruby", :lib => "sqlite3"
 	end
 
-	config.gem 'jakewendt-surveyor',
-		:lib    => 'surveyor'
+	config.gem 'jakewendt-surveyor'
 
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
-	config.gem 'ccls-ccls_engine',
-		:lib    => 'ccls_engine'
+	config.gem 'ccls-ccls_engine'
 
-#	#	Without this, rake doesn't properly include that app/ paths
-	config.gem 'jakewendt-simply_authorized',
-		:lib    => 'simply_authorized'
-
-	config.gem 'jakewendt-simply_pages',
-		:lib    => 'simply_pages'
-
-	config.gem 'jakewendt-simply_trackable',
-		:lib    => 'simply_trackable'
+	#	Without this, rake doesn't properly include that app/ paths
+	config.gem 'jakewendt-simply_authorized'
+	config.gem 'jakewendt-simply_pages'
+	config.gem 'jakewendt-simply_trackable'
 
 	#	require it, but don't load it
 	config.gem 'jakewendt-rdoc_rails', :lib => false
