@@ -39,7 +39,7 @@
 	:label_text => 'Ended:' %>
 
 <%= f.wrapped_collection_select :interviewer_id,
-	Person.all, :id, :to_s, :include_blank => true, 
+	Person.all(:conditions => { :person_type_id => 3 }), :id, :to_s, :include_blank => true, 
 	:label_text => 'Interviewer:' %>
 
 <%= f.wrapped_collection_select :instrument_version_id,
