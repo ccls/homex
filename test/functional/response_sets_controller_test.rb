@@ -27,7 +27,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 		Factory(:subject)
 	end
 
-%w( superuser admin ).each do |cu|
+%w( superuser admin editor ).each do |cu|
 	
 	test "should begin survey with #{cu} login" do
 		survey = Survey.first
@@ -131,7 +131,7 @@ class ResponseSetsControllerTest < ActionController::TestCase
 
 end
 
-%w( active_user editor interviewer reader ).each do |cu|
+%w( active_user interviewer reader ).each do |cu|
 
 	test "should NOT begin survey with #{cu} login" do
 		survey = Survey.first

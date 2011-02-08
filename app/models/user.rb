@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
 #	alias_method :may_take_surveys?, :may_administrate?
 
-	%w(	people races response_sets sample_kits
+	%w(	people races sample_kits
 			languages gift_cards refusal_reasons ineligible_reasons
 			document_versions
 			).each do |resource|
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
 	end
 
 	%w(	contacts guides home_page_pics patients
-			interviews samples
+			response_sets interviews samples
 			).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_edit?
 		alias_method "may_read_#{resource}?".to_sym,    :may_edit?
