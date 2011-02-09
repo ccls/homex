@@ -13,12 +13,19 @@
 <% if defined?(details) and details -%>
 <div class='phone_number_valid contact_valid'>
 <div class='brief'>
+<!--
 <span class='valid'>
-valid:&nbsp;<%= (phone_number.is_valid?)?'yes':'no' %>
+valid:&nbsp;<%#= (phone_number.is_valid?)?'yes':'no' %>
 </span>
 <span class='verified'>
-verified:&nbsp;<%= (phone_number.is_verified?)?'yes':'no' %>
+verified:&nbsp;<%#= (phone_number.is_verified?)?'yes':'no' %>
 </span>
+-->
+<% @this_phone_number = phone_number %>
+<%= wrapped_yndk_spans(:this_phone_number, :is_valid,
+	:label_text => "valid:") %>
+<%= wrapped_yes_or_no_spans(:this_phone_number, :is_verified,
+	:label_text => "verified:") %>
 </div><!-- class='brief' -->
 <div class='details'>
 <span class='why'>

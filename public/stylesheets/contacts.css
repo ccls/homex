@@ -64,3 +64,11 @@
 	clear:both;
 	margin-top:0;
 }
+
+.contact_valid .brief .field_wrapper .label {
+	width:auto;
+	margin-right: 10px;
+}
+.contact_valid .brief .field_wrapper {
+	margin-bottom:0;
+}
