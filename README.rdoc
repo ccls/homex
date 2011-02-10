@@ -130,7 +130,7 @@ Everybody join hands together now to install some gems ...
  gem source -a http://gemcutter.org
  gem source -a http://gems.github.com
  sudo gem install rake rdoc
- sudo gem install rails -v 2.3.10
+ sudo gem install rails -v 2.3.11
  #
  # The rest should actually install with ...
  #
