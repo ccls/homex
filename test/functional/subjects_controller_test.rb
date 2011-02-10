@@ -147,23 +147,23 @@ class SubjectsControllerTest < ActionController::TestCase
 		#	</div><!-- submenu -->
 	end
 
-	test "should NOT have hospital link if subject is not case "<<
-			"with #{cu} login" do
-		subject = create_subject
-		assert !subject.reload.is_case?
-		login_as send(cu)
-		get :show, :id => subject
-		assert_response :success
-		assert_template 'show'
-		assert_select "#submenu", :count => 1 do
-			assert_select "a", :count => 4
-			assert_select "a", 4
-			assert_select "a", :count => 0, :text => 'hospital'
-#	apparently 0 and false don't work if :text exists
-#			assert_select "a", 0, :text => 'hospital'
-#			assert_select "a", false, :text => 'hospital'
-		end
-	end
+#		test "should NOT have hospital link if subject is not case "<<
+#				"with #{cu} login" do
+#			subject = create_subject
+#			assert !subject.reload.is_case?
+#			login_as send(cu)
+#			get :show, :id => subject
+#			assert_response :success
+#			assert_template 'show'
+#			assert_select "#submenu", :count => 1 do
+#				assert_select "a", :count => 4
+#				assert_select "a", 4
+#				assert_select "a", :count => 0, :text => 'hospital'
+#	#	apparently 0 and false don't work if :text exists
+#	#			assert_select "a", 0, :text => 'hospital'
+#	#			assert_select "a", false, :text => 'hospital'
+#			end
+#		end
 
 	test "should download csv with #{cu} login" do
 		login_as send(cu)
