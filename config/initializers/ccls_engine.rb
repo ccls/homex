@@ -6,7 +6,8 @@
 #	NoMethodError (undefined method `find_create_and_update_by_uid' for nil:NilClass):
 #	so ...
 unless Gem.source_index.find_name('ccls-ccls_engine').empty?
-require 'user' unless defined?(User)
+	gem 'ccls-ccls_engine'
+	require 'user' unless defined?(User)
 end
 
 #require 'user' unless defined?(User)
