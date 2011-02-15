@@ -68,6 +68,9 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
  #	Copy and setup database file.
  cp config/database.yml.example config/database.yml
 
+ #	Copy and setup shared_database file to match ccls_engine's.
+ cp config/shared_database.yml.example config/shared_database.yml
+
  #	Copy and add your own FedEx credentials.
  cp config/fed_ex.yml.example config/fed_ex.yml
 
