@@ -5,11 +5,15 @@
 
 <%= f.error_messages %>
 
-<% f.wrapped_date_text_field :diagnosis_date,
+<% f.wrapped_date_text_field :admit_date,
 	:class => 'datepicker',
-	:label_text => 'diagnosis date:' do %>
+	:label_text => 'admit date:' do %>
 <div class='warning'>Note: changing this date modifies the reference date for this case and all related controls.</div>
 <% end %>
+
+<%= f.wrapped_date_text_field :diagnosis_date,
+	:class => 'datepicker',
+	:label_text => 'diagnosis date:' %>
 
 <%= f.wrapped_collection_select :diagnosis_id,
 	Diagnosis.all, :id, :description, :include_blank => true, 
