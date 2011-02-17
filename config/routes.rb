@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 #	Plugin routes are loaded FIRST and aren't overridable.
 	map.root :controller => :home_exposures, :action => :show
 
-	map.resource  :calendar,   :only => [ :show ]
+#	map.resource  :calendar,   :only => [ :show ]
 
 	map.resources :home_page_pics, :collection => { :activate => :post }
 	map.resources :packages, :except => :edit, 
@@ -64,13 +64,13 @@ ActionController::Routing::Routes.draw do |map|
 	map.resource :survey_finished, :only => :show
 
 	map.resources :projects
-	map.resources :races
-	map.resources :languages
+#	map.resources :races
+#	map.resources :languages
 	map.resources :guides
-	map.resources :people
+#	map.resources :people
 	map.resources :gift_cards
-	map.resources :refusal_reasons
-	map.resources :ineligible_reasons
+#	map.resources :refusal_reasons
+#	map.resources :ineligible_reasons
 	map.resources :document_versions
 
 	map.namespace :api do |api|
