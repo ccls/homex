@@ -1,11 +1,13 @@
-if g = Gem.source_index.find_name('ccls-ccls_engine').last
-require 'ccls_engine'
-require g.full_gem_path + '/app/models/subject'
-end
+#if g = Gem.source_index.find_name('ccls-ccls_engine').last
+#require 'ccls_engine'
+#require g.full_gem_path + '/app/models/subject'
+#end
 
-class Subject::NotTwoResponseSets < StandardError; end
+#class Subject::NotTwoResponseSets < StandardError; end
 
-Subject.class_eval do
+#Subject.class_eval do
+class Subject < Ccls::Subject
+class NotTwoResponseSets < StandardError; end
 
 	with_options :foreign_key => 'study_subject_id' do |f|
 		f.has_many :response_sets
