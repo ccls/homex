@@ -32,6 +32,12 @@
 #	fixtures and try again.
 #	
 
+
+$VERBOSE = nil
+if surveyor_gem = Gem.source_index.find_name('jakewendt-surveyor').first
+  Dir["#{surveyor_gem.full_gem_path}/lib/tasks/*.rake"].each { |ext| load ext }
+end
+
 namespace :survey do
 
 	desc "Extract results"

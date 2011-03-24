@@ -49,6 +49,7 @@ end
 
 require 'tasks/rails'
 
+load 'tasks/surveyor.rake'
 require 'lib/surveyor/survey_extensions'
 
 #	Must come after rails as overrides doc:app
