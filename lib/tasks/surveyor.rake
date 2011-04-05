@@ -34,7 +34,7 @@
 
 
 $VERBOSE = nil
-if surveyor_gem = Gem.source_index.find_name('jakewendt-surveyor').first
+if surveyor_gem = Gem.source_index.find_name('ccls-surveyor').first
   Dir["#{surveyor_gem.full_gem_path}/lib/tasks/*.rake"].each { |ext| load ext }
 end
 
