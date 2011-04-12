@@ -322,5 +322,3 @@ User icons from {Gravatar}[http://gravatar.com]
 
 {Background image gradients}[http://gradients.glrzad.com/]
 
-{Equal column height example}[http://www.positioniseverything.net/articles/onetruelayout/equalheight]
-
