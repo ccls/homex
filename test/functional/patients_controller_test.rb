@@ -33,7 +33,7 @@ class PatientsControllerTest < ActionController::TestCase
 %w( superuser admin editor ).each do |cu|
 
 	test "should show patient with #{cu} login" do
-		patient = create_patient
+		patient = create_patient_with_subject
 		login_as send(cu)
 		get :show, :subject_id => patient.subject.id
 		assert assigns(:subject)
@@ -63,7 +63,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT get new patient with #{cu} login " <<
 			"for subject with patient" do
-		patient = create_patient
+		patient = create_patient_with_subject
 		login_as send(cu)
 		get :new, :subject_id => patient.subject.id
 		assert assigns(:subject)
@@ -155,7 +155,7 @@ class PatientsControllerTest < ActionController::TestCase
 	end
 
 	test "should edit patient with #{cu} login" do
-		patient = create_patient
+		patient = create_patient_with_subject
 		login_as send(cu)
 		get :edit, :subject_id => patient.subject.id
 		assert assigns(:patient)
@@ -172,7 +172,7 @@ class PatientsControllerTest < ActionController::TestCase
 	end
 
 	test "should update patient with #{cu} login" do
-		patient = create_patient
+		patient = create_patient_with_subject
 		login_as send(cu)
 		put :update, :subject_id => patient.subject.id,
 			:patient => factory_attributes
@@ -193,7 +193,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT update patient with #{cu} " <<
 			"login when update fails" do
-		patient = create_patient(:updated_at => Chronic.parse('yesterday'))
+		patient = create_patient_with_subject(:updated_at => Chronic.parse('yesterday'))
 		Patient.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		deny_changes("Patient.find(#{patient.id}).updated_at") {
@@ -208,7 +208,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should NOT update patient with #{cu} " <<
 			"login and invalid patient" do
-		patient = create_patient(:updated_at => Chronic.parse('yesterday'))
+		patient = create_patient_with_subject(:updated_at => Chronic.parse('yesterday'))
 		Patient.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		deny_changes("Patient.find(#{patient.id}).updated_at") {
@@ -223,7 +223,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 	test "should destroy patient with #{cu} login" do
 		login_as send(cu)
-		subject = create_patient.subject
+		subject = create_patient_with_subject.subject
 		assert_not_nil subject.patient
 		assert_difference('Patient.count', -1) do
 			delete :destroy, :subject_id => subject.id
@@ -264,7 +264,7 @@ end
 
 	test "should NOT destroy patient with #{cu} login" do
 		login_as send(cu)
-		subject = create_patient.subject
+		subject = create_patient_with_subject.subject
 		assert_not_nil subject.patient
 		assert_difference('Patient.count', 0) do
 			delete :destroy, :subject_id => subject.id
@@ -295,13 +295,26 @@ end
 	end
 
 	test "should NOT destroy patient without login" do
-		subject = create_patient.subject
+		subject = create_patient_with_subject.subject
 		assert_not_nil subject.patient
 		assert_difference('Patient.count', 0) do
 			delete :destroy, :subject_id => subject.id
 		end
 		assert_not_nil subject.patient
 		assert_redirected_to_login
+	end
+
+
+protected
+
+	#	TODO clean this up
+	def create_patient_with_subject(options={})
+		patient = create_patient({
+			:subject => Factory(:case_subject)
+		}.merge(options))
+		assert_not_nil patient.id
+		assert_not_nil patient.subject
+		patient.reload
 	end
 
 end
