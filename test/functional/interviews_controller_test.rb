@@ -6,7 +6,7 @@ class InterviewsControllerTest < ActionController::TestCase
 		:model => 'Interview',
 		:actions => [:show,:edit,:update,:destroy],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :create_interview
+		:method_for_create => :create_interview_with_subject
 	}
 	def factory_attributes(options={})
 		#	no attributes to trigger updated_at
@@ -65,7 +65,7 @@ class InterviewsControllerTest < ActionController::TestCase
 
 	test "should NOT update interview with #{cu} login " <<
 		"when update fails" do
-		interview = create_interview(:updated_at => Chronic.parse('yesterday'))
+		interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))
 		Interview.any_instance.stubs(:create_or_update).returns(false)
 		login_as send(cu)
 		deny_changes("Interview.find(#{interview.id}).updated_at") {
@@ -80,7 +80,7 @@ class InterviewsControllerTest < ActionController::TestCase
 
 	test "should NOT update interview with #{cu} login " <<
 		"and invalid interview" do
-		interview = create_interview(:updated_at => Chronic.parse('yesterday'))
+		interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))
 		Interview.any_instance.stubs(:valid?).returns(false)
 		login_as send(cu)
 		deny_changes("Interview.find(#{interview.id}).updated_at") {
@@ -207,5 +207,28 @@ end
 #				:interview => factory_attributes
 #			assert_redirected_to_login
 #		end
+
+protected
+
+	#	TODO clean this up
+	def create_interview_with_subject(options={})
+		assert_difference('Interview.count',1) {
+		assert_difference('Identifier.count',1) {
+		assert_difference('Subject.count',1) {
+			@interview = create_interview(options)
+			assert_not_nil @interview.id
+			assert_not_nil @interview.identifier
+			assert_not_nil @interview.identifier.id
+			subject = create_subject
+			identifier = @interview.identifier
+			identifier.subject = subject
+			identifier.save
+			assert_not_nil @interview.identifier.subject
+			assert_not_nil @interview.identifier.subject.id
+			@interview.reload
+			assert_not_nil @interview.subject
+		} } }
+		@interview
+	end
 
 end
