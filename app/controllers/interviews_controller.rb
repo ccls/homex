@@ -42,6 +42,7 @@ protected
 	def valid_id_required
 		if !params[:id].blank? and Interview.exists?(params[:id])
 			@interview = Interview.find(params[:id])
+			require_dependency 'identifier.rb' #	development forgets
 			@subject = @interview.identifier.try(:subject)
 		else
 			access_denied("Valid interview id required!", 

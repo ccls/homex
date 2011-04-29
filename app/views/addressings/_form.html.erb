@@ -8,6 +8,8 @@ jQuery(function(){
 });
 <% end ; end -%>
 
+<%# I really don't understand why I have to continue to add these random requires? %>
+<% require_dependency 'addressing.rb' %>
 <% sub_menu_for(@subject||@addressing.subject) %>
 <% id_bar_for(@subject||@addressing.subject) %>
 
