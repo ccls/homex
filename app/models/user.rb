@@ -63,7 +63,10 @@ class User < Ccls::User
 		alias_method "may_destroy_#{resource}?".to_sym, :may_edit?
 	end
 
-	%w(	addressings addresses home_exposures phone_numbers
+#	addresses 
+	%w(	addressings home_exposures phone_numbers
+			enrollments home_exposure_responses packages projects subjects
+			events
 			).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_create?
 		alias_method "may_read_#{resource}?".to_sym,    :may_read?
@@ -72,14 +75,14 @@ class User < Ccls::User
 		alias_method "may_destroy_#{resource}?".to_sym, :may_destroy?
 	end
 
-	%w(	enrollments home_exposure_responses packages projects subjects
-			events
-			).each do |resource|
-		alias_method "may_create_#{resource}?".to_sym,  :may_read?
-		alias_method "may_read_#{resource}?".to_sym,    :may_read?
-		alias_method "may_edit_#{resource}?".to_sym,    :may_read?
-		alias_method "may_update_#{resource}?".to_sym,  :may_read?
-		alias_method "may_destroy_#{resource}?".to_sym, :may_read?
-	end
+#	%w(	enrollments home_exposure_responses packages projects subjects
+#			events
+#			).each do |resource|
+#		alias_method "may_create_#{resource}?".to_sym,  :may_read?
+#		alias_method "may_read_#{resource}?".to_sym,    :may_read?
+#		alias_method "may_edit_#{resource}?".to_sym,    :may_read?
+#		alias_method "may_update_#{resource}?".to_sym,  :may_read?
+#		alias_method "may_destroy_#{resource}?".to_sym, :may_read?
+#	end
 
 end
