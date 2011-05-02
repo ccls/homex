@@ -35,7 +35,7 @@ class ActionController::TestCase
 	end
 
 	def self.everybody
-		ALL_TEST_ROLES
+		@everybody ||= ALL_TEST_ROLES
 	end
 
 end
