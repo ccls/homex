@@ -166,7 +166,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - site_editors ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get new with #{cu} login" do
 			login_as send(cu)
@@ -209,7 +209,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 	end
 
-	( ALL_TEST_ROLES - site_readers ).each do |cu|
+	non_site_readers.each do |cu|
 
 		test "should NOT show with #{cu} login" do
 			@rs1.to_her

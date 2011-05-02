@@ -22,10 +22,10 @@ class PackagesControllerTest < ActionController::TestCase
 		:logins => non_site_readers })
 
 	assert_access_with_login({ 
-		:actions => [:new,:destroy],
+		:actions => [:new,:create,:destroy],
 		:logins => site_editors })
 	assert_no_access_with_login({ 
-		:actions => [:new,:destroy],
+		:actions => [:new,:create,:destroy],
 		:logins => non_site_editors })
 
 	assert_no_access_without_login
@@ -131,6 +131,14 @@ class PackagesControllerTest < ActionController::TestCase
 
 	non_site_editors.each do |cu|
 
+		test "should NOT update with #{cu} login" do
+			login_as send(cu)
+			package = create_package(:tracking_number => '077973360403984')
+			assert_nil package.status
+			put :update, :id => package.id
+			assert_nil package.reload.status
+			assert_redirected_to root_path
+		end
 
 	end
 
@@ -175,15 +183,6 @@ class PackagesControllerTest < ActionController::TestCase
 	end
 
 	non_site_readers.each do |cu|
-
-		test "should NOT update with #{cu} login" do
-			login_as send(cu)
-			package = create_package(:tracking_number => '077973360403984')
-			assert_nil package.status
-			put :update, :id => package.id
-			assert_nil package.reload.status
-			assert_redirected_to root_path
-		end
 
 	end
 
