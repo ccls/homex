@@ -72,167 +72,167 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-%w( superuser admin ).each do |cu|
+	%w( superuser admin ).each do |cu|
 
-	test "should get new with #{cu} login" do
-		login_as send(cu)
-		get :new, :sample_id => @sample.id
-		assert_response :success
-		assert_template 'new'
-		assert assigns(:sample_kit)
-#		assert_layout 'home_exposure'
+		test "should get new with #{cu} login" do
+			login_as send(cu)
+			get :new, :sample_id => @sample.id
+			assert_response :success
+			assert_template 'new'
+			assert assigns(:sample_kit)
+	#		assert_layout 'home_exposure'
+		end
+
+		test "should create with #{cu} login" do
+			login_as send(cu)
+			assert_difference('SampleKit.count',1) {
+				post :create, :sample_id => @sample.id,
+					:sample_kit => factory_attributes
+			}
+			assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
+		end
+
+		test "should show with #{cu} login and packages" do
+			sk = create_sample_kit(
+				:kit_package_attributes  => Factory.attributes_for(:package),
+				:sample_package_attributes => Factory.attributes_for(:package)
+			)
+			login_as send(cu)
+			get :show, :id => sk.id
+			assert_response :success
+			assert_template 'show'
+			assert assigns(:sample_kit)
+		end
+
+	#	save errors
+
+		test "should create with empty packages with #{cu} login" do
+			login_as send(cu)
+			assert_difference('SampleKit.count',1) {
+				post :create, :sample_id => @sample.id,
+					:sample_kit => {
+						:kit_package_attributes  => {},
+						:sample_package_attributes => {} 
+					}
+			}
+			assert_redirected_to subject_path(@sample.subject)
+		end
+
+		test "should NOT create with #{cu} login " <<
+			"with save failure" do
+			login_as send(cu)
+			SampleKit.any_instance.stubs(:create_or_update).returns(false)
+			assert_difference('SampleKit.count',0) {
+				post :create, :sample_id => @sample.id,
+					:sample_kit => factory_attributes
+			}
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should NOT create with #{cu} login " <<
+			"with invalid kit" do
+			login_as send(cu)
+			SampleKit.any_instance.stubs(:valid?).returns(false)
+			assert_difference('SampleKit.count',0) {
+				post :create, :sample_id => @sample.id,
+					:sample_kit => factory_attributes
+			}
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should update with empty packages with #{cu} login" do
+			login_as send(cu)
+			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+				put :update, :id => sample_kit.id,
+					:sample_kit => {
+						:kit_package_attributes  => {},
+						:sample_package_attributes => {} 
+					}
+			}
+			assert_redirected_to subject_path(sample_kit.sample.subject)
+		end
+
+		test "should NOT update with #{cu} login " <<
+			"with save failure" do
+			login_as send(cu)
+			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			SampleKit.any_instance.stubs(:create_or_update).returns(false)
+			deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+				put :update, :id => sample_kit.id,
+					:sample_kit => factory_attributes
+			}
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should NOT update with #{cu} login " <<
+			"with invalid kit" do
+			login_as send(cu)
+			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			SampleKit.any_instance.stubs(:valid?).returns(false)
+			deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+				put :update, :id => sample_kit.id,
+					:sample_kit => factory_attributes
+			}
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should NOT destroy with #{cu} login " <<
+			"with destruction failure" do
+			login_as send(cu)
+			SampleKit.any_instance.stubs(:new_record?).returns(true)
+			assert_difference('SampleKit.count',0){
+				delete :destroy, :id => @sample_kit.id
+			}
+			assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
+		end
+
+	#	INVALID sample_id
+
+		test "should NOT get new with invalid sample_id with #{cu} login" do
+			login_as send(cu)
+			get :new, :sample_id => 0
+			assert_redirected_to subjects_path
+			assert_not_nil flash[:error]
+		end
+
+		test "should NOT post create with invalid sample_id with #{cu} login" do
+			login_as send(cu)
+			assert_difference('SampleKit.count',0) {
+				post :create, :sample_id => 0,
+					:sample_kit => factory_attributes
+			}
+			assert_redirected_to subjects_path
+			assert_not_nil flash[:error]
+		end
+
+
+	#	invalid sample kit
+	#	(no validations yet so no tests yet)
+
 	end
 
-	test "should create with #{cu} login" do
-		login_as send(cu)
-		assert_difference('SampleKit.count',1) {
-			post :create, :sample_id => @sample.id,
-				:sample_kit => factory_attributes
-		}
-		assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
+	%w( editor interviewer reader active_user ).each do |cu|
+
+		test "should NOT get new with #{cu} login" do
+			login_as send(cu)
+			get :new, :sample_id => @sample.id
+			assert_redirected_to root_path
+		end
+
+		test "should NOT post create with #{cu} login" do
+			login_as send(cu)
+			assert_difference('SampleKit.count',0) {
+				post :create, :sample_id => @sample.id,
+					:sample_kit => factory_attributes
+			}
+			assert_redirected_to root_path
+		end
+
 	end
-
-	test "should show with #{cu} login and packages" do
-		sk = create_sample_kit(
-			:kit_package_attributes  => Factory.attributes_for(:package),
-			:sample_package_attributes => Factory.attributes_for(:package)
-		)
-		login_as send(cu)
-		get :show, :id => sk.id
-		assert_response :success
-		assert_template 'show'
-		assert assigns(:sample_kit)
-	end
-
-#	save errors
-
-	test "should create with empty packages with #{cu} login" do
-		login_as send(cu)
-		assert_difference('SampleKit.count',1) {
-			post :create, :sample_id => @sample.id,
-				:sample_kit => {
-					:kit_package_attributes  => {},
-					:sample_package_attributes => {} 
-				}
-		}
-		assert_redirected_to subject_path(@sample.subject)
-	end
-
-	test "should NOT create with #{cu} login " <<
-		"with save failure" do
-		login_as send(cu)
-		SampleKit.any_instance.stubs(:create_or_update).returns(false)
-		assert_difference('SampleKit.count',0) {
-			post :create, :sample_id => @sample.id,
-				:sample_kit => factory_attributes
-		}
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should NOT create with #{cu} login " <<
-		"with invalid kit" do
-		login_as send(cu)
-		SampleKit.any_instance.stubs(:valid?).returns(false)
-		assert_difference('SampleKit.count',0) {
-			post :create, :sample_id => @sample.id,
-				:sample_kit => factory_attributes
-		}
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should update with empty packages with #{cu} login" do
-		login_as send(cu)
-		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
-		assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
-			put :update, :id => sample_kit.id,
-				:sample_kit => {
-					:kit_package_attributes  => {},
-					:sample_package_attributes => {} 
-				}
-		}
-		assert_redirected_to subject_path(sample_kit.sample.subject)
-	end
-
-	test "should NOT update with #{cu} login " <<
-		"with save failure" do
-		login_as send(cu)
-		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
-		SampleKit.any_instance.stubs(:create_or_update).returns(false)
-		deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
-			put :update, :id => sample_kit.id,
-				:sample_kit => factory_attributes
-		}
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT update with #{cu} login " <<
-		"with invalid kit" do
-		login_as send(cu)
-		sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
-		SampleKit.any_instance.stubs(:valid?).returns(false)
-		deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
-			put :update, :id => sample_kit.id,
-				:sample_kit => factory_attributes
-		}
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT destroy with #{cu} login " <<
-		"with destruction failure" do
-		login_as send(cu)
-		SampleKit.any_instance.stubs(:new_record?).returns(true)
-		assert_difference('SampleKit.count',0){
-			delete :destroy, :id => @sample_kit.id
-		}
-		assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
-	end
-
-#	INVALID sample_id
-
-	test "should NOT get new with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		get :new, :sample_id => 0
-		assert_redirected_to subjects_path
-		assert_not_nil flash[:error]
-	end
-
-	test "should NOT post create with invalid sample_id with #{cu} login" do
-		login_as send(cu)
-		assert_difference('SampleKit.count',0) {
-			post :create, :sample_id => 0,
-				:sample_kit => factory_attributes
-		}
-		assert_redirected_to subjects_path
-		assert_not_nil flash[:error]
-	end
-
-
-#	invalid sample kit
-#	(no validations yet so no tests yet)
-
-end
-
-%w( editor interviewer reader active_user ).each do |cu|
-
-	test "should NOT get new with #{cu} login" do
-		login_as send(cu)
-		get :new, :sample_id => @sample.id
-		assert_redirected_to root_path
-	end
-
-	test "should NOT post create with #{cu} login" do
-		login_as send(cu)
-		assert_difference('SampleKit.count',0) {
-			post :create, :sample_id => @sample.id,
-				:sample_kit => factory_attributes
-		}
-		assert_redirected_to root_path
-	end
-
-end
 
 end

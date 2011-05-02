@@ -39,123 +39,123 @@ class SamplesControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	) 
 
-%w( superuser admin editor ).each do |cu|
+	%w( superuser admin editor ).each do |cu|
 
-	test "should get sample index with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		get :index, :subject_id => subject.id
-		assert_nil flash[:error]
-		assert_response :success
-		assert_template 'index'
+		test "should get sample index with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
+			get :index, :subject_id => subject.id
+			assert_nil flash[:error]
+			assert_response :success
+			assert_template 'index'
+		end
+
+		test "should get new sample with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
+			get :new, :subject_id => subject.id
+			assert_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should create new sample with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
+			assert_difference('Sample.count',1) do
+				post :create, :subject_id => subject.id,
+					:sample => factory_attributes
+			end
+			assert_nil flash[:error]
+			assert_redirected_to sample_path(assigns(:sample))
+		end
+
+		test "should NOT create with #{cu} login " <<
+			"and invalid sample" do
+			login_as send(cu)
+			Sample.any_instance.stubs(:valid?).returns(false)
+			subject = create_subject	#Factory(:subject)
+			assert_difference('Sample.count',0) do
+				post :create, :subject_id => subject.id,
+					:sample => factory_attributes
+			end
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should NOT update with #{cu} login " <<
+			"and invalid sample" do
+			login_as send(cu)
+			sample = create_sample(:updated_at => Chronic.parse('yesterday'))
+			Sample.any_instance.stubs(:valid?).returns(false)
+			deny_changes("Sample.find(#{sample.id}).updated_at") {
+				put :update, :id => sample.id,
+					:sample => factory_attributes
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
+		end
+
+		test "should NOT create with #{cu} login " <<
+			"and save failure" do
+			login_as send(cu)
+			Sample.any_instance.stubs(:create_or_update).returns(false)
+			subject = create_subject	#Factory(:subject)
+			assert_difference('Sample.count',0) do
+				post :create, :subject_id => subject.id,
+					:sample => factory_attributes
+			end
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'new'
+		end
+
+		test "should NOT update with #{cu} login " <<
+			"and save failure" do
+			login_as send(cu)
+			sample = create_sample(:updated_at => Chronic.parse('yesterday'))
+			Sample.any_instance.stubs(:create_or_update).returns(false)
+			deny_changes("Sample.find(#{sample.id}).updated_at") {
+				put :update, :id => sample.id,
+					:sample => factory_attributes
+			}
+			assert_not_nil flash[:error]
+			assert_response :success
+			assert_template 'edit'
+		end
+
 	end
 
-	test "should get new sample with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		get :new, :subject_id => subject.id
-		assert_nil flash[:error]
-		assert_response :success
-		assert_template 'new'
-	end
+	%w( interviewer reader active_user ).each do |cu|
 
-	test "should create new sample with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		assert_difference('Sample.count',1) do
+		test "should NOT get sample index with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
+			get :index, :subject_id => subject.id
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
+		test "should NOT get new sample with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
+			get :new, :subject_id => subject.id
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
+		end
+
+		test "should NOT create new sample with #{cu} login" do
+			login_as send(cu)
+			subject = create_subject	#Factory(:subject)
 			post :create, :subject_id => subject.id,
 				:sample => factory_attributes
+			assert_not_nil flash[:error]
+			assert_redirected_to root_path
 		end
-		assert_nil flash[:error]
-		assert_redirected_to sample_path(assigns(:sample))
+
 	end
-
-	test "should NOT create with #{cu} login " <<
-		"and invalid sample" do
-		login_as send(cu)
-		Sample.any_instance.stubs(:valid?).returns(false)
-		subject = create_subject	#Factory(:subject)
-		assert_difference('Sample.count',0) do
-			post :create, :subject_id => subject.id,
-				:sample => factory_attributes
-		end
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should NOT update with #{cu} login " <<
-		"and invalid sample" do
-		login_as send(cu)
-		sample = create_sample(:updated_at => Chronic.parse('yesterday'))
-		Sample.any_instance.stubs(:valid?).returns(false)
-		deny_changes("Sample.find(#{sample.id}).updated_at") {
-			put :update, :id => sample.id,
-				:sample => factory_attributes
-		}
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
-
-	test "should NOT create with #{cu} login " <<
-		"and save failure" do
-		login_as send(cu)
-		Sample.any_instance.stubs(:create_or_update).returns(false)
-		subject = create_subject	#Factory(:subject)
-		assert_difference('Sample.count',0) do
-			post :create, :subject_id => subject.id,
-				:sample => factory_attributes
-		end
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'new'
-	end
-
-	test "should NOT update with #{cu} login " <<
-		"and save failure" do
-		login_as send(cu)
-		sample = create_sample(:updated_at => Chronic.parse('yesterday'))
-		Sample.any_instance.stubs(:create_or_update).returns(false)
-		deny_changes("Sample.find(#{sample.id}).updated_at") {
-			put :update, :id => sample.id,
-				:sample => factory_attributes
-		}
-		assert_not_nil flash[:error]
-		assert_response :success
-		assert_template 'edit'
-	end
-
-end
-
-%w( interviewer reader active_user ).each do |cu|
-
-	test "should NOT get sample index with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		get :index, :subject_id => subject.id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT get new sample with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		get :new, :subject_id => subject.id
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-	test "should NOT create new sample with #{cu} login" do
-		login_as send(cu)
-		subject = create_subject	#Factory(:subject)
-		post :create, :subject_id => subject.id,
-			:sample => factory_attributes
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
-
-end
 
 	test "should NOT get sample index without login" do
 		subject = create_subject	#Factory(:subject)
