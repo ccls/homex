@@ -21,9 +21,9 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => site_administrators })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:interviewer,:reader,:active_user] })
+		:logins => non_site_administrators })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -42,7 +42,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	)
 
-	%w( superuser admin ).each do |cu|
+	site_administrators.each do |cu|
 
 		test "should NOT create new document_version with #{cu} login when create fails" do
 			DocumentVersion.any_instance.stubs(:create_or_update).returns(false)

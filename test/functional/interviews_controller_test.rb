@@ -16,9 +16,9 @@ class InterviewsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor] })
+		:logins => site_editors })
 	assert_no_access_with_login({
-		:logins => [:interviewer,:reader,:active_user] })
+		:logins => non_site_editors })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -37,7 +37,7 @@ class InterviewsControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	) 
 
-	%w( superuser admin editor ).each do |cu|
+	site_editors.each do |cu|
 	
 	#	test "should NOT create new interview with #{cu} login when create fails" do
 	#		Interview.any_instance.stubs(:create_or_update).returns(false)
@@ -154,7 +154,7 @@ class InterviewsControllerTest < ActionController::TestCase
 	
 	end
 	
-	%w( interviewer reader active_user ).each do |cu|
+	non_site_editors.each do |cu|
 	
 	#		test "should NOT get interview index with #{cu} login" do
 	#			login_as send(cu)

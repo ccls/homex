@@ -14,9 +14,9 @@ class GuidesControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor] })
+		:logins => site_editors })
 	assert_no_access_with_login({ 
-		:logins => [:interviewer,:reader,:active_user] })
+		:logins => non_site_editors })
 	assert_no_access_without_login
 
 	assert_no_access_with_login(
@@ -32,7 +32,7 @@ class GuidesControllerTest < ActionController::TestCase
 		:destroy => { :id => 0 }
 	) 
 
-	%w( superuser admin ).each do |cu|
+	site_administrators.each do |cu|
 
 		test "should NOT create new guide with #{cu} login when create fails" do
 			Guide.any_instance.stubs(:create_or_update).returns(false)

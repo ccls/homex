@@ -30,7 +30,7 @@ class PatientsControllerTest < ActionController::TestCase
 #	assert_no_access_without_login
 
 
-	%w( superuser admin editor ).each do |cu|
+	site_editors.each do |cu|
 
 		test "should show patient with #{cu} login" do
 			patient = create_patient_with_subject
@@ -235,7 +235,7 @@ class PatientsControllerTest < ActionController::TestCase
 	end
 
 
-	%w( interviewer reader active_user ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT show patient with #{cu} login" do
 			subject = create_case_subject	#Factory(:case_subject)

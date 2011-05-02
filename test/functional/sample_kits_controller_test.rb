@@ -35,9 +35,9 @@ class SampleKitsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => site_administrators })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:interviewer,:reader,:active_user] })
+		:logins => non_site_administrators })
 	assert_no_access_without_login
 
 	assert_access_with_https
@@ -72,7 +72,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		assert_redirected_to_login
 	end
 
-	%w( superuser admin ).each do |cu|
+	site_administrators.each do |cu|
 
 		test "should get new with #{cu} login" do
 			login_as send(cu)
@@ -216,7 +216,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor interviewer reader active_user ).each do |cu|
+	non_site_administrators.each do |cu|
 
 		test "should NOT get new with #{cu} login" do
 			login_as send(cu)

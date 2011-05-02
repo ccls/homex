@@ -17,7 +17,7 @@ class SurveyFinishedsControllerTest < ActionController::TestCase
 #		assert_nil session[:invitation]
 #	end
 
-	%w( superuser admin editor interviewer reader ).each do |cu|
+	site_readers.each do |cu|
 
 	#	test "should redirect to interview/subject without token "<<
 		test "should redirect to subject's response_sets without token "<<
@@ -46,7 +46,7 @@ class SurveyFinishedsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( active_user ).each do |cu|
+	non_site_readers.each do |cu|
 
 		test "should redirect to root_path without token " <<
 				"or access_code but with #{cu} login" do

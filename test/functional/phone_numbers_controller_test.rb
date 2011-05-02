@@ -29,9 +29,9 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor] })
+		:logins => site_editors })
 	assert_no_access_with_login({ 
-		:logins => [:interviewer,:reader,:active_user] })
+		:logins => non_site_editors })
 	assert_no_access_without_login
 
 
@@ -42,7 +42,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 	)
 
 
-	%w( superuser admin editor ).each do |cu|
+	site_editors.each do |cu|
 
 		test "should get new phone_number with #{cu} login" do
 			subject = create_subject	#	Factory(:subject)
@@ -243,8 +243,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 
 	end
 
-
-	%w( interviewer reader active_user ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get new phone_number with #{cu} login" do
 			subject = create_subject	#	Factory(:subject)

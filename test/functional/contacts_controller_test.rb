@@ -13,7 +13,7 @@ class ContactsControllerTest < ActionController::TestCase
 	assert_no_route(:put,:update,:id => 0)
 	assert_no_route(:delete,:destroy,:id => 0)
 
-	%w( superuser admin editor ).each do |cu|
+	site_editors.each do |cu|
 
 		test "should get contacts with #{cu} login" do
 			subject = Factory(:subject)
@@ -34,7 +34,7 @@ class ContactsControllerTest < ActionController::TestCase
 	end
 
 
-	%w( interviewer reader active_user ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get contacts with #{cu} login" do
 			subject = Factory(:subject)

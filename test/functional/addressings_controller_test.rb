@@ -38,9 +38,9 @@ class AddressingsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin,:editor] })
+		:logins => site_editors })
 	assert_no_access_with_login({ 
-		:logins => [:interviewer,:reader,:active_user] })
+		:logins => non_site_editors })
 	assert_no_access_without_login
 
 	#	destroy is TEMPORARY
@@ -50,7 +50,7 @@ class AddressingsControllerTest < ActionController::TestCase
 	)
 
 
-	%w( superuser admin editor ).each do |cu|
+	site_editors.each do |cu|
 
 		test "should get new addressing with #{cu} login" do
 			subject = Factory(:subject)
@@ -70,10 +70,6 @@ class AddressingsControllerTest < ActionController::TestCase
 			assert_redirected_to subjects_path
 		end
 
-
-
-
-
 		test "should make subject ineligible after create " <<
 				"with #{cu} login" do
 			subject = create_eligible_hx_subject
@@ -92,8 +88,6 @@ class AddressingsControllerTest < ActionController::TestCase
 				IneligibleReason['newnonCA']
 			assert_redirected_to subject_contacts_path(subject)
 		end
-
-
 
 		test "should create new addressing with #{cu} login" do
 			subject = Factory(:subject)
@@ -328,8 +322,7 @@ class AddressingsControllerTest < ActionController::TestCase
 
 	end
 
-
-	%w( interviewer reader active_user ).each do |cu|
+	non_site_editors.each do |cu|
 
 		test "should NOT get new addressing with #{cu} login" do
 			subject = Factory(:subject)

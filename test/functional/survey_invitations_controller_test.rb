@@ -14,7 +14,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 			:pii_attributes => Factory.attributes_for(:pii))
 	end
 
-	%w( superuser admin ).each do |cu|
+	site_administrators.each do |cu|
 
 		test "should create invitation for subject with #{cu} login" do
 			login_as send(cu)
@@ -157,7 +157,7 @@ class SurveyInvitationsControllerTest < ActionController::TestCase
 
 	end
 
-	%w( editor interviewer reader active_user ).each do |cu|
+	non_site_administrators.each do |cu|
 
 		test "should NOT create invitation for subject with #{cu} login" do
 			login_as send(cu)

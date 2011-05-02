@@ -34,6 +34,10 @@ class ActionController::TestCase
 		@non_site_readers ||= ( ALL_TEST_ROLES - site_readers )
 	end
 
+	def self.everybody
+		ALL_TEST_ROLES
+	end
+
 end
 
 ALL_TEST_ROLES = %w( superuser administrator editor interviewer reader active_user )
