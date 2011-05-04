@@ -24,7 +24,8 @@ class Interview::SubjectsController < ApplicationController
 
 	def show
 #		redirect_to interview_path(@interview)
-		@interviews = @subject.identifier.try(:interviews)||[]
+#		@interviews = @subject.identifier.try(:interviews)||[]
+		@interviews = @subject.try(:interviews)||[]
 	end
 
 protected

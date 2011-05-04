@@ -213,21 +213,23 @@ protected
 	#	TODO clean this up
 	def create_interview_with_subject(options={})
 		assert_difference('Interview.count',1) {
-		assert_difference('Identifier.count',1) {
+#		assert_difference('Identifier.count',1) {
 		assert_difference('Subject.count',1) {
 			@interview = create_interview(options)
 			assert_not_nil @interview.id
-			assert_not_nil @interview.identifier
-			assert_not_nil @interview.identifier.id
-			subject = create_subject
-			identifier = @interview.identifier
-			identifier.subject = subject
-			identifier.save
-			assert_not_nil @interview.identifier.subject
-			assert_not_nil @interview.identifier.subject.id
-			@interview.reload
+#			assert_not_nil @interview.identifier
+#			assert_not_nil @interview.identifier.id
 			assert_not_nil @interview.subject
-		} } }
+			assert_not_nil @interview.subject.id
+#			subject = create_subject
+#			identifier = @interview.identifier
+#			identifier.subject = subject
+#			identifier.save
+#			assert_not_nil @interview.identifier.subject
+#			assert_not_nil @interview.identifier.subject.id
+#			@interview.reload
+#			assert_not_nil @interview.subject
+		} } #}
 		@interview
 	end
 
