@@ -53,6 +53,8 @@ module SurveyorControllerExtensions	#	:nodoc:
 		end
 
 		def permission_or_invitation_required
+			#	yet another rails forgetful moment
+			load 'survey_invitation.rb' if RAILS_ENV == 'development'
 			si = SurveyInvitation.find_by_token(session[:invitation])
 			unless( si.try(:response_set_id) == @response_set.id ) ||
 #				( logged_in? && current_user.may_take_surveys? )

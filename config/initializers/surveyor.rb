@@ -7,14 +7,14 @@ Surveyor::Config.run do |config|
 #	must use a symbol!
 #'/survey_finished' # "/surveys" # or :finish_path_method
   config['use_restful_authentication'] = false # set to true to use restful authentication
-  config['extend'] = %w(surveyor_controller )
+  config['extend'] = %w( response_set surveyor_controller )
 end
 
 # require 'models/survey_extensions' # Extended the survey model
 # require 'helpers/surveyor_helper_extensions' # Extend the surveyor helper
 
 #require 'models/survey_extensions'
-#require 'models/response_set_extensions'
+require 'models/response_set_extensions'
 #require 'models/response_extensions'
 
 require 'survey'
@@ -22,16 +22,3 @@ require 'surveyor_controller'
 require 'response'
 require 'response_set'
 
-ResponseSet.belongs_to :subject, :counter_cache => true, :foreign_key => 'study_subject_id'
-ResponseSet.has_one :survey_invitation
-ResponseSet.validates_presence_of :study_subject_id
-
-class ResponseSet
-# Convert response set to a home exposure questionnaire.
-def to_her
-HomeExposureResponse.create({
-:study_subject_id => self.study_subject_id
-}.merge(self.q_and_a_codes_as_attributes))
-end
-
-end
