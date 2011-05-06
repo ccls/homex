@@ -74,9 +74,29 @@ end
 survey "Home Exposure survey",
 	:manual_numbering => true do
 
+	section "Intro / Consent" do
+
+		label "Interview Introduction"
+
+		label "Indicate any responses to the checkbox items in the introduction of the Interview here."
+
+		q "&nbsp;", :pick => :any, 
+			:data_export_identifier => :consent_read_over_phone
+		a "READ CONSENT OVER THE PHONE", :data_export_identifier => 1
+
+		q "&nbsp;", :pick => :any, 
+			:data_export_identifier => :respondent_requested_new_consent
+		a "RESPONDENT REQUESTED ANOTHER LETTER/CONSENT", :data_export_identifier => 1
+
+		q "&nbsp;", :pick => :any, 
+			:data_export_identifier => :consent_reviewed_with_respondent
+		a "CHECK HERE IF THE ELEMENTS OF CONSENT HAVE BEEN REVIEWED WITH THE RESPONDENT AND THE RESPONDENT HAS BEEN GIVEN AN OPPORTUNITY TO ASK QUESTIONS.", :data_export_identifier => 1
+
+	end
+
   section "Basic questions" do
 
-		label "Before we start, I just want to remind you that everything you tell us is confidential, and you may refuse to answer any questions or stop the interview at any time."
+#		label "Before we start, I just want to remind you that everything you tell us is confidential, and you may refuse to answer any questions or stop the interview at any time."
 		
 		_q_yndk "Does your vacuum cleaner have a disposable bag?", 
 			:number => 2,
