@@ -239,9 +239,12 @@ form.edit_sample .location_id.field_wrapper label {
 	BEGIN Interview stuff
 */
 
+/* Don't remember why I used this */
+/*
 .edit_interview .field_wrapper {
 	min-width: 350px;
 }
+*/
 .edit_interview .field_wrapper label,
 .interview .field_wrapper .label {
 	width: 160px;
@@ -251,28 +254,32 @@ form.edit_sample .location_id.field_wrapper label {
 	text-align:center;
 }
 
+/*
 .edit_interview .field_wrapper.ended_on label,
+*/
 .edit_interview .field_wrapper.interview_outcome_on label {
 	width: 50px;
 }
 
 .edit_interview .field_wrapper.interview_outcome_id,
 .edit_interview .field_wrapper.interview_outcome_on label,
+/*
 .edit_interview .field_wrapper.began_on,
 .edit_interview .field_wrapper.ended_on label,
-.interview .field_wrapper.interview_outcome,
 .interview .field_wrapper.began_on {
+*/
+.interview .field_wrapper.interview_outcome {
 	float:left;
 	padding-right: 30px;
 }
 .edit_interview .field_wrapper.interview_outcome_on,
-.edit_interview .field_wrapper.ended_on,
-.interview .field_wrapper.interview_outcome_on,
-.interview .field_wrapper.ended_on {
+.interview .field_wrapper.interview_outcome_on {
 	clear:none;
 }
-.interview .field_wrapper.interview_outcome_on .label,
-.interview .field_wrapper.ended_on .label {
+/*
+.interview .field_wrapper.ended_on .label,
+*/
+.interview .field_wrapper.interview_outcome_on .label {
 	padding-right: 30px;
 	width:auto;
 }
@@ -378,3 +385,19 @@ form.edit_phone_number .field_wrapper .fieldWithErrors:first-child {
 .edit_subject   .homex_outcomes .columns {
 	display: block;
 }
+
+
+form div.field_wrapper.hour_select,
+form div.field_wrapper.minute_select,
+form div.field_wrapper.meridiem_select {
+	float:left;
+	clear:none;
+}
+form div.field_wrapper.hour_select label {
+	width: 2em;
+}
+form div.field_wrapper.minute_select label,
+form div.field_wrapper.meridiem_select label {
+	width: 1em;
+}
+

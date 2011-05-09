@@ -32,11 +32,25 @@
 
 <h4>Dates of interview</h4>
 
-<%= f.wrapped_date_text_field :began_on,
-	:label_text => 'Began:' %>
+<% f.wrapped_date_text_field :began_on,
+	:label_text => "Began:" do %>
+  <%= f.wrapped_hour_select(:began_at_hour,
+		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
+  <%= f.wrapped_minute_select(:began_at_minute,
+		:label_text => '&nbsp;:&nbsp;') %>
+  <%= f.wrapped_meridiem_select(:began_at_meridiem,
+		:label_text => '&nbsp;&nbsp;') %>
+<% end %>
 
-<%= f.wrapped_date_text_field :ended_on,
-	:label_text => 'Ended:' %>
+<% f.wrapped_date_text_field :ended_on,
+	:label_text => 'Ended:' do %>
+  <%= f.wrapped_hour_select(:ended_at_hour,
+		:label_text => '&nbsp;&nbsp;at&nbsp;') %>
+  <%= f.wrapped_minute_select(:ended_at_minute,
+		:label_text => '&nbsp;:&nbsp;') %>
+  <%= f.wrapped_meridiem_select(:ended_at_meridiem,
+		:label_text => '&nbsp;&nbsp;') %>
+<% end %>
 
 <%= f.wrapped_collection_select :interviewer_id,
 	Person.interviewers, :id, :to_s, :include_blank => true, 
