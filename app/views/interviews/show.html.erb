@@ -23,12 +23,24 @@
 
 <h4>Dates of interview</h4>
 
+<% if @interview.began_at %>
+<%= wrapped_spans(:interview,:began_at,
+	:label_text => 'Began:',
+	:value => @interview.began_at.strftime("%I:%M %p %m/%d/%Y")) %>
+<% else %>
 <%= wrapped_spans(:interview,:began_on,
 	:label_text => 'Began:',
 	:value => mdy(@interview.began_on)) %>
+<% end %>
+<% if @interview.ended_at %>
+<%= wrapped_spans(:interview,:ended_at,
+	:label_text => 'Ended (if other than date began):',
+	:value => @interview.ended_at.strftime("%I:%M %p %m/%d/%Y") ) %>
+<% else %>
 <%= wrapped_spans(:interview,:ended_on,
 	:label_text => 'Ended (if other than date began):',
 	:value => mdy(@interview.ended_on)) %>
+<% end %>
 
 <%= wrapped_spans(:interview,:interviewer,
 	:label_text => "Interviewer:") %>
