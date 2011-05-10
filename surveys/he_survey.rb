@@ -122,49 +122,59 @@ survey "Home Exposure survey",
 			:data_export_identifier => :someone_ate_meat_12mos
 		
 		label "I am now going to ask you about different high temperature cooking methods you or other household members may have used to cook meat.",
+			:custom_class => 'dependent',
 			:number => 6
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#			:custom_class => "question label dependent hidden"
+#	dependent seems to be the class for color and indentation
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 		_q_osrn "Pan fry (very hot)", 
+			:custom_class => 'dependent',
 			:number => '6a',
 			:data_export_identifier => :freq_pan_fried_meat_12mos
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#			:custom_class => "question dependent hidden"
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 		_q_osrn "Deep fry", 
+			:custom_class => 'dependent',
 			:number => '6b',
 			:data_export_identifier => :freq_deep_fried_meat_12mos
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 		_q_osrn "Oven broil", 
+			:custom_class => 'dependent',
 			:number => '6c',
 			:data_export_identifier => :freq_oven_fried_meat_12mos
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 		_q_osrn "Grill or barbeque?",
+			:custom_class => 'dependent',
 			:number => '6d',
 			:data_export_identifier => :freq_grilled_meat_outside_12mos
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 		_q_osrn "Other", 
+			:custom_class => 'dependent',
 			:number => '6e',
 			:reference_identifier => '6e',
 			:data_export_identifier => :freq_other_high_temp_cooking_12mos
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 
 		q_6f "Specify", 
+			:custom_class => 'dependent',
 			:data_export_identifier => :other_type_high_temp_cooking
 		a_1 :string
-		dependency :rule => "A and (B or C or D)"
-		condition_A :q_5,  "==", :a_1
-		condition_B :q_6e, "==", :a_1
-		condition_C :q_6e, "==", :a_2
-		condition_D :q_6e, "==", :a_3
+#		dependency :rule => "A and (B or C or D)"
+#		condition_A :q_5,  "==", :a_1
+#		condition_B :q_6e, "==", :a_1
+#		condition_C :q_6e, "==", :a_2
+#		condition_D :q_6e, "==", :a_3
 
 #	adding conditions causes the whole group to be dependent on them
 #		dependency :rule => "A or B or C"
@@ -173,6 +183,7 @@ survey "Home Exposure survey",
 #		condition_C :q_6e, "==", :a_3
 	
 		q_7 "During the last 12 months, when you or other household members ate meat products, how well were they usually cooked on the outside? Would you say...",
+			:custom_class => 'dependent',
 			:number => 7,
 			:pick => :one, 
 			:data_export_identifier => :doneness_of_meat_exterior_12mos
@@ -182,8 +193,8 @@ survey "Home Exposure survey",
 		a "4 = Black or charred",             :data_export_identifier => 4
 		a "5 = It varies (volunteered code)", :data_export_identifier => 5
 		a "9 = Don't Know",                   :data_export_identifier => 999
-		dependency :rule => "A"
-		condition_A :q_5, "==", :a_1
+#		dependency :rule => "A"
+#		condition_A :q_5, "==", :a_1
 	
 	end
 
