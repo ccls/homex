@@ -590,8 +590,14 @@ survey "Home Exposure survey",
 #		dependency :rule => "A"
 #		condition_A :q_28a, "==", :a_1
 
+
+
+#	20110525 - noticed this naming inconsistency ...
+#			:reference_identifier => '28a',
+#	don't think that it caused any problems
+
 		_q_freq_1 "How often was the car or motorcycle moved in and out of garage during the past month?  Would you say...",
-			:reference_identifier => '28a',
+			:reference_identifier => '28b',
 			:number => '28b',
 			:data_export_identifier => :freq_in_out_garage_1mo
 		dependency :rule => "A"
