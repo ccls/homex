@@ -8,5 +8,22 @@ tbody td:nth-child(3n+1),
 tbody td:nth-child(3n+2) {
 	border-right:1px solid silver;
 }
-table tbody tr.diff:nth-child(2n)   { background-color: #EBB; }
-table tbody tr.diff:nth-child(2n+1) { background-color: #DBB; }
+
+/*
+
+	the merge form has row spanning cells so this gets tricky
+
+*/
+table tbody tr.row:nth-child(4n) { border-bottom: 1px solid black; }
+table tbody tr.row:nth-child(4n+2) { border-bottom: 1px solid black; }
+
+table tbody tr.row:nth-child(4n+1) { background-color: #F5F1E8; }
+table tbody tr.row:nth-child(4n+2) { background-color: #F5F1E8; }
+table tbody tr.row:nth-child(4n+3) { background-color: #FCF9EF; }
+table tbody tr.row:nth-child(4n)   { background-color: #FCF9EF; }
+
+table tbody tr.diff:nth-child(4n+1) { background-color: #DBB; }
+table tbody tr.diff:nth-child(4n+2) { background-color: #DBB; }
+table tbody tr.diff:nth-child(4n+3) { background-color: #EBB; }
+table tbody tr.diff:nth-child(4n)   { background-color: #EBB; }
+

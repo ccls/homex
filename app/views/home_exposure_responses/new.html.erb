@@ -4,11 +4,13 @@
 
 <h1>Merge Survey Data</h1>
 
-<%
+<%#	don't think that I use this anymore
 	q_and_a_codes = [
 		@response_sets[0].q_and_a_codes_as_attributes,
 		@response_sets[1].q_and_a_codes_as_attributes
 	]
+%>
+<%
 	c_and_t = [
 		@response_sets[0].codes_and_text,
 		@response_sets[1].codes_and_text
@@ -17,15 +19,21 @@
 
 <% form_for HomeExposureResponse.new, 
 	:url => subject_home_exposure_response_path(@subject) do |f| %>
-<table>
+<table class='her_merge'>
 <tbody>
 <% HomeExposureResponse.field_names.each do |column| %>
 <%	classes = ['row'];
 		classes.push('diff') if (@diffs[column])
+	question = Question.find(:first, 
+		:conditions => ["data_export_identifier = '#{column}'"])
 %>
 	<% content_tag( :tr, :class => classes.join(' ') ) do %>
-		<td><%=column.titleize-%></td>
-		<td>
+				<td rowspan='2'><%=question.number-%></td>
+				<td colspan='2'><%=question.text-%></td>
+	<% end %>
+	<% content_tag( :tr, :class => classes.join(' ') ) do %>
+				<td><%=column.titleize-%></td>
+				<td>
 
 <% if @diffs[column] %>
 	<%= f.radio_button( column, c_and_t[0][column][:a_code] ) %>
@@ -43,10 +51,10 @@
 <% end %>
 
 		</td>
-	<% end %><%# content_tag %>
+	<% end %><%# content_tag :tr %>
 <% end %><%# HomeExposureResponse.q_column_names.each %>
 </tbody></table>
 <p><%= 
-	f.submit "Create HER from selections", :name => nil, :id => nil 
+	f.submit "Create HomeExposureResponses from selections", :name => nil, :id => nil 
 %></p>
 <% end %><%# form_for %>
