@@ -21,15 +21,16 @@
 	:url => subject_home_exposure_response_path(@subject) do |f| %>
 <table class='her_merge'>
 <tbody>
-<% HomeExposureResponse.field_names.each do |column| %>
-<%	classes = ['row'];
+<%# HomeExposureResponse.field_names.each do |column| %>
+<% HomeExposureResponse.fields.each do |field| %>
+<%	
+		column = field[:db]
+		classes = ['row'];
 		classes.push('diff') if (@diffs[column])
-	question = Question.find(:first, 
-		:conditions => ["data_export_identifier = '#{column}'"])
 %>
 	<% content_tag( :tr, :class => classes.join(' ') ) do %>
-				<td rowspan='2'><%=question.number-%></td>
-				<td colspan='2'><%=question.text-%></td>
+				<td rowspan='2'><%=field[:number]-%></td>
+				<td colspan='2'><%=field[:question]-%></td>
 	<% end %>
 	<% content_tag( :tr, :class => classes.join(' ') ) do %>
 				<td><%=column.titleize-%></td>
