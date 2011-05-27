@@ -5,7 +5,7 @@ class HomeExposuresControllerTest < ActionController::TestCase
 	ASSERT_ACCESS_OPTIONS = { :actions => [:show] }
 
 	assert_access_with_login({
-		:logins => everybody })
+		:logins => all_test_roles })
 #		:logins => [:superuser,:admin,:editor,:interviewer,:reader] })
 #	assert_no_access_with_login({
 #		:logins => [:active_user] })
