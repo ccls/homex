@@ -6,14 +6,28 @@ class SurveyInvitationTest < ActiveSupport::TestCase
 	assert_should_belong_to( :response_set )
 	assert_should_initially_belong_to( :subject )
 	assert_should_initially_belong_to( :survey )
-	assert_should_require_unique_attribute( :study_subject_id, 
-		:scope => :survey_id )
-	assert_should_require_attributes( :study_subject_id )
+#	assert_should_require_unique_attribute( :study_subject_id, 
+#		:scope => :survey_id )
+#	assert_should_require_attributes( :study_subject_id )
 	assert_should_require_attributes( :survey_id )
 	assert_should_not_require_attributes( :response_set_id )
 	assert_should_not_require_attributes( :token )
 	assert_should_not_require_attributes( :sent_at )
 
+	test "should require study_subject_id" do
+		assert_no_difference "SurveyInvitation.count" do
+			object = create_object(:subject => nil)
+			assert object.errors.on_attr_and_type(:study_subject_id, :blank)
+		end
+	end
+
+	test "should require unique study_subject_id scope survey_id" do
+		o = create_object
+		assert_no_difference "SurveyInvitation.count" do
+			object = create_object(:survey => o.survey,:subject => o.subject)
+			assert object.errors.on_attr_and_type(:study_subject_id, :taken)
+		end
+	end
 
 	test "should require token" do
 		SurveyInvitation.any_instance.stubs(:create_token).returns(true)

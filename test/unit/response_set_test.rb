@@ -9,7 +9,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 	assert_should_initially_belong_to( :survey )
 	assert_should_initially_belong_to( :subject )
 	assert_should_require_attributes( :survey_id )
-	assert_should_require_attributes( :study_subject_id )
+#	assert_should_require_attributes( :study_subject_id )
 	assert_should_not_require_attributes( :user_id )
 	assert_should_not_require_attributes( :access_code )
 	assert_should_not_require_attributes( :started_at )
@@ -17,6 +17,13 @@ class ResponseSetTest < ActiveSupport::TestCase
 
 #	TODO (maybe)
 #	assert_should_require_unique_attributes(:access_code)
+
+	test "should require study_subject_id" do
+		assert_no_difference "SurveyInvitation.count" do
+			object = create_object(:subject => nil)
+			assert object.errors.on_attr_and_type(:study_subject_id, :blank)
+		end
+	end
 
 
 	test "should require unique access_code" do
