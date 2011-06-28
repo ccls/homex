@@ -27,8 +27,6 @@ ActionController::Routing::Routes.draw do |map|
 		subject.resource :home_exposure_response, 
 			:only => [ :new, :create, :show, 
 			:destroy ]	# TEMP ADD DESTROY FOR DEV ONLY!
-#		subject.resources :survey_invitations, 
-#			:only => [:create,:update,:destroy,:show]
 		subject.resource :patient
 		subject.resources :contacts, :only => :index
 		subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
@@ -60,7 +58,6 @@ ActionController::Routing::Routes.draw do |map|
 		followup.resources :gift_cards
 	end
 
-#	map.resources :survey_invitations, :only => :show
 	map.resource :survey_finished, :only => :show
 
 	map.resources :projects

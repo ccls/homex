@@ -54,10 +54,8 @@ module SurveyorControllerExtensions	#	:nodoc:
 
 		def permission_or_invitation_required
 			#	yet another rails forgetful moment
+#	TODO find a better way
 #			load 'survey_invitation.rb' if RAILS_ENV == 'development'
-#			si = SurveyInvitation.find_by_token(session[:invitation])
-#			unless( si.try(:response_set_id) == @response_set.id ) ||
-#				( logged_in? && current_user.may_take_surveys? )
 			unless( logged_in? && current_user.may_edit_response_sets? )
 				access_denied("You don't have permission to take surveys.")
 			end
