@@ -3,45 +3,45 @@ require File.dirname(__FILE__) + '/../test_helper'
 class SubjectTest < ActiveSupport::TestCase
 
 	assert_should_have_many( :response_sets )
-	assert_should_have_many( :survey_invitations )
+#	assert_should_have_many( :survey_invitations )
 
-	def sscount(subject_id,survey_id)
-		SurveyInvitation.count(:conditions => {
-			:study_subject_id => subject_id, :survey_id => survey_id })
-	end
+#	def sscount(subject_id,survey_id)
+#		SurveyInvitation.count(:conditions => {
+#			:study_subject_id => subject_id, :survey_id => survey_id })
+#	end
 
-	test "should have one survey_invitation per survey" do
-		subject = create_subject
-		survey  = Factory(:survey)
-		assert_difference("sscount(#{subject.id},#{survey.id})",1){
-			Factory(:survey_invitation, {
-				:subject => subject, :survey_id => survey.id })
-		}
-		assert_difference("sscount(#{subject.id},#{survey.id})",0){
-		assert_raise(ActiveRecord::RecordInvalid){
-			Factory(:survey_invitation, {
-				:subject => subject, :survey_id => survey.id })
-		} }
-	end
+#	test "should have one survey_invitation per survey" do
+#		subject = create_subject
+#		survey  = Factory(:survey)
+#		assert_difference("sscount(#{subject.id},#{survey.id})",1){
+#			Factory(:survey_invitation, {
+#				:subject => subject, :survey_id => survey.id })
+#		}
+#		assert_difference("sscount(#{subject.id},#{survey.id})",0){
+#		assert_raise(ActiveRecord::RecordInvalid){
+#			Factory(:survey_invitation, {
+#				:subject => subject, :survey_id => survey.id })
+#		} }
+#	end
 
-	test "her_invitation should return home_exposure_survey invitation" do
-		subject = create_subject
-		assert_nil subject.her_invitation
-		si = Factory(:survey_invitation, 
-			:subject => subject,
-			:survey  => Survey.first)
-		assert_not_nil subject.her_invitation
-	end
+#	test "her_invitation should return home_exposure_survey invitation" do
+#		subject = create_subject
+#		assert_nil subject.her_invitation
+#		si = Factory(:survey_invitation, 
+#			:subject => subject,
+#			:survey  => Survey.first)
+#		assert_not_nil subject.her_invitation
+#	end
 
-	test "should NOT destroy survey_invitations with subject" do
-		subject = create_subject
-		Factory(:survey_invitation, :subject => subject)
-		Factory(:survey_invitation, :subject => subject)
-		assert_difference( "#{model_name}.count", -1 ) {
-		assert_difference('SurveyInvitation.count',0) {
-			subject.destroy
-		} }
-	end
+#	test "should NOT destroy survey_invitations with subject" do
+#		subject = create_subject
+#		Factory(:survey_invitation, :subject => subject)
+#		Factory(:survey_invitation, :subject => subject)
+#		assert_difference( "#{model_name}.count", -1 ) {
+#		assert_difference('SurveyInvitation.count',0) {
+#			subject.destroy
+#		} }
+#	end
 
 	test "should NOT destroy response_sets with subject" do
 		subject = create_subject

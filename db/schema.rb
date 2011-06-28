@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110628164054) do
+ActiveRecord::Schema.define(:version => 20110628194013) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -238,19 +238,6 @@ ActiveRecord::Schema.define(:version => 20110628164054) do
 
   add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
   add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
-
-  create_table "survey_invitations", :force => true do |t|
-    t.integer  "study_subject_id", :null => false
-    t.integer  "response_set_id"
-    t.integer  "survey_id"
-    t.string   "token",            :null => false
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "survey_invitations", ["survey_id", "study_subject_id"], :name => "index_survey_invitations_on_survey_id_and_study_subject_id", :unique => true
-  add_index "survey_invitations", ["token"], :name => "index_survey_invitations_on_token", :unique => true
 
   create_table "survey_sections", :force => true do |t|
     t.integer  "survey_id"

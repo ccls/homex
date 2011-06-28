@@ -11,7 +11,7 @@ class NotTwoResponseSets < StandardError; end
 
 	with_options :foreign_key => 'study_subject_id' do |f|
 		f.has_many :response_sets
-		f.has_many :survey_invitations
+#		f.has_many :survey_invitations
 	end
 
 	def response_sets_the_same?
@@ -34,20 +34,20 @@ class NotTwoResponseSets < StandardError; end
 		end
 	end
 
-	def recreate_survey_invitation(survey)
-		SurveyInvitation.destroy_all( 
-			:study_subject_id => self.id,
-			:survey_id  => survey.id 
-		)
-		self.survey_invitations.create(
-			:survey_id => survey.id
-		)
-	end
-
-	def her_invitation
-		if survey = Survey.find_by_access_code('home_exposure_survey')
-			self.survey_invitations.find_by_survey_id(survey.id)
-		end
-	end
+#	def recreate_survey_invitation(survey)
+#		SurveyInvitation.destroy_all( 
+#			:study_subject_id => self.id,
+#			:survey_id  => survey.id 
+#		)
+#		self.survey_invitations.create(
+#			:survey_id => survey.id
+#		)
+#	end
+#
+#	def her_invitation
+#		if survey = Survey.find_by_access_code('home_exposure_survey')
+#			self.survey_invitations.find_by_survey_id(survey.id)
+#		end
+#	end
 
 end

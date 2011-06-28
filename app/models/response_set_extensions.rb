@@ -6,7 +6,7 @@ module ResponseSetExtensions	#	:nodoc:
 		base.send(:include, InstanceMethods)
 		base.class_eval do
 			belongs_to :subject, :counter_cache => true, :foreign_key => 'study_subject_id'
-			has_one :survey_invitation
+#			has_one :survey_invitation
 			validates_presence_of :study_subject_id
 		end
 	end

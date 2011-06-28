@@ -135,38 +135,38 @@ class SurveyorControllerTest < ActionController::TestCase
 		assert_redirected_to root_path
 	end
 
-	test "should continue incomplete survey with valid invitation" do
-		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
-  	#	<input autocomplete="off" ...
-		SurveyorController.skip_after_filter :validate_page
-		rs = Factory(:response_set, :survey => Survey.first)
-		si = Factory(:survey_invitation, :survey => rs.survey,
-			:response_set => rs )
-		session[:invitation] = si.token
-		get :edit, :survey_code => rs.survey.access_code,
-			:response_set_code => rs.access_code
-		assert_equal rs.access_code, session[:access_code]
-		assert assigns(:survey)
-		assert assigns(:response_set)
-		assert_response :success
-		assert_template 'edit'
-	end
+#	test "should continue incomplete survey with valid invitation" do
+#		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
+#  	#	<input autocomplete="off" ...
+#		SurveyorController.skip_after_filter :validate_page
+#		rs = Factory(:response_set, :survey => Survey.first)
+#		si = Factory(:survey_invitation, :survey => rs.survey,
+#			:response_set => rs )
+#		session[:invitation] = si.token
+#		get :edit, :survey_code => rs.survey.access_code,
+#			:response_set_code => rs.access_code
+#		assert_equal rs.access_code, session[:access_code]
+#		assert assigns(:survey)
+#		assert assigns(:response_set)
+#		assert_response :success
+#		assert_template 'edit'
+#	end
 
-	test "should NOT continue incomplete survey with invalid invitation" do
-		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
-  	#	<input autocomplete="off" ...
-		SurveyorController.skip_after_filter :validate_page
-		rs1 = Factory(:response_set, :survey => Survey.first)
-		rs2 = Factory(:response_set, :survey => Survey.first)
-		si = Factory(:survey_invitation, :survey => rs1.survey,
-			:response_set => rs2 )
-		session[:invitation] = si.token
-		get :edit, :survey_code => rs1.survey.access_code,
-			:response_set_code => rs1.access_code
-		assert assigns(:response_set)
-		assert_not_nil flash[:error]
-		assert_redirected_to root_path
-	end
+#	test "should NOT continue incomplete survey with invalid invitation" do
+#		#	Error  Line 263, Column 22: there is no attribute "autocomplete" .
+#  	#	<input autocomplete="off" ...
+#		SurveyorController.skip_after_filter :validate_page
+#		rs1 = Factory(:response_set, :survey => Survey.first)
+#		rs2 = Factory(:response_set, :survey => Survey.first)
+#		si = Factory(:survey_invitation, :survey => rs1.survey,
+#			:response_set => rs2 )
+#		session[:invitation] = si.token
+#		get :edit, :survey_code => rs1.survey.access_code,
+#			:response_set_code => rs1.access_code
+#		assert assigns(:response_set)
+#		assert_not_nil flash[:error]
+#		assert_redirected_to root_path
+#	end
 
 	test "should NOT continue incomplete survey without login" do
 		rs = Factory(:response_set, :survey => Survey.first)

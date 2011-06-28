@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ResponseSetTest < ActiveSupport::TestCase
 
 	assert_should_create_default_object
-	assert_should_have_one( :survey_invitation )
+#	assert_should_have_one( :survey_invitation )
 	assert_should_have_many( :responses )
 	assert_should_belong_to( :user )
 	assert_should_initially_belong_to( :survey )
@@ -19,7 +19,7 @@ class ResponseSetTest < ActiveSupport::TestCase
 #	assert_should_require_unique_attributes(:access_code)
 
 	test "should require study_subject_id" do
-		assert_no_difference "SurveyInvitation.count" do
+		assert_no_difference "ResponseSet.count" do
 			object = create_object(:subject => nil)
 			assert object.errors.on_attr_and_type(:study_subject_id, :blank)
 		end
