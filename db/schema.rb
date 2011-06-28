@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101214175931) do
+ActiveRecord::Schema.define(:version => 20110628164054) do
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
@@ -288,18 +288,6 @@ ActiveRecord::Schema.define(:version => 20101214175931) do
 
   add_index "surveys", ["access_code"], :name => "index_surveys_on_access_code", :unique => true
   add_index "surveys", ["access_code"], :name => "surveys_ac_idx", :unique => true
-
-  create_table "user_invitations", :force => true do |t|
-    t.integer  "sender_id"
-    t.string   "email"
-    t.string   "token"
-    t.datetime "accepted_at"
-    t.integer  "recipient_id"
-    t.text     "message"
-    t.datetime "sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "uid"
