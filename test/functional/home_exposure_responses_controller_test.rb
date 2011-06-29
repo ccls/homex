@@ -2,6 +2,8 @@ require 'test_helper'
 
 class HomeExposureResponsesControllerTest < ActionController::TestCase
 
+#	TODO this no longer tests at 100%
+
 	#	no subject_id (has_one so NOT id for show)
 	assert_no_route(:get,:new)
 	assert_no_route(:post,:create)

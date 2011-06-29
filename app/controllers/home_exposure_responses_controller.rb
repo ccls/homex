@@ -2,6 +2,8 @@ class HomeExposureResponsesController < ApplicationController
 
 	permissive
 
+#	TODO this is no longer tested at 100%
+
 	before_filter :valid_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]
 	before_filter :her_must_exist, :only => [:show,:destroy]

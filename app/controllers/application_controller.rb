@@ -32,10 +32,9 @@ protected	#	private #	(does it matter which or if neither?)
 		})
 	end
 
-	def block_all_access
-		access_denied("That route is no longer available")
-	end
-
+#	def block_all_access
+#		access_denied("That route is no longer available")
+#	end
 
 	def valid_hx_subject_id_required
 		validate_hx_subject_id(params[:subject_id])

@@ -37,8 +37,6 @@ Rails::Initializer.run do |config|
 		config.gem "sqlite3"
 	end
 
-#	config.gem 'ccls-surveyor'
-
 	#	due to some enhancements, the db gems MUST come first
 	#	for use in the jruby environment.
 	config.gem 'ccls-ccls_engine'
