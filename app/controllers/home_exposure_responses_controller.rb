@@ -5,15 +5,15 @@ class HomeExposureResponsesController < ApplicationController
 	before_filter :valid_subject_id_required
 	before_filter :her_must_not_exist, :only => [:new,:create]
 	before_filter :her_must_exist, :only => [:show,:destroy]
-	before_filter :two_response_sets_required, :only => [:new,:create]
-	before_filter :all_response_sets_completed_required, 
-		:only => [:new,:create]
+#	before_filter :two_response_sets_required, :only => [:new,:create]
+#	before_filter :all_response_sets_completed_required, 
+#		:only => [:new,:create]
 	before_filter :her_attributes_required, :only => :create
 
-	def new
-		@response_sets = @subject.response_sets
-		@diffs = @subject.response_set_diffs
-	end
+#	def new
+#		@response_sets = @subject.response_sets
+#		@diffs = @subject.response_set_diffs
+#	end
 
 	def create
 		@her = @subject.create_home_exposure_response(
@@ -32,7 +32,8 @@ class HomeExposureResponsesController < ApplicationController
 
 	def destroy
 		@home_exposure_response.destroy
-		redirect_to subject_response_sets_path(@subject)
+#		redirect_to subject_response_sets_path(@subject)
+		redirect_to @subject
 	end
 
 protected
@@ -72,20 +73,20 @@ protected
 		end
 	end
 
-	def two_response_sets_required
-		if @subject.response_sets.count > 2 ||
-			@subject.response_sets.count < 2
-			access_denied("Must complete 2 response sets before merging. " <<
-				":#{@subject.response_sets.count}:" ,
-				home_exposure_path)
-		end
-	end
-
-	def all_response_sets_completed_required
-		unless @subject.response_sets.collect(&:is_complete?).all?
-			access_denied("All response sets need to be completed",
-				home_exposure_path)
-		end
-	end
+#	def two_response_sets_required
+#		if @subject.response_sets.count > 2 ||
+#			@subject.response_sets.count < 2
+#			access_denied("Must complete 2 response sets before merging. " <<
+#				":#{@subject.response_sets.count}:" ,
+#				home_exposure_path)
+#		end
+#	end
+#
+#	def all_response_sets_completed_required
+#		unless @subject.response_sets.collect(&:is_complete?).all?
+#			access_denied("All response sets need to be completed",
+#				home_exposure_path)
+#		end
+#	end
 
 end

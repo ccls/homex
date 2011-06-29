@@ -17,16 +17,17 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :subjects,
 		:shallow => true do |subject|
 
-		subject.resources :response_sets, 
-			:only => [ :create, :index ]
+#		subject.resources :response_sets, 
+#			:only => [ :create, :index ]
 
 		subject.resources :samples do |sample|
 			#	one kit per sample
 			sample.resources :sample_kits, :except => [:index]
 		end
 		subject.resource :home_exposure_response, 
-			:only => [ :new, :create, :show, 
-			:destroy ]	# TEMP ADD DESTROY FOR DEV ONLY!
+			:only => [ :show ] 
+#			:only => [ :new, :create, :show, 
+#			:destroy ]	# TEMP ADD DESTROY FOR DEV ONLY!
 		subject.resource :patient
 		subject.resources :contacts, :only => :index
 		subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!

@@ -15,9 +15,9 @@ module ApplicationHelper
 			when *%w( 
 					Interview::Subjects 
 					Interviews
-					ResponseSets
 					HomeExposureResponses
 				) then  :interview
+#					ResponseSets
 			when *%w( 
 					Samples 
 					Sample::Subjects 
@@ -112,9 +112,12 @@ module ApplicationHelper
 			l=[link_to( 'general', interview_path(interview),
 				:class => ((current == :general)?'current':nil)
 			)]
-			l.push(link_to( 'edit/view interview', 
-				subject_response_sets_path(interview.subject),
+			l.push(link_to( 'edit/view interview',
+				subject_home_exposure_response_path(interview.subject),
 				:class => ((current == :edit)?'current':nil)))
+#			l.push(link_to( 'edit/view interview', 
+#				subject_response_sets_path(interview.subject),
+#				:class => ((current == :edit)?'current':nil)))
 			s << l.join("\n")
 			s << "\n</div><!-- submenu -->\n"
 		end
