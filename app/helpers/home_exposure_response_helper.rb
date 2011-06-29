@@ -44,7 +44,7 @@ module HomeExposureResponseHelper
 #	TODO at some point these decoders may better serve in the HER model itself???
 
 	def decode_yndk(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Yes"
 			when 2   then "2 = No"
 			when 999 then "9 = Don't Know"
@@ -53,7 +53,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_osrn(value)
-		case value
+		case value.to_i
 			when 1 then "1 = Often"
 			when 2 then "2 = Sometimes"
 			when 3 then "3 = Rarely"
@@ -63,23 +63,23 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_freq1(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Every day (or almost every day)"
 			when 2   then "2 = 1-2 times per week"
 			when 3   then "3 = 1-2 times per month"
 			when 4   then "4 = less than one time per month"
-			when 5   then "5 = Never?"
+			when 5   then "5 = Never"
 			when 999 then "9 = Don't Know"
 			else '&nbsp;'
 		end
 	end
 
 	def decode_freq2(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Every day or almost everyday"
 			when 2   then "2 = About once a week"
 			when 3   then "3 = A few times a month"
-			when 4   then "4 = A few times a year?"
+			when 4   then "4 = A few times a year"
 			when 5   then "5 = Never"
 			when 999 then "9 = Don't Know"
 			else '&nbsp;'
@@ -87,18 +87,18 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_freq3(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Less than once a month"
 			when 2   then "2 = 1-3 times a month"
 			when 3   then "3 = Once a week"
-			when 4   then "4 = More than once a week?"
+			when 4   then "4 = More than once a week"
 			when 999 then "9 = Don't Know"
 			else '&nbsp;'
 		end
 	end
 
 	def decode_quantity(value)
-		case value
+		case value.to_i
 			when 1   then "1 = 0"
 			when 2   then "2 = 1-2"
 			when 3   then "3 = 3-5"
@@ -109,7 +109,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_doneness(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Not browned"
 			when 2   then "2 = Lightly-browned"
 			when 3   then "3 = Well-browned"
@@ -121,7 +121,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_residence(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Single family residence"
 			when 2   then "2 = Duplex / Townhouse"
 			when 3   then "3 = Apartment / Condominium"
@@ -133,7 +133,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_material(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Wood"
 			when 2   then "2 = Mason / Brick / Cement"
 			when 3   then "3 = Pre-fabricated panels"
@@ -144,7 +144,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_percent(value)
-		case value
+		case value.to_i
 			when 1   then "1 = Less than 25%"
 			when 2   then "2 = 25% - 49%"
 			when 3   then "3 = 50% - 74%"
@@ -155,7 +155,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_five(value)
-		case value
+		case value.to_i
 			when 1 then "1 = 5 or more time"
 			when 2 then "2 = Fewer than 5 times"
 			else '&nbsp;'
@@ -163,7 +163,7 @@ module HomeExposureResponseHelper
 	end
 
 	def decode_hours(value)
-		case value
+		case value.to_i
 			when 1   then "1 = less than one hour per day"
 			when 2   then "2 = 1-2 hours per day"
 			when 3   then "3 = 3-6 hours per day"
