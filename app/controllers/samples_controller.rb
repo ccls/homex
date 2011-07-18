@@ -43,7 +43,9 @@ protected
 	def valid_id_required
 		if !params[:id].blank? and Sample.exists?(params[:id])
 			@sample = Sample.find(params[:id])
-			@subject = @sample.subject
+#			@subject = @sample.subject
+#	in dev on brg, above fails so being more explicit, the below works
+			@subject = Subject.find(@sample.study_subject_id)
 		else
 			access_denied("Valid sample id required!", 
 				subjects_path)
