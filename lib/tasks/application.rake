@@ -8,16 +8,19 @@ namespace :app do
 		ENV['FIXTURES'] = fixtures.join(',')
 		puts "Loading fixtures for #{ENV['FIXTURES']}"
 		Rake::Task["db:fixtures:load"].invoke
+		Rake::Task["db:fixtures:load"].reenable
 	end
 
 	desc "DEPRECATING: Load some fixtures and users to database for application"
 	task :setup => :update do
 		Rake::Task["ccls:add_users"].invoke
+		Rake::Task["ccls:add_users"].reenable
 		ENV['uid'] = '859908'
 		Rake::Task["ccls:deputize"].invoke
-		ENV['uid'] = '228181'
 		Rake::Task["ccls:deputize"].reenable	#	<- this is stupid!
+		ENV['uid'] = '228181'
 		Rake::Task["ccls:deputize"].invoke
+		Rake::Task["ccls:deputize"].reenable	#	<- this is stupid!
 	end
 
 	task :full_update => :setup do
