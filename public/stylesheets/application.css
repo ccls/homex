@@ -9,8 +9,8 @@ body {
 }
 
 div#container {
-	width: 1000px;
-	margin: 0 auto;
+	min-width: 1000px;
+	margin: 0 20px;
 	background-color: #ECE9DF;	/* guidance background color */
 	/* box-shadow: <horizontal> <vertical> <blur> <color> */
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -125,7 +125,9 @@ div#submenu a.current {
 div#content {
 	padding: 5px 25px;
 	font-size: 10pt;
+/*
 	width: 700px;
+*/
 }
 
 div#preview {
@@ -154,6 +156,7 @@ div.section table {
 div#guidance {
 	padding: 0 9px;
 	font-size: 10pt;
+	width: 250px;
 }
 div#guidance h3 {
 	margin-top: 0;

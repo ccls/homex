@@ -168,17 +168,18 @@ module ApplicationHelper
 #		s << "</li></ul></li>\n"
 #	end
 
-	def mdy(date)
-		( date.nil? )?'&nbsp;':date.strftime("%m/%d/%Y")
-	end
-
-	def y_n_dk(value)
-		case value
-			when 1   then 'Yes'
-			when 2   then 'No'
-			when 999 then "Don't Know"
-			else '&nbsp;'
-		end
-	end
+#	TODO this is also in simply_helpful so perhaps remove it here
+#	def mdy(date)
+#		( date.nil? )?'&nbsp;':date.strftime("%m/%d/%Y")
+#	end
+#
+#	def y_n_dk(value)
+#		case value
+#			when 1   then 'Yes'
+#			when 2   then 'No'
+#			when 999 then "Don't Know"
+#			else '&nbsp;'
+#		end
+#	end
 
 end
