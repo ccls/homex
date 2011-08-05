@@ -4,9 +4,9 @@ class SubjectsHelperTest < ActionView::TestCase
 
 #	id_bar_for
 
-	test "should respond to subject_id_bar" do
-		assert respond_to?(:subject_id_bar)
-	end
+#	test "should respond to subject_id_bar" do
+#		assert respond_to?(:subject_id_bar)
+#	end
 
 #private 
 #	def params
