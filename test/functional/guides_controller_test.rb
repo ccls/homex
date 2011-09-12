@@ -19,6 +19,7 @@ class GuidesControllerTest < ActionController::TestCase
 		:logins => non_site_editors })
 	assert_no_access_without_login
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -34,6 +35,7 @@ class GuidesControllerTest < ActionController::TestCase
 
 	site_administrators.each do |cu|
 
+#	TODO duplicate?
 		test "should NOT create new guide with #{cu} login when create fails" do
 			Guide.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
@@ -46,6 +48,7 @@ class GuidesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT create new guide with #{cu} login and invalid guide" do
 			Guide.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
@@ -58,6 +61,7 @@ class GuidesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update guide with #{cu} login when update fails" do
 			guide = create_guide(:updated_at => Chronic.parse('yesterday'))
 			Guide.any_instance.stubs(:create_or_update).returns(false)
@@ -72,6 +76,7 @@ class GuidesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update guide with #{cu} login and invalid guide" do
 			guide = create_guide(:updated_at => Chronic.parse('yesterday'))
 			Guide.any_instance.stubs(:valid?).returns(false)

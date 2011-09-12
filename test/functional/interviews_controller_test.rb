@@ -24,6 +24,7 @@ class InterviewsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -63,6 +64,7 @@ class InterviewsControllerTest < ActionController::TestCase
 	#		assert_not_nil flash[:error]
 	#	end
 	
+#	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"when update fails" do
 			interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))
@@ -78,6 +80,7 @@ class InterviewsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 	
+#	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"and invalid interview" do
 			interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))

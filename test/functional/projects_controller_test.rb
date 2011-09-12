@@ -38,6 +38,7 @@ class ProjectsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -55,6 +56,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	#	save errors
 
+#	TODO duplicate?
 		test "should NOT create when create fails with #{cu} login" do
 			login_as send(cu)
 			Project.any_instance.stubs(:create_or_update).returns(false)
@@ -66,6 +68,7 @@ class ProjectsControllerTest < ActionController::TestCase
 			assert_not_nil assigns(:project)
 		end
 
+#	TODO duplicate?
 		test "should NOT update when save fails with #{cu} login" do
 			login_as send(cu)
 			project = create_project(:updated_at => Chronic.parse('yesterday'))
@@ -91,6 +94,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
 	#	invalid project
 
+#	TODO duplicate?
 		test "should NOT create with invalid project with #{cu} login" do
 			login_as send(cu)
 			Project.any_instance.stubs(:valid?).returns(false)
@@ -103,6 +107,7 @@ class ProjectsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
+#	TODO duplicate?
 		test "should NOT update with invalid project with #{cu} login" do
 			project = create_project(:updated_at => Chronic.parse('yesterday'))
 			Project.any_instance.stubs(:valid?).returns(false)

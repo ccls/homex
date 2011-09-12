@@ -29,6 +29,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -44,6 +45,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 
 	site_administrators.each do |cu|
 
+#	TODO duplicate?
 		test "should NOT create new document_version with #{cu} login when create fails" do
 			DocumentVersion.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
@@ -56,6 +58,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT create new document_version with #{cu} login and invalid document_version" do
 			DocumentVersion.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
@@ -68,6 +71,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update document_version with #{cu} login when update fails" do
 			document_version = create_document_version(:updated_at => Chronic.parse('yesterday'))
 			DocumentVersion.any_instance.stubs(:create_or_update).returns(false)
@@ -82,6 +86,7 @@ class DocumentVersionsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update document_version with #{cu} login and invalid document_version" do
 			document_version = create_document_version(:updated_at => Chronic.parse('yesterday'))
 			DocumentVersion.any_instance.stubs(:valid?).returns(false)

@@ -37,6 +37,7 @@ class SubjectsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -158,6 +159,7 @@ class SubjectsControllerTest < ActionController::TestCase
 		end
 
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login" <<
 			" and invalid" do
 			subject = create_subject(:updated_at => Chronic.parse('yesterday'))
@@ -175,6 +177,7 @@ class SubjectsControllerTest < ActionController::TestCase
 			assert_template 'edit'
 		end
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login" <<
 			" and save fails" do
 			subject = create_subject(:updated_at => Chronic.parse('yesterday'))

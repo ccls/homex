@@ -161,6 +161,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 			assert_redirected_to subjects_path
 		end
 
+#	TODO duplicate?
 		test "should NOT update enrollment with #{cu} login " <<
 			"when update fails" do
 			enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))

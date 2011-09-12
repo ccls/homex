@@ -21,6 +21,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -36,6 +37,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 
 	site_administrators.each do |cu|
 
+#	TODO duplicate?
 		test "should NOT create new gift_card with #{cu} login when create fails" do
 			GiftCard.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
@@ -48,6 +50,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT create new gift_card with #{cu} login and invalid gift_card" do
 			GiftCard.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
@@ -60,6 +63,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update gift_card with #{cu} login when update fails" do
 			gift_card = create_gift_card(:updated_at => Chronic.parse('yesterday'))
 			GiftCard.any_instance.stubs(:create_or_update).returns(false)
@@ -74,6 +78,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
+#	TODO duplicate?
 		test "should NOT update gift_card with #{cu} login and invalid gift_card" do
 			gift_card = create_gift_card(:updated_at => Chronic.parse('yesterday'))
 			GiftCard.any_instance.stubs(:valid?).returns(false)

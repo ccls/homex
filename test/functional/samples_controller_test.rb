@@ -26,6 +26,7 @@ class SamplesControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -84,6 +85,7 @@ class SamplesControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login " <<
 			"and invalid sample" do
 			login_as send(cu)
@@ -112,6 +114,7 @@ class SamplesControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login " <<
 			"and save failure" do
 			login_as send(cu)

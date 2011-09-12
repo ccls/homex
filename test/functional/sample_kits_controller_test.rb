@@ -43,6 +43,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
+#	TODO duplicate?
 	assert_no_access_with_login(
 		:attributes_for_create => nil,
 		:method_for_create => nil,
@@ -155,6 +156,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 			assert_redirected_to subject_path(sample_kit.sample.subject)
 		end
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login " <<
 			"with save failure" do
 			login_as send(cu)
@@ -168,6 +170,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 			assert_template 'edit'
 		end
 
+#	TODO duplicate?
 		test "should NOT update with #{cu} login " <<
 			"with invalid kit" do
 			login_as send(cu)
