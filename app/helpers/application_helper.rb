@@ -37,7 +37,7 @@ module ApplicationHelper
 		end
 
 		s = "<div id='mainmenu'>\n"
-		l = [link_to( "StudySubjects", study_subjects_path,
+		l = [link_to( "Subjects", study_subjects_path,
 			:class => ((current == :study_subjects)?'current':nil))]
 		l.push(link_to( "Interview", interview_study_subjects_path,  
 			:class => ((current == :interview)?'current':nil)))
