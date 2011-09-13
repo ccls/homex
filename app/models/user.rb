@@ -58,7 +58,7 @@ class User < Ccls::User
 
 #	addresses 
 	%w(	addressings home_exposures phone_numbers
-			enrollments home_exposure_responses packages projects subjects
+			enrollments home_exposure_responses packages projects study_subjects
 			events
 			).each do |resource|
 		alias_method "may_create_#{resource}?".to_sym,  :may_create?
