@@ -11,10 +11,10 @@
 <%# I need to refine this to only include those that do not already have 
 	plus this subject so the select includes it.
 %>
-<%# subjects = Subject.for_hx_followup({:paginate => false}) %>
+<%# study_subjects = StudySubject.for_hx_followup({:paginate => false}) %>
 
 	<%#= f.wrapped_collection_select :study_subject_id,
-		subjects, :id, :to_s, :include_blank => true %>
+		study_subjects, :id, :to_s, :include_blank => true %>
 
 	<p><%= f.submit( (@gift_card.new_record?)?'Create':'Update' ) %></p>
 <% end %>

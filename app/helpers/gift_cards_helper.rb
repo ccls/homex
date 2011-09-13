@@ -1,7 +1,7 @@
 module GiftCardsHelper
 
 	def gift_card_id_bar(gift_card,&block)
-		stylesheets('subject_id_bar')
+		stylesheets('study_subject_id_bar')
 		content_for :main do
 			"<div id='id_bar'>\n" <<
 			"<div class='number'>\n" <<

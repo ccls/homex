@@ -6,7 +6,7 @@ class InterviewsControllerTest < ActionController::TestCase
 		:model => 'Interview',
 		:actions => [:show,:edit,:update,:destroy],
 		:attributes_for_create => :factory_attributes,
-		:method_for_create => :create_interview_with_subject
+		:method_for_create => :create_interview_with_study_subject
 	}
 	def factory_attributes(options={})
 		#	no attributes to trigger updated_at
@@ -31,7 +31,7 @@ class InterviewsControllerTest < ActionController::TestCase
 		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :superuser,
-		:redirect => :subjects_path,
+		:redirect => :study_subjects_path,
 		:show => { :id => 0 },
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
@@ -67,7 +67,7 @@ class InterviewsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"when update fails" do
-			interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))
+			interview = create_interview_with_study_subject(:updated_at => Chronic.parse('yesterday'))
 			Interview.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("Interview.find(#{interview.id}).updated_at") {
@@ -83,7 +83,7 @@ class InterviewsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"and invalid interview" do
-			interview = create_interview_with_subject(:updated_at => Chronic.parse('yesterday'))
+			interview = create_interview_with_study_subject(:updated_at => Chronic.parse('yesterday'))
 			Interview.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("Interview.find(#{interview.id}).updated_at") {
@@ -100,9 +100,9 @@ class InterviewsControllerTest < ActionController::TestCase
 	
 	#		test "should get interview index with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
-	#			get :index, :subject_id => subject.id
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
+	#			get :index, :study_subject_id => study_subject.id
 	#			assert_nil flash[:error]
 	#			assert_response :success
 	#			assert_template 'index'
@@ -110,9 +110,9 @@ class InterviewsControllerTest < ActionController::TestCase
 	
 	#		test "should get new interview with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
-	#			get :new, :subject_id => subject.id
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
+	#			get :new, :study_subject_id => study_subject.id
 	#			assert_nil flash[:error]
 	#			assert_response :success
 	#			assert_template 'new'
@@ -120,10 +120,10 @@ class InterviewsControllerTest < ActionController::TestCase
 	#	
 	#		test "should create new interview with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
 	#			assert_difference('Interview.count',1) do
-	#				post :create, :subject_id => subject.id,
+	#				post :create, :study_subject_id => study_subject.id,
 	#					:interview => factory_attributes
 	#			end
 	#			assert_nil flash[:error]
@@ -132,10 +132,10 @@ class InterviewsControllerTest < ActionController::TestCase
 	#	
 	#		test "should NOT create with invalid interview and #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
 	#			assert_difference('Interview.count',0) do
-	#				post :create, :subject_id => subject.id,
+	#				post :create, :study_subject_id => study_subject.id,
 	#					:interview => {}
 	#			end
 	#			assert_not_nil flash[:error]
@@ -161,27 +161,27 @@ class InterviewsControllerTest < ActionController::TestCase
 	
 	#		test "should NOT get interview index with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
-	#			get :index, :subject_id => subject.id
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
+	#			get :index, :study_subject_id => study_subject.id
 	#			assert_not_nil flash[:error]
 	#			assert_redirected_to root_path
 	#		end
 	#	
 	#		test "should NOT get new interview with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
-	#			get :new, :subject_id => subject.id
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
+	#			get :new, :study_subject_id => study_subject.id
 	#			assert_not_nil flash[:error]
 	#			assert_redirected_to root_path
 	#		end
 	#	
 	#		test "should NOT create new interview with #{cu} login" do
 	#			login_as send(cu)
-	#	#		subject = Factory(:subject)
-	#			subject = Factory(:identifier).subject
-	#			post :create, :subject_id => subject.id,
+	#	#		study_subject = Factory(:study_subject)
+	#			study_subject = Factory(:identifier).study_subject
+	#			post :create, :study_subject_id => study_subject.id,
 	#				:interview => factory_attributes
 	#			assert_not_nil flash[:error]
 	#			assert_redirected_to root_path
@@ -190,23 +190,23 @@ class InterviewsControllerTest < ActionController::TestCase
 	end
 
 #		test "should NOT get interview index without login" do
-#	#		subject = Factory(:subject)
-#			subject = Factory(:identifier).subject
-#			get :index, :subject_id => subject.id
+#	#		study_subject = Factory(:study_subject)
+#			study_subject = Factory(:identifier).study_subject
+#			get :index, :study_subject_id => study_subject.id
 #			assert_redirected_to_login
 #		end
 
 #		test "should NOT get new interview without login" do
-#	#		subject = Factory(:subject)
-#			subject = Factory(:identifier).subject
-#			get :new, :subject_id => subject.id
+#	#		study_subject = Factory(:study_subject)
+#			study_subject = Factory(:identifier).study_subject
+#			get :new, :study_subject_id => study_subject.id
 #			assert_redirected_to_login
 #		end
 #	
 #		test "should NOT create new interview without login" do
-#	#		subject = Factory(:subject)
-#			subject = Factory(:identifier).subject
-#			post :create, :subject_id => subject.id,
+#	#		study_subject = Factory(:study_subject)
+#			study_subject = Factory(:identifier).study_subject
+#			post :create, :study_subject_id => study_subject.id,
 #				:interview => factory_attributes
 #			assert_redirected_to_login
 #		end
@@ -214,24 +214,24 @@ class InterviewsControllerTest < ActionController::TestCase
 protected
 
 	#	TODO clean this up
-	def create_interview_with_subject(options={})
+	def create_interview_with_study_subject(options={})
 		assert_difference('Interview.count',1) {
 #		assert_difference('Identifier.count',1) {
-		assert_difference('Subject.count',1) {
+		assert_difference('StudySubject.count',1) {
 			@interview = create_interview(options)
 			assert_not_nil @interview.id
 #			assert_not_nil @interview.identifier
 #			assert_not_nil @interview.identifier.id
-			assert_not_nil @interview.subject
-			assert_not_nil @interview.subject.id
-#			subject = create_subject
+			assert_not_nil @interview.study_subject
+			assert_not_nil @interview.study_subject.id
+#			study_subject = create_study_subject
 #			identifier = @interview.identifier
-#			identifier.subject = subject
+#			identifier.study_subject = study_subject
 #			identifier.save
-#			assert_not_nil @interview.identifier.subject
-#			assert_not_nil @interview.identifier.subject.id
+#			assert_not_nil @interview.identifier.study_subject
+#			assert_not_nil @interview.identifier.study_subject.id
 #			@interview.reload
-#			assert_not_nil @interview.subject
+#			assert_not_nil @interview.study_subject
 		} } #}
 		@interview
 	end

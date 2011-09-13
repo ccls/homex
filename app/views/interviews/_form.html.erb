@@ -1,7 +1,7 @@
 <% stylesheets('base/jquery.ui.all.css') %>
 <% sub_menu_for(@interview) %>
 
-<% id_bar_for(@subject) do %>
+<% id_bar_for(@study_subject) do %>
 <%= link_to( 'Save', nil, {
 	:id => "for_#{dom_id(@interview,:edit)}",
 	:class => :submitter
@@ -19,9 +19,9 @@
 
 <h4>Interview Info</h4>
 <%# without this, the homex_outcome fields won't show if it doesn't exist yet. %>
-<% @interview.subject.build_homex_outcome unless @interview.subject.homex_outcome %>
-<% f.fields_for :subject do |subject| %>
-<% subject.fields_for :homex_outcome do |io| %>
+<% @interview.study_subject.build_homex_outcome unless @interview.study_subject.homex_outcome %>
+<% f.fields_for :study_subject do |study_subject| %>
+<% study_subject.fields_for :homex_outcome do |io| %>
 <%= io.wrapped_collection_select :interview_outcome_id,
 	InterviewOutcome.all, :id, :to_s, :include_blank => true, 
 	:label_text => 'Outcome:' %>

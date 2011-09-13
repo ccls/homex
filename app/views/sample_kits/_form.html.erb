@@ -14,5 +14,5 @@
 
 <p>
 	<%= f.submit( (@sample_kit.new_record?)?'Create':'Update') %>
-	<%= button_link_to "Cancel", subject_path(@sample_kit.sample.subject) %>
+	<%= button_link_to "Cancel", study_subject_path(@sample_kit.sample.study_subject) %>
 </p>

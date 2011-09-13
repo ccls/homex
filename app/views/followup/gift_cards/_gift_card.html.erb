@@ -1,5 +1,5 @@
 <%# TODO find a better way %>
-<%# load 'subject.rb' if RAILS_ENV == 'development' %>
+<%# load 'study_subject.rb' if RAILS_ENV == 'development' %>
 
 <% content_tag_for :tr, gift_card, :class => 'row' do %>
 <td class='number'>
@@ -8,16 +8,16 @@
 <td class='issued_on'>
 	<%=mdy gift_card.issued_on %>
 </td>
-<td class='subject_last_name'>
-	<%= gift_card.subject.try(:last_name) %>
+<td class='study_subject_last_name'>
+	<%= gift_card.study_subject.try(:last_name) %>
 </td>
-<td class='subject_first_name'>
-	<%= gift_card.subject.try(:first_name) %>
+<td class='study_subject_first_name'>
+	<%= gift_card.study_subject.try(:first_name) %>
 </td>
-<td class='subject_childid'>
-	<%= gift_card.subject.try(:childid) %>
+<td class='study_subject_childid'>
+	<%= gift_card.study_subject.try(:childid) %>
 </td>
-<td class='subject_studyid'>
-	<%= gift_card.subject.try(:studyid) %>
+<td class='study_subject_studyid'>
+	<%= gift_card.study_subject.try(:studyid) %>
 </td>
 <% end %>

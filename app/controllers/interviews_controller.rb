@@ -2,17 +2,17 @@ class InterviewsController < ApplicationController
 
 	permissive
 
-	before_filter :valid_hx_subject_id_required,
+	before_filter :valid_hx_study_subject_id_required,
 		:only => [:new,:create,:index]
 	before_filter :valid_id_required,
 		:only => [:show,:edit,:update,:destroy]
 
 #		def new
-#			@interview = @subject.identifier.interviews.new
+#			@interview = @study_subject.identifier.interviews.new
 #		end
 #	
 #		def create
-#			@interview = @subject.identifier.interviews.new(params[:interview])
+#			@interview = @study_subject.identifier.interviews.new(params[:interview])
 #			@interview.save!
 #			redirect_to interview_path(@interview)
 #		rescue ActiveRecord::RecordInvalid
@@ -29,12 +29,12 @@ class InterviewsController < ApplicationController
 	end
 
 #	def index
-#		@interviews = @subject.identifier.interviews
+#		@interviews = @study_subject.identifier.interviews
 #	end
 
 	def destroy
 		@interview.destroy
-		redirect_to subjects_path
+		redirect_to study_subjects_path
 	end
 
 protected
@@ -43,11 +43,11 @@ protected
 		if !params[:id].blank? and Interview.exists?(params[:id])
 			@interview = Interview.find(params[:id])
 #			require_dependency 'identifier.rb' #	development forgets
-#			@subject = @interview.identifier.try(:subject)
-			@subject = @interview.try(:subject)
+#			@study_subject = @interview.identifier.try(:study_subject)
+			@study_subject = @interview.try(:study_subject)
 		else
 			access_denied("Valid interview id required!", 
-				subjects_path)
+				study_subjects_path)
 		end
 	end
 

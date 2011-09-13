@@ -19,7 +19,7 @@ class SampleKitsController < ApplicationController
 		@sample_kit = @sample.build_sample_kit(params[:sample_kit])
 		@sample_kit.save!
 		flash[:notice] = 'Success!'
-		redirect_to subject_path(@sample_kit.sample.subject)
+		redirect_to study_subject_path(@sample_kit.sample.study_subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem creating the sample kit"
 		render :action => "new"
@@ -27,7 +27,7 @@ class SampleKitsController < ApplicationController
 
 	def update
 		@sample_kit.update_attributes!(params[:sample_kit])
-		redirect_to subject_path(@sample_kit.sample.subject)
+		redirect_to study_subject_path(@sample_kit.sample.study_subject)
 	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
 		flash.now[:error] = "There was a problem updating the sample kit"
 		render :action => "edit"
@@ -35,7 +35,7 @@ class SampleKitsController < ApplicationController
 
 	def destroy
 		@sample_kit.destroy
-		redirect_to subject_path(@sample_kit.sample.subject)
+		redirect_to study_subject_path(@sample_kit.sample.study_subject)
 	end
 
 protected
@@ -45,7 +45,7 @@ protected
 			@sample = Sample.find(params[:sample_id])
 		else
 			access_denied("Valid sample id required!", 
-				subjects_path)
+				study_subjects_path)
 		end
 	end
 
@@ -54,7 +54,7 @@ protected
 			@sample_kit = SampleKit.find(params[:id])
 		else
 			access_denied("Valid sample kit id required!", 
-				subjects_path)
+				study_subjects_path)
 		end
 	end
 

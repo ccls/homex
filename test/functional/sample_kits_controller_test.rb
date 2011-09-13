@@ -50,7 +50,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		:actions => nil,
 		:suffix => " and invalid id",
 		:login => :superuser,
-		:redirect => :subjects_path,
+		:redirect => :study_subjects_path,
 		:edit => { :id => 0 },
 		:update => { :id => 0 },
 		:show => { :id => 0 },
@@ -90,7 +90,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 				post :create, :sample_id => @sample.id,
 					:sample_kit => factory_attributes
 			}
-			assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
+			assert_redirected_to study_subject_path(assigns(:sample_kit).sample.study_subject)
 		end
 
 		test "should show with #{cu} login and packages" do
@@ -116,7 +116,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 						:sample_package_attributes => {} 
 					}
 			}
-			assert_redirected_to subject_path(@sample.subject)
+			assert_redirected_to study_subject_path(@sample.study_subject)
 		end
 
 		test "should NOT create with #{cu} login " <<
@@ -153,7 +153,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 						:sample_package_attributes => {} 
 					}
 			}
-			assert_redirected_to subject_path(sample_kit.sample.subject)
+			assert_redirected_to study_subject_path(sample_kit.sample.study_subject)
 		end
 
 #	TODO duplicate?
@@ -191,7 +191,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 			assert_difference('SampleKit.count',0){
 				delete :destroy, :id => @sample_kit.id
 			}
-			assert_redirected_to subject_path(assigns(:sample_kit).sample.subject)
+			assert_redirected_to study_subject_path(assigns(:sample_kit).sample.study_subject)
 		end
 
 	#	INVALID sample_id
@@ -199,7 +199,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		test "should NOT get new with invalid sample_id with #{cu} login" do
 			login_as send(cu)
 			get :new, :sample_id => 0
-			assert_redirected_to subjects_path
+			assert_redirected_to study_subjects_path
 			assert_not_nil flash[:error]
 		end
 
@@ -209,7 +209,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 				post :create, :sample_id => 0,
 					:sample_kit => factory_attributes
 			}
-			assert_redirected_to subjects_path
+			assert_redirected_to study_subjects_path
 			assert_not_nil flash[:error]
 		end
 

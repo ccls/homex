@@ -7,19 +7,19 @@ class Followup::GiftCardsController < ApplicationController
 #		if params[:commit] && params[:commit] == 'download'
 #			params[:paginate] = false
 #		end
-#		@subjects = Subject.for_hx_followup(params)
+#		@study_subjects = StudySubject.for_hx_followup(params)
 #		if params[:commit] && params[:commit] == 'download'
 #			params[:format] = 'csv'
 #			headers["Content-disposition"] = "attachment; " <<
-#				"filename=subjects_#{Time.now.to_s(:filename)}.csv" 
-#			render :template => "subjects/index"
+#				"filename=study_subjects_#{Time.now.to_s(:filename)}.csv" 
+#			render :template => "study_subjects/index"
 #		end
 	end
 
 	def edit
-		@subjects  = []
-		@subjects += [@gift_card.subject] unless @gift_card.subject.nil?
-		@subjects += Subject.need_gift_card({:paginate => false})
+		@study_subjects  = []
+		@study_subjects += [@gift_card.study_subject] unless @gift_card.study_subject.nil?
+		@study_subjects += StudySubject.need_gift_card({:paginate => false})
 	end
 
 protected

@@ -1,0 +1,52 @@
+<% content_tag_for( :tr, study_subject, :class => 'row' ) do %>
+<td class='childid'>
+<%= link_to study_subject.childid, sample_study_subject_path(study_subject) -%>
+</td>
+<td class='studyid'>
+<%= study_subject.studyid %>
+</td>
+<td class='last_name'>
+<%= study_subject.last_name %>
+</td>
+<td class='first_name'>
+<%= study_subject.first_name %>
+</td>
+<td class='interview_outcome_on'>
+<%=mdy study_subject.homex_outcome.try(:interview_outcome_on) %>
+</td>
+<td class='sample_outcome'>
+<%= study_subject.homex_outcome.try(:sample_outcome) %>
+</td>
+<td class='sample_outcome_on'>
+<%=mdy study_subject.homex_outcome.try(:sample_outcome_on) %>
+</td>
+
+<!--
+<%# if study_subject.dust_kit %>
+<td class='kit_sent_on'>
+<%#= ((date=study_subject.dust_kit.try(:sent_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#
+	This won't work in the long run, but we need to clarify which sample
+	We actually already have a duplicate.
+%>
+<%#=mdy study_subject.samples.first.try(:sent_to_subject_on) %>
+</td>
+<td class='kit_received_on'>
+<%#= ((date=study_subject.dust_kit.try(:received_on)).nil?)?'&nbsp;':date.to_s(:dob) %>
+<%#
+	This won't work in the long run, but we need to clarify which sample
+	We actually already have a duplicate.
+%>
+<%#=mdy study_subject.samples.first.try(:received_by_ccls_on) %>
+</td>
+-->
+<!--
+<%# else %>
+<td class='send_kit' colspan='2'>
+<%#= link_to 'Send Kit', new_study_subject_dust_kit_path(study_subject) %>
+</td>
+<%# end %>
+-->
+
+
+<% end %><%# content_tag_for %>

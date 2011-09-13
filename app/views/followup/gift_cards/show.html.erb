@@ -1,5 +1,5 @@
 <%# TODO find a better way %>
-<%# load 'subject.rb' %>
+<%# load 'study_subject.rb' %>
 
 <% content_for :id_bar do %>
 <%= link_to "edit", edit_followup_gift_card_path(@gift_card) %>
@@ -10,5 +10,5 @@
 <%= wrapped_spans :gift_card,:vendor %>
 <%= wrapped_spans :gift_card,:number %>
 <%= wrapped_date_spans :gift_card, :issued_on %>
-<%= wrapped_spans :gift_card, :subject %>
+<%= wrapped_spans :gift_card, :study_subject %>
 <% end %>

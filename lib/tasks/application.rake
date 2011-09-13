@@ -52,7 +52,7 @@ namespace :app do
 			%w( 000000010 Steve     ssfrancis@berkeley.edu ),
 			%w( 000000011 Todd      toddpwhitehead@berkeley.edu )
 		].each do |ccls|
-			Subject.create!({
+			StudySubject.create!({
 				:race_id => race.id,
 				:subject_type_id => subject_type.id,
 				:pii_attributes => {
@@ -70,7 +70,7 @@ namespace :app do
 		race = Race.find_or_create_by_name("TEST RACE")
 		subject_type = SubjectType.find_or_create_by_description("TEST TYPE")
 		10.times do |i|
-			Subject.create({
+			StudySubject.create({
 				:race_id => race.id,
 				:subject_type_id => subject_type.id
 			})

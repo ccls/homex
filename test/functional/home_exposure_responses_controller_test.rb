@@ -4,7 +4,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 #	TODO this no longer tests at 100%
 
-	#	no subject_id (has_one so NOT id for show)
+	#	no study_subject_id (has_one so NOT id for show)
 	assert_no_route(:get,:new)
 	assert_no_route(:post,:create)
 	assert_no_route(:get,:show)
@@ -15,7 +15,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 	assert_no_route(:put,:update,:id => 0)
 #	assert_no_route(:delete,:destroy,:id => 0)
 
-	setup :create_home_exposure_with_subject
+	setup :create_home_exposure_with_study_subject
 
 #	setup :build_response_sets
 #	def build_response_sets	#	setup
@@ -23,16 +23,16 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			:survey => Survey.find_by_access_code("home_exposure_survey"))
 #		@rs1.reload
 #		@rs2 = fill_out_survey(
-#			:subject => @rs1.subject, 
+#			:study_subject => @rs1.study_subject, 
 #			:survey => @rs1.survey)
 #	end
 
 	assert_no_access_with_login [],{
-		:suffix => " and invalid subject_id",
+		:suffix => " and invalid study_subject_id",
 		:redirect => :home_exposure_path,
 		:login => :superuser,
-#		:new => { :subject_id => 0 },
-		:show => { :subject_id => 0 }
+#		:new => { :study_subject_id => 0 },
+		:show => { :study_subject_id => 0 }
 	}
 
 	site_editors.each do |cu|
@@ -41,22 +41,22 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should destroy with #{cu} login" do
 #			@rs1.to_her
 #			login_as send(cu)
-#			delete :destroy, :subject_id => @rs1.study_subject_id
-#			assert_redirected_to subject_response_sets_path(@rs1.subject)
+#			delete :destroy, :study_subject_id => @rs1.study_subject_id
+#			assert_redirected_to study_subject_response_sets_path(@rs1.study_subject)
 #		end
 #
 #		test "should show new with very different response sets " <<
 #			"with #{cu} login" do
 #			@rs2.responses.destroy_all
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_response :success
 #			assert_template 'new'
 #		end
 #
 #		test "should get new with #{cu} login" do
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_response :success
 #			assert_template 'new'
 #		end
@@ -64,27 +64,27 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should create HER with #{cu} login" do
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",1) {
-#				post :create, :subject_id => @rs1.study_subject_id, 
+#				post :create, :study_subject_id => @rs1.study_subject_id, 
 #					:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #			}
-#			assert_redirected_to subject_home_exposure_response_path(
-#				assigns(:subject))
+#			assert_redirected_to study_subject_home_exposure_response_path(
+#				assigns(:study_subject))
 #		end
 #
 #		test "should NOT get new with 1 response sets " <<
 #			"with #{cu} login" do
 #			@rs2.destroy
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to home_exposure_path
 #			assert_not_nil flash[:error]
 #		end
 #
 #		test "should NOT get new with 3 response sets " <<
 #			"with #{cu} login" do
-#			rs3 = fill_out_survey(:subject => @rs1.subject, :survey => @rs1.survey)
+#			rs3 = fill_out_survey(:study_subject => @rs1.study_subject, :survey => @rs1.survey)
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to home_exposure_path
 #			assert_not_nil flash[:error]
 #		end
@@ -93,7 +93,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			"with #{cu} login" do
 #			@rs1.update_attribute(:completed_at, nil)
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to home_exposure_path
 #			assert_not_nil flash[:error]
 #		end
@@ -104,16 +104,16 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #				@rs1.to_her
 #			}
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to home_exposure_path
 #			assert_not_nil flash[:error]
 #		end
 #
-#		test "should NOT create HER without valid subject_id " <<
+#		test "should NOT create HER without valid study_subject_id " <<
 #			"with #{cu} login" do
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => 0, 
+#				post :create, :study_subject_id => 0, 
 #					:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #			}
 #			assert_not_nil flash[:error]
@@ -124,7 +124,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			"with #{cu} login" do
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => @rs1.study_subject_id
+#				post :create, :study_subject_id => @rs1.study_subject_id
 #			}
 #			assert_not_nil flash[:error]
 #			assert_redirected_to home_exposure_path
@@ -134,7 +134,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			"with #{cu} login" do
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => @rs1.study_subject_id, 
+#				post :create, :study_subject_id => @rs1.study_subject_id, 
 #					:home_exposure_response => 0
 #			}
 #			assert_not_nil flash[:error]
@@ -146,7 +146,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			HomeExposureResponse.any_instance.stubs(:save).returns(false)
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => @rs1.study_subject_id, 
+#				post :create, :study_subject_id => @rs1.study_subject_id, 
 #					:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #			}
 #			assert_not_nil flash[:error]
@@ -159,7 +159,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #			@rs1.to_her
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => @rs1.study_subject_id, 
+#				post :create, :study_subject_id => @rs1.study_subject_id, 
 #					:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #			}
 #			assert_not_nil flash[:error]
@@ -172,7 +172,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 
 #		test "should NOT get new with #{cu} login" do
 #			login_as send(cu)
-#			get :new, :subject_id => @rs1.study_subject_id
+#			get :new, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to root_path
 #			assert_not_nil flash[:error]
 #		end
@@ -180,7 +180,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should NOT create HER with #{cu} login" do
 #			login_as send(cu)
 #			assert_difference("HomeExposureResponse.count",0) {
-#				post :create, :subject_id => @rs1.study_subject_id, 
+#				post :create, :study_subject_id => @rs1.study_subject_id, 
 #					:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #			}
 #			assert_redirected_to root_path
@@ -196,7 +196,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should show with #{cu} login" do
 #			@rs1.to_her
 #			login_as send(cu)
-#			get :show, :subject_id => @rs1.study_subject_id
+#			get :show, :study_subject_id => @rs1.study_subject_id
 #			assert_response :success
 #			assert_template 'show'
 #		end
@@ -204,7 +204,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should NOT show without existing home_exposure_response " <<
 #			"with #{cu} login" do
 #			login_as send(cu)
-#			get :show, :subject_id => @rs1.study_subject_id
+#			get :show, :study_subject_id => @rs1.study_subject_id
 #			assert_redirected_to home_exposure_path
 #			assert_not_nil flash[:error]
 #		end
@@ -216,7 +216,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #		test "should NOT show with #{cu} login" do
 #			@rs1.to_her
 #			login_as send(cu)
-#			get :show, :subject_id => @rs1.study_subject_id
+#			get :show, :study_subject_id => @rs1.study_subject_id
 #			assert_not_nil flash[:error]
 #			assert_redirected_to root_path
 #		end
@@ -226,13 +226,13 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 ######################################################################
 
 #	test "should NOT get new without login" do
-#		get :new, :subject_id => @rs1.study_subject_id
+#		get :new, :study_subject_id => @rs1.study_subject_id
 #		assert_redirected_to_login
 #	end
 #
 #	test "should NOT create HER without login" do
 #		assert_difference("HomeExposureResponse.count",0) {
-#			post :create, :subject_id => @rs1.study_subject_id, 
+#			post :create, :study_subject_id => @rs1.study_subject_id, 
 #				:home_exposure_response => @rs1.q_and_a_codes_as_attributes
 #		}
 #		assert_redirected_to_login
@@ -240,7 +240,7 @@ class HomeExposureResponsesControllerTest < ActionController::TestCase
 #
 #	test "should NOT show without login" do
 #		@rs1.to_her
-#		get :show, :subject_id => @rs1.study_subject_id
+#		get :show, :study_subject_id => @rs1.study_subject_id
 #		assert_redirected_to_login
 #	end
 

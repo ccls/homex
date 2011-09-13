@@ -4,7 +4,7 @@
 <%= link_to 'Edit', edit_interview_path(@interview) %>
 <% end if current_user.may_edit_interviews? %>
 
-<% id_bar_for(@subject) %>
+<% id_bar_for(@study_subject) %>
 
 <% content_tag_for( :div, @interview ) do %>
 
@@ -14,12 +14,12 @@
 <h4>Interview Info</h4>
 <%= wrapped_spans(:interview,:interview_outcome,
 	:label_text => 'Outcome:',
-	:value => @interview.subject.try(:homex_outcome).try(
+	:value => @interview.study_subject.try(:homex_outcome).try(
 		:interview_outcome)||'&nbsp;') %>
 
 <%= wrapped_spans(:interview,:interview_outcome_on,
 	:label_text => 'Date:',
-	:value => mdy(@interview.subject.try(:homex_outcome).try(:interview_outcome_on))) %>
+	:value => mdy(@interview.study_subject.try(:homex_outcome).try(:interview_outcome_on))) %>
 
 <h4>Dates of interview</h4>
 

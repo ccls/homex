@@ -13,45 +13,45 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resource :home_exposure, :only => :show
 
-	map.resources :subjects,
-		:shallow => true do |subject|
+	map.resources :study_subjects,
+		:shallow => true do |study_subject|
 
-		subject.resources :samples do |sample|
+		study_subject.resources :samples do |sample|
 			#	one kit per sample
 			sample.resources :sample_kits, :except => [:index]
 		end
-		subject.resource :home_exposure_response, 
+		study_subject.resource :home_exposure_response, 
 			:only => [ :show ] 
 #			:only => [ :new, :create, :show, 
 #			:destroy ]	# TEMP ADD DESTROY FOR DEV ONLY!
-		subject.resource :patient
-		subject.resources :contacts, :only => :index
-		subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
+		study_subject.resource :patient
+		study_subject.resources :contacts, :only => :index
+		study_subject.resources :phone_numbers,		#	TEMP ADD DESTROY FOR DEV ONLY!
 			:only => [:new,:create,:edit,:update,   :destroy   ]
-		subject.resources :addressings,		#	TEMP ADD DESTROY FOR DEV ONLY!
+		study_subject.resources :addressings,		#	TEMP ADD DESTROY FOR DEV ONLY!
 			:only => [:new,:create,:edit,:update,   :destroy   ]
-		subject.resources :enrollments,
+		study_subject.resources :enrollments,
 			:only => [:new,:create,:show,:edit,:update,:index]
-		subject.resources :interviews,
+		study_subject.resources :interviews,
 			:only => [:show,:edit,:update,:destroy]
-		subject.resources :events,
+		study_subject.resources :events,
 			:only => [:index]
 	end
 
 	map.namespace :interview do |interview|
-		interview.resources  :subjects
+		interview.resources  :study_subjects
 	end
 
 	#	CANNOT HAVE A NAMESPACE AND A RESOURCE WITH THE SAME NAME
 	#	(APPARENTLY)
 	map.namespace :sample do |sample|
-		sample.resources  :subjects, :only => [:index,:show],
+		sample.resources  :study_subjects, :only => [:index,:show],
 			:collection => { 
 				:send_to_lab  => :get }
 	end
 
 	map.namespace :followup do |followup|
-		followup.resources :subjects
+		followup.resources :study_subjects
 		followup.resources :gift_cards
 	end
 
@@ -66,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
 	map.resources :document_versions
 
 	map.namespace :api do |api|
-		api.resources :subjects, :only => :show	#[:show,:index]
+		api.resources :study_subjects, :only => :show	#[:show,:index]
 	end
 
 	#	Create named routes for expected pages so can avoid

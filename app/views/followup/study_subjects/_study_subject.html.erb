@@ -1,0 +1,25 @@
+<%# TODO find a better way %>
+<%# load 'gift_card.rb' if RAILS_ENV == 'development' %>
+<%# TODO find a better way %>
+<%# load 'pii.rb' if RAILS_ENV == 'development' %>
+
+<% content_tag_for( :tr, study_subject, :class => 'row' ) do %>
+<td class='childid'>
+<%= link_to study_subject.childid, followup_study_subject_path(study_subject) -%>
+</td>
+<td class='studyid'>
+<%= study_subject.studyid %>
+</td>
+<td class='last_name'>
+<%= study_subject.last_name %>
+</td>
+<td class='first_name'>
+<%= study_subject.first_name %>
+</td>
+<td class='gift_card_issued'>
+<%=mdy study_subject.hx_gift_card.try(:issued_on) %>
+</td>
+<td class='gift_card_number'>
+<%= study_subject.hx_gift_card.try(:number)||'&nbsp;' %>
+</td>
+<% end %><%# content_tag_for %>

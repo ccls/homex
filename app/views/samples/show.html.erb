@@ -2,8 +2,8 @@
 
 <% content_for :id_bar do %>
 <%= link_to "edit", edit_sample_path(@sample) %>
-<% end if current_user.may_edit_subjects? %>
-<% id_bar_for(@subject) %>
+<% end if current_user.may_edit_study_subjects? %>
+<% id_bar_for(@study_subject) %>
 
 <%= wrapped_spans :sample, :sample_type_parent,
 	:label_text => 'sample type:' %>
