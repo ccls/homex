@@ -33,12 +33,10 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {autotest-rails}[http://rubyforge.org/projects/zentest] - testing
 * {ZenTest}[http://www.zenspider.com/ZSS/Products/ZenTest/] - testing
 * {thoughtbot-factory_girl}[http://github.com/thoughtbot/factory_girl] - testing
-* {gravatar}[http://rubygems.org/gems/gravatar] - for user icons
 * {will_paginate}[http://github.com/mislav/will_paginate] - for object pagination
 * {rubycas-client}[http://code.google.com/p/rubycas-client/] - user authentication
 * {ucb_ldap}[http://ucbrb.rubyforge.org/ucb_ldap/] - user info
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
-* {Paperclip}[http://github.com/thoughtbot/paperclip] - for managing attachments and images
 * {ccls-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the common code used in several apps
 * {ccls-calnet_authenticated}[http://github.com/ccls/calnet_authenticated] - user authentication
 * {jakewendt-simply_authorized}[http://github.com/jakewendt/simply_authorized] - user authorization
@@ -282,8 +280,6 @@ I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_te
 == Credit / Special Thanks
 
 Gradient images made with {Gradient Image Maker}[http://tools.dynamicdrive.com/gradient/]
-
-User icons from {Gravatar}[http://gravatar.com]
 
 {Demo on css rounded corners}[http://css-radius.heroku.com]
 

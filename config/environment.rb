@@ -5,12 +5,6 @@ RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
 #ENV['RAILS_ENV'] ||= 'production'
 
-#	In production, using script/console does not properly
-#	set a GEM_PATH, so gems aren't loaded correctly.
-#if ENV['RAILS_ENV'] == 'production'
-#ENV['GEM_PATH'] = File.expand_path(File.join(File.dirname(__FILE__),'..','gems'))
-#end
-
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -53,13 +47,13 @@ Rails::Initializer.run do |config|
 #	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
 	config.gem 'jrails'
 
-	config.gem 'haml'      # Needed for Surveyor		#	TODO remove me
+#	config.gem 'haml'      # Needed for Surveyor		#	TODO remove me
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
-	config.gem 'paperclip'	#	not using 'photos' or 'documents' so 
+#	config.gem 'paperclip'	#	not using 'photos' or 'documents' so 
 
 	config.frameworks -= [ :active_resource ]
 
