@@ -44,9 +44,8 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {jakewendt-simply_authorized}[http://github.com/jakewendt/simply_authorized] - user authorization
 * {jakewendt-rails_extension}[http://github.com/jakewendt/rails_extension]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
-* {jrails}[http://github.com/aaronchi/jrails] (pending) - jquery helper methods (trying to not have any inline javascript so may never really use jrails' methods.)
+* {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
 * {jakewendt-simply_trackable}[http://github.com/jakewendt/simply_trackable] - simple plugin to track the steps in shipping, but could be used for other things
-* {jakewendt-simply_pages}[http://github.com/jakewendt/simply_pages]
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
 
 

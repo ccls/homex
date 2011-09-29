@@ -46,12 +46,12 @@ Rails::Initializer.run do |config|
 
 	#	Without this, rake doesn't properly include that app/ paths
 	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
-	config.gem 'jakewendt-simply_pages'		#	TODO remove me
 	config.gem 'jakewendt-simply_trackable'		#	TODO remove me
 	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
 
 	#	require it, but don't load it		#	TODO remove me
-	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
+#	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
+	config.gem 'jrails'
 
 	config.gem 'haml'      # Needed for Surveyor		#	TODO remove me
 	#		http://chronic.rubyforge.org/

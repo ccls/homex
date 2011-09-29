@@ -69,6 +69,11 @@ ActionController::Routing::Routes.draw do |map|
 		api.resources :study_subjects, :only => :show	#[:show,:index]
 	end
 
+	map.resources :pages, :collection => { 
+		:all => :get,
+		:translate => :get,
+		:order => :post }
+
 	#	Create named routes for expected pages so can avoid
 	# needing to append the relative_url_root prefix manually.
 	#	ActionController::Base.relative_url_root + '/admin',
