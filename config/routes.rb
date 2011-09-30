@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+
+	map.resources :locales, :only => :show
+
 #	It appears that the plugin routes are loaded after
 #	the app's (or they aren't overridable) as this 'root'
 #	is not the 'root'.  The 'root' from the engine is.
@@ -71,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
 
 	map.resources :pages, :collection => { 
 		:all => :get,
-		:translate => :get,
+#		:translate => :get,
 		:order => :post }
 
 	#	Create named routes for expected pages so can avoid
