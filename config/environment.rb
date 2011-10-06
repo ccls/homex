@@ -27,7 +27,6 @@ Rails::Initializer.run do |config|
 		config.gem 'jruby-openssl', :lib => 'openssl'
 	else
 		config.gem 'mysql'
-#		config.gem "sqlite3-ruby", :lib => "sqlite3"
 		config.gem "sqlite3"
 	end
 
@@ -35,25 +34,17 @@ Rails::Initializer.run do |config|
 	#	for use in the jruby environment.
 	config.gem 'ccls-ccls_engine'
 
-	#	Without this, rake doesn't properly include that app/ paths?
-#	config.gem 'ccls-common_lib'
-
 	#	Without this, rake doesn't properly include that app/ paths
 	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
-	config.gem 'jakewendt-simply_trackable'		#	TODO remove me
+#	config.gem 'jakewendt-simply_trackable'		#	TODO remove me
 	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
-
-	#	require it, but don't load it		#	TODO remove me
-#	config.gem 'jakewendt-rdoc_rails', :lib => false		#	TODO remove me
 	config.gem 'jrails'
 
-#	config.gem 'haml'      # Needed for Surveyor		#	TODO remove me
 	#		http://chronic.rubyforge.org/
 	config.gem "chronic"	#, :version => '= 0.5.0'
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'
-#	config.gem 'paperclip'	#	not using 'photos' or 'documents' so 
 
 	config.frameworks -= [ :active_resource ]
 
