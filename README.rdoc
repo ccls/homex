@@ -43,16 +43,7 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {jakewendt-rails_extension}[http://github.com/jakewendt/rails_extension]
 * {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
 * {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
-* {jakewendt-simply_trackable}[http://github.com/jakewendt/simply_trackable] - simple plugin to track the steps in shipping, but could be used for other things
 * {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
-
-
-== Required and included plugins
-
-* {backgroundrb}[http://github.com/gnufied/backgroundrb] - background job server and scheduler (includes minor mods to init.rb)
-* {html_test}[http://github.com/peter/html_test] - html testing and validation
-* {html_test_extension}[http://github.com/jakewendt/html_test_extension] - html testing and validation
-* {rdoc_rails}[http://github.com/jakewendt/rdoc_rails] - simple plugin to add ActiveRecord associations to rdoc
 
 
 
@@ -223,28 +214,6 @@ Inline documentation is sparse and incomplete, but I'm working on it.
  rake doc:app
  open doc/app/README_rdoc.html
 
-== Testing
-
-An HTML validator like {Validator S.A.C.}[http://habilis.net/validator-sac/] should be installed locally for local HTML page validations.  This can be done over the internet, but can be slow and sometimes timeout.  The <tt>test/test_helper.rb</tt> file can be modified to accomodate this simpley by commenting out the <tt>Html::Test::Validator.w3c_url</tt> line.  See the {html_test documentation}[http://github.com/peter/html_test] for further guidance on this.  
-
-If Validator is not installed or Web Sharing is not enabled, testing will produce many ...
-
- Errno::ECONNREFUSED: Connection refused - connect(2)
-
-I've made some mods in {html_test_extension}[http://github.com/jakewendt/html_test_extension] to check if a local version is running so this should never happen.
-
- sudo rake RAILS_ENV=test gems:install
- rake test
-	and/or
- autotest		#	does not work in jruby
-
- # testing fails in rvm/jruby with ...
- #
- #	/Users/jakewendt/.rvm/gems/jruby-1.4.0/gems/ZenTest-4.3.1/lib/zentest.rb
- #	:3:in `each_object': ObjectSpace is disabled; each_object will only work 
- #	with Class, pass -X+O to enable (RuntimeError)
- #
- # ... if ZenTest is included (so autotest won't work either)
 
 == Further Info
 

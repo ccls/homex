@@ -36,7 +36,6 @@ Rails::Initializer.run do |config|
 
 	#	Without this, rake doesn't properly include that app/ paths
 	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
-#	config.gem 'jakewendt-simply_trackable'		#	TODO remove me
 	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
 	config.gem 'jrails'
 
