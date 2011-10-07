@@ -39,11 +39,11 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 * {ssl_requirement}[http://github.com/rails/ssl_requirement] - for managing https pages
 * {ccls-ccls_engine}[http://github.com/ccls/ucb_ccls_engine] - contains all of the common code used in several apps
 * {ccls-calnet_authenticated}[http://github.com/ccls/calnet_authenticated] - user authentication
-* {jakewendt-simply_authorized}[http://github.com/jakewendt/simply_authorized] - user authorization
-* {jakewendt-rails_extension}[http://github.com/jakewendt/rails_extension]
-* {jakewendt-ruby_extension}[http://github.com/jakewendt/ruby_extension] - modifications, updates and patches for ruby.
+* {ccls-simply_authorized}[http://github.com/ccls/simply_authorized] - user authorization
+* {ccls-rails_extension}[http://github.com/ccls/rails_extension]
+* {ccls-ruby_extension}[http://github.com/ccls/ruby_extension] - modifications, updates and patches for ruby.
 * {jrails}[http://github.com/aaronchi/jrails] - jquery helper methods
-* {jakewendt-simply_helpful}[http://github.com/jakewendt/simply_helpful]
+* {ccls-simply_helpful}[http://github.com/ccls/simply_helpful]
 
 
 

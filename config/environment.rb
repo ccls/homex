@@ -35,8 +35,8 @@ Rails::Initializer.run do |config|
 	config.gem 'ccls-ccls_engine'
 
 	#	Without this, rake doesn't properly include that app/ paths
-	config.gem 'jakewendt-simply_authorized'		#	TODO remove me
-	config.gem 'jakewendt-simply_helpful'		#	TODO remove me
+	config.gem 'ccls-simply_authorized'
+	config.gem 'ccls-simply_helpful'
 	config.gem 'jrails'
 
 	#		http://chronic.rubyforge.org/
