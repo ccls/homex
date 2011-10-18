@@ -127,8 +127,8 @@ class AddressingsControllerTest < ActionController::TestCase
 					:how_verified => 'no idea'
 				)
 			assert assigns(:addressing)
-			assert_not_nil assigns(:addressing).verified_by_id
-			assert_equal assigns(:addressing).verified_by_id, u.id
+			assert_not_nil assigns(:addressing).verified_by_uid
+			assert_equal assigns(:addressing).verified_by_uid, u.uid
 		end
 
 		test "should NOT create new addressing with invalid study_subject_id " <<
@@ -247,8 +247,8 @@ class AddressingsControllerTest < ActionController::TestCase
 					:how_verified => 'not a clue'
 				)
 			assert assigns(:addressing)
-			assert_not_nil assigns(:addressing).verified_by_id
-			assert_equal assigns(:addressing).verified_by_id, u.id
+			assert_not_nil assigns(:addressing).verified_by_uid
+			assert_equal assigns(:addressing).verified_by_uid, u.uid
 		end
 
 #	TODO duplicate?
@@ -278,7 +278,6 @@ class AddressingsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
-#	TODO duplicate?
 		test "should NOT update addressing with #{cu} login " <<
 				"when address update fails" do
 			addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
@@ -310,7 +309,6 @@ class AddressingsControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 		end
 
-#	TODO duplicate?
 		test "should NOT update addressing with #{cu} login " <<
 				"and invalid address" do
 			addressing = create_addressing(:updated_at => Chronic.parse('yesterday'))
