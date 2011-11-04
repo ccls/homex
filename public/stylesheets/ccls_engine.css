@@ -93,6 +93,8 @@ div.pagination {
 .columns > div {
 	/* and this seems to alleviate the need for floating */
 	display:table-cell;
+	/* stop one column from pushing another down */
+	vertical-align: top;
 }
 
 
@@ -162,4 +164,17 @@ div.table .row .cell {
 }
 .superscript { font-size:x-small; vertical-align:top; }
 .subscript   { font-size:x-small; vertical-align:bottom; }
+
+
+div.sortable {
+	height: 18px;
+	line-height: 16px;
+}
+div.sortable * {
+	display:inline;
+	vertical-align:top;
+}
+div.sortable img {
+	height: 24px;
+}
 
