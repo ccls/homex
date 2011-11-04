@@ -305,8 +305,8 @@ class StudySubjectsControllerTest < ActionController::TestCase
 			get :index, :order => 'last_name', :dir => 'desc'
 			assert_response :success
 			assert_template 'index'
-			assert_select "span.arrow", :count => 1
-			assert_select "span.arrow", 1
+			assert_select ".arrow", :count => 1
+			assert_select ".arrow", 1
 		end
 
 		test "should get index with order and dir asc with #{cu} login" do
@@ -314,8 +314,8 @@ class StudySubjectsControllerTest < ActionController::TestCase
 			get :index, :order => 'last_name', :dir => 'asc'
 			assert_response :success
 			assert_template 'index'
-			assert_select "span.arrow", :count => 1
-			assert_select "span.arrow", 1
+			assert_select ".arrow", :count => 1
+			assert_select ".arrow", 1
 		end
 
 		test "should get show with pii with #{cu} login" do
