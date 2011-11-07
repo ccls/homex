@@ -167,7 +167,7 @@ protected
 		gift_card = create_gift_card(:project => Project['HomeExposures'])
 		assert_nil gift_card.study_subject
 		assert_nil study_subject.hx_gift_card
-		gift_card.update_attribute(:study_subject, study_subject)
+		gift_card.update_attributes(:study_subject => study_subject)
 		assert_not_nil gift_card.study_subject
 		assert_not_nil study_subject.reload.hx_gift_card
 		study_subject.reload

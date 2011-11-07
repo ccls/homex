@@ -447,7 +447,7 @@ protected
 	def create_home_exposure_study_subjects
 		p = Project.find_or_create_by_code('HomeExposures')
 		assert_difference('StudySubject.count',3) {
-		assert_difference('Enrollment.count',3) {
+		assert_difference('Enrollment.count',6) {	#	3 ccls and 3 HomeExposures
 		3.times {	#do
 			s  = create_study_subject
 			Factory(:enrollment, :study_subject => s, :project => p )
