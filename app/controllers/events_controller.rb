@@ -6,9 +6,8 @@ class EventsController < ApplicationController
 		:only => [:new,:create,:index]
 
 	def index
-		hx_enrollment = @study_subject.hx_enrollment
-		@events = if hx_enrollment
-			hx_enrollment.operational_events.search(params)
+		@events = if hxe = @study_subject.enrollments.find_by_project_id(Project['HomeExposures'].id)
+			hxe.operational_events.search(params)
 		else
 			[]
 		end

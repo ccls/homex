@@ -3,8 +3,7 @@
 <% end if current_user.may_edit_study_subjects? %>
 <% id_bar_for(@study_subject) %>
 
-<% if @study_subject.hx_gift_card %>
-<% @gift_card = @study_subject.hx_gift_card %>
+<% if @gift_card %>
 <% div_for @gift_card do %>
 <%= wrapped_spans :gift_card,:vendor %>
 <%= wrapped_spans :gift_card,:number %>

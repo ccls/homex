@@ -18,13 +18,12 @@ class StudySubjectsController < ApplicationController
 	end
 
 	def show
-#		@projects = Project.all
-#		@enrollments = @subject.enrollments
 		#	always return an enrollment so its not nil
 		#	although it may be misleading
 		#	Of course, if the subject isn't enrolled, 
 		#	they wouldn't be here.
-		@hx_enrollment = @study_subject.hx_enrollment || @study_subject.enrollments.new
+		@hx_enrollment = @study_subject.enrollments.find_by_project_id(
+			Project['HomeExposures'].id) || @study_subject.enrollments.new
 	end
 
 protected

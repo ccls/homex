@@ -21,32 +21,28 @@ class Followup::StudySubjectsController < ApplicationController
 	end
 
 	def show
+		@gift_card = @study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 	end
 
 	def edit
-		@gift_cards  = (@study_subject.hx_gift_card.nil?) ? [] : [@study_subject.hx_gift_card]
+		@hx_gift_card = @study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+
+		#	NOTE I don't think that there is currently anything restrict a 
+		#	subject from having more than one gift card for a project
+		@gift_cards  = [@hx_gift_card].compact
 		@gift_cards += GiftCard.find(:all,
 			:conditions => {:study_subject_id => nil })
 	end
 
+#
+#	Basically unassign old gift_card and reassign new one.
+#
 	def update
-#		unless @study_subject.hx_gift_card.nil?
-#	if the study_subject has a hx_gift_card and it is not the same one that 
-#	is being updated, unassign the old one.
-		if !@study_subject.hx_gift_card.nil? && @study_subject.hx_gift_card != @gift_card
-#			old_hx_gift_card = @study_subject.hx_gift_card
-# this doesn't simply assign the GC, it keeps the association?  calling old_hx_gift_card.reload effectively re-searches for study_subject's hx_gift_card, NOT reloading the gift card by id!, which seems very, very wrong to me.
-			old_hx_gift_card = GiftCard.find(@study_subject.hx_gift_card.id)
-#			old_hx_gift_card.update_attribute(:study_subject, nil)
-#			old_hx_gift_card.update_attributes!(:study_subject => nil)
-			old_hx_gift_card.update_attributes!(:study_subject_id => nil)
-#			@study_subject.hx_gift_card.update_attributes!(:study_subject => nil)
+		hx_gift_card = @study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+		if !hx_gift_card.nil? && hx_gift_card != @gift_card
+			hx_gift_card.update_attributes!(:study_subject_id => nil)
 		end
-#	This will auto save and don't want that
-#		@gift_card.study_subject = @study_subject
 		@gift_card.study_subject_id = @study_subject.id
-#	Not currently necessary as the gift cards' fixtures already has a project_id
-#		@gift_card.project = Project['HomeExposures']
 		@gift_card.issued_on = params[:gift_card][:issued_on]
 		@gift_card.save!
 		flash[:notice] = 'Success!'

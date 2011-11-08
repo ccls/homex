@@ -34,10 +34,8 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 		:logins  => non_site_readers })
 
 	assert_no_access_without_login
-
 	assert_access_with_https
 	assert_no_access_with_http
-
 
 	site_editors.each do |u|
 
@@ -47,9 +45,9 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 			study_subject = create_hx_study_subject
 			gift_card = create_gift_card(:project => Project['HomeExposures'])
 			assert_nil gift_card.study_subject
-			assert_nil study_subject.hx_gift_card
+			assert_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 			put :update, :id => study_subject.id, :gift_card => { :id => gift_card.id }
-			assert_equal study_subject.reload.hx_gift_card, gift_card.reload
+			assert_equal study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id), gift_card.reload
 			assert_equal study_subject, assigns(:study_subject)
 			assert_redirected_to followup_study_subject_path(study_subject)
 		end
@@ -58,17 +56,15 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 				"with #{u} login" do
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
-	#		gift_card_1 = study_subject.hx_gift_card	
-	#	this doesn't simply assign the GC, it keeps the association?  calling gift_card_1.reload effectively re-searches for study_subject's hx_gift_card, NOT reloading the gift card by id!, which seems very, very wrong to me.
-			gift_card_1 = GiftCard.find(study_subject.hx_gift_card.id)
+			gift_card_1 = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 			gift_card_2 = create_gift_card(:project => Project['HomeExposures'])
 			assert_nil gift_card_2.study_subject
-			assert_not_nil study_subject.reload.hx_gift_card
+			assert_not_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 			put :update, :id => study_subject.id, :gift_card => { :id => gift_card_2.id }
 			assert_not_nil gift_card_2.reload.study_subject
 			assert_nil     gift_card_1.reload.study_subject
-			assert_not_nil study_subject.reload.hx_gift_card
-			assert_equal study_subject.reload.hx_gift_card, gift_card_2
+			assert_not_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			assert_equal study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id), gift_card_2
 			assert_equal study_subject, assigns(:study_subject)
 			assert_redirected_to followup_study_subject_path(study_subject)
 		end
@@ -77,8 +73,9 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
 			GiftCard.any_instance.stubs(:valid?).returns(false)
-			deny_changes("GiftCard.find(#{study_subject.hx_gift_card.id}).updated_at") {
-				put :update, :id => study_subject.id, :gift_card => { :id => study_subject.hx_gift_card.id }
+			hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			deny_changes("GiftCard.find(#{hx_gift_card.id}).updated_at") {
+				put :update, :id => study_subject.id, :gift_card => { :id => hx_gift_card.id }
 			}
 			assert_not_nil flash[:error]
 			assert_template 'edit'
@@ -89,8 +86,9 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
 			GiftCard.any_instance.stubs(:create_or_update).returns(false)
-			deny_changes("GiftCard.find(#{study_subject.hx_gift_card.id}).updated_at") {
-				put :update, :id => study_subject.id, :gift_card => { :id => study_subject.hx_gift_card.id }
+			hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			deny_changes("GiftCard.find(#{hx_gift_card.id}).updated_at") {
+				put :update, :id => study_subject.id, :gift_card => { :id => hx_gift_card.id }
 			}
 			assert_not_nil flash[:error]
 			assert_template 'edit'
@@ -100,7 +98,8 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 		test "should NOT update gift_card without gift_card param with #{u} login" do
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
-			deny_changes("GiftCard.find(#{study_subject.hx_gift_card.id}).updated_at") {
+			hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			deny_changes("GiftCard.find(#{hx_gift_card.id}).updated_at") {
 				put :update, :id => study_subject.id
 			}
 			assert_not_nil flash[:error]
@@ -110,7 +109,8 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 		test "should NOT update gift_card without gift_card id param with #{u} login" do
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
-			deny_changes("GiftCard.find(#{study_subject.hx_gift_card.id}).updated_at") {
+			hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			deny_changes("GiftCard.find(#{hx_gift_card.id}).updated_at") {
 				put :update, :id => study_subject.id, :gift_card => {}
 			}
 			assert_not_nil flash[:error]
@@ -120,7 +120,8 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 		test "should NOT update gift_card without existing gift_card id with #{u} login" do
 			login_as send(u)
 			study_subject = create_hx_study_subject_with_gift_card
-			deny_changes("GiftCard.find(#{study_subject.hx_gift_card.id}).updated_at") {
+			hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+			deny_changes("GiftCard.find(#{hx_gift_card.id}).updated_at") {
 				put :update, :id => study_subject.id, :gift_card => { :id => 0 }
 			}
 			assert_not_nil flash[:error]
@@ -166,10 +167,11 @@ protected
 		study_subject = create_hx_study_subject
 		gift_card = create_gift_card(:project => Project['HomeExposures'])
 		assert_nil gift_card.study_subject
-		assert_nil study_subject.hx_gift_card
+		hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
+		assert_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 		gift_card.update_attributes(:study_subject => study_subject)
 		assert_not_nil gift_card.study_subject
-		assert_not_nil study_subject.reload.hx_gift_card
+		assert_not_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 		study_subject.reload
 	end
 

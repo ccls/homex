@@ -21,7 +21,7 @@
 	<label for="gift_card_id">Card Number</label>
 	<%= select_tag 'gift_card[id]', 
 		options_for_select([nil]+@gift_cards.collect{ |u| [u.number, u.id] },
-			:selected => @study_subject.hx_gift_card.try(:id)) %>
+			:selected => @hx_gift_card.try(:id)) %>
 	</div><!-- class='gift_card_id' -->
 <% else %>
 <p class='warning'>There are no gift cards.</p>

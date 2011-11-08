@@ -17,9 +17,13 @@
 <%= study_subject.first_name %>
 </td>
 <td class='gift_card_issued'>
-<%=mdy study_subject.hx_gift_card.try(:issued_on) %>
+<%#=mdy study_subject.hx_gift_card.try(:issued_on) %>
+<%# This is ugly and should be refactored as it doesn't really belong in the view %>
+<%=mdy study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id).try(:issued_on) %>
 </td>
 <td class='gift_card_number'>
-<%= study_subject.hx_gift_card.try(:number)||'&nbsp;' %>
+<%#= study_subject.hx_gift_card.try(:number)||'&nbsp;' %>
+<%# This is ugly and should be refactored as it doesn't really belong in the view %>
+<%= study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id).try(:number)||'&nbsp;' %>
 </td>
 <% end %><%# content_tag_for %>

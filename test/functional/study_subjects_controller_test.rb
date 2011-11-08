@@ -42,7 +42,7 @@ class StudySubjectsControllerTest < ActionController::TestCase
 		:attributes_for_create => nil,
 		:method_for_create => nil,
 		:actions => nil,
-		:suffix => " and invalid id",
+		:suffix => " and invalid id DUPLICATE?",
 		:redirect => :study_subjects_path,
 		:login => :superuser,
 		:update => { :id => 0 },
@@ -53,7 +53,6 @@ class StudySubjectsControllerTest < ActionController::TestCase
 
 #	%w( superuser admin editor interviewer reader ).each do |cu|
 	site_editors.each do |cu|
-
 
 		test "should update with #{cu} login" do
 			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
@@ -96,7 +95,6 @@ class StudySubjectsControllerTest < ActionController::TestCase
 			assert_response :success
 			assert_template 'new'
 		end
-
 
 		test "should NOT create without subject_type_id with #{cu} login" do
 			login_as send(cu)
@@ -160,41 +158,41 @@ class StudySubjectsControllerTest < ActionController::TestCase
 		end
 
 
-#	TODO duplicate?
-		test "should NOT update with #{cu} login" <<
-			" and invalid" do
-			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
-			StudySubject.any_instance.stubs(:valid?).returns(false)
-			login_as send(cu)
-			assert_difference('StudySubject.count',0){
-			assert_difference('SubjectType.count',0){
-			assert_difference('Race.count',0){
-			deny_changes("StudySubject.find(#{study_subject.id}).updated_at") {
-				put :update, :id => study_subject.id,
-					:study_subject => {}
-			} } } }
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
-		end
-
-#	TODO duplicate?
-		test "should NOT update with #{cu} login" <<
-			" and save fails" do
-			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
-			StudySubject.any_instance.stubs(:create_or_update).returns(false)
-			login_as send(cu)
-			assert_difference('StudySubject.count',0){
-			assert_difference('SubjectType.count',0){
-			assert_difference('Race.count',0){
-			deny_changes("StudySubject.find(#{study_subject.id}).updated_at") {
-				put :update, :id => study_subject.id,
-					:study_subject => {}
-			} } } }
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
-		end
+##	TODO duplicate?
+#		test "should NOT update with #{cu} login" <<
+#			" and invalid" do
+#			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
+#			StudySubject.any_instance.stubs(:valid?).returns(false)
+#			login_as send(cu)
+#			assert_difference('StudySubject.count',0){
+#			assert_difference('SubjectType.count',0){
+#			assert_difference('Race.count',0){
+#			deny_changes("StudySubject.find(#{study_subject.id}).updated_at") {
+#				put :update, :id => study_subject.id,
+#					:study_subject => {}
+#			} } } }
+#			assert_not_nil flash[:error]
+#			assert_response :success
+#			assert_template 'edit'
+#		end
+#
+##	TODO duplicate?
+#		test "should NOT update with #{cu} login" <<
+#			" and save fails" do
+#			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
+#			StudySubject.any_instance.stubs(:create_or_update).returns(false)
+#			login_as send(cu)
+#			assert_difference('StudySubject.count',0){
+#			assert_difference('SubjectType.count',0){
+#			assert_difference('Race.count',0){
+#			deny_changes("StudySubject.find(#{study_subject.id}).updated_at") {
+#				put :update, :id => study_subject.id,
+#					:study_subject => {}
+#			} } } }
+#			assert_not_nil flash[:error]
+#			assert_response :success
+#			assert_template 'edit'
+#		end
 
 		test "should NOT update without subject_type_id with #{cu} login" do
 			study_subject = create_study_subject(:updated_at => Chronic.parse('yesterday'))
