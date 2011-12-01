@@ -7,4 +7,5 @@
 Sorry, no gift_cards yet.
 <% end %>
 
-<p><%= button_link_to 'Create new gift_card', new_gift_card_path %></p>
+<p><%= link_to( 'Create new gift_card', new_gift_card_path,
+	:class => 'button')  %></p>

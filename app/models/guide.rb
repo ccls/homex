@@ -5,4 +5,8 @@ class Guide < ActiveRecord::Base
 		o.validates_length_of :controller
 		o.validates_length_of :action
 	end
+
+	def to_s
+		"#{controller}##{action}"
+	end
 end

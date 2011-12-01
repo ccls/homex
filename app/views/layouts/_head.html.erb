@@ -6,7 +6,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <link rel="shortcut icon" href="<%=root_url%><%=image_path('cal.ico')%>" />
 <title><%= @page_title || "UCB SPH CCLS" -%></title>
-<%= stylesheet_link_tag    :ccls %>
+<%= stylesheet_link_tag    :ccls,'common_lib' %>
 <%= javascript_include_tag :ccls %>
 <%= yield :head %>
 <script type="text/javascript">

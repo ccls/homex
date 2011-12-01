@@ -6,5 +6,7 @@
 <%= f.wrapped_collection_select :document_type_id, DocumentType.all, 
 	:id, :to_s, :include_blank => true,
 	:label_text => "Document Type" %>
-	<p><%= f.submit( (@document_version.new_record?)?'Create':'Update' ) %></p>
+	<p><%= f.submit( (@document_version.new_record?)?'Create':'Update' ) %>&nbsp;
+<%= link_to( 'Back', document_versions_path, :class => 'button' ) %>
+</p>
 <% end %>

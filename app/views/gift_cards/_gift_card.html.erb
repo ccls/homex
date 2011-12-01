@@ -6,7 +6,8 @@
 		<%= gift_card.number %>
 	</td>
 	<td class='manage'>
-		<%= button_link_to 'Edit', edit_gift_card_path(gift_card) %>&nbsp;
+		<%= link_to( 'Edit', edit_gift_card_path(gift_card),
+		:class => 'button' ) %>&nbsp;
 <% destroy_link_to 'Destroy', gift_card_path(gift_card) do %>
 <%= hidden_field_tag 'confirm', "Destroy gift_card '#{gift_card}'?", :id => nil %>
 <% end %>
