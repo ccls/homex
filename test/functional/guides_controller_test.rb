@@ -63,7 +63,7 @@ class GuidesControllerTest < ActionController::TestCase
 
 #	TODO duplicate?
 		test "should NOT update guide with #{cu} login when update fails" do
-			guide = create_guide(:updated_at => Chronic.parse('yesterday'))
+			guide = create_guide(:updated_at => ( Time.now - 1.day ) )
 			Guide.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("Guide.find(#{guide.id}).updated_at") {
@@ -78,7 +78,7 @@ class GuidesControllerTest < ActionController::TestCase
 
 #	TODO duplicate?
 		test "should NOT update guide with #{cu} login and invalid guide" do
-			guide = create_guide(:updated_at => Chronic.parse('yesterday'))
+			guide = create_guide(:updated_at => ( Time.now - 1.day ) )
 			Guide.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("Guide.find(#{guide.id}).updated_at") {

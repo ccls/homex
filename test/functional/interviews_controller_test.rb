@@ -67,7 +67,8 @@ class InterviewsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"when update fails" do
-			interview = create_interview_with_study_subject(:updated_at => Chronic.parse('yesterday'))
+			interview = create_interview_with_study_subject(
+				:updated_at => ( Time.now - 1.day ) )
 			Interview.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("Interview.find(#{interview.id}).updated_at") {
@@ -83,7 +84,8 @@ class InterviewsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update interview with #{cu} login " <<
 			"and invalid interview" do
-			interview = create_interview_with_study_subject(:updated_at => Chronic.parse('yesterday'))
+			interview = create_interview_with_study_subject(
+				:updated_at => ( Time.now - 1.day ) )
 			Interview.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("Interview.find(#{interview.id}).updated_at") {

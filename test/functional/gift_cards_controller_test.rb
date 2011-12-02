@@ -65,7 +65,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 
 #	TODO duplicate?
 		test "should NOT update gift_card with #{cu} login when update fails" do
-			gift_card = create_gift_card(:updated_at => Chronic.parse('yesterday'))
+			gift_card = create_gift_card(:updated_at => ( Time.now - 1.day ) )
 			GiftCard.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("GiftCard.find(#{gift_card.id}).updated_at") {
@@ -80,7 +80,7 @@ class GiftCardsControllerTest < ActionController::TestCase
 
 #	TODO duplicate?
 		test "should NOT update gift_card with #{cu} login and invalid gift_card" do
-			gift_card = create_gift_card(:updated_at => Chronic.parse('yesterday'))
+			gift_card = create_gift_card(:updated_at => ( Time.now - 1.day ) )
 			GiftCard.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("GiftCard.find(#{gift_card.id}).updated_at") {

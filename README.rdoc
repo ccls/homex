@@ -24,7 +24,7 @@ UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
 * {RedCloth}[http://redcloth.org] - textile parser.
 * {active_shipping}[http://github.com/Shopify/active_shipping] - package tracking
-* {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (also required for BackgrounDRb)
+* {chronic}[http://chronic.rubyforge.org] - natural language Date/Time parser. (removed from app, but may also be required for BackgrounDRb)
 * {packet}[http://packet.rubyforge.org] - requirement for BackgrounDRb
 * {acts_as_list}[http://github.com/ryanb/acts-as-list] - for maintaining order in all things listable
 * {validatious-on-rails}[http://github.com/grimen/validatious-on-rails] - CONSIDERING the use of this javascript form validator

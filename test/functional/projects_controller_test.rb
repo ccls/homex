@@ -71,7 +71,7 @@ class ProjectsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update when save fails with #{cu} login" do
 			login_as send(cu)
-			project = create_project(:updated_at => Chronic.parse('yesterday'))
+			project = create_project(:updated_at => ( Time.now - 1.day ) )
 			Project.any_instance.stubs(:create_or_update).returns(false)
 			deny_changes("Project.find(#{project.id}).updated_at") {
 				put :update, :id => project.id,
@@ -109,7 +109,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
 #	TODO duplicate?
 		test "should NOT update with invalid project with #{cu} login" do
-			project = create_project(:updated_at => Chronic.parse('yesterday'))
+			project = create_project(:updated_at => ( Time.now - 1.day ) )
 			Project.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("Project.find(#{project.id}).updated_at") {

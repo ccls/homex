@@ -41,7 +41,8 @@ Rails::Initializer.run do |config|
 	config.gem 'jrails'
 
 	#		http://chronic.rubyforge.org/
-	config.gem "chronic"	#, :version => '= 0.5.0'
+#	backgroundrb will actually require chronic
+#	config.gem "chronic"	#, :version => '= 0.5.0'
 	config.gem 'active_shipping'
 	config.gem 'will_paginate'
 	config.gem 'fastercsv'

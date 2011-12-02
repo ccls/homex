@@ -145,7 +145,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 
 		test "should update with empty packages with #{cu} login" do
 			login_as send(cu)
-			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			sample_kit = create_sample_kit(:updated_at => ( Time.now - 1.day ) )
 			assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
 				put :update, :id => sample_kit.id,
 					:sample_kit => {
@@ -160,7 +160,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		test "should NOT update with #{cu} login " <<
 			"with save failure" do
 			login_as send(cu)
-			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			sample_kit = create_sample_kit(:updated_at => ( Time.now - 1.day ) )
 			SampleKit.any_instance.stubs(:create_or_update).returns(false)
 			deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
 				put :update, :id => sample_kit.id,
@@ -174,7 +174,7 @@ class SampleKitsControllerTest < ActionController::TestCase
 		test "should NOT update with #{cu} login " <<
 			"with invalid kit" do
 			login_as send(cu)
-			sample_kit = create_sample_kit(:updated_at => Chronic.parse('yesterday'))
+			sample_kit = create_sample_kit(:updated_at => ( Time.now - 1.day ) )
 			SampleKit.any_instance.stubs(:valid?).returns(false)
 			deny_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
 				put :update, :id => sample_kit.id,

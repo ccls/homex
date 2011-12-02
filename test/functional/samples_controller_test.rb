@@ -89,7 +89,7 @@ class SamplesControllerTest < ActionController::TestCase
 		test "should NOT update with #{cu} login " <<
 			"and invalid sample" do
 			login_as send(cu)
-			sample = create_sample(:updated_at => Chronic.parse('yesterday'))
+			sample = create_sample(:updated_at => ( Time.now - 1.day ) )
 			Sample.any_instance.stubs(:valid?).returns(false)
 			deny_changes("Sample.find(#{sample.id}).updated_at") {
 				put :update, :id => sample.id,
@@ -118,7 +118,7 @@ class SamplesControllerTest < ActionController::TestCase
 		test "should NOT update with #{cu} login " <<
 			"and save failure" do
 			login_as send(cu)
-			sample = create_sample(:updated_at => Chronic.parse('yesterday'))
+			sample = create_sample(:updated_at => ( Time.now - 1.day ) )
 			Sample.any_instance.stubs(:create_or_update).returns(false)
 			deny_changes("Sample.find(#{sample.id}).updated_at") {
 				put :update, :id => sample.id,

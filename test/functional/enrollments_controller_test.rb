@@ -139,7 +139,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		end
 
 		test "should update enrollment with #{cu} login" do
-			enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
+			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
 			login_as send(cu)
 			assert_changes("Enrollment.find(#{enrollment.id}).updated_at") {
 				put :update, :study_subject_id => enrollment.study_subject.id, 
@@ -151,7 +151,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 		end
 
 		test "should NOT update enrollment with invalid id and #{cu} login" do
-			enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
+			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
 			login_as send(cu)
 			deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
 				put :update, :study_subject_id => enrollment.study_subject.id, 
@@ -164,7 +164,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update enrollment with #{cu} login " <<
 			"when update fails" do
-			enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
+			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
 			Enrollment.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
@@ -179,7 +179,7 @@ class EnrollmentsControllerTest < ActionController::TestCase
 
 		test "should NOT update enrollment with #{cu} login " <<
 			"and invalid enrollment" do
-			enrollment = create_enrollment(:updated_at => Chronic.parse('yesterday'))
+			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
 	#		e = create_enrollment(:study_subject_id => enrollment.study_subject.id)
 	#	TODO (confirm ok)
 			e = create_enrollment(:study_subject => enrollment.study_subject)

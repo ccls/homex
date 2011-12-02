@@ -164,7 +164,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should update phone_number with #{cu} login" do
 			phone_number = create_phone_number(
-				:updated_at => Chronic.parse('yesterday'))
+				:updated_at => ( Time.now - 1.day ) )
 			login_as send(cu)
 			assert_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
 				put :update, :id => phone_number.id,
@@ -204,7 +204,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 #	TODO duplicate?
 		test "should NOT update phone_number with invalid id and #{cu} login" do
 			phone_number = create_phone_number(
-				:updated_at => Chronic.parse('yesterday'))
+				:updated_at => ( Time.now - 1.day ) )
 			login_as send(cu)
 			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
 				put :update, :id => 0,
@@ -217,7 +217,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		test "should NOT update phone_number with #{cu} login " <<
 				"when update fails" do
 			phone_number = create_phone_number(
-				:updated_at => Chronic.parse('yesterday'))
+				:updated_at => ( Time.now - 1.day ) )
 			PhoneNumber.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
@@ -234,7 +234,7 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		test "should NOT update phone_number with #{cu} login " <<
 				"and invalid phone_number" do
 			phone_number = create_phone_number(
-				:updated_at => Chronic.parse('yesterday'))
+				:updated_at => ( Time.now - 1.day ) )
 			PhoneNumber.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {

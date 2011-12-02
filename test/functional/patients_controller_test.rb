@@ -182,7 +182,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 		test "should NOT update patient with invalid " <<
 				"study_subject_id and #{cu} login" do
-			patient = create_patient(:updated_at => Chronic.parse('yesterday'))
+			patient = create_patient(:updated_at => ( Time.now - 1.day ) )
 			login_as send(cu)
 			deny_changes("Patient.find(#{patient.id}).updated_at") {
 				put :update, :study_subject_id => 0,
@@ -193,7 +193,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 		test "should NOT update patient with #{cu} " <<
 				"login when update fails" do
-			patient = create_patient_with_study_subject(:updated_at => Chronic.parse('yesterday'))
+			patient = create_patient_with_study_subject(:updated_at => ( Time.now - 1.day ) )
 			Patient.any_instance.stubs(:create_or_update).returns(false)
 			login_as send(cu)
 			deny_changes("Patient.find(#{patient.id}).updated_at") {
@@ -208,7 +208,7 @@ class PatientsControllerTest < ActionController::TestCase
 
 		test "should NOT update patient with #{cu} " <<
 				"login and invalid patient" do
-			patient = create_patient_with_study_subject(:updated_at => Chronic.parse('yesterday'))
+			patient = create_patient_with_study_subject(:updated_at => ( Time.now - 1.day ) )
 			Patient.any_instance.stubs(:valid?).returns(false)
 			login_as send(cu)
 			deny_changes("Patient.find(#{patient.id}).updated_at") {
