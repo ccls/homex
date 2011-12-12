@@ -27,6 +27,8 @@
 <p class='warning'>There are no gift cards.</p>
 <% end %>
 
-	<%= wrapped_date_text_field :gift_card, :issued_on, :value => Date.today %>
+<% fields_for :gift_card do |g| %>
+	<%= g.wrapped_date_text_field :issued_on, :value => Date.today %>
+<% end %>
 
 <% end %>
