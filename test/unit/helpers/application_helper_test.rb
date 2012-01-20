@@ -35,13 +35,13 @@ class ApplicationHelperTest < ActionView::TestCase
 #	end
 
 
-	test "sub_menu_for Subject should" do
-pending
-	end
-
-	test "sub_menu_for Interview should" do
-pending
-	end
+#	test "sub_menu_for Subject should" do
+#pending
+#	end
+#
+#	test "sub_menu_for Interview should" do
+#pending
+#	end
 
 	test "sub_menu_for nil should return nil" do
 		response = sub_menu_for(nil)
