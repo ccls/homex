@@ -15,13 +15,42 @@ class Followup::GiftCardsControllerTest < ActionController::TestCase
 	end
 
 	assert_access_with_login({ 
-		:logins => [:superuser,:admin] })
+		:logins => site_administrators })
 	assert_no_access_with_login({ 
-		:logins => [:editor,:reader,:active_user] })
+		:logins => non_site_administrators })
 	assert_no_access_without_login
 
 	assert_access_with_https
 	assert_no_access_with_http
+
+	site_administrators.each do |cu|
+
+		test "study_subjects should be empty if none on edit" <<
+				" with #{cu} login" do
+			gift_card = Factory(:gift_card)
+			login_as send(cu)
+			get :edit, :id => gift_card.id
+			assert_equal [], assigns(:study_subjects)
+		end
+
+		test "study_subjects should include homex complete without gift card on edit" <<
+				" with #{cu} login" do
+			gift_card = Factory(:gift_card)
+			study_subject = Factory(:study_subject)
+			Factory(:enrollment,
+				:project => Project['HomeExposures'],
+				:study_subject => study_subject)
+			Factory(:homex_outcome,
+				:sample_outcome => SampleOutcome['complete'],
+				:interview_outcome => InterviewOutcome['complete'],
+				:study_subject => study_subject)
+			login_as send(cu)
+			get :edit, :id => gift_card.id
+			assert_equal [study_subject], assigns(:study_subjects)
+		end
+
+	end
+
 
 
 #%w( superuser admin reader editor ).each do |u|

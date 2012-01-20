@@ -29,7 +29,11 @@ protected
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-		@study_subjects = StudySubject.for_hx_sample(params)
+		@study_subjects = StudySubject.search(params.dup.deep_merge(
+			:projects=>{ Project['HomeExposures'].id =>{}},
+			#:sample_outcome => 'incomplete',
+			:interview_outcome => 'complete'
+		))
 	end
 
 end

@@ -266,6 +266,23 @@ class StudySubjectsControllerTest < ActionController::TestCase
 
 	site_readers.each do |cu|
 
+			test "study_subjects should include homex study subjects with #{cu} login" do
+				login_as send(cu)
+				study_subject = Factory(:study_subject)
+				Factory(:enrollment,
+					:project => Project['HomeExposures'],
+					:study_subject => study_subject)
+				get :index
+				#	'setup' creates a homex subject as well, so this won't work
+#				assert_equal [study_subject], assigns(:study_subjects)
+				#	but these should
+				assert assigns(:study_subjects).include?(study_subject)
+				assert_equal 2, assigns(:study_subjects).length
+			end
+
+
+
+
 #		test "should get index with study_subjects with #{cu} login" do
 #	#puts StudySubject.all.length
 #	#puts StudySubject.all.inspect

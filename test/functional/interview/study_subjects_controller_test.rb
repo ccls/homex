@@ -16,8 +16,18 @@ class Interview::StudySubjectsControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-
 	site_readers.each do |cu|
+
+		test "study_subject should include homex chosen with #{cu} login" do
+			login_as send(cu)
+			study_subject = Factory(:study_subject)
+			Factory(:enrollment,
+				:project => Project['HomeExposures'],
+				:is_chosen => YNDK[:yes],
+				:study_subject => study_subject)
+			get :index
+			assert_equal [study_subject], assigns(:study_subjects)
+		end
 
 		test "should download csv with #{cu} login" do
 			login_as send(cu)
@@ -32,11 +42,7 @@ class Interview::StudySubjectsControllerTest < ActionController::TestCase
 			study_subject = create_hx_study_subject
 			login_as send(cu)
 			get :show, :id => study_subject.id
-
 			assert_response :success
-
-	#		assert_not_nil flash[:error]
-	#		assert_redirected_to interview_study_subjects_path
 		end
 
 		test "should show interview/study_subjects " <<
@@ -45,11 +51,7 @@ class Interview::StudySubjectsControllerTest < ActionController::TestCase
 			study_subject = create_hx_interview_study_subject	#	doesn't really matter
 			login_as send(cu)
 			get :show, :id => study_subject.id
-
 			assert_response :success
-
-	#		assert_nil flash[:error]
-	#		assert_redirected_to interview_path(study_subject.hx_interview)
 		end
 
 	end

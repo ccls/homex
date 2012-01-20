@@ -9,7 +9,9 @@ class StudySubjectsController < ApplicationController
 		if params[:commit] && params[:commit] == 'download'
 			params[:paginate] = false
 		end
-		@study_subjects = StudySubject.for_hx(params)
+		@study_subjects = StudySubject.search(params.dup.deep_merge(
+			:projects=>{ Project['HomeExposures'].id => {} }
+		))
 		if params[:commit] && params[:commit] == 'download'
 			params[:format] = 'csv'
 			headers["Content-disposition"] = "attachment; " <<

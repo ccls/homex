@@ -19,7 +19,14 @@ class Followup::GiftCardsController < ApplicationController
 	def edit
 		@study_subjects  = []
 		@study_subjects += [@gift_card.study_subject] unless @gift_card.study_subject.nil?
-		@study_subjects += StudySubject.need_gift_card({:paginate => false})
+		@study_subjects += StudySubject.search( params.dup.deep_merge(
+			:paginate => false,
+			:projects => { Project['HomeExposures'].id =>{} },
+			:search_gift_cards => true,
+			:has_gift_card => false,
+			:sample_outcome => 'complete',
+			:interview_outcome => 'complete'
+		))
 	end
 
 protected

@@ -143,6 +143,20 @@ class Followup::StudySubjectsControllerTest < ActionController::TestCase
 			assert_not_nil @response.headers['Content-disposition'].match(/attachment;.*csv/)
 		end
 
+		test "study_subjects should include homex complete subjects with #{u} login" do
+			login_as send(u)
+			study_subject = Factory(:study_subject)
+			Factory(:enrollment,
+				:project => Project['HomeExposures'],
+				:study_subject => study_subject)
+			Factory(:homex_outcome,
+				:sample_outcome => SampleOutcome['complete'],
+				:interview_outcome => InterviewOutcome['complete'],
+				:study_subject => study_subject)
+			get :index
+			assert_equal [study_subject], assigns(:study_subjects)
+		end
+
 	end
 
 	non_site_readers.each do |u|

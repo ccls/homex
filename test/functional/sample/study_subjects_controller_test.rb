@@ -23,6 +23,19 @@ class Sample::StudySubjectsControllerTest < ActionController::TestCase
 
 	site_readers.each do |cu|
 
+		test "study_subjects should include homex interview complete with #{cu} login" do
+			login_as send(cu)
+			study_subject = Factory(:study_subject)
+			Factory(:enrollment,
+				:project => Project['HomeExposures'],
+				:study_subject => study_subject)
+			Factory(:homex_outcome,
+				:interview_outcome => InterviewOutcome['complete'],
+				:study_subject => study_subject)
+			get :index
+			assert_equal [study_subject], assigns(:study_subjects)
+		end
+
 		test "should download csv with #{cu} login" do
 			login_as send(cu)
 			get :index, :commit => 'download'
