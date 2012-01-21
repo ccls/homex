@@ -1,9 +1,15 @@
 class Sample::StudySubjectsController < ApplicationController
 
-	permissive
+#	permissive
 
+	before_filter :may_create_study_subjects_required,
+		:only => [:new,:create]
 	before_filter :may_read_study_subjects_required, 
 		:only => [:show,:index,:send_to_lab]
+	before_filter :may_update_study_subjects_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_study_subjects_required,
+		:only => :destroy
 
 	before_filter :valid_id_for_hx_study_subject_required,
 		:only => [:show]

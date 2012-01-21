@@ -33,23 +33,11 @@ class PackagesControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-#	TODO duplicate?
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :packages_path,
-		:update => { :id => 0 },
-		:show => { :id => 0 }, 
-		:destroy => { :id => 0 }
-	)
-
+#
 #	create and update both call update_status which will 
 #	contact FedEx and can slow things down.  To speed things
 #	up, I stub.
-
+#
 
 	site_editors.each do |cu|
 

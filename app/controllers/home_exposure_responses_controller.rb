@@ -1,6 +1,15 @@
 class HomeExposureResponsesController < ApplicationController
 
-	permissive
+#	permissive
+
+	before_filter :may_create_home_exposure_responses_required,
+		:only => [:new,:create]
+	before_filter :may_read_home_exposure_responses_required,
+		:only => [:show,:index]
+	before_filter :may_update_home_exposure_responses_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_home_exposure_responses_required,
+		:only => :destroy
 
 #	TODO this is no longer tested at 100%
 

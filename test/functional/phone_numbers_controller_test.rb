@@ -143,37 +143,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 		end
 
 
-#	TODO duplicate?
-		test "should edit phone_number with #{cu} login" do
-			phone_number = create_phone_number
-			login_as send(cu)
-			get :edit, :id => phone_number.id
-			assert assigns(:phone_number)
-			assert_response :success
-			assert_template 'edit'
-		end
-
-#	TODO duplicate?
-		test "should NOT edit phone_number with invalid id and #{cu} login" do
-			phone_number = create_phone_number
-			login_as send(cu)
-			get :edit, :id => 0
-			assert_redirected_to study_subjects_path
-		end
-
-#	TODO duplicate?
-		test "should update phone_number with #{cu} login" do
-			phone_number = create_phone_number(
-				:updated_at => ( Time.now - 1.day ) )
-			login_as send(cu)
-			assert_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
-				put :update, :id => phone_number.id,
-					:phone_number => factory_attributes
-			}
-			assert assigns(:phone_number)
-			assert_redirected_to study_subject_contacts_path(phone_number.study_subject)
-		end
-
 		test "should set verified_on on update if is_verified " <<
 				"with #{cu} login" do
 			phone_number = create_phone_number
@@ -199,52 +168,6 @@ class PhoneNumbersControllerTest < ActionController::TestCase
 			assert assigns(:phone_number)
 			assert_not_nil assigns(:phone_number).verified_by_uid
 			assert_equal assigns(:phone_number).verified_by_uid, u.uid
-		end
-
-#	TODO duplicate?
-		test "should NOT update phone_number with invalid id and #{cu} login" do
-			phone_number = create_phone_number(
-				:updated_at => ( Time.now - 1.day ) )
-			login_as send(cu)
-			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
-				put :update, :id => 0,
-					:phone_number => factory_attributes
-			}
-			assert_redirected_to study_subjects_path
-		end
-
-#	TODO duplicate?
-		test "should NOT update phone_number with #{cu} login " <<
-				"when update fails" do
-			phone_number = create_phone_number(
-				:updated_at => ( Time.now - 1.day ) )
-			PhoneNumber.any_instance.stubs(:create_or_update).returns(false)
-			login_as send(cu)
-			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
-				put :update, :id => phone_number.id,
-					:phone_number => factory_attributes
-			}
-			assert assigns(:phone_number)
-			assert_response :success
-			assert_template 'edit'
-			assert_not_nil flash[:error]
-		end
-
-#	TODO duplicate?
-		test "should NOT update phone_number with #{cu} login " <<
-				"and invalid phone_number" do
-			phone_number = create_phone_number(
-				:updated_at => ( Time.now - 1.day ) )
-			PhoneNumber.any_instance.stubs(:valid?).returns(false)
-			login_as send(cu)
-			deny_changes("PhoneNumber.find(#{phone_number.id}).updated_at") {
-				put :update, :id => phone_number.id,
-					:phone_number => factory_attributes
-			}
-			assert assigns(:phone_number)
-			assert_response :success
-			assert_template 'edit'
-			assert_not_nil flash[:error]
 		end
 
 	end

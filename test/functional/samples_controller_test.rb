@@ -26,20 +26,6 @@ class SamplesControllerTest < ActionController::TestCase
 	assert_access_with_https
 	assert_no_access_with_http
 
-#	TODO duplicate?
-	assert_no_access_with_login(
-		:attributes_for_create => nil,
-		:method_for_create => nil,
-		:actions => nil,
-		:suffix => " and invalid id",
-		:login => :superuser,
-		:redirect => :study_subjects_path,
-		:edit => { :id => 0 },
-		:update => { :id => 0 },
-		:show => { :id => 0 },
-		:destroy => { :id => 0 }
-	) 
-
 	site_editors.each do |cu|
 
 		test "should get sample index with #{cu} login" do
@@ -85,21 +71,6 @@ class SamplesControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-#	TODO duplicate?
-		test "should NOT update with #{cu} login " <<
-			"and invalid sample" do
-			login_as send(cu)
-			sample = create_sample(:updated_at => ( Time.now - 1.day ) )
-			Sample.any_instance.stubs(:valid?).returns(false)
-			deny_changes("Sample.find(#{sample.id}).updated_at") {
-				put :update, :id => sample.id,
-					:sample => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
-		end
-
 		test "should NOT create with #{cu} login " <<
 			"and save failure" do
 			login_as send(cu)
@@ -112,21 +83,6 @@ class SamplesControllerTest < ActionController::TestCase
 			assert_not_nil flash[:error]
 			assert_response :success
 			assert_template 'new'
-		end
-
-#	TODO duplicate?
-		test "should NOT update with #{cu} login " <<
-			"and save failure" do
-			login_as send(cu)
-			sample = create_sample(:updated_at => ( Time.now - 1.day ) )
-			Sample.any_instance.stubs(:create_or_update).returns(false)
-			deny_changes("Sample.find(#{sample.id}).updated_at") {
-				put :update, :id => sample.id,
-					:sample => factory_attributes
-			}
-			assert_not_nil flash[:error]
-			assert_response :success
-			assert_template 'edit'
 		end
 
 	end

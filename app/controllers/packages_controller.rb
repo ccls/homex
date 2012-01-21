@@ -1,6 +1,15 @@
 class PackagesController < ApplicationController
 
-	permissive
+#	permissive
+
+	before_filter :may_create_packages_required,
+		:only => [:new,:create]
+	before_filter :may_read_packages_required,
+		:only => [:show,:index]
+	before_filter :may_update_packages_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_packages_required,
+		:only => :destroy
 
 	before_filter :may_update_packages_required, 
 		:only => [:edit,:update,:ship,:deliver]

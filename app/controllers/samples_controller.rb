@@ -1,6 +1,15 @@
 class SamplesController < ApplicationController
 
-	permissive
+#	permissive
+
+	before_filter :may_create_samples_required,
+		:only => [:new,:create]
+	before_filter :may_read_samples_required,
+		:only => [:show,:index]
+	before_filter :may_update_samples_required,
+		:only => [:edit,:update]
+	before_filter :may_destroy_samples_required,
+		:only => :destroy
 
 	before_filter :valid_hx_study_subject_id_required,
 		:only => [:new,:create,:index]
@@ -22,7 +31,6 @@ class SamplesController < ApplicationController
 
 	def update
 		@sample.update_attributes!(params[:sample])
-#		redirect_to sample_study_subject_path(@study_subject)
 		redirect_to sample_path(@sample)
 	rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved
 		flash.now[:error] = "Sample update failed."

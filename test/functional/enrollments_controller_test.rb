@@ -161,40 +161,6 @@ class EnrollmentsControllerTest < ActionController::TestCase
 			assert_redirected_to study_subjects_path
 		end
 
-#	TODO duplicate?
-		test "should NOT update enrollment with #{cu} login " <<
-			"when update fails" do
-			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
-			Enrollment.any_instance.stubs(:create_or_update).returns(false)
-			login_as send(cu)
-			deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
-				put :update, :id => enrollment.id,
-					:enrollment => factory_attributes
-			}
-			assert assigns(:enrollment)
-			assert_response :success
-			assert_template 'edit'
-			assert_not_nil flash[:error]
-		end
-
-		test "should NOT update enrollment with #{cu} login " <<
-			"and invalid enrollment" do
-			enrollment = create_enrollment(:updated_at => ( Time.now - 1.day ) )
-	#		e = create_enrollment(:study_subject_id => enrollment.study_subject.id)
-	#	TODO (confirm ok)
-			e = create_enrollment(:study_subject => enrollment.study_subject)
-			login_as send(cu)
-			deny_changes("Enrollment.find(#{enrollment.id}).updated_at") {
-				put :update, :id => enrollment.id,
-					:enrollment => factory_attributes(
-						:project_id => e.project_id)
-			}
-			assert assigns(:enrollment).errors.on(:project_id)
-			assert_response :success
-			assert_template 'edit'
-			assert_not_nil flash[:error]
-		end
-
 	end
 
 	non_site_editors.each do |cu|
