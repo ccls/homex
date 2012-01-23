@@ -20,20 +20,20 @@ class Followup::GiftCardsController < ApplicationController
 		@gift_cards = GiftCard.search(params)
 	end
 
-	def new
-		@gift_card = GiftCard.new
-	end
+#	def new
+#		@gift_card = GiftCard.new
+#	end
 
-	def create
-		@gift_card = GiftCard.new(params[:gift_card])
-		@gift_card.save!
-		flash[:notice] = 'Success!'
-		redirect_to @gift_card
-	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-		flash.now[:error] = "There was a problem creating " <<
-			"the gift card"
-		render :action => "new"
-	end 
+#	def create
+#		@gift_card = GiftCard.new(params[:gift_card])
+#		@gift_card.save!
+#		flash[:notice] = 'Success!'
+#		redirect_to @gift_card
+#	rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+#		flash.now[:error] = "There was a problem creating " <<
+#			"the gift card"
+#		render :action => "new"
+#	end 
 
 	def edit
 		@study_subjects  = []
@@ -58,10 +58,10 @@ class Followup::GiftCardsController < ApplicationController
 		render :action => "edit"
 	end
 
-	def destroy
-		@gift_card.destroy
-		redirect_to gift_cards_path
-	end
+#	def destroy
+#		@gift_card.destroy
+#		redirect_to gift_cards_path
+#	end
 
 protected
 
