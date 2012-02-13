@@ -45,8 +45,10 @@ ActionController::Routing::Routes.draw do |map|
 #	map.resource  :calendar,   :only => [ :show ]
 
 #	map.resources :home_page_pics, :collection => { :activate => :post }
-	map.resources :packages, :except => :edit, 
-		:member => { :ship => :put, :deliver => :put }
+
+#	20120213 - removing feature
+#	map.resources :packages, :except => :edit, 
+#		:member => { :ship => :put, :deliver => :put }
 
 	map.resource :home_exposure, :only => :show
 

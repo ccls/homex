@@ -17,7 +17,7 @@ class SampleKitsController < ApplicationController
 		:only => [ :show, :edit, :update, :destroy ]
 
 	def show
-		@last_shipping_update = Package.last_updated
+#		@last_shipping_update = Package.last_updated
 	end
 
 	def new

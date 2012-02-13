@@ -79,31 +79,31 @@ class SampleKitsControllerTest < ActionController::TestCase
 			assert_redirected_to study_subject_path(assigns(:sample_kit).sample.study_subject)
 		end
 
-		test "should show with #{cu} login and packages" do
-			sk = create_sample_kit(
-				:kit_package_attributes  => Factory.attributes_for(:package),
-				:sample_package_attributes => Factory.attributes_for(:package)
-			)
-			login_as send(cu)
-			get :show, :id => sk.id
-			assert_response :success
-			assert_template 'show'
-			assert assigns(:sample_kit)
-		end
+#		test "should show with #{cu} login and packages" do
+#			sk = create_sample_kit(
+#				:kit_package_attributes  => Factory.attributes_for(:package),
+#				:sample_package_attributes => Factory.attributes_for(:package)
+#			)
+#			login_as send(cu)
+#			get :show, :id => sk.id
+#			assert_response :success
+#			assert_template 'show'
+#			assert assigns(:sample_kit)
+#		end
 
 	#	save errors
 
-		test "should create with empty packages with #{cu} login" do
-			login_as send(cu)
-			assert_difference('SampleKit.count',1) {
-				post :create, :sample_id => @sample.id,
-					:sample_kit => {
-						:kit_package_attributes  => {},
-						:sample_package_attributes => {} 
-					}
-			}
-			assert_redirected_to study_subject_path(@sample.study_subject)
-		end
+#		test "should create with empty packages with #{cu} login" do
+#			login_as send(cu)
+#			assert_difference('SampleKit.count',1) {
+#				post :create, :sample_id => @sample.id,
+#					:sample_kit => {
+#						:kit_package_attributes  => {},
+#						:sample_package_attributes => {} 
+#					}
+#			}
+#			assert_redirected_to study_subject_path(@sample.study_subject)
+#		end
 
 		test "should NOT create with #{cu} login " <<
 			"with save failure" do
@@ -129,18 +129,18 @@ class SampleKitsControllerTest < ActionController::TestCase
 			assert_template 'new'
 		end
 
-		test "should update with empty packages with #{cu} login" do
-			login_as send(cu)
-			sample_kit = create_sample_kit(:updated_at => ( Time.now - 1.day ) )
-			assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
-				put :update, :id => sample_kit.id,
-					:sample_kit => {
-						:kit_package_attributes  => {},
-						:sample_package_attributes => {} 
-					}
-			}
-			assert_redirected_to study_subject_path(sample_kit.sample.study_subject)
-		end
+#		test "should update with empty packages with #{cu} login" do
+#			login_as send(cu)
+#			sample_kit = create_sample_kit(:updated_at => ( Time.now - 1.day ) )
+#			assert_changes("SampleKit.find(#{sample_kit.id}).updated_at") {
+#				put :update, :id => sample_kit.id,
+#					:sample_kit => {
+#						:kit_package_attributes  => {},
+#						:sample_package_attributes => {} 
+#					}
+#			}
+#			assert_redirected_to study_subject_path(sample_kit.sample.study_subject)
+#		end
 
 		test "should NOT destroy with #{cu} login " <<
 			"with destruction failure" do
