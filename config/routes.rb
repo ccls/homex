@@ -104,9 +104,9 @@ ActionController::Routing::Routes.draw do |map|
 #	map.resources :ineligible_reasons
 	map.resources :document_versions
 
-	map.namespace :api do |api|
-		api.resources :study_subjects, :only => :show	#[:show,:index]
-	end
+#	map.namespace :api do |api|
+#		api.resources :study_subjects, :only => :show	#[:show,:index]
+#	end
 
 	map.resources :pages, :collection => { 
 		:all => :get,
