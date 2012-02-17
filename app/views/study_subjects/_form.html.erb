@@ -9,38 +9,30 @@
 <%= f.label :do_not_contact, "do not contact subject?" %>
 </div><!-- class='do_not_contact' -->
 
-<% @study_subject.build_pii if @study_subject.pii.nil? %>
-<% f.fields_for :pii do |pii_fields| %>
-	<%#= pii_fields.hidden_field :id %>
+<%= f.label :name %><br />
+<%= f.text_field :first_name %>
+<%= f.text_field :middle_name %>
+<%= f.text_field :last_name %><br/>
 
-	<%= pii_fields.label :name %><br />
-	<%= pii_fields.text_field :first_name %>
-	<%= pii_fields.text_field :middle_name %>
-	<%= pii_fields.text_field :last_name %><br/>
+<%= f.label :fathers_name %><br />
+<%= f.text_field :father_first_name %>
+<%= f.text_field :father_middle_name %>
+<%= f.text_field :father_last_name %><br/>
 
-	<%= pii_fields.label :fathers_name %><br />
-	<%= pii_fields.text_field :father_first_name %>
-	<%= pii_fields.text_field :father_middle_name %>
-	<%= pii_fields.text_field :father_last_name %><br/>
+<%= f.label :mothers_name %><br />
+<%= f.text_field :mother_first_name %>
+<%= f.text_field :mother_middle_name %>
+<%= f.text_field :mother_last_name %><br/>
 
-	<%= pii_fields.label :mothers_name %><br />
-	<%= pii_fields.text_field :mother_first_name %>
-	<%= pii_fields.text_field :mother_middle_name %>
-	<%= pii_fields.text_field :mother_last_name %><br/>
+<%= f.label :mothers_maiden_name %><br />
+<%= f.text_field :mother_maiden_name %><br/>
 
-	<%= pii_fields.label :mothers_maiden_name %><br />
-	<%= pii_fields.text_field :mother_maiden_name %><br/>
+<%= f.wrapped_date_text_field :dob,
+	:class => 'datepicker',
+	:label_text => 'DOB' %>
 
-	<%= pii_fields.wrapped_date_text_field :dob,
-		:class => 'datepicker',
-		:label_text => 'DOB' %>
-<% end %>
-
-<% @study_subject.build_identifier if @study_subject.identifier.nil? %>
-<% f.fields_for :identifier do |identifier_fields| %>
-	<%= identifier_fields.wrapped_text_field :state_id_no,
-		:label_text => 'State ID No.' %>
-<% end %>
+<%= f.wrapped_text_field :state_id_no,
+	:label_text => 'State ID No.' %>
 
 <%= f.wrapped_sex_select :sex, 
 	:include_blank => true %>

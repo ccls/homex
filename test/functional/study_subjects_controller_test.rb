@@ -183,8 +183,9 @@ class StudySubjectsControllerTest < ActionController::TestCase
 		end
 
 		test "should get show with pii with #{cu} login" do
-			study_subject = create_study_subject(
-				:pii_attributes => Factory.attributes_for(:pii))
+			study_subject = create_study_subject
+#			study_subject = create_study_subject(
+#				:pii_attributes => Factory.attributes_for(:pii))
 			login_as send(cu)
 			get :show, :id => study_subject
 			assert_response :success

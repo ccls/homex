@@ -21,11 +21,9 @@
 
 <h4>Development Only:</h4>
 <%= destroy_link_to 'Destroy', study_subject_patient_path(@study_subject) %>
-<%# unless( @identifier = @patient.try(:study_subject).try(:identifier) ).nil? %>
-<% unless( @identifier = @study_subject.try(:identifier) ).nil? %>
-<%= wrapped_spans(:identifier,:familyid) %>
-<%= wrapped_spans(:identifier,:matchingid) %>
-<% Identifier.find_all_by_matchingid(@identifier.matchingid).each do |i| %>
-<%= link_to i.study_subject.full_name, study_subject_path(i.study_subject) %>
-<% end %>
+
+<%= wrapped_spans(:study_subject,:familyid) %>
+<%= wrapped_spans(:study_subject,:matchingid) %>
+<% StudySubject.find_all_by_matchingid(@study_subject.matchingid).each do |s| %>
+<%= link_to s.full_name, study_subject_path(s) %>
 <% end %>
