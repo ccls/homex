@@ -20,8 +20,10 @@
 
 <%= f.wrapped_y_n_dk_select :is_candidate,
 	:label_text => 'is candidate?' %>
-<%= f.wrapped_y_n_dk_select :able_to_locate,
+<%#= f.wrapped_y_n_dk_select :able_to_locate,
 	:label_text => 'able to locate?' %>
+<%= f.wrapped_collection_select :tracing_status_id,
+	TracingStatus.all, :id, :to_s, :include_blank => true %>
 <%= f.wrapped_y_n_dk_select :is_eligible,
 	:label_text => 'is eligible?' %>
 

@@ -13,8 +13,9 @@
 	:label_text => 'is_candidate?' %>
 
 <%# if @enrollment.is_candidate? %>
-	<%= wrapped_y_n_dk_spans :enrollment, :able_to_locate,
+	<%#= wrapped_y_n_dk_spans :enrollment, :able_to_locate,
 		:label_text => 'able to locate?' %>
+	<%= wrapped_spans :enrollment, :tracing_status %>
 	<%# if @enrollment.able_to_locate? %>
 		<%= wrapped_y_n_dk_spans :enrollment, :is_eligible,
 			:label_text => 'is eligible?' %>
