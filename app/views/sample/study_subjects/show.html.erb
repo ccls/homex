@@ -4,7 +4,7 @@
 <th>Interview Complete?</th>
 <td><%= @study_subject.try(
 	:homex_outcome).try(
-	:interview_outcome).try(:code) %></td>
+	:interview_outcome).try(:key) %></td>
 <td>&nbsp;</td>
 <th>Date Interview Completed:</th>
 <td><%=mdy @study_subject.try(
