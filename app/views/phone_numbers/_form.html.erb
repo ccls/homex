@@ -18,7 +18,7 @@ jQuery(function(){
 	:label_text => 'phone number:' %>
 
 <%= f.wrapped_collection_select :phone_type_id, PhoneType.all, 
-			:id, :code, :include_blank => true, :label_text => 'type:' %>
+			:id, :key, :include_blank => true, :label_text => 'type:' %>
 
 <%= f.wrapped_check_box :is_primary,
 	:label_text => 'primary phone?' %>

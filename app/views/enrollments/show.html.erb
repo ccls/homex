@@ -5,7 +5,7 @@
 <% end if current_user.may_edit_enrollments? %>
 <% id_bar_for(@enrollment.study_subject) %>
 
-<h4>Study name: <%= @enrollment.project.code.titleize -%></h4>
+<h4>Study name: <%= @enrollment.project.key.titleize -%></h4>
 
 <% div_for @enrollment do %>
 

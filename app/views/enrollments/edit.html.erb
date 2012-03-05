@@ -16,7 +16,7 @@
 	:html => { :class => 'confirm' }) do |f| %>
 <%= f.error_messages %>
 
-<p>Study name: <%= @enrollment.project.code.titleize -%></p>
+<p>Study name: <%= @enrollment.project.key.titleize -%></p>
 
 <%= f.wrapped_yndk_select :is_candidate,
 	:label_text => 'is candidate?' %>
