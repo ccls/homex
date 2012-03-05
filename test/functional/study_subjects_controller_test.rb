@@ -292,7 +292,7 @@ class StudySubjectsControllerTest < ActionController::TestCase
 protected
 
 	def create_home_exposure_study_subjects
-		p = Project.find_or_create_by_code('HomeExposures')
+		p = Project.find_or_create_by_key('HomeExposures')
 		assert_difference('StudySubject.count',3) {
 		assert_difference('Enrollment.count',6) {	#	3 ccls and 3 HomeExposures
 		3.times {	#do
