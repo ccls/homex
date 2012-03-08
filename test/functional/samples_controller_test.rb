@@ -13,6 +13,7 @@ class SamplesControllerTest < ActionController::TestCase
 		Factory.attributes_for(:sample,{
 			:updated_at => Time.now,
 #			:sample_type_id => SampleType.not_roots.first,	
+			:project_id     => Project['HomeExposures'].id,
 			:sample_type_id => Factory(:sample_type).id,
 			:unit_id => Factory(:unit).id }.merge(options))
 	end
