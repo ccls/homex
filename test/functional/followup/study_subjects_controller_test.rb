@@ -183,7 +183,13 @@ protected
 		assert_nil gift_card.study_subject
 		hx_gift_card = study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 		assert_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
-		gift_card.update_attributes(:study_subject => study_subject)
+
+#	:study_subject and :study_subject_id are now protected.
+#		gift_card.update_attributes(:study_subject => study_subject)
+		gift_card.study_subject = study_subject
+		gift_card.save
+		gift_card.reload
+
 		assert_not_nil gift_card.study_subject
 		assert_not_nil study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 		study_subject.reload

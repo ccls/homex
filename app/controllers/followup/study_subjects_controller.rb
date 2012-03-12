@@ -54,7 +54,10 @@ class Followup::StudySubjectsController < ApplicationController
 	def update
 		hx_gift_card = @study_subject.gift_cards.find_by_project_id(Project['HomeExposures'].id)
 		if !hx_gift_card.nil? && hx_gift_card != @gift_card
-			hx_gift_card.update_attributes!(:study_subject_id => nil)
+#	:study_subject and :study_subject_id are now protected.
+#			hx_gift_card.update_attributes!(:study_subject_id => nil)
+			hx_gift_card.study_subject_id = nil
+			hx_gift_card.save!
 		end
 		@gift_card.study_subject_id = @study_subject.id
 		@gift_card.issued_on = params[:gift_card][:issued_on]
