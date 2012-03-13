@@ -1,5 +1,12 @@
 = CCLS Home Exposures
 
+
+
+THIS APP AND REPO ARE NOW DEAD.  AS OF TODAY, 20120313, THIS FUNCTIONALITY HAS OR WILL BE INCORPORATED INTO THE ODMS APPLICATION.
+
+
+
+
 UC Berkeley, School of Public Health, California Childhood Leukemia Study
 
 == Requirements
